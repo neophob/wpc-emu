@@ -17,6 +17,7 @@
 - Sound CPU: Motorola 6809 (Pre-DCS)
 - Sound chips (Pre-DCS): Yamaha YM2151, DAC, Harris HC55536 CVSD
 - Operating system: APPLE OS (created by Williams, not related to the company Apple, but "Advanced Pinball Programming Logic Executive")
+- The dot matrix display is 128 columns x 32 rows
 
 # References
 

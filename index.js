@@ -1,6 +1,6 @@
 'use strict';
 
-const romloader = require('./lib/romloader');
+const wpc = require('./lib/wpc');
 const debug = require('debug')('wpcemu:romloader');
 
 const romPath = process.argv[2] || 'rom/HURCNL_2.ROM';
@@ -10,20 +10,22 @@ if (!romPath) {
   process.exit(1);
 }
 
-/*function runWpsMainloop(nes) {
+function runWpsMainloop(wpcSystem) {
   setInterval(() => {
     const t1 = Date.now();
-    nes.executeCycle();
+    wpcSystem.executeCycle();
     //client.sendMemData(nes.memory.ram);
     const duration = Date.now() - t1;
-    console.log('cycle time:', duration, 'fps:', (1000/duration)|0, nes.cpu.registerPC);
-  }, NTSC_INTERVAL);
+    debug('cycle time:', duration, 'fps:', (1000/duration));
+  }, 10);
 }
-*/
 
-romloader.loadRom(romPath)
-  .then(() => {
-    debug('rom loaded');
+
+wpc.initVMwithRom(romPath)
+  .then((wpcSystem) => {
+    debug('WPC System initialised');
+    wpcSystem.start();
+    runWpsMainloop(wpcSystem);
   })
   .catch((error) => {
     console.log('EXCEPTION! Hint: make sure to run with node6+');
