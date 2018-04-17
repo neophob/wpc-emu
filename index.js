@@ -1,7 +1,7 @@
 'use strict';
 
 const wpc = require('./lib/wpc');
-const debug = require('debug')('wpcemu:romloader');
+const debug = require('debug')('wpcemu:index');
 
 const romPath = process.argv[2] || 'rom/HURCNL_2.ROM';
 
@@ -12,12 +12,8 @@ if (!romPath) {
 
 function runWpsMainloop(wpcSystem) {
   setInterval(() => {
-    const t1 = Date.now();
     wpcSystem.executeCycle();
-    //client.sendMemData(nes.memory.ram);
-    const duration = Date.now() - t1;
-    debug('cycle time:', duration, 'fps:', (1000/duration));
-  }, 10);
+  }, 0);
 }
 
 
