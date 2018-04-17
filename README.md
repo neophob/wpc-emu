@@ -4,8 +4,8 @@
 
 ## Steps
 
-- read ROM file
-- emulate CPU
+- read ROM file ✓
+- emulate CPU ✓
 - display Dot Matrix content
 - display pinbal field with element (switches)
 - implement physic systems for the ball
