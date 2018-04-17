@@ -1,0 +1,18 @@
+{
+  "name": "wpc-emu",
+  "version": "1.0.0",
+  "description": "WPC pinball machine emu",
+  "main": "index.js",
+  "scripts": {
+    "start": "DEBUG=* node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ava": "^0.25.0"
+  },
+  "dependencies": {
+    "debug": "^3.1.0"
+  }
+}
