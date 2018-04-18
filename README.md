@@ -34,5 +34,5 @@
 - http://atjs.mbnet.fi/mc6809/
 - https://github.com/maly/6809js
 
-# Sound Chip
+## Sound Chip
 - http://www.ionpool.net/arcade/gottlieb/technical/datasheets/YM2151_datasheet.pdf
