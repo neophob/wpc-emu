@@ -10,7 +10,8 @@
 - emulate CPU ✓
 
 # Display
-- implement WPC Asic
+- implement Bankswitching
+- implement Hardware
 - emulate Dot Matrix controller
 - display Dot Matrix display
 
