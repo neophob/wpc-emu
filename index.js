@@ -16,7 +16,6 @@ function runWpsMainloop(wpcSystem) {
   }, 0);
 }
 
-
 wpc.initVMwithRom(romPath)
   .then((wpcSystem) => {
     debug('WPC System initialised');
@@ -24,6 +23,6 @@ wpc.initVMwithRom(romPath)
     runWpsMainloop(wpcSystem);
   })
   .catch((error) => {
-    console.log('EXCEPTION! Hint: make sure to run with node6+');
+    console.log('EXCEPTION!', error.message);
     console.log(error.stack);
   });
