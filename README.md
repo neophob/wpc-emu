@@ -75,6 +75,7 @@ Operating system: APPLE OS (created by Williams, not related to the company Appl
 ## CPU
 - http://atjs.mbnet.fi/mc6809/
 - https://github.com/maly/6809js
+- http://www.roust-it.dk/coco/6809irq.pdf
 
 ## Sound Chip
 - http://www.ionpool.net/arcade/gottlieb/technical/datasheets/YM2151_datasheet.pdf
