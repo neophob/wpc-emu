@@ -1,13 +1,15 @@
 # Goal
 
 - Emulate the Williams Pinball machine "Hurricane"
-- 2nd generation hardware called "WPC Dot Matrix" aka WPC DMD
+- 2nd generation hardware called "WPC Dot Matrix" aka WPC DMD (WPC89 board)
 
 ## Steps
 
 # Basic
 - read Game ROM file ✓
 - emulate CPU ✓
+- implement CPU IRQ
+- dip switch settings for rom size
 
 # Display
 - implement Bankswitching
