@@ -1,6 +1,6 @@
 'use strict';
 
-const wpc = require('./lib/wpc');
+const Emulator = require('./lib/emulator');
 const debug = require('debug')('wpcemu:index');
 const blocked = require('blocked');
 
@@ -18,7 +18,7 @@ function runWpsMainloop(wpcSystem) {
   }, 0);
 }
 
-wpc.initVMwithRom(romPath)
+Emulator.initVMwithRom(romPath)
   .then((wpcSystem) => {
     debug('WPC System initialised');
     wpcSystem.start();
