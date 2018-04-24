@@ -4,6 +4,7 @@
   "description": "WPC pinball machine emu",
   "main": "index.js",
   "scripts": {
+    "build": "webpack",
     "start": "DEBUG=* node index.js",
     "test": "ava --verbose test/lib/**/*.test.js test/lib/*.test.js",
     "test:debug": "DEBUG='wpc*' ava --verbose test/lib/**/*.test.js test/lib/*.test.js"
@@ -11,7 +12,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "ava": "^0.25.0"
+    "ava": "^0.25.0",
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.0.15"
   },
   "dependencies": {
     "blocked": "^1.2.1",
