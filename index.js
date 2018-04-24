@@ -28,6 +28,22 @@ function loadFile(fileName) {
 function runWpsMainloop(wpcSystem) {
   setInterval(() => {
     wpcSystem.executeCycle();
+    wpcSystem.executeCycle();
+    wpcSystem.executeCycle();
+    wpcSystem.executeCycle();
+    wpcSystem.executeCycle();
+    wpcSystem.executeCycle();
+    wpcSystem.executeCycle();
+    wpcSystem.executeCycle();
+
+    wpcSystem.executeCycle();
+    wpcSystem.executeCycle();
+    wpcSystem.executeCycle();
+    wpcSystem.executeCycle();
+    wpcSystem.executeCycle();
+    wpcSystem.executeCycle();
+    wpcSystem.executeCycle();
+    wpcSystem.executeCycle();
   }, 0);
 }
 
