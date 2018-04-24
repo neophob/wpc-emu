@@ -12,7 +12,7 @@
 - dip switch settings for rom size
 
 # Display
-- implement Bankswitching
+- implement Bankswitching ✓
 - implement Hardware
 - emulate Dot Matrix controller
 - display Dot Matrix display
