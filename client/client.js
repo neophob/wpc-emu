@@ -21,6 +21,33 @@ function step() {
   wpcSystem.executeCycle();
   wpcSystem.executeCycle();
 
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+  wpcSystem.executeCycle();
+
   updateCanvas();
   intervalId = requestAnimationFrame(step);
 }
@@ -73,9 +100,9 @@ function updateCanvas() {
   canvasClear();
   const emuState = wpcSystem.getUiState();
   c.fillStyle = 'yellow';
-  c.font = '14px Monaco';
+  c.font = '12px Monaco';
   c.fillText('ROM: hurcnl_2.rom', 0, 30);
-  c.fillText('CPU Ticks: ' + emuState.ticks, 250, 30);
+  c.fillText('CPU Ticks: ' + emuState.ticks + ' / OPMS: ' + emuState.opMs, 250, 30);
   const cpuState = intervalId ? 'running' : 'stopped';
   c.fillText('CPU state: ' + cpuState, 500, 30);
   const diagnosticLed = emuState.asic.wpc.dignosticLed ? emuState.asic.wpc.dignosticLed.toString(2) : '00000000';
