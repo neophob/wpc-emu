@@ -47,10 +47,12 @@ function runWpsMainloop(wpcSystem) {
   }, 0);
 }
 
-loadFile(romPath)
+/*loadFile(romPath)
   .then((romBinary) => {
     return Emulator.initVMwithRom(romBinary, romPath);
-  })
+  })*/
+Emulator.initVMwithRomFromUrl('https://s3.eu-central-1.amazonaws.com/neeo-tmp/hurcnl_2.rom', 'foo')
+
   .then((wpcSystem) => {
     debug('WPC System initialised');
     wpcSystem.start();
