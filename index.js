@@ -19,7 +19,7 @@ function loadFile(fileName) {
       if (error) {
         return reject(error);
       }
-      resolve(data);
+      resolve(new Uint8Array(data));
     });
   });
 }

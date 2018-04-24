@@ -5,6 +5,7 @@ module.exports = {
   mode: 'development',
   output: {
     filename: 'wpc-emu.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    library: 'WpcEmu',
   }
 };
