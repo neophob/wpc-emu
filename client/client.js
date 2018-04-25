@@ -106,9 +106,9 @@ function updateCanvas() {
   c.font = '10px Monaco';
 
   c.fillStyle = 'magenta';
-  c.fillText('GENERIC DATA:', 0, YPOS_GENERIC_DATA);
-  c.fillText('WPC BOARD DATA:', 0, YPOS_WPC_DATA);
-  c.fillText('DMD BOARD DATA:', 0, YPOS_DMD_DATA);
+  c.fillText('# GENERIC DATA:', 0, YPOS_GENERIC_DATA);
+  c.fillText('# WPC BOARD DATA:', 0, YPOS_WPC_DATA);
+  c.fillText('# DMD BOARD DATA:', 0, YPOS_DMD_DATA);
 
   c.fillStyle = 'yellow';
   c.fillText('ROM: hurcnl_2.rom', 0, YPOS_GENERIC_DATA + 10);
@@ -133,15 +133,15 @@ function updateCanvas() {
   c.fillText('PAGE 2 RAM:', 250, YPOS_DMD_DATA + 40);
 
   drawMemRegion(emuState.asic.ram, 0, YPOS_GENERIC_DATA + 40, 128);
-  drawMemRegion(emuState.asic.dmd.page1, 0, YPOS_DMD_DATA + 50, 128);
-  drawMemRegion(emuState.asic.dmd.page2, 250, YPOS_DMD_DATA + 50, 128);
+  drawMemRegion(emuState.asic.dmd.page1, 0, YPOS_DMD_DATA + 50, 192);
+  drawMemRegion(emuState.asic.dmd.page2, 250, YPOS_DMD_DATA + 50, 192);
 }
 
 function drawMemRegion(data, x, y, width) {
   var offsetX = 0;
   var offsetY = 0;
   data.forEach((alpha) => {
-    c.fillStyle = 'rgba(255, 255, 255, ' + alpha + ')';
+    c.fillStyle = `rgb(${alpha}, ${alpha}, 64)`;
     c.fillRect (x + offsetX, y + offsetY, 1, 1);
     offsetX ++;
     if (offsetX === width) {
