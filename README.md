@@ -72,6 +72,7 @@ Operating system: APPLE OS (created by Williams, not related to the company Appl
 - https://en.wikipedia.org/wiki/Williams_Pinball_Controller
 - http://www.maddes.net/pinball/wpc_debugging.htm
 - https://bitbucket.org/grumdrig/williams/src/master/
+- http://www.edcheung.com/album/album07/Pinball/wpc_sound.htm
 
 ## CPU
 - http://atjs.mbnet.fi/mc6809/

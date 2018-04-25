@@ -1,0 +1,3513 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+<title>MC6809-MC6809E Microprocessor Programming Manual [M6809PM] - Appendix D - Maddes.net</title>
+<link rel="stylesheet" type="text/css" media="all" href="css/m6809pm.css">
+</head>
+
+<body><div class="text">
+<a name="top"></a>
+<table border="0"><tr>
+<td><a href=".">ToC</a></td>
+<td><a href=".." target="_top">Start</a></td>
+<td><a href="../contact.php">Contact</a></td>
+</tr></table>
+
+<hr>
+
+<h1>MC6809-MC6809E 8-Bit Microprocessor Programming Manual [M6809PM/AD]<br>&copy; Motorola Inc., 1981</h1>
+<h1><a name="appD"></a>APPENDIX D - PROGRAMMING AID</h1>
+<h2><a name="appD_1"></a>D.1 INTRODUCTION</h2>
+<p>This appendix contains a compilation of data that will assist you in programming the M6809 processor.
+Refer to Table D-1.</p>
+
+<h2><a name="tabD-1"></a>Table D-1. Programming Aid</h2>
+<table>
+  <tr>
+    <td colspan="2"><span class="underline">Legend:</span></td>
+    <td></td>
+    <td><span class="lowsignal">M</span></td>
+    <td>Complement of M</td>
+    <td></td>
+    <td>&brvbar;</td>
+    <td>Test and set if true, cleared otherwise</td>
+  </tr>
+  <tr>
+    <td>OP</td>
+    <td>Operation Code (Hexadecimal)</td>
+    <td></td>
+    <td>&rarr;</td>
+    <td>Transfer Into</td>
+    <td></td>
+    <td>&bull;</td>
+    <td>Not Affected</td>
+  </tr>
+  <tr>
+    <td>~</td>
+    <td>Number of MPU Cycles</td>
+    <td></td>
+    <td>H</td>
+    <td>Half-carry (from bit 3)</td>
+    <td></td>
+    <td>CC</td>
+    <td>Condition Code Register</td>
+  </tr>
+  <tr>
+    <td>#</td>
+    <td>Number of Program Bytes</td>
+    <td></td>
+    <td>N</td>
+    <td>Negative (sign bit)</td>
+    <td></td>
+    <td>:</td>
+    <td>Concatenation</td>
+  </tr>
+  <tr>
+    <td>+</td>
+    <td>Arithmetic Plus</td>
+    <td></td>
+    <td>Z</td>
+    <td>Zero (Reset)</td>
+    <td></td>
+    <td>&or;</td>
+    <td>Logical or</td>
+  </tr>
+  <tr>
+    <td>-</td>
+    <td>Arithmetic Minus</td>
+    <td></td>
+    <td>V</td>
+    <td>Overflow, 2's complement</td>
+    <td></td>
+    <td>&and;</td>
+    <td>Logical and</td>
+  </tr>
+  <tr>
+    <td>&times;</td>
+    <td>Multiply</td>
+    <td></td>
+    <td>C</td>
+    <td>Carry from ALU</td>
+    <td></td>
+    <td>&forall;</td>
+    <td>Logical Exclusive or</td>
+  </tr>
+</table>
+<p></p>
+<table class="tabD-1a">
+  <caption>Branch Instructions</caption>
+  <tr>
+    <th rowspan="3">Instruction</th>
+    <th rowspan="3">Forms</th>
+    <th colspan="3">Addressing<br>Mode</th>
+    <th rowspan="3">Description</th>
+    <th rowspan="2">5</th>
+    <th rowspan="2">3</th>
+    <th rowspan="2">2</th>
+    <th rowspan="2">1</th>
+    <th rowspan="2">0</th>
+  </tr>
+  <tr>
+    <th colspan="3">Relative</th>
+  </tr>
+  <tr>
+    <th>OP</th>
+    <th>~</th>
+    <th>#</th>
+    <th>H</th>
+    <th>N</th>
+    <th>Z</th>
+    <th>V</th>
+    <th>C</th>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">BCC</td>
+    <td>BCC</td>
+    <td>24</td>
+    <td>3</td>
+    <td>2</td>
+    <td>Branch C = 0</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LBCC</td>
+    <td>10 24</td>
+    <td>5(6)</td>
+    <td>4</td>
+    <td>Long Branch C = 0</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">BCS</td>
+    <td>BCS</td>
+    <td>25</td>
+    <td>3</td>
+    <td>2</td>
+    <td>Branch C = 1</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LBCS</td>
+    <td>10 25</td>
+    <td>5(6)</td>
+    <td>4</td>
+    <td>Long Branch C = 1</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">BEQ</td>
+    <td>BEQ</td>
+    <td>27</td>
+    <td>3</td>
+    <td>2</td>
+    <td>Branch Z = 0</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LBEQ</td>
+    <td>10 27</td>
+    <td>5(6)</td>
+    <td>4</td>
+    <td>Long Branch Z = 0</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">BGE</td>
+    <td>BGE</td>
+    <td>2C</td>
+    <td>3</td>
+    <td>2</td>
+    <td>Branch &ge; Zero</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LBGE</td>
+    <td>10 2C</td>
+    <td>5(6)</td>
+    <td>4</td>
+    <td>Long Branch &ge; Zero</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">BGT</td>
+    <td>BGT</td>
+    <td>2E</td>
+    <td>3</td>
+    <td>2</td>
+    <td>Branch &gt; Zero</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LBGT</td>
+    <td>10 2E</td>
+    <td>5(6)</td>
+    <td>4</td>
+    <td>Long Branch &gt; Zero</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">BHI</td>
+    <td>BHI</td>
+    <td>22</td>
+    <td>3</td>
+    <td>2</td>
+    <td>Branch Higher</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LBHI</td>
+    <td>10 22</td>
+    <td>5(6)</td>
+    <td>4</td>
+    <td>Long Branch Higher</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">BHS</td>
+    <td>BHS</td>
+    <td>24</td>
+    <td>3</td>
+    <td>2</td>
+    <td>Branch Higher or Same</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LBHS</td>
+    <td>10 24</td>
+    <td>5(6)</td>
+    <td>4</td>
+    <td>Long Branch Higher or Same</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">BLE</td>
+    <td>BLE</td>
+    <td>2F</td>
+    <td>3</td>
+    <td>2</td>
+    <td>Branch &le; Zero</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LBLE</td>
+    <td>10 2F</td>
+    <td>5(6)</td>
+    <td>4</td>
+    <td>Long Branch &le; Zero</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">BLO</td>
+    <td>BLO</td>
+    <td>25</td>
+    <td>3</td>
+    <td>2</td>
+    <td>Branch Lower</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LBLO</td>
+    <td>10 25</td>
+    <td>5(6)</td>
+    <td>4</td>
+    <td>Long Branch Lower</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">BLS</td>
+    <td>BLS</td>
+    <td>23</td>
+    <td>3</td>
+    <td>2</td>
+    <td>Branch Lower or Same</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LBLS</td>
+    <td>10 23</td>
+    <td>5(6)</td>
+    <td>4</td>
+    <td>Long Branch Lower or Same</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">BLT</td>
+    <td>BLT</td>
+    <td>2D</td>
+    <td>3</td>
+    <td>2</td>
+    <td>Branch &lt; Zero</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LBLT</td>
+    <td>10 2D</td>
+    <td>5(6)</td>
+    <td>4</td>
+    <td>Long Branch &lt; Zero</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">BMI</td>
+    <td>BMI</td>
+    <td>2B</td>
+    <td>3</td>
+    <td>2</td>
+    <td>Branch Minus</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LBMI</td>
+    <td>10 2B</td>
+    <td>5(6)</td>
+    <td>4</td>
+    <td>Long Branch Minus</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">BNE</td>
+    <td>BNE</td>
+    <td>26</td>
+    <td>3</td>
+    <td>2</td>
+    <td>Branch Z &ne; 0</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LBNE</td>
+    <td>10 26</td>
+    <td>5(6)</td>
+    <td>4</td>
+    <td>Long Branch Z &ne; 0</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">BPL</td>
+    <td>BPL</td>
+    <td>2A</td>
+    <td>3</td>
+    <td>2</td>
+    <td>Branch Plus</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LBPL</td>
+    <td>10 2A</td>
+    <td>5(6)</td>
+    <td>4</td>
+    <td>Long Branch Plus</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">BRA</td>
+    <td>BRA</td>
+    <td>20</td>
+    <td>3</td>
+    <td>2</td>
+    <td>Branch Always</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LBRA</td>
+    <td>16</td>
+    <td>5</td>
+    <td>3</td>
+    <td>Long Branch Always</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">BRN</td>
+    <td>BRN</td>
+    <td>21</td>
+    <td>3</td>
+    <td>2</td>
+    <td>Branch Never</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LBRN</td>
+    <td>10 21</td>
+    <td>5</td>
+    <td>4</td>
+    <td>Long Branch Never</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">BSR</td>
+    <td>BSR</td>
+    <td>8D</td>
+    <td>7</td>
+    <td>2</td>
+    <td>Branch to Subroutine</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LBSR</td>
+    <td>17</td>
+    <td>9</td>
+    <td>3</td>
+    <td>Long Branch to Subroutine</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">BVC</td>
+    <td>BVC</td>
+    <td>28</td>
+    <td>3</td>
+    <td>2</td>
+    <td>Branch V = 0</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LBVC</td>
+    <td>10 28</td>
+    <td>5(6)</td>
+    <td>4</td>
+    <td>Long Branch V = 0</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">BVS</td>
+    <td>BVS</td>
+    <td>29</td>
+    <td>3</td>
+    <td>2</td>
+    <td>Branch V = 1</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LBVS</td>
+    <td>10 29</td>
+    <td>5(6)</td>
+    <td>4</td>
+    <td>Long Branch V = 1</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+</table>
+<p></p>
+<table>
+  <caption><a name="tabD-1b"></a>Simple Branches</caption>
+  <tr>
+    <th colspan="2"></th>
+    <th class="borderbottom">OP</th>
+    <th class="borderbottom">~</th>
+    <th class="borderbottom">#</th>
+  </tr>
+  <tr>
+    <td>BRA</td>
+    <td></td>
+    <td>20</td>
+    <td>3</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>LBRA</td>
+    <td></td>
+    <td>16</td>
+    <td>5</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>BRN</td>
+    <td></td>
+    <td>21</td>
+    <td>3</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>LBRN</td>
+    <td></td>
+    <td>10 21</td>
+    <td>5</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>BSR</td>
+    <td></td>
+    <td>8D</td>
+    <td>7</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>LBSR</td>
+    <td></td>
+    <td>17</td>
+    <td>9</td>
+    <td>3</td>
+  </tr>
+</table>
+<p></p>
+<table>
+  <caption><a name="tabD-1c"></a>Simple Conditional Branches (<a href="#noteD-1a">Notes 1-4</a>)</caption>
+  <tr class="borderbottom">
+    <th>Test</th>
+    <th></th>
+    <th>True</th>
+    <th>OP</th>
+    <th></th>
+    <th>False</th>
+    <th>OP</th>
+  </tr>
+  <tr>
+    <td>N = 1</td>
+    <td></td>
+    <td>BMI</td>
+    <td>2B</td>
+    <td></td>
+    <td>BPL</td>
+    <td>2A</td>
+  </tr>
+  <tr>
+    <td>Z = 1</td>
+    <td></td>
+    <td>BEQ</td>
+    <td>27</td>
+    <td></td>
+    <td>BNE</td>
+    <td>26</td>
+  </tr>
+  <tr>
+    <td>V = 1</td>
+    <td></td>
+    <td>BVS</td>
+    <td>29</td>
+    <td></td>
+    <td>BVC</td>
+    <td>28</td>
+  </tr>
+  <tr>
+    <td>C = 1</td>
+    <td></td>
+    <td>BCS</td>
+    <td>25</td>
+    <td></td>
+    <td>BCC</td>
+    <td>24</td>
+  </tr>
+</table>
+<p></p>
+<table>
+  <caption><a name="tabD-1d"></a>Signed Conditional Branches (<a href="#noteD-1a">Notes 1-4</a>)</caption>
+  <tr class="borderbottom">
+    <th>Test</th>
+    <th></th>
+    <th>True</th>
+    <th>OP</th>
+    <th></th>
+    <th>False</th>
+    <th>OP</th>
+  </tr>
+  <tr>
+    <td>r &gt; m</td>
+    <td></td>
+    <td>BGT</td>
+    <td>2E</td>
+    <td>BLE</td>
+    <td>2F</td>
+  </tr>
+  <tr>
+    <td>r &ge; m</td>
+    <td></td>
+    <td>BGE</td>
+    <td>2C</td>
+    <td>BLT</td>
+    <td>2D</td>
+  </tr>
+  <tr>
+    <td>r = m</td>
+    <td></td>
+    <td>BEQ</td>
+    <td>27</td>
+    <td>BNE</td>
+    <td>26</td>
+  </tr>
+  <tr>
+    <td>r &le; m</td>
+    <td></td>
+    <td>BLE</td>
+    <td>2F</td>
+    <td>BGT</td>
+    <td>2E</td>
+  </tr>
+  <tr>
+    <td>r &lt; m</td>
+    <td></td>
+    <td>BLT</td>
+    <td>2D</td>
+    <td>BGE</td>
+    <td>2C</td>
+  </tr>
+</table>
+<p></p>
+<table>
+  <caption><a name="tabD-1e"></a>Unsigned Conditional Branches (<a href="#noteD-1a">Notes 1-4</a>)</caption>
+  <tr class="borderbottom">
+    <th>Test</th>
+    <th></th>
+    <th>True</th>
+    <th>OP</th>
+    <th></th>
+    <th>False</th>
+    <th>OP</th>
+  </tr>
+  <tr>
+    <td>r &gt; m</td>
+    <td></td>
+    <td>BHI</td>
+    <td>22</td>
+    <td>BLS</td>
+    <td>23</td>
+  </tr>
+  <tr>
+    <td>r &ge; m</td>
+    <td></td>
+    <td>BHS</td>
+    <td>24</td>
+    <td>BLO</td>
+    <td>25</td>
+  </tr>
+  <tr>
+    <td>r = m</td>
+    <td></td>
+    <td>BEQ</td>
+    <td>27</td>
+    <td>BNE</td>
+    <td>26</td>
+  </tr>
+  <tr>
+    <td>r &le; m</td>
+    <td></td>
+    <td>BLS</td>
+    <td>23</td>
+    <td>BHI</td>
+    <td>22</td>
+  </tr>
+  <tr>
+    <td>r &lt; m</td>
+    <td></td>
+    <td>BLO</td>
+    <td>25</td>
+    <td>BHS</td>
+    <td>24</td>
+  </tr>
+</table>
+<p><a name="noteD-1a"></a>Notes:</p>
+<ol>
+  <li>All conditional branches have both short and long variations.</li>
+  <li>All short branches are 2 bytes and require 3 cycles.</li>
+  <li>All conditional long branches are formed by prefixing the short branch opcode with $10 and using a 16-bit destination offset.</li>
+  <li>All conditional long branches require 4 bytes and 6 cycles if the branch is taken or 5 cycles if the branch is not taken.</li>
+  <li><span class="correction">5(6) means: 5 cycles if branch not taken, 6 cycles if taken.</span></li>
+</ol>
+<p>&nbsp;</p>
+</div>
+<div>
+<a name="tabD-1f"></a>
+<table class="tabD-1f">
+  <tr>
+    <th rowspan="3">Instruction</th>
+    <th rowspan="3">Forms</th>
+    <th colspan="15">Addressing Modes</th>
+    <th rowspan="3">Description</th>
+    <th rowspan="2">5</th>
+    <th rowspan="2">3</th>
+    <th rowspan="2">2</th>
+    <th rowspan="2">1</th>
+    <th rowspan="2">0</th>
+  </tr>
+  <tr>
+    <th colspan="3">Immediate</th>
+    <th colspan="3">Direct</th>
+    <th colspan="3">Indexed<sup><a href="#noteD-1f1">1</a></sup></th>
+    <th colspan="3">Extended</th>
+    <th colspan="3">Inherent</th>
+  </tr>
+  <tr>
+    <th>Op</th>
+    <th>~</th>
+    <th>#</th>
+    <th>Op</th>
+    <th>~</th>
+    <th>#</th>
+    <th>Op</th>
+    <th>~</th>
+    <th>#</th>
+    <th>Op</th>
+    <th>~</th>
+    <th>#</th>
+    <th>Op</th>
+    <th>~</th>
+    <th>#</th>
+    <th>H</th>
+    <th>N</th>
+    <th>Z</th>
+    <th>V</th>
+    <th>C</th>
+  </tr>
+  <tr class="borders">
+    <td>ABX</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>3A</td>
+    <td>3</td>
+    <td>1</td>
+    <td>B + X &rarr; X (Unsigned)</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">ADC</td>
+    <td>ADCA</td>
+    <td>89</td>
+    <td>2</td>
+    <td>2</td>
+    <td>99</td>
+    <td>4</td>
+    <td>2</td>
+    <td>A9</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>B9</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>A + M + C &rarr; A</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>ADCB</td>
+    <td>C9</td>
+    <td>2</td>
+    <td>2</td>
+    <td>D9</td>
+    <td>4</td>
+    <td>2</td>
+    <td>E9</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>F9</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>B + M + C &rarr; B</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="3">ADD</td>
+    <td>ADDA</td>
+    <td>8B</td>
+    <td>2</td>
+    <td>2</td>
+    <td>9B</td>
+    <td>4</td>
+    <td>2</td>
+    <td>AB</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>BB</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>A + M &rarr; A</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr>
+    <td>ADDB</td>
+    <td>CB</td>
+    <td>2</td>
+    <td>2</td>
+    <td>DB</td>
+    <td>4</td>
+    <td>2</td>
+    <td>EB</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>FB</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>B + M &rarr; B</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>ADDD</td>
+    <td>C3</td>
+    <td>4</td>
+    <td>3</td>
+    <td>D3</td>
+    <td>6</td>
+    <td>2</td>
+    <td>E3</td>
+    <td>6+</td>
+    <td>2+</td>
+    <td>F3</td>
+    <td>7</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>D + M:M+1 &rarr; D</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="3">AND</td>
+    <td>ANDA</td>
+    <td>84</td>
+    <td>2</td>
+    <td>2</td>
+    <td>94</td>
+    <td>4</td>
+    <td>2</td>
+    <td>A4</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>B4</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>A &and; M &rarr; A</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr>
+    <td>ANDB</td>
+    <td>C4</td>
+    <td>2</td>
+    <td>2</td>
+    <td>D4</td>
+    <td>4</td>
+    <td>2</td>
+    <td>E4</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>F4</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>B &and; M &rarr; B</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>ANDCC</td>
+    <td>1C</td>
+    <td>3</td>
+    <td>2</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>CC &and; IMM &rarr; CC</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><sup><a href="#noteD-1f7">7</a></sup></td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="3">ASL</td>
+    <td>ASLA</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>48</td>
+    <td>2</td>
+    <td>1</td>
+    <td rowspan="3" class="middle noborders">
+    <table>
+      <tr>
+        <td>A</td>
+        <td rowspan="3" class="middle"><span class="big"><span class="big">}</span></span></td>
+        <td rowspan="3" class="middle">
+        <table>
+        <tr>
+          <td>C</td><td>&larr;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td>&larr;</td><td>0</td>
+        </tr>
+        <tr>
+          <td></td><td></td>
+          <td>b7</td><td colspan="6" class="center">&larr;</td><td>b0</td>
+          <td></td><td></td>
+        </tr>
+        </table>
+        </td>
+      </tr>
+      <tr>
+        <td>B</td>
+      </tr>
+      <tr>
+        <td>M</td>
+      </tr>
+    </table>
+    </td>
+    <td><sup><a href="#noteD-1f8">8</a></sup></td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr>
+    <td>ASLB</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>58</td>
+    <td>2</td>
+    <td>1</td>
+    <td><sup><a href="#noteD-1f8">8</a></sup></td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>ASL</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>08</td>
+    <td>6</td>
+    <td>2</td>
+    <td>68</td>
+    <td>6+</td>
+    <td>2+</td>
+    <td>78</td>
+    <td>7</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><sup><a href="#noteD-1f8">8</a></sup></td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="3">ASR</td>
+    <td><span class="correction">ASRA</span></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>47</td>
+    <td>2</td>
+    <td>1</td>
+    <td rowspan="3" class="middle noborders">
+    <table>
+      <tr>
+        <td>A</td>
+        <td rowspan="3" class="middle"><span class="big"><span class="big">}</span></span></td>
+        <td rowspan="3" class="middle">
+        <table>
+        <tr>
+          <td>b7</td><td>&rarr;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td>&rarr;</td><td>C</td>
+        </tr>
+        <tr>
+          <td></td><td></td>
+          <td>b7</td><td colspan="6" class="center">&rarr;</td><td>b0</td>
+          <td></td><td></td>
+        </tr>
+        </table>
+        </td>
+      </tr>
+      <tr>
+        <td>B</td>
+      </tr>
+      <tr>
+        <td>M</td>
+      </tr>
+    </table>
+    </td>
+    <td><sup><a href="#noteD-1f8">8</a></sup></td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr>
+    <td><span class="correction">ASRB</span></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>57</td>
+    <td>2</td>
+    <td>1</td>
+    <td><sup><a href="#noteD-1f8">8</a></sup></td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>ASR</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>07</td>
+    <td>6</td>
+    <td>2</td>
+    <td>67</td>
+    <td>6+</td>
+    <td>2+</td>
+    <td>77</td>
+    <td>7</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><sup><a href="#noteD-1f8">8</a></sup></td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2">BIT</td>
+    <td>BITA</td>
+    <td>85</td>
+    <td>2</td>
+    <td>2</td>
+    <td>95</td>
+    <td>4</td>
+    <td>2</td>
+    <td>A5</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>B5</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Bit Test A (M &and; A)</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>BITB</td>
+    <td>C5</td>
+    <td>2</td>
+    <td>2</td>
+    <td>D5</td>
+    <td>4</td>
+    <td>2</td>
+    <td>E5</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>F5</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Bit Test B (M &and; B)</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="3">CLR</td>
+    <td>CLRA</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>4F</td>
+    <td>2</td>
+    <td>1</td>
+    <td>0 &rarr; A</td>
+    <td>&bull;</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>CLRB</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>5F</td>
+    <td>2</td>
+    <td>1</td>
+    <td>0 &rarr; B</td>
+    <td>&bull;</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>CLR</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0F</td>
+    <td>6</td>
+    <td>2</td>
+    <td>6F</td>
+    <td>6+</td>
+    <td>2+</td>
+    <td>7F</td>
+    <td>7</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0 &rarr; M</td>
+    <td>&bull;</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="7">CMP</td>
+    <td>CMPA</td>
+    <td>81</td>
+    <td>2</td>
+    <td>2</td>
+    <td>91</td>
+    <td>4</td>
+    <td>2</td>
+    <td>A1</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>B1</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Compare M from A</td>
+    <td><sup><a href="#noteD-1f8">8</a></sup></td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr>
+    <td>CMPB</td>
+    <td>C1</td>
+    <td>2</td>
+    <td>2</td>
+    <td>D1</td>
+    <td>4</td>
+    <td>2</td>
+    <td>E1</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>F1</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Compare M from B</td>
+    <td><sup><a href="#noteD-1f8">8</a></sup></td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr>
+    <td>CMPD</td>
+    <td>10 83</td>
+    <td>5</td>
+    <td>4</td>
+    <td>10 93</td>
+    <td>7</td>
+    <td>3</td>
+    <td>10 A3</td>
+    <td>7+</td>
+    <td>3+</td>
+    <td>10 B3</td>
+    <td>8</td>
+    <td>4</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Compare M:M+1 from D</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr>
+    <td>CMPS</td>
+    <td>11 8C</td>
+    <td>5</td>
+    <td>4</td>
+    <td>11 9C</td>
+    <td>7</td>
+    <td>3</td>
+    <td>11 AC</td>
+    <td>7+</td>
+    <td>3+</td>
+    <td>11 BC</td>
+    <td>8</td>
+    <td>4</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Compare M:M+1 from S</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr>
+    <td>CMPU</td>
+    <td>11 83</td>
+    <td>5</td>
+    <td>4</td>
+    <td>11 93</td>
+    <td>7</td>
+    <td>3</td>
+    <td>11 A3</td>
+    <td>7+</td>
+    <td>3+</td>
+    <td>11 B3</td>
+    <td>8</td>
+    <td>4</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Compare M:M+1 from U</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr>
+    <td>CMPX</td>
+    <td>8C</td>
+    <td>4</td>
+    <td>3</td>
+    <td>9C</td>
+    <td>6</td>
+    <td>2</td>
+    <td>AC</td>
+    <td>6+</td>
+    <td>2+</td>
+    <td>BC</td>
+    <td>7</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Compare M:M+1 from X</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>CMPY</td>
+    <td>10 8C</td>
+    <td>5</td>
+    <td>4</td>
+    <td>10 9C</td>
+    <td>7</td>
+    <td>3</td>
+    <td>10 AC</td>
+    <td>7+</td>
+    <td>3+</td>
+    <td>10 BC</td>
+    <td>8</td>
+    <td>4</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Compare M:M+1 from Y</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="3">COM</td>
+    <td>COMA</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>43</td>
+    <td>2</td>
+    <td>1</td>
+    <td><span class="lowsignal">A</span> &rarr; A</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>COMB</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>53</td>
+    <td>2</td>
+    <td>1</td>
+    <td><span class="lowsignal">B</span> &rarr; B</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>1</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>COM</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>03</td>
+    <td>6</td>
+    <td>2</td>
+    <td>63</td>
+    <td>6+</td>
+    <td>2+</td>
+    <td>73</td>
+    <td>7</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><span class="lowsignal">M</span> &rarr; M</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>1</td>
+  </tr>
+  <tr class="borders">
+    <td>CWAI</td>
+    <td></td>
+    <td>3C</td>
+    <td>&ge;20</td>
+    <td>2</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>CC &and; IMM &rarr; CC Wait for Interrupt</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><sup><a href="#noteD-1f7">7</a></sup></td>
+  </tr>
+  <tr class="borders">
+    <td>DAA</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>19</td>
+    <td>2</td>
+    <td>1</td>
+    <td>Decimal Adjust A</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="3">DEC</td>
+    <td>DECA</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>4A</td>
+    <td>2</td>
+    <td>1</td>
+    <td>A - 1 &rarr; A</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr>
+    <td>DECB</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>5A</td>
+    <td>2</td>
+    <td>1</td>
+    <td>B - 1 &rarr; B</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>DEC</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0A</td>
+    <td>6</td>
+    <td>2</td>
+    <td>6A</td>
+    <td>6+</td>
+    <td>2+</td>
+    <td>7A</td>
+    <td>7</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>M - 1 &rarr; M</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2">EOR</td>
+    <td>EORA</td>
+    <td>88</td>
+    <td>2</td>
+    <td>2</td>
+    <td>98</td>
+    <td>4</td>
+    <td>2</td>
+    <td>A8</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>B8</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>A &forall; M &rarr; A</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>EORB</td>
+    <td>C8</td>
+    <td>2</td>
+    <td>2</td>
+    <td>D8</td>
+    <td>4</td>
+    <td>2</td>
+    <td>E8</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>F8</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>B &forall; M &rarr; B</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="borders">
+    <td>EXG</td>
+    <td>R1, R2</td>
+    <td>1E</td>
+    <td>8</td>
+    <td>2</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>R1 &harr; R2<sup><a href="#noteD-1f2">2</a></sup></td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="3">INC</td>
+    <td>INCA</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>4C</td>
+    <td>2</td>
+    <td>1</td>
+    <td>A + 1 &rarr; A</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr>
+    <td>INCB</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>5C</td>
+    <td>2</td>
+    <td>1</td>
+    <td>B + 1 &rarr; B</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>INC</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0C</td>
+    <td>6</td>
+    <td>2</td>
+    <td>6C</td>
+    <td>6+</td>
+    <td>2+</td>
+    <td>7C</td>
+    <td>7</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>M + 1 &rarr; M</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="borders">
+    <td>JMP</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0E</td>
+    <td>3</td>
+    <td>2</td>
+    <td>6E</td>
+    <td>3+</td>
+    <td>2+</td>
+    <td>7E</td>
+    <td>4</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>EA<sup><a href="#noteD-1f3">3</a></sup> &rarr; PC</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="borders">
+    <td>JSR</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>9D</td>
+    <td>7</td>
+    <td>2</td>
+    <td>AD</td>
+    <td>7+</td>
+    <td>2+</td>
+    <td>BD</td>
+    <td>8</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Jump to Subroutine</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="7">LD</td>
+    <td>LDA</td>
+    <td>86</td>
+    <td>2</td>
+    <td>2</td>
+    <td>96</td>
+    <td>4</td>
+    <td>2</td>
+    <td>A6</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>B6</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>M &rarr; A</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr>
+    <td>LDB</td>
+    <td>C6</td>
+    <td>2</td>
+    <td>2</td>
+    <td>D6</td>
+    <td>4</td>
+    <td>2</td>
+    <td>E6</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>F6</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>M &rarr; B</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr>
+    <td>LDD</td>
+    <td>CC</td>
+    <td>3</td>
+    <td>3</td>
+    <td>DC</td>
+    <td>5</td>
+    <td>2</td>
+    <td>EC</td>
+    <td>5+</td>
+    <td>2+</td>
+    <td>FC</td>
+    <td>6</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>M:M+1 &rarr; D</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr>
+    <td>LDS</td>
+    <td>10 CE</td>
+    <td>4</td>
+    <td>4</td>
+    <td>10 DE</td>
+    <td>6</td>
+    <td>3</td>
+    <td>10 EE</td>
+    <td>6+</td>
+    <td>3+</td>
+    <td>10 FE</td>
+    <td>7</td>
+    <td>4</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>M:M+1 &rarr; S</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr>
+    <td>LDU</td>
+    <td>CE</td>
+    <td>3</td>
+    <td>3</td>
+    <td>DE</td>
+    <td>5</td>
+    <td>2</td>
+    <td>EE</td>
+    <td>5+</td>
+    <td>2+</td>
+    <td>FE</td>
+    <td>6</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>M:M+1 &rarr; U</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr>
+    <td>LDX</td>
+    <td>8E</td>
+    <td>3</td>
+    <td>3</td>
+    <td>9E</td>
+    <td>5</td>
+    <td>2</td>
+    <td>AE</td>
+    <td>5+</td>
+    <td>2+</td>
+    <td>BE</td>
+    <td>6</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>M:M+1 &rarr; X</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LDY</td>
+    <td>10 8E</td>
+    <td>4</td>
+    <td>4</td>
+    <td>10 9E</td>
+    <td>6</td>
+    <td>3</td>
+    <td>10 AE</td>
+    <td>6+</td>
+    <td>3+</td>
+    <td>10 BE</td>
+    <td>7</td>
+    <td>4</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>M:M+1 &rarr; Y</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="4">LEA</td>
+    <td>LEAS</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>32</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>EA<sup><a href="#noteD-1f3">3</a></sup> &rarr; S</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr>
+    <td>LEAU</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>33</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>EA<sup><a href="#noteD-1f3">3</a></sup> &rarr; U</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr>
+    <td>LEAX</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>30</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>EA<sup><a href="#noteD-1f3">3</a></sup> &rarr; X</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LEAY</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>31</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>EA<sup><a href="#noteD-1f3">3</a></sup> &rarr; Y</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="3" class="borders">LSL</td>
+    <td>LSLA</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>48</td>
+    <td>2</td>
+    <td>1</td>
+    <td rowspan="3" class="middle noborders">
+    <table>
+      <tr>
+        <td>A</td>
+        <td rowspan="3" class="middle"><span class="big"><span class="big">}</span></span></td>
+        <td rowspan="3" class="middle">
+        <table>
+        <tr>
+          <td>C</td><td>&larr;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td>&larr;</td><td>0</td>
+        </tr>
+        <tr>
+          <td></td><td></td>
+          <td>b7</td><td colspan="6" class="center">&larr;</td><td>b0</td>
+          <td></td><td></td>
+        </tr>
+        </table>
+        </td>
+      </tr>
+      <tr>
+        <td>B</td>
+      </tr>
+      <tr>
+        <td>M</td>
+      </tr>
+    </table>
+    </td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr>
+    <td>LSLB</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>58</td>
+    <td>2</td>
+    <td>1</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LSL</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>08</td>
+    <td>6</td>
+    <td>2</td>
+    <td>68</td>
+    <td>6+</td>
+    <td>2+</td>
+    <td>78</td>
+    <td>7</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="3" class="borders">LSR</td>
+    <td>LSRA</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>44</td>
+    <td>2</td>
+    <td>1</td>
+    <td rowspan="3" class="middle noborders">
+    <table>
+      <tr>
+        <td>A</td>
+        <td rowspan="3" class="middle"><span class="big"><span class="big">}</span></span></td>
+        <td rowspan="3" class="middle">
+        <table>
+        <tr>
+          <td>0</td><td>&rarr;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td>&rarr;</td><td>C</td>
+        </tr>
+        <tr>
+          <td></td><td></td>
+          <td>b7</td><td colspan="6" class="center">&rarr;</td><td>b0</td>
+          <td></td><td></td>
+        </tr>
+        </table>
+        </td>
+      </tr>
+      <tr>
+        <td>B</td>
+      </tr>
+      <tr>
+        <td>M</td>
+      </tr>
+    </table>
+    </td>
+    <td>&bull;</td>
+    <td>0</td>
+    <td>&brvbar;</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr>
+    <td>LSRB</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>54</td>
+    <td>2</td>
+    <td>1</td>
+    <td>&bull;</td>
+    <td>0</td>
+    <td>&brvbar;</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>LSR</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>04</td>
+    <td>6</td>
+    <td>2</td>
+    <td>64</td>
+    <td>6+</td>
+    <td>2+</td>
+    <td>74</td>
+    <td><span class="correction">7</span></td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>&bull;</td>
+    <td>0</td>
+    <td>&brvbar;</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="borders">
+    <td>MUL</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>3D</td>
+    <td>11</td>
+    <td>1</td>
+    <td>A &times; B &rarr; D (Unsigned)</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&bull;</td>
+    <td><sup><a href="#noteD-1f9">9</a></sup></td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="3" class="borders">NEG</td>
+    <td>NEGA</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>40</td>
+    <td>2</td>
+    <td>1</td>
+    <td><span class="lowsignal">A</span> +  1 &rarr; A</td>
+    <td><sup><a href="#noteD-1f8">8</a></sup></td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr>
+    <td>NEGB</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>50</td>
+    <td>2</td>
+    <td>1</td>
+    <td><span class="lowsignal">B</span> +  1 &rarr; B</td>
+    <td><sup><a href="#noteD-1f8">8</a></sup></td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>NEG</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>00</td>
+    <td>6</td>
+    <td>2</td>
+    <td>60</td>
+    <td>6+</td>
+    <td>2+</td>
+    <td>70</td>
+    <td>7</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><span class="lowsignal">M</span> +  1 &rarr; M</td>
+    <td><sup><a href="#noteD-1f8">8</a></sup></td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="borders">
+    <td>NOP</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>12</td>
+    <td>2</td>
+    <td>1</td>
+    <td>No Operation</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="3" class="borders">OR</td>
+    <td>ORA</td>
+    <td>8A</td>
+    <td>2</td>
+    <td>2</td>
+    <td>9A</td>
+    <td>4</td>
+    <td>2</td>
+    <td>AA</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>BA</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>A &or; M &rarr; A</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr>
+    <td>ORB</td>
+    <td>CA</td>
+    <td>2</td>
+    <td>2</td>
+    <td>DA</td>
+    <td>4</td>
+    <td>2</td>
+    <td>EA</td>
+    <td><span class="correction">4+</span></td>
+    <td>2+</td>
+    <td>FA</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>B &or; M &rarr; B</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>ORCC</td>
+    <td>1A</td>
+    <td>3</td>
+    <td>2</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>CC &or; IMM &rarr; CC</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><sup><a href="#noteD-1f7">7</a></sup></td>
+    <td></td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">PSH</td>
+    <td>PSHS</td>
+    <td>34</td>
+    <td>5+<sup><a href="#noteD-1f4">4</a></sup></td>
+    <td>2</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Push Registers on S Stack</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>PSHU</td>
+    <td>36</td>
+    <td>5+<sup><a href="#noteD-1f4">4</a></sup></td>
+    <td>2</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Push Registers on U Stack</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">PUL</td>
+    <td>PULS</td>
+    <td>35</td>
+    <td>5+<sup><a href="#noteD-1f4">4</a></sup></td>
+    <td>2</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Pull Registers from S Stack</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>PULU</td>
+    <td>37</td>
+    <td>5+<sup><a href="#noteD-1f4">4</a></sup></td>
+    <td>2</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Pull Registers from U Stack</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="3" class="borders">ROL</td>
+    <td>ROLA</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>49</td>
+    <td>2</td>
+    <td>1</td>
+    <td rowspan="3" class="middle noborders">
+    <table>
+      <tr>
+        <td>A</td>
+        <td rowspan="3" class="middle"><span class="big"><span class="big">}</span></span></td>
+        <td rowspan="3" class="middle">
+        <table>
+        <tr>
+          <td>C</td><td>&larr;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td>&larr;</td><td>C</td>
+        </tr>
+        <tr>
+          <td></td><td></td>
+          <td>b7</td><td colspan="6" class="center">&larr;</td><td>b0</td>
+          <td></td><td></td>
+        </tr>
+        </table>
+        </td>
+      </tr>
+      <tr>
+        <td>B</td>
+      </tr>
+      <tr>
+        <td>M</td>
+      </tr>
+    </table>
+    </td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr>
+    <td>ROLB</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>59</td>
+    <td>2</td>
+    <td>1</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>ROL</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>09</td>
+    <td>6</td>
+    <td>2</td>
+    <td>69</td>
+    <td>6+</td>
+    <td>2+</td>
+    <td>79</td>
+    <td>7</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="3" class="borders">ROR</td>
+    <td>RORA</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>46</td>
+    <td>2</td>
+    <td>1</td>
+    <td rowspan="3" class="middle noborders">
+    <table>
+      <tr>
+        <td>A</td>
+        <td rowspan="3" class="middle"><span class="big"><span class="big">}</span></span></td>
+        <td rowspan="3" class="middle">
+        <table>
+        <tr>
+          <td>C</td><td>&rarr;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td>&rarr;</td><td>C</td>
+        </tr>
+        <tr>
+          <td></td><td></td>
+          <td>b7</td><td colspan="6" class="center">&rarr;</td><td>b0</td>
+          <td></td><td></td>
+        </tr>
+        </table>
+        </td>
+      </tr>
+      <tr>
+        <td>B</td>
+      </tr>
+      <tr>
+        <td>M</td>
+      </tr>
+    </table>
+    </td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr>
+    <td>RORB</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>56</td>
+    <td>2</td>
+    <td>1</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>ROR</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>06</td>
+    <td>6</td>
+    <td>2</td>
+    <td>66</td>
+    <td>6+</td>
+    <td>2+</td>
+    <td>76</td>
+    <td>7</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="borders">
+    <td>RTI</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>3B</td>
+    <td>6/15</td>
+    <td>1</td>
+    <td>Return From Interrupt</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><sup><a href="#noteD-1f7">7</a></sup></td>
+  </tr>
+  <tr class="borders">
+    <td>RTS</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>39</td>
+    <td>5</td>
+    <td>1</td>
+    <td>Return from Subroutine</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="2" class="borders">SBC</td>
+    <td>SBCA</td>
+    <td>82</td>
+    <td>2</td>
+    <td>2</td>
+    <td>92</td>
+    <td>4</td>
+    <td>2</td>
+    <td>A2</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>B2</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>A - M - C &rarr; A</td>
+    <td><sup><a href="#noteD-1f8">8</a></sup></td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>SBCB</td>
+    <td>C2</td>
+    <td>2</td>
+    <td>2</td>
+    <td>D2</td>
+    <td>4</td>
+    <td>2</td>
+    <td>E2</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>F2</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>B - M - C &rarr; B</td>
+    <td><sup><a href="#noteD-1f8">8</a></sup></td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="borders">
+    <td>SEX</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>1D</td>
+    <td>2</td>
+    <td>1</td>
+    <td>Sign Extend B into A</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="7" class="borders">ST</td>
+    <td>STA</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>97</td>
+    <td>4</td>
+    <td>2</td>
+    <td>A7</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>B7</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>A &rarr; M</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr>
+    <td>STB</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>D7</td>
+    <td>4</td>
+    <td>2</td>
+    <td>E7</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>F7</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>B &rarr; M</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr>
+    <td>STD</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>DD</td>
+    <td>5</td>
+    <td>2</td>
+    <td>ED</td>
+    <td>5+</td>
+    <td>2+</td>
+    <td>FD</td>
+    <td>6</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>D &rarr; M:M+1</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr>
+    <td>STS</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>10 DF</td>
+    <td>6</td>
+    <td>3</td>
+    <td>10 EF</td>
+    <td>6+</td>
+    <td>3+</td>
+    <td>10 FF</td>
+    <td>7</td>
+    <td>4</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>S &rarr; M:M+1</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr>
+    <td>STU</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>DF</td>
+    <td>5</td>
+    <td>2</td>
+    <td>EF</td>
+    <td>5+</td>
+    <td>2+</td>
+    <td>FF</td>
+    <td>6</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>U &rarr; M:M+1</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr>
+    <td>STX</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>9F</td>
+    <td>5</td>
+    <td>2</td>
+    <td>AF</td>
+    <td>5+</td>
+    <td>2+</td>
+    <td>BF</td>
+    <td>6</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>X &rarr; M:M+1</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>STY</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>10 9F</td>
+    <td>6</td>
+    <td>3</td>
+    <td>10 AF</td>
+    <td>6+</td>
+    <td>3+</td>
+    <td>10 BF</td>
+    <td>7</td>
+    <td>4</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Y &rarr; M:M+1</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="3" class="borders">SUB</td>
+    <td>SUBA</td>
+    <td>80</td>
+    <td>2</td>
+    <td>2</td>
+    <td>90</td>
+    <td>4</td>
+    <td>2</td>
+    <td>A0</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>B0</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>A - M &rarr; A</td>
+    <td><sup><a href="#noteD-1f8">8</a></sup></td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr>
+    <td>SUBB</td>
+    <td>C0</td>
+    <td>2</td>
+    <td>2</td>
+    <td>D0</td>
+    <td>4</td>
+    <td>2</td>
+    <td>E0</td>
+    <td>4+</td>
+    <td>2+</td>
+    <td>F0</td>
+    <td>5</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>B - M &rarr; B</td>
+    <td><sup><a href="#noteD-1f8">8</a></sup></td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>SUBD</td>
+    <td>83</td>
+    <td>4</td>
+    <td>3</td>
+    <td>93</td>
+    <td>6</td>
+    <td>2</td>
+    <td>A3</td>
+    <td>6+</td>
+    <td>2+</td>
+    <td>B3</td>
+    <td>7</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>D - M:M+1 &rarr; D</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="3" class="borders">SWI</td>
+    <td>SWI<sup><a href="#noteD-1f6">6</a></sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>3F</td>
+    <td>19</td>
+    <td>1</td>
+    <td>Software Interrupt 1</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr>
+    <td>SWI2<sup><a href="#noteD-1f6">6</a></sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>10 3F</td>
+    <td>20</td>
+    <td>2</td>
+    <td>Software Interrupt 2</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>SWI3<sup><a href="#noteD-1f6">6</a></sup></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>11 3F</td>
+    <td>20</td>
+    <td><span class="correction">2</span></td>
+    <td>Software Interrupt 3</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="borders">
+    <td>SYNC</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>13</td>
+    <td>&ge;4</td>
+    <td>1</td>
+    <td>Synchronize to Interrupt</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="borders">
+    <td>TFR</td>
+    <td>R1, R2</td>
+    <td>1F</td>
+    <td>6</td>
+    <td>2</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>R1 &rarr; R2<sup><a href="#noteD-1f2">2</a></sup></td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernobottom">
+    <td rowspan="3" class="borders">TST</td>
+    <td>TSTA</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>4D</td>
+    <td>2</td>
+    <td>1</td>
+    <td>Test A</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr>
+    <td>TSTB</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>5D</td>
+    <td>2</td>
+    <td>1</td>
+    <td>Test B</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+  <tr class="bordernotop">
+    <td>TST</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0D</td>
+    <td>6</td>
+    <td>2</td>
+    <td>6D</td>
+    <td>6+</td>
+    <td>2+</td>
+    <td>7D</td>
+    <td>7</td>
+    <td>3</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Test M</td>
+    <td>&bull;</td>
+    <td>&brvbar;</td>
+    <td>&brvbar;</td>
+    <td>0</td>
+    <td>&bull;</td>
+  </tr>
+</table>
+</div>
+<div class="text">
+<p><a name="noteD-1f"></a>Notes:<br>
+<ol>
+  <li><a name="noteD-1f1"></a>This column gives a base cycle and byte count.
+To obtain total count, add the values obtained from the <a href="appendix_f.htm#tabF-2">INDEXED ADDRESSING MODE table, in Appendix F</a>.</li>
+  <li><a name="noteD-1f2"></a>R1 and R2 may be any pair of 8 bit or any pair of 16 bit registers.<br>
+The 8 bit registers are: A, B, CC, DP<br>
+The 16 bit registers are: X, Y, U, S, D, PC</li>
+  <li><a name="noteD-1f3"></a>EA is the effective address.</li>
+  <li><a name="noteD-1f4"></a>The PSH and PUL instructions require 5 cycles plus 1 cycle for each byte pushed or pulled.</li>
+  <li><span class="correction">(moved up to Branch instructions)</span></li>
+  <li><a name="noteD-1f6"></a>SWI sets I and F bits. SWI2 and SWI3 do not affect I and F.</li>
+  <li><a name="noteD-1f7"></a>Conditions Codes set as a direct result of the instruction.</li>
+  <li><a name="noteD-1f8"></a>Value of half-carry flag is undefined.</li>
+  <li><a name="noteD-1f9"></a>Special Case - Carry set if b7 is SET.</li>
+</ol>
+
+<hr>
+
+<p>&copy; Motorola Inc., 1981 (now <a href="http://www.freescale.com/" target="_top">Freescale</a> as of 2006)<br>
+Transferred into HTML by <a href="http://www.maddes.net/" target="_top">Matthias &quot;Maddes&quot; B&uuml;cher</a> in 2006, 2007.<br>
+Use all information at your own risk.</p>
+
+<table border="0"><tr>
+<td><a href="#top">Top</a></td>
+<td><a href=".">ToC</a></td>
+<td><a href=".." target="_top">Start</a></td>
+<td><a href="../contact.php">Contact</a></td>
+</tr></table>
+
+</div></body>
+</html>

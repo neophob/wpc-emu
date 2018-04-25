@@ -1,0 +1,2922 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+<title>MC6809-MC6809E Microprocessor Programming Manual [M6809PM] - Appendix A - Maddes.net</title>
+<link rel="stylesheet" type="text/css" media="all" href="css/m6809pm.css">
+</head>
+
+<body><div class="text">
+<a name="top"></a>
+<table border="0"><tr>
+<td><a href=".">ToC</a></td>
+<td><a href=".." target="_top">Start</a></td>
+<td><a href="../contact.php">Contact</a></td>
+</tr></table>
+
+<hr>
+
+<h1>MC6809-MC6809E 8-Bit Microprocessor Programming Manual [M6809PM/AD]<br>&copy; Motorola Inc., 1981</h1>
+
+<h1><a name="appA">APPENDIX A - INSTRUCTION SET DETAILS</a></h1>
+<h2><a name="appA_1">A.1 INTRODUCTION</a></h2>
+<p>This appendix contains detailed information about each instruction in the MC6809 instruction set.
+They are arranged in an alphabetical order with the mnemonic heading set in larger type for easy reference.</p>
+<h2><a name="appA_2">A.2 NOTATION</a></h2>
+<p>In the operation description for each instruction, symbols are used to indicate the operation.
+Table A-1 lists these symbols and their meanings.
+Abbreviations for the various registers, bits, and bytes are also used.
+Table A-2 lists these abbreviations and their meanings.</p>
+<table>
+  <caption><a name="tabA-1">Table A-1. Operation Notation</a></caption>
+  <tr>
+    <th class="underline">Symbol</th><th class="underline">Meaning</th>
+  </tr>
+  <tr>
+    <td class="center">&larr;</td><td>Is transferred to</td>
+  </tr>
+  <tr>
+    <td class="center">&and;</td><td>Boolean AND</td>
+  </tr>
+  <tr>
+    <td class="center">&or;</td><td>Boolean OR</td>
+  </tr>
+  <tr>
+    <td class="center">&oplus;</td><td>Boolean exclusive OR</td>
+  </tr>
+  <tr>
+    <td class="center">&oline;&oline; (Overline)</td><td>Boolean NOT</td>
+  </tr>
+  <tr>
+    <td class="center">:</td><td>Concatenation</td>
+  </tr>
+  <tr>
+    <td class="center">+</td><td>Arithmetic plus</td>
+  </tr>
+  <tr>
+    <td class="center">-</td><td>Arithmetic minus</td>
+  </tr>
+  <tr>
+    <td class="center">&times;</td><td>Arithmetic multiply</td>
+  </tr>
+</table>
+<table>
+  <caption><a name="tabA-2">Table A-2. Register Notation</a></caption>
+  <tr>
+    <th class="underline">Abbreviation</th><th class="underline">Meaning</th>
+  </tr>
+  <tr>
+    <td class="top left">ACCA or A</td><td>Accumulator A</td>
+  </tr>
+  <tr>
+    <td class="top left">ACCB or B</td><td>Accumulator B</td>
+  </tr>
+  <tr>
+    <td class="top left">ACCA:ACCB or D</td><td>Double accumulator D</td>
+  </tr>
+  <tr>
+    <td class="top left">ACCX</td><td>Either accumulator A or B</td>
+  </tr>
+  <tr>
+    <td class="top left">CCR or CC</td><td>Condition code register</td>
+  </tr>
+  <tr>
+    <td class="top left">DPR or DP</td><td>Direct page register</td>
+  </tr>
+  <tr>
+    <td class="top left">EA</td><td>Effective address</td>
+  </tr>
+  <tr>
+    <td class="top left">IFF</td><td>If and only if</td>
+  </tr>
+  <tr>
+    <td class="top left">IX or X</td><td>Index register X</td>
+  </tr>
+  <tr>
+    <td class="top left">IY or Y</td><td>Index register Y</td>
+  </tr>
+  <tr>
+    <td class="top left">LSN</td><td>Least significant nibble</td>
+  </tr>
+  <tr>
+    <td class="top left">M</td><td>Memory location</td>
+  </tr>
+  <tr>
+    <td class="top left">MI</td><td>Memory immediate</td>
+  </tr>
+  <tr>
+    <td class="top left">MSN</td><td>Most significant nibble</td>
+  </tr>
+  <tr>
+    <td class="top left">PC</td><td>Program counter</td>
+  </tr>
+  <tr>
+    <td class="top left">R</td><td>A register before the operation</td>
+  </tr>
+  <tr>
+    <td class="top left">R'</td><td>A register after the operation</td>
+  </tr>
+  <tr>
+    <td class="top left">TEMP</td><td>Temporary storage location</td>
+  </tr>
+  <tr>
+    <td class="top left">xxH</td><td>Most significant byte of any 16-bit register</td>
+  </tr>
+  <tr>
+    <td class="top left">xxL</td><td>Least significant byte of any 16-bit register</td>
+  </tr>
+  <tr>
+    <td class="top left">Sp or S</td><td>Hardware Stack pointer</td>
+  </tr>
+  <tr>
+    <td class="top left">Us or U</td><td>User Stack pointer</td>
+  </tr>
+  <tr>
+    <td class="top left">P</td><td>A memory argument with Immediate, Direct, Extended, and Indexed addressing modes</td>
+  </tr>
+  <tr>
+    <td class="top left">Q</td><td>A read-modify-write argument with Direct, Indexed, and Extended addressing modes</td>
+  </tr>
+  <tr>
+    <td class="top left">( )</td><td>The data pointed to by the enclosed (16-bit address)</td>
+  </tr>
+  <tr>
+    <td class="top left">dd</td><td>8-bit branch offset</td>
+  </tr>
+  <tr>
+    <td class="top left">DDDD</td><td>16-bit branch offset</td>
+  </tr>
+  <tr>
+    <td class="top left">#</td><td>Immediate value follows</td>
+  </tr>
+  <tr>
+    <td class="top left">$</td><td>Hexadecimal value follows</td>
+  </tr>
+  <tr>
+    <td class="top left">[ ]</td><td>Indirection</td>
+  </tr>
+  <tr>
+    <td class="top left">'</td><td>Indicates indexed addressing</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="ABX">ABX</a></th><th>Add Accumulator B into Index Register X</th><th class="big right">ABX</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">ABX</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">IX' &larr; IX + ACCB</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Add the 8-bit unsigned value in accumulator B into index register X.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Inherent</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="ADC">ADC</a></th><th>Add with Carry into Register</th><th class="big right">ADC</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">ADCA P; ADCB P</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">R' &larr; R + M + C</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Set if a half-carry is generated; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Set if an overflow is generated; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Set if a carry is generated; cleared otherwise.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Adds the contents of the C (carry) bit and the memory byte into an 8-bit accumulator.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Immediate<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="ADD (8-Bit)">ADD (8-Bit)</a></th><th>Add Memory into Register</th><th class="big right">ADD (8-Bit)</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">ADDA P; ADDB P</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">R' &larr; R + M</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Set if a half-carry is generated; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Set if an overflow is generated; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Set if a carry is generated; cleared otherwise.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Adds the memory byte into an 8-bit accumulator.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Immediate<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="ADD (16-Bit)">ADD (16-Bit)</a></th><th>Add Memory into Register</th><th class="big right">ADD (16-Bit)</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">ADDD P</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">R' &larr; R + M:M+1</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Set if an overflow is generated; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Set if a carry is generated; cleared otherwise.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Adds the 16-bit memory value into the 16-bit accumulator</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Immediate<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="AND">AND</a></th><th>Logical AND Memory into Register</th><th class="big right">AND</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">ANDA P; ANDB P</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">R' &larr; R &and; M</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Always cleared.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Performs the logical AND operation between the contents of an accumulator and the contents of memory location M and the result is stored in the accumulator.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Immediate<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="AND">AND</a></th><th>Logical AND Immediate Memory into Condition Code Register</th><th class="big right">AND</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">ANDCC #xx</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">R' &larr; R &and; MI</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Affected according to the operation.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Performs a logical AND between the condition code register and the immediate byte specified in the instruction and places the result in the condition code register.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Immediate</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="ASL">ASL</a></th><th>Arithmetic Shift Left</th><th class="big right">ASL</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">ASL Q; ASLA; ASLB</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">
+      <table>
+        <tr>
+          <td>C</td><td>&larr;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td>&larr;</td><td>0</td>
+        </tr>
+        <tr>
+          <td></td><td></td>
+          <td>b7</td><td colspan="6" class="center">&larr;</td><td>b0</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Undefined.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Loaded with the result of the exclusive OR of bits six and seven of the original operand.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Loaded with bit seven of the original operand.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Shifts all bits of the operand one place to the left. Bit zero is loaded with a zero. Bit seven is shifted into the C (carry) bit.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Inherent<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="ASR">ASR</a></th><th>Arithmetic Shift Right</th><th class="big right">ASR</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">ASR Q; ASRA; ASRB</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">
+      <table>
+        <tr>
+          <td>b7</td><td>&rarr;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td>&rarr;</td><td>C</td>
+        </tr>
+        <tr>
+          <td></td><td></td>
+          <td>b7</td><td colspan="6" class="center">&rarr;</td><td>b0</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Undefined.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Loaded with bit zero of the original operand.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Shifts all bits of the operand one place to the right. Bit seven is held constant. Bit zero is shifted into the C (carry) bit.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Inherent<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BCC">BCC</a></th><th>Branch on Carry Clear</th><th class="big right">BCC</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">BCC dd; LBCC DDDD</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; MI<br>
+IFF C = 0 then PC' &larr; PC + TEMP</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Tests the state of the C (carry) bit and causes a branch if it is clear.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Relative</td>
+  </tr>
+  <tr>
+    <td class="bold">Comments:</td><td colspan="2" class="flat">Equivalent to BHS dd; LBHS DDDD</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BCS">BCS</a></th><th>Branch on Carry Set</th><th class="big right">BCS</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">BCS dd; LBCS DDDD</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; MI<br>
+IFF C = 1 then PC' &larr; PC + TEMP</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Tests the state of the C (carry) bit and causes a branch if it is set.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Relative</td>
+  </tr>
+  <tr>
+    <td class="bold">Comments:</td><td colspan="2" class="flat">Equivalent to BLO dd; LBLO DDDD</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BEQ">BEQ</a></th><th>Branch on Equal</th><th class="big right">BEQ</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">BEQ dd; LBEQ DDDD</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; MI<br>
+IFF Z = 1 then PC' &larr; PC + TEMP</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Tests the state of the Z (zero) bit and causes a branch if it is set.
+When used after a subtract or compare operation, this instruction will branch if the compared values, signed or unsigned, were exactly the same.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Relative</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BGE">BGE</a></th><th>Branch on Greater than or Equal to Zero</th><th class="big right">BGE</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">BGE dd; LBGE DDDD</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; MI<br>
+IFF [N &oplus; V] = 0 then PC' &larr; PC + TEMP</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Causes a branch if the N (negative) bit and the V (overflow) bit are either both set or both clear.
+That is, branch if the sign of a valid twos complement result is, or would be, positive.
+When used after a subtract or compare operation on twos complement values, this instruction will branch if the register was greater than or equal to the memory operand.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Relative</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BGT">BGT</a></th><th>Branch on Greater</th><th class="big right">BGT</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">BGT dd; LBGT DDDD</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; MI<br>
+IFF Z &and; [N &oplus; V] = 0 then PC' &larr; PC + TEMP</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Causes a branch if the N (negative) bit and V (overflow) bit are either both set or both clear and the Z (zero) bit is clear.
+In other words, branch if the sign of a valid twos complement result is, or would be, positive and not zero.
+When used after a subtract or compare operation on twos complement values, this instruction will branch if the register was greater than the memory operand.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Relative</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BHI">BHI</a></th><th>Branch if Higher</th><th class="big right">BHI</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">BHI dd; LBHI DDDD</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; MI<br>
+IFF [ C &or; Z ] = 0 then PC' &larr; PC + TEMP</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Causes a branch if the previous operation caused neither a carry nor a zero result.
+When used after a subtract or compare operation on unsigned binary values, this instruction will branch if the register was higher than the memory operand.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Relative</td>
+  </tr>
+  <tr>
+    <td class="bold">Comments:</td><td colspan="2" class="flat">Generally not useful after INC/DEC, LD/TST, and TST/CLR/COM instructions.</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BHS">BHS</a></th><th>Branch if Higher or Same</th><th class="big right">BHS</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">BHS dd; LBHS DDDD</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; MI<br>
+IFF C = 0 then PC' &larr; PC + MI</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Tests the state of the C (carry) bit and causes a branch if it is clear.
+When used after a subtract or compare on unsigned binary values, this instruction will branch if the register was higher than or the same as the memory operand.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Relative</td>
+  </tr>
+  <tr>
+    <td class="bold">Comments:</td><td colspan="2" class="flat">This is a duplicate assembly-language mnemonic for the single machine instruction BCC.
+Generally not useful after INC/DEC, LD/ST, and TST/CLR/COM instructions.</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BIT">BIT</a></th><th>Bit Test</th><th class="big right">BIT</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">Bit P</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; R &and; M</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Always cleared.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Performs the logical AND of the contents of accumulator A or B and the contents of memory location M and modifies the condition codes accordingly.
+The contents of accumulator A or B and memory location M are not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Immediate<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BLE">BLE</a></th><th>Branch on Less than or Equal to Zero</th><th class="big right">BLE</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">BLE dd; LBLE DDDD</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; MI<br>
+IFF Z &or; [ N &oplus; V ] = 1 then PC' &larr; PC + TEMP</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Causes a branch if the exclusive OR of the N (negative) and V (overflow) bits is 1 or if the Z (zero) bit is set.
+That is, branch if the sign of a valid twos complement result is, or would be, negative.
+When used after a subtract or compare operation on twos complement values, this instruction will branch if the register was less than or equal to the memory operand.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Relative</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BLO">BLO</a></th><th>Branch on Lower</th><th class="big right">BLO</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">BLO dd; LBLO DDDD</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; MI<br>
+IFF C = 1 then PC' &larr; PC + TEMP</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Tests the state of the C (carry) bit and causes a branch if it is set.
+When used after a subtract or compare on unsigned binary values, this instruction will branch if the register was lower than the memory operand.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Relative</td>
+  </tr>
+  <tr>
+    <td class="bold">Comments:</td><td colspan="2" class="flat">This is a duplicate assembly-language mnemonic for the single machine instruction BCS.
+Generally not useful after INC/DEC, LD/ST, and TST/CLR/COM instructions.</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BLS">BLS</a></th><th>Branch on Lower or Same</th><th class="big right">BLS</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">BLS dd; LBLS DDDD</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; MI<br>
+IFF (C &or; Z) = 1 then PC' &larr; PC + TEMP</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Causes a branch if the previous operation caused either a carry or a zero result.
+When used after a subtract or compare operation on unsigned binary values, this instruction will branch if the register was lower than or the same as the memory operand.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Relative</td>
+  </tr>
+  <tr>
+    <td class="bold">Comments:</td><td colspan="2" class="flat">Generally not useful after INC/DEC, LD/ST, and TST/CLR/COM instructions.</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BLT">BLT</a></th><th>Branch on Less than Zero</th><th class="big right">BLT</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">BLT dd; LBLT DDDD</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; MI<br>
+IFF [ N &oplus; V ] = 1 then PC' &larr; PC + TEMP</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Causes a branch if either, but not both, of the N (negative) or V (overflow) bits is set.
+That is, branch if the sign of a valid twos complement result is, or would be, negative.
+When used after a subtract or compare operation on twos complement binary values, this instruction will branch if the register was less than the memory operand.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Relative</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BMI">BMI</a></th><th>Branch on Minus</th><th class="big right">BMI</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">BMI dd; LBMI DDDD</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; MI<br>
+IFF N = 1 then PC' &larr; PC + TEMP</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Tests the state of the N (negative) bit and causes a branch if set.
+That is, branch if the sign of the twos complement result is negative.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Relative</td>
+  </tr>
+  <tr>
+    <td class="bold">Comments:</td><td colspan="2" class="flat">When used after an operation on signed binary values, this instruction will branch if the result is minus.
+It is generally preferred to use the LBLT instruction after signed operations.</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BNE">BNE</a></th><th>Branch Not Equal</th><th class="big right">BNE</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">BNE dd; LBNE DDDD</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; MI<br>
+IFF Z = 0 then PC' &larr; PC + TEMP</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Tests the state of the Z (zero) bit and causes a branch if it is clear.
+When used after a subtract or compare operation on any binary values, this instruction will branch if the register is, or would be, not equal to the memory operand.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Relative</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BPL">BPL</a></th><th>Branch on Plus</th><th class="big right">BPL</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">BPL dd; LBPL DDDD</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; MI<br>
+IFF N = 0 then PC' &larr; PC + TEMP</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Tests the state of the N (negative) bit and causes a branch if it is clear.
+That is, branch if the sign of the twos complement result is positive.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Relative</td>
+  </tr>
+  <tr>
+    <td class="bold">Comments:</td><td colspan="2" class="flat">When used after an operation on signed binary values, this instruction will branch if the result (possibly invalid) is positive.
+It is generally preferred to use the BGE instruction after signed operations.</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BRA">BRA</a></th><th>Branch Always</th><th class="big right">BRA</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">BRA dd; LBRA DDDD</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; MI<br>
+PC' &larr; PC + TEMP</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Causes an unconditional branch.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Relative</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BRN">BRN</a></th><th>Branch Never</th><th class="big right">BRN</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">BRN dd; LBRN DDDD</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; MI</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Does not cause a branch.
+This instruction is essentially a no operation, but has a bit pattern logically related to branch always.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Relative</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BSR">BSR</a></th><th>Branch to Subroutine</th><th class="big right">BSR</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">BSR dd; LBSR DDDD</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; MI<br>
+SP' &larr; SP-1, (SP) &larr; PCL<br>
+SP' &larr; SP-1, (SP) &larr; PCH<br>
+PC' &larr; PC + TEMP</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">The program counter is pushed onto the stack.
+The program counter is then loaded with the sum of the program counter and the offset.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Relative</td>
+  </tr>
+  <tr>
+    <td class="bold">Comments:</td><td colspan="2" class="flat">A return from subroutine (RTS) instruction is used to reverse this process and must be the last instruction executed in a subroutine.</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BVC">BVC</a></th><th>Branch on Overflow Clear</th><th class="big right">BVC</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">BVC dd; LBVC DDDD</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; MI<br>
+IFF V = 0 then PC' &larr; PC + TEMP</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Tests the state of the V (overflow) bit and causes a branch if it is clear.
+That is, branch if the twos complement result was valid.
+When used after an operation on twos complement binary values, this instruction will branch if there was no overflow.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Relative</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="BVS">BVS</a></th><th>Branch on Overflow Set</th><th class="big right">BVS</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">BVS dd; LBVS DDDD</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP' &larr; MI<br>
+IFF V = 1 then PC' &larr; PC + TEMP</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Tests the state of the V (overflow) bit and causes a branch if it is set.
+That is, branch if the twos complement result was invalid.
+When used after an operation on twos complement binary values, this instruction will branch if there was an overflow.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Relative</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="CLR">CLR</a></th><th>Clear</th><th class="big right">CLR</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">CLR Q</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; M<br>
+M &larr; 00<sub>16</sub></td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Always cleared.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Always set.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Always cleared.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Always cleared.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+<td class="bold">Description:</td><td colspan="2" class="flat">Accumulator A or B or memory location M is loaded with 00000000<span class="correction"><sub>2</sub></span>.
+Note that the EA is read during this operation.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Inherent<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="CMP (8-Bit)">CMP (8-Bit)</a></th><th>Compare Memory from Register</th><th class="big right">CMP (8-Bit)</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">CMPA P; CMPB P</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; R - M</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Undefined.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Set if an overflow is generated; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Set if a borrow is generated; cleared otherwise.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Compares the contents of memory location to the contents of the specified register and sets the appropriate condition codes.
+Neither memory location M nor the specified register is modified.
+The carry flag represents a borrow and is set to the inverse of the resulting binary carry.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Immediate<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="CMP (16-Bit)">CMP (16-Bit)</a></th><th>Compare Memory from Register</th><th class="big right">CMP (16-Bit)</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">CMPD P; CMPX P; CMPY P; CMPU P; CMPS P</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; R - M:M+1</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Set if an overflow is generated; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Set if a borrow is generated; cleared otherwise.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Compares the 16-bit contents of the concatenated memory locations M:M+1 to the contents of the specified register and sets the appropriate condition codes.
+Neither the memory locations nor the specified register is modified unless autoincrement or autodecrement are used.
+The carry flag represents a borrow and is set to the inverse of the resulting binary carry.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Immediate<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="COM">COM</a></th><th>Complement</th><th class="big right">COM</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">COM Q; COMA; COMB</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">M' &larr; 0 + <span class="lowsignal">M</span></td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Always cleared.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Always set.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Replaces the contents of memory location M or accumulator A or B with its logical complement.
+When operating on unsigned values, only BEQ and BNE branches can be expected to behave properly following a COM instruction.
+When operating on twos complement values, all signed branches are available.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Inherent<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="CWAI">CWAI</a></th><th>Clear CC bits and Wait for Interrupt</th><th class="big right">CWAI</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">
+      <table>
+        <tr>
+      	  <td>CWAI #$XX</td><td></td>
+      	  <td class="bitbox">E</td><td class="bitbox">F</td><td class="bitbox">H</td><td class="bitbox">I</td>
+      	  <td class="bitbox">N</td><td class="bitbox">Z</td><td class="bitbox">V</td><td class="bitbox">C</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">CCR &larr; CCR &and; MI (Possibly clear masks)<br>
+Set E (entire state saved)<br>
+SP' &larr; SP-1, (SP) &larr; PCL<br>
+SP' &larr; SP-1, (SP) &larr; PCH<br>
+SP' &larr; SP-1, (SP) &larr; USL<br>
+SP' &larr; SP-1, (SP) &larr; USH<br>
+SP' &larr; SP-1, (SP) &larr; IYL<br>
+SP' &larr; SP-1, (SP) &larr; IYH<br>
+SP' &larr; SP-1, (SP) &larr; IXL<br>
+SP' &larr; SP-1, (SP) &larr; IXH<br>
+SP' &larr; SP-1, (SP) &larr; DPR<br>
+SP' &larr; SP-1, (SP) &larr; ACCB<br>
+SP' &larr; SP-1, (SP) &larr; ACCA<br>
+SP' &larr; SP-1, (SP) &larr; CCR</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Affected according to the operation.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">This instruction ANDs an immediate byte with the condition code register which may clear the interrupt mask bits I and F, stacks the entire machine state on the hardware stack and then looks for an interrupt.
+When a non-masked interrupt occurs, no further machine state information need be saved before vectoring to the interrupt handling routine.
+This instruction replaced the MC6800 CLI WAI sequence, but does not place the buses in a high-impedance state.
+A <span class="lowsignal">FIRQ</span> (fast interrupt request) may enter its interrupt handler with its entire machine state saved.
+The RTI (return from interrupt) instruction will automatically return the entire machine state after testing the E (entire) bit of the recovered condition code register.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Immediate</td>
+  </tr>
+  <tr>
+    <td class="bold">Comments:</td><td colspan="2" class="flat">The following immediate values will have the following results:<br>
+FF = enable neither<br>
+EF = enable <span class="lowsignal">IRQ</span><br>
+BF = enable <span class="lowsignal">FIRQ</span><br>
+AF = enable both</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="DAA">DAA</a></th><th>Decimal Addition Adjust</th><th class="big right">DAA</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">DAA</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">ACCA' &larr; ACCA + CF(MSN):CF(LSN)<br>
+where CF is a Correction Factor, as follows: the CF for each nibble (BCD) digit is determined separately, and is either 6 or 0.<br>
+      <table>
+        <tr>
+          <th class="left">Least Significant Nibble</th>
+        </tr>
+        <tr>
+          <td class="right">CF(LSN) = 6 IFF 1)</td><td>C = 1</td>
+        </tr>
+        <tr>
+          <td class="right">or 2)</td><td>LSN &gt; 9</td>
+        </tr>
+        <tr>
+          <th class="right">Most Significant Nibble</th>
+        </tr>
+        <tr>
+          <td class="right">CF(MSN) = 6 IFF 1)</td><td>C = 1</td>
+        </tr>
+        <tr>
+          <td class="right">or 2)</td><td>MSN &gt; 9</td>
+        </tr>
+        <tr>
+          <td class="right">or 3)</td><td>MSN &gt; 8 and LSN &gt; 9</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Undefined.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Set if a carry is generated or if the carry bit was set before the operation; cleared otherwise.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">The sequence of a single-byte add instruction on accumulator A (either ADDA or ADCA) and a following decimal addition adjust instruction results in a BCD addition with an appropriate carry bit.
+Both values to be added must be in proper BCD form (each nibble such that: 0 &le; nibble &le; 9).
+Multiple-precision addition must add the carry generated by this decimal addition adjust into the next higher digit during the add operation (ADCA) immediately prior to the next decimal addition adjust.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Inherent</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="DEC">DEC</a></th><th>Decrement</th><th class="big right">DEC</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">DEC Q; DECA; DECB</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">M' &larr; M - 1</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Set if the original operand was 10000000<span class="correction"><sub>2</sub></span>; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Subtract one from the operand.
+The carry bit is not affected, thus allowing this instruction to be used as a loop counter in multiple-precision computations.
+When operating on unsigned values, only BEQ and BNE branches can be expected to behave consistently.
+When operating on twos complement values, all signed branches are available.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Inherent<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="EOR">EOR</a></th><th>Exclusive OR</th><th class="big right">EOR</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">EORA P; EORB P</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">R' &larr; R &oplus; M</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Always cleared.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">The contents of memory location M is exclusive ORed into an 8-bit register.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Immediate<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="EXG">EXG</a></th><th>Exchange Registers</th><th class="big right">EXG</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">EXG R1,R2</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">R1 &harr; R2</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected (unless one of the registers is the condition code
+register).</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Exchanges data between two designated registers.
+Bits 3-0 of the postbyte define one register, while bits 7-4 define the other, as follows:<br>
+<table>
+  <tr>
+    <td class="right">0000 =</td><td>A:B</td><td>&nbsp;&nbsp;&nbsp;</td><td class="right">1000 =</td><td>A</td>
+  </tr>
+  <tr>
+    <td class="right">0001 =</td><td>X</td><td></td><td class="right">1001 =</td><td>B</td>
+  </tr>
+  <tr>
+    <td class="right">0010 =</td><td>Y</td><td></td><td class="right">1010 =</td><td>CCR</td>
+  </tr>
+  <tr>
+    <td class="right">0011 =</td><td>US</td><td></td><td class="right">1011 =</td><td>DPR</td>
+  </tr>
+  <tr>
+    <td class="right">0100 =</td><td>SP</td><td></td><td class="right">1100 =</td><td>Undefined</td>
+  </tr>
+  <tr>
+    <td class="right">0101 =</td><td>PC</td><td></td><td class="right">1101 =</td><td>Undefined</td>
+  </tr>
+  <tr>
+    <td class="right">0110 =</td><td>Undefined</td><td></td><td class="right">1110 =</td><td>Undefined</td>
+  </tr>
+  <tr>
+    <td class="right">0111 =</td><td>Undefined</td><td></td><td class="right">1111 =</td><td>Undefined</td>
+  </tr>
+</table>
+Only like size registers may be exchanged. (8-bit with 8-bit or 16-bit with 16-bit.)</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Immediate</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="INC">INC</a></th><th>Increment</th><th class="big right">INC</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">INC Q; INCA; INCB</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">M' &larr; M + 1</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Set if the original operand was 01111111<span class="correction"><sub>2</sub></span>; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Adds to the operand.
+The carry bit is not affected, thus allowing this instruction to be used as a loop counter in multiple-precision computations.
+When operating on unsigned values, only the BEQ and BNE branches can be expected to behave consistently.
+When operating on twos complement values, all signed branches are correctly available.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Inherent<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="JMP">JMP</a></th><th>Jump</th><th class="big right">JMP</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">JMP EA</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">PC' &larr; EA</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Program control is transferred to the effective address.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="JSR">JSR</a></th><th>Jump to Subroutine</th><th class="big right">JSR</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">JSR EA</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">SP' &larr; SP-1, (SP) &larr; PCL<br>
+SP' &larr; SP-1, (SP) &larr; PCH<br>
+PC' &larr;EA</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Program control is transferred to the effective address after storing the return address on the hardware stack.
+A RTS instruction should be the last executed instruction of the subroutine.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="LD (8-Bit)">LD (8-Bit)</a></th><th>Load Register from Memory</th><th class="big right">LD (8-Bit)</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">LDA P; LDB P</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">R' &larr; M</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the loaded data is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the loaded data is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Always cleared.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Loads the contents of memory location M into the designated register.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Immediate<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="LD (16-Bit)">LD (16-Bit)</a></th><th>Load Register from Memory</th><th class="big right">LD (16-Bit)</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">LDD P; LDX P; LDY P; LDS P; LDU P</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">R' &larr; M:M+1</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the loaded data is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the loaded data is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Always cleared.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Load the contents of the memory location M:M+1 into the designated 16-bit register.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Immediate<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="LEA">LEA</a></th><th>Load Effective Address</th><th class="big right">LEA</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">LEAX, LEAY, LEAS, LEAU</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">R' &larr; EA</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>LEAX, LEAY: Set if the result is zero; cleared otherwise.<br>
+LEAS, LEAU: Not affected.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Calculates the effective address from the indexed addressing mode and places the address in an indexable register.<br>
+<br>
+LEAX and LEAY affect the Z (zero) bit to allow use of these registers as counters and for MC6800 INX/DEX compatibility.<br>
+<br>
+LEAU and LEAS do not affect the Z bit to allow cleaning up the stack while returning the Z bit as a parameter to a calling routine, and also for MC6800 INS/DES compatibility.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Indexed</td>
+  </tr>
+  <tr>
+    <td class="bold">Comments:</td><td colspan="2" class="flat">Due to the order in which effective addresses are calculated internally, the LEAX ,X++ and LEAX ,X+ do not add 2 and 1 (respectively) to the X register; but instead leave the X register unchanged.
+This also applies to the Y, U, and S registers.
+For the expected results, use the faster instruction LEAX 2,X and LEAX 1,X.<br>
+<br>
+Some examples of LEA instruction uses are given in the following table.<br>
+<table>
+  <tr>
+    <th colspan="2">Instruction</th><th></th><th>Operation</th><th></th><th>Comment</th>
+  </tr>
+  <tr>
+    <td>LEAX</td><td class="right">10,X</td><td></td><td>X+10 &rarr; X</td><td></td><td>Adds 5-bit constant 10 to X</td>
+  </tr>
+  <tr>
+    <td>LEAX</td><td class="right">500,X</td><td></td><td>X+500 &rarr; X</td><td></td><td>Adds 16-bit constant 500 to X</td>
+  </tr>
+  <tr>
+    <td>LEAY</td><td class="right">A,Y</td><td></td><td>Y+A &rarr; Y</td><td></td><td>Adds 8-bit accumulator to Y</td>
+  </tr>
+  <tr>
+    <td>LEAY</td><td class="right">D,Y</td><td></td><td>Y+D &rarr; Y</td><td></td><td>Adds 16-bit D accumulator to Y</td>
+  </tr>
+  <tr>
+    <td>LEAU</td><td class="right">-10,U</td><td></td><td>U-10 &rarr; U</td><td></td><td>Subtracts 10 from U</td>
+  </tr>
+  <tr>
+    <td>LEAS</td><td class="right">-10,S</td><td></td><td>S-10 &rarr; S</td><td></td><td>Used to reserve area on stack</td>
+  </tr>
+  <tr>
+    <td>LEAS</td><td class="right">10,S</td><td></td><td>S+10 &rarr; S</td><td></td><td>Used to 'clean up' stack</td>
+  </tr>
+  <tr>
+    <td>LEAX</td><td class="right">5,S</td><td></td><td>S+5 &rarr; X</td><td></td><td>Transfers as well as adds</td>
+  </tr>
+</table>
+    </td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="LSL">LSL</a></th><th>Logical Shift Left</th><th class="big right">LSL</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">LSL Q; LSLA; LSLB</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">
+      <table>
+        <tr>
+          <td>C</td><td>&larr;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td>&larr;</td><td>0</td>
+        </tr>
+        <tr>
+          <td></td><td></td>
+          <td>b7</td><td colspan="6" class="center">&larr;</td><td>b0</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Undefined.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Loaded with the result of the exclusive OR of bits six and seven of the original operand.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Loaded with bit seven of the original operand.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Shifts all bits of accumulator A or B or memory location M one place to the left.
+Bit zero is loaded with a zero.
+Bit seven of accumulator A or B or memory location M is shifted into the C (carry) bit.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Inherent<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+  <tr>
+    <td class="bold">Comments:</td><td colspan="2" class="flat">This is a duplicate assembly-language mnemonic for the single machine instruction ASL.</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="LSR">LSR</a></th><th>Logical Shift Right</th><th class="big right">LSR</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">LSR Q; LSRA; LSRB</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">
+      <table>
+        <tr>
+          <td>0</td><td>&rarr;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td>&rarr;</td><td>C</td>
+        </tr>
+        <tr>
+          <td></td><td></td>
+          <td>b7</td><td colspan="6" class="center">&rarr;</td><td>b0</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Always cleared.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Loaded with bit zero of the original operand.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Performs a logical shift right on the operand.
+Shifts a zero into bit seven and bit zero into the C (carry) bit.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Inherent<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="MUL">MUL</a></th><th>Multiply</th><th class="big right">MUL</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">MUL</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">ACCA':ACCB' &larr; ACCA &times; ACCB</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Set if ACCB bit 7 of result is set; cleared otherwise.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Multiply the unsigned binary numbers in the accumulators and place the result in both accumulators (ACCA contains the most-significant byte of the result).
+Unsigned multiply allows multiple-precision operations.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Inherent</td>
+  </tr>
+  <tr>
+    <td class="bold">Comments:</td><td colspan="2" class="flat">The C (carry) bit allows rounding the most-significant byte through the sequence: MUL, ADCA #0.</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="NEG">NEG</a></th><th>Negate</th><th class="big right">NEG</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">NEG Q; NEGA; NEG B</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">M' &larr; 0 - M</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Undefined.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Set if the original operand was 10000000<span class="correction"><sub>2</sub></span>.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Set if a borrow is generated; cleared otherwise.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Replaces the operand with its twos complement.
+The C (carry) bit represents a borrow and is set to the inverse of the resulting binary carry.
+Note that 80<sub>16</sub> is replaced by itself and only in this case is the V (overflow) bit set.
+The value 00<sub>16</sub> is also replaced by itself, and only in this case is the C (carry) bit cleared.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Inherent<br>Extended<br>Direct</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="NOP">NOP</a></th><th>No Operation</th><th class="big right">NOP</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">NOP</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">This instruction causes only the program counter to be incremented.
+No other registers or memory locations are affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Inherent</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="OR">OR</a></th><th>Inclusive OR Memory into Register</th><th class="big right">OR</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">ORA P; ORB P</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">R' &larr; R &or; M</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Always cleared.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Performs an inclusive OR operation between the contents of accumulator A or B and the contents of memory location M and the result is stored in accumulator A or B.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Immediate<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="OR">OR</a></th><th>Inclusive OR Memory Immediate into Condition Code Register</th><th class="big right">OR</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">ORCC #XX</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">R' &larr; R &or; MI</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Affected according to the operation.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Performs an inclusive OR operation between the contents of the condition code registers and the immediate value, and the result is placed in the condition code register.
+This instruction may be used to set interrupt masks (disable interrupts) or any other bit(s).</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Immediate</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="PSHS">PSHS</a></th><th>Push Registers on the Hardware Stack</th><th class="big right">PSHS</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">PSHS register list<br>
+PSHS #LABEL<br>
+Postbyte:<br>
+      <table>
+        <tr>
+          <td class="bit">b7</td><td class="bit">b6</td><td class="bit">b5</td><td class="bit">b4</td>
+          <td class="bit">b3</td><td class="bit">b2</td><td class="bit">b1</td><td class="bit">b0</td>
+        </tr>
+        <tr>
+          <td class="bitbox">PC</td><td class="bitbox">U</td><td class="bitbox">Y</td><td class="bitbox">X</td>
+          <td class="bitbox">DP</td><td class="bitbox">B</td><td class="bitbox">A</td><td class="bitbox">CC</td>
+        </tr>
+        <tr>
+          <td colspan="8" class="center">push order &rarr;</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">
+      <table>
+        <tr>
+          <td class="top left">IFF b7 of postbyte set, then:</td><td>SP' &larr; SP-1, (SP) &larr; PCL<br>SP' &larr; SP-1, (SP) &larr; PCH</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b6 of postbyte set, then:</td><td>SP' &larr; SP-1, (SP) &larr; USL<br>SP' &larr; SP-1, (SP) &larr; USH</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b5 of postbyte set, then:</td><td>SP' &larr; SP-1, (SP) &larr; IYL<br>SP' &larr; SP-1, (SP) &larr; IYH</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b4 of postbyte set, then:</td><td>SP' &larr; SP-1, (SP) &larr; IXL<br>SP' &larr; SP-1, (SP) &larr; IXH</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b3 of postbyte set, then:</td><td>SP' &larr; SP-1, (SP) &larr; DPR</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b2 of postbyte set, then:</td><td>SP' &larr; SP-1, (SP) &larr; ACCB</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b1 of postbyte set, then:</td><td>SP' &larr; SP-1, (SP) &larr; ACCA</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b0 of postbyte set, then:</td><td>SP' &larr; SP-1, (SP) &larr; CCR</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">All, some, or none of the processor registers are pushed onto the hardware stack (with the exception of the hardware stack pointer itself).</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Immediate</td>
+  </tr>
+  <tr>
+    <td class="bold">Comments:</td><td colspan="2" class="flat">A single register may be placed on the stack with the condition codes set by doing an autodecrement store onto the stack (example: STX ,--S).</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="PSHU">PSHU</a></th><th>Push Registers on the User Stack</th><th class="big right">PSHU</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">PSHU register list<br>
+PSHU #LABEL<br>
+Postbyte:<br>
+      <table>
+        <tr>
+          <td class="bit">b7</td><td class="bit">b6</td><td class="bit">b5</td><td class="bit">b4</td>
+          <td class="bit">b3</td><td class="bit">b2</td><td class="bit">b1</td><td class="bit">b0</td>
+        </tr>
+        <tr>
+          <td class="bitbox">PC</td><td class="bitbox"><span class="correction">S</span></td><td class="bitbox">Y</td><td class="bitbox">X</td>
+          <td class="bitbox">DP</td><td class="bitbox">B</td><td class="bitbox">A</td><td class="bitbox">CC</td>
+        </tr>
+        <tr>
+          <td colspan="8" class="center">push order &rarr;</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">
+      <table>
+        <tr>
+          <td class="top left">IFF b7 of postbyte set, then:</td><td>US' &larr; US-1, (US) &larr; PCL<br>US' &larr; US-1, (US) &larr; PCH</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b6 of postbyte set, then:</td><td>US' &larr; US-1, (US) &larr; SPL<br>US' &larr; US-1, (US) &larr; SPH</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b5 of postbyte set, then:</td><td>US' &larr; US-1, (US) &larr; IYL<br>US' &larr; US-1, (US) &larr; IYH</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b4 of postbyte set, then:</td><td>US' &larr; US-1, (US) &larr; IXL<br>US' &larr; US-1, (US) &larr; IXH</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b3 of postbyte set, then:</td><td>US' &larr; US-1, (US) &larr; DPR</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b2 of postbyte set, then:</td><td>US' &larr; US-1, (US) &larr; ACCB</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b1 of postbyte set, then:</td><td>US' &larr; US-1, (US) &larr; ACCA</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b0 of postbyte set, then:</td><td>US' &larr; US-1, (US) &larr; CCR</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">All, some, or none of the processor registers are pushed onto the user stack (with the exception of the user stack pointer itself).</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Immediate</td>
+  </tr>
+  <tr>
+    <td class="bold">Comments:</td><td colspan="2" class="flat">A single register may be placed on the stack with the condition codes set by doing an autodecrement store onto the stack (example: STX ,--U).</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="PULS">PULS</a></th><th>Pull Registers from the Hardware Stack</th><th class="big right">PULS</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">PULS register list<br>
+PULS #LABEL<br>
+Postbyte:<br>
+      <table>
+        <tr>
+          <td class="bit">b7</td><td class="bit">b6</td><td class="bit">b5</td><td class="bit">b4</td>
+          <td class="bit">b3</td><td class="bit">b2</td><td class="bit">b1</td><td class="bit">b0</td>
+        </tr>
+        <tr>
+          <td class="bitbox">PC</td><td class="bitbox">U</td><td class="bitbox">Y</td><td class="bitbox">X</td>
+          <td class="bitbox">DP</td><td class="bitbox">B</td><td class="bitbox">A</td><td class="bitbox">CC</td>
+        </tr>
+        <tr>
+          <td colspan="8" class="center">&larr; pull order</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">
+      <table>
+        <tr>
+          <td class="top left">IFF b0 of postbyte set, then:</td><td>CCR'</td><td class="right">&larr; (SP), SP' &larr; SP+1</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b1 of postbyte set, then:</td><td>ACCA'</td><td class="right">&larr; (SP), SP' &larr; SP+1</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b2 of postbyte set, then:</td><td>ACCB'</td><td class="right">&larr; (SP), SP' &larr; SP+1</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b3 of postbyte set, then:</td><td>DPR'</td><td class="right">&larr; (SP), SP'  &larr; SP+1</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b4 of postbyte set, then:</td><td>IXH'<br>IXL'</td><td class="right">&larr; (SP), SP' &larr; SP+1<br>&larr; (SP), SP' &larr; SP+1</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b5 of postbyte set, then:</td><td>IYH'<br>IYL'</td><td class="right">&larr; (SP), SP' &larr; SP+1<br>&larr; (SP), SP' &larr; SP+1</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b6 of postbyte set, then:</td><td>USH'<br>USL'</td><td class="right">&larr; (SP), SP' &larr; SP+1<br>&larr; (SP), SP' &larr; SP+1</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b7 of postbyte set, then:</td><td>PCH'<br>PCL'</td><td class="right">&larr; (SP), SP' &larr; SP+1<br>&larr; (SP), SP' &larr; SP+1</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">May be pulled from stack; not affected otherwise.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">All, some, or none of the processor registers are pulled from the hardware stack (with the exception of the hardware stack pointer itself).</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Immediate</td>
+  </tr>
+  <tr>
+    <td class="bold">Comments:</td><td colspan="2" class="flat">A single register may be pulled from the stack with condition codes set by doing an autoincrement load from the stack (example: LDX ,S++).</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="PULU">PULU</a></th><th>Pull Registers from the User Stack</th><th class="big right">PULU</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">PULU register list<br>
+PULU #LABEL<br>
+Postbyte:<br>
+      <table>
+        <tr>
+          <td class="bit">b7</td><td class="bit">b6</td><td class="bit">b5</td><td class="bit">b4</td>
+          <td class="bit">b3</td><td class="bit">b2</td><td class="bit">b1</td><td class="bit">b0</td>
+        </tr>
+        <tr>
+          <td class="bitbox">PC</td><td class="bitbox"><span class="correction">S</span></td><td class="bitbox">Y</td><td class="bitbox">X</td>
+          <td class="bitbox">DP</td><td class="bitbox">B</td><td class="bitbox">A</td><td class="bitbox">CC</td>
+        </tr>
+        <tr>
+          <td colspan="8" class="center">&larr; pull order</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">      <table>
+        <tr>
+          <td class="top left">IFF b0 of postbyte set, then:</td><td>CCR'</td><td class="right">&larr; (US), US' &larr; US+1</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b1 of postbyte set, then:</td><td>ACCA'</td><td class="right">&larr; (US), US' &larr; US+1</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b2 of postbyte set, then:</td><td>ACCB'</td><td class="right">&larr; (US), US' &larr; US+1</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b3 of postbyte set, then:</td><td>DPR'</td><td class="right">&larr; (US), US' &larr; US+1</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b4 of postbyte set, then:</td><td>IXH'<br>IXL'</td><td class="right">&larr; (US), US' &larr; US+1<br>&larr; (US), US' &larr; US+1</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b5 of postbyte set, then:</td><td>IYH'<br>IYL'</td><td class="right">&larr; (US), US' &larr; US+1<br>&larr; (US), US' &larr; US+1</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b6 of postbyte set, then:</td><td>SPH'<br>SPL'</td><td class="right">&larr; (US), US' &larr; US+1<br>&larr; (US), US' &larr; US+1</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF b7 of postbyte set, then:</td><td>PCH'<br>PCL'</td><td class="right">&larr; (US), US' &larr; US+1<br>&larr; (US), US' &larr; US+1</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">May be pulled from stack; not affected otherwise.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">All, some, or none of the processor registers are pulled from the user stack (with the exception of the user stack pointer itself).</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Immediate</td>
+  </tr>
+  <tr>
+    <td class="bold">Comments:</td><td colspan="2" class="flat">A single register may be pulled from the stack with condition codes set by doing an autoincrement load from the stack (example: LDX ,U++).</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="ROL">ROL</a></th><th>Rotate Left</th><th class="big right">ROL</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">ROL Q; ROLA; ROLB</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">
+      <table>
+        <tr>
+          <td>C</td><td>&larr;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td>&larr;</td><td>C</td>
+        </tr>
+        <tr>
+          <td></td><td></td>
+          <td>b7</td><td colspan="6" class="center">&larr;</td><td>b0</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Loaded with the result of the exclusive OR of bits six and seven of the original operand.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Loaded with bit seven of the original operand.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Rotates all bits of the operand one place left through the C (carry) bit.
+This is a 9-bit rotation.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Inherent<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="ROR">ROR</a></th><th>Rotate Right</th><th class="big right">ROR</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">ROR Q; RORA; RORB</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">
+      <table>
+        <tr>
+          <td>C</td><td>&rarr;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td><td class="bitbox">&nbsp;</td>
+          <td>&rarr;</td><td>C</td>
+        </tr>
+        <tr>
+          <td></td><td></td>
+          <td>b7</td><td colspan="6" class="center">&rarr;</td><td>b0</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Loaded with bit zero of the previous operand.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Rotates all bits of the operand one place right through the C (carry) bit.
+This is a 9-bit rotation.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Inherent<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="RTI">RTI</a></th><th>Return from Interrupt</th><th class="big right">RTI</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">RTI</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">CCR' &larr; (SP), SP' &larr; SP+1, then<br>
+      <table>
+        <tr>
+          <td class="top left">IFF CCR bit E is set, then:</td>
+          <td>ACCA'<br>ACCB'<br>DPR'<br>IXH'<br>IXL'<br>IYH'<br>IYL'<br>USH'<br>USL'<br>PCH'<br>PCL'</td>
+          <td class="right">&larr; (SP), SP' &larr; SP+1<br>
+&larr; (SP), SP' &larr; SP+1<br>
+&larr; (SP), SP' &larr; SP+1<br>
+&larr; (SP), SP' &larr; SP+1<br>
+&larr; (SP), SP' &larr; SP+1<br>
+&larr; (SP), SP' &larr; SP+1<br>
+&larr; (SP), SP' &larr; SP+1<br>
+&larr; (SP), SP' &larr; SP+1<br>
+&larr; (SP), SP' &larr; SP+1<br>
+&larr; (SP), SP' &larr; SP+1<br>
+&larr; (SP), SP' &larr; SP+1</td>
+        </tr>
+        <tr>
+          <td class="top left">IFF CCR bit E is clear, then:</td>
+          <td>PCH'<br>PCL'</td>
+          <td class="right">&larr; (SP), SP' &larr; SP+1<br>&larr; (SP), SP' &larr; SP+1</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Recovered from the stack.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">The saved machine state is recovered from the hardware stack and control is returned to the interrupted program.
+If the recovered E (entire) bit is clear, it indicates that only a subset of the machine state was saved (return address and condition codes) and only that subset is recovered.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Inherent</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="RTS">RTS</a></th><th>Return from Subroutine</th><th class="big right">RTS</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">RTS</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">PCH' &larr; (SP), SP' &larr; SP+1<br>
+PCL' &larr; (SP), SP' &larr; SP+1</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Program control is returned from the subroutine to the calling program.
+The return address is pulled from the stack.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Inherent</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="SBC">SBC</a></th><th>Subtract with Borrow</th><th class="big right">SBC</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">SBCA P; SBCB P</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">R' &larr; R - M - C</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Undefined.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Set if an overflow is generated; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Set if a borrow is generated; cleared otherwise.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Subtracts the contents of memory location M and the borrow (in the C (carry) bit) from the contents of the designated 8-bit register, and places the result in that register.
+The C bit represents a borrow and is set to the inverse of the resulting binary carry.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Immediate<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="SEX">SEX</a></th><th>Sign Extended</th><th class="big right">SEX</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">SEX</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">If bit seven of ACCB is set then ACCA' &larr; FF<sub>16</sub> else ACCA' &larr; 00<sub>16</sub></td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">This instruction transforms a twos complement 8-bit value in accumulator B into a twos complement 16-bit value in the D accumulator.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Inherent</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="ST (8-Bit)">ST (8-Bit)</a></th><th>Store Register into Memory</th><th class="big right">ST (8-Bit)</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">STA P; STB P</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">M' &larr; R</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Always cleared.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Writes the contents of an 8-bit register into a memory location.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="ST (16-Bit)">ST (16-Bit)</a></th><th>Store Register into Memory</th><th class="big right">ST (16-Bit)</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">STD P; STX P; STY P; STS P; STU P</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">M':M+1' &larr; R</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Always cleared.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Writes the contents of a 16-bit register into two consecutive memory locations.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="SUB (8-Bit)">SUB (8-Bit)</a></th><th>Subtract Memory from Register</th><th class="big right">SUB (8-Bit)</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">SUBA P; SUBB P</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">R' &larr; R - M</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Undefined.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Set if the overflow is generated; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Set if a borrow is generated; cleared otherwise.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Subtracts the value in memory location M from the contents of a designated 8-bit register.
+The C (carry) bit represents a borrow and is set to the inverse of the resulting binary carry.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Immediate<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="SUB (16-Bit)">SUB (16-Bit)</a></th><th>Subtract Memory from Register</th><th class="big right">SUB (16-Bit)</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">SUBD P</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">R' &larr; R - M:M+1</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Set if the overflow is generated; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Set if a borrow is generated; cleared otherwise.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Subtracts the value in memory location M:M+1 from the contents of a designated 16-bit register.
+The C (carry) bit represents a borrow and is set to the inverse of the resulting binary carry.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Immediate<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="SWI">SWI</a></th><th>Software Interrupt</th><th class="big right">SWI</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">SWI</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">Set E (entire state will be saved)<br>
+SP' &larr; SP-1, (SP) &larr; PCL<br>
+SP' &larr; SP-1, (SP) &larr; PCH<br>
+SP' &larr; SP-1, (SP) &larr; USL<br>
+SP' &larr; SP-1, (SP) &larr; USH<br>
+SP' &larr; SP-1, (SP) &larr; IYL<br>
+SP' &larr; SP-1, (SP) &larr; IYH<br>
+SP' &larr; SP-1, (SP) &larr; IXL<br>
+SP' &larr; SP-1, (SP) &larr; IXH<br>
+SP' &larr; SP-1, (SP) &larr; DPR<br>
+SP' &larr; SP-1, (SP) &larr; ACCB<br>
+SP' &larr; SP-1, (SP) &larr; ACCA<br>
+SP' &larr; SP-1, (SP) &larr; CCR<br>
+Set I, F (mask interrupts)<br>
+PC' &larr; (FFFA):(FFFB)</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">All of the processor registers are pushed onto the hardware stack (with the exception of the hardware stack pointer itself), and control is transferred through the software interrupt vector.
+Both the normal and fast interrupts are masked (disabled).</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Inherent</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="SWI2">SWI2</a></th><th>Software Interrupt 2</th><th class="big right">SWI2</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">SWI2</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">Set E (entire state saved)<br>
+SP' &larr; SP-1, (SP) &larr; PCL<br>
+SP' &larr; SP-1, (SP) &larr; PCH<br>
+SP' &larr; SP-1, (SP) &larr; USL<br>
+SP' &larr; SP-1, (SP) &larr; USH<br>
+SP' &larr; SP-1, (SP) &larr; IYL<br>
+SP' &larr; SP-1, (SP) &larr; IYH<br>
+SP' &larr; SP-1, (SP) &larr; IXL<br>
+SP' &larr; SP-1, (SP) &larr; IXH<br>
+SP' &larr; SP-1, (SP) &larr; DPR<br>
+SP' &larr; SP-1, (SP) &larr; ACCB<br>
+SP' &larr; SP-1, (SP) &larr; ACCA<br>
+SP' &larr; SP-1, (SP) &larr; CCR<br>
+PC' &larr; (FFF4):(FFF5)</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">All of the processor registers are pushed onto the hardware stack (with the exception of the hardware stack pointer itself), and control is transferred through the software interrupt 2 vector.
+This interrupt is available to the end user and must not be used in packaged software.
+This interrupt does not mask (disable) the normal and fast interrupts.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Inherent</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="SWI3">SWI3</a></th><th>Software Interrupt 3</th><th class="big right">SWI3</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">SWI3</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">Set E (entire state will be saved)<br>
+SP' &larr; SP-1, (SP) &larr; PCL<br>
+SP' &larr; SP-1, (SP) &larr; PCH<br>
+SP' &larr; SP-1, (SP) &larr; USL<br>
+SP' &larr; SP-1, (SP) &larr; USH<br>
+SP' &larr; SP-1, (SP) &larr; IYL<br>
+SP' &larr; SP-1, (SP) &larr; IYH<br>
+SP' &larr; SP-1, (SP) &larr; IXL<br>
+SP' &larr; SP-1, (SP) &larr; IXH<br>
+SP' &larr; SP-1, (SP) &larr; DPR<br>
+SP' &larr; SP-1, (SP) &larr; ACCB<br>
+SP' &larr; SP-1, (SP) &larr; ACCA<br>
+SP' &larr; SP-1, (SP) &larr; CCR<br>
+PC' &larr; (FFF2):(FFF3)</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">All of the processor registers are pushed onto the hardware stack (with the exception of the hardware stack pointer itself), and control is transferred through the software interrupt 3 vector.
+This interrupt does not mask (disable) the normal and fast interrupts.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Inherent</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="SYNC">SYNC</a></th><th>Synchronize to External Event</th><th class="big right">SYNC</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">SYNC</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">Stop processing instructions</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">When a SYNC instruction is excuted, the processor enters a synchronizing state, stops processing instructions, and waits for an interrupt.
+When an interrupt occurs, the synchronizing state is cleared and processing continues.
+If the interrupt is enabled, and it lasts three cycles or more, the processor will perform the interrupt routine.
+If the interrupt is masked or is shorter than three cycles, the processor simply continues to the next instruction.
+While in the synchronizing state, the address and data buses are in the high-impedance state.<br>
+<br>
+This instruction provides software synchronization with a hardware process.
+Consider the following example for high-speed acquisition of data:<br>
+<table>
+  <tr>
+    <td>FAST</td><td>SYNC</td><td></td><td>WAIT FOR DATA</td>
+  </tr>
+  <tr>
+    <td></td><td>Interrupt!</td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td>LDA</td><td>DISC</td><td>DATA FROM DISC AND CLEAR INTERRUPT</td>
+  </tr>
+  <tr>
+    <td></td><td>STA</td><td>,X+</td><td>PUT IN BUFFER</td>
+  </tr>
+  <tr>
+    <td></td><td>DECB</td><td></td><td>COUNT IT, DONE?</td>
+  </tr>
+  <tr>
+    <td></td><td>BNE</td><td>FAST</td><td>GO AGAIN IF NOT.</td>
+  </tr>
+</table>
+The synchronizing state is cleared by any interrupt.
+Of course, enabled interrupts at this point may destroy the data transfer and, as such, should represent only emergency conditions.<br>
+<br>
+The same connection used for interrupt-driven I/O service may also be used for high-speed data transfers by setting the interrupt mask and using the SYNC instruction as the above example demonstrates.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Inherent</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="TFR">TFR</a></th><th>Transfer Register to Register</th><th class="big right">TFR</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Form:</td><td colspan="2" class="flat">TFR R1, R2</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">R1 &rarr; R2</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected unless R2 is the condition code register.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Transfers data between two designated registers.
+Bits 7-4 of the postbyte define the source register, while bits 3-0 define the destination register, as follows:<br>
+<table>
+  <tr>
+    <td class="right">0000 =</td><td>A:B</td><td>&nbsp;&nbsp;&nbsp;</td><td class="right">1000 =</td><td>A</td>
+  </tr>
+  <tr>
+    <td class="right">0001 =</td><td>X</td><td></td><td class="right">1001 =</td><td>B</td>
+  </tr>
+  <tr>
+    <td class="right">0010 =</td><td>Y</td><td></td><td class="right">1010 =</td><td>CCR</td>
+  </tr>
+  <tr>
+    <td class="right">0011 =</td><td>US</td><td></td><td class="right">1011 =</td><td>DPR</td>
+  </tr>
+  <tr>
+    <td class="right">0100 =</td><td>SP</td><td></td><td class="right">1100 =</td><td>Undefined</td>
+  </tr>
+  <tr>
+    <td class="right">0101 =</td><td>PC</td><td></td><td class="right">1101 =</td><td>Undefined</td>
+  </tr>
+  <tr>
+    <td class="right">0110 =</td><td>Undefined</td><td></td><td class="right">1110 =</td><td>Undefined</td>
+  </tr>
+  <tr>
+    <td class="right">0111 =</td><td>Undefined</td><td></td><td class="right">1111 =</td><td>Undefined</td>
+  </tr>
+</table>
+Only like size registers may be transferred. (8-bit to 8-bit, or 16-bit to 16-bit.)</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Immediate</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="TST">TST</a></th><th>Test</th><th class="big right">TST</th>
+  </tr>
+  <tr>
+    <td class="bold">Source Forms:</td><td colspan="2" class="flat">TST Q; TSTA; TSTB</td>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">TEMP &larr; M - 0</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">
+<table>
+<tr>
+<td class="top left">H</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+<tr>
+<td class="top left">N</td><td class="top left">-</td><td>Set if the result is negative; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">Z</td><td class="top left">-</td><td>Set if the result is zero; cleared otherwise.</td>
+</tr>
+<tr>
+<td class="top left">V</td><td class="top left">-</td><td>Always cleared.</td>
+</tr>
+<tr>
+<td class="top left">C</td><td class="top left">-</td><td>Not affected.</td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">Set the N (negative) and Z (zero) bits according to the contents of memory location M, and clear the V (overflow) bit.
+The TST instruction provides only minimum information when testing unsigned values; since no unsigned value is less than zero, BLO and BLS have no utility.
+While BHI could be used after TST, it provides exactly the same control as BNE, which is preferred.
+The signed branches are available.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Modes:</td><td colspan="2" class="flat">Inherent<br>Extended<br>Direct<br>Indexed</td>
+  </tr>
+  <tr>
+    <td class="bold">Comments:</td><td colspan="2" class="flat">The MC6800 processor clears the C (carry) bit.</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="FIRQ"><span class="lowsignal">FIRQ</span></a></th><th>Fast Interrupt Request (Hardware Interrupt)</th><th class="big right"><span class="lowsignal">FIRQ</span></th>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">
+<table>
+  <tr>
+    <td class="top left">IFF F bit clear, then:</td><td>SP' &larr; SP-1, (SP) &larr; PCL<br>
+SP' &larr; SP-1, (SP) &larr; PCH<br>
+Clear E (subset state is saved)<br>
+SP' &larr; SP-1, (SP) &larr; CCR<br>
+Set F, I (mask further interrupts)<br>
+PC' &larr; (FFF6):(FFF7)</td>
+  </tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">A <span class="lowsignal">FIRQ</span> (fast interrupt request) with the F (fast interrupt request mask) bit clear causes this interrupt sequence to occur at the end of the current instruction.
+The program counter and condition code register are pushed onto the hardware stack.
+Program control is transferred through the fast interrupt request vector.
+An RTI (return from interrupt) instruction returns the processor to the original task.
+It is possible to enter the fast interrupt request routine with the entire machine state saved if the fast interrupt request occurs after a clear and wait for interrupt instruction.
+A normal interrupt request has lower priority than the fast interrupt request and is prevented from interrupting the fast interrupt request routine by automatic setting of the I (interrupt request mask) bit.
+This mask bit could then be reset during the interrupt routine if priority was not desired.
+The fast interrupt request allows operations on memory, TST, INC, DEC, etc. instructions without the overhead of saving the entire machine state on the stack.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Inherent</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="IRQ"><span class="lowsignal">IRQ</span></a></th><th>Interrupt Request (Hardware Interrupt)</th><th class="big right"><span class="lowsignal">IRQ</span></th>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">
+<table>
+  <tr>
+    <td class="top left">IFF I bit clear, then:</td><td>SP' &larr; SP-1, (SP) &larr; PCL<br>
+SP' &larr; SP-1, (SP) &larr; PCH<br>
+SP' &larr; SP-1, (SP) &larr; USL<br>
+SP' &larr; SP-1, (SP) &larr; USH<br>
+SP' &larr; SP-1, (SP) &larr; IYL<br>
+SP' &larr; SP-1, (SP) &larr; IYH<br>
+SP' &larr; SP-1, (SP) &larr; IXL<br>
+SP' &larr; SP-1, (SP) &larr; IXH<br>
+SP' &larr; SP-1, (SP) &larr; DPR<br>
+SP' &larr; SP-1, (SP) &larr; ACCB<br>
+SP' &larr; SP-1, (SP) &larr; ACCA<br>
+Set E (entire state saved)<br>
+SP' &larr; SP-1, (SP) &larr; CCR<br>
+Set I (mask further <span class="lowsignal">IRQ</span> interrupts)<br>
+PC' &larr; (FFF8):(FFF9)</td>
+  </tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">If the I (interrupt request mask) bit is clear, a low level on the <span class="lowsignal">IRQ</span> input causes this interrupt sequence to occur at the end of the current instruction.
+Control is returned to the interrupted program using a RTI (return from interrupt) instruction.
+A <span class="lowsignal">FIRQ</span> (fast interrupt request) may interrupt a normal <span class="lowsignal">IRQ</span> (interrupt request) routine and be recognized anytime after the interrupt vector is taken.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Inherent</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="NMI"><span class="lowsignal">NMI</span></a></th><th>Non-Maskable Interrupt (Hardware Interrupt)</th><th class="big right"><span class="lowsignal">NMI</span></th>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">SP' &larr; SP-1, (SP) &larr; PCL<br>
+SP' &larr; SP-1, (SP) &larr; PCH<br>
+SP' &larr; SP-1, (SP) &larr; USL<br>
+SP' &larr; SP-1, (SP) &larr; USH<br>
+SP' &larr; SP-1, (SP) &larr; IYL<br>
+SP' &larr; SP-1, (SP) &larr; IYH<br>
+SP' &larr; SP-1, (SP) &larr; IXL<br>
+SP' &larr; SP-1, (SP) &larr; IXH<br>
+SP' &larr; SP-1, (SP) &larr; DPR<br>
+SP' &larr; SP-1, (SP) &larr; ACCB<br>
+SP' &larr; SP-1, (SP) &larr; ACCA<br>
+Set E (entire state save)<br>
+SP' &larr; SP-1, (SP) &larr; CCR<br>
+Set I, F (mask interrupts)<br>
+PC' &larr; (FFFC):(FFFD)</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">A negative edge on the <span class="lowsignal">NMI</span> (non-maskable interrupt) input causes all of the processor's registers (except the hardware stack pointer) to be pushed onto the hardware stack, starting at the end of the current instruction.
+Program control is transferred through the <span class="lowsignal">NMI</span> vector.
+Successive negative edges on the <span class="lowsignal">NMI</span> input will cause successive <span class="lowsignal">NMI</span> operations.
+Non-maskable interrupt operation can be internally blocked by a <span class="lowsignal">RESET</span> operation and any non-maskable interrupt that occurs will be latched.
+If this happens, the non-maskable interrupt operation will occur after the first load into the stack pointer (LDS; TFR r,s; EXG r,s; etc.) after <span class="lowsignal">RESET</span>.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Inherent</td>
+  </tr>
+</table>
+<table class="appAa">
+  <tr>
+    <th class="big left"><a name="RESTART">RESTART</a></th><th>Restart (Hardware Interrupt)</th><th class="big right">RESTART</th>
+  </tr>
+  <tr>
+    <td class="bold">Operation:</td><td colspan="2" class="flat">CCR' &larr; X1X1XXXX<br>
+DPR' &larr; 00<sub>16</sub><br>
+PC' &larr; (FFFE):(FFFF)</td>
+  </tr>
+  <tr>
+    <td class="bold">Condition Codes:</td><td colspan="2" class="flat">Not affected.</td>
+  </tr>
+  <tr>
+    <td class="bold">Description:</td><td colspan="2" class="flat">The processor is initialized (required after power-on) to start program execution.
+The starting address is fetched from the restart vector.</td>
+  </tr>
+  <tr>
+    <td class="bold">Addressing Mode:</td><td colspan="2" class="flat">Extended Indirect</td>
+  </tr>
+</table>
+
+<hr>
+
+<p>&copy; Motorola Inc., 1981 (now <a href="http://www.freescale.com/" target="_top">Freescale</a> as of 2006)<br>
+Transferred into HTML by <a href="http://www.maddes.net/" target="_top">Matthias &quot;Maddes&quot; B&uuml;cher</a> in 2006, 2007.<br>
+Use all information at your own risk.</p>
+
+<table border="0"><tr>
+<td><a href="#top">Top</a></td>
+<td><a href=".">ToC</a></td>
+<td><a href=".." target="_top">Start</a></td>
+<td><a href="../contact.php">Contact</a></td>
+</tr></table>
+
+</div></body>
+</html>

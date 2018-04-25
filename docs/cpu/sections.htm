@@ -1,0 +1,1588 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+<title>MC6809-MC6809E Microprocessor Programming Manual [M6809PM] - Sections - Maddes.net</title>
+<link rel="stylesheet" type="text/css" media="all" href="css/m6809pm.css">
+</head>
+
+<body><div class="text">
+<a name="top"></a>
+<table border="0"><tr>
+<td><a href=".">ToC</a></td>
+<td><a href=".." target="_top">Start</a></td>
+<td><a href="../contact.php">Contact</a></td>
+</tr></table>
+
+<hr>
+
+<h1>MC6809-MC6809E 8-Bit Microprocessor Programming Manual [M6809PM/AD]<br>&copy; Motorola Inc., 1981</h1>
+
+<h1><a name="sec1">SECTION 1 - GENERAL DESCRIPTION</a></h1>
+<h2><a name="sec1_1">1.1 INTRODUCTION</a></h2>
+<p>This section contains a general description of the Motorola MC6809 and MC6809E Microprocessor Units (MPU).
+Pin assignments and a brief description of each input/output signal are also given.
+The term MPU, processor, or M6809 will be used throughout this manual to refer to both the MC6809 and MC6809E processors.
+When a topic relates to only one of the processors, that specific designator (MC6809 or MC6809E) will be used.</p>
+<h2><a name="sec1_2">1.2 FEATURES</a></h2>
+<p>The MC6809 and MC6809E microprocessors are greatly enhanced, upward compatible, computationally faster extensions of the MC6800 microprocessor.</p>
+<p>Enhancements such as additional registers (a Y index register, a U stack pointer, and a direct page register) and instructions (such as MUL) simplify software design.
+Improved addressing modes have also been implemented.</p>
+<p>Upward compatibility is guaranteed as MC6800 assembly language programs may be assembled using the Motorola MC6809 Macro Assembler.
+This code, while not as compact as native M6809 code, is, in most cases, 100% functional.</p>
+<p>Both address and data are available from the processor earlier in an instruction cycle than from the MC6800 which simplifies hardware design.
+Two clock signals, E (the MC6800 &oslash;2) and a new quadrature clock Q (which leads E by one-quarter cycle) also simplify hardware design.</p>
+<p>A memory ready (MRDY) input is provided on the MC6809 for working with slow memories.
+This input stretches both the processor internal cycle and direct memory access bus cycle times but allows internal operations to continue at full speed.
+A direct memory access request (<span class="lowsignal">DMA</span>/<span class="lowsignal">BREQ</span>) input is provided for immediate memory access or dynamic memory refresh operations; this input halts the internal MC6809 clocks.
+Because the processor's registers are dynamic, an internal counter periodically recovers the bus from direct memory access operations and performs a true processor refresh cycle to allow unlimited length direct memory access operation.
+An interrupt acknowledge signal is available to allow development of vectoring by interrupt device hardware or detection of operating system calls.</p>
+<p>Three prioritized, vectored, hardware interrupt levels are available: non-maskable, fast, and normal.
+The highest and lowest priority interrupts, non-maskable and interrupt request respectively, are the normal interrupts used in the M6800 family.
+A new interrupt on this processor is the fast interrupt request which provides faster service to its interrupt input by only stacking the program counter and condition code register and then servicing the interrupt.</p>
+<p>Modern programming techniques such as position-independent, system independent, and reentrant programming are readily supported by these processors.</p>
+<p>A Memory Management Unit (MMU), the MC6829, allows a M6809 based system to address a two megabyte memory space.
+Note: An arbitrary number of tasks may be supported &mdash; slower &mdash; with software.</p>
+<p>This advanced family of processors is compatible with all M6800 peripheral parts.</p>
+<h2><a name="sec1_3">1.3 SOFTWARE FEATURES</a></h2>
+<p>Some of the software features of these processors are itemized in the following paragraphs.
+Programs developed for the MC6800 can be easily converted for use with the MC6809 or MC6809E by running the source code through a M6809 Macro Assembler or any one of the many cross assemblers that are available.</p>
+<p>The addressing modes of any microprocessor provide it with the capability to efficiently address memory to obtain data and instructions.
+The MC6809 and MC6809E have a versatile set of addressing modes which allow them to function using modern programming techniques.</p>
+<p>The addressing modes and instructions of the MC6809 and MC6809E are upward compatible with the MC6800.
+The old addressing modes have been retained and many new ones have been added.</p>
+<p>A direct page register has been added which allows a 256 byte &quot;direct&quot; page anywhere in the 64K logical address space.
+The direct page register is used to hold the most-significant byte of the address used in direct addressing and decrease the time required for address calculation.</p>
+<p>Branch relative addressing to anywhere in the memory map (-32768 to +32767) is available.</p>
+<p>Program counter relative addressing is also available for data access as well as branch instructions.</p>
+<p>The indexed addressing modes have been expanded to include:<br>
+0-, 5-, 8-, 16-bit constant offsets,<br>
+8- or 16-bit accumulator offsets,<br>
+autoincrement/decrement (stack operation).</p>
+<p>In addition, most indexed addressing modes may have an additional level of indirection added.</p>
+<p>Any or all registers may be pushed on to or pulled from either stack with a single instruction.</p>
+<p>A multiply instruction is included which multiplies unsigned binary numbers in accumulators A and B and places the unsigned result in the 16-bit accumulator D.
+This unsigned multiply instruction also allows signed or unsigned multiple precision multiplication.</p>
+<h2><a name="sec1_4">1.4 PROGRAMMING MODEL</a></h2>
+<p>The programming model (Figure 1-1) for these processors contains five 16-bit and four 8-bit registers that are available to the programmer.<br>
+<a name="fig1-1"></a><a href="gfx/figure1-1.jpg"><img src="gfx/figure1-1.jpg" alt="Figure 1-1: Programming Model" title="Programming Model" width="400" border="0"></a></p>
+<h2><a name="sec1_5">1.5 INDEX REGISTERS (X, Y)</a></h2>
+<p>The index registers are used during the indexed addressing modes.
+The address information in an index register is used in the calculation of an effective address.
+This address may be used to point directly to data or may be modified by an optional constant or register offset to produce the effective address.</p>
+<h2><a name="sec1_6">1.6 STACK POINTER REGISTERS (U, S)</a></h2>
+<p>Two stack pointer registers are available in these processors.
+They are: a user stack pointer register (U) controlled exclusively by the programmer, and a hardware stack pointer register (S) which is used automatically by the processor during subroutine calls and interrupts, but may also be used by the programmer.
+Both stack pointers always point to the top of the stack.</p>
+<p>These registers have the same indexed addressing mode capabilities as the index registers, and also support push and pull instructions.
+All four indexable registers (X, Y, U, S) are referred to as pointer registers.</p>
+<h2><a name="sec1_7">1.7 PROGRAM COUNTER (PC)</a></h2>
+<p>The program counter register is used by these processors to store the address of the next instruction to be executed.
+It may also be used as an index register in certain addressing modes.</p>
+<h2><a name="sec1_8">1.8 ACCUMULATOR REGISTERS (A, B, D)</a></h2>
+<p>The accumulator registers (A, B) are general-purpose 8-bit registers used for arithmetic calculations and data manipulation.</p>
+<p>Certain instructions concatenate these registers into one 16-bit accumulator with register A positioned as the most-significant byte.
+When concatenated, this register is referred to as accumulator D.</p>
+<h2><a name="sec1_9">1.9 DIRECT PAGE REGISTER (DP)</a></h2>
+<p>This 8-bit register contains the most-significant byte of the address to be used in the direct addressing mode.
+The contents of this register are concatenated with the byte following the direct addressing mode operation code to form the 16-bit effective address.
+The direct page register contents appear as bits A15 through A8 of the address.
+This register is automatically cleared by a hardware reset to ensure M6800 compatiblity.</p>
+<h2><a name="sec1_10">1.10 CONDITION CODE REGISTER (CC)</a></h2>
+<p>The condition code register contains the condition codes and the interrupt masks as shown in Figure 1-2.<br>
+<a name="fig1-2"></a><a href="gfx/figure1-2.jpg"><img src="gfx/figure1-2.jpg" alt="Figure 1-2: Condition Code Register" title="Condition Code Register" width="400" border="0" /></a></p>
+<h3><a name="sec1_10_1">1.10.1 CONDITION CODE BITS.</a></h3>
+<p>Five bits in the condition code register are used to indicate the results of instructions that manipulate data.
+They are: half carry (H), negative (N), zero (Z), overflow (V), and carry (C).
+The effect each instruction has on these bits is given in the detail information for each instruction (see Appendix A).</p>
+<h4><a name="sec1_10_1_1">1.10.1.1 Half Carry (H), Bit 5.</a></h4>
+<p>This bit is used to indicate that a carry was generated from bit three in the arithmetic logic unit as a result of an 8-bit addition.
+This bit is undefined in all subtract-like instructions.
+The decimal addition adjust (DAA) instruction uses the state of this bit to perform the adjust operation.</p>
+<h4><a name="sec1_10_1_2">1.10.1.2 Negative (N), Bit 3.</a></h4>
+<p>This bit contains the value of the most-significant bit of the result of the previous data operation.</p>
+<h4><a name="sec1_10_1_3">1.10.1.3 Zero (Z), Bit 2.</a></h4>
+<p>This bit is used to indicate that the result of the previous operation was zero.</p>
+<h4><a name="sec1_10_1_4">1.10.1.4 Overflow (V), Bit 1.</a></h4>
+<p>This bit is used to indicate that the previous operation caused a signed arithmetic overflow.</p>
+<h4><a name="sec1_10_1_5">1.10.1.5 Carry (C), Bit 0.</a></h4>
+<p>This bit is used to indicate that a carry or a borrow was generated from bit seven in the arithmetic logic unit as a result of an 8-bit mathematical operation.</p>
+<h3><a name="sec1_10_2">1.10.2 INTERRUPT MASK BITS AND STACKING INDICATOR.</a></h3>
+<p>Two bits (I and F) are used as mask bits for the interrupt request and the fast interrupt request inputs.
+When either or both of these bits are set, their associated input will not be recognized.</p>
+<p>One bit (E) is used to indicate how many registers (all, or only the program counter and condition code) were stacked during the last interrupt.</p>
+<h4><a name="sec1_10_2_1">1.10.2.1 Fast Interrupt Request Mask (F), Bit 6.</a></h4>
+<p>This bit is used to mask (disable) any fast interrupt request line (<span class="lowsignal">FIRQ</span>).
+This bit is set automatically by a hardware reset or after recognition of another interrupt.
+Execution of certain instructions such as SWI will also inhibit recognition of a <span class="lowsignal">FIRQ</span> input.</p>
+<h4><a name="sec1_10_2_2">1.10.2.2 Interrupt Request Mask (I), Bit 4.</a></h4>
+<p>This bit is used to mask (disable) any interrupt request input (<span class="lowsignal">IRQ</span>).
+This bit is set automatically by a hardware reset or after recognition of another interrupt.
+Execution of certain instructions such as SWI will also inhibit recognition of an <span class="lowsignal">IRQ</span> input.</p>
+<h4><a name="sec1_10_2_3">1.10.2.3 Entire Flag (E), Bit 7.</a></h4>
+<p>This bit is used to indicate how many registers were stacked.
+When set, all the registers were stacked during the last interrupt stacking operation.
+When clear, only the program counter and condition code registers were stacked during the last interrupt.</p>
+<p>The state of the E bit in the stacked condition code register is used by the return from interrupt (RTI) instruction to determine the number of registers to be unstacked.</p>
+<h2><a name="sec1_11">1.11 PIN ASSIGNMENTS AND SIGNAL DESCRIPTION</a></h2>
+<p>Figure 1-3 shows the pin assignments for the processors.
+The following paragraphs provide a short description of each of the input and output signals.<br>
+<a name="fig1-3"></a><a href="gfx/figure1-3.jpg"><img src="gfx/figure1-3.jpg" alt="Figure 1-3: Processor Pin Assignments" title="Processor Pin Assignments" width="400" border="0" /></a></p>
+<h3><a name="sec1_11_1">1.11.1 MC6809 CLOCKS.</a></h3>
+<p>The MC6809 has four pins committed to developing the clock signals needed for internal and system operation.
+They are: the oscillator pins EXTAL and XTAL; the standard M6800 enable (E) clock; and a new, quadrature (Q) clock.</p>
+<h4><a name="sec1_11_1_1">1.11.1.1 Oscillator (EXTAL, XTAL).</a></h4>
+<p>These pins are used to connect the processor's internal oscillator to an external, parallel-resonant crystal.
+These pins can also be used for input of an external TTL timing signal by grounding the XTAL pin and applying the input to the EXTAL pin.
+The crystal or the external timing source is four times the resulting bus frequency.</p>
+<h4><a name="sec1_11_1_2">1.11.1.2 Enable (E).</a></h4>
+<p>The E clock is similar to the phase 2 (&oslash;2) MC6800 bus timing clock.
+The leading edge indicates to memory and peripherals that the data is stable and to begin write operations.
+Data movement occurs after the Q clock is high and is latched on the trailing edge of E.
+Data is valid from the processor (during a write operation) by the rising edge of E.</p>
+<h4><a name="sec1_11_1_3">1.11.1.3 Quadrature (Q).</a></h4>
+<p>The Q clock leads the E clock by approximately one half of the E clock time.
+Address information from the processor is valid with the leading edge of the Q clock.
+The Q clock is a new signal in these processors and does not have an equivalent clock within the MC6800 bus timing.</p>
+<h3><a name="sec1_11_2">1.11.2 MC6809E CLOCKS (E and Q).</a></h3>
+<p>The MC6809E has two pins provided for the TTL clock signal inputs required for internal operation.
+They are the standard M6800 enable (E) clock and the quadrature (Q) clock.
+The Q input must lead the E input.</p>
+<p>Addresses will be valid from the processor (on address delay time after the falling edge of E) and data will be latched from the bus by the falling edge of E.
+The Q input is fully TTL compatible.
+The E input is used to drive the internal MOS circuitry directly and therefore requires input levels above the normal TTL levels.</p>
+<h3><a name="sec1_11_3">1.11.3 THREE STATE CONTROLS (TSC) (MC6809E).</a></h3>
+<p>This input is used to place the address and data lines and the R/<span class="lowsignal">W</span> line in the high-impedance state and allows the address bus to be shared with other bus masters.</p>
+<h3><a name="sec1_11_4">1.11.4 LAST INSTRUCTION CYCLE (LIC) (MC6809E).</a></h3>
+<p>This output goes high during the last cycle of every instruction and its high-to-low transition indicates that the first byte of an opcode will be latched at the end of the present bus cycle.</p>
+<h3><a name="sec1_11_5">1.11.5 ADDRESS BUS (A0-A15).</a></h3>
+<p>This 16-bit, unidirectional, three-state bus is used by the processor to provide address information to the address bus.
+Address information is valid on the rising edge of the Q clock.
+All 16 outputs are in the high-impedance state when the bus available (BA) signal is high, and for one bus cycle thereafter.</p>
+<p>When the processor does not require the address bus for a data transfer, it outputs address FFFF<sub>16</sub>, and read/write (R/<span class="lowsignal">W</span>) high.
+This is a &quot;dummy access&quot; of the least-significant byte of the reset vector which replaces the valid memory address (VMA) functions of the MC6800.
+For the MC6809, the memory read signal internal circuitry inhibits stretching of the clocks during non-access cycles.</p>
+<h3><a name="sec1_11_6">1.11.6 DATA BUS (D0-D7).</a></h3>
+<p>This 8-bit, bidirectional, three-state bus is the general purpose data path.
+All eight outputs are in the high-impedance state when the bus available (BA) output is high.</p>
+<h3><a name="sec1_11_7">1.11.7 READ/WRITE (R/<span class="lowsignal">W</span>).</a></h3>
+<p>This output indicates the direction of data transfer on the data bus.
+A low indicates that the processor is writing onto the data bus; a high indicates that the processor is reading data from the data bus.
+The signal at the R/<span class="lowsignal">W</span> output is valid at the leading edge of the Q clock.
+The R/<span class="lowsignal">W</span> output is in the high-impedance state when the bus available (BA) output is high.</p>
+<h3><a name="sec1_11_8">1.11.8 PROCESSOR STATE INDICATORS (BA, BS).</a></h3>
+<p>The processor uses these two output lines to indicate the present processor state.
+These pins are valid with the leading edge of the Q clock.</p>
+<p>The bus available (BA) output is used to indicate that the buses (address and data) and the read/write output are in the high-impedance state.
+This signal can be used to indicate to bus-sharing or direct memory access systems that the buses are available.
+When BA goes low, an additional dead cycle will elapse before the processor regains control of the buses.</p>
+<p>The bus status (BS) output is used in conjunction with the BA output to indicate the present state of the processor.
+Table 1-1 is a listing of the BA and BS outputs and the processor states that they indicate.
+The following paragraphs briefly explain each processor state.</p>
+<table>
+  <caption><a name="tab1-1">Table 1-1. BA/BS Signal Encoding</a></caption>
+  <thead>
+    <tr>
+      <th class="underline">BA</th>
+      <th class="underline">BS</th>
+      <th class="underline">Processor State</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="center">0</td>
+      <td class="center">0</td>
+      <td>Normal (Running)</td>
+    </tr>
+    <tr>
+      <td class="center">0</td>
+      <td class="center">1</td>
+      <td>Interrupt or Reset Acknowledge</td>
+    </tr>
+    <tr>
+      <td class="center">1</td>
+      <td class="center">0</td>
+      <td>Sync Acknowledge</td>
+    </tr>
+    <tr>
+      <td class="center">1</td>
+      <td class="center">1</td>
+      <td>Halt/Bus Grant Acknowledged</td>
+    </tr>
+  </tbody>
+</table>
+<h4><a name="sec1_11_8_1">1.11.8.1 Normal.</a></h4>
+<p>The processor is running and executing instructions.</p>
+<h4><a name="sec1_11_8_2">1.11.8.2 Interrupt or Reset Acknowledge.</a></h4>
+<p>This processor state is indicated during both cycles of a hardware vector fetch which occurs when any of the following interrupts have occurred: <span class="lowsignal">RESET</span>, <span class="lowsignal">NMI</span>, <span class="lowsignal">FIRQ</span>, <span class="lowsignal">IRQ</span>, SWI, SWI2, and SWI3.</p>
+<p>This output, plus decoding of address lines A3 through A1 provides the user with an indication of which interrupt is being serviced.</p>
+<h4><a name="sec1_11_8_3">1.11.8.3 Sync Acknowledge.</a></h4>
+<p>The processor is waiting for an external synchronization input on an interrupt line.
+See SYNC instruction in Appendix A.</p>
+<h4><a name="sec1_11_8_4">1.11.8.4 Halt/Bus Grant.</a></h4>
+<p>The processor is halted or bus control has been granted to some other device.</p>
+<h3><a name="sec1_11_9">1.11.9 RESET (<span class="lowsignal">RESET</span>).</a></h3>
+<p>This input is used to reset the processor.
+A low input lasting longer than one bus cycle will reset the processor.</p>
+<p>The reset vector is fetched from locations $FFFE and $FFFF when the processor enters the reset acknowledge state as indicated by the BA output being low and the BS output being high.</p>
+<p>During initial power-on, the reset input should be held low until the clock oscillator is fully operational.</p>
+<h3><a name="sec1_11_10">1.11.10 INTERRUPTS.</a></h3>
+<p>The processor has three separate interrupt input pins: non-maskable interrupt (<span class="lowsignal">NMI</span>), fast interrupt request (<span class="lowsignal">FIRQ</span>), and interrupt request (<span class="lowsignal">IRQ</span>).
+These interrupt inputs are latched by the falling edge of every Q clock except during cycle stealing operations where only the <span class="lowsignal">NMI</span> input is latched.
+Using this point as a reference, a delay of at least one bus cycle will occur before the interrupt is recognized by the processor.</p>
+<h4><a name="sec1_11_10_1">1.11.10.1 Non-Maskable Interrupt (<span class="lowsignal">NMI</span>).</a></h4>
+<p>A negative edge on this input requests that a non-maskable interrupt sequence be generated.
+This input, as the name indicates, cannot be masked by software and has the highest priority of the three interrupt inputs.
+After a reset has occurred, a <span class="lowsignal">NMI</span> input will not be recognized by the processor until the first program load of the hardware stack pointer.
+The entire machine state is saved on the hardware stack during the processing of a non-maskable interrupt.
+This interrupt is internally blocked after a hardware reset until the stack pointer is initialized.</p>
+<h4><a name="sec1_11_10_2">1.11.10.2 Fast Interrupt Request (<span class="lowsignal">FIRQ</span>).</a></h4>
+<p>This input is used to initiate a fast interrupt request sequence.
+Initiation depends on the F (fast interrupt request mask) bit in the condition code register being clear.
+This bit is set during reset.
+During the interrupt, only the contents of the condition code register and the program counter are stacked resulting in a short amount of time required to service this interrupt.
+This interrupt has a higher priority than the normal interrupt request (<span class="lowsignal">IRQ</span>).</p>
+<h4><a name="sec1_11_10_3">1.11.10.3 Interrupt Request (<span class="lowsignal">IRQ</span>).</a></h4>
+<p>This input is used to initiate what might be considered the &quot;normal&quot; interrupt request sequence.
+Initiation depends on the I (interrupt mask) bit in the condition code register being clear.
+This bit is set during reset.
+The entire machine state is saved on the hardware stack during processing of an <span class="lowsignal">IRQ</span> input.
+This input has the lowest priority of the three hardware interrupts.</p>
+<h3><a name="sec1_11_11">1.11.11 MEMORY READ (MRDY) (MC6809).</a></h3>
+<p>This input allows extension of the E and Q clocks to allow a longer data access time.
+A low on this input allows extension of the E and Q clocks (E high and Q low) in integral multiples of quarter bus cycles (up to 10 cycles) to allow interface with slow memory devices.</p>
+<p>Memory ready does not extend the E and Q clocks during non-valid memory access cycles and therefore the processor does not slow down for &quot;don't care&quot; bus accesses.
+Memory ready may also be used to extend the E and Q clocks when an external device is using the halt and direct memory access/bus request inputs.</p>
+<h3><a name="sec1_11_12">1.11.12 ADVANCED VALID MEMORY ADDRESS (AVMA) (MC6809E).</a></h3>
+<p>This output signal indicates that the MC6809E will use the bus in the following bus cycle.
+This output is low when the MC6809E is in either a halt or sync state.</p>
+<h3><a name="sec1_11_13">1.11.13 HALT.</a></h3>
+<p>This input is used to halt the processor.
+A low input halts the processor at the end of the present instruction execution cycle and the processor remains halted indefinitely without loss of data.</p>
+<p>When the processor is halted, the BA output is high to indicate that the buses are in the high-impedance state and the BS output is also high to indicate that the processor is in the halt/bus grant state.</p>
+<p>During the halt/bus grant state, the processor will not respond to external real-time requests such as <span class="lowsignal">FIRQ</span> or <span class="lowsignal">IRQ</span>.
+However, a direct memory access/bus request input will be accepted.
+A non-maskable interrupt or a reset input will be latched for processing later.
+The E and Q clocks continue to run during the halt/bus grant state.</p>
+<h3><a name="sec1_11_14">1.11.14 DIRECT MEMORY ACCESS/BUS REQUEST (<span class="lowsignal">DMA</span>/<span class="lowsignal">BREQ</span>) (MC6809).</a></h3>
+<p>This input is used to suspend program execution and make the buses available for another use such as a direct memory access or a dynamic memory refresh.</p>
+<p>A low level on this input occurring during the Q clock high time suspends instruction execution at the end of the current cycle.
+The processor acknowledges acceptance of this input by setting the BA and BS outputs high to signify the bus grant state.
+The requesting device now has up to 15 bus cycles before the processor retrieves the bus for self-refresh.</p>
+<p>Typically, a direct memory access controller will request to use the bus by setting the <span class="lowsignal">DMA</span>/<span class="lowsignal">BREQ</span> input low when E goes high.
+When the processor acknowledges this input by setting the BA and BS outputs high, that cycle will be a dead cycle used to transfer bus mastership to the direct memory access controller.
+False memory access during any dead cycle should be prevented by externally developing a system DMAVMA signal which is low in any cycle when the BA output changes.</p>
+<p>When the BA output goes low, either as a result of a direct memory access/bus request or a processor self-refresh, the direct memory access device should be removed from the bus.
+Another dead cycle will elapse before the processor accesses memory, to allow transfer of bus mastership without contention.</p>
+<h3><a name="sec1_11_15">1.11.15 BUSY (MC6809E).</a></h3>
+<p>This output indicates that bus re-arbitration should be deferred and provides the indivisable memory operation required for a &quot;test-and-set&quot; primitive.</p>
+<p>This output will be high for the first two cycles of any Read-Modify-Write instruction, high during the first byte of a double-byte access, and high during the first byte of any indirect access or vector-fetch operation.</p>
+<h3><a name="sec1_11_16">1.11.16 POWER.</a></h3>
+<p>Two inputs are used to supply power to the processor: V<sub>CC</sub> is +5.0 &plusmn;5%, while V<sub>SS</sub> is ground or 0 volts.</p>
+
+<h1><a name="sec2">SECTION 2 - ADDRESSING MODES</a></h1>
+<h2><a name="sec2_1">2.1 INTRODUCTION</a></h2>
+<p>This section contains a description of each of the addressing modes available on these processors.</p>
+<h2><a name="sec2_2">2.2 ADDRESSING MODES</a></h2>
+<p>The addressing modes available on the MC6809 and MC6809E are: Inherent, Immediate, Extended, Direct, Indexed (with various offsets and autoincrementing/decrementing), and Branch Relative.
+Some of these addressing modes require an additional byte after the opcode to provide additional addressing interpretation.
+This byte is called a postbyte.</p>
+<p>The following paragraphs provide a description of each addressing mode.
+In these descriptions the term effective address is used to indicate the address in memory from which the argument for an instruction is fetched or stored, or from which instruction processing is to proceed.</p>
+<h3><a name="sec2_2_1">2.2.1 INHERENT.</a></h3>
+<p>The information necessary to execute the instruction is contained in the opcode.
+Some operations specifying only the index registers or the accumulators, and no other arguments, are also included in this addressing mode.</p>
+<table>
+  <tr>
+    <td class="top left" rowspan="99">Example:</td>
+    <td>MUL</td>
+  </tr>
+</table>
+<h3><a name="sec2_2_2">2.2.2 IMMEDIATE.</a></h3>
+<p>The operand is contained in one or two bytes immediately following the opcode.
+This addressing mode is used to provide constant data values that do not change during program execution.
+Both 8-bit and 16-bit operands are used depending on the size of the argument specified in the opcode.</p>
+<table>
+  <tr>
+    <td class="top left" rowspan="99">Example:</td>
+    <td>LDA</td><td>#CR</td>
+  </tr>
+  <tr>
+    <td>LDB</td><td>#7</td>
+  </tr>
+  <tr>
+    <td>LDA</td><td>#$F0</td>
+  </tr>
+  <tr>
+    <td>LDB</td><td>#%1110000</td>
+  </tr>
+  <tr>
+    <td>LDX</td><td>#$8004</td>
+  </tr>
+</table>
+<p>Another form of immediate addressing uses a postbyte to determine the registers to be manipulated.
+The exchange (EXG) and transfer (TFR) instructions use the postbyte as shown in Figure 2-1(A).
+The push and pull instructions use the postbyte to designate the registers to be pushed or pulled as shown in Figure 2-1(B).</p>
+<table>
+  <caption><a name="fig2-1">Figure 2-1. Postbyte Usage for EXG/TFR, PSH/PUL Instructions</a></caption>
+  <tr>
+    <td>
+<table class="sec2b">
+  <caption>(A) Exchange (EXG) or Transfer (TFR) Instruction Postbyte</caption>
+  <tr class="bits">
+    <td>b7</td>
+    <td>b6</td>
+    <td>b5</td>
+    <td>b4</td>
+    <td>b3</td>
+    <td>b2</td>
+    <td>b1</td>
+    <td>b0</td>
+  </tr>
+  <tr class="regs2">
+    <td colspan="4">SOURCE (R1)</td>
+    <td colspan="4">DESTINATION (R2)</td>
+  </tr>
+  <tr>
+    <td colspan="8">
+      <table>
+        <tr>
+          <th>Code <sup>*</sup></th>
+          <th>Register</th>
+          <th>Code <sup>*</sup></th>
+          <th>Register</th>
+        </tr>
+        <tr>
+          <td>0000</td>
+          <td>D (A:B)</td>
+          <td>0101</td>
+          <td>Program Counter</td>
+        </tr>
+        <tr>
+          <td>0001</td>
+          <td>X Index</td>
+          <td>1000</td>
+          <td>A Accumulator</td>
+        </tr>
+        <tr>
+          <td>0010</td>
+          <td>Y Index</td>
+          <td>1001</td>
+          <td>B Accumulator</td>
+        </tr>
+        <tr>
+          <td>0011</td>
+          <td>U Stack Pointer</td>
+          <td>1010</td>
+          <td>Condition Code</td>
+        </tr>
+        <tr>
+          <td>0100</td>
+          <td>S Stack Pointer</td>
+          <td>1011</td>
+          <td>Direct Page</td>
+        </tr>
+        <tr>
+          <td colspan="4"><sup>*</sup>All other combinations of bits produce undefined results.</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+<table>
+  <caption>(B) Push (PSH) or Pull (PUL) Instruction Postbyte</caption>
+  <tr>
+    <td>
+      <table class="sec2b">
+        <tr class="bits">
+          <td>b7</td>
+          <td>b6</td>
+          <td>b5</td>
+          <td>b4</td>
+          <td>b3</td>
+          <td>b2</td>
+          <td>b1</td>
+          <td>b0</td>
+        </tr>
+        <tr class="regs8">
+          <td>PC</td>
+          <td>S/U</td>
+          <td>Y</td>
+          <td>X</td>
+          <td>DP</td>
+          <td>B</td>
+          <td>A</td>
+          <td>CC</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <td>PC</td>
+          <td>= Program Counter</td>
+        </tr>
+        <tr>
+          <td>S/U</td>
+          <td>= Hardware/User Stack Pointer</td>
+        </tr>
+        <tr>
+          <td>Y</td>
+          <td>= Y Index Register</td>
+        </tr>
+        <tr>
+          <td>X</td>
+          <td>= U Index Register</td>
+        </tr>
+        <tr>
+          <td>DP</td>
+          <td>= Direct Page Register</td>
+        </tr>
+        <tr>
+          <td>B</td>
+          <td>= B Accumulator</td>
+        </tr>
+        <tr>
+          <td>A</td>
+          <td>= A Accumulator</td>
+        </tr>
+        <tr>
+          <td>CC</td>
+          <td>= Condition Code Register</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+    </td>
+  </tr>
+</table>
+<h3><a name="sec2_2_3">2.2.3 EXTENDED.</a></h3>
+<p>The effective address of the argument is contained in the two bytes following the opcode.
+Instructions using the extended addressing mode can reference arguments anywhere in the 64K addressing space.
+Extended addressing is generally not used in position independent programs because it supplies an absolute address.</p>
+<table>
+  <tr>
+    <td class="top left" rowspan="99">Example:</td>
+    <td>LDA &gt; CAT</td>
+  </tr>
+</table>
+<h3><a name="sec2_2_4">2.2.4 DIRECT.</a></h3>
+<p>The effective address is developed by concatenation of the contents of the direct page register with the byte immediately following the opcode.
+The direct page register contents are the most-significant byte of the address.
+This allows accessing 256 locations within any one of 256 pages.
+Therefore, the entire addressing range is available for access using a single two-byte instruction.</p>
+<table>
+  <tr>
+    <td class="top left" rowspan="99">Example:</td>
+    <td>LDA &gt; CAT</td>
+  </tr>
+</table>
+<h3><a name="sec2_2_5">2.2.5 INDEXED.</a></h3>
+<p>In these addressing modes, one of the pointer registers (X, Y, U, or S), and sometimes the program counter (PC) is used in the calculation of the effective address of the instruction operand.
+The basic types (and their variations) of indexed addressing available are shown in Table 2-1 along with the postbyte configuration used.</p>
+<h4><a name="sec2_2_5_1">2.2.5.1 Constant Offset from Register.</a></h4>
+<p>The contents of the register designated in the postbyte are added to a twos complement offset value to form the effective address of the instruction operand.
+The contents of the designated register are not affected by this addition.
+The offset sizes available are:
+<table>
+  <tr>
+    <td class="right">No offset</td>
+    <td>= designated register contains the effective address</td>
+  </tr>
+  <tr>
+    <td class="right">5-bit</td>
+    <td>= -16 to +15</td>
+  </tr>
+  <tr>
+    <td class="right">8-bit</td>
+    <td>= -128 to +127</td>
+  </tr>
+  <tr>
+    <td class="right">16-bit</td>
+    <td>= -32768 to + 32767</td>
+  </tr>
+</table>
+<table class="sec2c">
+  <caption><a name="tab2-1">Table 2-1. Postbyte Usage for Indexed Addressing Modes</a></caption>
+  <tr>
+    <th>Mode Type</th>
+    <th>Variation</th>
+    <th>Direct</th>
+    <th>Indirect</th>
+  </tr>
+  <tr>
+    <td class="top left">Constant Offset from Register<br>(twos Complement Offset)</td>
+    <td>No Offset<br>5-Bit Offset<br>8-Bit Offset<br>16-Bit Offset</td>
+    <td>1RR00100<br>0RRnnnnn<br>1RR01000<br>1RR01001</td>
+    <td>1RR10100<br>Defaults to 8-bit<br>1RR11000<br>1RR11001</td>
+  </tr>
+  <tr>
+    <td class="top left">Accumulator Offset from Register<br>(twos Complement Offset)</td>
+    <td>A Accumulator Offset<br>B Accumulator Offset<br>D Accumulator Offset</td>
+    <td>1RR00110<br>1RR00101<br>1RR01011</td>
+    <td>1RR10110<br>1RR10101<br>1RR11011</td>
+  </tr>
+  <tr>
+    <td class="top left">Auto Increment/Decrement from<br>Register</td>
+    <td>Increment by 1<br>Increment by 2<br>Decrement by 1<br>Decrement by 2</td>
+    <td>1RR00000<br>1RR00001<br>1RR00010<br>1RR00011</td>
+    <td>Not Allowed<br>1RR10001<br>Not Allowed<br>1RR10011</td>
+  </tr>
+  <tr>
+    <td class="top left">Constant Offset from Program<br>Counter</td>
+    <td>8-Bit Offset<br>16-Bit Offset</td>
+    <td>1XX01100<br>1XX01101</td>
+    <td>1XX11100<br>1XX11101</td>
+  </tr>
+  <tr>
+    <td class="top left">Extended Indirect</td>
+    <td>16-Bit Address</td>
+    <td>--------</td>
+    <td>10011111</td>
+  </tr>
+</table>
+<p>The 5-bit offset value is contained in the postbyte.
+The 8- and 16-bit offset values are contained in the byte or bytes immediately following the postbyte.
+If the Motorola assembler is used, it will automatically determine the most efficient offset; thus, the programmer need not be concerned about the offset size.</p>
+<table>
+  <tr>
+    <td class="top left" rowspan="99">Examples:</td>
+    <td>LDA</td><td>,X</td><td>LDY</td><td>-64000,U</td>
+  </tr>
+  <tr>
+    <td>LDB</td><td>0,Y</td><td>LDA</td><td>17,PC</td>
+  </tr>
+  <tr>
+    <td>LDX</td><td>64000,S</td><td>LDA</td><td>There,PCR</td>
+  </tr>
+</table>
+<h4><a name="sec2_2_5_2">2.2.5.2 Accumulator Offset from Register.</a></h4>
+<p>The contents of the index or pointer register designed in the postbyte are temporarily added to the twos complement offset value contained in an accumulator (A, B, or D) also designated in the postbyte.
+Neither the designated register nor the accumulator contents are affected by this addition.</p>
+<table>
+  <tr>
+    <td class="top left" rowspan="99">Example:</td>
+    <td>LDA</td><td>A,X</td><td>LDA</td><td>D,U</td>
+  </tr>
+  <tr>
+    <td>LDA</td><td>B,Y</td><td></td><td></td>
+  </tr>
+</table>
+<h4><a name="sec2_2_5_3">2.2.5.3 Autoincrement/Decrement from Register.</a></h4>
+<p>This addressing mode works in a postincrementing or predecrementing manner.
+The amount of increment or decrement, one or two positions, is designated in the postbyte.</p>
+<p>In the autoincrement mode, the contents of the effective address contained in the pointer register, designated in the postbyte, and then the pointer register is automatically incremented; thus, the pointer register is postincremented.</p>
+<p>In the autodecrement mode, the pointer register, designated in the postbyte, is automatically decremented first and then the contents of the new address are used; thus, the pointer register is predecremented.</p>
+<table>
+  <tr>
+    <td class="top left" rowspan="99">Example:</td>
+    <th colspan="4">Autoincrement</th><th colspan="4">Autodecrement</th>
+  </tr>
+  <tr>
+    <td>LDA</td><td>,X+</td>
+    <td>LDY</td><td>,X++</td>
+    <td>LDA</td><td>,-X</td>
+    <td>LDY</td><td>,--X</td>
+  </tr>
+  <tr>
+    <td>LDA</td><td>,Y+</td>
+    <td>LDX</td><td>,Y++</td>
+    <td>LDA</td><td>,-Y</td>
+    <td>LDX</td><td>,--Y</td>
+  </tr>
+  <tr>
+    <td>LDA</td><td>,S+</td>
+    <td>LDX</td><td>,U++</td>
+    <td>LDA</td><td>,-S</td>
+    <td>LDX</td><td>,--U</td>
+  </tr>
+  <tr>
+    <td>LDA</td><td>,U+</td>
+    <td>LDX</td><td>,S++</td>
+    <td>LDA</td><td>,-U</td>
+    <td>LDX</td><td>,--S</td>
+  </tr>
+</table>
+<h4><a name="sec2_2_5_4">2.2.5.4 Indirection.</a></h4>
+<p>When using indirection, the effective address of the base indexed addressing mode is used to fetch two bytes which contain the final effective address of the operand.
+It can be used with all the indexed addressing modes and the program counter relative addressing mode.</p>
+<h4><a name="sec2_2_5_5">2.2.5.5 Extended Indirect.</a></h4>
+<p>The effective address of the argument is located at the address specified by the two bytes following the postbyte.
+The postbyte is used to indicate indirection.</p>
+<table>
+  <tr>
+    <td class="top left" rowspan="99">Example:</td>
+    <td>LDA</td><td>[$F000]</td>
+  </tr>
+</table>
+<h4><a name="sec2_2_5_6">2.2.5.6 Program Counter Relative.</a></h4>
+<p>The program counter can also be used as a pointer with either an 8- or 16-bit signed constant offset.
+The offset value is added to the program counter to develop an effective address.
+Part of the postbyte is used to indicate whether the offset is 8 or 16 bits.</p>
+<h3><a name="sec2_2_6">2.2.6 BRANCH RELATIVE.</a></h3>
+<p>This addressing mode is used when branches from the current instruction location to some other location relative to the current program counter are desired.
+If the test condition of the branch instruction is true, then the effective address is calculated (program counter plus twos complement offset) and the branch is taken.
+If the test condition is false, the processor proceeds to the next in-line instruction.
+Note that the program counter is always pointing to the next instruction when the offset is added.
+Branch relative addressing is always used in position independent programs for all control transfers.</p>
+<p>For short branches, the byte following the branch instruction opcode is treated as an 8-bit signed offset to be used to calculate the effective address of the next instruction if the branch is taken.
+This is called a short relative branch and the range is limited to plus 127 or minus 128 bytes from the following opcode.</p>
+<p>For long branches, the two bytes after the opcode are used to calculate the effective address.
+This is called a long relative branch and the range is plus 32,767 or minus 32,768 bytes from the following opcode or the full 64K address space of memory that the processor can address at one time.</p>
+<table>
+  <tr>
+    <td class="top left" rowspan="99">Examples:</td>
+    <th class="underline">Short Branch</th><th class="underline">Long Branch</th>
+  </tr>
+  <tr>
+    <td>BRA POLE</td><td>LBRA CAT</td>
+  </tr>
+</table>
+
+<h1><a name="sec3">SECTION 3 - INTERRUPT CAPABILITIES</a></h1>
+<h2><a name="sec3_1">3.1 INTRODUCTION</a></h2>
+<p>The MC6809 and MC6809E microprocessors have six vectored interrupts (three hardware and three software).
+The hardware interrupts are the non-maskable interrupt (<span class="lowsignal">NMI</span>), the fast maskable interrupt request (<span class="lowsignal">FIRQ</span>), and the normal maskable interrupt request (<span class="lowsignal">IRQ</span>).
+The software interrupts consist of SWI, SWI2, and SWI3.
+When an interrupt request is acknowledged, all the processor registers are pushed onto the hardware stack, except in the case of <span class="lowsignal">FIRQ</span> where only the program counter and the condition code register is saved, and control is transferred to the address in the interrupt vector.
+The priority of these interrupts is, highest to lowest, <span class="lowsignal">NMI</span>, SWI, <span class="lowsignal">FIRQ</span>, <span class="lowsignal">IRQ</span>, SWI2, and SWI3.
+Figure 3-1 is a detailed flowchart of interrupt processing in these processors.
+The interrupt vector locations are given in Table 3-1.
+The vector locations contain the address for the interrupt routine.</p>
+<p>Additional information on the SWI, SWI2, and SWI3 interrupts is given in Appendix A.
+The hardware interrupts, <span class="lowsignal">NMI</span>, <span class="lowsignal">FIRQ</span>, and <span class="lowsignal">IRQ</span> are listed alphabetically at the end of Appendix A.</p>
+<table class="sec3a">
+  <caption><a name="tab3-1">Table 3-1. Interrupt Vector Locations</a></caption>
+  <tr>
+    <th rowspan="2">Interrupt<br>Description</th>
+    <th colspan="2">Vector Location</th>
+  </tr>
+  <tr>
+    <th>MS Byte</th>
+    <th>LS Byte</th>
+  </tr>
+  <tr>
+    <td class="left">Reset (<span class="lowsignal">RESET</span>)</td>
+    <td>FFFE</td>
+    <td>FFFF</td>
+  </tr>
+  <tr>
+    <td class="left">Non-Maskable Interrupt (<span class="lowsignal">NMI</span>)</td>
+    <td>FFFC</td>
+    <td>FFFD</td>
+  </tr>
+  <tr>
+    <td class="left">Software Interrupt (SWI)</td>
+    <td>FFFA</td>
+    <td>FFFB</td>
+  </tr>
+  <tr>
+    <td class="left">Interrupt Request (<span class="lowsignal">IRQ</span>)</td>
+    <td>FFF8</td>
+    <td>FFF9</td>
+  </tr>
+  <tr>
+    <td class="left">Fast Interrupt Request (<span class="lowsignal">FIRQ</span>)</td>
+    <td>FFF6</td>
+    <td>FFF7</td>
+  </tr>
+  <tr>
+    <td class="left">Software Interrupt 2 (SWI2)</td>
+    <td>FFF4</td>
+    <td>FFF5</td>
+  </tr>
+  <tr>
+    <td class="left">Software Interrupt 3 (SWI3)</td>
+    <td>FFF2</td>
+    <td>FFF3</td>
+  </tr>
+  <tr>
+    <td class="left">Reserved</td>
+    <td>FFF0</td>
+    <td>FFF1</td>
+  </tr>
+</table>
+<h2><a name="sec3_2">3.2 NON-MASKABLE INTERRUPT (<span class="lowsignal">NMI</span>)</a></h2>
+<p>The non-maskable interrupt is edge-sensitive in the sense that if it is sampled low one cycle after it has been sampled high, a non-maskable interrupt will be triggered.
+Because the non-maskable interrupt cannot be masked by execution of the non-maskable interrupt handler routine, it is possible to accept another non-maskable interrupt before executing the first instruction of the interrupt routine.
+A fatal error will exist if a non-maskable interrupt is repeatedly allowed to occur before completing the return from interrupt (<span class="lowsignal">RTI</span>) instruction of the previous non-maskable interrupt request, since the stack will eventually overflow.
+This interrupt is especially applicable to gaining immediate processor response for powerfail, software dynamic memory refresh, or other non-delayable events.</p>
+<h2><a name="sec3_3">3.3 FAST MASKABLE INTERRUPT REQUEST (<span class="lowsignal">FIRQ</span>)</a></h2>
+<p>A low level on the <span class="lowsignal">FIRQ</span> input with the F (fast interrupt request mask) bit in the condition code register clear triggers this interrupt sequence.
+The fast interrupt request provides fast interrupt response by stacking only the program counter and condition code register.
+This allows fast context switching with minimal overhead.
+If any registers are used by the interrupt routine then they can be saved by a single push instruction.</p>
+<p>After accepting a fast interrupt request, the processor clears the E flag, saves the program counter and condition code register, and then sets both the I and F bits to mask any further <span class="lowsignal">IRQ</span> and <span class="lowsignal">FIRQ</span> interrupts.
+After servicing the original interrupt, the user may selectively clear the I and F bits to allow multiple-level interrupts if so desired.</p>
+<h2><a name="sec3_4">3.4 NORMAL MASKABLE INTERRUPT REQUEST (<span class="lowsignal">IRQ</span>)</a></h2>
+<p>A low level on the <span class="lowsignal">IRQ</span> input with the I (interrupt request mask) bit in the condition code register clear triggers this interrupt sequence.
+The normal maskable interrupt request provides a slower hardware response to interrupts because it causes the entire machine state to be stacked.
+However, this means that interrupting software routines can use all processor resources without fear of damaging the interrupted routine.
+A normal interrupt request, having lower priority than the fast interrupt request, is prevented from interrupting the fast interrupt handler by the automatic setting of the I bit by the fast interrupt request handler.</p>
+<p>After accepting a normal interrupt request, the processor sets the E flag, saves the entire machine state, and then sets the I bit to mask any further interrupt request inputs.
+After servicing the original interrupt, the user may clear the I bit to allow multiple-level normal interrupts.</p>
+<p>All interrupt handling routines should return to the formerly executing tasks using a return from interrupt (<span class="lowsignal">RTI</span>) instruction.
+This instruction recovers the saved machine state from the hardware stack and control is returned to the interrupted program.
+If the recovered E bit is clear, it indicates that a fast interrupt request occurred and only the program counter address and condition code register are to be recovered.</p>
+<h2><a name="sec3_5">3.5 SOFTWARE INTERRUPTS (SWI, SWI2, SWI3)</a></h2>
+<p>The software interrupts cause the processor to go through the normal interrupt request sequence of stacking the complete machine state even though the interrupting source is the processor itself.
+These interrupts are commonly used for program debugging and for calls to an operating system.</p>
+<p>Normal processing of the SWI input sets the I and F bits to prevent either of these interrupt requests from affecting the completion of a software interrupt request.
+The remaining software interrupt request inputs (SWI2 and SWI3) do not have the priority of	the SWI input and therefore do not mask the two hardware interrupt request inputs (<span class="lowsignal">FIRQ</span> and <span class="lowsignal">IRQ</span>).</p>
+<p><b>Figure 3-1: Interrupt Processing Flowchart</b><br>
+<a name="fig3-1"></a><a href="gfx/figure3-1.jpg"><img src="gfx/figure3-1.jpg" alt="Figure 3-1: Interrupt Processing Flowchart" title="Interrupt Processing Flowchart" width="400" border="0" /></a></p>
+
+<h1><a name="sec4">SECTION 4 - PROGRAMMING</a></h1>
+<h2><a name="sec4_1">4.1 INTRODUCTION</a></h2>
+<p>These processors are designed to be source-code compatible with the M6800 to make use of the substantial existing base of M6800 software and training.
+However, this asset should not overshadow the capabilities built into these processors that allow more modern programming techniques such as position-independence, modular programming, and reentrancy/recursion to be used on a microprocessor-based system.
+A brief review of these methods is given in the following paragraphs.</p>
+<h3><a name="sec4_1_1">4.1.1 POSITION INDEPENDENCE.</a></h3>
+<p>A program is said to be &quot;position-independent&quot; if it will run correctly when the same machine code is positioned arbitrarily in memory.
+Such a program is useful in many different hardware configurations, and might be copied from a disk into RAM when the operating system first sees a request to use a system utility.
+Position-independent programs never use absolute (extended or direct) addressing: instead, inherent immediate, register, indexed and relative modes are used.
+In particular, there should be no jump (absolute) or jump to subroutine instructions nor should absolute addresses be used.
+A position-independent program is almost always preferable to a position-dependent program (although position-independent code is usually 5 to 10% slower than normal code).</p>
+<h3><a name="sec4_1_2">4.1.2 MODULAR PROGRAMMING.</a></h3>
+<p>Modular programming is another indication of quality code.
+A module is a program element which can be easily disconnected from the rest of the program either for re-use in a new environment or for replacement.
+A module is usually a subroutine (although a subroutine is not necessarily a module); frequently, the programmer isolates register changes internal to the module by pushing these registers onto the stack upon entry, and pulling them off the stack before the return.
+Isolating register changes in the called module, to that module alone, allows the code in the calling program to be more easily analyzed since it can be assumed that all registers (except those specifically used for parameter transfer) are unchanged by each called module.
+This leaves the processor's registers free at each level for loop counts, address comparisons, etc.</p>
+<h4><a name="sec4_1_2_1">4.1.2.1 Local Storage.</a></h4>
+<p>A clean method for allocating &quot;local&quot; storage is required both by position-independent programs as well as modular programs.
+Local or temporary storage is used to hold values only during execution of a module (or called modules) and is released upon return.
+One way to allocate local storage is to decrement the hardware stack pointer(s) by the number of bytes needed.
+Interrupts will then leave this area intact and it can be de-allocated on exiting the module.
+A module will almost always need more temporary storage than just the MPU registers.</p>
+<h4><a name="sec4_1_2_2">4.1.2.2 Global Storage.</a></h4>
+<p>Even in a modular environment there may be a need for &quot;global&quot; values which are accessible by many modules within a given system.
+These provide a convenient means for storing values from one invocation to another invocation of the
+same routine.
+Global storage may be created as local storage at some level, and a pointer register (usually U) used to point at this area.
+This register is passed unchanged in all subroutines, and may be used to index into the global area.</p>
+<h3><a name="sec4_1_3">4.1.3 REENTRANCY/RECURSION.</a></h3>
+<p>Many programs will eventually involve execution in an interrupt-driven environment.
+If the interrupt handlers are complex, they might well call the same routine which has just been interrupted.
+Therefore, to protect present programs against certain obsolescence, all programs should be written to be reentrant.
+A reentrant routine allocates different local variable storage upon each entry.
+Thus, a later entry does not destroy the processing associated with an earlier entry.</p>
+<p>The same technique which was implemented to allow reentrancy also allows recursion.
+A recursive routine is defined as a routine that calls itself.
+A recursive routine might be written to simplify the solution of certain types of problems, especially those which have a data structure whose elements may themselves be a structure.
+For example, a parenthetical equation represents a case where the expression in parenthesis may be considered to be a value which is operated on by the rest of the equation.
+A programmer might choose to write an expression evaluator passing the parenthetical expression (which might also contain parenthetical expressions) in the call, and receive back the returned value of the expression within the parenthesis.</p>
+<h2><a name="sec4_2">4.2 M6809 CAPABILITIES</a></h2>
+<p>The following paragraphs briefly explain how the MC6809 is used with the programming techniques mentioned earlier.</p>
+<h3><a name="sec4_2_1">4.2.1 MODULE CONSTRUCTION.</a></h3>
+<p>A module can be defined as a logically self-contained and discrete part of a larger program.
+A properly constructed module accepts well defined inputs, carries out a set of processing actions, and produces a specified output.
+The use of parameters, local storage, and global storage by a program module is given in the following paragraphs.
+Since registers will be used inside the module (essentially a form of local storage), the first thing that is usually done at entry to a module is to push (save) them on to the stack.
+This can be done with one instruction (e.g., PSHS Y, X, B, A).
+After the body of the module is executed, the saved registers are collected, and a subroutine return is performed, at one time, by pulling the program counter from the stack (e.g., PULS A,B,X,Y,PC).</p>
+<h4><a name="sec4_2_1_1">4.2.1.1 Parameters.</a></h4>
+<p>Parameters may be passed to or from modules either in registers, if they will provide sufficient storage for parameter passage, or on the stack.
+If parameters are passed on the stack, they are placed there before calling the lower level module.
+The called module is then written to use local storage inside the stack as needed (e.g., ADDA offset,S).
+Notice that the required offset consists of the number of bytes pushed (upon entry), plus two from the stacked return address, plus the data offset at the time of the call.
+This value may be calculated, by hand, by drawing a &quot;stack picture&quot; diagram representing module entry, and assigning convenient mnemonics to these offsets with the assembler.
+Returned parameters replace those sent to the routine.
+If more parameters are to be returned on the stack than would normally be sent, space for their return is allocated by the calling routine before the actual call (if four additional bytes are to be returned, the caller would execute LEAS -4,S to acquire the additional storage).</p>
+<h4><a name="sec4_2_1_2">4.2.1.2 Local Storage.</a></h4>
+<p>Local storage space is acquired from the stack while the present routine is executing and then returned to the stack prior to exit.
+The act of pushing registers which will be used in later calculations essentially saves those registers in temporary local storage.
+Additional local storage can easily be acquired from the stack e.g., executing LEAS -2048,S acquires a buffer area running from the 0,S to 2047,S inclusive.
+Any byte in this area may be accessed directly by any instruction which has an indexed addresing mode.
+At the end of the routine, the area acquired for local storage is released (e.g., LEAS 2048,S) prior to the final pull.
+For cleaner programs, local storage should be allocated at entry to the module and released at the exit of the module.</p>
+<h4><a name="sec4_2_1_3">4.2.1.3 Global Storage.</a></h4>
+<p>The area required for global storage is also most effectively acquired from the stack, probably by the highest level routine in the standard package.
+Although this is local storage to the highest level routine, it becomes &quot;global&quot; by positioning a register to point at this storage, (sometimes referred to as a stack mark) then establishing the convention that all modules pass that same pointer value when calling lower level modules.
+In practice, it is convenient to leave this stack mark register unchanged in all modules, especially if global accesses are common.
+The highest level routine in the standard package would execute the following sequence upon entry (to initialize the global area):</p>
+<table>
+  <tr>
+    <td>PSHS U</td>
+    <td>higher level mark, if any</td>
+  </tr>
+  <tr>
+    <td>TFR S,U</td>
+    <td>new stack mark</td>
+  </tr>
+  <tr>
+    <td>LEAS -17,U</td>
+    <td>allocate global storage</td>
+  </tr>
+</table>
+<p>Note that the U register now defines 17 bytes of locally allocated (permanent) globals (which are -1,U through -17,U) as well as other external globals (2,U and above) which have been passed on the stack by the routine which called the standard package.
+Any global may be accessed by any module using exactly the same offset value at any level (e.g., ROL, RAT,U; where RAT EQU -11 has been defined).
+Furthermore, the values stacked prior to invoking the standard package may include pointers to data or I/O peripherals.
+Any indexed operation may be performed indexed indirect through those pointers, which means, for example, that the module need know nothing about the actual hardware configuration, except that (upon entry) the pointer to an I/O register has been placed at a given location on the stack.</p>
+<h3><a name="sec4_2_2">4.2.2 POSITION-INDEPENDENT CODE.</a></h3>
+<p>Position-independent code means that the same machine language code can be placed anywhere in memory and still function correctly.
+The M6809 has a long relative (16-bit offset) branch mode along with the common MC6800 branches, plus program-counter relative addressing.
+Program-counter relative addressing uses the program counter like an indexable register, which allows all instructions that reference memory to also reference data relative to the program counter.
+The M6809 also has load effective address (LEA) instructions which allow the user to point to data in a ROM in a position-independent manner.</p>
+<p>An important rule for generating position-independent code is: NEVER USE ABSOLUTE ADDRESSING.</p>
+<p>Program-counter relative addressing on the M6809 is a form of indexed addressing that uses the program counter as the base register for a constant-offset indexing operation.
+However, the M6809 assembler treats the PCR address field differently from that used in other indexed instructions.
+In PCR addressing, the assembly time location value is subtracted from the (constant) value of the PCR offset.
+The resulting distance to the desired symbol is the value placed into the machine language object code.
+During execution, the processor adds the value of the run time PC to the distance to get a position-independent absolute address.</p>
+<p>The PCR indexed addressing form can be used to point at any location relative to the program regardless of position in memory.
+The PCR form of indexed addressing allows access to tables within the program space in a position-independent manner via use of the load effective address instruction.</p>
+<p>In a program which is completely position-independent, some absolute locations are usually required, particularly for I/O.
+If the locations of I/O devices are placed on the stack (as globals) by a small setup routine before the standard package is invoked, all internal modules can do their I/O through that pointer (e.g., STA [AC|AD, U]), allowing the hardware to be easily changed, if desired.
+Only the single, small, and obvious setup routine need be rewritten for each different hardware configuration.</p>
+<p>Global, permanent, and temporary values need to be easily available in a position-independent manner.
+Use the stack for this data since the stacked data is directly accessible.
+Stack the absolute address of I/O devices before calling any standard software package since the package can use the stacked addresses for I/O in any system.</p>
+<p>The LEA instructions allow access to tables, data, or immediate values in the text of the program in a position-independent manner as shown in the following example:</p>
+<table>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>.</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>.</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>.</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>LEAX</td>
+    <td>MSG1,PCR</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>LBSR</td>
+    <td>PDATA</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>.</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>.</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>.</td>
+  </tr>
+  <tr>
+    <td>MSG1</td>
+    <td>FCC</td>
+    <td>/PRINT THIS!!</td>
+  </tr>
+</table>
+<p>Here we wish to point at a message to be printed from the body of the program.
+By writing &quot;MSG1, PCR&quot; we signal the assembler to compute the distance between the present address (the address of the LBSR) and MSG1.
+This result is inserted as a constant into the LEA instruction which will be indexed from the program counter value at the time of execution.
+Now, no matter where the code is located, when it is executed the computer offset from the program counter will point at MSG1.
+This code is position-independent.</p>
+<p>It is common to use space in the hardware stack for temporary storage.
+Space is made for temporary variables from 0,S through TEMP-1,S by decrementing the stack pointer equal to the length of required storage.
+We could use:</p>
+<table>
+  <tr>
+    <td>LEAS</td>
+    <td>-TEMP,S</td>
+  </tr>
+</table>
+<p>Not only does this facilitate position-independent code but it is structured and helps reentrancy and recursion.</p>
+<h3><a name="sec4_2_3">4.2.3 REENTRANT PROGRAMS.</a></h3>
+<p>A program that can be executed by several different users sharing the same copy of it in memory is called reentrant.
+This is important for interrupt driven systems.
+This method saves considerable memory space, especially with large interrupt routines.
+Stacks are required for reentrant programs, and the M6809 can support up to four stacks by using the X and Y index registers as stack pointers.</p>
+<p>Stacks are simple and convenient mechanisms for generating reentrant programs.
+Subroutines which use stacks for passing parameters and results can be easily made to be reentrant.
+Stack accesses use the indexed addressing mode for fast, efficient execution.
+Stack addressing is quick.</p>
+<p>Pure code, or code that is not self-modifying, is mandatory to produce reentrant code.
+No internal information within the code is subject to modification.
+Reentrant code never has internal temporary storage, is simpler to debug, can be placed in ROM, and must be interruptable.</p>
+<h3><a name="sec4_2_4">4.2.4 RECURSIVE PROGRAMS.</a></h3>
+<p>A recursive program is one that can call itself.
+They are quite convenient for parsing mechanisms and certain arithmetic functions such as computing factorials.
+As with reentrant programming, stacks are very useful for this technique.</p>
+<h3><a name="sec4_2_5">4.2.5 LOOPS.</a></h3>
+<p>The usual structured loops (i.e., REPEAT...UNTIL, WHILE...DO, FOR..., etc.) are available in assembly language in exactly the same way a high-level language compiler could translate the construct for execution on the target machine.
+Using a FOR...NEXT loop as an example, it is possible to push the loop count, increment value, and termination value on the stack as variables local to that loop.
+On each pass through the loop, the working register is saved, the loop count picked up, the increment added in and the result compared to the termination value.
+Based on this comparison, the loop counter might be updated, the working register recovered and the loop resumed, or the working register recovered and the loop variables de-allocated.
+Reasonable macros could make the source form for loop trivial, even in assembly language.
+Such macros might reduce errors resulting from the use of multiple instructions simply to implement a standard control structure.</p>
+<h3><a name="sec4_2_6">4.2.6 STACK PROGRAMMING.</a></h3>
+<p>Many microprocessor applications require data stored as continguous pieces of information in memory.
+The data may be temporary, that is, subject to change or it may be permanent.
+Temporary data will most likely be stored in RAM.
+Permanent data will most likely be stored in ROM.</p>
+<p>It is important to allow the main program as well as subroutines access to this block of data, especially if arguments are to be passed from the main program to the subroutines and vice versa.</p>
+<h4><a name="sec4_2_6_1">4.2.6.1 M6809 Stacking Operations.</a></h4>
+<p>Stack pointers are markers which point to the stack and its internal contents.
+Although all four index registers may be used as stack registers, the S (hardware stack pointer) and the U (user stack pointer) are generally preferred because the push and pull instructions apply to these registers.
+Both are 16-bit indexable registers.
+The processor uses the S register automatically during interrupts and subroutine calls.
+The U register is free for any purpose needed.
+It is not affected by interrupts or subroutine calls implemented by the hardware.</p>
+<p>Either stack pointer can be specified as the base address in indexed addressing.
+One use of the indirect addressing mode uses stack pointers to allow addresses of data to be passed to a subroutine on a stack as arguments to a subroutine.
+The subroutine can now reference the data with one instruction.
+High-level language calls that pass arguments by reference are now more efficiently coded.
+Also, each stack push or pull operation in a program uses a postbyte which specifies any register or set of registers to be pushed or pulled from either stack.
+With this option, the overhead associated with subroutine calls in both assembly and high-level language programs is greatly decreased.
+In fact, with the large number of instructions that use autoincrement and autodecrement, the M6809 can emulate a true stack computer architecture.</p>
+<p>Using the S or U stack pointer, the order in which the registers are pushed or pulled is shown in Figure 4-1.
+Notice that we push &quot;onto&quot; the stack towards decreasing memory locations.
+The program counter is pushed first.
+Then the stack pointer is decremented and the &quot;other&quot; stack pointer is pushed onto the stack.
+Decrementing and storing continues until all the registers requested by the postbyte are pushed onto the stack.
+The stack pointer points to the top of the stack after the push operation.</p>
+<p>The stacking order is specified by the processor.
+The stacking order is identical to the order used for all hardware and software interrupts.
+The same order is used even if a subset of the registers is pushed.</p>
+<p>Without stacks, most modern block-structured high-level languages would be cumbersome to implement.
+Subroutine linkage is very important in high-level language generation.
+Paragraph 4.2.6.2 describes how to use a stack mark pointer for this important task.</p>
+<p>Good programming practice dictates the use of the hardware stack for temporary storage.
+To reserve space, decrement the stack pointer by the amount of storage required with the instruction LEAS -TEMPS, S.
+This instruction makes space for temporary variables from 0,S through TEMPS-1,S.</p>
+<p><a name="fig4-1"></a><a href="gfx/figure4-1.jpg"><img src="gfx/figure4-1.jpg" alt="Figure 4-1: Stacking Order" title="Stacking Order" width="400" border="0"></a></p>
+<h4><a name="sec4_2_6_2">4.2.6.2 Subroutine Linkage.</a></h4>
+<p>In the highest level routine, global variables are sometimes considered to be local.
+Therefore, global storage is allocated at this point, but access to these same variables requires different offset values depending on subroutine depth.
+Because subroutine depth changes dynamically, the length may not be known beforehand.
+This problem is solved by assigning one pointer (U will be used in the following description, but X or Y could also be used) to &quot;mark&quot; a location on the hardware stack by using the instruction TFR S,U.
+If the programmer does this immediately prior to allocating global storage, then all variables will then be available at a constant negative offset location from this stack mark.
+If the stack is marked after the global variables are allocated, then the global variables are available at a constant positive offset from U.
+Register U is then called the stack mark pointer.
+Recall that the hardware stack pointer may be modified by hardware interrupts.
+For this reason, it is fatal to use data referred to by a negative offset with respect to the hardware stack pointer, S.</p>
+<h4><a name="sec4_2_6_3">4.2.6.3 Software Stacks.</a></h4>
+<p>If more than two stacks are needed, autoincrement and autodecrement mode of addressing can be used to generate additional software stack pointers.</p>
+<p>The X, Y, and U index registers are quite useful in loops for incrementing and decrementing purposes.
+The pointer is used for searching tables and also to move data from one area of memory to another (block moves).
+This autoincrement and autodecrement feature is available in the indexed addressing mode of the M6809 to facilitate such operations.</p>
+<p>In autoincrement, the value contained in the index register (X or Y, U or S) is used as the effective address and then the register is incremented (postincremented).
+In autodecrement, the index register is first decremented and then used to obtain the effective address (predecremented).
+Postincrement or predecrement is always performed in this addressing mode.
+This is equivalent in operation to the push and pull from a stack.
+This equivalence allows the X and Y index registers to be used as software stack pointers.
+The indexed addressing mode can also implement an extra level of post indirection.
+This feature supports parameter and pointer operations.</p>
+<h3><a name="sec4_2_7">4.2.7 REAL TIME PROGRAMMING.</a></h3>
+<p>Real time programming requires special care.
+Sometimes a peripheral or task demands an immediate response from the processor, other times it can wait.
+Most real time applications are demanding in terms of processor response.</p>
+<p>A common solution is to use the interrupt capability of the processor in solving real time problems.
+Interrupts mean just that; they request a break in the current sequence of events to solve an asynchronous service request.
+The system designer must consider all variations of the conditions to be encountered by the system including software interaction with interrupts.
+As a result, problems due to software design are more common in interrupt implementation code for real time programming than most other situations.
+Software timeouts, hardware interrupts, and program control interrupts are typically used in solving real time programming problems.</p>
+<h2><a name="sec4_3">4.3 PROGRAM DOCUMENTATION</a></h2>
+<p>Common sense dictates that a well documented program is mandatory.
+Comments are needed to explain each group of instructions since their use is not always obvious from looking at the code.
+Program boundaries and branch instructions need full clarification.
+Consider the following points when writing comments: up-to-date, accuracy, completeness, conciseness, and understandability.</p>
+<p>Accurate documentation enables you and others to maintain and adapt programs for updating and/or additional use with other programs.</p>
+<p>The following program documentation standards are suggested.</p>
+<table>
+  <tr>
+    <td class="top left">A)</td>
+    <td>Each subroutine should have an associated header block containing at least the following elements:<br>
+      <table>
+        <tr>
+          <td class="top left">1)</td>
+          <td>A full specification for this subroutine &ndash; including associated data structures &ndash; such that replacement code could be generated from this description alone.</td>
+        </tr>
+        <tr>
+          <td class="top left">2)</td>
+          <td>All usage of memory resources must be defined, including:<br>
+            <table>
+              <tr>
+                <td class="top left">a)</td>
+                <td>All RAM needed from temporary (local) storage used during execution of this subroutine or called subroutines.</td>
+              </tr>
+              <tr>
+                <td class="top left">b)</td>
+                <td>All RAM needed for permanent storage (used to transfer values from one execution of the subroutine to future executions).</td>
+              </tr>
+              <tr>
+                <td class="top left">c)</td>
+                <td>All RAM accessed as global storage (used to transfer values from or to higher-level subroutines).</td>
+              </tr>
+              <tr>
+                <td class="top left">d)</td>
+                <td>All possible exit-state conditions, if these are to be used by calling routines to test occurrences internal to the subroutine.</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="top left">B)</td>
+    <td>Code internal to each subroutine should have sufficient associated line comments to help in understanding the code.</td>
+  </tr>
+  <tr>
+    <td class="top left">C)</td>
+    <td>All code must be non-self-modifying and position-independent.</td>
+  </tr>
+  <tr>
+    <td class="top left">D)</td>
+    <td>Each subroutine which includes a loop must be separately documented by a flowchart or pseudo high-level language algorithm.</td>
+  </tr>
+  <tr>
+    <td class="top left">E)</td>
+    <td>Any module or subroutine should be executable starting at the first location an exit at the last location.</td>
+  </tr>
+</table>
+<h2><a name="sec4_4">4.4 INSTRUCTION SET</a></h2>
+<p>The complete instruction set for the M6809 is given in Table 4-1.</p>
+<table>
+  <caption><a name="tab4-1">Table 4-1. Instruction Set</a></caption>
+  <tr>
+    <th>Instruction</th><th>Description</th>
+  </tr>
+  <tr>
+    <td>ABX</td><td>Add Accumulator B into Index Register X</td>
+  </tr>
+  <tr>
+    <td>ADC</td><td>Add with Carry into Register</td>
+  </tr>
+  <tr>
+    <td>ADD</td><td>Add Memory into Register</td>
+  </tr>
+  <tr>
+    <td>AND</td><td>Logical AND Memory into Register</td>
+  </tr>
+  <tr>
+    <td>ASL</td><td>Arithmetic Shift Left</td>
+  </tr>
+  <tr>
+    <td>ASR</td><td>Arithmetic Shift Right</td>
+  </tr>
+  <tr>
+    <td>BCC</td><td>Branch on Carry Clear</td>
+  </tr>
+  <tr>
+    <td>BCS</td><td>Branch on Carry Set</td>
+  </tr>
+  <tr>
+    <td>BEQ</td><td>Branch on Equal</td>
+  </tr>
+  <tr>
+    <td>BGE</td><td>Branch on Greater Than or Equal to Zero</td>
+  </tr>
+  <tr>
+    <td>BGT</td><td>Branch on Greater</td>
+  </tr>
+  <tr>
+    <td>BHI</td><td>Branch if Higher</td>
+  </tr>
+  <tr>
+    <td>BHS</td><td>Branch if Higher or Same</td>
+  </tr>
+  <tr>
+    <td>BIT</td><td>Bit Test</td>
+  </tr>
+  <tr>
+    <td>BLE</td><td>Branch if Less than or Equal to Zero</td>
+  </tr>
+  <tr>
+    <td>BLO</td><td>Branch on Lower</td>
+  </tr>
+  <tr>
+    <td>BLS</td><td>Branch on Lower or Same</td>
+  </tr>
+  <tr>
+    <td>BLT</td><td>Branch on Less than Zero</td>
+  </tr>
+  <tr>
+    <td>BMI</td><td>Branch on Minus</td>
+  </tr>
+  <tr>
+    <td>BNE</td><td>Branch Not Equal</td>
+  </tr>
+  <tr>
+    <td>BPL</td><td>Branch on Plus</td>
+  </tr>
+  <tr>
+    <td>BRA</td><td>Branch Always</td>
+  </tr>
+  <tr>
+    <td>BRN</td><td>Branch Never</td>
+  </tr>
+  <tr>
+    <td>BSR</td><td>Branch to Subroutine</td>
+  </tr>
+  <tr>
+    <td>BVC</td><td>Branch on Overflow Clear</td>
+  </tr>
+  <tr>
+    <td>BVS</td><td>Branch on Overflow Set</td>
+  </tr>
+  <tr>
+    <td>CLR</td><td>Clear</td>
+  </tr>
+  <tr>
+    <td>CMP</td><td>Compare Memory from a Register</td>
+  </tr>
+  <tr>
+    <td>COM</td><td>Complement</td>
+  </tr>
+  <tr>
+    <td>CWAI</td><td>Clear CC bits and Wait for Interrup</td>
+  </tr>
+  <tr>
+    <td>DAA</td><td>Decimal Addition Adjust</td>
+  </tr>
+  <tr>
+    <td>DEC</td><td>Decrement</td>
+  </tr>
+  <tr>
+    <td>EOR</td><td>Exclusive OR</td>
+  </tr>
+  <tr>
+    <td>EXG</td><td>Exchange Registers</td>
+  </tr>
+  <tr>
+    <td>INC</td><td>Increment</td>
+  </tr>
+  <tr>
+    <td>JMP</td><td>Jump</td>
+  </tr>
+  <tr>
+    <td>JSR</td><td>Jump to Subroutine</td>
+  </tr>
+  <tr>
+    <td>LD</td><td>Load Register from Memory</td>
+  </tr>
+  <tr>
+    <td>LEA</td><td>Load Effective Address</td>
+  </tr>
+  <tr>
+    <td>LSL</td><td>Logical Shift Left</td>
+  </tr>
+  <tr>
+    <td>LSR</td><td>Logical Shift Right</td>
+  </tr>
+  <tr>
+    <td>MUL</td><td>Multiply</td>
+  </tr>
+  <tr>
+    <td>NEG</td><td>Negate</td>
+  </tr>
+  <tr>
+    <td>NOP</td><td>No Operation</td>
+  </tr>
+  <tr>
+    <td>OR</td><td>Inclusive OR Memory into Register</td>
+  </tr>
+  <tr>
+    <td>PSH</td><td>Push Registers</td>
+  </tr>
+  <tr>
+    <td>PUL</td><td>Pull Registers</td>
+  </tr>
+  <tr>
+    <td>ROL</td><td>Rotate Left</td>
+  </tr>
+  <tr>
+    <td>ROR</td><td>Rotate Right</td>
+  </tr>
+  <tr>
+    <td>RTI</td><td>Return from Interrupt</td>
+  </tr>
+  <tr>
+    <td>RTS</td><td>Return from Subroutine</td>
+  </tr>
+  <tr>
+    <td>SBC</td><td>Subtract with Borrow</td>
+  </tr>
+  <tr>
+    <td>SEX</td><td>Sign Extend</td>
+  </tr>
+  <tr>
+    <td>ST</td><td>Store Register into Memory</td>
+  </tr>
+  <tr>
+    <td>SUB</td><td>Subtract Memory from Register</td>
+  </tr>
+  <tr>
+    <td>SWI</td><td>Software Interrupt</td>
+  </tr>
+  <tr>
+    <td>SYNC</td><td>Synchronize to External Event</td>
+  </tr>
+  <tr>
+    <td>TFR</td><td>Transfer Register to Register</td>
+  </tr>
+  <tr>
+    <td>TST</td><td>Test</td>
+  </tr>
+</table>
+<p>The instruction set can be functionally divided into five categories.
+They are:</p>
+<table>
+  <tr>
+    <td>8-Bit Accumulator and Memory Instructions</td>
+  </tr>
+  <tr>
+    <td>16-Bit Accumulator and Memory Instructions</td>
+  </tr>
+  <tr>
+    <td>Index Register/Stack Pointer Instructions</td>
+  </tr>
+  <tr>
+    <td>Branch Instructions</td>
+  </tr>
+  <tr>
+    <td>Miscellaneous Instructions</td>
+  </tr>
+</table>
+<p>Tables 4-2 through 4-6 are listings of the M6809 instructions and their variations grouped into the five categories listed.</p>
+<table class="sec2c">
+  <caption><a name="tab4-2">Table 4-2. 8-Bit Accumulator and Memory Instructions</a></caption>
+  <tr>
+    <th>Instruction</th><th>Description</th>
+  </tr>
+  <tr>
+    <td>ADCA, ADCB</td><td>Add memory to accumulator with carry</td>
+  </tr>
+  <tr>
+    <td>ADDA, ADDB</td><td>Add memory to accumulator</td>
+  </tr>
+  <tr>
+    <td>ANDA, ANDB</td><td>AND memory with accumulator</td>
+  </tr>
+  <tr>
+    <td>ASL, ASLA, ASLB</td><td>Arithmetic shift of accumulator or memory left</td>
+  </tr>
+  <tr>
+    <td>ASR, ASRA, ASRB</td><td>Arithmetic shift of accumulator or memory right</td>
+  </tr>
+  <tr>
+    <td>BITA, BITB</td><td>Bit test memory with accumulator</td>
+  </tr>
+  <tr>
+    <td>CLR, CLRA, CLRB</td><td>Clear accumulator or memory location</td>
+  </tr>
+  <tr>
+    <td>CMPA, CMPB</td><td>Compare memory from accumulator</td>
+  </tr>
+  <tr>
+    <td>COM, COMA, COMB</td><td>Complement accumulator or memory location</td>
+  </tr>
+  <tr>
+    <td>DAA</td><td>Decimal adjust A accumulator</td>
+  </tr>
+  <tr>
+    <td>DEC, DECA, DECB</td><td>Decrement accumulator or memory location</td>
+  </tr>
+  <tr>
+    <td>EORA, EORB</td><td>Exclusive OR memory with accumulator</td>
+  </tr>
+  <tr>
+    <td>EXG Rl, R2</td><td>Exchange Rl with R2 (R1, R2 = A, B, CC, DP)</td>
+  </tr>
+  <tr>
+    <td>INC, INCA, INCB</td><td>Increment accumulator or memory location</td>
+  </tr>
+  <tr>
+    <td>LDA, LDB</td><td>Load accumulator from memory</td>
+  </tr>
+  <tr>
+    <td>LSL, LSLA, LSLB</td><td>Logical shift left accumulator or memory location</td>
+  </tr>
+  <tr>
+    <td>LSR, LSRA, LSRB</td><td>Logical shift right accumulator or memory location</td>
+  </tr>
+  <tr>
+    <td>MUL</td><td>Unsigned multiply (A &times; B &rarr; D)</td>
+  </tr>
+  <tr>
+    <td>NEG, NEGA, NEGB</td><td>Negate accumulator or memory</td>
+  </tr>
+  <tr>
+    <td>ORA, ORB</td><td>OR memory with accumulator</td>
+  </tr>
+  <tr>
+    <td>ROL, ROLA, ROLB</td><td>Rotate accumulator or memory left</td>
+  </tr>
+  <tr>
+    <td>ROR, RORA, RORB</td><td>Rotate accumulator or memory right</td>
+  </tr>
+  <tr>
+    <td>SBCA, SBCB</td><td>Subtract memory from accumulator with borrow</td>
+  </tr>
+  <tr>
+    <td>STA, STB</td><td>Store accumulator to memroy</td>
+  </tr>
+  <tr>
+    <td>SUBA, SUBB</td><td>Subtract memory from accumulator</td>
+  </tr>
+  <tr>
+    <td>TST, TSTA, TSTB</td><td>Test accumulator or memory location</td>
+  </tr>
+  <tr>
+    <td>TFR R1, R2</td><td>Transfer R1 to R2 (R1, R2 = A, B, CC, DP)</td>
+  </tr>
+</table>
+<p>NOTE: A, B, CC, or DP may be pushed to (pulled from) either stack with PSHS, PSHU (PULS, PULU) instructions.</p>
+<table class="sec2c">
+  <caption><a name="tab4-3">Table 4-3. 16-Bit Accumulator and Memory Instructions</a></caption>
+  <tr>
+    <th>Instruction</th><th>Description</th>
+  </tr>
+  <tr>
+    <td>ADDD</td><td>Add memory to D accumulator</td>
+  </tr>
+  <tr>
+    <td>CMPD</td><td>Compare memory from D accumulator</td>
+  </tr>
+  <tr>
+    <td>EXG D, R</td><td>Exchange D with X, Y, S, U, or PC</td>
+  </tr>
+  <tr>
+    <td>LDD</td><td>Load D accumulator from memory</td>
+  </tr>
+  <tr>
+    <td>SEX</td><td>Sign Extend B accumulator into A accumulator</td>
+  </tr>
+  <tr>
+    <td>STD</td><td>Store D accumulator to memory</td>
+  </tr>
+  <tr>
+    <td>SUBD</td><td>Subtract memory from D accumulator</td>
+  </tr>
+  <tr>
+    <td>TFR D, R</td><td>Transfer D to X, Y, S, U, or PC</td>
+  </tr>
+  <tr>
+    <td>TFR R, D</td><td>Transfer X, Y, S, U, or PC to D</td>
+  </tr>
+</table>
+<p>NOTE: D may be pushed (pulled) to either stack with PSHS, PSHU (PULS, PULU) instructions.</p>
+<table class="sec2c">
+  <caption><a name="tab4-4">Table 4-4. Index/Stack Pointer Instructions</a></caption>
+  <tr>
+    <th>Instruction</th><th>Description</th>
+  </tr>
+  <tr>
+    <td>CMPS, CMPU</td><td>Compare memory from stack pointer</td>
+  </tr>
+  <tr>
+    <td>CMPX, CMPY</td><td>Compare memory from index register</td>
+  </tr>
+  <tr>
+    <td>EXG Rl, R2</td><td>Exchange D, X, Y, S, U or PC with D, X, Y, S, U or PC</td>
+  </tr>
+  <tr>
+    <td>LEAS, LEAU</td><td>Load effective address into stack pointer</td>
+  </tr>
+  <tr>
+    <td>LEAX, LEAY</td><td>Load effective address into index register</td>
+  </tr>
+  <tr>
+    <td>LDS, LDU</td><td>Load stack pointer from memory</td>
+  </tr>
+  <tr>
+    <td>LDX, LDY</td><td>Load index register from memory</td>
+  </tr>
+  <tr>
+    <td>PSHS</td><td>Push A, B, CC, DP, D, X, Y, U, or PC onto hardware stack</td>
+  </tr>
+  <tr>
+    <td>PSHU</td><td>Push A, B, CC, DP, D, X, Y, <span class="correction">S</span>, or PC onto user stack</td>
+  </tr>
+  <tr>
+    <td>PULS</td><td>Pull A, B, CC, DP, D, X, Y, U, or PC from hardware stack</td>
+  </tr>
+  <tr>
+    <td>PULU</td><td>Pull A, B, CC, DP, D, X, Y, S, or PC from hardware stack</td>
+  </tr>
+  <tr>
+    <td>STS, STU</td><td>Store stack pointer to memory</td>
+  </tr>
+  <tr>
+    <td>STX, STY</td><td>Store index register to memory</td>
+  </tr>
+  <tr>
+    <td>TFR Rl, R2</td><td>Transfer D, X, Y, S, U, or PC to D, X, Y, S, U, or PC</td>
+  </tr>
+  <tr>
+    <td>ABX</td><td>Add B accumulator to X (unsigned)</td>
+  </tr>
+</table>
+<table class="sec2c">
+  <caption><a name="tab4-5">Table 4-5. Branch Instructions</a></caption>
+  <tr>
+    <th>Instruction</th><th>Description</th>
+  </tr>
+  <tr>
+    <th colspan="2">SIMPLE BRANCHES</th>
+  </tr>
+  <tr>
+    <td>BEQ, LBEQ</td><td>Branch if equal</td>
+  </tr>
+  <tr>
+    <td>BNE, LBNE</td><td>Branch if not equal</td>
+  </tr>
+  <tr>
+    <td>BMI, LBMI</td><td>Branch if minus</td>
+  </tr>
+  <tr>
+    <td>BPL, LBPL</td><td>Branch if plus</td>
+  </tr>
+  <tr>
+    <td>BCS, LBCS</td><td>Branch if carry set</td>
+  </tr>
+  <tr>
+    <td>BCC, LBCC</td><td>Branch if carry clear</td>
+  </tr>
+  <tr>
+    <td>BVS, LBVS</td><td>Branch if overflow set</td>
+  </tr>
+  <tr>
+    <td>BVC, LBVC</td><td> Branch if overflow clear</td>
+  </tr>
+  <tr>
+    <th colspan="2">SIGNED BRANCHES</th>
+  </tr>
+  <tr>
+    <td>BGT, LBGT</td><td>Branch if greater (signed)</td>
+  </tr>
+  <tr>
+    <td>BVS, LBVS</td><td>Branch if invalid twos complement result</td>
+  </tr>
+  <tr>
+    <td>BGE, LBGE</td><td>Branch if greater than or equal (signed)</td>
+  </tr>
+  <tr>
+    <td>BEQ, LBEQ</td><td>Branch if equal</td>
+  </tr>
+  <tr>
+    <td>BNE, LBNE</td><td>Branch if not equal</td>
+  </tr>
+  <tr>
+    <td>BLE, LBLE</td><td>Branch if less than or equal (signed)</td>
+  </tr>
+  <tr>
+    <td>BVC, LBVC</td><td>Branch if valid twos complement result</td>
+  </tr>
+  <tr>
+    <td>BLT, LBLT</td><td>Branch if less than (signed)</td>
+  </tr>
+  <tr>
+    <th colspan="2">UNSIGNED BRANCHES</th>
+  </tr>
+  <tr>
+    <td>BHI, LBHI</td><td>Branch if higher (unsigned)</td>
+  </tr>
+  <tr>
+    <td>BCC, LBCC</td><td>Branch if higher or same (unsigned)</td>
+  </tr>
+  <tr>
+    <td>BHS, LBHS</td><td>Branch if higher or same (unsigned)</td>
+  </tr>
+  <tr>
+    <td>BEQ, LBEQ</td><td>Branch if equal</td>
+  </tr>
+  <tr>
+    <td>BNE, LBNE</td><td>Branch if not equal</td>
+  </tr>
+  <tr>
+    <td>BLS, LBLS</td><td>Branch if lower or same (unsigned)</td>
+  </tr>
+  <tr>
+    <td>BCS, LBCS</td><td>Branch if lower (unsigned)</td>
+  </tr>
+  <tr>
+    <td>BLO, LBLO</td><td>Branch if lower (unsigned)</td>
+  </tr>
+  <tr>
+    <th colspan="2">OTHER BRANCHES</th>
+  </tr>
+  <tr>
+    <td>BSR, LBSR</td><td>Branch to subroutine</td>
+  </tr>
+  <tr>
+    <td>BRA, LBRA</td><td>Branch always</td>
+  </tr>
+  <tr>
+    <td>BRN, LBRN</td><td>Branch never</td>
+  </tr>
+</table>
+<table class="sec2c">
+  <caption><a name="tab4-6">Table 4-6. Miscellaneous Instructions</a></caption>
+  <tr>
+    <th>Instruction</th><th>Description</th>
+  </tr>
+  <tr>
+    <td>ANDCC</td><td>AND condition code register</td>
+  </tr>
+  <tr>
+    <td>CWAI</td><td>AND condition code register, then wait for interrupt</td>
+  </tr>
+  <tr>
+    <td>NOP</td><td>No operation</td>
+  </tr>
+  <tr>
+    <td>ORCC</td><td>OR condition code register</td>
+  </tr>
+  <tr>
+    <td>JMP</td><td>Jump</td>
+  </tr>
+  <tr>
+    <td>JSR</td><td>Jump to subroutine</td>
+  </tr>
+  <tr>
+    <td>RTI</td><td>Return from interrupt</td>
+  </tr>
+  <tr>
+    <td>RTS</td><td>Return from subroutine</td>
+  </tr>
+  <tr>
+    <td>SWI, SWI2, SWI3</td><td>Software interrupt (absolute indirect)</td>
+  </tr>
+  <tr>
+    <td>SYNC</td><td>Synchronize with interrupt line</td>
+  </tr>
+</table>
+
+<hr>
+
+<p>&copy; Motorola Inc., 1981 (now <a href="http://www.freescale.com/" target="_top">Freescale</a> as of 2006)<br>
+Transferred into HTML by <a href="http://www.maddes.net/" target="_top">Matthias &quot;Maddes&quot; B&uuml;cher</a> in 2006, 2007.<br>
+Use all information at your own risk.</p>
+
+<table border="0"><tr>
+<td><a href="#top">Top</a></td>
+<td><a href=".">ToC</a></td>
+<td><a href=".." target="_top">Start</a></td>
+<td><a href="../contact.php">Contact</a></td>
+</tr></table>
+
+</div></body>
+</html>

@@ -13,7 +13,7 @@ var wpcSystem, intervalId;
 
 function step() {
   // TODO make adaptive, so we execute 2000 emuState.opMs
-  var count = 54*16;
+  var count = 54*8;
 
   while (count--) {
     try {
@@ -106,7 +106,7 @@ function updateCanvas() {
   c.fillText('ROM: hurcnl_2.rom', 0, YPOS_GENERIC_DATA + 10);
   c.fillText('CPU TICKS: ' + emuState.ticks, 250, YPOS_GENERIC_DATA + 10);
   c.fillText('CPU TICKS/ms: ' + emuState.opMs, 500, YPOS_GENERIC_DATA + 10);
-  const cpuState = intervalId ? 'running' : 'stopped';
+  const cpuState = intervalId ? 'running' : 'paused';
   c.fillText('CPU STATE: ' + cpuState, 250, YPOS_GENERIC_DATA + 20);
   c.fillText('ASIC RAM:', 500, YPOS_GENERIC_DATA + 20);
 

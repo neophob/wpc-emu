@@ -1,0 +1,609 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+<title>MC6809-MC6809E Microprocessor Programming Manual [M6809PM] - Appendix E - Maddes.net</title>
+<link rel="stylesheet" type="text/css" media="all" href="css/m6809pm.css">
+</head>
+
+<body><div class="text">
+<a name="top"></a>
+<table border="0"><tr>
+<td><a href=".">ToC</a></td>
+<td><a href=".." target="_top">Start</a></td>
+<td><a href="../contact.php">Contact</a></td>
+</tr></table>
+
+<hr>
+
+<h1>MC6809-MC6809E 8-Bit Microprocessor Programming Manual [M6809PM/AD]<br>&copy; Motorola Inc., 1981</h1>
+<h1><a name="appE">APPENDIX E - ASCII CHARACTER SET</a></h1>
+<h2><a name="appE_1">E.1 INTRODUCTION</a></h2>
+<p>This appendix contains the standard 112 character ASCII character set (7-bit code).</p>
+<h2><a name="appE_2">E.2 CHARACTER REPRESENTATION AND CODE IDENTIFICATION</a></h2>
+<p>The ASCII character set is given in Figure E-1.</p>
+<table class="figE-1">
+  <caption><a name="figE-1">Figure E-1. ASCII Character Set</a></caption>
+  <tr>
+    <th colspan="8" class="left bordernobottom">b7</th>
+    <th rowspan="3" class="top bordernoright">0</th>
+    <th rowspan="3" class="middle bordernosides">0</th>
+    <th rowspan="3" class="bottom bordernoleft">0</th>
+    <th rowspan="3" class="top bordernoright">0</th>
+    <th rowspan="3" class="middle bordernosides">0</th>
+    <th rowspan="3" class="bottom bordernoleft">1</th>
+    <th rowspan="3" class="top bordernoright">0</th>
+    <th rowspan="3" class="middle bordernosides">1</th>
+    <th rowspan="3" class="bottom bordernoleft">0</th>
+    <th rowspan="3" class="top bordernoright">0</th>
+    <th rowspan="3" class="middle bordernosides">1</th>
+    <th rowspan="3" class="bottom bordernoleft">1</th>
+    <th rowspan="3" class="top bordernoright">1</th>
+    <th rowspan="3" class="middle bordernosides">0</th>
+    <th rowspan="3" class="bottom bordernoleft">0</th>
+    <th rowspan="3" class="top bordernoright">1</th>
+    <th rowspan="3" class="middle bordernosides">0</th>
+    <th rowspan="3" class="bottom bordernoleft">1</th>
+    <th rowspan="3" class="top bordernoright">1</th>
+    <th rowspan="3" class="middle bordernosides">1</th>
+    <th rowspan="3" class="bottom bordernoleft">0</th>
+    <th rowspan="3" class="top bordernoright">1</th>
+    <th rowspan="3" class="middle bordernosides">1</th>
+    <th rowspan="3" class="bottom bordernoleft">1</th>
+  </tr>
+  <tr>
+    <th rowspan="20" class="bordertop">&nbsp;</th>
+    <th colspan="7" class="left bordersides">b6</th>
+  </tr>
+  <tr>
+    <th rowspan="19" class="bordertop">&nbsp;</th>
+    <th colspan="6" class="left bordernotop">b5</th>
+  </tr>
+  <tr>
+    <th rowspan="2">b4<br>&darr;</th>
+    <th rowspan="2">b3<br>&darr;</th>
+    <th rowspan="2">b2<br>&darr;</th>
+    <th rowspan="2">b1<br>&darr;</th>
+    <th></th>
+    <th>Column</th>
+    <th colspan="3">0</th>
+    <th colspan="3">1</th>
+    <th colspan="3">2</th>
+    <th colspan="3">3</th>
+    <th colspan="3">4</th>
+    <th colspan="3">5</th>
+    <th colspan="3">6</th>
+    <th colspan="3">7</th>
+  </tr>
+  <tr>
+    <th>Row</th>
+    <th>Hex</th>
+    <th colspan="3">0</th>
+    <th colspan="3">1</th>
+    <th colspan="3">2</th>
+    <th colspan="3">3</th>
+    <th colspan="3">4</th>
+    <th colspan="3">5</th>
+    <th colspan="3">6</th>
+    <th colspan="3">7</th>
+  </tr>
+  <tr>
+    <th>0</th>
+    <th>0</th>
+    <th>0</th>
+    <th>0</th>
+    <th>0</th>
+    <th>0</th>
+    <td colspan="3">NUL</td>
+    <td colspan="3">DLE</td>
+    <td colspan="3">SP</td>
+    <td colspan="3">0</td>
+    <td colspan="3">@</td>
+    <td colspan="3">P</td>
+    <td colspan="3">`</td>
+    <td colspan="3">p</td>
+  </tr>
+  <tr>
+    <th>0</th>
+    <th>0</th>
+    <th>0</th>
+    <th>1</th>
+    <th>1</th>
+    <th>1</th>
+    <td colspan="3">SOH</td>
+    <td colspan="3">DC1</td>
+    <td colspan="3">!</td>
+    <td colspan="3">1</td>
+    <td colspan="3">A</td>
+    <td colspan="3">Q</td>
+    <td colspan="3">a</td>
+    <td colspan="3">q</td>
+  </tr>
+  <tr>
+    <th>0</th>
+    <th>0</th>
+    <th>1</th>
+    <th>0</th>
+    <th>2</th>
+    <th>2</th>
+    <td colspan="3">STX</td>
+    <td colspan="3">DC2</td>
+    <td colspan="3">&quot;</td>
+    <td colspan="3">2</td>
+    <td colspan="3">B</td>
+    <td colspan="3">R</td>
+    <td colspan="3">b</td>
+    <td colspan="3">r</td>
+  </tr>
+  <tr>
+    <th>0</th>
+    <th>0</th>
+    <th>1</th>
+    <th>1</th>
+    <th>3</th>
+    <th>3</th>
+    <td colspan="3">ETX</td>
+    <td colspan="3">DC3</td>
+    <td colspan="3">#</td>
+    <td colspan="3">3</td>
+    <td colspan="3">C</td>
+    <td colspan="3">S</td>
+    <td colspan="3">c</td>
+    <td colspan="3">s</td>
+  </tr>
+  <tr>
+    <th>0</th>
+    <th>1</th>
+    <th>0</th>
+    <th>0</th>
+    <th>4</th>
+    <th>4</th>
+    <td colspan="3">EOT</td>
+    <td colspan="3">DC4</td>
+    <td colspan="3">$</td>
+    <td colspan="3">4</td>
+    <td colspan="3">D</td>
+    <td colspan="3">T</td>
+    <td colspan="3">d</td>
+    <td colspan="3">t</td>
+  </tr>
+  <tr>
+    <th>0</th>
+    <th>1</th>
+    <th>0</th>
+    <th>1</th>
+    <th>5</th>
+    <th>5</th>
+    <td colspan="3">ENQ</td>
+    <td colspan="3">NAK</td>
+    <td colspan="3">%</td>
+    <td colspan="3">5</td>
+    <td colspan="3">E</td>
+    <td colspan="3">U</td>
+    <td colspan="3">e</td>
+    <td colspan="3">u</td>
+  </tr>
+  <tr>
+    <th>0</th>
+    <th>1</th>
+    <th>1</th>
+    <th>0</th>
+    <th>6</th>
+    <th>6</th>
+    <td colspan="3">ACK</td>
+    <td colspan="3">SYN</td>
+    <td colspan="3">&amp;</td>
+    <td colspan="3">6</td>
+    <td colspan="3">F</td>
+    <td colspan="3">V</td>
+    <td colspan="3">f</td>
+    <td colspan="3">v</td>
+  </tr>
+  <tr>
+    <th>0</th>
+    <th>1</th>
+    <th>1</th>
+    <th>1</th>
+    <th>7</th>
+    <th>7</th>
+    <td colspan="3">BEL</td>
+    <td colspan="3">ETB</td>
+    <td colspan="3">'</td>
+    <td colspan="3">7</td>
+    <td colspan="3">G</td>
+    <td colspan="3">W</td>
+    <td colspan="3">g</td>
+    <td colspan="3">w</td>
+  </tr>
+  <tr>
+    <th>1</th>
+    <th>0</th>
+    <th>0</th>
+    <th>0</th>
+    <th>8</th>
+    <th>8</th>
+    <td colspan="3">BS</td>
+    <td colspan="3">CAN</td>
+    <td colspan="3">(</td>
+    <td colspan="3">8</td>
+    <td colspan="3">H</td>
+    <td colspan="3">X</td>
+    <td colspan="3">h</td>
+    <td colspan="3">x</td>
+  </tr>
+  <tr>
+    <th>1</th>
+    <th>0</th>
+    <th>0</th>
+    <th>1</th>
+    <th>9</th>
+    <th>9</th>
+    <td colspan="3">HT</td>
+    <td colspan="3">EM</td>
+    <td colspan="3">)</td>
+    <td colspan="3">9</td>
+    <td colspan="3">I</td>
+    <td colspan="3">Y</td>
+    <td colspan="3">i</td>
+    <td colspan="3">y</td>
+  </tr>
+  <tr>
+    <th>1</th>
+    <th>0</th>
+    <th>1</th>
+    <th>0</th>
+    <th>10 </th>
+    <th>A</th>
+    <td colspan="3">LF</td>
+    <td colspan="3">SUB</td>
+    <td colspan="3">*</td>
+    <td colspan="3">:</td>
+    <td colspan="3">J</td>
+    <td colspan="3">Z</td>
+    <td colspan="3">j</td>
+    <td colspan="3">z</td>
+  </tr>
+  <tr>
+    <th>1</th>
+    <th>0</th>
+    <th>1</th>
+    <th>1</th>
+    <th>11 </th>
+    <th>B</th>
+    <td colspan="3">VT</td>
+    <td colspan="3">ESC</td>
+    <td colspan="3">+</td>
+    <td colspan="3">;</td>
+    <td colspan="3">K</td>
+    <td colspan="3">[</td>
+    <td colspan="3">k</td>
+    <td colspan="3">{</td>
+  </tr>
+  <tr>
+    <th>1</th>
+    <th>1</th>
+    <th>0</th>
+    <th>0</th>
+    <th>12</th>
+    <th>C</th>
+    <td colspan="3">FF</td>
+    <td colspan="3">FS</td>
+    <td colspan="3">,</td>
+    <td colspan="3">&lt;</td>
+    <td colspan="3">L</td>
+    <td colspan="3">\</td>
+    <td colspan="3">l</td>
+    <td colspan="3">|</td>
+  </tr>
+  <tr>
+    <th>1</th>
+    <th>1</th>
+    <th>0</th>
+    <th>1</th>
+    <th>13</th>
+    <th>D</th>
+    <td colspan="3">CR</td>
+    <td colspan="3">GS</td>
+    <td colspan="3">-</td>
+    <td colspan="3">=</td>
+    <td colspan="3">M</td>
+    <td colspan="3">]</td>
+    <td colspan="3">m</td>
+    <td colspan="3">}</td>
+  </tr>
+  <tr>
+    <th>1</th>
+    <th>1</th>
+    <th>1</th>
+    <th>0</th>
+    <th>14</th>
+    <th>E</th>
+    <td colspan="3">SO</td>
+    <td colspan="3">RS</td>
+    <td colspan="3">.</td>
+    <td colspan="3">&gt;</td>
+    <td colspan="3">N</td>
+    <td colspan="3">^</td>
+    <td colspan="3">n</td>
+    <td colspan="3">~</td>
+  </tr>
+  <tr>
+    <th>1</th>
+    <th>1</th>
+    <th>1</th>
+    <th>1</th>
+    <th>15</th>
+    <th>F</th>
+    <td colspan="3">SI</td>
+    <td colspan="3">US</td>
+    <td colspan="3">/</td>
+    <td colspan="3">?</td>
+    <td colspan="3">O</td>
+    <td colspan="3">_</td>
+    <td colspan="3">o</td>
+    <td colspan="3">DEL</td>
+  </tr>
+</table>
+<p>Each 7-bit character is represented with bit seven as the high-order bit and bit one as the low-order bit as shown in the following example:</p>
+<table>
+  <tr>
+    <td class="bit">b7</td><td class="bit">b6</td><td class="bit">b5</td><td class="bit">b4</td>
+    <td class="bit">b3</td><td class="bit">b2</td><td class="bit">b1</td><td class="bit">b0</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+  </tr>
+</table>
+<p>The bit representation for the character &quot;A&quot; is developed from the bit pattern for bits seven through five found above the column designated 4 and the bit pattern for bits four through one found to the left of the row designated 1.</p>
+<p>A hexadecimal notation is commonly used to indicate the code for each character.
+This is easily developed by assuming a logic zero in the non-existant bit eight position for the column numbers and using the hexadecimal number for the row numbers.</p>
+<h2><a name="appE_3">E.3 CONTROL CHARACTERS</a></h2>
+<p>The characters located in columns zero and one of Figure E-1 are considered control characters.
+By definition, these are characters whose occurrance in a particular context initiates, modifies, or stops an action that affects the recording, processing, transmission, or interpretation of data.
+Table E-1 provides the meanings of the control characters.</p>
+<table>
+  <caption><a name="tabE-1">Table E-1. Control Characters</a></caption>
+  <tr>
+    <th>Mnemonic</th><th>Meaning</th>
+  </tr>
+  <tr>
+    <td class="center">NUL</td><td>Null</td>
+  </tr>
+  <tr>
+    <td class="center">SOH</td><td>Start of Heading</td>
+  </tr>
+  <tr>
+    <td class="center">STX</td><td>Start of Text</td>
+  </tr>
+  <tr>
+    <td class="center">ETX</td><td>End of Text</td>
+  </tr>
+  <tr>
+    <td class="center">EOT</td><td>End of Transmission</td>
+  </tr>
+  <tr>
+    <td class="center">ENQ</td><td>Enquiry</td>
+  </tr>
+  <tr>
+    <td class="center">ACK</td><td>Acknowledge</td>
+  </tr>
+  <tr>
+    <td class="center">BEL</td><td>Bell</td>
+  </tr>
+  <tr>
+    <td class="center">BS</td><td>Backspace</td>
+  </tr>
+  <tr>
+    <td class="center">HT</td><td>Horizontal Tabulation</td>
+  </tr>
+  <tr>
+    <td class="center">LF</td><td>Line Feed</td>
+  </tr>
+  <tr>
+    <td class="center">VT</td><td>Vertical Tabulation</td>
+  </tr>
+  <tr>
+    <td class="center">FF</td><td>Form Feed</td>
+  </tr>
+  <tr>
+    <td class="center">CR</td><td>Carriage Return</td>
+  </tr>
+  <tr>
+    <td class="center">SO</td><td>Shift Out</td>
+  </tr>
+  <tr>
+    <td class="center">SI</td><td>Shift In</td>
+  </tr>
+  <tr>
+    <td class="center">DLE</td><td>Data Link Escape</td>
+  </tr>
+  <tr>
+    <td class="center">DC1</td><td>Device Control 1</td>
+  </tr>
+  <tr>
+    <td class="center">DC2</td><td>Device Control 2</td>
+  </tr>
+  <tr>
+    <td class="center">DC3</td><td>Device Control 3</td>
+  </tr>
+  <tr>
+    <td class="center">DC4</td><td>Device Control 4</td>
+  </tr>
+  <tr>
+    <td class="center">NAK</td><td>Negative Acknowledge</td>
+  </tr>
+  <tr>
+    <td class="center">SYN</td><td>Synchronous Idle</td>
+  </tr>
+  <tr>
+    <td class="center">ETB</td><td>End of Transmission Block</td>
+  </tr>
+  <tr>
+    <td class="center">CAN</td><td>Cancel</td>
+  </tr>
+  <tr>
+    <td class="center">EM</td><td>End of Medium</td>
+  </tr>
+  <tr>
+    <td class="center">SUB</td><td>Substitute</td>
+  </tr>
+  <tr>
+    <td class="center">ESC</td><td>Escape</td>
+  </tr>
+  <tr>
+    <td class="center">FS</td><td>File Separator</td>
+  </tr>
+  <tr>
+    <td class="center">GS</td><td>Group Separator</td>
+  </tr>
+  <tr>
+    <td class="center">RS</td><td>Record Separator</td>
+  </tr>
+  <tr>
+    <td class="center">US</td><td>Unit Separator</td>
+  </tr>
+  <tr>
+    <td class="center">DEL</td><td>Delete</td>
+  </tr>
+</table>
+<h2><a name="appE_4">E.4 GRAPHIC CHARACTERS</a></h2>
+<p>The characters in columns two through seven are considered graphic characters.
+These characters have a visual representation which is normally displayed or printed.
+These characters and their names are given in Table E-2.</p>
+<table>
+  <caption><a name="tabE-2">Table E-2. Graphic Characters</a></caption>
+  <tr>
+    <th>Symbol</th><th>Name</th>
+  </tr>
+  <tr>
+    <td class="center">SP</td><td>Space (Normally Nonprinting)</td>
+  </tr>
+  <tr>
+    <td class="center">!</td><td>Exclamation Point</td>
+  </tr>
+  <tr>
+    <td class="center">&quot;</td><td>Quotation Marks (Diaeresis)</td>
+  </tr>
+  <tr>
+    <td class="center">#</td><td>Number Sign</td>
+  </tr>
+  <tr>
+    <td class="center">$</td><td>Dollar Sign</td>
+  </tr>
+  <tr>
+    <td class="center">%</td><td>Percent Sign</td>
+  </tr>
+  <tr>
+    <td class="center">&amp;</td><td>Ampersand</td>
+  </tr>
+  <tr>
+    <td class="center">'</td><td>Apostrophe (Closing Single Quotation Mark; Acute Accent)</td>
+  </tr>
+  <tr>
+    <td class="center">(</td><td>Opening Parenthesis</td>
+  </tr>
+  <tr>
+    <td class="center">)</td><td>Closing Parenthesis</td>
+  </tr>
+  <tr>
+    <td class="center">*</td><td>Asterisk</td>
+  </tr>
+  <tr>
+    <td class="center">+</td><td>Plus</td>
+  </tr>
+  <tr>
+    <td class="center">,</td><td>Comma (Cedilla)</td>
+  </tr>
+  <tr>
+    <td class="center">-</td><td>Hyphen (Minus)</td>
+  </tr>
+  <tr>
+    <td class="center">.</td><td>Period (Decimal Point)</td>
+  </tr>
+  <tr>
+    <td class="center">/</td><td>Slant</td>
+  </tr>
+  <tr>
+    <td class="center">0...9</td><td>Digits 0 Through 9</td>
+  </tr>
+  <tr>
+    <td class="center">:</td><td>Colon</td>
+  </tr>
+  <tr>
+    <td class="center">;</td><td>Semicolon</td>
+  </tr>
+  <tr>
+    <td class="center">&lt;</td><td>Less Than</td>
+  </tr>
+  <tr>
+    <td class="center">=</td><td>Equals</td>
+  </tr>
+  <tr>
+    <td class="center">&gt;</td><td>Greater Than</td>
+  </tr>
+  <tr>
+    <td class="center">?</td><td>Question Mark</td>
+  </tr>
+  <tr>
+    <td class="center">@</td><td>Commercial At</td>
+  </tr>
+  <tr>
+    <td class="center">A...Z</td><td>Uppercase Latin Letters A Through Z</td>
+  </tr>
+  <tr>
+    <td class="center">[</td><td>Opening Bracket</td>
+  </tr>
+  <tr>
+    <td class="center">\</td><td>Reverse Slant</td>
+  </tr>
+  <tr>
+    <td class="center">]</td><td>Closing Bracket</td>
+  </tr>
+  <tr>
+    <td class="center">^</td><td>Circumflex</td>
+  </tr>
+  <tr>
+    <td class="center">_</td><td>Underline</td>
+  </tr>
+  <tr>
+    <td class="center">`</td><td>Opening Single Quotation Mark (Grave Accent)</td>
+  </tr>
+  <tr>
+    <td class="center">a...z</td><td>Lowercase Latin Letters a Through z</td>
+  </tr>
+  <tr>
+    <td class="center">{</td><td>Opening Brace</td>
+  </tr>
+  <tr>
+    <td class="center">|</td><td>Vertical Line</td>
+  </tr>
+  <tr>
+    <td class="center">}</td><td>Closing Brace</td>
+  </tr>
+  <tr>
+    <td class="center">~</td><td>Tilde</td>
+  </tr>
+</table>
+
+<hr>
+
+<p>&copy; Motorola Inc., 1981 (now <a href="http://www.freescale.com/" target="_top">Freescale</a> as of 2006)<br>
+Transferred into HTML by <a href="http://www.maddes.net/" target="_top">Matthias &quot;Maddes&quot; B&uuml;cher</a> in 2006, 2007.<br>
+Use all information at your own risk.</p>
+
+<table border="0"><tr>
+<td><a href="#top">Top</a></td>
+<td><a href=".">ToC</a></td>
+<td><a href=".." target="_top">Start</a></td>
+<td><a href="../contact.php">Contact</a></td>
+</tr></table>
+
+</div></body>
+</html>

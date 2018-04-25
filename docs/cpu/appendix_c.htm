@@ -1,0 +1,1036 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+<title>MC6809-MC6809E Microprocessor Programming Manual [M6809PM] - Appendix C - Maddes.net</title>
+<link rel="stylesheet" type="text/css" media="all" href="css/m6809pm.css">
+</head>
+
+<body><div class="text">
+<a name="top"></a>
+<table border="0"><tr>
+<td><a href=".">ToC</a></td>
+<td><a href=".." target="_top">Start</a></td>
+<td><a href="../contact.php">Contact</a></td>
+</tr></table>
+
+<hr>
+
+<h1>MC6809-MC6809E 8-Bit Microprocessor Programming Manual [M6809PM/AD]<br>&copy; Motorola Inc., 1981</h1>
+<h1><a name="appC">APPENDIX C - MACHINE CODE TO INSTRUCTION CROSS REFERENCE</a></h1>
+<h2><a name="appC_1">C.1 INTRODUCTION</a></h2>
+<p>This appendix contains a cross reference between the machine code, represented in hexdecimal and the instruction and addressing mode that it represents.
+The number of MPU cycles and the number of program bytes is also given.
+Refer to Table C-1.</p>
+
+<table>
+  <caption><a name="tabC-1">Table C-1. Machine Code to Instruction Cross Reference</a></caption>
+  <tr>
+    <td colspan="5">LEGEND:<table>
+      <tr>
+        <td rowspan="3">&nbsp;</td>
+        <td class="top">~</td><td class="top">Number of MPU cycles<br>(less possible push pull or indexed-mode cycles)</td>
+      </tr>
+      <tr>
+        <td class="top">#</td><td class="top">Number of program bytes</td>
+      </tr>
+      <tr>
+        <td class="top">-</td><td class="top">Denotes unused opcode</td>
+      </tr>
+      </table><br>
+      NOTE: All unused opcodes are both undefined and illegal<br>
+      <br>
+    </td>
+  </tr>
+  <tr>
+    <th class="left">OP</th><th class="left">Mnem</th><th>Mode</th><th class="left">~</th><th class="left">#</th>
+  </tr>
+  <tr>
+    <td>00</td><td>NEG</td><td class="center">Direct</td><td>6</td><td>2</td>
+  </tr>
+  <tr>
+    <td>01</td><td>-</td><td class="center">&uarr;</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>02</td><td>-</td><td class="center">|</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>03</td><td>COM</td><td class="center">|</td><td>6</td><td>2</td>
+  </tr>
+  <tr>
+    <td>04</td><td>LSR</td><td class="center">|</td><td>6</td><td>2</td>
+  </tr>
+  <tr>
+    <td>05</td><td>-</td><td class="center">|</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>06</td><td>ROR</td><td class="center">|</td><td>6</td><td>2</td>
+  </tr>
+  <tr>
+    <td>07</td><td>ASR</td><td class="center">|</td><td>6</td><td>2</td>
+  </tr>
+  <tr>
+    <td>08</td><td>ASL, LSL</td><td class="center">|</td><td>6</td><td>2</td>
+  </tr>
+  <tr>
+    <td>09</td><td>ROL</td><td class="center">|</td><td>6</td><td>2</td>
+  </tr>
+  <tr>
+    <td>0A</td><td>DEC</td><td class="center">|</td><td>6</td><td>2</td>
+  </tr>
+  <tr>
+    <td>0B</td><td>-</td><td class="center">|</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>0C</td><td>INC</td><td class="center">|</td><td>6</td><td>2</td>
+  </tr>
+  <tr>
+    <td>0D</td><td>TST</td><td class="center">|</td><td>6</td><td>2</td>
+  </tr>
+  <tr>
+    <td>0E</td><td>JMP</td><td class="center">&darr;</td><td>3</td><td>2</td>
+  </tr>
+  <tr>
+    <td>0F</td><td>CLR</td><td class="center">Direct</td><td>6</td><td>2</td>
+  </tr>
+  <tr>
+  	<td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>10</td><td><a href="#tabC-1_page2">Page 2</a></td><td class="center">-</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>11</td><td><a href="#tabC-1_page3">Page 3</a></td><td class="center">-</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>12</td><td>NOP</td><td class="center">Inherent</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>13</td><td>SYNC</td><td class="center">Inherent</td><td>4</td><td>1</td>
+  </tr>
+  <tr>
+    <td>14</td><td>-</td><td class="center">-</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>15</td><td>-</td><td class="center">-</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>16</td><td>LBRA</td><td class="center">Relative</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>17</td><td>LBSR</td><td class="center">Relative</td><td>9</td><td>3</td>
+  </tr>
+  <tr>
+    <td>18</td><td>-</td><td class="center">-</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>19</td><td>DAA</td><td class="center">Inherent</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>1A</td><td>ORCC</td><td class="center">Immed</td><td>3</td><td>2</td>
+  </tr>
+  <tr>
+    <td>1B</td><td>-</td><td class="center">-</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>1C</td><td>ANDCC</td><td class="center">Immed</td><td>3</td><td>2</td>
+  </tr>
+  <tr>
+    <td>1D</td><td>SEX</td><td class="center">Inherent</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>1E</td><td>EXG</td><td class="center">Immed</td><td>8</td><td>2</td>
+  </tr>
+  <tr>
+    <td>1F</td><td>TFR</td><td class="center">Immed</td><td>6</td><td>2</td>
+  </tr>
+  <tr>
+  	<td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>20</td><td>BRA</td><td class="center">Relative</td><td>3</td><td>2</td>
+  </tr>
+  <tr>
+    <td>21</td><td>BAN</td><td class="center">&uarr;</td><td>3</td><td>2</td>
+  </tr>
+  <tr>
+    <td>22</td><td>BHI</td><td class="center">|</td><td>3</td><td>2</td>
+  </tr>
+  <tr>
+    <td>23</td><td>BLS</td><td class="center">|</td><td>3</td><td>2</td>
+  </tr>
+  <tr>
+    <td>24</td><td>BHS, BCC</td><td class="center">|</td><td>3</td><td>2</td>
+  </tr>
+  <tr>
+    <td>25</td><td>BLO, BCS</td><td class="center">|</td><td>3</td><td>2</td>
+  </tr>
+  <tr>
+    <td>26</td><td>BNE</td><td class="center">|</td><td>3</td><td>2</td>
+  </tr>
+  <tr>
+    <td>27</td><td>BEQ</td><td class="center">|</td><td>3</td><td>2</td>
+  </tr>
+  <tr>
+    <td>28</td><td>BVC</td><td class="center">|</td><td>3</td><td>2</td>
+  </tr>
+  <tr>
+    <td>29</td><td>BVS</td><td class="center">|</td><td>3</td><td>2</td>
+  </tr>
+  <tr>
+    <td>2A</td><td>BPL</td><td class="center">|</td><td>3</td><td>2</td>
+  </tr>
+  <tr>
+    <td>2B</td><td>BMI</td><td class="center">|</td><td>3</td><td>2</td>
+  </tr>
+  <tr>
+    <td>2C</td><td>BGE</td><td class="center">|</td><td>3</td><td>2</td>
+  </tr>
+  <tr>
+    <td>2D</td><td>BLT</td><td class="center">|</td><td>3</td><td>2</td>
+  </tr>
+  <tr>
+    <td>2E</td><td>BGT</td><td class="center">&darr;</td><td>3</td><td>2</td>
+  </tr>
+  <tr>
+    <td>2F</td><td>BLE</td><td class="center">Relative</td><td>3</td><td>2</td>
+  </tr>
+  <tr>
+  	<td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>30</td><td>LEAX</td><td class="center">Indexed</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>31</td><td>LEAY</td><td class="center">&uarr;</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>32</td><td>LEAS</td><td class="center">&darr;</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>33</td><td>LEAU</td><td class="center">Indexed</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>34</td><td>PSHS</td><td class="center">Immed</td><td>5+</td><td>2</td>
+  </tr>
+  <tr>
+    <td>35</td><td>PULS</td><td class="center">&uarr;</td><td>5+</td><td>2</td>
+  </tr>
+  <tr>
+    <td>36</td><td>PSHU</td><td class="center">&darr;</td><td>5+</td><td>2</td>
+  </tr>
+  <tr>
+    <td>37</td><td>PULU</td><td class="center">Immed</td><td>5+</td><td>2</td>
+  </tr>
+  <tr>
+    <td>38</td><td>-</td><td class="center">Inherent</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>39</td><td>RTS</td><td class="center">&uarr;</td><td>5</td><td>1</td>
+  </tr>
+  <tr>
+    <td>3A</td><td>ABX</td><td class="center">|</td><td>3</td><td>1</td>
+  </tr>
+  <tr>
+    <td>3B</td><td>RTI</td><td class="center">|</td><td>6/15</td><td>1</td>
+  </tr>
+  <tr>
+    <td>3C</td><td>CWAI</td><td class="center">|</td><td>20</td><td>2</td>
+  </tr>
+  <tr>
+    <td>3D</td><td>MUL</td><td class="center">|</td><td>11</td><td>1</td>
+  </tr>
+  <tr>
+    <td>3E</td><td>-</td><td class="center">&darr;</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>3F</td><td>SWI</td><td class="center">Inherent</td><td>19</td><td>1</td>
+  </tr>
+  <tr>
+  	<td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>40</td><td>NEGA</td><td class="center">Inherent</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>41</td><td>-</td><td class="center">&uarr;</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>42</td><td>-</td><td class="center">|</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>43</td><td>COMA</td><td class="center">|</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>44</td><td>LSRA</td><td class="center">|</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>45</td><td>-</td><td class="center">|</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>46</td><td>RORA</td><td class="center">|</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>47</td><td>ASRA</td><td class="center">|</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>48</td><td>ASLA, LSLA</td><td class="center">|</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>49</td><td>ROLA</td><td class="center">|</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>4A</td><td>DECA</td><td class="center">|</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>4B</td><td>-</td><td class="center">|</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>4C</td><td>INCA</td><td class="center">|</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>4D</td><td>TSTA</td><td class="center">|</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>4E</td><td>-</td><td class="center">&darr;</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>4F</td><td>CLRA</td><td class="center">Inherent</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+  	<td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>50</td><td>NEGB</td><td class="center">Inherent</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>51</td><td>-</td><td class="center">&uarr;</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>52</td><td>-</td><td class="center">|</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>53</td><td>COMB</td><td class="center">|</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>54</td><td>LSRB</td><td class="center">|</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>55</td><td>-</td><td class="center">|</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>56</td><td>RORB</td><td class="center">|</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>57</td><td>ASRB</td><td class="center">|</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>58</td><td>ASLB, LSLB</td><td class="center">|</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>59</td><td>ROLB</td><td class="center">|</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>5A</td><td>DECB</td><td class="center">|</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>5B</td><td>-</td><td class="center">|</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>5C</td><td>INCB</td><td class="center">|</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>5D</td><td>TSTB</td><td class="center">|</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <td>5E</td><td>-</td><td class="center">&darr;</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>5F</td><td>CLRB</td><td class="center">Inherent</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+  	<td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>60</td><td>NEG</td><td class="center">Indexed</td><td>6+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>61</td><td>-</td><td class="center">&uarr;</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>62</td><td>-</td><td class="center">|</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>63</td><td>COM</td><td class="center">|</td><td>6+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>64</td><td>LSR</td><td class="center">|</td><td>6+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>65</td><td>-</td><td class="center">|</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>66</td><td>ROR</td><td class="center">|</td><td>6+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>67</td><td>ASR</td><td class="center">|</td><td>6+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>68</td><td>ASL, LSL</td><td class="center">|</td><td>6+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>69</td><td>ROL</td><td class="center">|</td><td>6+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>6A</td><td>DEC</td><td class="center">|</td><td>6+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>6B</td><td>-</td><td class="center">|</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>6C</td><td>INC</td><td class="center">|</td><td>6+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>6D</td><td>TST</td><td class="center">|</td><td>6+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>6E</td><td>JMP</td><td class="center">&darr;</td><td>3+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>6F</td><td>CLR</td><td class="center">Indexed</td><td>6+</td><td>2+</td>
+  </tr>
+  <tr>
+  	<td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>70</td><td>NEG</td><td class="center">Extended</td><td>7</td><td>3</td>
+  </tr>
+  <tr>
+    <td>71</td><td>-</td><td class="center">&uarr;</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>72</td><td>-</td><td class="center">|</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>73</td><td>COM</td><td class="center">|</td><td>7</td><td>3</td>
+  </tr>
+  <tr>
+    <td>74</td><td>LSR</td><td class="center">|</td><td>7</td><td>3</td>
+  </tr>
+  <tr>
+    <td>75</td><td>-</td><td class="center">|</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>76</td><td>ROR</td><td class="center">|</td><td>7</td><td>3</td>
+  </tr>
+  <tr>
+    <td>77</td><td>ASR</td><td class="center">|</td><td>7</td><td>3</td>
+  </tr>
+  <tr>
+    <td>78</td><td>ASL, LSL</td><td class="center">|</td><td>7</td><td>3</td>
+  </tr>
+  <tr>
+    <td>79</td><td>ROL</td><td class="center">|</td><td>7</td><td>3</td>
+  </tr>
+  <tr>
+    <td>7A</td><td>DEC</td><td class="center">|</td><td>7</td><td>3</td>
+  </tr>
+  <tr>
+    <td>7B</td><td>-</td><td class="center">|</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>7C</td><td>INC</td><td class="center">|</td><td>7</td><td>3</td>
+  </tr>
+  <tr>
+    <td>7D</td><td>TST</td><td class="center">|</td><td>7</td><td>3</td>
+  </tr>
+  <tr>
+    <td>7E</td><td>JMP</td><td class="center">&darr;</td><td>4</td><td>3</td>
+  </tr>
+  <tr>
+    <td>7F</td><td>CLR</td><td class="center">Extended</td><td>7</td><td>3</td>
+  </tr>
+  <tr>
+  	<td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>80</td><td>SUBA</td><td class="center">Immed</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>81</td><td>CMPA</td><td class="center">&uarr;</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>82</td><td>SBCA</td><td class="center">|</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>83</td><td>SUBD</td><td class="center">|</td><td>4</td><td>3</td>
+  </tr>
+  <tr>
+    <td>84</td><td>ANDA</td><td class="center">|</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>85</td><td>BITA</td><td class="center">|</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>86</td><td>LDA</td><td class="center">|</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>87</td><td>-</td><td class="center">|</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>88</td><td>EORA</td><td class="center">|</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>89</td><td>ADCA</td><td class="center">|</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>8A</td><td>ORA</td><td class="center">|</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>8B</td><td>ADDA</td><td class="center">&darr;</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>8C</td><td>CMPX</td><td class="center">Immed</td><td>4</td><td>3</td>
+  </tr>
+  <tr>
+    <td>8D</td><td>BSR</td><td class="center">Relative</td><td>7</td><td>2</td>
+  </tr>
+  <tr>
+    <td>8E</td><td>LDX</td><td class="center">Immed</td><td>3</td><td>3</td>
+  </tr>
+  <tr>
+    <td>8F</td><td>-</td><td class="center">-</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+  	<td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>90</td><td>SUBA</td><td class="center">Direct</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>91</td><td>CMPA</td><td class="center">&uarr;</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>92</td><td>SBCA</td><td class="center">|</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>93</td><td>SUBD</td><td class="center">|</td><td>6</td><td>2</td>
+  </tr>
+  <tr>
+    <td>94</td><td>ANDA</td><td class="center">|</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>95</td><td>BITA</td><td class="center">|</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>96</td><td>LDA</td><td class="center">|</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>97</td><td>STA</td><td class="center">|</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>98</td><td>EORA</td><td class="center">|</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>99</td><td>ADCA</td><td class="center">|</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>9A</td><td>ORA</td><td class="center">|</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>9B</td><td>ADDA</td><td class="center">|</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>9C</td><td>CMPX</td><td class="center">|</td><td>6</td><td>2</td>
+  </tr>
+  <tr>
+    <td>9D</td><td>JSR</td><td class="center">|</td><td>7</td><td>2</td>
+  </tr>
+  <tr>
+    <td>9E</td><td>LDX</td><td class="center">&darr;</td><td>5</td><td>2</td>
+  </tr>
+  <tr>
+    <td>9F</td><td>STX</td><td class="center">Direct</td><td>5</td><td>2</td>
+  </tr>
+  <tr>
+  	<td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>A0</td><td>SUBA</td><td class="center">Indexed</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>A1</td><td>CMPA</td><td class="center">&uarr;</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>A2</td><td>SBCA</td><td class="center">|</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>A3</td><td>SUBD</td><td class="center">|</td><td>6+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>A4</td><td>ANDA</td><td class="center">|</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>A5</td><td>BITA</td><td class="center">|</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>A6</td><td>LDA</td><td class="center">|</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>A7</td><td>STA</td><td class="center">|</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>A8</td><td>EORA</td><td class="center">|</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>A9</td><td>ADCA</td><td class="center">|</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>AA</td><td>ORA</td><td class="center">|</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>AB</td><td>ADDA</td><td class="center">|</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>AC</td><td>CMPX</td><td class="center">|</td><td>6+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>AD</td><td>JSR</td><td class="center">|</td><td>7+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>AE</td><td>LDX</td><td class="center">&darr;</td><td>5+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>AF</td><td>STX</td><td class="center">Indexed</td><td>5+</td><td>2+</td>
+  </tr>
+  <tr>
+  	<td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>B0</td><td>SUBA</td><td class="center">Extended</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>B1</td><td>CMPA</td><td class="center">&uarr;</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>B2</td><td>SBCA</td><td class="center">|</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>B3</td><td>SUBD</td><td class="center">|</td><td>7</td><td>3</td>
+  </tr>
+  <tr>
+    <td>B4</td><td>ANDA</td><td class="center">|</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>B5</td><td>BITA</td><td class="center">|</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>B6</td><td>LDA</td><td class="center">|</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>B7</td><td>STA</td><td class="center">|</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>B8</td><td>EORA</td><td class="center">|</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>B9</td><td>ADCA</td><td class="center">|</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>BA</td><td>ORA</td><td class="center">|</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>BB</td><td>ADDA</td><td class="center">|</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>BC</td><td>CMPX</td><td class="center">|</td><td>7</td><td>3</td>
+  </tr>
+  <tr>
+    <td>BD</td><td>JSR</td><td class="center">|</td><td>8</td><td>3</td>
+  </tr>
+  <tr>
+    <td>BE</td><td>LDX</td><td class="center">&darr;</td><td>6</td><td>3</td>
+  </tr>
+  <tr>
+    <td>BF</td><td>STX</td><td class="center">Extended</td><td>6</td><td>3</td>
+  </tr>
+  <tr>
+  	<td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>C0</td><td>SUBB</td><td class="center">Immed</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>C1</td><td>CMPB</td><td class="center">&uarr;</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>C2</td><td>SBCB</td><td class="center">|</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>C3</td><td>ADDD</td><td class="center">|</td><td>4</td><td>3</td>
+  </tr>
+  <tr>
+    <td>C4</td><td>ANDB</td><td class="center">&darr;</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>C5</td><td>BITB</td><td class="center">Immed</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>C6</td><td>LDB</td><td class="center">Immed</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>C7</td><td>-</td><td class="center">&uarr;</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>C8</td><td>EORB</td><td class="center">|</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>C9</td><td>ADCB</td><td class="center">|</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>CA</td><td>ORB</td><td class="center">|</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>CB</td><td>ADDB</td><td class="center">|</td><td>2</td><td>2</td>
+  </tr>
+  <tr>
+    <td>CC</td><td>LDD</td><td class="center">|</td><td>3</td><td>3</td>
+  </tr>
+  <tr>
+    <td>CD</td><td>-</td><td class="center">&darr;</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+    <td>CE</td><td>LDU</td><td class="center">Immed</td><td>3</td><td>3</td>
+  </tr>
+  <tr>
+    <td>CF</td><td>-</td><td class="center">-	</td><td>-</td><td>-</td>
+  </tr>
+  <tr>
+  	<td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>D0</td><td>SUBB</td><td class="center">Direct</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>D1</td><td>CMPB</td><td class="center">&uarr;</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>D2</td><td>SBCB</td><td class="center">|</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>D3</td><td>ADDD</td><td class="center">|</td><td>6</td><td>2</td>
+  </tr>
+  <tr>
+    <td>D4</td><td>ANDB</td><td class="center">|</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>D5</td><td>BITB</td><td class="center">|</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>D6</td><td>LDB</td><td class="center">|</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>D7</td><td>STB</td><td class="center">|</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>D8</td><td>EORB</td><td class="center">|</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>D9</td><td>ADCB</td><td class="center">|</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>DA</td><td>ORB</td><td class="center">|</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>DB</td><td>ADDB</td><td class="center">|</td><td>4</td><td>2</td>
+  </tr>
+  <tr>
+    <td>DC</td><td>LDD</td><td class="center">|</td><td>5</td><td>2</td>
+  </tr>
+  <tr>
+    <td>DD</td><td>STD</td><td class="center">|</td><td>5</td><td>2</td>
+  </tr>
+  <tr>
+    <td>DE</td><td>LDU</td><td class="center">&darr;</td><td>5</td><td>2</td>
+  </tr>
+  <tr>
+    <td>DF</td><td>STU</td><td class="center">Direct</td><td>5</td><td>2</td>
+  </tr>
+  <tr>
+  	<td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>E0</td><td>SUBB</td><td class="center">Indexed</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>E1</td><td>CMPB</td><td class="center">&uarr;</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>E2</td><td>SBCB</td><td class="center">|</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>E3</td><td>ADDD</td><td class="center">|</td><td>6+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>E4</td><td>ANDB</td><td class="center">|</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>E5</td><td>BITB</td><td class="center">|</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>E6</td><td>LDB</td><td class="center">|</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>E7</td><td>STB</td><td class="center">|</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>E8</td><td>EORB</td><td class="center">|</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>E9</td><td>ADCB</td><td class="center">|</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>EA</td><td>ORB</td><td class="center">|</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>EB</td><td>ADDB</td><td class="center">|</td><td>4+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>EC</td><td>LDD</td><td class="center">|</td><td>5+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>ED</td><td>STD</td><td class="center">|</td><td>5+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>EE</td><td>LDU</td><td class="center">&darr;</td><td>5+</td><td>2+</td>
+  </tr>
+  <tr>
+    <td>EF</td><td>STU</td><td class="center">Indexed</td><td>5+</td><td>2+</td>
+  </tr>
+  <tr>
+  	<td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>F0</td><td>SUBB</td><td class="center">Extended</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>F1</td><td>CMPB</td><td class="center">&uarr;</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>F2</td><td>SBCB</td><td class="center">|</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>F3</td><td>ADDD</td><td class="center">|</td><td>7</td><td>3</td>
+  </tr>
+  <tr>
+    <td>F4</td><td>ANDB</td><td class="center">|</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>F5</td><td>BITB</td><td class="center">|</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>F6</td><td>LDB</td><td class="center">|</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>F7</td><td>STB</td><td class="center">|</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>F8</td><td>EORB</td><td class="center">|</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>F9</td><td>ADCB</td><td class="center">|</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>FA</td><td>ORB</td><td class="center">&darr;</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>FB</td><td>ADDB</td><td class="center">Extended</td><td>5</td><td>3</td>
+  </tr>
+  <tr>
+    <td>FC</td><td>LDD</td><td class="center">Extended</td><td>6</td><td>3</td>
+  </tr>
+  <tr>
+    <td>FD</td><td>STD</td><td class="center">&uarr;</td><td>6</td><td>3</td>
+  </tr>
+  <tr>
+    <td>FE</td><td>LDU</td><td class="center">&darr;</td><td>6</td><td>3</td>
+  </tr>
+  <tr>
+    <td>FF</td><td>STU</td><td class="center">Extended</td><td>6</td><td>3</td>
+  </tr>
+  <tr>
+  	<td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <th colspan="5"><a name="tabC-1_page2">Table C-1. Page 2 Machine Codes</a></th>
+  </tr>
+  <tr>
+    <th class="left">OP</th><th class="left">Mnem</th><th>Mode</th><th class="left">~</th><th class="left">#</th>
+  </tr>
+  <tr>
+    <td>1021</td><td>LBRN</td><td class="center">Relative</td><td>5</td><td>4</td>
+  </tr>
+  <tr>
+    <td>1022</td><td>LBHI</td><td class="center">&uarr;</td><td>5(6)</td><td>4</td>
+  </tr>
+  <tr>
+    <td>1023</td><td>LBLS</td><td class="center">|</td><td>5(6)</td><td>4</td>
+  </tr>
+  <tr>
+    <td>1024</td><td>LBHS, LBCC</td><td class="center">|</td><td>5(6)</td><td>4</td>
+  </tr>
+  <tr>
+    <td>1025</td><td>LBCS, LBLO</td><td class="center">|</td><td>5(6)</td><td>4</td>
+  </tr>
+  <tr>
+    <td>1026</td><td>LBNE</td><td class="center">|</td><td>5(6)</td><td>4</td>
+  </tr>
+  <tr>
+    <td>1027</td><td>LBEQ</td><td class="center">|</td><td>5(6)</td><td>4</td>
+  </tr>
+  <tr>
+    <td>1028</td><td>LBVC</td><td class="center">|</td><td>5(6)</td><td>4</td>
+  </tr>
+  <tr>
+    <td>1029</td><td>LBVS</td><td class="center">|</td><td>5(6)</td><td>4</td>
+  </tr>
+  <tr>
+    <td>102A</td><td>LBPL</td><td class="center">|</td><td>5(6)</td><td>4</td>
+  </tr>
+  <tr>
+    <td>102B</td><td>LBMI</td><td class="center">|</td><td>5(6)</td><td>4</td>
+  </tr>
+  <tr>
+    <td>102C</td><td>LBGE</td><td class="center">|</td><td>5(6)</td><td>4</td>
+  </tr>
+  <tr>
+    <td>102D</td><td>LBLT</td><td class="center">|</td><td>5(6)</td><td>4</td>
+  </tr>
+  <tr>
+    <td>102E</td><td>LBGT</td><td class="center">&darr;</td><td>5(6)</td><td>4</td>
+  </tr>
+  <tr>
+    <td>102F</td><td>LBLE</td><td class="center">Relative</td><td>5(6)</td><td>4</td>
+  </tr>
+  <tr>
+    <td>103F</td><td>SWI2</td><td class="center">Inherent</td><td>20</td><td>2</td>
+  </tr>
+  <tr>
+    <td>1083</td><td>CMPD</td><td class="center">Immed</td><td>5</td><td>4</td>
+  </tr>
+  <tr>
+    <td>108C</td><td>CMPY</td><td class="center">|</td><td>5</td><td>4</td>
+  </tr>
+  <tr>
+    <td>108E</td><td>LDY</td><td class="center">Immed</td><td>4</td><td>4</td>
+  </tr>
+  <tr>
+    <td>1093</td><td>CMPD</td><td class="center">Direct</td><td>7</td><td>3</td>
+  </tr>
+  <tr>
+    <td>109C</td><td>CMPY</td><td class="center">&uarr;</td><td>7</td><td>3</td>
+  </tr>
+  <tr>
+    <td>109E</td><td>LDY</td><td class="center">&darr;</td><td>6</td><td>3</td>
+  </tr>
+  <tr>
+    <td>109F</td><td>STY</td><td class="center">Direct</td><td>6</td><td>3</td>
+  </tr>
+  <tr>
+    <td>10A3</td><td>CMPD</td><td class="center">Indexed</td><td>7+</td><td>3+</td>
+  </tr>
+  <tr>
+    <td>10AC</td><td>CMPY</td><td class="center">&uarr;</td><td>7+</td><td>3+</td>
+  </tr>
+  <tr>
+    <td>10AE</td><td>LDY</td><td class="center">&darr;</td><td>6+</td><td>3+</td>
+  </tr>
+  <tr>
+    <td>10AF</td><td>STY</td><td class="center">Indexed</td><td>6+</td><td>3+</td>
+  </tr>
+  <tr>
+    <td>10B3</td><td>CMPD</td><td class="center">Extended</td><td>8</td><td>4</td>
+  </tr>
+  <tr>
+    <td>10BC</td><td>CMPY</td><td class="center">&uarr;</td><td>8</td><td>4</td>
+  </tr>
+  <tr>
+    <td>10BE</td><td>LDY</td><td class="center">&darr;</td><td>7</td><td>4</td>
+  </tr>
+  <tr>
+    <td>10BF</td><td>STY</td><td class="center">Extended</td><td>7</td><td>4</td>
+  </tr>
+  <tr>
+    <td>10CE</td><td>LDS</td><td class="center">Immed</td><td>4</td><td>4</td>
+  </tr>
+  <tr>
+    <td>10DE</td><td>LDS</td><td class="center">Direct</td><td>6</td><td>3</td>
+  </tr>
+  <tr>
+    <td>10DF</td><td>STS</td><td class="center">Direct</td><td>6</td><td>3</td>
+  </tr>
+  <tr>
+    <td>10EE</td><td>LDS</td><td class="center">Indexed</td><td>6+</td><td>3+</td>
+  </tr>
+  <tr>
+    <td>10EF</td><td>STS</td><td class="center">Indexed</td><td>6+</td><td>3+</td>
+  </tr>
+  <tr>
+    <td>10FE</td><td>LDS</td><td class="center">Extended</td><td>7</td><td>4</td>
+  </tr>
+  <tr>
+    <td>10FF</td><td>STS</td><td class="center">Extended</td><td>7</td><td>4</td>
+  </tr>
+  <tr>
+  	<td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <th colspan="5"><a name="tabC-1_page3">Table C-1. Page 3 Machine Codes</a></th>
+  </tr>
+  <tr>
+    <th class="left">OP</th><th class="left">Mnem</th><th>Mode</th><th class="left">~</th><th class="left">#</th>
+  </tr>
+  <tr>
+    <td>113F</td><td>SWI3</td><td class="center">Inherent</td><td>20</td><td>2</td>
+  </tr>
+  <tr>
+    <td>1183</td><td>CMPU</td><td class="center">Immed</td><td>5</td><td>4</td>
+  </tr>
+  <tr>
+    <td>118C</td><td>CMPS</td><td class="center">Immed</td><td>5</td><td>4</td>
+  </tr>
+  <tr>
+    <td>1193</td><td>CMPU</td><td class="center">Direct</td><td>7</td><td>3</td>
+  </tr>
+  <tr>
+    <td>119C</td><td>CMPS</td><td class="center">Direct</td><td>7</td><td>3</td>
+  </tr>
+  <tr>
+    <td>11A3</td><td>CMPU</td><td class="center">Indexed</td><td>7+</td><td>3+</td>
+  </tr>
+  <tr>
+    <td>11AC</td><td>CMPS</td><td class="center">Indexed</td><td>7+</td><td>3+</td>
+  </tr>
+  <tr>
+    <td>11B3</td><td>CMPU</td><td class="center">Extended</td><td>8</td><td>4</td>
+  </tr>
+  <tr>
+    <td>11BC</td><td>CMPS</td><td class="center">Extended</td><td>8</td><td>4</td>
+  </tr>
+</table>
+
+<hr>
+
+<p>&copy; Motorola Inc., 1981 (now <a href="http://www.freescale.com/" target="_top">Freescale</a> as of 2006)<br>
+Transferred into HTML by <a href="http://www.maddes.net/" target="_top">Matthias &quot;Maddes&quot; B&uuml;cher</a> in 2006, 2007.<br>
+Use all information at your own risk.</p>
+
+<table border="0"><tr>
+<td><a href="#top">Top</a></td>
+<td><a href=".">ToC</a></td>
+<td><a href=".." target="_top">Start</a></td>
+<td><a href="../contact.php">Contact</a></td>
+</tr></table>
+
+</div></body>
+</html>

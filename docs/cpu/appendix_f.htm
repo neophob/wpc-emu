@@ -1,0 +1,748 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+<title>MC6809-MC6809E Microprocessor Programming Manual [M6809PM] - Appendix F - Maddes.net</title>
+<link rel="stylesheet" type="text/css"  media="all" href="css/m6809pm.css">
+</head>
+
+<body><div class="text">
+<a name="top"></a>
+<table border="0"><tr>
+<td><a href=".">ToC</a></td>
+<td><a href=".." target="_top">Start</a></td>
+<td><a href="../contact.php">Contact</a></td>
+</tr></table>
+
+<hr>
+
+<h1>MC6809-MC6809E 8-Bit Microprocessor Programming Manual [M6809PM/AD]<br>&copy; Motorola Inc., 1981</h1>
+<h1><a name="appF">APPENDIX F - OPCODE MAP</a></h1>
+<h2><a name="appF_1">F.1 INTRODUCTION</a></h2>
+<p>This appendix contains the opcode map and additional information for calculating required machine cycles.</p>
+<h2><a name="appF_2">F.2 OPCODE MAP</a></h2>
+<p>Table F-1 is the opcode map for M6809 processors. The number(s) by each instruction indicates the number of machine cycles required to execute that instruction.
+When the number contains an &quot;I&quot; (e.g., 4+I), it indicates that the indexed addressing mode is being used and that an additional number of machine cycles may be required.
+Refer to Table F-2 to determine the additional machine cycles to be added.</p>
+<p>Some instructions in the opcode map have two numbers, the second one in parenthesis.
+This indicates that the instruction involves a branch.
+The parenthetical number applies if the branch is taken.</p>
+<p>The &quot;page 2, page 3&quot; notation in column one means that all page 2 instructions are preceded by a hexadecimal 10 opcode and all page 3 instructions are preceded by a hexadecimal 11 opcode.</p>
+</div>
+<div class="landscape">
+<table class="tabF-1">
+  <caption><a name="tabF-1">Table F-1. Opcode Map</a></caption>
+  <tr>
+    <td colspan="3" rowspan="4" class="noborders"></td>
+    <th colspan="16">Most-Significant Four Bits</th>
+    <td rowspan="4" class="noborders"></td>
+  </tr>
+  <tr>
+    <th>DIR</th>
+    <th></th>
+    <th>REL</th>
+    <th></th>
+    <th>ACCA</th>
+    <th>ACCB</th>
+    <th>IND</th>
+    <th>EXT</th>
+    <th>IMM</th>
+    <th>DIR</th>
+    <th>IND</th>
+    <th>EXT</th>
+    <th>IMM</th>
+    <th>DIR</th>
+    <th>IND</th>
+    <th>EXT</th>
+  </tr>
+  <tr>
+    <th>0000</th>
+    <th>0001</th>
+    <th>0010</th>
+    <th>0011</th>
+    <th>0100</th>
+    <th>0101</th>
+    <th>0110</th>
+    <th>0111</th>
+    <th>1000</th>
+    <th>1001</th>
+    <th>1010</th>
+    <th>1011</th>
+    <th>1100</th>
+    <th>1101</th>
+    <th>1110</th>
+    <th>1111</th>
+  </tr>
+  <tr>
+    <th>0</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>5</th>
+    <th>6</th>
+    <th>7</th>
+    <th>8</th>
+    <th>9</th>
+    <th>A</th>
+    <th>B</th>
+    <th>C</th>
+    <th>D</th>
+    <th>E</th>
+    <th>F</th>
+  </tr>
+<!-- -->
+  <tr>
+    <th rowspan="32">Least<br>Signi-<br>ficant<br>Four<br>Bits</th>
+    <th rowspan="2">0000</th>
+    <th rowspan="2">0</th>
+    <td rowspan="2">6<br>NEG</td>
+    <td rowspan="2">PAGE2</td>
+    <td rowspan="2">3 BRA</td>
+    <td rowspan="2">4+1<br>LEAX</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">2</td>
+    <td class="center bordertop">6+1</td>
+    <td class="center bordertopright">7</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <th rowspan="2">0</th>
+  </tr>
+  <tr>
+    <td colspan="4" class="center bordernotop">NEG</td>
+    <td colspan="4" class="center bordernotop">SUBA</td>
+    <td colspan="4" class="center bordernotop">SUBB</td>
+  </tr>
+  <tr>
+    <th rowspan="2">0001</th>
+    <th rowspan="2">1</th>
+    <td rowspan="2">-</td>
+    <td rowspan="2">PAGE3</td>
+    <td rowspan="2">3 BRN /<br>5 LBRN</td>
+    <td rowspan="2">4+1<br>LEAY</td>
+    <td rowspan="2" colspan="4" class="empty">-</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <th rowspan="2">1</th>
+  </tr>
+  <tr>
+    <td colspan="4" class="center bordernotop">CMPA</td>
+    <td colspan="4" class="center bordernotop">CMPB</td>
+  </tr>
+  <tr>
+    <th rowspan="2">0010</th>
+    <th rowspan="2">2</th>
+    <td rowspan="2">-</td>
+    <td rowspan="2">2<br>NOP</td>
+    <td rowspan="2">3 BHI /<br>5(6) LBHI</td>
+    <td rowspan="2">4+1<br>LEAS</td>
+    <td rowspan="2" colspan="4" class="empty">-</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <th rowspan="2">2</th>
+  </tr>
+  <tr>
+    <td colspan="4" class="center bordernotop">SBCA</td>
+    <td colspan="4" class="center bordernotop">SBCB</td>
+  </tr>
+  <tr>
+    <th rowspan="2">0011</th>
+    <th rowspan="2">3</th>
+    <td rowspan="2">6<br>COM</td>
+    <td rowspan="2">2<br>SYNC</td>
+    <td rowspan="2">3 BLS /<br>5(6) LBLS</td>
+    <td rowspan="2">4+1<br>LEAU</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">2</td>
+    <td class="center bordertop">6+1</td>
+    <td class="center bordertopright">7</td>
+    <td rowspan="2" colspan="4" class="center"><table>
+      <tr>
+        <td class="center noborders">4, 6, 6+1, 7</td>
+        <td rowspan="2" class="center middle noborders">/</td>
+        <td class="center noborders">5, 7, 7+1, 8</td>
+        <td rowspan="2" class="center middle noborders">/</td>
+        <td class="center noborders ">5, 7, 7+1, 8</td>
+      </tr>
+      <tr>
+        <td class="center noborders">SUBD</td>
+        <td class="center noborders">CMPD</td>
+        <td class="center noborders">CMPU</td>
+      </tr>
+    </table></td>
+    <td class="center bordertopleft">4</td>
+    <td class="center bordertop">6</td>
+    <td class="center bordertop">6+1</td>
+    <td class="center bordertopright">7</td>
+    <th rowspan="2">3</th>
+  </tr>
+  <tr>
+    <td colspan="4" class="center bordernotop">COM</td>
+    <td colspan="4" class="center bordernotop">ADDD</td>
+  </tr>
+  <tr>
+    <th rowspan="2">0100</th>
+    <th rowspan="2">4</th>
+    <td rowspan="2">6<br>LSR</td>
+    <td rowspan="2" class="empty">-</td>
+    <td rowspan="2">3 BHS<br>5(6) (BCC)</td>
+    <td rowspan="2">5+1/byte<br>PSHS</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">2</td>
+    <td class="center bordertop">6+1</td>
+    <td class="center bordertopright">7</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <th rowspan="2">4</th>
+  </tr>
+  <tr>
+    <td colspan="4" class="center bordernotop">LSR</td>
+    <td colspan="4" class="center bordernotop">ANDA</td>
+    <td colspan="4" class="center bordernotop">ANDB</td>
+  </tr>
+  <tr>
+    <th rowspan="2">0101</th>
+    <th rowspan="2">5</th>
+    <td rowspan="2" class="empty">-</td>
+    <td rowspan="2" class="empty">-</td>
+    <td rowspan="2">3 BLO<br>5(6) (BCS)</td>
+    <td rowspan="2">5+1/byte<br>PULS</td>
+    <td rowspan="2" colspan="4" class="empty">-</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <th rowspan="2">5</th>
+  </tr>
+  <tr>
+    <td colspan="4" class="center bordernotop">BITA</td>
+    <td colspan="4" class="center bordernotop">BITB</td>
+  </tr>
+  <tr>
+    <th rowspan="2">0110</th>
+    <th rowspan="2">6</th>
+    <td rowspan="2">6<br>ROR</td>
+    <td rowspan="2">5<br>LBRA</td>
+    <td rowspan="2">3 BNE /<br>5(6) LBNE</td>
+    <td rowspan="2">5+1/byte<br>PSHU</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">2</td>
+    <td class="center bordertop">6+1</td>
+    <td class="center bordertopright">7</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <th rowspan="2">6</th>
+  </tr>
+  <tr>
+    <td colspan="4" class="center bordernotop">ROR</td>
+    <td colspan="4" class="center bordernotop">LDA</td>
+    <td colspan="4" class="center bordernotop">LDB</td>
+  </tr>
+  <tr>
+    <th rowspan="2">0111</th>
+    <th rowspan="2">7</th>
+    <td rowspan="2">6<br>ASR</td>
+    <td rowspan="2">9<br>LBSR</td>
+    <td rowspan="2">3 BEQ /<br>5(6) LBEQ</td>
+    <td rowspan="2">5+1/byte<br>PULU</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">2</td>
+    <td class="center bordertop">6+1</td>
+    <td class="center bordertopright">7</td>
+    <td rowspan="2" class="empty">-</td>
+    <td class="center bordertopleft">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <td rowspan="2" class="empty">-</td>
+    <td class="center bordertopleft">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <th rowspan="2">7</th>
+  </tr>
+  <tr>
+    <td colspan="4" class="center bordernotop">ASR</td>
+    <td colspan="3" class="center bordernotop">STA</td>
+    <td colspan="3" class="center bordernotop">STB</td>
+  </tr>
+  <tr>
+    <th rowspan="2">1000</th>
+    <th rowspan="2">8</th>
+    <td rowspan="2">6 ASL<br>(LSL)</td>
+    <td rowspan="2" class="empty">-</td>
+    <td rowspan="2">3 BVC /<br>5(6) LBVC</td>
+    <td rowspan="2" class="empty">-</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">2</td>
+    <td class="center bordertop">6+1</td>
+    <td class="center bordertopright">7</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <th rowspan="2">8</th>
+  </tr>
+  <tr>
+    <td colspan="4" class="center bordernotop">ASL (LSL)</td>
+    <td colspan="4" class="center bordernotop">EORA</td>
+    <td colspan="4" class="center bordernotop">EORB</td>
+  </tr>
+  <tr>
+    <th rowspan="2">1001</th>
+    <th rowspan="2">9</th>
+    <td rowspan="2">6<br>ROL</td>
+    <td rowspan="2">2<br>DAA</td>
+    <td rowspan="2">3 BVS /<br>5(6) LBVS</td>
+    <td rowspan="2">5<br>RTS</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">2</td>
+    <td class="center bordertop">6+1</td>
+    <td class="center bordertopright">7</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <th rowspan="2">9</th>
+  </tr>
+  <tr>
+    <td colspan="4" class="center bordernotop">ROL</td>
+    <td colspan="4" class="center bordernotop">ADCA</td>
+    <td colspan="4" class="center bordernotop">ADCB</td>
+  </tr>
+  <tr>
+    <th rowspan="2">1010</th>
+    <th rowspan="2">A</th>
+    <td rowspan="2">6<br>DEC</td>
+    <td rowspan="2">3<br>ORCC</td>
+    <td rowspan="2">3 BPL /<br>5(6) LBPL</td>
+    <td rowspan="2">3<br>ABX</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">2</td>
+    <td class="center bordertop">6+1</td>
+    <td class="center bordertopright">7</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <th rowspan="2">A</th>
+  </tr>
+  <tr>
+    <td colspan="4" class="center bordernotop">DEC</td>
+    <td colspan="4" class="center bordernotop">ORA</td>
+    <td colspan="4" class="center bordernotop">ORB</td>
+  </tr>
+  <tr>
+    <th rowspan="2">1011</th>
+    <th rowspan="2">B</th>
+    <td rowspan="2" class="empty">-</td>
+    <td rowspan="2" class="empty">-</td>
+    <td rowspan="2">3 BMI /<br>5(6) LBMI</td>
+    <td rowspan="2">6/15<br>RTI</td>
+    <td rowspan="2" colspan="4" class="empty">-</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">4</td>
+    <td class="center bordertop">4+1</td>
+    <td class="center bordertopright">5</td>
+    <th rowspan="2">B</th>
+  </tr>
+  <tr>
+    <td colspan="4" class="center bordernotop">ADDA</td>
+    <td colspan="4" class="center bordernotop">ADDB</td>
+  </tr>
+  <tr>
+    <th rowspan="2">1100</th>
+    <th rowspan="2">C</th>
+    <td rowspan="2">6<br>INC</td>
+    <td rowspan="2">3<br>ANDCC</td>
+    <td rowspan="2">3 BGE /<br>5(6) LBGE</td>
+    <td rowspan="2">20<br>CWAI</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">2</td>
+    <td class="center bordertop">6+1</td>
+    <td class="center bordertopright">7</td>
+    <td rowspan="2" colspan="4" class="center"><table>
+      <tr>
+        <td class="center noborders">4, 6, 6+1, 7</td>
+        <td rowspan="2" class="center middle noborders">/</td>
+        <td class="center noborders">5, 7, 7+1, 8</td>
+        <td rowspan="2" class="center middle noborders">/</td>
+        <td class="center noborders ">5, 7, 7+1, 8</td>
+      </tr>
+      <tr>
+        <td class="center noborders">CMPX</td>
+        <td class="center noborders">CMPY</td>
+        <td class="center noborders">CMPS</td>
+      </tr>
+    </table></td>
+    <td class="center bordertopleft">3</td>
+    <td class="center bordertop">5</td>
+    <td class="center bordertop">5+1</td>
+    <td class="center bordertopright">6</td>
+    <th rowspan="2">C</th>
+  </tr>
+  <tr>
+    <td colspan="4" class="center bordernotop">INC</td>
+    <td colspan="4" class="center bordernotop">LDD</td>
+  </tr>
+  <tr>
+    <th rowspan="2">1101</th>
+    <th rowspan="2">D</th>
+    <td rowspan="2">6<br>TST</td>
+    <td rowspan="2">2<br>SEX</td>
+    <td rowspan="2">3 BLT /<br>5(6) LBLT</td>
+    <td rowspan="2">11<br>MUL</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">2</td>
+    <td class="center bordertop">6+1</td>
+    <td class="center bordertopright">7</td>
+    <td class="center bordernobottom">7</td>
+    <td class="center bordertopleft">7</td>
+    <td class="center bordertop">7+1</td>
+    <td class="center bordertopright">8</td>
+    <td rowspan="2" class="empty">-</td>
+    <td class="center bordertopleft">5</td>
+    <td class="center bordertop">5+1</td>
+    <td class="center bordertopright">6</td>
+    <th rowspan="2">D</th>
+  </tr>
+  <tr>
+    <td colspan="4" class="center bordernotop">TST</td>
+    <td class="center bordernotop">BSR</td>
+    <td colspan="3" class="center bordernotop">JSR</td>
+    <td colspan="3" class="center bordernotop">STD</td>
+  </tr>
+  <tr>
+    <th rowspan="2">1110</th>
+    <th rowspan="2">E</th>
+    <td rowspan="2">3<br>JMP</td>
+    <td rowspan="2">8<br>EXG</td>
+    <td rowspan="2">3 BGT /<br>5(6) LBGT</td>
+    <td rowspan="2" class="empty">-</td>
+    <td rowspan="2" colspan="2" class="empty">-</td>
+    <td class="center bordertopleft">3+1</td>
+    <td class="center bordertopright">4</td>
+    <td rowspan="2" colspan="4" class="center"><table>
+      <tr>
+        <td class="center noborders">3, 5, 5+1, 6</td>
+        <td rowspan="2" class="center middle noborders">/</td>
+        <td class="center noborders ">4, 6, 6+1, 7</td>
+      </tr>
+      <tr>
+        <td class="center noborders">LDX</td>
+        <td class="center noborders">LDY</td>
+      </tr>
+    </table></td>
+    <td rowspan="2" colspan="4" class="center"><table>
+      <tr>
+        <td class="center noborders">3, 5, 5+1, 6</td>
+        <td rowspan="2" class="center middle noborders">/</td>
+        <td class="center noborders ">4, 6, 6+1, 7</td>
+      </tr>
+      <tr>
+        <td class="center noborders">LDU</td>
+        <td class="center noborders">LDS</td>
+      </tr>
+    </table></td>
+    <th rowspan="2">E</th>
+  </tr>
+  <tr>
+    <td colspan="2" class="center bordernotop">JMP</td>
+  </tr>
+  <tr>
+    <th rowspan="2">1111</th>
+    <th rowspan="2">F</th>
+    <td rowspan="2">6<br>CLR</td>
+    <td rowspan="2">7<br>TFR</td>
+    <td rowspan="2">3 BLE /<br>5(6) LBLE</td>
+    <td rowspan="2">19/20/20<br>SWI/2/3</td>
+    <td class="center bordertopleft">2</td>
+    <td class="center bordertop">2</td>
+    <td class="center bordertop">6+1</td>
+    <td class="center bordertopright">7</td>
+    <td rowspan="2" class="empty">-</td>
+    <td rowspan="2" colspan="3" class="center"><table>
+      <tr>
+        <td class="center noborders">5, 5+1, 6</td>
+        <td rowspan="2" class="center middle noborders">/</td>
+        <td class="center noborders">6, 6+1, 7</td>
+      </tr>
+      <tr>
+        <td class="center noborders">STX</td>
+        <td class="center noborders">STY</td>
+      </tr>
+    </table></td>
+    <td rowspan="2" class="empty">-</td>
+    <td rowspan="2" colspan="3" class="center"><table>
+      <tr>
+        <td class="center noborders">5, 5+1, 6</td>
+        <td rowspan="2" class="center middle noborders">/</td>
+        <td class="center noborders ">6, 6+1, 7</td>
+      </tr>
+      <tr>
+        <td class="center noborders">STU</td>
+        <td class="center noborders">STS</td>
+      </tr>
+    </table></td>
+    <th rowspan="2">F</th>
+  </tr>
+  <tr>
+    <td colspan="4" class="center bordernotop">CLR</td>
+  </tr>
+</table>
+</div>
+<div class="text"><p></p>
+<table class="tabF-2">
+  <caption><a name="tabF-2">Table F-2. Indexed Addressing Mode Data</a></caption>
+  <tr>
+    <th rowspan="2" class="bottom">Type</th>
+    <th rowspan="2" class="bottom">Forms</th>
+    <th colspan="4">Non Indirect</th>
+    <th colspan="4">Indirect</th>
+  </tr>
+  <tr>
+    <th>Assembler<br>Form</th>
+    <th>Postbyte<br>OP Code</th>
+    <th>&times;<br>~</th>
+    <th>+<br>#</th>
+    <th>Assembler<br>Form</th>
+    <th>Postbyte<br>OP Code</th>
+    <th>&times;<br>~</th>
+    <th>+<br>#</th>
+  </tr>
+  <tr>
+    <td rowspan="4" class="top left">Constant Offset From R<br>(twos complement offset)</td>
+    <td class="left">No Offset</td>
+    <td>,R</td>
+    <td>1RR00100</td>
+    <td>0</td>
+    <td>0</td>
+    <td>[,R]</td>
+    <td>1RR10100</td>
+    <td>3</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td class="left">5-Bit Offset</td>
+    <td>n, R</td>
+    <td>0RRnnnnn</td>
+    <td>1</td>
+    <td>0</td>
+    <td colspan="2">defaults to 8-bit</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td class="left">8-Bit Offset</td>
+    <td>n, R</td>
+    <td>1RR01000</td>
+    <td>1</td>
+    <td>1</td>
+    <td>[n, R]</td>
+    <td>1RR11000</td>
+    <td>4</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td class="left">16-Bit Offset</td>
+    <td>n, R</td>
+    <td>1RR01001</td>
+    <td>4</td>
+    <td>2</td>
+    <td>[n, R]</td>
+    <td>1RR11001</td>
+    <td>7</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td rowspan="3" class="top left">Accumulator Offset From R<br>(twos complement offset)</td>
+    <td class="left">A - Register Offset</td>
+    <td>A, R</td>
+    <td>1RR00110</td>
+    <td>1</td>
+    <td>0</td>
+    <td>[A, R]</td>
+    <td>1RR10110</td>
+    <td>4</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td class="left">B - Register Offset</td>
+    <td>B, R</td>
+    <td>1RR00101</td>
+    <td>1</td>
+    <td>0</td>
+    <td>[B, R]</td>
+    <td>1RR10101</td>
+    <td>4</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td class="left">D - Register Offset</td>
+    <td>D, R</td>
+    <td>1RR01011</td>
+    <td>4</td>
+    <td>0</td>
+    <td>[D, R]</td>
+    <td>1RR11011</td>
+    <td>7</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td rowspan="4" class="top left">Auto Increment/Decrement R</td>
+    <td class="left">Increment by 1</td>
+    <td>,R+</td>
+    <td>1RR00000</td>
+    <td>2</td>
+    <td>0</td>
+    <td colspan="2">not allowed</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td class="left">Increment by 2</td>
+    <td>,R++</td>
+    <td>1RR00001</td>
+    <td>3</td>
+    <td>0</td>
+    <td>[,R++]</td>
+    <td>1RR10001</td>
+    <td>6</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td class="left">Decrement by 1</td>
+    <td>,-R</td>
+    <td>1RR00010</td>
+    <td>2</td>
+    <td>0</td>
+    <td colspan="2">not allowed</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td class="left">Decrement by 2</td>
+    <td>,--R</td>
+    <td>1RR00011</td>
+    <td>3</td>
+    <td>0</td>
+    <td>[,--R]</td>
+    <td>1RR10011</td>
+    <td>6</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="top left">Constant Offset From PC<br>(twos complement offset)</td>
+    <td class="left">8-Bit Offset</td>
+    <td>n, PCR</td>
+    <td>1XX01100</td>
+    <td>1</td>
+    <td>1</td>
+    <td>[n, PCR]</td>
+    <td>1XX11100</td>
+    <td>4</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td class="left">16-Bit Offset</td>
+    <td>n, PCR</td>
+    <td>1XX01101</td>
+    <td>5</td>
+    <td>2</td>
+    <td>[n, PCR]</td>
+    <td>1XX11101</td>
+    <td>8</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td class="top left">Extended Indirect</td>
+    <td class="left">16-Bit Address</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>[n]</td>
+    <td>10011111</td>
+    <td>5</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td class="noborders"></td>
+    <td class="left noborders">R = X, Y, U or S<br>X = Don't Care</td>
+    <td class="left noborders">X = 00<br>U = 10</td>
+    <td class="left noborders">Y = 01<br>S = 11</td>
+    <td colspan="6" class="noborders"></td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td>&times;<br>~</td>
+    <td>and</td>
+    <td>+<br>#</td>
+    <td>indicate the number of additional cycles and bytes for the particular variation.</td>
+  </tr>
+</table>
+
+<hr>
+
+<p>&copy; Motorola Inc., 1981 (now <a href="http://www.freescale.com/" target="_top">Freescale</a> as of 2006)<br>
+Transferred into HTML by <a href="http://www.maddes.net/" target="_top">Matthias &quot;Maddes&quot; B&uuml;cher</a> in 2006, 2007.<br>
+Use all information at your own risk.</p>
+
+<table border="0"><tr>
+<td><a href="#top">Top</a></td>
+<td><a href=".">ToC</a></td>
+<td><a href=".." target="_top">Start</a></td>
+<td><a href="../contact.php">Contact</a></td>
+</tr></table>
+
+</div></body>
+</html>

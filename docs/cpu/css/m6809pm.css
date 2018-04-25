@@ -1,0 +1,122 @@
+.left { text-align:left; }
+.center { text-align:center; }
+.right { text-align:right; }
+.top { vertical-align:top; }
+.middle { vertical-align:middle; }
+.bottom { vertical-align:bottom; }
+.big { font-size:150%; }
+.underline { text-decoration:underline; }
+.bold { font-weight:bold; }
+
+.lowsignal { text-decoration:overline; }
+.correction { color:red; }
+
+/* All borders */
+.borders { border-style:solid; }
+/* 3 borders */
+.bordernotop { border-style:solid; border-top-style:none; }
+.bordernobottom { border-style:solid; border-bottom-style:none; }
+.bordernoleft { border-style:solid; border-left-style:none; }
+.bordernoright { border-style:solid; border-right-style:none; }
+/* 2 borders */
+.bordernosides { border-style:solid; border-left-style:none; border-right-style:none; }
+.bordersides { border-style:none; border-left-style:solid; border-right-style:solid; }
+.bordertopleft { border-style:none; border-top-style:solid; border-left-style:solid; }
+.bordertopright { border-style:none; border-top-style:solid;  border-right-style:solid; }
+.borderbottomleft { border-style:none; border-bottom-style:solid; border-left-style:solid; }
+.borderbottomright { border-style:none; border-bottom-style:solid; border-right-style:solid; }
+/* 1 border */
+.bordertop { border-style:none; border-top-style:solid; }
+.borderbottom { border-style:none; border-bottom-style:solid; }
+.borderleft { border-style:none; border-left-style:solid; }
+.borderright { border-style:none; border-right-style:solid; }
+/* No borders */
+.noborders { border-style:none; }
+
+@page { size: auto; }
+@page landscape { size: landscape; }
+
+body { background-color:white; color:black; margin: 0 auto; }
+.text { width: 760px; margin: auto auto; }
+.landscape { page:landscape; page-break-before:always; page-break-after:always; }
+
+a:link { color:#000088; }
+a:visited { color:#880088; }
+a:active { color:#0000FF; }
+caption { text-align:center; font-weight:bold; white-space:nowrap; padding-top:1ex; padding-bottom:0.5ex; }
+table { text-align:left; caption-side:top; empty-cells:show; border-collapse:collapse; }
+th { text-align:center; font-weight:bold; }
+td { padding-left:0.5ex; padding-right:0.5ex; padding-top:0.1ex; padding-bottom:0.1ex; }
+td.bitbox { width:2ex; text-align:center; border-style:solid; border-width:thin; }
+td.bit { width:12.5%; text-align:center; }
+
+table.sec2b { text-align:center; border-style:none; }
+table.sec2b tr.bits { width:12.5%; }
+table.sec2b tr.regs8 td { width:12.5%; white-space:nowrap; border-style:solid; }
+table.sec2b tr.regs2 td { width:50%; white-space:nowrap; border-style:solid;  }
+
+table.sec2c { border-style:solid; }
+table.sec2c th { border-style:solid; }
+table.sec2c td { border-style:solid; }
+
+table.sec3a { text-align:center; border-style:solid; }
+table.sec3a th { border-style:solid; }
+table.sec3a td { border-left-style:solid; border-right-style:solid; }
+
+table.appAa { width:600px; margin-top:2.5ex; margin-bottom:2.5ex; }
+table.appAa th.big.left { width:25%; }
+table.appAa th.big.right { width:25%; }
+table.appAa td.bold { padding-top:0.5ex; padding-bottom:0.5ex; text-align:left; vertical-align:top; font-weight:bold; }
+table.appAa td.flat { padding-top:0.5ex; padding-bottom:0.5ex; }
+
+table.tabD-1a { text-align:left; }
+table.tabD-1a tr { border-style:solid; border-top-style:none; border-bottom-style:none; }
+table.tabD-1a th { border-style:solid; vertical-align:bottom; }
+table.tabD-1a td { border-style:solid; border-top-style:none; border-bottom-style:none; vertical-align:top; }
+table.tabD-1a .borders { border-style:solid; }
+table.tabD-1a .bordernotop { border-style:solid; border-top-style:none; }
+table.tabD-1a .bordernobottom { border-style:solid; border-bottom-style:none; }
+
+table.tabD-1f { margin: auto auto auto auto; text-align:left; }
+table.tabD-1f caption { margin: auto auto auto auto; }
+table.tabD-1f tr { border-style:solid; border-top-style:none; border-bottom-style:none; }
+table.tabD-1f th { border-style:solid; vertical-align:bottom; }
+table.tabD-1f td { border-style:solid; border-top-style:none; border-bottom-style:none; vertical-align:top; }
+table.tabD-1f .borders { border-style:solid; }
+table.tabD-1f .bordernotop { border-style:solid; border-top-style:none; }
+table.tabD-1f .bordernobottom { border-style:solid; border-bottom-style:none; }
+table.tabD-1f .middle { vertical-align:middle; }
+table.tabD-1f .noborders *, table, td, tr { border-style:none; }
+table.tabD-1f .noborders .bitbox { width:2ex; text-align:center; border-style:solid; border-width:thin; }
+table.tabD-1f .noborders .bit { width:12.5%; text-align:center; }
+
+table.figE-1 { text-align:center; }
+table.figE-1 th { border-style:solid; }
+table.figE-1 td { border-style:solid; }
+table.figE-1 .bordernotop { border-style:solid; border-top-style:none; }
+table.figE-1 .bordernobottom { border-style:solid; border-bottom-style:none; }
+table.figE-1 .bordernosides { border-style:solid; border-left-style:none; border-right-style:none; }
+table.figE-1 .bordersides { border-style:none; border-left-style:solid; border-right-style:solid; }
+table.figE-1 .bordernoleft { border-style:solid; border-left-style:none; }
+table.figE-1 .bordernoright { border-style:solid; border-right-style:none; }
+table.figE-1 .bordertop { border-style:none; border-top-style:solid; }
+
+table.tabF-1 { margin: auto auto auto auto; width:1100px; }
+table.tabF-1 caption { margin: auto auto auto auto; }
+table.tabF-1 th { border-style:solid; }
+table.tabF-1 td { border-style:solid; vertical-align:top; }
+table.tabF-1 .middle { vertical-align:middle; }
+table.tabF-1 .bordernotop { border-style:solid; border-top-style:none; }
+table.tabF-1 .bordernobottom { border-style:solid; border-bottom-style:none; }
+table.tabF-1 .bordertopleft { border-style:none; border-top-style:solid; border-left-style:solid; }
+table.tabF-1 .bordertopright { border-style:none; border-top-style:solid;  border-right-style:solid; }
+table.tabF-1 .bordertop { border-style:none; border-top-style:solid; }
+table.tabF-1 .borderleft { border-style:none; border-left-style:solid; }
+table.tabF-1 .borderright { border-style:none; border-right-style:solid; }
+table.tabF-1 .noborders { border-style:none; }
+table.tabF-1 .empty { text-align:center; vertical-align:middle; }
+
+table.tabF-2 { text-align:center; }
+table.tabF-2 th { border-style:solid; }
+table.tabF-2 td { border-style:solid; }
+table.tabF-2 .noborders { border-style:none; }
