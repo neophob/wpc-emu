@@ -2,6 +2,7 @@
 
 /* global WpcEmu */
 /* global c */
+/*jshint bitwise: false*/
 
 // HINT enable debug in the browser by entering "localStorage.debug = '*'" in the browser
 console.log('hello');
@@ -13,7 +14,7 @@ var wpcSystem, intervalId;
 
 function step() {
   // TODO make adaptive, so we execute 2000 emuState.opMs
-  var count = 54*8;
+  var count = 54*1;
 
   while (count--) {
     try {
@@ -111,11 +112,19 @@ function updateCanvas() {
   c.fillText('ASIC RAM:', 500, YPOS_GENERIC_DATA + 20);
 
   const diagnosticLed = emuState.asic.wpc.diagnosticLed ? emuState.asic.wpc.diagnosticLed.toString(2) : '00000000';
+  const lampRow = emuState.asic.wpc.lampRow;
+  const lampColumn = emuState.asic.wpc.lampColumn;
+  const switchRow = emuState.asic.wpc.switchRow;
+  const switchColumn = emuState.asic.wpc.switchColumn;
   c.fillText('DIAGLED STATE: ' + diagnosticLed, 0, YPOS_WPC_DATA + 10);
   c.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, 250, YPOS_WPC_DATA + 10);
+  c.fillText('LAMP ROW: ' + lampRow, 500, YPOS_WPC_DATA + 10);
+  c.fillText('SWITCH ROW: ' + switchRow, 625, YPOS_WPC_DATA + 10);
 
   c.fillText('Active ROM Bank: ' + emuState.asic.wpc.activeRomBank, 0, YPOS_WPC_DATA + 20);
   c.fillText('IRQ enabled: ' + emuState.asic.wpc.irqEnabled, 250, YPOS_WPC_DATA + 20);
+  c.fillText('LAMP COL: ' + lampColumn, 500, YPOS_WPC_DATA + 20);
+  c.fillText('SWITCH COL: ' + switchColumn, 625, YPOS_WPC_DATA + 20);
 
   c.fillText('DMD ACTIVE PAGE: ' + emuState.asic.dmd.activepage, 0, YPOS_DMD_DATA + 10);
   c.fillText('DMD LOW PAGE: ' + emuState.asic.dmd.lowpage, 250, YPOS_DMD_DATA + 10);
@@ -123,9 +132,12 @@ function updateCanvas() {
 
   c.fillText('DMD SCANLINE: ' + emuState.asic.dmd.scanline, 0, YPOS_DMD_DATA + 20);
 
-
   c.fillText('PAGE 1 RAM:', 0, YPOS_DMD_DATA + 40);
   c.fillText('PAGE 2 RAM:', 250, YPOS_DMD_DATA + 40);
+
+  drawMatrix(lampRow, lampColumn, 500, YPOS_WPC_DATA + 30);
+  drawMatrix(switchRow, switchColumn, 625, YPOS_WPC_DATA + 30);
+
 
   drawMemRegion(emuState.asic.ram, 500, YPOS_GENERIC_DATA + 20, 128);
   //dmd pages - 8 pixel (on/off) per byte, display is 128x32 pixels
@@ -146,6 +158,37 @@ function drawMemRegion(data, x, y, width) {
       offsetX = 0;
       offsetY ++;
     }
+  });
+}
+
+function drawMatrix(row, column, x, y) {
+  const GRIDSIZE = 10;
+
+  [1, 2, 4, 8, 16, 32, 64, 128].forEach((mask, index) => {
+    //draw horizontal lines
+    if (row === mask) {
+      c.strokeStyle = 'yellow';
+    } else {
+      c.strokeStyle = 'grey';
+    }
+    var j = y + index * GRIDSIZE;
+    c.beginPath();
+    c.moveTo(x, j);
+    c.lineTo(x + 7 * GRIDSIZE, j);
+    c.stroke();
+
+    //draw vertical lines
+    if (column === mask) {
+      c.strokeStyle = 'yellow';
+    } else {
+      c.strokeStyle = 'grey';
+    }
+    var i = x + index * GRIDSIZE;
+    c.beginPath();
+    c.moveTo(i, y);
+    c.lineTo(i, y + 7 * GRIDSIZE);
+    c.stroke();
+
   });
 }
 
