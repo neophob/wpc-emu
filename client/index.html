@@ -13,8 +13,8 @@
         <button type="button" onclick="stopEmu();">Pause Emulator</button>
         <button type="button" onclick="startEmu();">Resume Emulator</button>
         <button type="button" onclick="resetEmu();">Reset Emulator</button>
-        <button type="button" onclick="localStorage.debug = '*';">Enable Debug Logs</button>
-        <button type="button" onclick="localStorage.debug = '';">Disable Debug Logs</button>
+        <button type="button" onclick="localStorage.debug = '*'; location.reload();">Enable Debug Logs</button>
+        <button type="button" onclick="localStorage.debug = ''; location.reload();">Disable Debug Logs</button>
         <button type="button" onclick="irq()">IRQ</button>
         <button type="button" onclick="firq()">FIRQ</button>
       </div>
