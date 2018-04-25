@@ -9,6 +9,16 @@
       </style>
     </head>
     <body>
+      <div>
+        <button type="button" onclick="stopEmu();">Pause Emulator</button>
+        <button type="button" onclick="startEmu();">Resume Emulator</button>
+        <button type="button" onclick="resetEmu();">Reset Emulator</button>
+        <button type="button" onclick="localStorage.debug = '*';">Enable Debug Logs</button>
+        <button type="button" onclick="localStorage.debug = '';">Disable Debug Logs</button>
+        <button type="button" onclick="irq()">IRQ</button>
+        <button type="button" onclick="firq()">FIRQ</button>
+      </div>
+
       <canvas id="c"></canvas>
       <script>
         var a = document.getElementsByTagName('canvas')[0];
@@ -44,9 +54,6 @@
         }(a))();
 
         var c = a.getContext('2d');
-
-        // enable debugging
-        localStorage.debug = '*';
 
       </script>
       <script src="../dist/wpc-emu.js"></script>
