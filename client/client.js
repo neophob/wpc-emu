@@ -14,7 +14,7 @@ var wpcSystem, intervalId;
 
 function step() {
   // TODO make adaptive, so we execute 2000 emuState.opMs
-  var count = 54*1;
+  var count = 54*4;
 
   while (count--) {
     try {
@@ -50,6 +50,11 @@ function irq() {
 function firq() {
   console.log('FIRQ!');
   wpcSystem.firq();
+}
+
+function emuStep() {
+  console.log('step');
+  wpcSystem.executeCycle();
 }
 
 function startEmu() {
@@ -135,30 +140,31 @@ function updateCanvas() {
   c.fillText('PAGE 1 RAM:', 0, YPOS_DMD_DATA + 40);
   c.fillText('PAGE 2 RAM:', 250, YPOS_DMD_DATA + 40);
 
+  //TODO payload is wrong
   drawMatrix(lampRow, lampColumn, 500, YPOS_WPC_DATA + 30);
   drawMatrix(switchRow, switchColumn, 625, YPOS_WPC_DATA + 30);
 
-
   drawMemRegion(emuState.asic.ram, 500, YPOS_GENERIC_DATA + 20, 128);
+
   //dmd pages - 8 pixel (on/off) per byte, display is 128x32 pixels
   drawMemRegion(emuState.asic.dmd.page1, 0, YPOS_DMD_DATA + 40, 16);
   drawMemRegion(emuState.asic.dmd.page2, 250, YPOS_DMD_DATA + 40, 16);
-  drawDmd(emuState.asic.dmd.page1);
-  drawDmd2(emuState.asic.dmd.page2);
+  drawDmd(emuState.asic.dmd.page1, 0, 400, 16*8);
+  drawDmd2(emuState.asic.dmd.page2, 250, 400, 16*8);
 }
 
 function drawMemRegion(data, x, y, width) {
   var offsetX = 0;
   var offsetY = 0;
-  data.forEach((alpha) => {
-    c.fillStyle = `rgb(${alpha}, ${alpha}, 64)`;
+  for (var i = 0, len = data.length; i < len; i++) {
+    const alpha = data[i];
+    c.fillStyle = 'rgb(' + alpha + ',' + alpha + ', 64)';
     c.fillRect (x + offsetX, y + offsetY, 1, 1);
-    offsetX ++;
-    if (offsetX === width) {
+    if (offsetX++ === width) {
       offsetX = 0;
       offsetY ++;
     }
-  });
+  }
 }
 
 function drawMatrix(row, column, x, y) {
@@ -192,19 +198,17 @@ function drawMatrix(row, column, x, y) {
   });
 }
 
-function drawDmd(data) {
-  var x = 0;
-  var y = 400;
-  var width = 16*8;
+const COLOR_LOW = 'rgb(0, 0, 64)';
+const COLOR_HIGH = 'rgb(255, 255, 64)';
+function drawDmd(data, x, y, width) {
   var offsetX = 0;
   var offsetY = 0;
   data.forEach((packedByte) => {
-//    [1, 2, 4, 8, 16, 32, 64, 128].forEach((mask) => {
     [128, 64, 32, 16, 8, 4, 2, 1].forEach((mask) => {
       if (mask & packedByte) {
-        c.fillStyle = `rgb(255, 255, 64)`;
+        c.fillStyle = COLOR_HIGH;
       } else {
-        c.fillStyle = `rgb(0, 0, 64)`;
+        c.fillStyle = COLOR_LOW;
       }
       c.fillRect (x + offsetX, y + offsetY, 1, 1);
       offsetX ++;
@@ -215,18 +219,15 @@ function drawDmd(data) {
     });
   });
 }
-function drawDmd2(data) {
-  var x = 250;
-  var y = 400;
-  var width = 16*8;
+function drawDmd2(data, x, y, width) {
   var offsetX = 0;
   var offsetY = 0;
   data.forEach((packedByte) => {
     [1, 2, 4, 8, 16, 32, 64, 128].forEach((mask) => {
       if (mask & packedByte) {
-        c.fillStyle = `rgb(255, 255, 64)`;
+        c.fillStyle = COLOR_HIGH;
       } else {
-        c.fillStyle = `rgb(0, 0, 64)`;
+        c.fillStyle = COLOR_LOW;
       }
       c.fillRect (x + offsetX, y + offsetY, 1, 1);
       offsetX ++;
@@ -240,6 +241,6 @@ function drawDmd2(data) {
 
 function canvasClear() {
   c.rect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-  c.fillStyle = 'black';
+  c.fillStyle = '#000';
   c.fill();
 }

@@ -15,8 +15,9 @@
         <button type="button" onclick="resetEmu();">Reset Emulator</button>
         <button type="button" onclick="localStorage.debug = '*'; location.reload();">Enable Debug Logs</button>
         <button type="button" onclick="localStorage.debug = ''; location.reload();">Disable Debug Logs</button>
-        <button type="button" onclick="irq()">IRQ</button>
-        <button type="button" onclick="firq()">FIRQ</button>
+        <button type="button" onclick="irq();">IRQ</button>
+        <button type="button" onclick="firq();">FIRQ</button>
+        <button type="button" onclick="emuStep();">STEP</button>
       </div>
 
       <canvas id="c"></canvas>

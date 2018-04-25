@@ -8,12 +8,13 @@
 # Basic
 - read Game ROM file ✓
 - emulate CPU ✓
-- implement CPU IRQ
+- implement Bankswitching ✓
+- implement CPU IRQ ✓
+- implement ASIC IRQ ✓
+- implement ASIC FIRQ
 - dip switch settings for rom size
 
 # Display
-- implement Bankswitching ✓
-- implement Hardware
 - emulate Dot Matrix controller
 - display Dot Matrix display
 
