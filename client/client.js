@@ -150,7 +150,7 @@ function updateCanvas() {
   drawMemRegion(emuState.asic.dmd.page1, 0, YPOS_DMD_DATA + 40, 16);
   drawMemRegion(emuState.asic.dmd.page2, 250, YPOS_DMD_DATA + 40, 16);
   drawDmd(emuState.asic.dmd.page1, 0, 400, 16*8);
-  drawDmd2(emuState.asic.dmd.page2, 250, 400, 16*8);
+  drawDmd(emuState.asic.dmd.page2, 250, 400, 16*8);
 }
 
 function drawMemRegion(data, x, y, width) {
@@ -200,26 +200,8 @@ function drawMatrix(row, column, x, y) {
 
 const COLOR_LOW = 'rgb(0, 0, 64)';
 const COLOR_HIGH = 'rgb(255, 255, 64)';
+
 function drawDmd(data, x, y, width) {
-  var offsetX = 0;
-  var offsetY = 0;
-  data.forEach((packedByte) => {
-    [128, 64, 32, 16, 8, 4, 2, 1].forEach((mask) => {
-      if (mask & packedByte) {
-        c.fillStyle = COLOR_HIGH;
-      } else {
-        c.fillStyle = COLOR_LOW;
-      }
-      c.fillRect (x + offsetX, y + offsetY, 1, 1);
-      offsetX ++;
-      if (offsetX === width) {
-        offsetX = 0;
-        offsetY ++;
-      }
-    });
-  });
-}
-function drawDmd2(data, x, y, width) {
   var offsetX = 0;
   var offsetY = 0;
   data.forEach((packedByte) => {
