@@ -5,6 +5,13 @@
 
 ## Steps
 
+# state
+- it boots!
+- dmd works!
+- dmd shows invalid settings -> TODO add dump nvram to get "valid" settings
+- after 600 millions ticks it looks like it restarts somehow, after that irq needs to be reenabled
+- then game boots up
+
 # Basic
 - read Game ROM file ✓
 - emulate CPU ✓
