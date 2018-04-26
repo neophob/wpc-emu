@@ -86,3 +86,18 @@ test.serial('firq() should not be called if F_FIRQMASK flag is set', t => {
   t.is(readMemoryAddress[2], NaN);
   t.is(readMemoryAddress[3], undefined);
 });
+
+test.serial('oNEG() should set CARRY flag correctly', t => {
+  CPU6809.set('flags', 0xff);
+  CPU6809.firq();
+  CPU6809.steps();
+  t.is(readMemoryAddress[2], NaN);
+  t.is(readMemoryAddress[3], undefined);
+});
+
+//F_CARRY
+//NEG DP
+//0x40
+//0x50
+//0x60: //NEG indexed
+//0x70: //NEG extended
