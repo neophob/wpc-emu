@@ -52,6 +52,11 @@ function firq() {
   wpcSystem.firq();
 }
 
+function setCabinetInput(value) {
+  console.log('setCabinetInput!',value);
+  wpcSystem.setCabinetInput(value);
+}
+
 function emuStep() {
   console.log('step');
   wpcSystem.executeCycle();

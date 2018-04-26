@@ -5,11 +5,11 @@
       <meta charset="utf-8" />
       <style>
         html, body { margin: 0; padding: 0; border: 0; }
-        #c { display: block; } /* kill scrollbars from hell */
       </style>
     </head>
     <body>
       <div>
+        DBG:
         <button type="button" onclick="stopEmu();">Pause Emulator</button>
         <button type="button" onclick="startEmu();">Resume Emulator</button>
         <button type="button" onclick="resetEmu();">Reset Emulator</button>
@@ -19,8 +19,16 @@
         <button type="button" onclick="firq();">FIRQ</button>
         <button type="button" onclick="emuStep();">STEP</button>
       </div>
-
+      <div>
+        COIN DOOR SWITCHES:
+        <button type="button" onclick="setCabinetInput(1);">Escape</button>
+        <button type="button" onclick="setCabinetInput(2);">-</button>
+        <button type="button" onclick="setCabinetInput(4);">+</button>
+        <button type="button" onclick="setCabinetInput(8);">Enter</button>
+        <button type="button" onclick="setCabinetInput(0xff);">AllButtons</button>
+      </div>
       <canvas id="c"></canvas>
+
       <script>
         var a = document.getElementsByTagName('canvas')[0];
         var b = document.body;
@@ -42,20 +50,18 @@
         (window.onorientationchange = window.onresize = function(a){
           var mw = Infinity;
           var mh = Infinity;
-          var min = Math.min;
 
           return function(w,h){
             if (arguments.length === 2) {
               mw = w;
               mh = h;
             }
-            a.style.width = (a.width = min(mw, innerWidth)) + 'px';
-            a.style.height = (a.height = min(mh, innerHeight)) + 'px';
+            a.style.width = (a.width = Math.min(mw, innerWidth)) + 'px';
+            a.style.height = (a.height = Math.min(mh, innerHeight)) + 'px';
           };
         }(a))();
 
         var c = a.getContext('2d');
-
       </script>
       <script src="../dist/wpc-emu.js"></script>
       <script src="client.js"></script>
