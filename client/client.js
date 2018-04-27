@@ -15,7 +15,7 @@ var wpcSystem, intervalId;
 //called at 60hz -> 16.6ms
 function step() {
   // TODO make adaptive, so we execute 2000 emuState.opMs
-  var count = 28;
+  var count = 35;
 
   while (count--) {
     try {
@@ -161,6 +161,8 @@ function updateCanvas() {
   //dmd pages - 8 pixel (on/off) per byte, display is 128x32 pixels
   drawDmd(emuState.asic.dmd.page1, LEFT_X_OFFSET, YPOS_DMD_DATA + 40, 16*8);
   drawDmd(emuState.asic.dmd.page2, MIDDLE_X_OFFSET, YPOS_DMD_DATA + 40, 16*8);
+  drawDmd(emuState.asic.dmd.page3, LEFT_X_OFFSET, YPOS_DMD_DATA + 240, 16*8);
+  drawDmd(emuState.asic.dmd.page4, MIDDLE_X_OFFSET, YPOS_DMD_DATA + 240, 16*8);
   const dmdPage = activePage === 1 ? emuState.asic.dmd.page1 : emuState.asic.dmd.page2;
   drawBlendedDmd(emuState.asic.dmd.page1, emuState.asic.dmd.page2, dmdPage,
     RIGHT_X_OFFSET, YPOS_DMD_DATA + 40, 16*8, emuState.asic.dmd.activePlaneTracker);
