@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "description": "WPC pinball machine emu",
   "main": "index.js",
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "scripts": {
     "build": "webpack",
     "build:test": "rm -f dist/* && webpack && cp assets/* dist && DEBUG=* node index.js",
     "client": "rm -f dist/* && webpack && open client/index.html",
     "start": "DEBUG=* node index.js",
+    "debug": "node --inspect index.js",
     "test": "ava --verbose test/lib/**/*.test.js test/lib/*.test.js",
     "test:debug": "DEBUG='wpc*' ava --verbose test/lib/**/*.test.js test/lib/*.test.js"
   },

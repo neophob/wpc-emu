@@ -11,6 +11,7 @@
 - dmd shows invalid settings -> TODO add dump nvram to get "valid" settings
 - after 600 millions ticks it looks like it restarts somehow, after that irq needs to be reenabled
 - then game boots up
+- idea dmd: store the time plane 1 and plane 2 is visible since the last getUiState - then blend result
 
 # Basic
 - read Game ROM file ✓

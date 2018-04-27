@@ -12,9 +12,10 @@ const CANVAS_HEIGHT = 800;
 
 var wpcSystem, intervalId;
 
+//called at 60hz -> 16.6ms
 function step() {
   // TODO make adaptive, so we execute 2000 emuState.opMs
-  var count = 54*4;
+  var count = 28;
 
   while (count--) {
     try {
@@ -24,6 +25,7 @@ function step() {
     }
   }
 
+  //should be called 122 times/s
   updateCanvas();
   intervalId = requestAnimationFrame(step);
 }
@@ -112,7 +114,6 @@ function updateCanvas() {
   canvasClear();
   const emuState = wpcSystem.getUiState();
   c.font = '10px Monaco';
-
   c.fillStyle = 'magenta';
   c.fillText('# GENERIC DATA:', LEFT_X_OFFSET, YPOS_GENERIC_DATA);
   c.fillText('# WPC BOARD DATA:', LEFT_X_OFFSET, YPOS_WPC_DATA);
@@ -131,6 +132,7 @@ function updateCanvas() {
   const lampColumn = emuState.asic.wpc.lampColumn;
   const switchRow = emuState.asic.wpc.switchRow;
   const switchColumn = emuState.asic.wpc.switchColumn;
+  const activePage = emuState.asic.dmd.activepage;
   c.fillText('DIAGLED STATE: ' + diagnosticLed, LEFT_X_OFFSET, YPOS_WPC_DATA + 10);
   c.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, MIDDLE_X_OFFSET, YPOS_WPC_DATA + 10);
   c.fillText('LAMP ROW: ' + lampRow, RIGHT_X_OFFSET, YPOS_WPC_DATA + 10);
@@ -141,7 +143,7 @@ function updateCanvas() {
   c.fillText('LAMP COL: ' + lampColumn, RIGHT_X_OFFSET, YPOS_WPC_DATA + 20);
   c.fillText('SWITCH COL: ' + switchColumn, RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 20);
 
-  c.fillText('DMD ACTIVE PAGE: ' + emuState.asic.dmd.activepage, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
+  c.fillText('DMD ACTIVE PAGE: ' + activePage, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
   c.fillText('DMD LOW PAGE: ' + emuState.asic.dmd.lowpage, MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
   c.fillText('DMD HIGH PAGE: ' + emuState.asic.dmd.highpage, RIGHT_X_OFFSET, YPOS_DMD_DATA + 10);
 
@@ -149,8 +151,8 @@ function updateCanvas() {
 
   c.fillText('PAGE 1 RAM:', LEFT_X_OFFSET, YPOS_DMD_DATA + 40);
   c.fillText('PAGE 2 RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA + 40);
+  c.fillText('DMD OUTPUT:', RIGHT_X_OFFSET, YPOS_DMD_DATA + 40);
 
-  //TODO payload is wrong
   drawMatrix(lampRow, lampColumn, RIGHT_X_OFFSET, YPOS_WPC_DATA + 30);
   drawMatrix(switchRow, switchColumn, RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 30);
 
@@ -159,6 +161,9 @@ function updateCanvas() {
   //dmd pages - 8 pixel (on/off) per byte, display is 128x32 pixels
   drawDmd(emuState.asic.dmd.page1, LEFT_X_OFFSET, YPOS_DMD_DATA + 40, 16*8);
   drawDmd(emuState.asic.dmd.page2, MIDDLE_X_OFFSET, YPOS_DMD_DATA + 40, 16*8);
+  const dmdPage = activePage === 1 ? emuState.asic.dmd.page1 : emuState.asic.dmd.page2;
+  drawBlendedDmd(emuState.asic.dmd.page1, emuState.asic.dmd.page2, dmdPage,
+    RIGHT_X_OFFSET, YPOS_DMD_DATA + 40, 16*8, emuState.asic.dmd.activePlaneTracker);
 }
 
 function drawMemRegion(data, x, y, width) {
@@ -227,6 +232,48 @@ function drawDmd(data, x, y, width) {
       }
     });
   });
+}
+
+//TODO does not work yet, fix FIRQ might resolve it
+function drawBlendedDmd(plane1, plane2, activePlane, x, y, width, blendData) {
+  if (blendData.length === 0) {
+    var offsetX = 0;
+    var offsetY = 0;
+    activePlane.forEach((packedByte) => {
+      [1, 2, 4, 8, 16, 32, 64, 128].forEach((mask) => {
+        if (mask & packedByte) {
+          c.fillStyle = COLOR_HIGH;
+        } else {
+          c.fillStyle = COLOR_LOW;
+        }
+        c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
+        offsetX++;
+        if (offsetX === width) {
+          offsetX = 0;
+          offsetY ++;
+        }
+      });
+    });
+    return;
+  }
+  console.log(blendData);
+/*  var offsetX = 0;
+  var offsetY = 0;
+  data.forEach((packedByte) => {
+    [1, 2, 4, 8, 16, 32, 64, 128].forEach((mask) => {
+      if (mask & packedByte) {
+        c.fillStyle = COLOR_HIGH;
+      } else {
+        c.fillStyle = COLOR_LOW;
+      }
+      c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
+      offsetX++;
+      if (offsetX === width) {
+        offsetX = 0;
+        offsetY ++;
+      }
+    });
+  });*/
 }
 
 function canvasClear() {
