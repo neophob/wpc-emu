@@ -14,10 +14,10 @@ test.beforeEach((t) => {
   t.context = dmd;
 });
 
-test('dmd, should write to genericState', (t) => {
+test('dmd, should write to hardwareRam', (t) => {
   const dmd = t.context;
   dmd.write(0x3fbd, 255);
-  t.is(dmd.genericState[0x3fbd], 0xFF);
+  t.is(dmd.hardwareRam[0x3fbd], 0xFF);
 });
 
 test('dmd, should read to WPC_DMD_SCANLINE', (t) => {
