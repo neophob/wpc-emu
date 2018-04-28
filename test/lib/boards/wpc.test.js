@@ -5,7 +5,12 @@ import WPC from '../../../lib/boards/wpc';
 
 
 test.beforeEach((t) => {
-  const wpc = WPC.getInstance(2, {});
+  const ram = new Uint8Array(0x4000);
+  const initObject = {
+    interruptCallback: {},
+    ram,
+  };
+  const wpc = WPC.getInstance(2, initObject);
   t.context = wpc;
 });
 

@@ -81,7 +81,9 @@ function resetEmu() {
   intervalId = false;
   console.log('reset emu');
   // HINT: make sure CORS is correct
-  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom')
+//  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom')
+  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom')
+
     .then((rom) => {
       return WpcEmu.initVMwithRom(rom, 'hurcnl_2.rom');
     })
