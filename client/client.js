@@ -169,7 +169,7 @@ function updateCanvas() {
   drawDmd(videoRam.slice(5 * DMD_PAGE_SIZE, 6 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 240, 16*8);
   drawDmd(videoRam.slice(6 * DMD_PAGE_SIZE, 7 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 340, 16*8);
   drawDmd(videoRam.slice(7 * DMD_PAGE_SIZE, 8 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 340, 16*8);
-  const dmdPage = videoRam.slice((activePage - 1) * DMD_PAGE_SIZE, activePage * DMD_PAGE_SIZE);
+  const dmdPage = videoRam.slice(activePage * DMD_PAGE_SIZE, (activePage+1) * DMD_PAGE_SIZE);
   drawBlendedDmd(dmdPage, RIGHT_X_OFFSET, YPOS_DMD_DATA + 40, 16*8, emuState.asic.dmd.activePlaneTracker);
 }
 
