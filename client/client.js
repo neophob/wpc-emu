@@ -15,7 +15,7 @@ var wpcSystem, intervalId;
 //called at 60hz -> 16.6ms
 function step() {
   // TODO make adaptive, so we execute 2000 emuState.opMs
-  var count = 35;
+  var count = 55;
 
   while (count--) {
     try {
@@ -159,13 +159,18 @@ function updateCanvas() {
   drawMemRegion(emuState.asic.ram, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 20, 128);
 
   //dmd pages - 8 pixel (on/off) per byte, display is 128x32 pixels
-  drawDmd(emuState.asic.dmd.page1, LEFT_X_OFFSET, YPOS_DMD_DATA + 40, 16*8);
-  drawDmd(emuState.asic.dmd.page2, MIDDLE_X_OFFSET, YPOS_DMD_DATA + 40, 16*8);
-  drawDmd(emuState.asic.dmd.page3, LEFT_X_OFFSET, YPOS_DMD_DATA + 240, 16*8);
-  drawDmd(emuState.asic.dmd.page4, MIDDLE_X_OFFSET, YPOS_DMD_DATA + 240, 16*8);
-  const dmdPage = activePage === 1 ? emuState.asic.dmd.page1 : emuState.asic.dmd.page2;
-  drawBlendedDmd(emuState.asic.dmd.page1, emuState.asic.dmd.page2, dmdPage,
-    RIGHT_X_OFFSET, YPOS_DMD_DATA + 40, 16*8, emuState.asic.dmd.activePlaneTracker);
+  const videoRam = emuState.asic.dmd.videoRam;
+  const DMD_PAGE_SIZE = 0x200;
+  drawDmd(videoRam.slice(0,                 1 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 40, 16*8);
+  drawDmd(videoRam.slice(1 * DMD_PAGE_SIZE, 2 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 40, 16*8);
+  drawDmd(videoRam.slice(2 * DMD_PAGE_SIZE, 3 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 140, 16*8);
+  drawDmd(videoRam.slice(3 * DMD_PAGE_SIZE, 4 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 140, 16*8);
+  drawDmd(videoRam.slice(4 * DMD_PAGE_SIZE, 5 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 240, 16*8);
+  drawDmd(videoRam.slice(5 * DMD_PAGE_SIZE, 6 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 240, 16*8);
+  drawDmd(videoRam.slice(6 * DMD_PAGE_SIZE, 7 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 340, 16*8);
+  drawDmd(videoRam.slice(7 * DMD_PAGE_SIZE, 8 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 340, 16*8);
+  const dmdPage = videoRam.slice((activePage - 1) * DMD_PAGE_SIZE, activePage * DMD_PAGE_SIZE);
+  drawBlendedDmd(dmdPage, RIGHT_X_OFFSET, YPOS_DMD_DATA + 40, 16*8, emuState.asic.dmd.activePlaneTracker);
 }
 
 function drawMemRegion(data, x, y, width) {
@@ -237,7 +242,7 @@ function drawDmd(data, x, y, width) {
 }
 
 //TODO does not work yet, fix FIRQ might resolve it
-function drawBlendedDmd(plane1, plane2, activePlane, x, y, width, blendData) {
+function drawBlendedDmd(activePlane, x, y, width, blendData) {
   if (blendData.length === 0) {
     var offsetX = 0;
     var offsetY = 0;
