@@ -145,9 +145,9 @@ function updateCanvas() {
   c.fillText('LAMP COL: ' + lampColumn, RIGHT_X_OFFSET, YPOS_WPC_DATA + 20);
   c.fillText('SWITCH COL: ' + switchColumn, RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 20);
 
-  c.fillText('DMD ACTIVE PAGE: ' + activePage, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
-  c.fillText('DMD LOW PAGE: ' + emuState.asic.dmd.lowpage, MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
-  c.fillText('DMD HIGH PAGE: ' + emuState.asic.dmd.highpage, RIGHT_X_OFFSET, YPOS_DMD_DATA + 10);
+  c.fillText('DMD LOW PAGE: ' + emuState.asic.dmd.lowpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
+  c.fillText('DMD HIGH PAGE: ' + emuState.asic.dmd.highpage, MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
+  c.fillText('DMD ACTIVE PAGE: ' + activePage, RIGHT_X_OFFSET, YPOS_DMD_DATA + 10);
 
   c.fillText('DMD SCANLINE: ' + emuState.asic.dmd.scanline, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
 
@@ -163,16 +163,16 @@ function updateCanvas() {
   //dmd pages - 8 pixel (on/off) per byte, display is 128x32 pixels
   const videoRam = emuState.asic.dmd.videoRam;
   const DMD_PAGE_SIZE = 0x200;
-  drawDmd(videoRam.slice(0,                 1 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 40, 16*8);
-  drawDmd(videoRam.slice(1 * DMD_PAGE_SIZE, 2 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 40, 16*8);
-  drawDmd(videoRam.slice(2 * DMD_PAGE_SIZE, 3 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 140, 16*8);
-  drawDmd(videoRam.slice(3 * DMD_PAGE_SIZE, 4 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 140, 16*8);
-  drawDmd(videoRam.slice(4 * DMD_PAGE_SIZE, 5 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 240, 16*8);
-  drawDmd(videoRam.slice(5 * DMD_PAGE_SIZE, 6 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 240, 16*8);
-  drawDmd(videoRam.slice(6 * DMD_PAGE_SIZE, 7 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 340, 16*8);
-  drawDmd(videoRam.slice(7 * DMD_PAGE_SIZE, 8 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 340, 16*8);
-  const dmdPage = videoRam.slice(activePage * DMD_PAGE_SIZE, (activePage+1) * DMD_PAGE_SIZE);
-  drawBlendedDmd(dmdPage, RIGHT_X_OFFSET, YPOS_DMD_DATA + 40, 16*8, emuState.asic.dmd.activePlaneTracker);
+  drawDmd(videoRam.slice(0,                 1 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 40, 128);
+  drawDmd(videoRam.slice(1 * DMD_PAGE_SIZE, 2 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 40, 128);
+  drawDmd(videoRam.slice(2 * DMD_PAGE_SIZE, 3 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 80, 128);
+  drawDmd(videoRam.slice(3 * DMD_PAGE_SIZE, 4 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 80, 128);
+  drawDmd(videoRam.slice(4 * DMD_PAGE_SIZE, 5 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 120, 128);
+  drawDmd(videoRam.slice(5 * DMD_PAGE_SIZE, 6 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 120, 128);
+  drawDmd(videoRam.slice(6 * DMD_PAGE_SIZE, 7 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 160, 128);
+  drawDmd(videoRam.slice(7 * DMD_PAGE_SIZE, 8 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 160, 128);
+
+  drawDmd(emuState.asic.dmd.dmdDisplay, RIGHT_X_OFFSET, YPOS_DMD_DATA + 40, 128, 2);
 }
 
 function drawMemRegion(data, x, y, width) {
@@ -222,8 +222,7 @@ function drawMatrix(row, column, x, y) {
 
 const COLOR_LOW = 'rgb(0, 0, 64)';
 const COLOR_HIGH = 'rgb(255, 255, 64)';
-const SCALE_FACTOR = 2;
-function drawDmd(data, x, y, width) {
+function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
   var offsetX = 0;
   var offsetY = 0;
   data.forEach((packedByte) => {
@@ -241,48 +240,6 @@ function drawDmd(data, x, y, width) {
       }
     });
   });
-}
-
-//TODO does not work yet, fix FIRQ might resolve it
-function drawBlendedDmd(activePlane, x, y, width, blendData) {
-  if (blendData.length === 0) {
-    var offsetX = 0;
-    var offsetY = 0;
-    activePlane.forEach((packedByte) => {
-      [1, 2, 4, 8, 16, 32, 64, 128].forEach((mask) => {
-        if (mask & packedByte) {
-          c.fillStyle = COLOR_HIGH;
-        } else {
-          c.fillStyle = COLOR_LOW;
-        }
-        c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
-        offsetX++;
-        if (offsetX === width) {
-          offsetX = 0;
-          offsetY ++;
-        }
-      });
-    });
-    return;
-  }
-  console.log(blendData);
-/*  var offsetX = 0;
-  var offsetY = 0;
-  data.forEach((packedByte) => {
-    [1, 2, 4, 8, 16, 32, 64, 128].forEach((mask) => {
-      if (mask & packedByte) {
-        c.fillStyle = COLOR_HIGH;
-      } else {
-        c.fillStyle = COLOR_LOW;
-      }
-      c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
-      offsetX++;
-      if (offsetX === width) {
-        offsetX = 0;
-        offsetY ++;
-      }
-    });
-  });*/
 }
 
 function canvasClear() {
