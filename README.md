@@ -76,26 +76,18 @@ Operating system: APPLE OS (created by Williams, not related to the company Appl
 
 # Timing
 
-- CPU run at 2 MHZ, this means 2'000'000 clock ticks / s
-- CPU IRQ is called 976 times/s, that a IRQ call each 1.025ms
+- CPU run at 2 MHZ, this means 2'000'000 clock ticks/s -> The CPU execute 2 cycles per us.
+- CPU IRQ is called 976 times/s, that a IRQ call each 1025us
 - zerocross should occur 120 times per second (NTSC running at 60hz), so each 8.3ms
 
 Timings are very tight, we cannot use `setTimeout`/`setInterval` to call for example the IRQ. So the main idea is to run one
-main loop run 2049 ops for the CPU (equals 1.025ms), call IRQ, update DMD controller.
-- each 2049 ticks call IRQ
-- after 16667 ticks update zerocross flag
-- each 8696 ticks update display scanline
+main loop that executes some CPU ops then check if one of the following callbacks need to be triggered:
+- each 2049 ticks call IRQ (1025us)
+- each 16667 ticks update zerocross flag (8.3ms)
+- each 512 ticks update display scanline (256us)
 
-The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). At this rate, it takes 256 microseconds per row and a little more than 8 milliseconds per complete frame. Thus, the refresh rate is about 122MHz.
-
-//At 2MHz, the IRQ is triggered about once every 1952 CPU cycles, which *** -> should be 2049
-//is not much, especially considering that 6809 instructions often require
-//3 or 4 cycles to execute.
-
-// 976 / 1s
-// 1s = 2'000'000
-// 976/2000000 -> each 488us
-
+## DMD display scanline
+The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). At this rate, it takes 256 microseconds per row and a little more than 8 milliseconds per complete frame.
 
 # References
 

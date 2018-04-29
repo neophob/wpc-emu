@@ -15,17 +15,15 @@ var wpcSystem, intervalId;
 //called at 60hz -> 16.6ms
 function step() {
   // TODO make adaptive, so we execute 2000 emuState.opMs
-  var count = 55;
+  var count = 64;
 
   while (count--) {
-    try {
-      wpcSystem.executeCycle();
-    } catch(error) {
-      console.error('ERROR', error.message);
-    }
+    wpcSystem.executeCycle();
+    wpcSystem.executeCycle();
+    wpcSystem.executeCycle();
+    wpcSystem.executeCycle();
   }
 
-  //should be called 122 times/s
   updateCanvas();
   intervalId = requestAnimationFrame(step);
 }
@@ -81,8 +79,8 @@ function resetEmu() {
   intervalId = false;
   console.log('reset emu');
   // HINT: make sure CORS is correct
-//  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom')
-  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom')
+  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom')
+//  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom')
 
     .then((rom) => {
       return WpcEmu.initVMwithRom(rom, 'hurcnl_2.rom');
@@ -172,6 +170,11 @@ function updateCanvas() {
   drawDmd(videoRam.slice(6 * DMD_PAGE_SIZE, 7 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 160, 128);
   drawDmd(videoRam.slice(7 * DMD_PAGE_SIZE, 8 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 160, 128);
 
+  drawDmd(videoRam.slice(8 * DMD_PAGE_SIZE, 9 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 200, 128);
+  drawDmd(videoRam.slice(9 * DMD_PAGE_SIZE,10 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 200, 128);
+  drawDmd(videoRam.slice(10* DMD_PAGE_SIZE,11 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 240, 128);
+  drawDmd(videoRam.slice(11* DMD_PAGE_SIZE,12 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 240, 128);
+
   drawDmd(emuState.asic.dmd.dmdDisplay, RIGHT_X_OFFSET, YPOS_DMD_DATA + 40, 128, 2);
 }
 
@@ -241,6 +244,7 @@ function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
     });
   });
 }
+
 
 function canvasClear() {
   c.rect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
