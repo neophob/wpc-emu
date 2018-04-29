@@ -1,4 +1,6 @@
-# Goal
+# WPC (Dot Matrix) Emulator
+
+## Goal
 
 - Emulate the Williams Pinball machine "Hurricane"
 - 2nd generation hardware called "WPC Dot Matrix" aka WPC DMD (WPC89 board)
@@ -67,10 +69,32 @@ Overview:
 
 ### DMD-BOARD
 - The dot matrix display is 128 columns x 32 rows and refreshes at 122Mhz
-- The controller board has the display RAM and the serialization logic
+- The controller board has the display RAM and the serialisation logic
 - The display RAM holds 8KB. A full DMD bit plane requires 128x32 pixels, that is, 4096 bits, or 512 bytes. Thus, there is enough RAM to hold a total of 16 planes. At any time, at most two planes can be addressed by the CPU
 
 Operating system: APPLE OS (created by Williams, not related to the company Apple, but "Advanced Pinball Programming Logic Executive") - aka the system ROM
+
+# Timing
+
+- CPU run at 2 MHZ, this means 2'000'000 clock ticks / s
+- CPU IRQ is called 976 times/s, that a IRQ call each 1.025ms
+- zerocross should occur 120 times per second (NTSC running at 60hz), so each 8.3ms
+
+Timings are very tight, we cannot use `setTimeout`/`setInterval` to call for example the IRQ. So the main idea is to run one
+main loop run 2049 ops for the CPU (equals 1.025ms), call IRQ, update DMD controller.
+- each 2049 ticks call IRQ
+- after 16667 ticks update zerocross flag
+- each 8696 ticks update display scanline
+
+The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). At this rate, it takes 256 microseconds per row and a little more than 8 milliseconds per complete frame. Thus, the refresh rate is about 122MHz.
+
+//At 2MHz, the IRQ is triggered about once every 1952 CPU cycles, which *** -> should be 2049
+//is not much, especially considering that 6809 instructions often require
+//3 or 4 cycles to execute.
+
+// 976 / 1s
+// 1s = 2'000'000
+// 976/2000000 -> each 488us
 
 
 # References
