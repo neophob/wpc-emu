@@ -16,15 +16,18 @@ var wpcSystem, intervalId;
 function step() {
   // TODO make adaptive, so we execute 2000 emuState.opMs
   var count = 512;
+  try {
+    while (count--) {
+      wpcSystem.executeCycle();
+      wpcSystem.executeCycle();
+      wpcSystem.executeCycle();
+      wpcSystem.executeCycle();
+    }
 
-  while (count--) {
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
+    updateCanvas();
+  } catch(error) {
+    console.error(error);
   }
-
-  updateCanvas();
   intervalId = requestAnimationFrame(step);
 }
 
