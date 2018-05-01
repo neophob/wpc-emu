@@ -3,11 +3,6 @@
 import test from 'ava';
 import DMD from '../../../lib/boards/dmd';
 
-if (typeof(window) === 'undefined') {
-  global.performance = {};
-  global.performance.now = () => { return process.hrtime().join('.'); };
-}
-
 test.beforeEach((t) => {
   const ram = new Uint8Array(0x4000);
   const initObject = {
