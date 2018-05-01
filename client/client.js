@@ -152,12 +152,14 @@ function updateCanvas() {
 
   c.fillText('DMD SCANLINE: ' + emuState.asic.dmd.scanline, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
 
+  c.fillText('LAMP ACTIVE: ' + emuState.asic.wpc.lampActive, RIGHT_X_OFFSET, YPOS_WPC_DATA + 30);
+
   c.fillText('PAGE 1 RAM:', LEFT_X_OFFSET, YPOS_DMD_DATA + 40);
   c.fillText('PAGE 2 RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA + 40);
   c.fillText('DMD OUTPUT:', RIGHT_X_OFFSET, YPOS_DMD_DATA + 40);
 
-  drawMatrix(lampRow, lampColumn, RIGHT_X_OFFSET, YPOS_WPC_DATA + 30);
-  drawMatrix(switchRow, switchColumn, RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 30);
+  drawMatrix(lampRow, lampColumn, RIGHT_X_OFFSET, YPOS_WPC_DATA + 40);
+  drawMatrix(switchRow, switchColumn, RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 40);
 
   drawMemRegion(emuState.asic.ram, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 20, 128);
 
