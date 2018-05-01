@@ -9,19 +9,19 @@
 
 # state
 - it boots!
-- dmd works!
-- dmd shows invalid settings -> TODO add dump nvram to get "valid" settings
-- after 600 millions ticks it looks like it restarts somehow, after that irq needs to be reenabled
+- dmd works somehow, shading is missing
+- wpc shows invalid ram settings -> TODO add dump nvram to get "valid" settings
+- after 600 millions ticks it looks like it restarts somehow, after that irq needs to be reenabled -> might be related to input matrix
 - then game boots up
-- idea dmd: store the time plane 1 and plane 2 is visible since the last getUiState - then blend result
 
 # Basic
 - read Game ROM file ✓
 - emulate CPU ✓
-- implement Bankswitching ✓
+- implement ROM Bankswitching ✓
 - implement CPU IRQ ✓
 - implement ASIC IRQ ✓
-- implement ASIC FIRQ
+- implement ASIC FIRQ ✓
+- implement switch/lamp matrix
 - dip switch settings for rom size
 
 # Display
