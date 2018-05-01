@@ -56,6 +56,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 ## Debug UI
 - DMD output ✓
 - Debug KPI ✓
+- Cabinet input keys work
 
 # Future ideas
 - Hook it up to a broken Pinball machine, replace whole electronics with a RPI
