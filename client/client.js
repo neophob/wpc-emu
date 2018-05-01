@@ -82,8 +82,8 @@ function resetEmu() {
   intervalId = false;
   console.log('reset emu');
   // HINT: make sure CORS is correct
-//  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom')
-  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom')
+  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom')
+//  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom')
 
     .then((rom) => {
       return WpcEmu.initVMwithRom(rom, 'hurcnl_2.rom');
@@ -126,13 +126,6 @@ function updateCanvas() {
   c.fillText('ROM: hurcnl_2.rom', LEFT_X_OFFSET, YPOS_GENERIC_DATA + 10);
   c.fillText('CPU TICKS: ' + emuState.ticks, MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 10);
   c.fillText('CPU TICKS/ms: ' + emuState.opMs, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 10);
-
-  const ram = emuState.asic.ram;
-  c.fillText('RAM 0x0011: ' + ram[0x11], LEFT_X_OFFSET, YPOS_GENERIC_DATA + 20);
-  c.fillText('RAM 0x0012: ' + ram[0x12], LEFT_X_OFFSET, YPOS_GENERIC_DATA + 30);
-  c.fillText('RAM 0x1800: ' + ram[0x1800], LEFT_X_OFFSET, YPOS_GENERIC_DATA + 40);
-  c.fillText('RAM 0x1801: ' + ram[0x1801], LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
-
   const cpuState = intervalId ? 'running' : 'paused';
   c.fillText('CPU STATE: ' + cpuState, MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 20);
   c.fillText('ASIC RAM:', RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 20);
@@ -166,7 +159,7 @@ function updateCanvas() {
   drawMatrix(lampRow, lampColumn, RIGHT_X_OFFSET, YPOS_WPC_DATA + 30);
   drawMatrix(switchRow, switchColumn, RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 30);
 
-  drawMemRegion(ram, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 20, 128);
+  drawMemRegion(emuState.asic.ram, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 20, 128);
 
   //dmd pages - 8 pixel (on/off) per byte, display is 128x32 pixels
   const videoRam = emuState.asic.dmd.videoRam;
