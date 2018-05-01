@@ -7,39 +7,62 @@
 
 ## Steps
 
-# state
+# State
 - it boots!
 - dmd works somehow, shading is missing
 - wpc shows invalid ram settings -> TODO add dump nvram to get "valid" settings
-- after 600 millions ticks it looks like it restarts somehow, after that irq needs to be reenabled -> might be related to input matrix
+- after 60 millions ticks it looks like it restarts somehow, after that irq needs to be reenabled -> might be related to input matrix
 - then game boots up
 
-# Basic
+# Implementation
+
+Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
+
+## Basic
 - read Game ROM file ✓
 - emulate CPU ✓
-- implement ROM Bankswitching ✓
-- implement CPU IRQ ✓
-- implement ASIC IRQ ✓
-- implement ASIC FIRQ ✓
-- implement switch/lamp matrix
-- dip switch settings for rom size
 
-# Display
-- emulate Dot Matrix controller
-- display Dot Matrix display
+## CPU Board
+- Blanking (not sure if needed)
+- Diagnostics LED ✓
+- Watchdog (not sure if needed, no reboot in case of an error)
+- Bit Shifter ✓
+- Memory Protection (not sure if needed)
+- Time of Day Clock ✓
+- High Resolution Timer (not used, was used by alphanumeric games to do display dimming)
+- Bank Switching ✓
+- The Switch Matrix
+- External I/O ✓ (except sound)
+- Interrupt Reset (only needed for watchdog)
+- Interrupt IRQ ✓
+- Interrupt FIRQ ✓ (incl. source - not sure if needed)
 
-# Sound
+## Power Driver Board
+- Lamp Circuits
+- Solenoid Circuits
+- General Illumination Circuits (triac)
+- Zero Cross Circuit ✓
+
+## Sound Board
 - read Sound ROM files
 - emulate YM2151 sound chip
 - emulate HC55536 sound chip (speech synth)
 
-# UI
-- display pinball field with elements (switches, ramps etc)
-- implement physic systems for the ball
+## Dot Matrix Controller Board
+- Page Selection ✓
+- Scanline Handling ✓
+- Dimming / multi color display
 
-## WPS Dot Matrix Machine
+## Debug UI
+- DMD output ✓
+- Debug KPI ✓
 
-Overview:
+# Future ideas
+- Hook it up to a broken Pinball machine, replace whole electronics with a RPI
+
+# WPS Dot Matrix Machine
+
+## Overview:
 
 ```
        [MEMORY]  [DMD-BOARD]
@@ -49,25 +72,25 @@ Overview:
   [SOUND-BOARD]  [IO-EXTENDER]
 ```
 
-### CPU
+## CPU
 - Main CPU: Motorola 6809 (68B09E) at 2 MHz, 8-bit/16-bit CPU and between 128KB and 1MB of EPROM for the game program
 
-### MEMORY
+## MEMORY
 - Total 8KB RAM, battery-backed
 - The memory storage format is Big Endian
 
-### WPC-ASIC
+## WPC-ASIC
 - Custom ASIC chip by Williams, mainly a huge mapper
 - Its memory address space is 64 KiB (linear $0000 to $FFFF, 16Bit address)
 - Can address 8KB RAM, 8KB Hardware, 16KB Bank switched Game ROM, 32KB System ROM
 
-### SOUND-BOARD
+## SOUND-BOARD
 - intelligent and have processors running their own operating system dedicated to sound tasks
 - stores all of the sound data on additional EPROMs, and has its own CPU that decodes the data and writes it to various audio devices
 - Sound CPU: Motorola 6809
 - Sound chips: Yamaha YM2151, DAC, Harris HC55536 CVSD
 
-### DMD-BOARD
+## DMD-BOARD
 - The dot matrix display is 128 columns x 32 rows and refreshes at 122Mhz
 - The controller board has the display RAM and the serialisation logic
 - The display RAM holds 8KB. A full DMD bit plane requires 128x32 pixels, that is, 4096 bits, or 512 bytes. Thus, there is enough RAM to hold a total of 16 planes. At any time, at most two planes can be addressed by the CPU
