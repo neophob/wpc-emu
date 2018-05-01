@@ -2,7 +2,7 @@
 
 ## 1/05/18
 
-[[https://raw.githubusercontent.com/neophob/wpc-emu/master/assets/01.05.18.png]]
+![01.05.18](https://raw.githubusercontent.com/neophob/wpc-emu/master/assets/01.05.18.png)
 
 - implement FIRQ source
 
@@ -12,6 +12,6 @@
 
 ## 26/04/18
 
-[[https://raw.githubusercontent.com/neophob/wpc-emu/master/assets/26.04.18.png]]
+![26.04.18](https://raw.githubusercontent.com/neophob/wpc-emu/master/assets/26.04.18.png)
 
 - DMD display works kind of, displays some images
