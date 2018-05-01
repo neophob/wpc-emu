@@ -1,6 +1,9 @@
 # HISTORY
 
 ## 1/05/18
+
+[[https://github.com/neophob/wpc-emu/blob/master/assets/01.05.18.png]]
+
 - implement FIRQ source
 
 ## 30/04/18
@@ -8,4 +11,7 @@
 - fixed DMD FIRQ generation
 
 ## 26/04/18
+
+[[https://github.com/neophob/wpc-emu/blob/master/assets/26.04.18.png?raw=true]]
+
 - DMD display works kind of, displays some images
