@@ -48,6 +48,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - emulate YM2151 FM Generator
 - emulate HC-55536 CVSD (speech synth)
 - emulate MC6821 PIA
+- emulate DAC
 
 ## Dot Matrix Controller Board
 - Page Selection ✓
@@ -67,11 +68,30 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 ## Overview:
 
 ```
-       [MEMORY]  [DMD-BOARD]
-              \     |
-     [CPU] - [WPC-ASIC]
-              /      |   
-  [SOUND-BOARD]  [IO-EXTENDER]
+
++-----------------------+   +-------------------------+
+|                       |   |                         |
+|  CPU BOARD / A-12742  |   |  SOUND BOARD / A-12738  |
+|  -------------------  |   |  ---------------------  |
+|                       |   |                         |
+|  - 6809 CPU / 2MHz    |   |  - MC 6809 CPU / 2MHz   |
+|  - WPC ASIC           |   |  - YM2151 FM            |
+|  - 1 Game ROM         |   |  - HC-55536 CVSD        |
+|  - 8kb RAM            |   |  - MC 6809 PIA          |
+|                       |   |  - 3 Sound ROMs         |
+|                       |   |  - DAC                  |
+|                       |   |                         |
++-----------------------+   +-------------------------+
+
++-----------------------+
+|                       |
+|  DMD BOARD / A-14039  |
+|  -------------------  |
+|                       |
+|  - 8kb RAM            |
+|                       |
++-----------------------+
+
 ```
 
 Operating system: APPLE OS (created by Williams, not related to the company Apple, but "Advanced Pinball Programming Logic Executive") - aka the system ROM
