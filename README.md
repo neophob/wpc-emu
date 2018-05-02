@@ -35,7 +35,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Bank Switching ✓
 - The Switch Matrix
 - External I/O ✓ (except sound)
-- Interrupt Reset (only needed for watchdog)
+- Interrupt Reset ✓
 - Interrupt IRQ ✓
 - Interrupt FIRQ ✓ (incl. source - not sure if needed)
 
