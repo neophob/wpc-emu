@@ -43,10 +43,11 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Zero Cross Circuit ✓
 
 ## Sound Board
-- read Sound ROM files
-- emulate 6809 CPU
-- emulate YM2151 CPU
-- emulate HC55536 CPU (speech synth)
+- load Sound ROM files
+- emulate 6809 CPU ✓
+- emulate YM2151 FM Generator
+- emulate HC-55536 CVSD (speech synth)
+- emulate MC6821 PIA
 
 ## Dot Matrix Controller Board
 - Page Selection ✓
@@ -92,12 +93,14 @@ Operating system: APPLE OS (created by Williams, not related to the company Appl
 
 ## SOUND-BOARD
 - Williams part number: A-12738 (aka. pre-DCS sound)
-- intelligent and have processors running their own operating system dedicated to sound tasks
-- Sound CPU: Motorola 6809 (MC68A09EP) TODO frequency, 1MHz/1.5MHz?
-- Sound chips: Yamaha YM2151, DAC, Harris HC55536 CVSD
-- stores all of the sound data on additional EPROMs, and has its own CPU that decodes the data and writes it to various audio devices
-- ROMS: U14:, U15:, U18:
 - Mono output, Sample rate 11KHz, 25 watts power, 8 ohm
+- intelligent and have processors running their own operating system dedicated to sound tasks
+- CPU: Motorola 6809 (MC68A09EP), frequency 2MHz
+- OPM: Yamaha YM2151 (FM Operator Type-M), frequency 3.579545MHz
+- DAC (Digital Analog converter)
+- Harris HC-55536 CVSD (Continuously variable slope delta modulation)
+- MC6821 Peripheral Interface Adaptor (PIA)
+- ROMS: U14, U15 and U18
 
 ## DMD-BOARD
 - Williams part number A-14039
