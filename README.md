@@ -98,7 +98,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 ```
 
 Operating system:
-- APPLE OS (created by Williams, not related to the company Apple, but "Advanced Pinball Programming Logic Executive") - aka the system ROM
+- APPLE OS (created by Williams, not related to the company Apple, but "Advanced Pinball Programming Logic Executive")
 - Part of the game ROM, last 32kb of the game ROM
 
 ## CPU BOARD
