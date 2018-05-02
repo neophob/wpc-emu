@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "webpack",
+    "build:production": "webpack --env production",
     "build:test": "rm -f dist/* && webpack && cp assets/* dist && DEBUG=* node index.js",
     "client": "rm -f dist/* && webpack && open client/index.html",
     "start": "DEBUG=* node index.js",
@@ -19,6 +20,7 @@
   "license": "ISC",
   "devDependencies": {
     "ava": "^0.25.0",
+    "babel-minify-webpack-plugin": "^0.3.1",
     "webpack": "^4.6.0",
     "webpack-cli": "^2.0.15"
   },
