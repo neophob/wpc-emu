@@ -1,5 +1,8 @@
 # WPC (Dot Matrix) Emulator
 
+
+[![Build Status](https://travis-ci.org/neophob/wpc-emu.svg?branch=master)](https://travis-ci.org/neophob/wpc-emu)
+
 ## Goal
 
 - Emulate the Williams Pinball machine WPC-89 (6/91 - 10/91)
