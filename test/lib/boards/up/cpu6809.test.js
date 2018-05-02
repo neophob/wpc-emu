@@ -1,7 +1,7 @@
 'use strict';
 
 import test from 'ava';
-import CPU6809 from '../../lib/cpu6809';
+import CPU6809 from '../../../../lib/boards/up/cpu6809';
 
 /*jshint bitwise: false*/
 
