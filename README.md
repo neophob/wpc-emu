@@ -77,12 +77,13 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
     |  CPU BOARD / A-12742  |   |  SOUND BOARD / A-12738  |
     |  -------------------  |   |  ---------------------  |
     |                       |   |                         |
-    |  - 6809 CPU / 2MHz    |   |  - MC 6809 CPU / 2MHz   |
+    |  - MC 6809 CPU@2MHz   |   |  - MC 6809 CPU@2MHz     |
     |  - WPC ASIC           |   |  - YM2151 FM            |
     |  - 1 Game ROM         |   |  - HC-55536 CVSD        |
     |  - 8kb RAM            |   |  - MC 6809 PIA          |
     |                       |   |  - 3 Sound ROMs         |
     |                       |   |  - DAC                  |
+    |                       |   |  - 8kb RAM              |
     |                       |   |                         |
     +-----------------------+   +-------------------------+
 
