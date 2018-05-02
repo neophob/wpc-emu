@@ -6,7 +6,7 @@
 ## Goal
 
 - Emulate the Williams Pinball machine WPC-89 (6/91 - 10/91)
-- 2nd generation hardware called "WPC Dot Matrix" aka WPC DMD (WPC89 board)
+- 2nd generation Williams WPC hardware called "WPC Dot Matrix" aka WPC DMD
 - Emulate game "Hurricane" - also "Gilligan's Island", "Terminator2" and "Party Zone"
 
 # State
@@ -72,32 +72,34 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 
 ```
 
-+-----------------------+   +-------------------------+
-|                       |   |                         |
-|  CPU BOARD / A-12742  |   |  SOUND BOARD / A-12738  |
-|  -------------------  |   |  ---------------------  |
-|                       |   |                         |
-|  - 6809 CPU / 2MHz    |   |  - MC 6809 CPU / 2MHz   |
-|  - WPC ASIC           |   |  - YM2151 FM            |
-|  - 1 Game ROM         |   |  - HC-55536 CVSD        |
-|  - 8kb RAM            |   |  - MC 6809 PIA          |
-|                       |   |  - 3 Sound ROMs         |
-|                       |   |  - DAC                  |
-|                       |   |                         |
-+-----------------------+   +-------------------------+
+    +-----------------------+   +-------------------------+
+    |                       |   |                         |
+    |  CPU BOARD / A-12742  |   |  SOUND BOARD / A-12738  |
+    |  -------------------  |   |  ---------------------  |
+    |                       |   |                         |
+    |  - 6809 CPU / 2MHz    |   |  - MC 6809 CPU / 2MHz   |
+    |  - WPC ASIC           |   |  - YM2151 FM            |
+    |  - 1 Game ROM         |   |  - HC-55536 CVSD        |
+    |  - 8kb RAM            |   |  - MC 6809 PIA          |
+    |                       |   |  - 3 Sound ROMs         |
+    |                       |   |  - DAC                  |
+    |                       |   |                         |
+    +-----------------------+   +-------------------------+
 
-+-----------------------+
-|                       |
-|  DMD BOARD / A-14039  |
-|  -------------------  |
-|                       |
-|  - 8kb RAM            |
-|                       |
-+-----------------------+
+    +-----------------------+
+    |                       |
+    |  DMD BOARD / A-14039  |
+    |  -------------------  |
+    |                       |
+    |  - 8kb RAM            |
+    |                       |
+    +-----------------------+
 
 ```
 
-Operating system: APPLE OS (created by Williams, not related to the company Apple, but "Advanced Pinball Programming Logic Executive") - aka the system ROM
+Operating system:
+- APPLE OS (created by Williams, not related to the company Apple, but "Advanced Pinball Programming Logic Executive") - aka the system ROM
+- Part of the game ROM, last 32kb of the game ROM
 
 ## CPU BOARD
 - Williams part number A-12742
