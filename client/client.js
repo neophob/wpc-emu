@@ -15,7 +15,8 @@ var wpcSystem, intervalId;
 //called at 60hz -> 16.6ms
 function step() {
   // TODO make adaptive, so we execute 2000 emuState.opMs
-  var count = 512;
+//  var count = 512;
+  var count = 64;
   try {
     while (count--) {
       wpcSystem.executeCycle();
@@ -82,7 +83,8 @@ function resetEmu() {
   intervalId = false;
   console.log('reset emu');
   // HINT: make sure CORS is correct
-  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom')
+  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/ft20_32.rom')
+//  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom')
 //  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom')
 
     .then((rom) => {
