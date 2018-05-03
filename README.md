@@ -137,7 +137,7 @@ Operating system:
 
 # Implementation Hints
 
-- if memory map contains `0xffec` = `0x00` and `0xffed` = `0xff` then the startup check should be disabled. This should reduce the boot time and works on all WPC games (not on FreeWPC games). -> TOCHECK
+- if memory map contains `0xffec` = `0x00` and `0xffed` = `0xff` then the startup check will be disabled. This reduce the boot time and works on all WPC games (not on FreeWPC games)
 - There is ONE switch in all WPC games called "always closed" (always switch 24 on all WPC games). This switch is used to detect if the switch matrix is faulty. This means if switch 24 is open, the system knows the switch matrix is faulty.
 
 ## Timing
