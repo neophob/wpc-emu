@@ -8,6 +8,7 @@
 - Emulate the Williams Pinball machine WPC-89 (6/91 - 10/91)
 - 2nd generation Williams WPC hardware called "WPC Dot Matrix" aka WPC DMD
 - Emulate game "Hurricane" - also "Gilligan's Island", "Terminator2" and "Party Zone"
+- It should be pretty easy to run "WPC Fliptronic" too, as there *seems* no software changes
 
 # State
 - it boots!
@@ -134,7 +135,12 @@ Operating system:
 - The controller board has the display RAM and the serialisation logic
 - The display RAM holds 8KB. A full DMD bit plane requires 128x32 pixels, that is, 4096 bits, or 512 bytes. Thus, there is enough RAM to hold a total of 16 planes. At any time, at most two planes can be addressed by the CPU
 
-# Timing
+# Implementation Hints
+
+- if memory map contains `0xffec` = `0x00` and `0xffed` = `0xff` then the startup check should be disabled. This should reduce the boot time and works on all WPC games (not on FreeWPC games). -> TOCHECK
+- There is ONE switch in all WPC games called "always closed" (always switch 24 on all WPC games). This switch is used to detect if the switch matrix is faulty. This means if switch 24 is open, the system knows the switch matrix is faulty.
+
+## Timing
 - CPU run at 2 MHZ, this means 2'000'000 clock ticks/s -> The CPU execute 2 cycles per us.
 - CPU IRQ is called 976 times/s, that a IRQ call each 1025us
 - ZeroCross should occur 120 times per second (NTSC running at 60Hz), so each 8.3ms
@@ -145,7 +151,7 @@ main loop that executes some CPU ops then check if one of the following callback
 - each 16667 ticks update ZeroCross flag (8.3ms)
 - each 512 ticks update display Scanline (256us)
 
-## DMD display scanline
+### DMD display scanline
 The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). At this rate, it takes 256 microseconds per row and a little more than 8 milliseconds per complete frame.
 
 # References
@@ -157,6 +163,7 @@ The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). 
 - http://www.maddes.net/pinball/wpc_debugging.htm
 - https://bitbucket.org/grumdrig/williams/src/master/
 - http://www.edcheung.com/album/album07/Pinball/wpc_sound.htm
+- http://techniek.flipperwinkel.nl/wpc/index2.htm#switch
 
 ## DMD
 - http://webpages.charter.net/coinopcauldron/dotarticle.html
