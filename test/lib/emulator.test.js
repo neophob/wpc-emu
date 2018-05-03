@@ -27,12 +27,12 @@ test('Smoketest, run emulator with rom ft20_32.rom', (t) => {
         wpcSystem.executeCycle();
       }
       const uiState = wpcSystem.getUiState();
-      t.is(uiState.ticks, 33668362);
+      t.is(uiState.ticks, 33793117);
       t.is(uiState.asic.dmd.scanline, 31);
-      t.is(uiState.asic.dmd.lowpage, 2);
-      t.is(uiState.asic.dmd.highpage, 3);
-      t.is(uiState.asic.dmd.activepage, 2);
-      t.is(uiState.asic.wpc.activeRomBank, 27);
-      t.is(uiState.asic.wpc.diagnosticLedToggleCount, 24);
+      t.is(uiState.asic.dmd.lowpage, 0);
+      t.is(uiState.asic.dmd.highpage, 1);
+      t.is(uiState.asic.dmd.activepage, 0);
+      t.is(uiState.asic.wpc.activeRomBank, 20);
+      t.is(uiState.asic.wpc.diagnosticLedToggleCount, 14);
     });
 });
