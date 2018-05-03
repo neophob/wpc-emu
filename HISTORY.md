@@ -1,5 +1,11 @@
 # HISTORY
 
+## 4/05/18
+
+- cabinet keyboard works somehow, implemented inputSwitchMatrix
+- fixed emu initialisation - no more waiting until 600M CPU ticks are over!
+- update build process (babel minify, prod/dev build, travic ci)
+
 ## 1/05/18
 
 - implement FIRQ source

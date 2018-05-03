@@ -197,6 +197,7 @@ Ripped from Wikipedia.
 - FunHouse - September 1990
 - Harley-Davidson - February 1991
 - The Machine: Bride of Pin·Bot - February 1991
+
 Some Dr. Dude machines were also made using this WPC generation, although most were made using the later System 11 board.
 
 ## WPC (Dot Matrix)
@@ -204,6 +205,7 @@ Some Dr. Dude machines were also made using this WPC generation, although most w
 - Terminator 2: Judgment Day - July 1991
 - Hurricane - August 1991
 - The Party Zone - August 1991
+
 Terminator 2: Judgment Day was the first to be designed with a dot matrix display, but was released after Gilligan's Island, due to Terminator 2 having a longer development time than Gilligan's Island. This generation WPC hardware was also used in some of Williams / Midway's redemption games (SlugFest!, Hot Shot Basketball) as well as in the first Shuffle Alley Game Strike Master Shuffle Alley - 1991.
 
 ## WPC (Fliptronics)
@@ -217,6 +219,7 @@ Terminator 2: Judgment Day was the first to be designed with a dot matrix displa
 - Bram Stoker's Dracula - March 1993
 - Twilight Zone - March 1993
 - The Addams Family Special Collectors Edition - October 1994
+
 The Addams Family was the only game produced with the Fliptronics I board, which is compatible with Fliptronics II boards, which added a bridge rectifier for the flipper voltage.
 
 ## WPC (DCS)
@@ -225,6 +228,7 @@ The Addams Family was the only game produced with the Fliptronics I board, which
 - Star Trek: The Next Generation - November 1993
 - Popeye Saves the Earth - February 1994
 - Demolition Man - February 1994
+
 Twilight Zone was designed to be the first pinball machine to use the new DCS system, but due to delays of the new hardware design it was decided to release it on the old hardware (using downsampled sound effects) instead. The redemption game Addams Family Values also used the DCS Sound System.
 
 ## WPC-S (Security)
@@ -259,4 +263,5 @@ In this final revision of the WPC hardware, the dot matrix controller and the DC
 - The Champion Pub - April 1998
 - Monster Bash - July 1998
 - Cactus Canyon - October 1998
+
 This generation WPC hardware was also used in the Midway redemption game Ticket Tac Toe, March 1996 and the Shuffle Alley game League Champ Shuffle Alley, 1996.
