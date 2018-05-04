@@ -21,6 +21,7 @@
 - clear key input automatically
 - implement lamp/soleoid state
 - fix WPC_PERIPHERAL_TIMER_FIRQ_CLEAR wpc command
+- screen dimming
 
 # Implementation Status
 
@@ -169,6 +170,7 @@ The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). 
 - https://bitbucket.org/grumdrig/williams/src/master/
 - http://www.edcheung.com/album/album07/Pinball/wpc_sound.htm
 - http://techniek.flipperwinkel.nl/wpc/index2.htm#switch
+- http://arcarc.xmission.com/Pinball/PDF%20Pinball%20Manuals%20and%20Schematics/
 
 ## DMD
 - http://webpages.charter.net/coinopcauldron/dotarticle.html
@@ -186,7 +188,8 @@ The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). 
 - https://github.com/apollolux/ym2413-js/blob/master/ym2413.js
 - https://github.com/vgm/node-vgmplay/blob/master/res/js/vgm/ym2151.js (use this CPU core)
 
-# ROM
+## ROM
+- http://www.ipdb.org/
 - http://www.planetarypinball.com/mm5/Williams/tech/wpcroms.html
 
 # Game List
