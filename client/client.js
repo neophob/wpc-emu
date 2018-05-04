@@ -15,7 +15,6 @@ var wpcSystem, intervalId;
 //called at 60hz -> 16.6ms
 function step() {
   // TODO make adaptive, so we execute 2000 emuState.opMs
-//  var count = 512;
   var count = 64;
   try {
     while (count--) {
@@ -46,26 +45,6 @@ function downloadFileFromUrlAsUInt8Array(url) {
   	});
 }
 
-function irq() {
-  console.log('IRQ!');
-  wpcSystem.irq();
-}
-
-function firq() {
-  console.log('FIRQ!');
-  wpcSystem.firq();
-}
-
-function setCabinetInput(value) {
-  console.log('setCabinetInput!',value);
-  wpcSystem.setCabinetInput(value);
-}
-
-function emuStep() {
-  console.log('step');
-  wpcSystem.executeCycle();
-}
-
 function startEmu() {
   console.log('start emu');
   intervalId = requestAnimationFrame(step);
@@ -83,10 +62,10 @@ function resetEmu() {
   intervalId = false;
   console.log('reset emu');
   // HINT: make sure CORS is correct
-  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/ft20_32.rom')
-//  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom')
-//  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom')
-
+//  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/ft20_32.rom')
+  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom')
+//    downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom')
+//    downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/tz_h8.u6')
     .then((rom) => {
       return WpcEmu.initVMwithRom(rom, 'hurcnl_2.rom');
     })
@@ -156,9 +135,8 @@ function updateCanvas() {
 
   c.fillText('LAMP ACTIVE: ' + emuState.asic.wpc.lampActive, RIGHT_X_OFFSET, YPOS_WPC_DATA + 30);
 
-  c.fillText('PAGE 1 RAM:', LEFT_X_OFFSET, YPOS_DMD_DATA + 40);
-  c.fillText('PAGE 2 RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA + 40);
-  c.fillText('DMD OUTPUT:', RIGHT_X_OFFSET, YPOS_DMD_DATA + 40);
+  c.fillText('DMD PAGE RAM:', LEFT_X_OFFSET, YPOS_DMD_DATA + 40);
+  c.fillText('DMD OUTPUT:', LEFT_X_OFFSET, 500);
 
   drawMatrix(lampRow, lampColumn, RIGHT_X_OFFSET, YPOS_WPC_DATA + 40);
   drawMatrix(switchRow, switchColumn, RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 40);
@@ -169,20 +147,20 @@ function updateCanvas() {
   const videoRam = emuState.asic.dmd.videoRam;
   const DMD_PAGE_SIZE = 0x200;
   drawDmd(videoRam.slice(0,                 1 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 40, 128);
-  drawDmd(videoRam.slice(1 * DMD_PAGE_SIZE, 2 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 40, 128);
-  drawDmd(videoRam.slice(2 * DMD_PAGE_SIZE, 3 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 80, 128);
-  drawDmd(videoRam.slice(3 * DMD_PAGE_SIZE, 4 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 80, 128);
-  drawDmd(videoRam.slice(4 * DMD_PAGE_SIZE, 5 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 120, 128);
-  drawDmd(videoRam.slice(5 * DMD_PAGE_SIZE, 6 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 120, 128);
-  drawDmd(videoRam.slice(6 * DMD_PAGE_SIZE, 7 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 160, 128);
-  drawDmd(videoRam.slice(7 * DMD_PAGE_SIZE, 8 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 160, 128);
+  drawDmd(videoRam.slice(1 * DMD_PAGE_SIZE, 2 * DMD_PAGE_SIZE), LEFT_X_OFFSET + 130, YPOS_DMD_DATA + 40, 128);
+  drawDmd(videoRam.slice(2 * DMD_PAGE_SIZE, 3 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 40, 128);
+  drawDmd(videoRam.slice(3 * DMD_PAGE_SIZE, 4 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET + 130, YPOS_DMD_DATA + 40, 128);
+  drawDmd(videoRam.slice(4 * DMD_PAGE_SIZE, 5 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 80, 128);
+  drawDmd(videoRam.slice(5 * DMD_PAGE_SIZE, 6 * DMD_PAGE_SIZE), LEFT_X_OFFSET  + 130, YPOS_DMD_DATA + 80, 128);
+  drawDmd(videoRam.slice(6 * DMD_PAGE_SIZE, 7 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 80, 128);
+  drawDmd(videoRam.slice(7 * DMD_PAGE_SIZE, 8 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET + 130, YPOS_DMD_DATA + 80, 128);
 
-  drawDmd(videoRam.slice(8 * DMD_PAGE_SIZE, 9 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 200, 128);
-  drawDmd(videoRam.slice(9 * DMD_PAGE_SIZE,10 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 200, 128);
-  drawDmd(videoRam.slice(10* DMD_PAGE_SIZE,11 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 240, 128);
-  drawDmd(videoRam.slice(11* DMD_PAGE_SIZE,12 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 240, 128);
+  drawDmd(videoRam.slice(8 * DMD_PAGE_SIZE, 9 * DMD_PAGE_SIZE), LEFT_X_OFFSET, YPOS_DMD_DATA + 120, 128);
+  drawDmd(videoRam.slice(9 * DMD_PAGE_SIZE,10 * DMD_PAGE_SIZE), LEFT_X_OFFSET + 130, YPOS_DMD_DATA + 120, 128);
+  drawDmd(videoRam.slice(10* DMD_PAGE_SIZE,11 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET, YPOS_DMD_DATA + 120, 128);
+  drawDmd(videoRam.slice(11* DMD_PAGE_SIZE,12 * DMD_PAGE_SIZE), MIDDLE_X_OFFSET + 130, YPOS_DMD_DATA + 120, 128);
 
-  drawDmd(emuState.asic.dmd.dmdDisplay, RIGHT_X_OFFSET, YPOS_DMD_DATA + 40, 128, 2);
+  drawDmd(emuState.asic.dmd.dmdDisplay, LEFT_X_OFFSET, 500, 128, 6);
 }
 
 function drawMemRegion(data, x, y, width) {
@@ -230,13 +208,18 @@ function drawMatrix(row, column, x, y) {
   });
 }
 
+const BIT_ARRAY = [1, 2, 4, 8, 16, 32, 64, 128];
 const COLOR_LOW = 'rgb(0, 0, 64)';
 const COLOR_HIGH = 'rgb(255, 255, 64)';
 function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
   var offsetX = 0;
   var offsetY = 0;
-  data.forEach((packedByte) => {
-    [1, 2, 4, 8, 16, 32, 64, 128].forEach((mask) => {
+  c.strokeStyle = '#000';
+
+  for (var i=0; i < data.length; i++) {
+    const packedByte = data[i];
+    for (var j=0; j < BIT_ARRAY.length; j++) {
+      const mask = BIT_ARRAY[j];
       if (mask & packedByte) {
         c.fillStyle = COLOR_HIGH;
       } else {
@@ -248,10 +231,9 @@ function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
         offsetX = 0;
         offsetY ++;
       }
-    });
-  });
+    }
+  }
 }
-
 
 function canvasClear() {
   c.rect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
