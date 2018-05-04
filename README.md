@@ -18,7 +18,6 @@
 - then game boots up
 
 ## TODO Shortterm
-- display test shows "PAGE ERROR B(2) 07" and "RAM ADDRESS ERROR"
 - implement lamp/soleoid state
 - fix WPC_PERIPHERAL_TIMER_FIRQ_CLEAR wpc command
 - screen dimming

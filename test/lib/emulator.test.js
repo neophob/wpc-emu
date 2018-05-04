@@ -27,7 +27,7 @@ test('Smoketest, run emulator with rom ft20_32.rom', (t) => {
         wpcSystem.executeCycle();
       }
       const uiState = wpcSystem.getUiState();
-      t.is(uiState.ticks, 33668728);
+      t.is(uiState.ticks, 33668494);
       t.is(uiState.asic.dmd.scanline, 31);
       t.is(uiState.asic.dmd.lowpage, 2);
       t.is(uiState.asic.dmd.highpage, 3);
