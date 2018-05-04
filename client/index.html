@@ -14,22 +14,22 @@
         <button type="button" onclick="startEmu();">Resume Emulator</button>
         <button type="button" onclick="localStorage.debug = '*'; location.reload();">Enable Debug Logs</button>
         <button type="button" onclick="localStorage.debug = ''; location.reload();">Disable Debug Logs</button>
-        <button type="button" onclick="irq();">IRQ</button>
-        <button type="button" onclick="firq();">FIRQ</button>
-        <button type="button" onclick="reset();">RESET</button>
-        <button type="button" onclick="emuStep();">STEP</button>
+        <button type="button" onclick="wpcSystem.irq();">IRQ</button>
+        <button type="button" onclick="wpcSystem.firq();">FIRQ</button>
+        <button type="button" onclick="wpcSystem.reset();">RESET</button>
+        <button type="button" onclick="wpcSystem.executeCycle();">STEP</button>
       </div>
       <div>
         COIN DOOR SWITCHES:
-        <button type="button" onclick="setCabinetInput(0);">0</button>
-        <button type="button" onclick="setCabinetInput(1);">1</button>
-        <button type="button" onclick="setCabinetInput(2);">2</button>
-        <button type="button" onclick="setCabinetInput(4);">4</button>
-        <button type="button" onclick="setCabinetInput(8);">8</button>
-        <button type="button" onclick="setCabinetInput(16);">Escape</button>
-        <button type="button" onclick="setCabinetInput(32);">-</button>
-        <button type="button" onclick="setCabinetInput(64);">+</button>
-        <button type="button" onclick="setCabinetInput(128);">Enter</button>
+        <button type="button" onclick="wpcSystem.setCabinetInput(0);">0</button>
+        <button type="button" onclick="wpcSystem.setCabinetInput(1);">1</button>
+        <button type="button" onclick="wpcSystem.setCabinetInput(2);">2</button>
+        <button type="button" onclick="wpcSystem.setCabinetInput(4);">4</button>
+        <button type="button" onclick="wpcSystem.setCabinetInput(8);">8</button>
+        <button type="button" onclick="wpcSystem.setCabinetInput(16);">Escape</button>
+        <button type="button" onclick="wpcSystem.setCabinetInput(32);">-</button>
+        <button type="button" onclick="wpcSystem.setCabinetInput(64);">+</button>
+        <button type="button" onclick="wpcSystem.setCabinetInput(128);">Enter</button>
       </div>
       <div>
         INPUT SWITCHES:

@@ -45,31 +45,6 @@ function downloadFileFromUrlAsUInt8Array(url) {
   	});
 }
 
-function irq() {
-  console.log('IRQ!');
-  wpcSystem.irq();
-}
-
-function firq() {
-  console.log('FIRQ!');
-  wpcSystem.firq();
-}
-
-function reset() {
-  console.log('RESET!');
-  wpcSystem.reset();
-}
-
-function setCabinetInput(value) {
-  console.log('setCabinetInput!',value);
-  wpcSystem.setCabinetInput(value);
-}
-
-function emuStep() {
-  console.log('step');
-  wpcSystem.executeCycle();
-}
-
 function startEmu() {
   console.log('start emu');
   intervalId = requestAnimationFrame(step);
@@ -241,10 +216,8 @@ function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
   var offsetY = 0;
   c.strokeStyle = '#000';
 
-//  data.forEach((packedByte) => {
   for (var i=0; i < data.length; i++) {
     const packedByte = data[i];
-    //[1, 2, 4, 8, 16, 32, 64, 128].forEach((mask) => {
     for (var j=0; j < BIT_ARRAY.length; j++) {
       const mask = BIT_ARRAY[j];
       if (mask & packedByte) {
@@ -253,20 +226,14 @@ function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
         c.fillStyle = COLOR_LOW;
       }
       c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
-      //c.strokeRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
-/*      c.beginPath();
-      c.arc(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR , 0, 2*Math.PI);
-      c.fill();*/
-
       offsetX++;
       if (offsetX === width) {
         offsetX = 0;
         offsetY ++;
       }
-    }//);
-  }//);
+    }
+  }
 }
-
 
 function canvasClear() {
   c.rect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
