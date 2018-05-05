@@ -5,7 +5,8 @@
 ![04.05.18](https://raw.githubusercontent.com/neophob/wpc-emu/master/assets/04.05.18.png)
 
 - autorelease cabinet keys after 100ms
-- implemented switch matrix input - non working yet
+- implemented switch matrix input
+- fixed dmd page write issue
 - minor debug ui updates
 
 ## 3/05/18
