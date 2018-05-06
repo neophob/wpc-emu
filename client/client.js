@@ -63,8 +63,8 @@ function resetEmu() {
   console.log('reset emu');
   // HINT: make sure CORS is correct
 //  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/ft20_32.rom')
-  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom')
-//    downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom')
+//  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom')
+    downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom')
 //    downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/tz_h8.u6')
     .then((rom) => {
       return WpcEmu.initVMwithRom(rom, 'hurcnl_2.rom');
@@ -169,18 +169,19 @@ function drawMemRegion(data, x, y, width) {
   }
 }
 
+const BIT_ARRAY = [1, 2, 4, 8, 16, 32, 64, 128];
+const COLOR_LOW = 'rgb(0, 0, 64)';
+const COLOR_HIGH = 'rgb(255, 255, 64)';
+
 function drawMatrix8x8(data, x, y) {
   const GRIDSIZE = 10;
   data.forEach((lamp, index) => {
-    c.fillStyle = lamp & 0x80 ? 'yellow' : 'grey';
+    c.fillStyle = lamp & 0x80 ? COLOR_HIGH : COLOR_LOW;
     var i = x + (index % 8) * GRIDSIZE;
     var j = y + parseInt(index / 8) * GRIDSIZE;
-
     c.fillRect(i, j, GRIDSIZE, GRIDSIZE);
   });
 }
-
-const BIT_ARRAY = [1, 2, 4, 8, 16, 32, 64, 128];
 
 function drawMatrix8x8Binary(data, x, y) {
   const dataUnpacked = [];
@@ -193,8 +194,6 @@ function drawMatrix8x8Binary(data, x, y) {
   drawMatrix8x8(dataUnpacked, x, y);
 }
 
-const COLOR_LOW = 'rgb(0, 0, 64)';
-const COLOR_HIGH = 'rgb(255, 255, 64)';
 function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
   var offsetX = 0;
   var offsetY = 0;
