@@ -112,20 +112,14 @@ function updateCanvas() {
   c.fillText('ASIC RAM:', RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 20);
 
   const diagnosticLed = emuState.asic.wpc.diagnosticLed ? emuState.asic.wpc.diagnosticLed.toString(2) : '00000000';
-  const lampRow = emuState.asic.wpc.lampRow;
-  const lampColumn = emuState.asic.wpc.lampColumn;
-  const switchRow = emuState.asic.wpc.switchRow;
-  const switchColumn = emuState.asic.wpc.switchColumn;
   const activePage = emuState.asic.dmd.activepage;
   c.fillText('DIAGLED STATE: ' + diagnosticLed, LEFT_X_OFFSET, YPOS_WPC_DATA + 10);
   c.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, MIDDLE_X_OFFSET, YPOS_WPC_DATA + 10);
-  c.fillText('LAMP ROW: ' + lampRow, RIGHT_X_OFFSET, YPOS_WPC_DATA + 10);
-  c.fillText('SWITCH ROW: ' + switchRow, RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 10);
+  c.fillText('LAMP MATRIX', RIGHT_X_OFFSET, YPOS_WPC_DATA + 10);
+  c.fillText('INPUT MATRIX', RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 10);
 
   c.fillText('Active ROM Bank: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_WPC_DATA + 20);
   c.fillText('IRQ enabled: ' + emuState.asic.wpc.irqEnabled, MIDDLE_X_OFFSET, YPOS_WPC_DATA + 20);
-  c.fillText('LAMP COL: ' + lampColumn, RIGHT_X_OFFSET, YPOS_WPC_DATA + 20);
-  c.fillText('SWITCH COL: ' + switchColumn, RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 20);
 
   c.fillText('DMD LOW PAGE: ' + emuState.asic.dmd.lowpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
   c.fillText('DMD HIGH PAGE: ' + emuState.asic.dmd.highpage, MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
@@ -133,13 +127,11 @@ function updateCanvas() {
 
   c.fillText('DMD SCANLINE: ' + emuState.asic.dmd.scanline, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
 
-  c.fillText('LAMP ACTIVE: ' + emuState.asic.wpc.lampActive, RIGHT_X_OFFSET, YPOS_WPC_DATA + 30);
-
   c.fillText('DMD PAGE RAM:', LEFT_X_OFFSET, YPOS_DMD_DATA + 40);
   c.fillText('DMD OUTPUT:', LEFT_X_OFFSET, 500);
 
-  drawMatrix(lampRow, lampColumn, RIGHT_X_OFFSET, YPOS_WPC_DATA + 40);
-  drawMatrix(switchRow, switchColumn, RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 40);
+  drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_WPC_DATA + 20);
+  drawMatrix8x8Binary(emuState.asic.wpc.inputState, RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 20);
 
   drawMemRegion(emuState.asic.ram, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 20, 128);
 
@@ -177,38 +169,30 @@ function drawMemRegion(data, x, y, width) {
   }
 }
 
-function drawMatrix(row, column, x, y) {
+function drawMatrix8x8(data, x, y) {
   const GRIDSIZE = 10;
+  data.forEach((lamp, index) => {
+    c.fillStyle = lamp & 0x80 ? 'yellow' : 'grey';
+    var i = x + (index % 8) * GRIDSIZE;
+    var j = y + parseInt(index / 8) * GRIDSIZE;
 
-  [1, 2, 4, 8, 16, 32, 64, 128].forEach((mask, index) => {
-    //draw horizontal lines
-    if (row === mask) {
-      c.strokeStyle = 'yellow';
-    } else {
-      c.strokeStyle = 'grey';
-    }
-    var j = y + index * GRIDSIZE;
-    c.beginPath();
-    c.moveTo(x, j);
-    c.lineTo(x + 7 * GRIDSIZE, j);
-    c.stroke();
-
-    //draw vertical lines
-    if (column === mask) {
-      c.strokeStyle = 'yellow';
-    } else {
-      c.strokeStyle = 'grey';
-    }
-    var i = x + index * GRIDSIZE;
-    c.beginPath();
-    c.moveTo(i, y);
-    c.lineTo(i, y + 7 * GRIDSIZE);
-    c.stroke();
-
+    c.fillRect(i, j, GRIDSIZE, GRIDSIZE);
   });
 }
 
 const BIT_ARRAY = [1, 2, 4, 8, 16, 32, 64, 128];
+
+function drawMatrix8x8Binary(data, x, y) {
+  const dataUnpacked = [];
+  for (var i = 0; i < 8; i++) {
+    for (var j = 0; j < 8; j++) {
+      const entry = data[i] & BIT_ARRAY[j];
+      dataUnpacked.push(entry > 0 ? 255 : 0);
+    }
+  }
+  drawMatrix8x8(dataUnpacked, x, y);
+}
+
 const COLOR_LOW = 'rgb(0, 0, 64)';
 const COLOR_HIGH = 'rgb(255, 255, 64)';
 function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {

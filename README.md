@@ -19,6 +19,7 @@
 
 ## TODO Shortterm
 - implement lamp/soleoid state
+- add addressmapper with callback, remove memory mappers
 - fix WPC_PERIPHERAL_TIMER_FIRQ_CLEAR wpc command
 - screen dimming
 
