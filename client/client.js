@@ -46,7 +46,7 @@ function downloadFileFromUrlAsUInt8Array(url) {
 }
 
 function startEmu() {
-  console.log('start emu');
+  console.log('client start emu');
   intervalId = requestAnimationFrame(step);
 }
 

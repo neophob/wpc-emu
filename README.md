@@ -70,6 +70,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Cabinet input keys work
 
 # Future ideas
+- Hook it up to a Virtual Pinball / Pinball frontend
 - Hook it up to a broken Pinball machine, replace whole electronics with a RPI
 
 # WPS Dot Matrix Machine
@@ -130,7 +131,7 @@ Operating system:
 - CPU: Motorola 6809 (MC68A09EP), frequency 2MHz
 - OPM: Yamaha YM2151 (FM Operator Type-M), frequency 3.579545MHz
 - DAC (Digital Analog converter)
-- Harris HC-55536 CVSD (Continuously variable slope delta modulation)
+- Harris HC-55536 CVSD (Continuously variable slope delta modulation). Note HC-55536 is pin compatible with 55516 and 55564.
 - MC6821 Peripheral Interface Adaptor (PIA)
 - ROMS: U14, U15 and U18
 
@@ -178,6 +179,7 @@ The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). 
 - http://atjs.mbnet.fi/mc6809/
 - https://github.com/maly/6809js (use this CPU core, fixed typos + implemented IRQ handling)
 - http://www.roust-it.dk/coco/6809irq.pdf
+- https://bitbucket.org/grumdrig/williams/src/master/
 
 ## Sound Chip
 - http://www.ionpool.net/arcade/gottlieb/technical/datasheets/YM2151_datasheet.pdf
