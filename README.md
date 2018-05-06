@@ -163,6 +163,9 @@ The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). 
 
 # References
 
+## Terms
+- Attraction Mode: the time when no game is running and the lamps are blinking to attract people
+
 ## WPC
 
 - http://bcd.github.io/freewpc/The-WPC-Hardware.html
