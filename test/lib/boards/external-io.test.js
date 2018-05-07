@@ -1,7 +1,7 @@
 'use strict';
 
 import test from 'ava';
-import ExternalIo from '../../../lib/boards/externalIo';
+import ExternalIo from '../../../lib/boards/external-io';
 
 test.beforeEach((t) => {
   const ram = new Uint8Array(0x4000);
