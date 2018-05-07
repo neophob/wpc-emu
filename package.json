@@ -13,6 +13,7 @@
     "client": "rm -f dist/* && webpack && open client/index.html",
     "start": "DEBUG=* node index.js",
     "debug": "node --inspect index.js",
+    "xo": "xo",
     "test": "ava --verbose test/lib/**/*.test.js test/lib/*.test.js",
     "test:debug": "DEBUG='wpc*' ava --verbose test/lib/**/*.test.js test/lib/*.test.js"
   },
@@ -22,10 +23,19 @@
     "ava": "^0.25.0",
     "babel-minify-webpack-plugin": "^0.3.1",
     "webpack": "^4.6.0",
-    "webpack-cli": "^2.0.15"
+    "webpack-cli": "^2.0.15",
+    "xo": "^0.21.0"
   },
   "dependencies": {
     "blocked": "^1.2.1",
     "debug": "^3.1.0"
+  },
+  "xo": {
+    "envs": ["node", "browser"],
+    "space": true,
+    "ignores": [
+      "lib/boards/up/ym2151.js",
+      "lib/boards/up/cpu6809.js"
+    ]
   }
 }

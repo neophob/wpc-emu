@@ -94,10 +94,3 @@ test.serial('oNEG() should set CARRY flag correctly', t => {
   t.is(readMemoryAddress[2], NaN);
   t.is(readMemoryAddress[3], undefined);
 });
-
-//F_CARRY
-//NEG DP
-//0x40
-//0x50
-//0x60: //NEG indexed
-//0x70: //NEG extended
