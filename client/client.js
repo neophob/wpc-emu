@@ -39,15 +39,15 @@ function step() {
 // NOTE: fetch works only in the browser, see https://github.com/matthew-andrews/isomorphic-fetch
 function downloadFileFromUrlAsUInt8Array(url) {
   return fetch(url)
-  	.then((response) => {
-  		if (response.status >= 400) {
-  			throw new Error('INVALID_STATUSCODE_' + response.status);
-  		}
+    .then((response) => {
+      if (response.status >= 400) {
+        throw new Error('INVALID_STATUSCODE_' + response.status);
+      }
       return response.arrayBuffer();
     })
     .then((buffer) => {
       return new Uint8Array(buffer);
-  	});
+    });
 }
 
 function startEmu() {
@@ -67,10 +67,10 @@ function resetEmu() {
   intervalId = false;
   console.log('reset emu');
   // HINT: make sure CORS is correct
-//  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/ft20_32.rom')
+  //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/ft20_32.rom')
   downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom')
-//    downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom')
-//    downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/tz_h8.u6')
+  //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom')
+  //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/tz_h8.u6')
     .then((rom) => {
       return WpcEmu.initVMwithRom(rom, 'hurcnl_2.rom');
     })
@@ -149,7 +149,7 @@ function updateCanvas() {
   let xpos = LEFT_X_OFFSET;
   let ypos = YPOS_DMD_DATA + 30;
   for (var i = 0; i < 16; i++) {
-    drawDmd(videoRam.slice(i * DMD_PAGE_SIZE, (i+1) * DMD_PAGE_SIZE), xpos, ypos, 128);
+    drawDmd(videoRam.slice(i * DMD_PAGE_SIZE, (i + 1) * DMD_PAGE_SIZE), xpos, ypos, 128);
     xpos += 130;
     if (xpos > (800 - 130)) {
       xpos = LEFT_X_OFFSET;
@@ -164,10 +164,10 @@ function drawMemRegion(data, x, y, width) {
   for (var i = 0, len = data.length; i < len; i++) {
     const alpha = data[i];
     c.fillStyle = 'rgb(' + alpha + ',' + alpha + ',' + alpha + ')';
-    c.fillRect (x + offsetX, y + offsetY, 1, 1);
+    c.fillRect(x + offsetX, y + offsetY, 1, 1);
     if (offsetX++ === width) {
       offsetX = 0;
-      offsetY ++;
+      offsetY++;
     }
   }
 }
@@ -178,7 +178,7 @@ function drawMatrix8x8(data, x, y) {
     c.fillStyle = lamp & 0x80 ? COLOR_DMD[3] :
       lamp & 0x70 ? COLOR_DMD[2] : COLOR_DMD[0];
     const i = x + (index % 8) * GRIDSIZE;
-    const j = y + parseInt(index / 8) * GRIDSIZE;
+    const j = y + parseInt(index / 8, 10) * GRIDSIZE;
     c.fillRect(i, j, GRIDSIZE, GRIDSIZE);
   });
 }
@@ -201,9 +201,9 @@ function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
 
   var offsetX = 0;
   var offsetY = 0;
-  for (var i=0; i < data.length; i++) {
+  for (var i = 0; i < data.length; i++) {
     const packedByte = data[i];
-    for (var j=0; j < BIT_ARRAY.length; j++) {
+    for (var j = 0; j < BIT_ARRAY.length; j++) {
       const mask = BIT_ARRAY[j];
       if (mask & packedByte) {
         c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
@@ -211,7 +211,7 @@ function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
       offsetX++;
       if (offsetX === width) {
         offsetX = 0;
-        offsetY ++;
+        offsetY++;
       }
     }
   }
@@ -220,14 +220,14 @@ function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
 function drawDmdShaded(data, x, y, width, SCALE_FACTOR = 1) {
   var offsetX = 0;
   var offsetY = 0;
-  for (var i=0; i < data.length; i++) {
+  for (var i = 0; i < data.length; i++) {
     const pixel = data[i];
     c.fillStyle = COLOR_DMD[pixel];
     c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
     offsetX++;
     if (offsetX === width) {
       offsetX = 0;
-      offsetY ++;
+      offsetY++;
     }
   }
 }

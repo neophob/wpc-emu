@@ -1,16 +1,16 @@
 'use strict';
 
-const Emulator = require('./lib/emulator');
+const fs = require('fs');
 const debug = require('debug')('wpcemu:index');
 const blocked = require('blocked');
-const fs = require('fs');
+const Emulator = require('./lib/emulator');
 
 const romPath = process.argv[2] || 'rom/HURCNL_2.ROM';
 const ALERT_WHEN_EVENTLOOP_IS_BLOCKED_MS = 100;
 
 if (!romPath) {
   console.error('Parameter [ROM PATH]');
-  process.exit(1);
+  throw new Error('MISSING_PARAMETER');
 }
 
 function loadFile(fileName) {
@@ -24,7 +24,6 @@ function loadFile(fileName) {
     });
   });
 }
-
 
 function runWpsMainloop(wpcSystem) {
   setInterval(() => {

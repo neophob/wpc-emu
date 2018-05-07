@@ -5,7 +5,8 @@ import CPU6809 from '../../../../lib/boards/up/cpu6809';
 
 /*jshint bitwise: false*/
 
-let readMemoryAddress, writeMemoryAddress;
+let readMemoryAddress;
+let writeMemoryAddress;
 test.beforeEach(() => {
   readMemoryAddress = [];
   writeMemoryAddress = [];
@@ -34,7 +35,7 @@ test.serial('flags should be correct after calling irq(), init flags to 0x00', t
 });
 
 test.serial('flags should be correct after calling irq(), init flags to 0xef', t => {
-  const flagClearedFirqBit = 0xff & ~16;
+  const flagClearedFirqBit = 0xFF & ~16;
   CPU6809.set('flags', flagClearedFirqBit);
   CPU6809.irq();
   CPU6809.steps();
@@ -44,7 +45,7 @@ test.serial('flags should be correct after calling irq(), init flags to 0xef', t
 });
 
 test.serial('irq() should not be called if F_IRQMASK flag is set', t => {
-  CPU6809.set('flags', 0xff);
+  CPU6809.set('flags', 0xFF);
   CPU6809.irq();
   CPU6809.steps();
   t.is(readMemoryAddress[2], NaN);
@@ -70,7 +71,7 @@ test.serial('flags should be correct after calling firq(), init flags to 0x00', 
 });
 
 test.serial('flags should be correct after calling firq(), init flags to 0xbf', t => {
-  const flagClearedFirqBit = 0xff & ~64;
+  const flagClearedFirqBit = 0xFF & ~64;
   CPU6809.set('flags', flagClearedFirqBit);
   CPU6809.firq();
   CPU6809.steps();
@@ -80,7 +81,7 @@ test.serial('flags should be correct after calling firq(), init flags to 0xbf', 
 });
 
 test.serial('firq() should not be called if F_FIRQMASK flag is set', t => {
-  CPU6809.set('flags', 0xff);
+  CPU6809.set('flags', 0xFF);
   CPU6809.firq();
   CPU6809.steps();
   t.is(readMemoryAddress[2], NaN);
@@ -88,7 +89,7 @@ test.serial('firq() should not be called if F_FIRQMASK flag is set', t => {
 });
 
 test.serial('oNEG() should set CARRY flag correctly', t => {
-  CPU6809.set('flags', 0xff);
+  CPU6809.set('flags', 0xFF);
   CPU6809.firq();
   CPU6809.steps();
   t.is(readMemoryAddress[2], NaN);

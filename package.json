@@ -33,6 +33,25 @@
   "xo": {
     "envs": ["node", "browser"],
     "space": true,
+    "rules": {
+      "comma-dangle": 0,
+      "arrow-parens": 0,
+      "no-var": 0,
+      "comma-spacing": 0,
+      "capitalized-comments": 0,
+      "promise/prefer-await-to-then": 0,
+      "ava/prefer-async-await": 0,
+      "no-use-before-define": 0,
+      "spaced-comment": 0,
+      "object-curly-spacing": 0,
+      "array-bracket-spacing": 0,
+      "padded-blocks": 0,
+      "no-mixed-operators": 0,
+      "unicorn/import-index": 0,
+      "new-cap": 0,
+      "prefer-destructuring": 0,
+      "no-use-extend-native/no-use-extend-native": 0
+    },
     "ignores": [
       "lib/boards/up/ym2151.js",
       "lib/boards/up/cpu6809.js"

@@ -29,10 +29,10 @@ test('wpc, should clear zerocross flag when read', (t) => {
 
 test('wpc, should respect old zerocross flag state when read', (t) => {
   const wpc = t.context;
-  wpc.write(WPC.OP.WPC_ZEROCROSS_IRQ_CLEAR, 0x7f);
+  wpc.write(WPC.OP.WPC_ZEROCROSS_IRQ_CLEAR, 0x7F);
   wpc.setZeroCrossFlag();
   const result = wpc.read(WPC.OP.WPC_ZEROCROSS_IRQ_CLEAR);
-  t.is(result, 0xff);
+  t.is(result, 0xFF);
   t.is(wpc.zeroCrossFlag, 0);
 });
 
