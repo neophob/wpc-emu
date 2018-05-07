@@ -15,8 +15,8 @@ test.beforeEach((t) => {
 
 test('dmd, should write to hardwareRam', (t) => {
   const dmd = t.context;
-  dmd.write(0x3fbd, 255);
-  t.is(dmd.ram[0x3fbd], 0xFF);
+  dmd.write(0x3FBD, 255);
+  t.is(dmd.ram[0x3FBD], 0xFF);
 });
 
 test('dmd, should read to WPC_DMD_SCANLINE', (t) => {

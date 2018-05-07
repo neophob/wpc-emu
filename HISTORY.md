@@ -1,5 +1,15 @@
 # HISTORY
 
+## 7/05/18
+
+![07.05.18](https://raw.githubusercontent.com/neophob/wpc-emu/master/assets/07.05.18.png)
+
+- DMD shading works (2bit aka 4 colors)
+- implemented switch matrix input
+- implemented lamp matrix output
+- debug ui updates (performance improvments, use defined color schema, rearrange, cleanup)
+- use eslint
+
 ## 4/05/18
 
 ![04.05.18](https://raw.githubusercontent.com/neophob/wpc-emu/master/assets/04.05.18.png)

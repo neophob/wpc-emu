@@ -20,5 +20,5 @@ function getWebPackConfig(isProduction) {
 }
 
 module.exports = (env) => {
- return getWebPackConfig(env === 'production');
+  return getWebPackConfig(env === 'production');
 };

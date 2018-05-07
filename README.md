@@ -12,15 +12,15 @@
 
 # State
 - it boots!
-- dmd works somehow, shading is missing
+- dmd (incl. 2bit shading) works
 - Emulator shows invalid ram settings -> TODO add dump nvram to get "valid" settings
-- after the initial boot, WPC games needs a CPU reset, after that they start asap. I assue due invalid NVRAM settings?
+- after the initial boot, WPC games needs a CPU reset, after that they start asap. I assume due invalid NVRAM settings?
 - then game boots up
 
 ## TODO Shortterm
-- implement lamp/soleoid state
+- implement soleoid state
+- add address mapper with callback, remove memory mappers
 - fix WPC_PERIPHERAL_TIMER_FIRQ_CLEAR wpc command
-- screen dimming
 
 # Implementation Status
 
@@ -46,7 +46,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Interrupt FIRQ ✓ (incl. source - not sure if needed)
 
 ## Power Driver Board
-- Lamp Circuits
+- Lamp Circuits ✓
 - Solenoid Circuits
 - General Illumination Circuits (Triac)
 - Zero Cross Circuit ✓
@@ -67,7 +67,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 ## Debug UI
 - DMD output ✓
 - Debug KPI ✓
-- Cabinet input keys work
+- Cabinet input keys work ✓
 
 # Future ideas
 - Hook it up to a Virtual Pinball / Pinball frontend
@@ -161,6 +161,9 @@ main loop that executes some CPU ops then check if one of the following callback
 The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). At this rate, it takes 256 microseconds per row and a little more than 8 milliseconds per complete frame.
 
 # References
+
+## Terms
+- Attraction Mode: the time when no game is running and the lamps are blinking to attract people
 
 ## WPC
 
