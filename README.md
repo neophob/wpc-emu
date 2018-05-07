@@ -12,16 +12,15 @@
 
 # State
 - it boots!
-- dmd works somehow, shading is missing
+- dmd (incl. 2bit shading) works
 - Emulator shows invalid ram settings -> TODO add dump nvram to get "valid" settings
-- after the initial boot, WPC games needs a CPU reset, after that they start asap. I assue due invalid NVRAM settings?
+- after the initial boot, WPC games needs a CPU reset, after that they start asap. I assume due invalid NVRAM settings?
 - then game boots up
 
 ## TODO Shortterm
-- implement lamp/soleoid state
-- add addressmapper with callback, remove memory mappers
+- implement soleoid state
+- add address mapper with callback, remove memory mappers
 - fix WPC_PERIPHERAL_TIMER_FIRQ_CLEAR wpc command
-- screen dimming
 
 # Implementation Status
 
