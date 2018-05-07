@@ -4,11 +4,12 @@
 
 ![07.05.18](assets/07.05.18.png?raw=true)
 
-- DMD shading works (2bit aka 4 colors)
+- DMD shading works (2bit aka 4 Colours)
 - implemented switch matrix input
 - implemented lamp matrix output
-- debug ui updates (performance improvments, use defined color schema, rearrange, cleanup)
-- use eslint
+- implemented general illumination output,
+- debug ui updates (performance improvements, use defined colour schema, rearrange, cleanup)
+- use xo/eslint
 
 ## 4/05/18
 
@@ -23,7 +24,7 @@
 
 - cabinet keyboard works somehow, implemented inputSwitchMatrix
 - fixed emu initialisation - no more waiting until 600M CPU ticks are over!
-- update build process (babel minify, prod/dev build, travic ci)
+- update build process (babel minify, prod/dev build, Travis CI)
 
 ## 1/05/18
 
