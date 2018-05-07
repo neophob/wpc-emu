@@ -68,8 +68,8 @@ function resetEmu() {
   console.log('reset emu');
   // HINT: make sure CORS is correct
   //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/ft20_32.rom')
-  //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom')
-  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom')
+  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom')
+  //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom')
   //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/tz_h8.u6')
     .then((rom) => {
       return WpcEmu.initVMwithRom(rom, 'hurcnl_2.rom');
@@ -92,11 +92,12 @@ resetEmu();
 
 const YPOS_DMD_MAIN_VIEW = 20;
 const YPOS_GENERIC_DATA = 240;
-const YPOS_WPC_DATA = 390;
-const YPOS_DMD_DATA = 540;
+const YPOS_WPC_DATA = 350;
+const YPOS_DMD_DATA = 520;
 
 const LEFT_X_OFFSET = 15;
 const MIDDLE_X_OFFSET = 260 + LEFT_X_OFFSET;
+const MIDDLE_PLUS_X_OFFSET = 130 + MIDDLE_X_OFFSET;
 const RIGHT_X_OFFSET = 260 + MIDDLE_X_OFFSET;
 const RIGHT_PLUS_X_OFFSET = 130 + RIGHT_X_OFFSET;
 
@@ -111,7 +112,7 @@ function updateCanvas() {
   c.font = '10px Monaco';
   c.fillStyle = COLOR_DMD[3];
   c.fillText('# GENERIC DATA:', LEFT_X_OFFSET, YPOS_GENERIC_DATA);
-  c.fillText('# WPC BOARD DATA:', LEFT_X_OFFSET, YPOS_WPC_DATA);
+  c.fillText('# WPC/IO BOARD DATA:', LEFT_X_OFFSET, YPOS_WPC_DATA);
   c.fillText('# DMD BOARD DATA:', LEFT_X_OFFSET, YPOS_DMD_DATA);
 
   c.fillStyle = COLOR_DMD[2];
@@ -122,7 +123,7 @@ function updateCanvas() {
   c.fillText('CPU STATE: ' + cpuState, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 40);
   c.fillText('IRQ enabled: ' + emuState.asic.wpc.irqEnabled, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
 
-  c.fillText('ASIC RAM:', MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 10);
+  c.fillText('RAM:', MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 10);
 
   const diagnosticLed = emuState.asic.wpc.diagnosticLed ? emuState.asic.wpc.diagnosticLed.toString(2) : '00000000';
   const activePage = emuState.asic.dmd.activepage;
@@ -130,32 +131,32 @@ function updateCanvas() {
   c.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, LEFT_X_OFFSET, YPOS_WPC_DATA + 20);
   c.fillText('Active ROM Bank: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_WPC_DATA + 30);
 
-  c.fillText('SOLENOID OUTPUT MATRIX', MIDDLE_X_OFFSET, YPOS_WPC_DATA + 10);
-  c.fillText('LAMP OUTPUT MATRIX', RIGHT_X_OFFSET, YPOS_WPC_DATA + 10);
-  c.fillText('SWITCH INPUT MATRIX', RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 10);
-
+  c.fillText('SOLENOID OUT MATRIX', MIDDLE_X_OFFSET, YPOS_WPC_DATA + 10);
+  c.fillText('ILLUM. OUT MATRIX', MIDDLE_PLUS_X_OFFSET, YPOS_WPC_DATA + 10);
+  c.fillText('LAMP OUT MATRIX', RIGHT_X_OFFSET, YPOS_WPC_DATA + 10);
+  c.fillText('SWITCH IN MATRIX', RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 10);
 
   c.fillText('DMD LOW PAGE: ' + emuState.asic.dmd.lowpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
-  c.fillText('DMD HIGH PAGE: ' + emuState.asic.dmd.highpage, MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
-  c.fillText('DMD ACTIVE PAGE: ' + activePage, RIGHT_X_OFFSET, YPOS_DMD_DATA + 10);
-
-  c.fillText('DMD PAGE RAM:', LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
+  c.fillText('DMD HIGH PAGE: ' + emuState.asic.dmd.highpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
+  c.fillText('DMD ACTIVE PAGE: ' + activePage, LEFT_X_OFFSET, YPOS_DMD_DATA + 30);
+  c.fillText('DMD PAGE RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
 
   drawMemRegion(emuState.asic.ram, MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 20, 128);
   drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_WPC_DATA + 20);
   drawMatrix8x8(emuState.asic.wpc.solenoidState, MIDDLE_X_OFFSET, YPOS_WPC_DATA + 20);
   drawMatrix8x8Binary(emuState.asic.wpc.inputState, RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 20);
+  drawMatrix8x8(emuState.asic.wpc.generalIlluminationState, MIDDLE_PLUS_X_OFFSET, YPOS_WPC_DATA + 20);
 
   //dmd pages - 8 pixel (on/off) per byte, display is 128x32 pixels
   const videoRam = emuState.asic.dmd.videoRam;
   const DMD_PAGE_SIZE = 0x200;
-  let xpos = LEFT_X_OFFSET;
-  let ypos = YPOS_DMD_DATA + 30;
+  let xpos = MIDDLE_X_OFFSET;
+  let ypos = YPOS_DMD_DATA + 20;
   for (var i = 0; i < 16; i++) {
     drawDmd(videoRam.slice(i * DMD_PAGE_SIZE, (i + 1) * DMD_PAGE_SIZE), xpos, ypos, 128);
     xpos += 130;
     if (xpos > (800 - 130)) {
-      xpos = LEFT_X_OFFSET;
+      xpos = MIDDLE_X_OFFSET;
       ypos += 35;
     }
   }

@@ -7,6 +7,7 @@ os:
   - linux
 script:
   - npm run test
+  - npm run test:integration
 after_success:
   - npm run build:production
 notifications:

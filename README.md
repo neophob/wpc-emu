@@ -19,6 +19,7 @@
 
 ## TODO Shortterm
 - implement soleoid state
+- general illumination
 - add address mapper with callback, remove memory mappers
 - fix WPC_PERIPHERAL_TIMER_FIRQ_CLEAR wpc command
 
