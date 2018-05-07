@@ -46,7 +46,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Interrupt FIRQ ✓ (incl. source - not sure if needed)
 
 ## Power Driver Board
-- Lamp Circuits
+- Lamp Circuits ✓
 - Solenoid Circuits
 - General Illumination Circuits (Triac)
 - Zero Cross Circuit ✓
@@ -67,7 +67,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 ## Debug UI
 - DMD output ✓
 - Debug KPI ✓
-- Cabinet input keys work
+- Cabinet input keys work ✓
 
 # Future ideas
 - Hook it up to a Virtual Pinball / Pinball frontend
