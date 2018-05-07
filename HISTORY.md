@@ -12,7 +12,7 @@
 
 ## 4/05/18
 
-![04.05.18](https://raw.githubusercontent.com/neophob/wpc-emu/master/assets/04.05.18.png)
+![04.05.18](assets/04.05.18.png?raw=true)
 
 - autorelease cabinet keys after 100ms
 - implemented switch matrix input
@@ -27,7 +27,7 @@
 
 ## 1/05/18
 
-![01.05.18](https://raw.githubusercontent.com/neophob/wpc-emu/master/assets/01.05.18.png)
+![01.05.18](assets/01.05.18.png?raw=true)
 
 - implement FIRQ source
 - update readme
@@ -40,6 +40,6 @@
 
 ## 26/04/18
 
-![26.04.18](https://raw.githubusercontent.com/neophob/wpc-emu/master/assets/26.04.18.png)
+![26.04.18](assets/26.04.18.png?raw=true)
 
 - DMD display works kind of, displays some images
