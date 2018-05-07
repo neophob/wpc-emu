@@ -8,7 +8,7 @@
 console.log('hello');
 
 const CANVAS_WIDTH = 800;
-const CANVAS_HEIGHT = 800;
+const CANVAS_HEIGHT = 700;
 var COLOR_DMD = [
   'rgb(20,20,20)',
   'rgb(164,82,0)',
@@ -68,9 +68,9 @@ function resetEmu() {
   console.log('reset emu');
   // HINT: make sure CORS is correct
   //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/ft20_32.rom')
-  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom')
+  //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom')
   //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom')
-  //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/tz_h8.u6')
+  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/tz_h8.u6')
     .then((rom) => {
       return WpcEmu.initVMwithRom(rom, 'hurcnl_2.rom');
     })
