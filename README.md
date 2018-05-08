@@ -14,12 +14,11 @@
 - it boots!
 - dmd (incl. 2bit shading) works
 - Emulator shows invalid ram settings -> TODO add dump nvram to get "valid" settings
-- after the initial boot, WPC games needs a CPU reset, after that they start asap. I assume due invalid NVRAM settings?
 - then game boots up
 
 ## TODO Shortterm
-- implement soleoid state
-- general illumination
+- implement solenoid state (WIP)
+- general illumination (WIP)
 - add address mapper with callback, remove memory mappers
 - fix WPC_PERIPHERAL_TIMER_FIRQ_CLEAR wpc command
 
@@ -69,6 +68,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - DMD output ✓
 - Debug KPI ✓
 - Cabinet input keys work ✓
+- Adaptive FPS ✓
 
 # Future ideas
 - Hook it up to a Virtual Pinball / Pinball frontend

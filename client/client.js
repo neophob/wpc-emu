@@ -9,6 +9,19 @@ console.log('hello');
 
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 700;
+const YPOS_DMD_MAIN_VIEW = 20;
+const YPOS_GENERIC_DATA = 240;
+const YPOS_WPC_DATA = 350;
+const YPOS_DMD_DATA = 520;
+
+const LEFT_X_OFFSET = 15;
+const MIDDLE_X_OFFSET = 260 + LEFT_X_OFFSET;
+const MIDDLE_PLUS_X_OFFSET = 130 + MIDDLE_X_OFFSET;
+const RIGHT_X_OFFSET = 260 + MIDDLE_X_OFFSET;
+const RIGHT_PLUS_X_OFFSET = 130 + RIGHT_X_OFFSET;
+
+const BIT_ARRAY = [1, 2, 4, 8, 16, 32, 64, 128];
+
 var COLOR_DMD = [
   'rgb(20,20,20)',
   'rgb(164,82,0)',
@@ -18,21 +31,37 @@ var COLOR_DMD = [
 
 var wpcSystem;
 var intervalId;
+var wpcCycles = 32;
+var opsMs = 0;
+var perfTicksExecuted = 0;
+var perfTs = Date.now();
 
 //called at 60hz -> 16.6ms
 function step() {
   updateCanvas();
 
-  // TODO make adaptive, so we execute 2000 emuState.opMs
-  var count = 64;
+  var count = wpcCycles;
   while (count--) {
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
+    perfTicksExecuted += wpcSystem.executeCycle();
+    perfTicksExecuted += wpcSystem.executeCycle();
+    perfTicksExecuted += wpcSystem.executeCycle();
+    perfTicksExecuted += wpcSystem.executeCycle();
   }
+
+  const perfDurationMs = Date.now() - perfTs;
+  if (perfDurationMs > 480) {
+    opsMs = parseInt(perfTicksExecuted / perfDurationMs, 10);
+    // try to run at 2000 ops per ms
+    if (opsMs > 2040 && wpcCycles > 2) {
+      wpcCycles--;
+    }
+    if (opsMs < 1960 && wpcCycles < 256) {
+      wpcCycles++;
+    }
+    perfTicksExecuted = 0;
+    perfTs = Date.now();
+  }
+
   intervalId = requestAnimationFrame(step);
 }
 
@@ -70,7 +99,14 @@ function resetEmu() {
   //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/ft20_32.rom')
   //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom')
   //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom')
-  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/tz_h8.u6')
+  //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/tz_h8.u6')
+  //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/gilli_l9.rom')
+  //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/PZ_U6.L2')
+  //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/U6-LA3.ROM')
+  //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/hshot_p8.u6')
+  //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/getaw_l5.rom')
+  downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/ijone_l7.rom')
+  //downloadFileFromUrlAsUInt8Array('https://s3-eu-west-1.amazonaws.com/foo-temp/ft_p4.u6')
     .then((rom) => {
       return WpcEmu.initVMwithRom(rom, 'hurcnl_2.rom');
     })
@@ -87,43 +123,27 @@ function resetEmu() {
     });
 }
 
-canvasClear();
+initCanvas();
 resetEmu();
 
-const YPOS_DMD_MAIN_VIEW = 20;
-const YPOS_GENERIC_DATA = 240;
-const YPOS_WPC_DATA = 350;
-const YPOS_DMD_DATA = 520;
-
-const LEFT_X_OFFSET = 15;
-const MIDDLE_X_OFFSET = 260 + LEFT_X_OFFSET;
-const MIDDLE_PLUS_X_OFFSET = 130 + MIDDLE_X_OFFSET;
-const RIGHT_X_OFFSET = 260 + MIDDLE_X_OFFSET;
-const RIGHT_PLUS_X_OFFSET = 130 + RIGHT_X_OFFSET;
-
-const BIT_ARRAY = [1, 2, 4, 8, 16, 32, 64, 128];
-
 function updateCanvas() {
-  canvasClear();
   const emuState = wpcSystem.getUiState();
 
   drawDmdShaded(emuState.asic.dmd.dmdShadedBuffer, LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
 
-  c.font = '10px Monaco';
-  c.fillStyle = COLOR_DMD[3];
-  c.fillText('# GENERIC DATA:', LEFT_X_OFFSET, YPOS_GENERIC_DATA);
-  c.fillText('# WPC/IO BOARD DATA:', LEFT_X_OFFSET, YPOS_WPC_DATA);
-  c.fillText('# DMD BOARD DATA:', LEFT_X_OFFSET, YPOS_DMD_DATA);
+  c.fillStyle = '#000';
+  c.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 150, 70);
+  c.fillRect(LEFT_X_OFFSET, YPOS_WPC_DATA, 200, 40);
+  c.fillRect(LEFT_X_OFFSET, YPOS_DMD_DATA, 150, 40);
 
   c.fillStyle = COLOR_DMD[2];
   c.fillText('ROM: hurcnl_2.rom', LEFT_X_OFFSET, YPOS_GENERIC_DATA + 10);
   c.fillText('CPU TICKS: ' + emuState.ticks, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 20);
-  c.fillText('CPU TICKS/ms: ' + emuState.opMs, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 30);
+  c.fillText('CPU TICKS/ms: ' + opsMs, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 30);
   const cpuState = intervalId ? 'running' : 'paused';
   c.fillText('CPU STATE: ' + cpuState, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 40);
   c.fillText('IRQ enabled: ' + emuState.asic.wpc.irqEnabled, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
-
-  c.fillText('RAM:', MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 10);
+  c.fillText('UI CYCLES: ' + wpcCycles, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
 
   const diagnosticLed = emuState.asic.wpc.diagnosticLed ? emuState.asic.wpc.diagnosticLed.toString(2) : '00000000';
   const activePage = emuState.asic.dmd.activepage;
@@ -131,15 +151,9 @@ function updateCanvas() {
   c.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, LEFT_X_OFFSET, YPOS_WPC_DATA + 20);
   c.fillText('Active ROM Bank: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_WPC_DATA + 30);
 
-  c.fillText('SOLENOID OUT MATRIX', MIDDLE_X_OFFSET, YPOS_WPC_DATA + 10);
-  c.fillText('ILLUM. OUT MATRIX', MIDDLE_PLUS_X_OFFSET, YPOS_WPC_DATA + 10);
-  c.fillText('LAMP OUT MATRIX', RIGHT_X_OFFSET, YPOS_WPC_DATA + 10);
-  c.fillText('SWITCH IN MATRIX', RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 10);
-
   c.fillText('DMD LOW PAGE: ' + emuState.asic.dmd.lowpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
   c.fillText('DMD HIGH PAGE: ' + emuState.asic.dmd.highpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
   c.fillText('DMD ACTIVE PAGE: ' + activePage, LEFT_X_OFFSET, YPOS_DMD_DATA + 30);
-  c.fillText('DMD PAGE RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
 
   drawMemRegion(emuState.asic.ram, MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 20, 128);
   drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_WPC_DATA + 20);
@@ -180,7 +194,7 @@ function drawMatrix8x8(data, x, y) {
   const GRIDSIZE = 15;
   data.forEach((lamp, index) => {
     c.fillStyle = lamp & 0x80 ? COLOR_DMD[3] :
-      lamp & 0x70 ? COLOR_DMD[2] : COLOR_DMD[0];
+      lamp & 0x70 ? COLOR_DMD[1] : COLOR_DMD[0];
     const i = x + (index % 8) * GRIDSIZE;
     const j = y + parseInt(index / 8, 10) * GRIDSIZE;
     c.fillRect(i, j, GRIDSIZE, GRIDSIZE);
@@ -236,8 +250,21 @@ function drawDmdShaded(data, x, y, width, SCALE_FACTOR = 1) {
   }
 }
 
-function canvasClear() {
-  c.rect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+function initCanvas() {
   c.fillStyle = '#000';
-  c.fill();
+  c.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+  c.font = '10px Monaco';
+  c.fillStyle = COLOR_DMD[3];
+  c.fillText('# GENERIC DATA:', LEFT_X_OFFSET, YPOS_GENERIC_DATA);
+  c.fillText('# WPC/IO BOARD DATA:', LEFT_X_OFFSET, YPOS_WPC_DATA);
+  c.fillText('# DMD BOARD DATA:', LEFT_X_OFFSET, YPOS_DMD_DATA);
+
+  c.fillStyle = COLOR_DMD[2];
+  c.fillText('SOLENOID OUT MATRIX', MIDDLE_X_OFFSET, YPOS_WPC_DATA + 10);
+  c.fillText('ILLUM. OUT MATRIX', MIDDLE_PLUS_X_OFFSET, YPOS_WPC_DATA + 10);
+  c.fillText('LAMP OUT MATRIX', RIGHT_X_OFFSET, YPOS_WPC_DATA + 10);
+  c.fillText('SWITCH IN MATRIX', RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 10);
+  c.fillText('DMD PAGE RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
+  c.fillText('RAM:', MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 10);
 }
