@@ -2,7 +2,6 @@
 
 const fs = require('fs');
 const debug = require('debug')('wpcemu:index');
-const blocked = require('blocked');
 const Emulator = require('./lib/emulator');
 
 const romPath = process.argv[2] || 'rom/HURCNL_2.ROM';
@@ -61,6 +60,3 @@ loadFile(romPath)
     console.log(error.stack);
   });
 
-blocked((ms) => {
-  debug('WARNING_EVENT_LOOP_BLOCKED', ms);
-}, { threshold: ALERT_WHEN_EVENTLOOP_IS_BLOCKED_MS });
