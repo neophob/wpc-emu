@@ -2,27 +2,21 @@
 
 import '../node_modules/milligram/dist/milligram.css';
 import '../styles/client.css';
-import viewTpl from './main.view.tpl';
 
 import { downloadFileFromUrlAsUInt8Array } from './fetcher';
 import { initialiseEmulator } from './emulator';
-import { replaceNode } from './htmlselector';
-import * as emuDebugUi from './emuDebugUi';
-
-function initialiseView() {
-  const div = document.createElement('div');
-  div.insertAdjacentHTML('afterbegin', viewTpl);
-  replaceNode('rootNode', div);
-}
+import * as gamelist from './db/gamelist';
+import { populateControlUiView } from './ui/controlUi';
+import * as emuDebugUi from './ui/emuDebugUi';
 
 function initialiseEmu(romUrl) {
   const romFileName = romUrl.substring(romUrl.lastIndexOf('/')+1);
-  downloadFileFromUrlAsUInt8Array(romUrl)
+  return downloadFileFromUrlAsUInt8Array(romUrl)
     .then((romData) => {
       return initialiseEmulator(romData, romFileName);
     })
     .then((wpcSystem) => {
-      // IIKS we pollute globals here
+      // TODO IIKS we pollute globals here
       window.wpcInterface = {
         wpcSystem,
         pauseEmu,
@@ -38,8 +32,9 @@ function initialiseEmu(romUrl) {
     });
 }
 
-initialiseView();
-initialiseEmu('https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom');
+const gameEntry = gamelist.getByName('Hurricane');//Terminator 2');
+populateControlUiView(gameEntry);
+initialiseEmu(gameEntry.url);
 
 function pauseEmu() {
   emuDebugUi.stopEmu();
