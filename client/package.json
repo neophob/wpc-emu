@@ -16,6 +16,7 @@
   "author": "Michael Vogt",
   "license": "ISC",
   "devDependencies": {
+    "ava": "^0.25.0",
     "babel-minify-webpack-plugin": "^0.3.1",
     "css-loader": "^0.28.11",
     "html-webpack-plugin": "^3.2.0",
@@ -28,7 +29,9 @@
     "xo": "^0.21.0"
   },
   "babel": {
-    "presets": ["es2015"]
+    "presets": [
+      "es2015"
+    ]
   },
   "ava": {
     "modules": false,
@@ -40,7 +43,6 @@
   },
   "xo": {
     "envs": [
-      "node",
       "browser"
     ],
     "space": true,

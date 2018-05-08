@@ -43,7 +43,9 @@ const wpcGames = [
       { id: 62, name: 'HURRICANE EXIT' },
       { id: 63, name: 'COMET ENTRY' },
       { id: 64, name: 'COMET EXIT' },
-    ]
+    ],
+    switchesEnabled: [ 16, 17, 18 ],
+    skipWmcRomCheck: true
   },
   {
     name: 'Terminator 2',
@@ -101,7 +103,9 @@ const wpcGames = [
       { id: 76, name: 'BALL POPPER' },
       { id: 77, name: 'DROP TARGET' },
       { id: 78, name: 'SHOOTER' },
-    ]
+    ],
+    switchesEnabled: [ 15, 16, 17 ],
+    skipWmcRomCheck: true
   },
   {
     manager: 'Fish Tales',

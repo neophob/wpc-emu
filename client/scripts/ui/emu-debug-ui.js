@@ -57,16 +57,14 @@ function step() {
     if (opsMs > 2040 && wpcCycles > 2) {
       wpcCycles--;
     }
-    if (opsMs < 1960 && wpcCycles < 256) {
+    if (opsMs < 1960 && wpcCycles < 512) {
       wpcCycles++;
     }
     perfTicksExecuted = 0;
     perfTs = Date.now();
   }
-
   intervalId = requestAnimationFrame(step);
 }
-
 
 function startEmu() {
   console.log('client start emu');

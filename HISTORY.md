@@ -3,6 +3,8 @@
 ## 8/05/18
 
 - Debug UI use adaptive FPS to stick at 2000ops/ms
+- UI Overhaul
+- Define Game DB, define url, switch names and more
 
 ## 7/05/18
 
