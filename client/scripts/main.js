@@ -5,7 +5,6 @@
 /*jshint bitwise: false*/
 
 // HINT enable debug in the browser by entering "localStorage.debug = '*'" in the browser
-console.log('hello');
 
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 700;
