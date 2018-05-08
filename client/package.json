@@ -9,6 +9,7 @@
   "scripts": {
     "build": "webpack --mode development",
     "build:production": "webpack --mode production",
+    "test": "ava --verbose test/**",
     "watch": "webpack --mode development --watch",
     "xo": "xo"
   },
@@ -25,6 +26,17 @@
     "webpack-cli": "^2.0.15",
     "webpack-dev-server": "^3.1.4",
     "xo": "^0.21.0"
+  },
+  "babel": {
+    "presets": ["es2015"]
+  },
+  "ava": {
+    "modules": false,
+    "require": [
+      "babel-register"
+    ],
+    "inherit": true,
+    "verbose": true
   },
   "xo": {
     "envs": [
@@ -51,5 +63,8 @@
       "prefer-destructuring": 0,
       "no-use-extend-native/no-use-extend-native": 0
     }
+  },
+  "dependencies": {
+    "babel-register": "^6.26.0"
   }
 }
