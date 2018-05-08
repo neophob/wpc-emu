@@ -10,7 +10,7 @@
     "build": "webpack --mode development",
     "build:all": "npm run build:production",
     "build:client": "webpack --mode development --config webpack.frontend.js",
-    "build:production": "webpack --mode production && webpack --mode production --config webpack.frontend.js && ",
+    "build:production": "webpack --mode production && webpack --mode production --config webpack.frontend.js",
     "build:test": "rm -f dist/* && webpack && cp assets/* dist && DEBUG=* node index.js",
     "client": "rm -f dist/* && webpack && open client/index.html",
     "start": "DEBUG=* node index.js",

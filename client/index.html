@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>WPC Emu Debug view</title>
+    <meta name="viewport" content="viewport-fit=cover, initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <link rel="stylesheet" href="http://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
     <link rel="stylesheet" href="client.css">
   </head>
@@ -38,7 +39,7 @@
 
       <div class="row">
         <div class="column column-10">Switch</div>
-        <div class="column">
+        <div class="column column-90">
           <button class="button-black button-small black" onclick="wpcSystem.setInput(12);">LEFT FLIPPER</button>
           <button class="button-black button-small black" onclick="wpcSystem.setInput(11);">RIGHT FLIPPER</button>
           <button class="button-black button-small black" onclick="wpcSystem.setInput(13);">START</button>
@@ -61,36 +62,27 @@
     <script>
       var a = document.getElementsByTagName('canvas')[0];
       var b = document.body;
-      var d = function(e){ return function(){ e.parentNode.removeChild(e); }; }(a);
-      // unprefix some popular vendor prefixed things (but stick to their original name)
+
       var AudioContext =
         window.AudioContext ||
         window.webkitAudioContext;
-      var requestAnimationFrame =
-        window.requestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        window.webkitRequestAnimationFrame ||
-        window.msRequestAnimationFrame ||
-        function(f){ setTimeout(f, 1000/30); };
+      
+        // auto resize (original) canvas. call `onresize(w,h) to limit the size of the canvas
+        (window.onorientationchange = window.onresize = function(a){
+          var mw = Infinity;
+          var mh = Infinity;
 
-      // fix bug in safari: http://qfox.nl/weblog/218
-      document.body.clientWidth;
-      // auto resize (original) canvas. call `onresize(w,h) to limit the size of the canvas
-      (window.onorientationchange = window.onresize = function(a){
-        var mw = Infinity;
-        var mh = Infinity;
+          return function(w,h){
+            if (arguments.length === 2) {
+              mw = w;
+              mh = h;
+            }
+            a.style.width = (a.width = Math.min(mw, innerWidth)) + 'px';
+            a.style.height = (a.height = Math.min(mh, innerHeight)) + 'px';
+          };
+        }(a))();
 
-        return function(w,h){
-          if (arguments.length === 2) {
-            mw = w;
-            mh = h;
-          }
-          a.style.width = (a.width = Math.min(mw, innerWidth)) + 'px';
-          a.style.height = (a.height = Math.min(mh, innerHeight)) + 'px';
-        };
-      }(a))();
-
-      var c = a.getContext('2d');
+      var c = a.getContext('2d', { alpha: false });
     </script>
     <script src="../dist/wpc-emu.js"></script>
     <script src="client.js"></script>
