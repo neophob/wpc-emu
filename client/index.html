@@ -5,7 +5,8 @@
     <title>WPC Emu Debug view</title>
     <meta name="viewport" content="viewport-fit=cover, initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <link rel="stylesheet" href="http://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
-    <link rel="stylesheet" href="client.css">
+    <link rel="stylesheet" href="styles/client.css">
+    <script src="../dist/wpc-emu.js"></script>
   </head>
   <body>
 
@@ -66,7 +67,7 @@
       var AudioContext =
         window.AudioContext ||
         window.webkitAudioContext;
-      
+
         // auto resize (original) canvas. call `onresize(w,h) to limit the size of the canvas
         (window.onorientationchange = window.onresize = function(a){
           var mw = Infinity;
@@ -84,7 +85,7 @@
 
       var c = a.getContext('2d', { alpha: false });
     </script>
-    <script src="../dist/wpc-emu.js"></script>
-    <script src="client.js"></script>
+    <script src="scripts/main.js"></script>
+
   </body>
 </html>

@@ -5,7 +5,7 @@ const MinifyPlugin = require('babel-minify-webpack-plugin');
 
 module.exports = () => {
   return {
-    entry: './client/client.js',
+    entry: './client/scripts/main.js',
     plugins: [
       new MinifyPlugin()
     ],
