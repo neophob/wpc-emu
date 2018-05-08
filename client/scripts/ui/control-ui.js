@@ -1,8 +1,8 @@
 'use strict';
 
 import viewTpl from '../main.view.tpl';
-
 import { replaceNode } from './htmlselector';
+
 export { populateControlUiView };
 
 function addEmulatorControls() {
@@ -18,9 +18,9 @@ function addGameSpecificControls(gameEntry) {
       const child = document.createElement('button');
       child.innerHTML = mapping.name;
       child.className = 'button-black button-outline button-small black';
-      child.onclick = () => {
+      child.addEventListener('click', () => {
         window.wpcInterface.wpcSystem.setInput(mapping.id);
-      };
+      });
       element.appendChild(child);
     });
   }

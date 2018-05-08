@@ -55,6 +55,7 @@
       "no-use-extend-native/no-use-extend-native": 0
     },
     "ignores": [
+      "client",
       "lib/boards/up/ym2151.js",
       "lib/boards/up/cpu6809.js"
     ]

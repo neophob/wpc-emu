@@ -6,14 +6,13 @@ import '../styles/client.css';
 import { downloadFileFromUrlAsUInt8Array } from './fetcher';
 import { initialiseEmulator } from './emulator';
 import * as gamelist from './db/gamelist';
-import { populateControlUiView } from './ui/controlUi';
-import * as emuDebugUi from './ui/emuDebugUi';
+import { populateControlUiView } from './ui/control-ui';
+import * as emuDebugUi from './ui/emu-debug-ui';
 
-function initialiseEmu(romUrl) {
-  const romFileName = romUrl.substring(romUrl.lastIndexOf('/')+1);
-  return downloadFileFromUrlAsUInt8Array(romUrl)
+function initialiseEmu(gameEntry) {
+  return downloadFileFromUrlAsUInt8Array(gameEntry.url)
     .then((romData) => {
-      return initialiseEmulator(romData, romFileName);
+      return initialiseEmulator(romData, gameEntry);
     })
     .then((wpcSystem) => {
       // TODO IIKS we pollute globals here
@@ -32,9 +31,10 @@ function initialiseEmu(romUrl) {
     });
 }
 
-const gameEntry = gamelist.getByName('Hurricane');//Terminator 2');
+const gameEntry = gamelist.getByName('Hurricane');
+//const gameEntry = gamelist.getByName('Terminator 2');
 populateControlUiView(gameEntry);
-initialiseEmu(gameEntry.url);
+initialiseEmu(gameEntry);
 
 function pauseEmu() {
   emuDebugUi.stopEmu();

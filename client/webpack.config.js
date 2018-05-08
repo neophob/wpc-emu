@@ -9,7 +9,7 @@ module.exports = () => {
     entry: './scripts/main.js',
     plugins: [
       new MinifyPlugin(),
-      new HtmlWebpackPlugin({  // Also generate a test.html
+      new HtmlWebpackPlugin({
         template: 'index.html',
         minify: true
       })
