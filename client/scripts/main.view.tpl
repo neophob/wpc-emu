@@ -28,8 +28,8 @@
 
     <div class="row">
       <div class="column column-10">Switch</div>
-      <div class="column">
-        <button class="button-black button-small black" onclick="wpcSystem.setInput(12);">LEFT FLIPPER</button>
+      <div id="pinball-specfic-switch-input" class="column">
+<!--        <button class="button-black button-small black" onclick="wpcSystem.setInput(12);">LEFT FLIPPER</button>
         <button class="button-black button-small black" onclick="wpcSystem.setInput(11);">RIGHT FLIPPER</button>
         <button class="button-black button-small black" onclick="wpcSystem.setInput(13);">START</button>
         <button class="button-black button-outline button-small black" onclick="wpcSystem.setInput(28);">BALL SHOOTER</button>
@@ -41,7 +41,7 @@
         <button class="button-black button-outline button-small black" onclick="wpcSystem.setInput(31);">31</button>
         <button class="button-black button-outline button-small black" onclick="wpcSystem.setInput(32);">32</button>
         <button class="button-black button-outline button-small black" onclick="wpcSystem.setInput(33);">33</button>
-        <button class="button-black button-outline button-small black" onclick="wpcSystem.setInput(34);">34</button>
+        <button class="button-black button-outline button-small black" onclick="wpcSystem.setInput(34);">34</button>-->
       </div>
     </div>
   </div>
