@@ -1,7 +1,7 @@
 {
-  "name": "wpc-emu",
+  "name": "wpc-emu-frontend",
   "version": "1.0.0",
-  "description": "WPC pinball machine emu",
+  "description": "WPC pinball machine emu frontend",
   "main": "index.js",
   "engines": {
     "node": ">=10.0.0"
@@ -9,25 +9,22 @@
   "scripts": {
     "build": "webpack --mode development",
     "build:production": "webpack --mode production",
-    "build:test": "rm -f dist/* && webpack && cp assets/* dist && DEBUG=* node index.js",
-    "start": "DEBUG=* node index.js",
-    "debug": "node --inspect index.js",
-    "xo": "xo",
-    "test": "ava --verbose test/lib/**",
-    "test:integration": "ava --verbose test/integration/**",
-    "test:debug": "DEBUG='wpc*' ava --verbose test/lib/**"
+    "watch": "webpack --mode development --watch",
+    "xo": "xo"
   },
   "author": "Michael Vogt",
   "license": "ISC",
   "devDependencies": {
-    "ava": "^0.25.0",
     "babel-minify-webpack-plugin": "^0.3.1",
+    "css-loader": "^0.28.11",
+    "html-webpack-plugin": "^3.2.0",
+    "milligram": "^1.3.0",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.21.0",
     "webpack": "^4.6.0",
     "webpack-cli": "^2.0.15",
+    "webpack-dev-server": "^3.1.4",
     "xo": "^0.21.0"
-  },
-  "dependencies": {
-    "debug": "^3.1.0"
   },
   "xo": {
     "envs": [
@@ -53,10 +50,6 @@
       "new-cap": 0,
       "prefer-destructuring": 0,
       "no-use-extend-native/no-use-extend-native": 0
-    },
-    "ignores": [
-      "lib/boards/up/ym2151.js",
-      "lib/boards/up/cpu6809.js"
-    ]
+    }
   }
 }
