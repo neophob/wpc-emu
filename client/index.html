@@ -1,89 +1,13 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-    <head>
-      <title>WPC Emu debug view</title>
-      <meta charset="utf-8" />
-      <style>
-        html, body { margin: 0; padding: 0; border: 0; }
-      </style>
-    </head>
-    <body>
-      <div>
-        DBG:
-        <button type="button" onclick="stopEmu();">Pause Emulator</button>
-        <button type="button" onclick="startEmu();">Resume Emulator</button>
-        <button type="button" onclick="localStorage.debug = '*'; location.reload();">Enable Debug Logs</button>
-        <button type="button" onclick="localStorage.debug = ''; location.reload();">Disable Debug Logs</button>
-        <button type="button" onclick="wpcSystem.irq();">IRQ</button>
-        <button type="button" onclick="wpcSystem.firq();">FIRQ</button>
-        <button type="button" onclick="wpcSystem.reset();">RESET</button>
-        <button type="button" onclick="wpcSystem.executeCycle();">STEP</button>
-      </div>
-      <div>
-        COIN DOOR SWITCHES:
-        <button type="button" onclick="wpcSystem.setCabinetInput(0);">0</button>
-        <button type="button" onclick="wpcSystem.setCabinetInput(1);">1</button>
-        <button type="button" onclick="wpcSystem.setCabinetInput(2);">2</button>
-        <button type="button" onclick="wpcSystem.setCabinetInput(4);">4</button>
-        <button type="button" onclick="wpcSystem.setCabinetInput(8);">8</button>
-        <button type="button" onclick="wpcSystem.setCabinetInput(16);">Escape</button>
-        <button type="button" onclick="wpcSystem.setCabinetInput(32);">-</button>
-        <button type="button" onclick="wpcSystem.setCabinetInput(64);">+</button>
-        <button type="button" onclick="wpcSystem.setCabinetInput(128);">Enter</button>
-      </div>
-      <div>
-        INPUT SWITCHES:
-        <button type="button" onclick="wpcSystem.setInput(12);">LEFT FLIPPER</button>
-        <button type="button" onclick="wpcSystem.setInput(11);">RIGHT FLIPPER</button>
-        <button type="button" onclick="wpcSystem.setInput(13);">START</button>
-        <button type="button" onclick="wpcSystem.setInput(28);">BALL SHOOTER</button>
-        <button type="button" onclick="wpcSystem.setInput(15);">TROUGH 0</button>
-        <button type="button" onclick="wpcSystem.setInput(16);">TROUGH 1</button>
-        <button type="button" onclick="wpcSystem.setInput(17);">TROUGH 2</button>
-        <button type="button" onclick="wpcSystem.setInput(18);">TROUGH 3</button>
-        <button type="button" onclick="wpcSystem.setInput(21);">SLAM TILT</button>
-        <button type="button" onclick="wpcSystem.setInput(31);">31</button>
-        <button type="button" onclick="wpcSystem.setInput(32);">32</button>
-        <button type="button" onclick="wpcSystem.setInput(33);">33</button>
-        <button type="button" onclick="wpcSystem.setInput(34);">34</button>
-      </div>
-      <canvas id="c"></canvas>
-
-      <script>
-        var a = document.getElementsByTagName('canvas')[0];
-        var b = document.body;
-        var d = function(e){ return function(){ e.parentNode.removeChild(e); }; }(a);
-        // unprefix some popular vendor prefixed things (but stick to their original name)
-        var AudioContext =
-          window.AudioContext ||
-          window.webkitAudioContext;
-        var requestAnimationFrame =
-          window.requestAnimationFrame ||
-          window.mozRequestAnimationFrame ||
-          window.webkitRequestAnimationFrame ||
-          window.msRequestAnimationFrame ||
-          function(f){ setTimeout(f, 1000/30); };
-
-        // fix bug in safari: http://qfox.nl/weblog/218
-        document.body.clientWidth;
-        // auto resize (original) canvas. call `onresize(w,h) to limit the size of the canvas
-        (window.onorientationchange = window.onresize = function(a){
-          var mw = Infinity;
-          var mh = Infinity;
-
-          return function(w,h){
-            if (arguments.length === 2) {
-              mw = w;
-              mh = h;
-            }
-            a.style.width = (a.width = Math.min(mw, innerWidth)) + 'px';
-            a.style.height = (a.height = Math.min(mh, innerHeight)) + 'px';
-          };
-        }(a))();
-
-        var c = a.getContext('2d');
-      </script>
-      <script src="../dist/wpc-emu.js"></script>
-      <script src="client.js"></script>
-    </body>
+  <head>
+    <meta charset="UTF-8">
+    <title>WPC Emu Debug view</title>
+    <meta name="viewport" content="viewport-fit=cover, initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <script src="wpc-emu.js"></script>
+  </head>
+  <body>
+    <div id="rootNode"></div>
+    <div id="canvasNode"></div>
+  </body>
 </html>
