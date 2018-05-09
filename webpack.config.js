@@ -3,11 +3,9 @@
 const path = require('path');
 const MinifyPlugin = require('babel-minify-webpack-plugin');
 
-function getWebPackConfig(isProduction) {
-  const mode = isProduction ? 'production' : 'development';
+module.exports = () => {
   return {
     entry: './lib/emulator.js',
-    mode,
     plugins: [
       new MinifyPlugin()
     ],
@@ -17,8 +15,4 @@ function getWebPackConfig(isProduction) {
       library: 'WpcEmu',
     }
   };
-}
-
-module.exports = (env) => {
- return getWebPackConfig(env === 'production');
 };

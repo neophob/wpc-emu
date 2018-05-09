@@ -29,10 +29,10 @@ test('wpc, should clear zerocross flag when read', (t) => {
 
 test('wpc, should respect old zerocross flag state when read', (t) => {
   const wpc = t.context;
-  wpc.write(WPC.OP.WPC_ZEROCROSS_IRQ_CLEAR, 0x7f);
+  wpc.write(WPC.OP.WPC_ZEROCROSS_IRQ_CLEAR, 0x7F);
   wpc.setZeroCrossFlag();
   const result = wpc.read(WPC.OP.WPC_ZEROCROSS_IRQ_CLEAR);
-  t.is(result, 0xff);
+  t.is(result, 0xFF);
   t.is(wpc.zeroCrossFlag, 0);
 });
 
@@ -89,32 +89,10 @@ test('wpc, should WPC_SHIFTBIT 0xFF', (t) => {
   t.is(result, 0x80);
 });
 
-test('wpc, update active lamp, maximal value', (t) => {
+test('wpc, update active lamp', (t) => {
   const wpc = t.context;
-  wpc._updateActiveLamp(0x80, 0x80);
-  t.is(wpc.activeLamp, 64);
-});
-
-test('wpc, update active lamp, all off', (t) => {
-  const wpc = t.context;
-  wpc._updateActiveLamp(0, 0);
-  t.is(wpc.activeLamp, 0);
-});
-
-test('wpc, update active lamp, minimal value', (t) => {
-  const wpc = t.context;
-  wpc._updateActiveLamp(0x01, 0x01);
-  t.is(wpc.activeLamp, 1);
-});
-
-test('wpc, update active lamp, row maximal value', (t) => {
-  const wpc = t.context;
-  wpc._updateActiveLamp(0x80, 0x01);
-  t.is(wpc.activeLamp, 57);
-});
-
-test('wpc, update active lamp, col maximal value', (t) => {
-  const wpc = t.context;
-  wpc._updateActiveLamp(0x01, 0x80);
-  t.is(wpc.activeLamp, 8);
+  wpc.write(WPC.OP.WPC_LAMP_ROW_OUTPUT, 0x4);
+  wpc.write(WPC.OP.WPC_LAMP_COL_STROBE, 0x4);
+  const result = wpc.getUiState().lampState;
+  t.is(result[18], 0x80);
 });

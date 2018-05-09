@@ -1,7 +1,8 @@
 'use strict';
 
-import test from 'ava';
+import path from 'path';
 import fs from 'fs';
+import test from 'ava';
 import Emulator from '../../lib/emulator';
 
 function loadFile(fileName) {
@@ -16,18 +17,18 @@ function loadFile(fileName) {
 }
 
 test('Smoketest, run emulator with rom ft20_32.rom', (t) => {
-  const ROMFILE = __dirname + '/../../rom.freewpc/ft20_32.rom';
+  const ROMFILE = path.join(__dirname, '/../../rom.freewpc/ft20_32.rom');
   return loadFile(ROMFILE)
     .then((rom) => {
       return Emulator.initVMwithRom(rom, 'unittest');
     })
     .then((wpcSystem) => {
       wpcSystem.start();
-      for (let i = 0; i < 0xffff; i++) {
+      for (let i = 0; i < 0xFFFF; i++) {
         wpcSystem.executeCycle();
       }
       const uiState = wpcSystem.getUiState();
-      t.is(uiState.ticks, 33668494);
+      t.is(uiState.ticks, 33668412);
       t.is(uiState.asic.dmd.scanline, 31);
       t.is(uiState.asic.dmd.lowpage, 2);
       t.is(uiState.asic.dmd.highpage, 3);

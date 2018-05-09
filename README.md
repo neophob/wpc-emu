@@ -12,15 +12,18 @@
 
 # State
 - it boots!
-- dmd works somehow, shading is missing
+- dmd (incl. 2bit shading) works
 - Emulator shows invalid ram settings -> TODO add dump nvram to get "valid" settings
-- after the initial boot, WPC games needs a CPU reset, after that they start asap. I assue due invalid NVRAM settings?
 - then game boots up
 
 ## TODO Shortterm
-- implement lamp/soleoid state
+- fix emulator scheduling, dmd start acting funny when cycle steps change
+- fix emu bootstrap - if a initial step < 512 ticks is used, the emu reboot itself
+- implement initial switch state
+- implement solenoid state (WIP)
+- general illumination (WIP)
+- add address mapper with callback, remove memory mappers
 - fix WPC_PERIPHERAL_TIMER_FIRQ_CLEAR wpc command
-- screen dimming
 
 # Implementation Status
 
@@ -33,7 +36,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 ## CPU Board
 - Blanking (not sure if needed)
 - Diagnostics LED ✓
-- Watchdog (not sure if needed, no reboot in case of an error)
+- Watchdog (not sure if needed, no reboot in case of an error which make it easier to find bugs in the emu)
 - Bit Shifter ✓
 - Memory Protection (not sure if needed)
 - Time of Day Clock ✓
@@ -46,7 +49,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Interrupt FIRQ ✓ (incl. source - not sure if needed)
 
 ## Power Driver Board
-- Lamp Circuits
+- Lamp Circuits ✓
 - Solenoid Circuits
 - General Illumination Circuits (Triac)
 - Zero Cross Circuit ✓
@@ -67,9 +70,11 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 ## Debug UI
 - DMD output ✓
 - Debug KPI ✓
-- Cabinet input keys work
+- Cabinet input keys work ✓
+- Adaptive FPS ✓
 
 # Future ideas
+- Hook it up to a Virtual Pinball / Pinball frontend
 - Hook it up to a broken Pinball machine, replace whole electronics with a RPI
 
 # WPS Dot Matrix Machine
@@ -130,7 +135,7 @@ Operating system:
 - CPU: Motorola 6809 (MC68A09EP), frequency 2MHz
 - OPM: Yamaha YM2151 (FM Operator Type-M), frequency 3.579545MHz
 - DAC (Digital Analog converter)
-- Harris HC-55536 CVSD (Continuously variable slope delta modulation)
+- Harris HC-55536 CVSD (Continuously variable slope delta modulation). Note HC-55536 is pin compatible with 55516 and 55564.
 - MC6821 Peripheral Interface Adaptor (PIA)
 - ROMS: U14, U15 and U18
 
@@ -148,7 +153,7 @@ Operating system:
 ## Timing
 - CPU run at 2 MHZ, this means 2'000'000 clock ticks/s -> The CPU execute 2 cycles per us.
 - CPU IRQ is called 976 times/s, that a IRQ call each 1025us
-- ZeroCross should occur 120 times per second (NTSC running at 60Hz), so each 8.3ms
+- ZeroCross should occur 120 times per second (NTSC running at 60Hz), so each 8.3ms. (8.3 * 2000cycles/ms = 16667 ticks)
 
 Timings are very tight, we cannot use `setTimeout`/`setInterval` to call for example the IRQ. So the main idea is to run one
 main loop that executes some CPU ops then check if one of the following callbacks need to be triggered:
@@ -160,6 +165,9 @@ main loop that executes some CPU ops then check if one of the following callback
 The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). At this rate, it takes 256 microseconds per row and a little more than 8 milliseconds per complete frame.
 
 # References
+
+## Terms
+- Attraction Mode: the time when no game is running and the lamps are blinking to attract people
 
 ## WPC
 
@@ -178,6 +186,7 @@ The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). 
 - http://atjs.mbnet.fi/mc6809/
 - https://github.com/maly/6809js (use this CPU core, fixed typos + implemented IRQ handling)
 - http://www.roust-it.dk/coco/6809irq.pdf
+- https://bitbucket.org/grumdrig/williams/src/master/
 
 ## Sound Chip
 - http://www.ionpool.net/arcade/gottlieb/technical/datasheets/YM2151_datasheet.pdf
