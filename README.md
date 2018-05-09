@@ -17,6 +17,9 @@
 - then game boots up
 
 ## TODO Shortterm
+- fix emulator scheduling, dmd start acting funny when cycle steps change
+- fix emu bootstrap - if a initial step < 512 ticks is used, the emu reboot itself
+- implement initial switch state
 - implement solenoid state (WIP)
 - general illumination (WIP)
 - add address mapper with callback, remove memory mappers
@@ -33,7 +36,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 ## CPU Board
 - Blanking (not sure if needed)
 - Diagnostics LED ✓
-- Watchdog (not sure if needed, no reboot in case of an error)
+- Watchdog (not sure if needed, no reboot in case of an error which make it easier to find bugs in the emu)
 - Bit Shifter ✓
 - Memory Protection (not sure if needed)
 - Time of Day Clock ✓
@@ -150,7 +153,7 @@ Operating system:
 ## Timing
 - CPU run at 2 MHZ, this means 2'000'000 clock ticks/s -> The CPU execute 2 cycles per us.
 - CPU IRQ is called 976 times/s, that a IRQ call each 1025us
-- ZeroCross should occur 120 times per second (NTSC running at 60Hz), so each 8.3ms
+- ZeroCross should occur 120 times per second (NTSC running at 60Hz), so each 8.3ms. (8.3 * 2000cycles/ms = 16667 ticks)
 
 Timings are very tight, we cannot use `setTimeout`/`setInterval` to call for example the IRQ. So the main idea is to run one
 main loop that executes some CPU ops then check if one of the following callbacks need to be triggered:
