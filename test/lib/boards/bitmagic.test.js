@@ -23,6 +23,11 @@ test('bitmagic, should get msb from undefined', (t) => {
   t.is(result, 0);
 });
 
+test('bitmagic, should set msb 0', (t) => {
+  const result = bitmagic.setMsbBit(0);
+  t.is(result, 0x01);
+});
+
 test('bitmagic, should set msb for 3', (t) => {
   const result = bitmagic.setMsbBit(3);
   t.is(result, 0x08);
