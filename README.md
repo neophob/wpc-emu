@@ -18,7 +18,7 @@
 
 ## TODO Shortterm
 - fix emulator scheduling, dmd start acting funny when cycle steps change
-- fix emu bootstrap - if a initial step < 512 ticks is used, the emu reboot itself
+- fix emu bootstrap - if a initial step < 512 ticks is used, the ram looks like its refreshing itself - reboot? - and its looping somehow without DMD output. cpu issue? timing issue?
 - implement initial switch state
 - implement solenoid state (WIP)
 - general illumination (WIP)

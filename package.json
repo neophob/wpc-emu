@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "webpack --mode development",
+    "watch": "webpack --mode development --watch",
     "build:production": "webpack --mode production",
     "build:test": "rm -f dist/* && webpack && cp assets/* dist && DEBUG=* node index.js",
     "start": "DEBUG=* node index.js",
