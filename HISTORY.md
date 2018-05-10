@@ -1,5 +1,10 @@
 # HISTORY
 
+## 9/05/18
+
+- Identified source of nasty DMD glitches in faulty FIRQ handling in the wpc functions
+- Remove "debug" module from production build -> should speedup a bit
+
 ## 8/05/18
 
 - Debug UI use adaptive FPS to stick at 2000ops/ms
