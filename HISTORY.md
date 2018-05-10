@@ -7,26 +7,26 @@
 ```
 BENCHMARK START, ROM: /Users/michaelvogt/_code/github/wpc-emu/rom.freewpc/ft20_32.rom
 Ticks to execute: 20000000 => CPU REALTIME: 10000ms (CPU HZ: 2000000)
-                             	durationMs	tickSteps	missedIRQ	 missedFIRQ	 ticksExecuted
-DURATION_MS_FOR_0xFFFF_CYCLES	1282		    1		      4425847		 4121		     20000014
-DURATION_MS_FOR_0xFFFF_CYCLES	1194		    2		      4425847		 4121		     20000014
-DURATION_MS_FOR_0xFFFF_CYCLES	1057		    4		      3480983		 4121		     20000014
-DURATION_MS_FOR_0xFFFF_CYCLES	990		      5		      2747650		 4121		     20000014
-DURATION_MS_FOR_0xFFFF_CYCLES	940		      8		      1961386		 4121		     20000014
-DURATION_MS_FOR_0xFFFF_CYCLES	990		      10		    1562157		 4121		     20000014
-DURATION_MS_FOR_0xFFFF_CYCLES	983		      12		    1358921		 4121		     20000014
-DURATION_MS_FOR_0xFFFF_CYCLES	950		      16		    1028600		 4121		     20000014
-DURATION_MS_FOR_0xFFFF_CYCLES	873		      32		    547034		 4121		     20000016
-DURATION_MS_FOR_0xFFFF_CYCLES	776		      64		    267638		 4121		     20000033
-DURATION_MS_FOR_0xFFFF_CYCLES	807		      256		    44426		   4121		     20000103
-DURATION_MS_FOR_0xFFFF_CYCLES	789		      390		    17962		   4121		     20000033
-DURATION_MS_FOR_0xFFFF_CYCLES	781		      393		    17551		   4121		     20000049
-DURATION_MS_FOR_0xFFFF_CYCLES	938		      512		    6247		   1		       20000081
-DURATION_MS_FOR_0xFFFF_CYCLES	797		      1024		  17769		   0		       20000650
-DURATION_MS_FOR_0xFFFF_CYCLES	759		      2048		  8848		   0		       20000662
-DURATION_MS_FOR_0xFFFF_CYCLES	720		      4096		  4040		   0		       20003508
-DURATION_MS_FOR_0xFFFF_CYCLES	722		      8192		  1816		   0		       20002842
-DURATION_MS_FOR_0xFFFF_CYCLES	699		      16384		  700		     0		       20007527
+	                               durationMs	     tickSteps	  missedIRQ	 missedFIRQ	 ticksExecuted
+DURATION_MS_FOR_0xFFFF_CYCLES    1282            1            4425847    4121        20000014
+DURATION_MS_FOR_0xFFFF_CYCLES    1194            2            4425847    4121        20000014
+DURATION_MS_FOR_0xFFFF_CYCLES    1057            4            3480983    4121        20000014
+DURATION_MS_FOR_0xFFFF_CYCLES    990             5            2747650    4121        20000014
+DURATION_MS_FOR_0xFFFF_CYCLES    940             8            1961386    4121        20000014
+DURATION_MS_FOR_0xFFFF_CYCLES    990             10           1562157    4121        20000014
+DURATION_MS_FOR_0xFFFF_CYCLES    983             12           1358921    4121        20000014
+DURATION_MS_FOR_0xFFFF_CYCLES    950             16           1028600    4121        20000014
+DURATION_MS_FOR_0xFFFF_CYCLES    873             32           547034     4121        20000016
+DURATION_MS_FOR_0xFFFF_CYCLES    776             64           267638     4121        20000033
+DURATION_MS_FOR_0xFFFF_CYCLES    807             256          44426      4121        20000103
+DURATION_MS_FOR_0xFFFF_CYCLES    789             390          17962      4121        20000033
+DURATION_MS_FOR_0xFFFF_CYCLES    781             393          17551      4121        20000049
+DURATION_MS_FOR_0xFFFF_CYCLES    938             512          6247       1           20000081
+DURATION_MS_FOR_0xFFFF_CYCLES    797             1024         17769      0           20000650
+DURATION_MS_FOR_0xFFFF_CYCLES    759             2048         8848       0           20000662
+DURATION_MS_FOR_0xFFFF_CYCLES    720             4096         4040       0           20003508
+DURATION_MS_FOR_0xFFFF_CYCLES    722             8192         1816       0           20002842
+DURATION_MS_FOR_0xFFFF_CYCLES    699             16384        700        0           20007527
 ```
 
  -> huge missed IRQ (either because pending IRQ or the F_IRQMASK flag is set)
