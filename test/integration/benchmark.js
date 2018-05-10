@@ -29,7 +29,7 @@ function benchmarkWithCycleCount(tickSteps) {
       const ticksExecuted = wpcSystem.executeCycle(CYCLE_COUNT, tickSteps);
       const status = wpcSystem.getUiState();
       const durationMs = Date.now() - tsStart;
-      console.error(`DURATION_MS_FOR_0xFFFF_CYCLES\t${durationMs}\t\t${tickSteps}\t\t${status.missedIrqCall}\t\t${status.missedFirqCall}\t\t${ticksExecuted}`);
+      console.error(`  ${tickSteps}\t\t${durationMs}\t\t${status.missedIrqCall}\t\t${status.missedFirqCall}\t\t${ticksExecuted}`);
     });
 }
 
@@ -37,7 +37,7 @@ const HZ = 2000000;
 const cpuRealTime = 1 / HZ * CYCLE_COUNT * 1000;
 console.error(`BENCHMARK START, ROM: ${ROMFILE}`);
 console.error(`Ticks to execute: ${CYCLE_COUNT} => CPU REALTIME: ${cpuRealTime}ms (CPU HZ: ${HZ})`);
-console.error('                             \tdurationMs\ttickSteps\tmissed IRQ\tmissed FIRQ\tticksExecuted');
+console.error('  tickSteps\tdurationMs\tmissed IRQ\tmissed FIRQ\tticksExecuted');
 
 Promise.resolve()
   .then(() => benchmarkWithCycleCount(1))

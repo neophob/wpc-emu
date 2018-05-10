@@ -6,27 +6,27 @@
 
 ```
 BENCHMARK START, ROM: ./rom.freewpc/ft20_32.rom
-Ticks to execute: 20000000 => CPU REALTIME: 10000ms (CPU HZ: 2000000)
-                                 durationMs      tickSteps    missedIRQ  missedFIRQ  ticksExecuted
-DURATION_MS_FOR_0xFFFF_CYCLES    1282            1            4425847    4121        20000014
-DURATION_MS_FOR_0xFFFF_CYCLES    1194            2            4425847    4121        20000014
-DURATION_MS_FOR_0xFFFF_CYCLES    1057            4            3480983    4121        20000014
-DURATION_MS_FOR_0xFFFF_CYCLES    990             5            2747650    4121        20000014
-DURATION_MS_FOR_0xFFFF_CYCLES    940             8            1961386    4121        20000014
-DURATION_MS_FOR_0xFFFF_CYCLES    990             10           1562157    4121        20000014
-DURATION_MS_FOR_0xFFFF_CYCLES    983             12           1358921    4121        20000014
-DURATION_MS_FOR_0xFFFF_CYCLES    950             16           1028600    4121        20000014
-DURATION_MS_FOR_0xFFFF_CYCLES    873             32           547034     4121        20000016
-DURATION_MS_FOR_0xFFFF_CYCLES    776             64           267638     4121        20000033
-DURATION_MS_FOR_0xFFFF_CYCLES    807             256          44426      4121        20000103
-DURATION_MS_FOR_0xFFFF_CYCLES    789             390          17962      4121        20000033
-DURATION_MS_FOR_0xFFFF_CYCLES    781             393          17551      4121        20000049
-DURATION_MS_FOR_0xFFFF_CYCLES    938             512          6247       1           20000081
-DURATION_MS_FOR_0xFFFF_CYCLES    797             1024         17769      0           20000650
-DURATION_MS_FOR_0xFFFF_CYCLES    759             2048         8848       0           20000662
-DURATION_MS_FOR_0xFFFF_CYCLES    720             4096         4040       0           20003508
-DURATION_MS_FOR_0xFFFF_CYCLES    722             8192         1816       0           20002842
-DURATION_MS_FOR_0xFFFF_CYCLES    699             16384        700        0           20007527
+Ticks to execute: 2000000 => CPU REALTIME: 1000ms (CPU HZ: 2000000)
+ tickSteps    durationMs    missed IRQ    missed FIRQ    ticksExecuted
+  1            215           454452        315            2000002
+  2            112           454452        315            2000002
+  4            83            338660        315            2000002
+  5            94            279857        315            2000002
+  8            92            193662        315            2000002
+  10           83            157307        315            2000002
+  12           81            137554        315            2000007
+  16           75            104895        315            2000007
+  32           82            54979         315            2000028
+  64           79            27299         315            2000031
+  256          78            5213          315            2000038
+  390          76            2564          315            2000213
+  393          78            2521          315            2000253
+  512          122           1385          1              2000348
+  1024         128           1691          0              2000686
+  2048         88            838           0              2001037
+  4096         76            368           0              2004049
+  8192         65            140           0              2007634
+  16384        68            29            0              2015496
 ```
 
  -> huge missed IRQ (either because pending IRQ or the F_IRQMASK flag is set)
