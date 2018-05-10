@@ -2,6 +2,8 @@
 
 ## 10/05/18
 
+![10.05.18](assets/10.05.18.png?raw=true)
+
 - Found the issue why the Emulator seems to be stuck when using small tickSteps in mainloop. I created a simple Benchmark and added missedIRQ and missedFIRQ counter to the CPU. The Emulator starts (although very slow) when using tickSteps of 393, but fails when smaller than 393:
 
 ```
