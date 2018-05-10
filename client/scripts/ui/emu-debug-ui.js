@@ -120,12 +120,12 @@ function drawMemRegion(data, x, y, width) {
 
   var offsetX = 0;
   var offsetY = 0;
-  var alpha = 0;
+  var color = 0;
   for (var i = 0, len = data.length; i < len; i++) {
     if (data[i] > 0) {
-      if (alpha !== data[i]) {
-        alpha = data[i];
-        c.fillStyle = 'rgb(' + alpha + ',' + alpha + ',' + alpha + ')';
+      if (color !== data[i]) {
+        color = data[i];
+        c.fillStyle = 'rgb(' + color + ',' + color + ',' + color + ')';
       }
       c.fillRect(x + offsetX, y + offsetY, 1, 1);
     }
@@ -136,8 +136,7 @@ function drawMemRegion(data, x, y, width) {
   }
 }
 
-function drawMatrix8x8(data, x, y) {
-  const GRIDSIZE = 15;
+function drawMatrix8x8(data, x, y, GRIDSIZE = 15) {
   data.forEach((lamp, index) => {
     c.fillStyle = lamp & 0x80 ? COLOR_DMD[3] :
       lamp & 0x70 ? COLOR_DMD[1] : COLOR_DMD[0];
@@ -168,9 +167,11 @@ function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
   for (var i = 0; i < data.length; i++) {
     const packedByte = data[i];
     for (var j = 0; j < BIT_ARRAY.length; j++) {
-      const mask = BIT_ARRAY[j];
-      if (mask & packedByte) {
-        c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
+      if (packedByte > 0) {
+        const mask = BIT_ARRAY[j];
+        if (mask & packedByte) {
+          c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
+        }        
       }
       offsetX++;
       if (offsetX === width) {
@@ -182,12 +183,20 @@ function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
 }
 
 function drawDmdShaded(data, x, y, width, SCALE_FACTOR = 1) {
+  c.fillStyle = COLOR_DMD[0];
+  c.fillRect(x, y, width * SCALE_FACTOR, 32 * SCALE_FACTOR);
+
   var offsetX = 0;
   var offsetY = 0;
+  var color = 0;
   for (var i = 0; i < data.length; i++) {
-    const pixel = data[i];
-    c.fillStyle = COLOR_DMD[pixel];
-    c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
+    if (data[i] > 0) {
+      if (color !== data[i]) {
+        color = data[i];
+        c.fillStyle = COLOR_DMD[color];
+      }
+      c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
+    }
     offsetX++;
     if (offsetX === width) {
       offsetX = 0;
