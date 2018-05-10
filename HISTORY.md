@@ -7,7 +7,7 @@
 ```
 BENCHMARK START, ROM: /Users/michaelvogt/_code/github/wpc-emu/rom.freewpc/ft20_32.rom
 Ticks to execute: 20000000 => CPU REALTIME: 10000ms (CPU HZ: 2000000)
-	                               durationMs	     tickSteps	  missedIRQ	 missedFIRQ	 ticksExecuted
+                                 durationMs      tickSteps    missedIRQ  missedFIRQ  ticksExecuted
 DURATION_MS_FOR_0xFFFF_CYCLES    1282            1            4425847    4121        20000014
 DURATION_MS_FOR_0xFFFF_CYCLES    1194            2            4425847    4121        20000014
 DURATION_MS_FOR_0xFFFF_CYCLES    1057            4            3480983    4121        20000014
