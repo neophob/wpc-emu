@@ -115,12 +115,20 @@ function updateCanvas() {
 }
 
 function drawMemRegion(data, x, y, width) {
+  c.fillStyle = COLOR_DMD[0];
+  c.fillRect(x, y, width, 65);
+
   var offsetX = 0;
   var offsetY = 0;
+  var alpha = 0;
   for (var i = 0, len = data.length; i < len; i++) {
-    const alpha = data[i];
-    c.fillStyle = 'rgb(' + alpha + ',' + alpha + ',' + alpha + ')';
-    c.fillRect(x + offsetX, y + offsetY, 1, 1);
+    if (data[i] > 0) {
+      if (alpha !== data[i]) {
+        alpha = data[i];
+        c.fillStyle = 'rgb(' + alpha + ',' + alpha + ',' + alpha + ')';
+      }
+      c.fillRect(x + offsetX, y + offsetY, 1, 1);
+    }
     if (offsetX++ === width) {
       offsetX = 0;
       offsetY++;
