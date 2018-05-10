@@ -2,10 +2,10 @@
 
 ## 10/05/18
 
-- Found the issue why the emu seems to be stuck when using small tickSteps in mainloop. I created a simple Benchmark and added missedIRQ and missedFIRQ to CPU. The Emu starts (although very slow) when using tickSteps of 393, but fails when smaller than 393:
+- Found the issue why the Emulator seems to be stuck when using small tickSteps in mainloop. I created a simple Benchmark and added missedIRQ and missedFIRQ counter to the CPU. The Emulator starts (although very slow) when using tickSteps of 393, but fails when smaller than 393:
 
 ```
-BENCHMARK START, ROM: /Users/michaelvogt/_code/github/wpc-emu/rom.freewpc/ft20_32.rom
+BENCHMARK START, ROM: ./rom.freewpc/ft20_32.rom
 Ticks to execute: 20000000 => CPU REALTIME: 10000ms (CPU HZ: 2000000)
                                  durationMs      tickSteps    missedIRQ  missedFIRQ  ticksExecuted
 DURATION_MS_FOR_0xFFFF_CYCLES    1282            1            4425847    4121        20000014
