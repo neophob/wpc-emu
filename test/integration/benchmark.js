@@ -27,8 +27,8 @@ function benchmarkWithCycleCount(tickSteps) {
       wpcSystem.start();
       const tsStart = Date.now();
       const ticksExecuted = wpcSystem.executeCycle(CYCLE_COUNT, tickSteps);
-      const status = wpcSystem.getUiState();
       const durationMs = Date.now() - tsStart;
+      const status = wpcSystem.getUiState();
       console.error(`  ${tickSteps}\t\t${durationMs}\t\t${status.missedIrqCall}\t\t${status.missedFirqCall}\t\t${ticksExecuted}`);
     });
 }

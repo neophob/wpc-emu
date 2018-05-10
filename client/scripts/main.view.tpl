@@ -7,8 +7,6 @@
         <button class="button-black button-small black" onclick="wpcInterface.wpcSystem.reset();">RESET</button>
         <button class="button-black button-outline button-small black" onclick="wpcInterface.pauseEmu();">Pause</button>
         <button class="button-black button-outline button-small black" onclick="wpcInterface.resumeEmu();">Resume</button>
-        <button class="button-black button-outline button-small black" onclick="localStorage.debug = '*'; location.reload();">Enable Debug</button>
-        <button class="button-black button-outline button-small black" onclick="localStorage.debug = ''; location.reload();">Disable Debug</button>
       </div>
     </div>
 

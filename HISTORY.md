@@ -29,7 +29,8 @@ Ticks to execute: 2000000 => CPU REALTIME: 1000ms (CPU HZ: 2000000)
   16384        68            29            0              2015496
 ```
 
- -> huge missed IRQ (either because pending IRQ or the F_IRQMASK flag is set)
+ -> huge missed IRQ (either because pending IRQ or the F_IRQMASK flag is set). Most missed IRQ calls are because the F_IRQMASK flag was not cleared.
+ - fixed invalid counter in emulator main loop, video output improved
 
 ## 9/05/18
 

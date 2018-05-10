@@ -30,39 +30,25 @@ const COLOR_DMD = [
   'rgb(255,198,0)',
 ];
 
+const HZ = 2000000;
+const DESIRED_FPS = 60;
+const TICKS_PER_STEP = parseInt(HZ / DESIRED_FPS, 10);
 var c;
 var wpcSystem;
 var intervalId;
-var wpcCycles = 32;
 var opsMs = 0;
 var perfTicksExecuted = 0;
-var perfTs = Date.now();
 
 //called at 60hz -> 16.6ms
+// TODO move me to main
 function step() {
+
+  const perfTs = Date.now();
+  perfTicksExecuted = wpcSystem.executeCycle(TICKS_PER_STEP, 10);
+  const perfDurationMs = Date.now() - perfTs;
+  opsMs = parseInt(perfTicksExecuted / perfDurationMs, 16);
   updateCanvas();
 
-  var count = wpcCycles;
-  while (count--) {
-    perfTicksExecuted += wpcSystem.executeCycle();
-    perfTicksExecuted += wpcSystem.executeCycle();
-    perfTicksExecuted += wpcSystem.executeCycle();
-    perfTicksExecuted += wpcSystem.executeCycle();
-  }
-
-  const perfDurationMs = Date.now() - perfTs;
-  if (perfDurationMs > 480) {
-    opsMs = parseInt(perfTicksExecuted / perfDurationMs, 10);
-    // try to run at 2000 ops per ms
-    if (opsMs > 2040 && wpcCycles > 2) {
-      wpcCycles--;
-    }
-    if (opsMs < 1960 && wpcCycles < 512) {
-      wpcCycles++;
-    }
-    perfTicksExecuted = 0;
-    perfTs = Date.now();
-  }
   intervalId = requestAnimationFrame(step);
 }
 
@@ -94,8 +80,8 @@ function updateCanvas() {
   c.fillText('CPU TICKS/ms: ' + opsMs, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 30);
   const cpuState = intervalId ? 'running' : 'paused';
   c.fillText('CPU STATE: ' + cpuState, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 40);
-  c.fillText('IRQ enabled: ' + emuState.asic.wpc.irqEnabled, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
-  c.fillText('UI CYCLES: ' + wpcCycles, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
+  c.fillText('IRQ missed: ' + (emuState.missedIrqCall - emuState.missedIrqMaskCall||0), LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
+  c.fillText('FIRQ missed: ' + emuState.missedFirqCall, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
 
   const diagnosticLed = emuState.asic.wpc.diagnosticLed ? emuState.asic.wpc.diagnosticLed.toString(2) : '00000000';
   const activePage = emuState.asic.dmd.activepage;
