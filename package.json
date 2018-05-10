@@ -15,8 +15,9 @@
     "debug": "node --inspect index.js",
     "xo": "xo",
     "test": "ava --verbose test/lib/**",
-    "test:integration": "ava --verbose test/integration/**",
-    "test:debug": "DEBUG='wpc*' ava --verbose test/lib/**"
+    "test:debug": "DEBUG='wpc*' ava --verbose test/lib/**",
+    "test:integration": "ava --verbose test/integration/*.test.js",
+    "benchmark": "node test/integration/benchmark.js > /dev/null"
   },
   "author": "Michael Vogt",
   "license": "ISC",
