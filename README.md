@@ -17,7 +17,7 @@
 - then game boots up
 
 ## TODO Shortterm
-- fix emulator scheduling, dmd start acting funny when cycle steps change
+- calling 4 x executeCycle(500) works, calling 1 x executeCycle(2000) results in a lot of stacked up IRQ calls - something is fishy here!
 - fix emu bootstrap - if a initial step < 512 ticks is used, the ram looks like its refreshing itself - reboot? - and its looping somehow without DMD output. cpu issue? timing issue?
 - implement initial switch state
 - implement solenoid state (WIP)
