@@ -23,6 +23,7 @@
   "devDependencies": {
     "ava": "^0.25.0",
     "babel-minify-webpack-plugin": "^0.3.1",
+    "remove-debug-loader": "^0.2.6",
     "webpack": "^4.6.0",
     "webpack-cli": "^2.0.15",
     "xo": "^0.21.0"
