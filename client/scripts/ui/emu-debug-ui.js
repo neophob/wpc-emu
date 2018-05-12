@@ -30,39 +30,25 @@ const COLOR_DMD = [
   'rgb(255,198,0)',
 ];
 
+const HZ = 2000000;
+const DESIRED_FPS = 60;
+const TICKS_PER_STEP = parseInt(HZ / DESIRED_FPS, 10);
 var c;
 var wpcSystem;
 var intervalId;
-var wpcCycles = 32;
 var opsMs = 0;
 var perfTicksExecuted = 0;
-var perfTs = Date.now();
 
 //called at 60hz -> 16.6ms
+// TODO move me to main
 function step() {
+
+  const perfTs = Date.now();
+  perfTicksExecuted = wpcSystem.executeCycle(TICKS_PER_STEP, 10);
+  const perfDurationMs = Date.now() - perfTs;
+  opsMs = parseInt(perfTicksExecuted / perfDurationMs, 16);
   updateCanvas();
 
-  var count = wpcCycles;
-  while (count--) {
-    perfTicksExecuted += wpcSystem.executeCycle();
-    perfTicksExecuted += wpcSystem.executeCycle();
-    perfTicksExecuted += wpcSystem.executeCycle();
-    perfTicksExecuted += wpcSystem.executeCycle();
-  }
-
-  const perfDurationMs = Date.now() - perfTs;
-  if (perfDurationMs > 480) {
-    opsMs = parseInt(perfTicksExecuted / perfDurationMs, 10);
-    // try to run at 2000 ops per ms
-    if (opsMs > 2040 && wpcCycles > 2) {
-      wpcCycles--;
-    }
-    if (opsMs < 1960 && wpcCycles < 512) {
-      wpcCycles++;
-    }
-    perfTicksExecuted = 0;
-    perfTs = Date.now();
-  }
   intervalId = requestAnimationFrame(step);
 }
 
@@ -94,8 +80,8 @@ function updateCanvas() {
   c.fillText('CPU TICKS/ms: ' + opsMs, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 30);
   const cpuState = intervalId ? 'running' : 'paused';
   c.fillText('CPU STATE: ' + cpuState, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 40);
-  c.fillText('IRQ enabled: ' + emuState.asic.wpc.irqEnabled, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
-  c.fillText('UI CYCLES: ' + wpcCycles, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
+  c.fillText('IRQ missed: ' + (emuState.missedIrqCall - emuState.missedIrqMaskCall||0), LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
+  c.fillText('FIRQ missed: ' + emuState.missedFirqCall, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
 
   const diagnosticLed = emuState.asic.wpc.diagnosticLed ? emuState.asic.wpc.diagnosticLed.toString(2) : '00000000';
   const activePage = emuState.asic.dmd.activepage;
@@ -129,12 +115,20 @@ function updateCanvas() {
 }
 
 function drawMemRegion(data, x, y, width) {
+  c.fillStyle = COLOR_DMD[0];
+  c.fillRect(x, y, width, 65);
+
   var offsetX = 0;
   var offsetY = 0;
+  var color = 0;
   for (var i = 0, len = data.length; i < len; i++) {
-    const alpha = data[i];
-    c.fillStyle = 'rgb(' + alpha + ',' + alpha + ',' + alpha + ')';
-    c.fillRect(x + offsetX, y + offsetY, 1, 1);
+    if (data[i] > 0) {
+      if (color !== data[i]) {
+        color = data[i];
+        c.fillStyle = 'rgb(' + color + ',' + color + ',' + color + ')';
+      }
+      c.fillRect(x + offsetX, y + offsetY, 1, 1);
+    }
     if (offsetX++ === width) {
       offsetX = 0;
       offsetY++;
@@ -142,8 +136,7 @@ function drawMemRegion(data, x, y, width) {
   }
 }
 
-function drawMatrix8x8(data, x, y) {
-  const GRIDSIZE = 15;
+function drawMatrix8x8(data, x, y, GRIDSIZE = 15) {
   data.forEach((lamp, index) => {
     c.fillStyle = lamp & 0x80 ? COLOR_DMD[3] :
       lamp & 0x70 ? COLOR_DMD[1] : COLOR_DMD[0];
@@ -174,9 +167,11 @@ function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
   for (var i = 0; i < data.length; i++) {
     const packedByte = data[i];
     for (var j = 0; j < BIT_ARRAY.length; j++) {
-      const mask = BIT_ARRAY[j];
-      if (mask & packedByte) {
-        c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
+      if (packedByte > 0) {
+        const mask = BIT_ARRAY[j];
+        if (mask & packedByte) {
+          c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
+        }        
       }
       offsetX++;
       if (offsetX === width) {
@@ -188,12 +183,20 @@ function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
 }
 
 function drawDmdShaded(data, x, y, width, SCALE_FACTOR = 1) {
+  c.fillStyle = COLOR_DMD[0];
+  c.fillRect(x, y, width * SCALE_FACTOR, 32 * SCALE_FACTOR);
+
   var offsetX = 0;
   var offsetY = 0;
+  var color = 0;
   for (var i = 0; i < data.length; i++) {
-    const pixel = data[i];
-    c.fillStyle = COLOR_DMD[pixel];
-    c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
+    if (data[i] > 0) {
+      if (color !== data[i]) {
+        color = data[i];
+        c.fillStyle = COLOR_DMD[color];
+      }
+      c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
+    }
     offsetX++;
     if (offsetX === width) {
       offsetX = 0;
