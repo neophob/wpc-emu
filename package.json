@@ -1,6 +1,6 @@
 {
   "name": "wpc-emu",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "WPC pinball machine emu",
   "main": "index.js",
   "engines": {
@@ -59,6 +59,7 @@
     },
     "ignores": [
       "client",
+      "docs",
       "lib/boards/up/ym2151.js",
       "lib/boards/up/cpu6809.js"
     ]

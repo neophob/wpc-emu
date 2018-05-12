@@ -1,5 +1,11 @@
 # HISTORY
 
+## 12/05/18
+
+- minor logic change in ui
+- implement initial switch state for game (in gamelist.js)
+- implement game initialisation in gamelist.js
+
 ## 10/05/18
 
 ![10.05.18](assets/10.05.18.png?raw=true)

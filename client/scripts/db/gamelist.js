@@ -44,8 +44,17 @@ const wpcGames = [
       { id: 63, name: 'COMET ENTRY' },
       { id: 64, name: 'COMET EXIT' },
     ],
-    switchesEnabled: [ 16, 17, 18 ],
-    skipWmcRomCheck: true
+    skipWmcRomCheck: true,
+    initialise: {
+      closedSwitches: [ 16, 17, 18 ],
+      initialAction: [
+        {
+          delayMs: 1000,
+          source: 'cabinetInput',
+          value: 16
+        }
+      ],
+    }
   },
   {
     name: 'Terminator 2',
@@ -104,8 +113,17 @@ const wpcGames = [
       { id: 77, name: 'DROP TARGET' },
       { id: 78, name: 'SHOOTER' },
     ],
-    switchesEnabled: [ 15, 16, 17 ],
-    skipWmcRomCheck: true
+    skipWmcRomCheck: true,
+    initialise: {
+      closedSwitches: [ 15, 16, 17 ],
+      initialAction: [
+        {
+          delayMs: 1000,
+          source: 'cabinetInput',
+          value: 16
+        }
+      ],
+    }
   },
   {
     name: 'Fish Tales',

@@ -36,13 +36,13 @@ test.serial('Smoketest, run emulator with rom ft20_32.rom', (t) => {
   }
 
   const uiState = wpcSystem.getUiState();
-  t.is(uiState.ticks, 34952730);
+  t.is(uiState.ticks, 32952724);
   t.is(uiState.asic.dmd.scanline, 8);
-  t.is(uiState.asic.dmd.lowpage, 2);
-  t.is(uiState.asic.dmd.highpage, 3);
-  t.is(uiState.asic.dmd.activepage, 2);
-  t.is(uiState.asic.wpc.activeRomBank, 23);
-  t.is(uiState.asic.wpc.diagnosticLedToggleCount, 24);
+  t.is(uiState.asic.dmd.lowpage, 0);
+  t.is(uiState.asic.dmd.highpage, 0);
+  t.is(uiState.asic.dmd.activepage, 0);
+  t.is(uiState.asic.wpc.activeRomBank, 24);
+  t.is(uiState.asic.wpc.diagnosticLedToggleCount, 22);
 });
 
 test.serial('steps(100) should execute at least 100 steps', (t) => {
