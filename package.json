@@ -59,6 +59,7 @@
     },
     "ignores": [
       "client",
+      "docs",
       "lib/boards/up/ym2151.js",
       "lib/boards/up/cpu6809.js"
     ]

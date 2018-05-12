@@ -2,7 +2,7 @@
 
 import { replaceNode } from './htmlselector';
 
-export { initialise, stopEmu, startEmu, wpcSystem };
+export { initialise, updateCanvas };
 
 /*jshint bitwise: false*/
 
@@ -30,43 +30,9 @@ const COLOR_DMD = [
   'rgb(255,198,0)',
 ];
 
-const HZ = 2000000;
-const DESIRED_FPS = 60;
-const TICKS_PER_STEP = parseInt(HZ / DESIRED_FPS, 10);
 var c;
-var wpcSystem;
-var intervalId;
-var opsMs = 0;
-var perfTicksExecuted = 0;
 
-//called at 60hz -> 16.6ms
-// TODO move me to main
-function step() {
-
-  const perfTs = Date.now();
-  perfTicksExecuted = wpcSystem.executeCycle(TICKS_PER_STEP, 10);
-  const perfDurationMs = Date.now() - perfTs;
-  opsMs = parseInt(perfTicksExecuted / perfDurationMs, 16);
-  updateCanvas();
-
-  intervalId = requestAnimationFrame(step);
-}
-
-function startEmu() {
-  console.log('client start emu');
-  intervalId = requestAnimationFrame(step);
-}
-
-function stopEmu() {
-  console.log('stop emu');
-  cancelAnimationFrame(intervalId);
-  intervalId = false;
-  updateCanvas();
-}
-
-function updateCanvas() {
-  const emuState = wpcSystem.getUiState();
-
+function updateCanvas(emuState, cpuState) {
   drawDmdShaded(emuState.asic.dmd.dmdShadedBuffer, LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
 
   c.fillStyle = '#000';
@@ -77,8 +43,7 @@ function updateCanvas() {
   c.fillStyle = COLOR_DMD[2];
   c.fillText('ROM: ' + emuState.asic.romFileName, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 10);
   c.fillText('CPU TICKS: ' + emuState.ticks, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 20);
-  c.fillText('CPU TICKS/ms: ' + opsMs, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 30);
-  const cpuState = intervalId ? 'running' : 'paused';
+  c.fillText('CPU TICKS/ms: ' + emuState.opsMs, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 30);
   c.fillText('CPU STATE: ' + cpuState, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 40);
   c.fillText('IRQ missed: ' + (emuState.missedIrqCall - emuState.missedIrqMaskCall||0), LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
   c.fillText('FIRQ missed: ' + emuState.missedFirqCall, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
@@ -171,7 +136,7 @@ function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
         const mask = BIT_ARRAY[j];
         if (mask & packedByte) {
           c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
-        }        
+        }
       }
       offsetX++;
       if (offsetX === width) {
@@ -224,9 +189,8 @@ function initCanvas() {
   c.fillText('RAM:', MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 10);
 }
 
-function initialise(_wpcSystem) {
+function initialise() {
   console.log('initialise');
-  wpcSystem = _wpcSystem;
 
   // prepare view
   const canvas = document.createElement('canvas');
@@ -237,6 +201,4 @@ function initialise(_wpcSystem) {
   replaceNode('canvasNode', canvas);
 
   initCanvas();
-  stopEmu();
-  startEmu();
 }
