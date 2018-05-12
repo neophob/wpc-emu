@@ -18,7 +18,8 @@
     "test:debug": "DEBUG='wpc*' ava --verbose test/lib/**",
     "test:integration": "ava --verbose test/integration/*.test.js",
     "benchmark": "node test/integration/benchmark.js > /dev/null",
-    "release": "npm run build:production && cd client && npm run build:production && cd .. && cp -f ./dist/* ./docs"
+    "release": "npm run build:production && cd client && npm run build:production && cd .. && cp -f ./dist/* ./docs",
+    "bump": "npm version patch && cd client && npm version patch"
   },
   "author": "Michael Vogt",
   "license": "ISC",
