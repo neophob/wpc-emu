@@ -3,6 +3,7 @@
 ## 12/05/18
 
 - minor logic change in ui
+- implement initial switch state for game (in gamelist.js)
 
 ## 10/05/18
 

@@ -44,7 +44,15 @@ function initialiseEmu(gameEntry) {
 function initEmuWithGameName(name) {
   const gameEntry = gamelist.getByName(name);
   populateControlUiView(gameEntry);
-  return initialiseEmu(gameEntry);
+  return initialiseEmu(gameEntry)
+    .then(() => {
+      if (Array.isArray(gameEntry.switchesEnabled)) {
+        gameEntry.switchesEnabled.forEach((switchIdToEnable) => {
+          console.log('INIT::enable switch', switchIdToEnable);
+          wpcSystem.setInput(switchIdToEnable);
+        });
+      }
+    });
 }
 
 initEmuWithGameName('Hurricane')
