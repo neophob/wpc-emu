@@ -14,8 +14,19 @@
 
 /* Custom size */
 .button-small {
-  font-size: .9rem;
-  height: 2.8rem;
-  line-height: 2.8rem;
-  padding: 0 1.5rem;
+  font-size: .8rem;
+  height: 2.7rem;
+  line-height: 2.7rem;
+  padding: 0 1.2rem;
+}
+
+body {
+  margin: 0;
+  background-color: #fc0;
+  width: 800px;
+}
+
+canvas {
+  display: block;
+  margin: 0 auto;
 }
