@@ -9,22 +9,22 @@ export { initialise, updateCanvas };
 // HINT enable debug in the browser by entering "localStorage.debug = '*'" in the browser
 
 const CANVAS_WIDTH = 800;
-const CANVAS_HEIGHT = 700;
-const YPOS_DMD_MAIN_VIEW = 20;
-const YPOS_GENERIC_DATA = 240;
-const YPOS_WPC_DATA = 350;
-const YPOS_DMD_DATA = 520;
+const CANVAS_HEIGHT = 550;
+const YPOS_DMD_MAIN_VIEW = 10;
+const YPOS_GENERIC_DATA = 220;
+const YPOS_WPC_DATA = 220;
+const YPOS_DMD_DATA = 380;
 
 const LEFT_X_OFFSET = 15;
-const MIDDLE_X_OFFSET = 260 + LEFT_X_OFFSET;
-const MIDDLE_PLUS_X_OFFSET = 130 + MIDDLE_X_OFFSET;
-const RIGHT_X_OFFSET = 260 + MIDDLE_X_OFFSET;
-const RIGHT_PLUS_X_OFFSET = 130 + RIGHT_X_OFFSET;
+const MIDDLE_X_OFFSET = 250 + LEFT_X_OFFSET;
+const MIDDLE_PLUS_X_OFFSET = 125 + MIDDLE_X_OFFSET;
+const RIGHT_X_OFFSET = 250 + MIDDLE_X_OFFSET;
+const RIGHT_PLUS_X_OFFSET = 125 + RIGHT_X_OFFSET;
 
 const BIT_ARRAY = [1, 2, 4, 8, 16, 32, 64, 128];
 
 const COLOR_DMD = [
-  'rgb(20,20,20)',
+  'rgb(50,20,20)',
   'rgb(164,82,0)',
   'rgb(255,128,0)',
   'rgb(255,198,0)',
@@ -36,8 +36,7 @@ function updateCanvas(emuState, cpuState) {
   drawDmdShaded(emuState.asic.dmd.dmdShadedBuffer, LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
 
   c.fillStyle = '#000';
-  c.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 150, 70);
-  c.fillRect(LEFT_X_OFFSET, YPOS_WPC_DATA, 200, 40);
+  c.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 170, 110);
   c.fillRect(LEFT_X_OFFSET, YPOS_DMD_DATA, 150, 40);
 
   c.fillStyle = COLOR_DMD[2];
@@ -50,15 +49,15 @@ function updateCanvas(emuState, cpuState) {
 
   const diagnosticLed = emuState.asic.wpc.diagnosticLed ? emuState.asic.wpc.diagnosticLed.toString(2) : '00000000';
   const activePage = emuState.asic.dmd.activepage;
-  c.fillText('DIAGLED STATE: ' + diagnosticLed, LEFT_X_OFFSET, YPOS_WPC_DATA + 10);
-  c.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, LEFT_X_OFFSET, YPOS_WPC_DATA + 20);
-  c.fillText('Active ROM Bank: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_WPC_DATA + 30);
+  c.fillText('DIAGLED STATE: ' + diagnosticLed, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 70);
+  c.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 80);
+  c.fillText('Active ROM Bank: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 90);
 
   c.fillText('DMD LOW PAGE: ' + emuState.asic.dmd.lowpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
   c.fillText('DMD HIGH PAGE: ' + emuState.asic.dmd.highpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
   c.fillText('DMD ACTIVE PAGE: ' + activePage, LEFT_X_OFFSET, YPOS_DMD_DATA + 30);
 
-  drawMemRegion(emuState.asic.ram, MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 20, 128);
+  drawMemRegion(emuState.asic.ram, LEFT_X_OFFSET, YPOS_DMD_DATA + 80, 128);
   drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_WPC_DATA + 20);
   drawMatrix8x8(emuState.asic.wpc.solenoidState, MIDDLE_X_OFFSET, YPOS_WPC_DATA + 20);
   drawMatrix8x8Binary(emuState.asic.wpc.inputState, RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 20);
@@ -176,8 +175,7 @@ function initCanvas() {
 
   c.font = '10px Monaco';
   c.fillStyle = COLOR_DMD[3];
-  c.fillText('# GENERIC DATA:', LEFT_X_OFFSET, YPOS_GENERIC_DATA);
-  c.fillText('# WPC/IO BOARD DATA:', LEFT_X_OFFSET, YPOS_WPC_DATA);
+  c.fillText('# DEBUG DATA:', LEFT_X_OFFSET, YPOS_GENERIC_DATA);
   c.fillText('# DMD BOARD DATA:', LEFT_X_OFFSET, YPOS_DMD_DATA);
 
   c.fillStyle = COLOR_DMD[2];
@@ -186,7 +184,7 @@ function initCanvas() {
   c.fillText('LAMP OUT MATRIX', RIGHT_X_OFFSET, YPOS_WPC_DATA + 10);
   c.fillText('SWITCH IN MATRIX', RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 10);
   c.fillText('DMD PAGE RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
-  c.fillText('RAM:', MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 10);
+  c.fillText('RAM:', LEFT_X_OFFSET, YPOS_DMD_DATA + 70);
 }
 
 function initialise() {
