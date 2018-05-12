@@ -1,6 +1,6 @@
 {
   "name": "wpc-emu",
-  "version": "1.0.0",
+  "version": "0.5.0",
   "description": "WPC pinball machine emu",
   "main": "index.js",
   "engines": {
@@ -8,20 +8,23 @@
   },
   "scripts": {
     "build": "webpack --mode development",
+    "watch": "webpack --mode development --watch",
     "build:production": "webpack --mode production",
     "build:test": "rm -f dist/* && webpack && cp assets/* dist && DEBUG=* node index.js",
     "start": "DEBUG=* node index.js",
     "debug": "node --inspect index.js",
     "xo": "xo",
     "test": "ava --verbose test/lib/**",
-    "test:integration": "ava --verbose test/integration/**",
-    "test:debug": "DEBUG='wpc*' ava --verbose test/lib/**"
+    "test:debug": "DEBUG='wpc*' ava --verbose test/lib/**",
+    "test:integration": "ava --verbose test/integration/*.test.js",
+    "benchmark": "node test/integration/benchmark.js > /dev/null"
   },
   "author": "Michael Vogt",
   "license": "ISC",
   "devDependencies": {
     "ava": "^0.25.0",
     "babel-minify-webpack-plugin": "^0.3.1",
+    "remove-debug-loader": "^0.2.6",
     "webpack": "^4.6.0",
     "webpack-cli": "^2.0.15",
     "xo": "^0.21.0"

@@ -108,19 +108,24 @@ const wpcGames = [
     skipWmcRomCheck: true
   },
   {
-    manager: 'Fish Tales',
+    name: 'Fish Tales',
     version: 'L-8',
-    name: 'https://s3-eu-west-1.amazonaws.com/foo-temp/ft_p4.u6',
+    url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/ft_p4.u6',
   },
   {
-    manager: 'Indiana Jones: The Pinball Adventure',
+    name: 'Indiana Jones: The Pinball Adventure',
     version: 'L-7',
-    name: 'https://s3-eu-west-1.amazonaws.com/foo-temp/ijone_l7.rom',
+    url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/ijone_l7.rom',
   },
   {
-    manager: 'Gilligan\'s Island',
+    name: 'Gilligan\'s Island',
     version: 'L-9',
-    name: 'https://s3-eu-west-1.amazonaws.com/foo-temp/gilli_l9.rom',
+    url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/gilli_l9.rom',
+  },
+  {
+    name: 'FreeWPC T2',
+    version: 'FreeWPC 1.00',
+    url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/ft20_32.rom',
   },
 ];
 

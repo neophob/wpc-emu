@@ -8,6 +8,7 @@ os:
 script:
   - npm run test
   - npm run test:integration
+  - cd client && npm run test
 after_success:
   - npm run build:production
 notifications:

@@ -13,6 +13,15 @@ module.exports = () => {
       filename: 'wpc-emu.js',
       path: path.resolve(__dirname, 'dist'),
       library: 'WpcEmu',
+    },
+    module: {
+      rules: [{
+        test: /\.js$/,
+        use: [{
+          loader: 'remove-debug-loader'
+        }]
+      }]
     }
+
   };
 };

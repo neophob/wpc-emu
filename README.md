@@ -3,22 +3,22 @@
 
 [![Build Status](https://travis-ci.org/neophob/wpc-emu.svg?branch=master)](https://travis-ci.org/neophob/wpc-emu)
 
-## Goal
+# Goal
 
 - Emulate the Williams Pinball machine WPC-89 (6/91 - 10/91)
 - 2nd generation Williams WPC hardware called "WPC Dot Matrix" aka WPC DMD
 - Emulate game "Hurricane" - also "Gilligan's Island", "Terminator2" and "Party Zone"
 - It should be pretty easy to run "WPC Fliptronic" too, as there *seems* no software changes
 
-# State
+## State
 - it boots!
 - dmd (incl. 2bit shading) works
 - Emulator shows invalid ram settings -> TODO add dump nvram to get "valid" settings
 - then game boots up
 
 ## TODO Shortterm
-- fix emulator scheduling, dmd start acting funny when cycle steps change
-- fix emu bootstrap - if a initial step < 512 ticks is used, the emu reboot itself
+- calling 4 x executeCycle(500) works, calling 1 x executeCycle(2000) results in a lot of stacked up IRQ calls - something is fishy here!
+- fix emu bootstrap - if a initial step < 512 ticks is used, the ram looks like its refreshing itself - reboot? - and its looping somehow without DMD output. cpu issue? timing issue?
 - implement initial switch state
 - implement solenoid state (WIP)
 - general illumination (WIP)
@@ -77,7 +77,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Hook it up to a Virtual Pinball / Pinball frontend
 - Hook it up to a broken Pinball machine, replace whole electronics with a RPI
 
-# WPS Dot Matrix Machine
+# Hardware - WPS Dot Matrix Machine
 
 ## Overview:
 
@@ -147,7 +147,7 @@ Operating system:
 
 # Implementation Hints
 
-- if memory map contains `0xffec` = `0x00` and `0xffed` = `0xff` then the startup check will be disabled. This reduce the boot time and works on all WPC games (not on FreeWPC games)
+- if memory map (Systemrom) contains `0x00` at `0xffec` and `0xff` at `0xffed` then the startup check will be disabled. This reduce the boot time and works on all WPC games (not on FreeWPC games)
 - There is ONE switch in all WPC games called "always closed" (always switch 24 on all WPC games). This switch is used to detect if the switch matrix is faulty. This means if switch 24 is open, the system knows the switch matrix is faulty.
 
 ## Timing
