@@ -1,6 +1,6 @@
 'use strict';
 
-import viewTpl from '../main.view.tpl';
+import viewTpl from './main.view.tpl';
 import { replaceNode } from './htmlselector';
 
 export { populateControlUiView };

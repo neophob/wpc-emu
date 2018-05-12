@@ -3,8 +3,9 @@
 import '../node_modules/milligram/dist/milligram.css';
 import '../styles/client.css';
 
-import { downloadFileFromUrlAsUInt8Array } from './fetcher';
-import { initialiseEmulator } from './emulator';
+import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher';
+import { initialiseEmulator } from './lib/emulator';
+import { initialiseActions } from './lib/initialise';
 import * as gamelist from './db/gamelist';
 import { populateControlUiView } from './ui/control-ui';
 import * as emuDebugUi from './ui/emu-debug-ui';
@@ -46,17 +47,12 @@ function initEmuWithGameName(name) {
   populateControlUiView(gameEntry);
   return initialiseEmu(gameEntry)
     .then(() => {
-      if (Array.isArray(gameEntry.switchesEnabled)) {
-        gameEntry.switchesEnabled.forEach((switchIdToEnable) => {
-          console.log('INIT::enable switch', switchIdToEnable);
-          wpcSystem.setInput(switchIdToEnable);
-        });
-      }
+      resumeEmu();
+      return initialiseActions(gameEntry.initialise, wpcSystem);
     });
 }
 
-initEmuWithGameName('Hurricane')
-  .then(() => resumeEmu());
+initEmuWithGameName('Hurricane');
 
 //called at 60hz -> 16.6ms
 function step() {
