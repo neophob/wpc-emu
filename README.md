@@ -17,13 +17,8 @@
 - then game boots up
 
 ## TODO Shortterm
-- calling 4 x executeCycle(500) works, calling 1 x executeCycle(2000) results in a lot of stacked up IRQ calls - something is fishy here!
-- fix emu bootstrap - if a initial step < 512 ticks is used, the ram looks like its refreshing itself - reboot? - and its looping somehow without DMD output. cpu issue? timing issue?
 - implement initial switch state
-- implement solenoid state (WIP)
-- general illumination (WIP)
 - add address mapper with callback, remove memory mappers
-- fix WPC_PERIPHERAL_TIMER_FIRQ_CLEAR wpc command
 
 # Implementation Status
 
@@ -42,7 +37,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Time of Day Clock ✓
 - High Resolution Timer (not used, was used by alphanumeric games to do display dimming)
 - Bank Switching ✓
-- The Switch Matrix
+- The Switch Matrix ✓
 - External I/O ✓ (except sound)
 - Interrupt Reset ✓
 - Interrupt IRQ ✓
@@ -50,8 +45,8 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 
 ## Power Driver Board
 - Lamp Circuits ✓
-- Solenoid Circuits
-- General Illumination Circuits (Triac)
+- Solenoid Circuits ✓ (fade out timing missing)
+- General Illumination Circuits (Triac) ✓ (fade out timing missing)
 - Zero Cross Circuit ✓
 
 ## Sound Board
@@ -65,7 +60,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 ## Dot Matrix Controller Board
 - Page Selection ✓
 - Scanline Handling ✓
-- Dimming / multi color display
+- Dimming / multi color display ✓
 
 ## Debug UI
 - DMD output ✓
