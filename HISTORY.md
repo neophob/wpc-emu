@@ -1,10 +1,13 @@
 # HISTORY
 
-## 12/05/18
+## 13/05/18
+
+![13.05.18](assets/13.05.18.png?raw=true)
 
 - minor logic change in ui
-- implement initial switch state for game (in gamelist.js)
-- implement game initialisation in gamelist.js
+- implement game specific switch state for a game
+- implement game specific initialisation
+- optimise debug ui for mobile app
 
 ## 10/05/18
 
