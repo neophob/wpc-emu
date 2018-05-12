@@ -1,5 +1,9 @@
 # HISTORY
 
+## 12/05/18
+
+- minor logic change in ui
+
 ## 10/05/18
 
 ![10.05.18](assets/10.05.18.png?raw=true)
