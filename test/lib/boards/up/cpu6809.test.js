@@ -17,7 +17,6 @@ test.beforeEach(() => {
     writeMemoryAddress.push(address);
   };
   CPU6809.init(writeMemoryMock, readMemoryMock);
-  CPU6809.reset();
 });
 
 test.serial('read initial vector', t => {
