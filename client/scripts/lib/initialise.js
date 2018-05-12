@@ -4,6 +4,11 @@ export { initialiseActions };
 
 function initialiseActions(initObject, wpcSystem) {
 
+  let initPromise = Promise.resolve();
+  if (!initObject) {
+    return initPromise;
+  }
+
   if (Array.isArray(initObject.closedSwitches)) {
     initObject.closedSwitches.forEach((switchIdToEnable) => {
       console.log('INIT::enable switch', switchIdToEnable);
@@ -11,7 +16,6 @@ function initialiseActions(initObject, wpcSystem) {
     });
   }
 
-  let initPromise = Promise.resolve();
   if (Array.isArray(initObject.initialAction)) {
     initObject.initialAction.forEach((initialAction) => {
       initPromise = initPromise
