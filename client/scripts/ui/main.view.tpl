@@ -1,5 +1,21 @@
   <div class="container">
     <div class="row">
+      <div class="column column-10">ROM</div>
+      <div class="column column-90">
+        <button class="button-black button-small black" onclick="wpcInterface.romSelection('Hurricane');">Hurricane</button>
+        <button class="button-black button-small black" onclick="wpcInterface.romSelection('Terminator 2');">Terminator 2</button>
+        <button class="button-black button-small black" onclick="wpcInterface.romSelection('Indiana Jones: The Pinball Adventure');">Indiana Jones</button>
+        <button class="button-black button-small black" onclick="wpcInterface.romSelection('FreeWPC T2');">FreeWPC T2</button>
+        <button class="button-black button-small black" onclick="wpcInterface.romSelection('Gilligan\'s Island');">Gilligan's Island</button>
+        <button class="button-black button-small black" onclick="wpcInterface.romSelection('Fish Tales');">Fish Tales</button>
+        <button class="button-black button-small black" onclick="wpcInterface.romSelection('High Speed II: The Getaway');">High Speed II: The Getaway</button>
+        <button class="button-black button-small black" onclick="wpcInterface.romSelection('The Addams Family Special');">The Addams Family Special</button>
+        <button class="button-black button-small black" onclick="wpcInterface.romSelection('Twilight Zone');">Twilight Zone</button>
+        <button class="button-black button-small black" onclick="wpcInterface.romSelection('Hot Shot Basketball');">Hot Shot Basketball</button>
+        <button class="button-black button-small black" onclick="wpcInterface.romSelection('x');">x</button>              
+    </div>
+    </div>
+    <div class="row">
       <div class="column column-10">Emulator</div>
       <div class="column">
         <button class="button-black button-small black" onclick="wpcInterface.wpcSystem.reset();">RESET</button>

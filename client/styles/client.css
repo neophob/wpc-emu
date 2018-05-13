@@ -1,4 +1,11 @@
-/* Custom color */
+body {
+  background-color: #bbb;
+}
+
+.container {
+  padding: 0;
+}
+
 .button-black {
   background-color: black;
   border-color: black;
@@ -18,14 +25,4 @@
   height: 2.7rem;
   line-height: 2.7rem;
   padding: 0 1.2rem;
-}
-
-body {
-  margin: 0;
-  background-color: #fc0;
-  width: 800px;
-}
-
-canvas {
-  display: block;
 }
