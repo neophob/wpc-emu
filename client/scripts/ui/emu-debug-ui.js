@@ -32,8 +32,6 @@ const COLOR_DMD = [
 var c;
 
 function updateCanvas(emuState, cpuState) {
-  drawDmdShaded(emuState.asic.dmd.dmdShadedBuffer, LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
-
   c.fillStyle = '#000';
   c.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 170, 100);
   c.fillRect(LEFT_X_OFFSET, YPOS_DMD_DATA, 150, 40);
@@ -56,23 +54,39 @@ function updateCanvas(emuState, cpuState) {
   c.fillText('DMD HIGH PAGE: ' + emuState.asic.dmd.highpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
   c.fillText('DMD ACTIVE PAGE: ' + activePage, LEFT_X_OFFSET, YPOS_DMD_DATA + 30);
 
+  if (emuState.asic.dmd.dmdShadedBuffer) {
+    drawDmdShaded(emuState.asic.dmd.dmdShadedBuffer, LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
+  }
+
   drawMemRegion(emuState.asic.ram, LEFT_X_OFFSET, YPOS_DMD_DATA + 80, 128);
-  drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 20);
-  drawMatrix8x8(emuState.asic.wpc.solenoidState, MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 20);
-  drawMatrix8x8Binary(emuState.asic.wpc.inputState, RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
+
+  if (emuState.asic.wpc.lampState) {
+    drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 20);
+  }
+
+  if (emuState.asic.wpc.solenoidState) {
+    drawMatrix8x8(emuState.asic.wpc.solenoidState, MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 20);
+  }
+
+  if (emuState.asic.wpc.inputState) {
+    drawMatrix8x8Binary(emuState.asic.wpc.inputState, RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
+  }
+
   drawMatrix8x8(emuState.asic.wpc.generalIlluminationState, MIDDLE_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
 
   //dmd pages - 8 pixel (on/off) per byte, display is 128x32 pixels
   const videoRam = emuState.asic.dmd.videoRam;
-  const DMD_PAGE_SIZE = 0x200;
-  let xpos = MIDDLE_X_OFFSET;
-  let ypos = YPOS_DMD_DATA + 20;
-  for (var i = 0; i < 16; i++) {
-    drawDmd(videoRam.slice(i * DMD_PAGE_SIZE, (i + 1) * DMD_PAGE_SIZE), xpos, ypos, 128);
-    xpos += 130;
-    if (xpos > (800 - 130)) {
-      xpos = MIDDLE_X_OFFSET;
-      ypos += 35;
+  if (videoRam) {
+    const DMD_PAGE_SIZE = 0x200;
+    let xpos = MIDDLE_X_OFFSET;
+    let ypos = YPOS_DMD_DATA + 20;
+    for (var i = 0; i < 16; i++) {
+      drawDmd(videoRam.slice(i * DMD_PAGE_SIZE, (i + 1) * DMD_PAGE_SIZE), xpos, ypos, 128);
+      xpos += 130;
+      if (xpos > (800 - 130)) {
+        xpos = MIDDLE_X_OFFSET;
+        ypos += 35;
+      }
     }
   }
 }
