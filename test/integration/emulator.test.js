@@ -43,6 +43,9 @@ test.serial('Smoketest, run emulator with rom ft20_32.rom', (t) => {
   t.is(uiState.asic.dmd.activepage, 0);
   t.is(uiState.asic.wpc.activeRomBank, 24);
   t.is(uiState.asic.wpc.diagnosticLedToggleCount, 22);
+
+  wpcSystem.executeCycle();
+  wpcSystem.getUiState();
 });
 
 test.serial('steps(100) should execute at least 100 steps', (t) => {
