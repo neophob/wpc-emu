@@ -30,7 +30,8 @@ function initialiseEmu(gameEntry) {
       window.wpcInterface = {
         wpcSystem,
         pauseEmu,
-        resumeEmu
+        resumeEmu,
+        romSelection
       };
       console.log('Successully loaded ROM');
       wpcSystem.start();
@@ -40,6 +41,10 @@ function initialiseEmu(gameEntry) {
     .catch((error) => {
       console.error('FAILED to load ROM:', error.message);
     });
+}
+
+function romSelection(romName) {
+  initEmuWithGameName(romName);
 }
 
 function initEmuWithGameName(name) {

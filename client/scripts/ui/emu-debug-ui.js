@@ -9,11 +9,10 @@ export { initialise, updateCanvas };
 // HINT enable debug in the browser by entering "localStorage.debug = '*'" in the browser
 
 const CANVAS_WIDTH = 800;
-const CANVAS_HEIGHT = 550;
-const YPOS_DMD_MAIN_VIEW = 10;
-const YPOS_GENERIC_DATA = 220;
-const YPOS_WPC_DATA = 220;
-const YPOS_DMD_DATA = 380;
+const CANVAS_HEIGHT = 560;
+const YPOS_DMD_MAIN_VIEW = 15;
+const YPOS_GENERIC_DATA = 225;
+const YPOS_DMD_DATA = 385;
 
 const LEFT_X_OFFSET = 15;
 const MIDDLE_X_OFFSET = 250 + LEFT_X_OFFSET;
@@ -36,7 +35,7 @@ function updateCanvas(emuState, cpuState) {
   drawDmdShaded(emuState.asic.dmd.dmdShadedBuffer, LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
 
   c.fillStyle = '#000';
-  c.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 170, 110);
+  c.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 170, 100);
   c.fillRect(LEFT_X_OFFSET, YPOS_DMD_DATA, 150, 40);
 
   c.fillStyle = COLOR_DMD[2];
@@ -58,10 +57,10 @@ function updateCanvas(emuState, cpuState) {
   c.fillText('DMD ACTIVE PAGE: ' + activePage, LEFT_X_OFFSET, YPOS_DMD_DATA + 30);
 
   drawMemRegion(emuState.asic.ram, LEFT_X_OFFSET, YPOS_DMD_DATA + 80, 128);
-  drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_WPC_DATA + 20);
-  drawMatrix8x8(emuState.asic.wpc.solenoidState, MIDDLE_X_OFFSET, YPOS_WPC_DATA + 20);
-  drawMatrix8x8Binary(emuState.asic.wpc.inputState, RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 20);
-  drawMatrix8x8(emuState.asic.wpc.generalIlluminationState, MIDDLE_PLUS_X_OFFSET, YPOS_WPC_DATA + 20);
+  drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 20);
+  drawMatrix8x8(emuState.asic.wpc.solenoidState, MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 20);
+  drawMatrix8x8Binary(emuState.asic.wpc.inputState, RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
+  drawMatrix8x8(emuState.asic.wpc.generalIlluminationState, MIDDLE_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
 
   //dmd pages - 8 pixel (on/off) per byte, display is 128x32 pixels
   const videoRam = emuState.asic.dmd.videoRam;
@@ -179,10 +178,10 @@ function initCanvas() {
   c.fillText('# DMD BOARD DATA:', LEFT_X_OFFSET, YPOS_DMD_DATA);
 
   c.fillStyle = COLOR_DMD[2];
-  c.fillText('SOLENOID OUT MATRIX', MIDDLE_X_OFFSET, YPOS_WPC_DATA + 10);
-  c.fillText('ILLUM. OUT MATRIX', MIDDLE_PLUS_X_OFFSET, YPOS_WPC_DATA + 10);
-  c.fillText('LAMP OUT MATRIX', RIGHT_X_OFFSET, YPOS_WPC_DATA + 10);
-  c.fillText('SWITCH IN MATRIX', RIGHT_PLUS_X_OFFSET, YPOS_WPC_DATA + 10);
+  c.fillText('SOLENOID OUT MATRIX', MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 10);
+  c.fillText('ILLUM. OUT MATRIX', MIDDLE_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 10);
+  c.fillText('LAMP OUT MATRIX', RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 10);
+  c.fillText('SWITCH IN MATRIX', RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 10);
   c.fillText('DMD PAGE RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
   c.fillText('RAM:', LEFT_X_OFFSET, YPOS_DMD_DATA + 70);
 }

@@ -7,6 +7,7 @@
 - minor logic change in ui
 - implement game specific switch state for a game
 - implement game specific initialisation
+- add ROM selection to debug ui
 - optimise debug ui for mobile app
 
 ## 10/05/18
