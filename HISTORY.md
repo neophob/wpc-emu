@@ -1,5 +1,9 @@
 # HISTORY
 
+## 14/05/18
+
+- implement dirty checking for ui elements, no more fans when opening the debug view
+
 ## 13/05/18
 
 ![13.05.18](assets/13.05.18.png?raw=true)

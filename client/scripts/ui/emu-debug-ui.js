@@ -58,7 +58,9 @@ function updateCanvas(emuState, cpuState) {
     drawDmdShaded(emuState.asic.dmd.dmdShadedBuffer, LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
   }
 
-  drawMemRegion(emuState.asic.ram, LEFT_X_OFFSET, YPOS_DMD_DATA + 80, 128);
+  if (emuState.asic.ram) {
+    drawMemRegion(emuState.asic.ram, LEFT_X_OFFSET, YPOS_DMD_DATA + 80, 128);
+  }
 
   if (emuState.asic.wpc.lampState) {
     drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 20);
