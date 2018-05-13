@@ -12,7 +12,7 @@
         <button class="button-black button-small black" onclick="wpcInterface.romSelection('The Addams Family Special');">The Addams Family Special</button>
         <button class="button-black button-small black" onclick="wpcInterface.romSelection('Twilight Zone');">Twilight Zone</button>
         <button class="button-black button-small black" onclick="wpcInterface.romSelection('Hot Shot Basketball');">Hot Shot Basketball</button>
-        <button class="button-black button-small black" onclick="wpcInterface.romSelection('x');">x</button>              
+        <button class="button-black button-small black" onclick="wpcInterface.romSelection('The Party Zone');">The Party Zone</button>              
     </div>
     </div>
     <div class="row">

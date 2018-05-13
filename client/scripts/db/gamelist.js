@@ -379,7 +379,7 @@ const wpcGames = [
     skipWmcRomCheck: true,
   },
   {
-    name: 'x',
+    name: 'The Party Zone',
     version: 'P-8',
     url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/PZ_U6.L2',
     skipWmcRomCheck: true,
