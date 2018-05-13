@@ -1,4 +1,3 @@
-  <div class="container">
     <div class="row">
       <div class="column column-10">ROM</div>
       <div class="column column-90">
@@ -37,4 +36,3 @@
       <div id="pinball-specfic-switch-input" class="column">
       </div>
     </div>
-  </div>
