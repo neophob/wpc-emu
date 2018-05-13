@@ -98,7 +98,7 @@ function drawMemRegion(data, x, y, width) {
   var offsetX = 0;
   var offsetY = 0;
   var color = 0;
-  for (var i = 0, len = data.length; i < len; i++) {
+  for (var i = 0; i < data.length; i++) {
     if (data[i] > 0) {
       if (color !== data[i]) {
         color = data[i];
