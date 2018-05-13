@@ -3,7 +3,6 @@
 export { initialiseActions };
 
 function initialiseActions(initObject, wpcSystem) {
-
   let initPromise = Promise.resolve();
   if (!initObject) {
     return initPromise;

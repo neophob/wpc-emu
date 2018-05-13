@@ -350,39 +350,94 @@ const wpcGames = [
   },
   {
     name: 'Fish Tales',
-    version: 'L-8',
+    version: 'P-4',
     url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/ft_p4.u6',
     skipWmcRomCheck: true,
+    initialise: {
+      initialAction: [
+        {
+          delayMs: 1000,
+          source: 'cabinetInput',
+          value: 16
+        }
+      ],
+    }
   },
   {
     name: 'High Speed II: The Getaway',
     version: 'L-5',
     url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/getaw_l5.rom',
     skipWmcRomCheck: true,
+    initialise: {
+      initialAction: [
+        {
+          delayMs: 1000,
+          source: 'cabinetInput',
+          value: 16
+        }
+      ],
+    }
   },
   {
     name: 'The Addams Family Special',
     version: 'LA-3',
     url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/U6-LA3.ROM',
     skipWmcRomCheck: true,
+    initialise: {
+      closedSwitches: [ 22, 53, 54, 55 ],
+      initialAction: [
+        {
+          delayMs: 1000,
+          source: 'cabinetInput',
+          value: 16
+        }
+      ],
+    }
   },
   {
     name: 'Twilight Zone',
     version: 'H-8',
     url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/tz_h8.u6',
     skipWmcRomCheck: true,
+    initialise: {
+      initialAction: [
+        {
+          delayMs: 1000,
+          source: 'cabinetInput',
+          value: 16
+        }
+      ],
+    }
   },
   {
     name: 'Hot Shot Basketball',
     version: 'P-8',
     url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/hshot_p8.u6',
     skipWmcRomCheck: true,
+    initialise: {
+      initialAction: [
+        {
+          delayMs: 1000,
+          source: 'cabinetInput',
+          value: 16
+        }
+      ],
+    }
   },
   {
     name: 'The Party Zone',
-    version: 'P-8',
+    version: 'L-2',
     url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/PZ_U6.L2',
     skipWmcRomCheck: true,
+    initialise: {
+      initialAction: [
+        {
+          delayMs: 1000,
+          source: 'cabinetInput',
+          value: 16
+        }
+      ],
+    }
   },
 
 ];
