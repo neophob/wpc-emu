@@ -23,8 +23,8 @@ Promise.all([ u14Promise, u15Promise, u18Promise ])
     instance.start();
 
     setInterval(() => {
-      instance.executeCycle();
-    });
+      instance.executeCycle(16666, 10);
+    }, 1000 / 60);
   })
   .catch((error) => {
     console.error('ERR!', error.message);

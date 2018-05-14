@@ -1,8 +1,12 @@
 # HISTORY
 
+## 15/05/18
+
+- start working on the sound board, CPU seems to boot from u18 rom, RAM, ROM and bankswitching seems to work
+
 ## 14/05/18
 
-- implement dirty checking for ui elements, no more fans when opening the debug view
+- implement dirty checking for ui elements, no more loud fans when opening the debug view (lower CPU usage)
 
 ## 13/05/18
 
