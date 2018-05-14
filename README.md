@@ -188,7 +188,7 @@ The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). 
 - https://github.com/kode54/Game_Music_Emu/blob/master/gme/
 - http://www.cx5m.net/fmunit.htm
 - https://github.com/apollolux/ym2413-js/blob/master/ym2413.js
-- https://github.com/vgm/node-vgmplay/blob/master/res/js/vgm/ym2151.js (use this CPU core)
+- https://github.com/vgm/node-vgmplay/blob/master/res/js/vgm/ym2151.js (WPC-EMU use this)
 
 ## ROM
 - http://www.ipdb.org/

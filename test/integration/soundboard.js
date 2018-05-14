@@ -8,10 +8,10 @@ const ROMPATH = process.env.ROMPATH || path.join(__dirname, '/../../rom/');
 
 const u14Promise = loadFile(ROMPATH + 't2_u14.l3');
 const u15Promise = loadFile(ROMPATH + 't2_u15.l3');
-const u16Promise = loadFile(ROMPATH + 't2_u16.l3');
+const u18Promise = loadFile(ROMPATH + 't2_u18.l3');
 
 console.log('load sound rom..');
-Promise.all([ u14Promise, u15Promise, u16Promise ])
+Promise.all([ u14Promise, u15Promise, u18Promise ])
   .then((promiseArray) => {
     console.log('loaded...');
     const romObject = {
@@ -25,6 +25,10 @@ Promise.all([ u14Promise, u15Promise, u16Promise ])
     setInterval(() => {
       instance.executeCycle();
     });
+  })
+  .catch((error) => {
+    console.error('ERR!', error.message);
+    console.error(error.stack);
   });
 
 
