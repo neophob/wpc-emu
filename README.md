@@ -128,7 +128,7 @@ Operating system:
 - Mono output, Sample rate 11KHz, 25 watts power, 8 ohm
 - intelligent and have processors running their own operating system dedicated to sound tasks
 - CPU: Motorola 6809 (MC68A09EP), frequency 2MHz
-- OPM: Yamaha YM2151 (FM Operator Type-M), frequency 3.579545MHz
+- OPM: Yamaha YM2151 OPM (FM Operator Type-M), frequency 3.579545MHz
 - DAC: AD-7524 (Digital Analog converter)
 - Harris HC-55536 CVSD (Continuously variable slope delta modulation). Note HC-55536 is pin compatible with 55516 and 55564.
 - MC6821 Peripheral Interface Adaptor (PIA)
