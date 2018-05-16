@@ -67,7 +67,6 @@ window.onerror = function(errorMsg, url, lineNumber) {
   console.error('error', lineNumber, errorMsg);
 };
 
-
 //called at 60hz -> 16.6ms
 function step() {
   perfTicksExecuted = wpcSystem.executeCycle(TICKS_PER_STEP, 16);

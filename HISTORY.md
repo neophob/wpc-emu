@@ -1,5 +1,10 @@
 # HISTORY
 
+## 16/05/18
+
+- start refactoring to simplify sound integration
+- start sketching the audio interface
+
 ## 15/05/18
 
 - start working on the sound board, CPU seems to boot from u18 rom, RAM, ROM and bankswitching seems to work
