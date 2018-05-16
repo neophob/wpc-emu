@@ -1,6 +1,6 @@
 'use strict';
 
-const SoundBoard = require('../../lib/boards/sound');
+const SoundBoard = require('../../lib/boards/sound-board');
 const path = require('path');
 const fs = require('fs');
 

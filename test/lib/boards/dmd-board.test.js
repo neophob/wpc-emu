@@ -1,7 +1,7 @@
 'use strict';
 
 import test from 'ava';
-import DMD from '../../../lib/boards/dmd';
+import DMD from '../../../lib/boards/dmd-board';
 
 test.beforeEach((t) => {
   const ram = new Uint8Array(0x4000);

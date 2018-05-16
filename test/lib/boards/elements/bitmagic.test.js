@@ -1,7 +1,7 @@
 'use strict';
 
 import test from 'ava';
-import bitmagic from '../../../lib/boards/bitmagic';
+import bitmagic from '../../../../lib/boards/elements/bitmagic';
 
 test('bitmagic, should get msb from 0x80', (t) => {
   const result = bitmagic.findMsbBit(0x80);
