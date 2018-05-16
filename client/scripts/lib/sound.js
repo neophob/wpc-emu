@@ -8,6 +8,8 @@ function AudioOutput(AudioContext, sampleSize) {
 
 const DEFAULT_SAMPLE_SIZE = 1024;
 
+// check https://github.com/bfirsh/jsnes-web/blob/master/src/Speakers.js
+
 class Sound {
 
   constructor(AudioContext, sampleSize = DEFAULT_SAMPLE_SIZE) {
@@ -15,20 +17,24 @@ class Sound {
 
     // TODO replace me with audio workers
     this.audioSourceNode = this.audioCtx.createScriptProcessor(sampleSize, 1, 1);
+    this.audioSourceNode.onaudioprocess = this.onaudioprocess;
     this.gainNode = this.audioCtx.createGain();
-    this.gainNode.gain.value = 0.5;
+    this.gainNode.gain.value = 0.05;
 
     this.audioSourceNode.connect(this.gainNode);
     this.gainNode.connect(this.audioCtx.destination);
     console.log('sound init', this.audioCtx.destination);
   }
 
-  registerAudioSource(soundProducerFunction) {
-    console.log('registerAudioSource', soundProducerFunction);
-    this.audioSourceNode.onaudioprocess = (e) => {
-      const output = e.outputBuffer.getChannelData(0);
-      soundProducerFunction(output);
-    };
+  onaudioprocess(event) {
+    const output = event.outputBuffer.getChannelData(0);
+    for (var i = 0; i < output.length; i++) {
+      output[i] = Math.random()/2;
+    }
+  }
+
+  writeAudioData() {
+    //TODO     this.buffer.enq(left);
   }
 
   setVolume(floatVolume) {

@@ -58,5 +58,4 @@ Promise.resolve()
   .then(() => benchmarkWithCycleCount(2048))
   .then(() => benchmarkWithCycleCount(4096))
   .then(() => benchmarkWithCycleCount(8192))
-  .then(() => benchmarkWithCycleCount(16384))
-;
+  .then(() => benchmarkWithCycleCount(16384));

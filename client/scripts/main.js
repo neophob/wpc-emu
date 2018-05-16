@@ -21,7 +21,6 @@ const soundInstance = AudioOutput(AudioContext);
 var wpcSystem;
 var intervalId;
 var perfTicksExecuted = 0;
-var opsMs = 0;
 
 function initialiseEmu(gameEntry) {
   return downloadFileFromUrlAsUInt8Array(gameEntry.url)
@@ -62,12 +61,6 @@ function initEmuWithGameName(name) {
 }
 
 initEmuWithGameName('Hurricane');
-/*
-soundInstance.registerAudioSource((output) => {
-  for (var i = 0; i < output.length; i++) {
-    output[i] = Math.random()/2;
-  }
-});*/
 
 
 window.onerror = function(errorMsg, url, lineNumber) {
@@ -77,10 +70,7 @@ window.onerror = function(errorMsg, url, lineNumber) {
 
 //called at 60hz -> 16.6ms
 function step() {
-  const perfTs = Date.now();
-  perfTicksExecuted = wpcSystem.executeCycle(TICKS_PER_STEP, 10);
-  const perfDurationMs = Date.now() - perfTs;
-  opsMs = parseInt(perfTicksExecuted / perfDurationMs, 16);
+  perfTicksExecuted = wpcSystem.executeCycle(TICKS_PER_STEP, 16);
   const emuState = wpcSystem.getUiState();
   const cpuState = intervalId ? 'running' : 'paused';
   emuDebugUi.updateCanvas(emuState, cpuState);

@@ -1,8 +1,8 @@
 'use strict';
 
-const SoundBoard = require('../../lib/boards/sound-board');
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
+const SoundBoard = require('../../lib/boards/sound-board');
 
 const ROMPATH = process.env.ROMPATH || path.join(__dirname, '/../../rom/');
 
@@ -30,12 +30,6 @@ Promise.all([ u14Promise, u15Promise, u18Promise ])
     console.error('ERR!', error.message);
     console.error(error.stack);
   });
-
-
-
-
-
-
 
 function loadFile(fileName) {
   return new Promise((resolve, reject) => {
