@@ -5,6 +5,10 @@ const fs = require('fs');
 const Emulator = require('../../lib/emulator');
 
 const ROMFILE = process.env.ROMFILE || path.join(__dirname, '/../../rom.freewpc/ft20_32.rom');
+const romU14Path = process.argv[3] || 'rom/U14.PP';
+const romU15Path = process.argv[4] || 'rom/U15.PP';
+const romU18Path = process.argv[5] || 'rom/U18.PP';
+
 const CYCLE_COUNT = process.env.CYCLES || 2000000;
 
 function loadFile(fileName) {
@@ -19,9 +23,17 @@ function loadFile(fileName) {
 }
 
 function benchmarkWithCycleCount(tickSteps) {
-  return loadFile(ROMFILE)
-    .then((rom) => {
-      return Emulator.initVMwithRom(rom, 'unittest');
+
+  const loadRomFilesPromise = Promise.all([
+    loadFile(ROMFILE),
+    loadFile(romU14Path),
+    loadFile(romU15Path),
+    loadFile(romU18Path),
+  ]);
+
+  return loadRomFilesPromise
+    .then((romFilesArray) => {
+      return Emulator.initVMwithRom(romFilesArray, 'unittest');
     })
     .then((wpcSystem) => {
       wpcSystem.start();
