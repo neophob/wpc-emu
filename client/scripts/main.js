@@ -62,12 +62,17 @@ function initEmuWithGameName(name) {
 }
 
 initEmuWithGameName('Hurricane');
-
+/*
 soundInstance.registerAudioSource((output) => {
   for (var i = 0; i < output.length; i++) {
     output[i] = Math.random()/2;
   }
-});
+});*/
+
+
+window.onerror = function(errorMsg, url, lineNumber) {
+  console.error('error', lineNumber, errorMsg);
+};
 
 
 //called at 60hz -> 16.6ms
