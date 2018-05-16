@@ -6,6 +6,7 @@ import '../styles/client.css';
 import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher';
 import { initialiseEmulator } from './lib/emulator';
 import { initialiseActions } from './lib/initialise';
+import { AudioOutput } from './lib/sound';
 import * as gamelist from './db/gamelist';
 import { populateControlUiView } from './ui/control-ui';
 import * as emuDebugUi from './ui/emu-debug-ui';
@@ -13,6 +14,9 @@ import * as emuDebugUi from './ui/emu-debug-ui';
 const HZ = 2000000;
 const DESIRED_FPS = 58;
 const TICKS_PER_STEP = parseInt(HZ / DESIRED_FPS, 10);
+
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const soundInstance = AudioOutput(AudioContext);
 
 var wpcSystem;
 var intervalId;
@@ -58,6 +62,13 @@ function initEmuWithGameName(name) {
 }
 
 initEmuWithGameName('Hurricane');
+
+soundInstance.registerAudioSource((output) => {
+  for (var i = 0; i < output.length; i++) {
+    output[i] = Math.random()/2;
+  }
+});
+
 
 //called at 60hz -> 16.6ms
 function step() {
