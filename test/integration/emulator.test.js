@@ -23,11 +23,11 @@ test.beforeEach((t) => {
   const U18 = path.join(__dirname, '/../../rom.freewpc/U18.PP');
 
   return Promise.all([
-      loadFile(ROMFILE),
-      loadFile(U14),
-      loadFile(U15),
-      loadFile(U18),
-    ])
+    loadFile(ROMFILE),
+    loadFile(U14),
+    loadFile(U15),
+    loadFile(U18),
+  ])
     .then((romFiles) => {
       const romData = {
         u06: romFiles[0],

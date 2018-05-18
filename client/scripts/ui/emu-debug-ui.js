@@ -41,7 +41,7 @@ function updateCanvas(emuState, cpuState) {
   c.fillText('CPU TICKS: ' + emuState.ticks, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 20);
   c.fillText('CPU TICKS/ms: ' + emuState.opsMs, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 30);
   c.fillText('CPU STATE: ' + cpuState, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 40);
-  c.fillText('IRQ missed: ' + (emuState.missedIrqCall - emuState.missedIrqMaskCall||0), LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
+  c.fillText('IRQ missed: ' + (emuState.missedIrqCall - emuState.missedIrqMaskCall || 0), LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
   c.fillText('FIRQ missed: ' + emuState.missedFirqCall, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
 
   const diagnosticLed = emuState.asic.wpc.diagnosticLed ? emuState.asic.wpc.diagnosticLed.toString(2) : '00000000';

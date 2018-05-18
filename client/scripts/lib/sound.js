@@ -29,7 +29,7 @@ class Sound {
   onaudioprocess(event) {
     const output = event.outputBuffer.getChannelData(0);
     for (var i = 0; i < output.length; i++) {
-      output[i] = Math.random()/2;
+      output[i] = Math.random() / 2;
     }
   }
 

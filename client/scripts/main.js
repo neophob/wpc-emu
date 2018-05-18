@@ -29,11 +29,11 @@ function initialiseEmu(gameEntry) {
   const u18Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u18);
 
   return Promise.all([
-      u06Promise,
-      u14Promise,
-      u15Promise,
-      u18Promise,
-    ])
+    u06Promise,
+    u14Promise,
+    u15Promise,
+    u18Promise,
+  ])
     .then((romFiles) => {
       const romData = {
         u06: romFiles[0],
@@ -77,11 +77,6 @@ function initEmuWithGameName(name) {
 }
 
 initEmuWithGameName('Hurricane');
-
-
-window.onerror = function(message) {
-  console.error('UNHANDLED ERROR DETECTED!', message);
-};
 
 //called at 60hz -> 16.6ms
 function step() {
