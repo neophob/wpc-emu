@@ -23,8 +23,24 @@ var intervalId;
 var perfTicksExecuted = 0;
 
 function initialiseEmu(gameEntry) {
-  return downloadFileFromUrlAsUInt8Array(gameEntry.url)
-    .then((romData) => {
+  const u06Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06);
+  const u14Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u14);
+  const u15Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u15);
+  const u18Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u18);
+
+  return Promise.all([
+      u06Promise,
+      u14Promise,
+      u15Promise,
+      u18Promise,
+    ])
+    .then((romFiles) => {
+      const romData = {
+        u06: romFiles[0],
+        u14: romFiles[1],
+        u15: romFiles[2],
+        u18: romFiles[3],
+      };
       return initialiseEmulator(romData, gameEntry);
     })
     .then((_wpcSystem) => {
@@ -63,8 +79,8 @@ function initEmuWithGameName(name) {
 initEmuWithGameName('Hurricane');
 
 
-window.onerror = function(errorMsg, url, lineNumber) {
-  console.error('error', lineNumber, errorMsg);
+window.onerror = function(message) {
+  console.error('UNHANDLED ERROR DETECTED!', message);
 };
 
 //called at 60hz -> 16.6ms

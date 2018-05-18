@@ -1,9 +1,10 @@
     <div class="row">
       <div class="column column-10">ROM</div>
       <div class="column column-90">
+        <!-- TODO automatic populate -->
         <button class="button-black button-small black" onclick="wpcInterface.romSelection('Hurricane');">Hurricane</button>
         <button class="button-black button-small black" onclick="wpcInterface.romSelection('Terminator 2');">Terminator 2</button>
-        <button class="button-black button-small black" onclick="wpcInterface.romSelection('Indiana Jones: The Pinball Adventure');">Indiana Jones</button>
+        <!-- <button class="button-black button-small black" onclick="wpcInterface.romSelection('Indiana Jones: The Pinball Adventure');">Indiana Jones</button> -->
         <button class="button-black button-small black" onclick="wpcInterface.romSelection('FreeWPC T2');">FreeWPC T2</button>
         <button class="button-black button-small black" onclick="wpcInterface.romSelection('Gilligan\'s Island');">Gilligan's Island</button>
         <button class="button-black button-small black" onclick="wpcInterface.romSelection('Fish Tales');">Fish Tales</button>

@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const Emulator = require('../../lib/emulator');
 
-const ROMFILE = process.env.ROMFILE || path.join(__dirname, '/../../rom.freewpc/ft20_32.rom');
+const romU06Path = process.env.ROMFILE || path.join(__dirname, '/../../rom.freewpc/ft20_32.rom');
 const romU14Path = process.argv[3] || 'rom/U14.PP';
 const romU15Path = process.argv[4] || 'rom/U15.PP';
 const romU18Path = process.argv[5] || 'rom/U18.PP';
@@ -25,15 +25,21 @@ function loadFile(fileName) {
 function benchmarkWithCycleCount(tickSteps) {
 
   const loadRomFilesPromise = Promise.all([
-    loadFile(ROMFILE),
+    loadFile(romU06Path),
     loadFile(romU14Path),
     loadFile(romU15Path),
     loadFile(romU18Path),
   ]);
 
   return loadRomFilesPromise
-    .then((romFilesArray) => {
-      return Emulator.initVMwithRom(romFilesArray, 'unittest');
+    .then((romFiles) => {
+      const romData = {
+        u06: romFiles[0],
+        u14: romFiles[1],
+        u15: romFiles[2],
+        u18: romFiles[3],
+      };
+      return Emulator.initVMwithRom(romData, 'unittest');
     })
     .then((wpcSystem) => {
       wpcSystem.start();

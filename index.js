@@ -56,8 +56,14 @@ const loadRomFilesPromise = Promise.all([
 ]);
 
 loadRomFilesPromise
-  .then((romBinariesArray) => {
-    return Emulator.initVMwithRom(romBinariesArray, { fileName: romGamePath });
+  .then((romFiles) => {
+    const romData = {
+      u06: romFiles[0],
+      u14: romFiles[1],
+      u15: romFiles[2],
+      u18: romFiles[3],
+    };
+    return Emulator.initVMwithRom(romData, { fileName: romGamePath });
   })
   .then((wpcSystem) => {
     debug('WPC System initialised');

@@ -14,12 +14,14 @@ console.log('load sound rom..');
 Promise.all([ u14Promise, u15Promise, u18Promise ])
   .then((promiseArray) => {
     console.log('loaded...');
+    const u18 = promiseArray[2];
     const romObject = {
       u14: promiseArray[0],
       u15: promiseArray[1],
-      u18: promiseArray[2],
+      u18,
+      soundSystemRom: u18.subarray(u18.length - 0x4000, u18.length),
     };
-    const instance = SoundBoard.getInstance(romObject);
+    const instance = SoundBoard.getInstance({ romObject });
     instance.start();
 
     setInterval(() => {

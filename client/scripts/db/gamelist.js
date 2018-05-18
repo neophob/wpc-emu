@@ -6,7 +6,12 @@ const wpcGames = [
   {
     name: 'Hurricane',
     version: 'L-2',
-    url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom',
+    rom: {
+      u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom',
+      u14: 'https://s3-eu-west-1.amazonaws.com/foo-temp/U14.PP',
+      u15: 'https://s3-eu-west-1.amazonaws.com/foo-temp/U15.PP',
+      u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/U18.PP',
+    },
     switchMapping: [
       { id: 11, name: 'RIGHT FLIPPER' },
       { id: 12, name: 'LEFT FLIPPER' },
@@ -59,7 +64,12 @@ const wpcGames = [
   {
     name: 'Terminator 2',
     version: 'L-8',
-    url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom',
+    rom: {
+      u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom',
+      u14: 'https://s3-eu-west-1.amazonaws.com/foo-temp/t2_u14.l3',
+      u15: 'https://s3-eu-west-1.amazonaws.com/foo-temp/t2_u15.l3',
+      u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/t2_u18.l3',
+    },
     switchMapping: [
       { id: 11, name: 'RIGHT FLIPPER' },
       { id: 12, name: 'LEFT FLIPPER' },
@@ -128,7 +138,9 @@ const wpcGames = [
   {
     name: 'Indiana Jones: The Pinball Adventure',
     version: 'L-7',
-    url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/ijone_l7.rom',
+    rom: {
+      u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/ijone_l7.rom',
+    },
     switchMapping: [
       { id: 11, name: 'SINGLE DROP' },
       { id: 12, name: 'BUY-IN BUTTON' },
@@ -220,7 +232,12 @@ const wpcGames = [
   {
     name: 'Gilligan\'s Island',
     version: 'L-9',
-    url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/gilli_l9.rom',
+    rom: {
+      u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/gilli_l9.rom',
+      u14: 'https://s3-eu-west-1.amazonaws.com/foo-temp/gi_u14.l2',
+      u15: 'https://s3-eu-west-1.amazonaws.com/foo-temp/gi_u15.l2',
+      u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/gi_u18.l2',
+    },
     switchMapping: [
       { id: 11, name: 'RIGHT FLIPPER' },
       { id: 12, name: 'LEFT FLIPPER' },
@@ -293,7 +310,12 @@ const wpcGames = [
   {
     name: 'FreeWPC T2',
     version: 'FreeWPC 1.00',
-    url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/ft20_32.rom',
+    rom: {
+      u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/ft20_32.rom',
+      u14: 'https://s3-eu-west-1.amazonaws.com/foo-temp/t2_u14.l3',
+      u15: 'https://s3-eu-west-1.amazonaws.com/foo-temp/t2_u15.l3',
+      u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/t2_u18.l3',
+    },
     switchMapping: [
       { id: 11, name: 'RIGHT FLIPPER' },
       { id: 12, name: 'LEFT FLIPPER' },
@@ -351,7 +373,12 @@ const wpcGames = [
   {
     name: 'Fish Tales',
     version: 'P-4',
-    url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/ft_p4.u6',
+    rom: {
+      u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/ft_p4.u6',
+      u14: 'https://s3-eu-west-1.amazonaws.com/foo-temp/t2_u14.l3',
+      u15: 'https://s3-eu-west-1.amazonaws.com/foo-temp/t2_u15.l3',
+      u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/t2_u18.l3',
+    },
     skipWmcRomCheck: true,
     initialise: {
       initialAction: [
@@ -365,8 +392,11 @@ const wpcGames = [
   },
   {
     name: 'High Speed II: The Getaway',
-    version: 'L-5',
-    url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/getaw_l5.rom',
+    version: 'P-C',
+    rom: {
+      u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/u6-p-c.rom',
+      u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/u18-sp1.rom',
+    },
     skipWmcRomCheck: true,
     initialise: {
       initialAction: [
@@ -381,7 +411,11 @@ const wpcGames = [
   {
     name: 'The Addams Family Special',
     version: 'LA-3',
-    url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/U6-LA3.ROM',
+    rom: {
+      u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/LA3.ROM',
+      u15: 'https://s3-eu-west-1.amazonaws.com/foo-temp/AG_U15_S.L1',
+      u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/AG_U18_S.L1',
+    },
     skipWmcRomCheck: true,
     initialise: {
       closedSwitches: [ 22, 53, 54, 55 ],
@@ -397,7 +431,12 @@ const wpcGames = [
   {
     name: 'Twilight Zone',
     version: 'H-8',
-    url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/tz_h8.u6',
+    rom: {
+      u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/tz_h8.u6',
+      u14: 'https://s3-eu-west-1.amazonaws.com/foo-temp/Bally_1993_Twilight_Zone_TZ_Sound_P3_U14.rom',
+      u15: 'https://s3-eu-west-1.amazonaws.com/foo-temp/Bally_1993_Twilight_Zone_TZ_Sound_P3_U15.rom',
+      u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/Bally_1993_Twilight_Zone_TZ_Sound_P3_U18.rom',
+    },
     skipWmcRomCheck: true,
     initialise: {
       initialAction: [
@@ -412,7 +451,11 @@ const wpcGames = [
   {
     name: 'Hot Shot Basketball',
     version: 'P-8',
-    url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/hshot_p8.u6',
+    rom: {
+      u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/hshot_p8.u6',
+      u14: 'https://s3-eu-west-1.amazonaws.com/foo-temp/hshot_l1.u14',
+      u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/hshot_l1.u18',
+    },
     skipWmcRomCheck: true,
     initialise: {
       initialAction: [
@@ -427,7 +470,12 @@ const wpcGames = [
   {
     name: 'The Party Zone',
     version: 'L-2',
-    url: 'https://s3-eu-west-1.amazonaws.com/foo-temp/PZ_U6.L2',
+    rom: {
+      u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/PZ_U6.L2',
+      u14: 'https://s3-eu-west-1.amazonaws.com/foo-temp/pz_u14.l1',
+      u15: 'https://s3-eu-west-1.amazonaws.com/foo-temp/pz_u15.l1',
+      u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/pz_u18.l1',
+    },
     skipWmcRomCheck: true,
     initialise: {
       initialAction: [
@@ -443,7 +491,11 @@ const wpcGames = [
 ];
 
 function getAllNames() {
-  return wpcGames.map((entry) => entry.name);
+  return wpcGames
+    .filter((entry) => {
+      return entry.rom && entry.rom.u06 && entry.rom.u18;
+    })
+    .map((entry) => entry.name);
 }
 
 function getByName(name) {
