@@ -24,8 +24,8 @@ var perfTicksExecuted = 0;
 
 function initialiseEmu(gameEntry) {
   const u06Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06);
-  const u14Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u14);
-  const u15Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u15);
+  const u14Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u14).catch(() => []);
+  const u15Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u15).catch(() => []);
   const u18Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u18);
 
   return Promise.all([

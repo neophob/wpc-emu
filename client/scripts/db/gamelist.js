@@ -412,7 +412,7 @@ const wpcGames = [
     name: 'The Addams Family Special',
     version: 'LA-3',
     rom: {
-      u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/LA3.ROM',
+      u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/U6-LA3.ROM',
       u15: 'https://s3-eu-west-1.amazonaws.com/foo-temp/AG_U15_S.L1',
       u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/AG_U18_S.L1',
     },
