@@ -22,6 +22,10 @@ var wpcSystem;
 var intervalId;
 var perfTicksExecuted = 0;
 
+function dacCallback(value) {
+  soundInstance.writeAudioData(value);
+}
+
 function initialiseEmu(gameEntry) {
   const u06Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06);
   const u14Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u14).catch(() => []);
@@ -54,6 +58,7 @@ function initialiseEmu(gameEntry) {
       };
       console.log('Successully loaded ROM');
       wpcSystem.start();
+    //  wpcSystem.registerAudioConsumer(dacCallback);
       console.log('Successully started EMU');
       return emuDebugUi.initialise();
     })

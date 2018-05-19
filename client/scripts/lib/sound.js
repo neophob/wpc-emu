@@ -33,7 +33,8 @@ class Sound {
     }
   }
 
-  writeAudioData() {
+  writeAudioData(value) {
+    console.log('write sound', value);
     //TODO     this.buffer.enq(left);
   }
 
