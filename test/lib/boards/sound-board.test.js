@@ -8,15 +8,18 @@ test.beforeEach((t) => {
   const initObject = {
     interruptCallback: {},
     ram,
+    romObject: {}
   };
   t.context = SoundBoard.getInstance(initObject);
 });
 
+/*
 test('externalIo, should read write to ticket dispense', (t) => {
   const soundBoard = t.context;
   soundBoard.write(0x3FC6, 255);
   t.is(soundBoard.ram[0x3FC6], 0xFF);
 });
+*/
 
 test('externalIo, read from soundboard', (t) => {
   const soundBoard = t.context;

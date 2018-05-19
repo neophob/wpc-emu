@@ -9,7 +9,7 @@ test.beforeEach((t) => {
     interruptCallback: {},
     ram,
   };
-  t.context = CpuBoardAsic.getInstance(2, initObject);
+  t.context = CpuBoardAsic.getInstance(initObject);
 });
 
 test('wpc, should set zerocross flag', (t) => {
