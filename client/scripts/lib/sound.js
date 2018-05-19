@@ -1,5 +1,7 @@
 'use strict';
 
+import RingBuffer from 'ringbufferjs';
+
 export { AudioOutput };
 
 function AudioOutput(AudioContext, sampleSize) {
@@ -17,25 +19,49 @@ class Sound {
 
     // TODO replace me with audio workers
     this.audioSourceNode = this.audioCtx.createScriptProcessor(sampleSize, 1, 1);
-    this.audioSourceNode.onaudioprocess = this.onaudioprocess;
+    this.audioSourceNode.onaudioprocess = this.onaudioprocess.bind(this);
     this.gainNode = this.audioCtx.createGain();
-    this.gainNode.gain.value = 0.05;
+    this.gainNode.gain.value = 0.7;
 
     this.audioSourceNode.connect(this.gainNode);
     this.gainNode.connect(this.audioCtx.destination);
-    console.log('sound init', this.audioCtx.destination);
+
+    this.bufferSize = 8192;
+    this.buffer = new RingBuffer(this.bufferSize);
+    console.log('sound init', this.buffer.size());
   }
 
   onaudioprocess(event) {
     const output = event.outputBuffer.getChannelData(0);
-    for (var i = 0; i < output.length; i++) {
-      output[i] = Math.random() / 2;
+    const size = output.length;
+
+    try {
+      const samples = this.buffer.deqN(size);
+      for (var i = 0; i < size; i++) {
+        output[i] = samples[i];
+      }
+    } catch (e) {
+      // onBufferUnderrun failed to fill the buffer, so handle a real buffer
+      // underrun
+
+      // ignore empty buffers... assume audio has just stopped
+      var bufferSize = this.buffer.size();
+      if (bufferSize > 0) {
+        console.log(`Buffer underrun (needed ${size}, got ${bufferSize})`);
+      }
+      for (var j = 0; j < size; j++) {
+        output[j] = 0;
+      }
+      return;
     }
   }
 
   writeAudioData(value) {
     console.log('write sound', value);
-    //TODO     this.buffer.enq(left);
+    if (this.buffer.size() >= this.bufferSize) {
+      console.log(`Buffer overrun`);
+    }
+    this.buffer.enq(value);
   }
 
   setVolume(floatVolume) {

@@ -58,7 +58,7 @@ function initialiseEmu(gameEntry) {
       };
       console.log('Successully loaded ROM');
       wpcSystem.start();
-    //  wpcSystem.registerAudioConsumer(dacCallback);
+      wpcSystem.registerAudioConsumer(dacCallback);
       console.log('Successully started EMU');
       return emuDebugUi.initialise();
     })
