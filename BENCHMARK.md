@@ -4,8 +4,8 @@ Run `npm run benchmark` to run the CPU benchmark.
 
 ## WPC-EMU v0.6.0
 
-Converted cpu6809 code to a class - needed to have multiple instances of the cpu.
-This increased the duration to execute 2 million instructions.
+- Converted cpu6809 code to a class - needed to have multiple instances of the CPU. This increased the duration to execute 2 million instructions.
+- Starting in this version, the CPU Board drives the soundboard - which needs to update a second 6809 CPU.
 
 ### Node v8.11.2
 
