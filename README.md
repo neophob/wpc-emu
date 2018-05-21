@@ -46,7 +46,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 
 ## Sound Board
 - load Sound ROM files ✓
-- Bank Switching
+- Bank Switching ✓
 - emulate 6809 CPU ✓
 - emulate YM2151 FM Generator
 - emulate HC-55536 CVSD (speech synth)
