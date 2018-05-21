@@ -1,5 +1,10 @@
 # HISTORY
 
+## 21/05/18
+
+- cpu6809 is now a class - multiple instances possible
+- implement ring buffer for sound data
+
 ## 16/05/18
 
 - start refactoring to simplify sound integration

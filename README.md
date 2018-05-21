@@ -1,6 +1,5 @@
 # WPC (Dot Matrix) Emulator
 
-
 [![Build Status](https://travis-ci.org/neophob/wpc-emu.svg?branch=master)](https://travis-ci.org/neophob/wpc-emu)
 
 # Goal
@@ -15,10 +14,6 @@
 - dmd (incl. 2bit shading) works
 - Emulator shows invalid ram settings -> TODO add dump nvram to get "valid" settings
 - then game boots up
-
-## TODO Shortterm
-- implement initial switch state
-- add address mapper with callback, remove memory mappers
 
 # Implementation Status
 
@@ -50,7 +45,8 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Zero Cross Circuit ✓
 
 ## Sound Board
-- load Sound ROM files
+- load Sound ROM files ✓
+- Bank Switching
 - emulate 6809 CPU ✓
 - emulate YM2151 FM Generator
 - emulate HC-55536 CVSD (speech synth)
