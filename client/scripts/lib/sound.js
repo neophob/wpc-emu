@@ -47,7 +47,7 @@ class Sound {
       // ignore empty buffers... assume audio has just stopped
       var bufferSize = this.buffer.size();
       if (bufferSize > 0) {
-        console.log(`Buffer underrun (needed ${size}, got ${bufferSize})`);
+        //console.log(`Buffer underrun (needed ${size}, got ${bufferSize})`);
       }
       for (var j = 0; j < size; j++) {
         output[j] = 0;

@@ -32,8 +32,11 @@ const COLOR_DMD = [
 var c;
 
 function updateCanvas(emuState, cpuState) {
+  if (!emuState) {
+    return;
+  }
   c.fillStyle = '#000';
-  c.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 170, 100);
+  c.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 170, 122);
   c.fillRect(LEFT_X_OFFSET, YPOS_DMD_DATA, 150, 40);
 
   c.fillStyle = COLOR_DMD[2];
@@ -41,14 +44,18 @@ function updateCanvas(emuState, cpuState) {
   c.fillText('CPU TICKS: ' + emuState.ticks, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 20);
   c.fillText('CPU TICKS/ms: ' + emuState.opsMs, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 30);
   c.fillText('CPU STATE: ' + cpuState, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 40);
-  c.fillText('IRQ missed: ' + (emuState.missedIrqCall - emuState.missedIrqMaskCall || 0), LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
-  c.fillText('FIRQ missed: ' + emuState.missedFirqCall, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
+  c.fillText('IRQ MISSED: ' + (emuState.missedIrqCall - emuState.missedIrqMaskCall || 0), LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
+  c.fillText('FIRQ MISSED: ' + emuState.missedFirqCall, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
 
   const diagnosticLed = emuState.asic.wpc.diagnosticLed ? emuState.asic.wpc.diagnosticLed.toString(2) : '00000000';
   const activePage = emuState.asic.dmd.activepage;
   c.fillText('DIAGLED STATE: ' + diagnosticLed, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 70);
   c.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 80);
-  c.fillText('Active ROM Bank: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 90);
+  c.fillText('ACTIVE ROM BANK: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 90);
+
+  c.fillText('SND CPU TICK: ' + emuState.asic.sound.ticks, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 100);
+  c.fillText('SND IRQ MISSED: ' + emuState.asic.sound.missedIrqCall, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 110);
+  c.fillText('SND FIRQ MISSED: ' + emuState.asic.sound.missedFirqCall, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 120);
 
   c.fillText('DMD LOW PAGE: ' + emuState.asic.dmd.lowpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
   c.fillText('DMD HIGH PAGE: ' + emuState.asic.dmd.highpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
