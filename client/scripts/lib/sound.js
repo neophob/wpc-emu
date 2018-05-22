@@ -57,7 +57,7 @@ class Sound {
   }
 
   writeAudioData(value) {
-    console.log('write sound', value);
+    //console.log('write sound', value);
     if (this.buffer.size() >= this.bufferSize) {
       console.log(`Buffer overrun`);
     }
