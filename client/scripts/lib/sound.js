@@ -28,7 +28,7 @@ class Sound {
 
     this.bufferSize = 8192;
     this.buffer = new RingBuffer(this.bufferSize);
-    console.log('sound init', this.buffer.size());
+    console.log('sound init', this.buffer.size(), this.audioCtx.sampleRate);
   }
 
   onaudioprocess(event) {
@@ -57,10 +57,14 @@ class Sound {
   }
 
   writeAudioData(value) {
-    //console.log('write sound', value);
     if (this.buffer.size() >= this.bufferSize) {
-      console.log(`Buffer overrun`);
+      console.log('Buffer overrun');
     }
+    //poor man resampling from 11khz to 44khz
+
+    this.buffer.enq(value);
+    this.buffer.enq(value);
+    this.buffer.enq(value);
     this.buffer.enq(value);
   }
 

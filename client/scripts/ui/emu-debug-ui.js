@@ -61,12 +61,16 @@ function updateCanvas(emuState, cpuState) {
   c.fillText('DMD HIGH PAGE: ' + emuState.asic.dmd.highpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
   c.fillText('DMD ACTIVE PAGE: ' + activePage, LEFT_X_OFFSET, YPOS_DMD_DATA + 30);
 
+  if (emuState.asic.sound.ram) {
+    drawMemRegion(emuState.asic.sound.ram, LEFT_X_OFFSET + 120, YPOS_DMD_DATA + 80, 128);
+  }
+
   if (emuState.asic.dmd.dmdShadedBuffer) {
     drawDmdShaded(emuState.asic.dmd.dmdShadedBuffer, LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
   }
 
   if (emuState.asic.ram) {
-    drawMemRegion(emuState.asic.ram, LEFT_X_OFFSET, YPOS_DMD_DATA + 80, 128);
+    drawMemRegion(emuState.asic.ram, LEFT_X_OFFSET, YPOS_DMD_DATA + 80, 120);
   }
 
   if (emuState.asic.wpc.lampState) {

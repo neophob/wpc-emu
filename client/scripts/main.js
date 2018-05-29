@@ -39,6 +39,7 @@ function initialiseEmu(gameEntry) {
     u18Promise,
   ])
     .then((romFiles) => {
+      console.log('Successully loaded ROM');
       const romData = {
         u06: romFiles[0],
         u14: romFiles[1],
@@ -48,6 +49,7 @@ function initialiseEmu(gameEntry) {
       return initialiseEmulator(romData, gameEntry);
     })
     .then((_wpcSystem) => {
+      console.log('Successully initialised emulator');
       wpcSystem = _wpcSystem;
       // TODO IIKS we pollute globals here
       window.wpcInterface = {
@@ -56,7 +58,6 @@ function initialiseEmu(gameEntry) {
         resumeEmu,
         romSelection
       };
-      console.log('Successully loaded ROM');
       wpcSystem.start();
       wpcSystem.registerAudioConsumer(dacCallback);
       console.log('Successully started EMU');
