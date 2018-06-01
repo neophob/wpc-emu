@@ -36,7 +36,7 @@ function updateCanvas(emuState, cpuState) {
     return;
   }
   c.fillStyle = '#000';
-  c.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 170, 122);
+  c.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 220, 122);
   c.fillRect(LEFT_X_OFFSET, YPOS_DMD_DATA, 150, 40);
 
   c.fillStyle = COLOR_DMD[2];
@@ -44,8 +44,11 @@ function updateCanvas(emuState, cpuState) {
   c.fillText('CPU TICKS: ' + emuState.ticks, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 20);
   c.fillText('CPU TICKS/ms: ' + emuState.opsMs, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 30);
   c.fillText('CPU STATE: ' + cpuState, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 40);
-  c.fillText('IRQ MISSED: ' + (emuState.missedIrqCall - emuState.missedIrqMaskCall || 0), LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
-  c.fillText('FIRQ MISSED: ' + emuState.missedFirqCall, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
+  const irqMissed = emuState.missedIrqCall - emuState.missedIrqMaskCall || 0;
+  c.fillText('IRQ CALLS/MISSED: ' + emuState.irqCount + '/' + irqMissed,
+    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
+  c.fillText('FIRQ CALLS/MISSED: ' + emuState.firqCount + '/' + emuState.missedFirqCall,
+    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
 
   const diagnosticLed = emuState.asic.wpc.diagnosticLed ? emuState.asic.wpc.diagnosticLed.toString(2) : '00000000';
   const activePage = emuState.asic.dmd.activepage;
@@ -54,8 +57,10 @@ function updateCanvas(emuState, cpuState) {
   c.fillText('ACTIVE ROM BANK: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 90);
 
   c.fillText('SND CPU TICK: ' + emuState.asic.sound.ticks, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 100);
-  c.fillText('SND IRQ MISSED: ' + emuState.asic.sound.missedIrqCall, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 110);
-  c.fillText('SND FIRQ MISSED: ' + emuState.asic.sound.missedFirqCall, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 120);
+  c.fillText('SND IRQ CALLS/MISSED: ' + emuState.asic.sound.irqCount + '/' + emuState.asic.sound.missedIrqCall,
+    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 110);
+  c.fillText('SND FIRQ CALLS/MISSED: ' + emuState.asic.sound.firqCount + '/' + emuState.asic.sound.missedFirqCall,
+    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 120);
 
   c.fillText('DMD LOW PAGE: ' + emuState.asic.dmd.lowpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
   c.fillText('DMD HIGH PAGE: ' + emuState.asic.dmd.highpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
