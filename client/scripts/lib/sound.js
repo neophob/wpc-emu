@@ -37,8 +37,8 @@ class Sound {
     this.gainNode.gain.value = 0.9;
     this.lowpassFilter.type = 'lowpass';
     this.lowpassFilter.frequency.value = CUTOFF_FREQUENCY_HZ;
-    this.lowpassFilter.Q.value = 10;
-
+    // valid Q values: 0.0001 to 1000
+    this.lowpassFilter.Q.value = 1;
 
     // connect nodes
     this.audioSourceNode.connect(this.lowpassFilter);
@@ -65,7 +65,7 @@ class Sound {
       // underrun
 
       // ignore empty buffers... assume audio has just stopped
-      var bufferSize = this.buffer.size();
+      const bufferSize = this.buffer.size();
       if (bufferSize > 0) {
         //console.log(`Buffer underrun (needed ${size}, got ${bufferSize})`);
       }
