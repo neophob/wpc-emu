@@ -23,6 +23,6 @@ test('externalIo, should read write to ticket dispense', (t) => {
 
 test('externalIo, read from soundboard', (t) => {
   const soundBoard = t.context;
-  const result = soundBoard.read(0x3FDC);
-  t.is(result, 0x0);
+  const result = soundBoard.readInterface(0x3FDC);
+  t.is(result, 0xff);
 });
