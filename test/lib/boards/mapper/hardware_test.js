@@ -12,6 +12,54 @@ test('HardwareMapper, should get address, 16322', (t) => {
   t.deepEqual(result, expectedResult);
 });
 
+test('HardwareMapper, should get address, 0', (t) => {
+  t.throws(() => HardwareMapper.getAddress(0), 'HW_GET_ADDRESS_INVALID_MEMORY_REGION_0x0');
+});
+
+test('HardwareMapper, should get address, -1', (t) => {
+  t.throws(() => HardwareMapper.getAddress(-1), 'HW_GET_ADDRESS_INVALID_MEMORY_REGION_0x-1');
+});
+
+test('HardwareMapper, should get address, 0x4000', (t) => {
+  t.throws(() => HardwareMapper.getAddress(0x4000), 'HW_GET_ADDRESS_INVALID_MEMORY_REGION_0x4000');
+});
+
 test('HardwareMapper, should fail when using invalid offset', (t) => {
   t.throws(HardwareMapper.getAddress, 'HW_GET_ADDRESS_UNDEFINED');
+});
+
+test('HardwareMapper, should get address, 0x2000', (t) => {
+  const expectedResult = {
+    offset: 8192,
+    subsystem: 'sound',
+  };
+  const result = HardwareMapper.getAddress(0x2000);
+  t.deepEqual(result, expectedResult);
+});
+
+test('HardwareMapper, should get address, 0x3800', (t) => {
+  const expectedResult = {
+    offset: 14336,
+    subsystem: 'dmd',
+  };
+  const result = HardwareMapper.getAddress(0x3800);
+  t.deepEqual(result, expectedResult);
+});
+
+test('HardwareMapper, should get address, 0x3FC0', (t) => {
+  const expectedResult = {
+    offset: 16320,
+    subsystem: 'sound',
+  };
+  const result = HardwareMapper.getAddress(0x3FC0);
+  t.deepEqual(result, expectedResult);
+});
+
+test('HardwareMapper, should get address, 0x3FE0', (t) => {
+  const expectedResult = {
+    offset: 16352,
+    subsystem: 'wpcio',
+  };
+  const result = HardwareMapper.getAddress(0x3FE0);
+  t.deepEqual(result, expectedResult);
 });
