@@ -14,9 +14,13 @@ test('MemoryMapper, should get address, 16322', (t) => {
 
 test('MemoryMapper, should get address, 49090 - this crashes the emu', (t) => {
   const expectedResult = {
-    offset: 49090,
+    offset: 16322,
     subsystem: 'system',
   };
   const result = MemoryMapper.getAddress(49090);
   t.deepEqual(result, expectedResult);
+});
+
+test('MemoryMapper, should fail when using invalid offset', (t) => {
+  t.throws(MemoryMapper.getAddress, 'MEMORY_GET_ADDRESS_UNDEFINED');
 });
