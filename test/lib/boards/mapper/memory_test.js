@@ -44,7 +44,7 @@ test('MemoryMapper, should get address, 0x0', (t) => {
 
 test('MemoryMapper, should get address, 0x2000', (t) => {
   const expectedResult = {
-    offset: 8192,
+    offset: 0x2000,
     subsystem: 'hardware',
   };
   const result = MemoryMapper.getAddress(0x2000);

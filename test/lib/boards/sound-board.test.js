@@ -26,3 +26,33 @@ test('externalIo, read from soundboard', (t) => {
   const result = soundBoard.readInterface(0x3FDC);
   t.is(result, 0xff);
 });
+
+test('should getBankRomOffset 12', (t) => {
+  const soundBoard = t.context;
+  const result = soundBoard._getBankRomOffset(124);
+  t.is(result, 0x60000);
+});
+
+test('should getBankRomOffset 220', (t) => {
+  const soundBoard = t.context;
+  const result = soundBoard._getBankRomOffset(220);
+  t.is(result, 0x160000);
+});
+
+test('should getBankRomOffset 221', (t) => {
+  const soundBoard = t.context;
+  const result = soundBoard._getBankRomOffset(221);
+  t.is(result, 0x168000);
+});
+
+test('should getBankRomOffset 222', (t) => {
+  const soundBoard = t.context;
+  const result = soundBoard._getBankRomOffset(222);
+  t.is(result, 0x170000);
+});
+
+test('should getBankRomOffset 223', (t) => {
+  const soundBoard = t.context;
+  const result = soundBoard._getBankRomOffset(223);
+  t.is(result, 0x178000);
+});
