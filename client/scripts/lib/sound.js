@@ -45,7 +45,7 @@ class Sound {
     this.lowpassFilter.connect(this.gainNode);
     this.gainNode.connect(this.audioCtx.destination);
 
-    this.bufferSize = DEFAULT_SAMPLE_SIZE * 2;
+    this.bufferSize = DEFAULT_SAMPLE_SIZE * 4;
     this.buffer = new RingBuffer(this.bufferSize);
     console.log('sound init', this.buffer.size(), this.audioCtx.sampleRate);
   }
