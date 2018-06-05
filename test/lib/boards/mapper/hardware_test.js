@@ -30,7 +30,7 @@ test('HardwareMapper, should fail when using invalid offset', (t) => {
 
 test('HardwareMapper, should get address, 0x2000', (t) => {
   const expectedResult = {
-    offset: 8192,
+    offset: 0x2000,
     subsystem: 'sound',
   };
   const result = HardwareMapper.getAddress(0x2000);
@@ -39,16 +39,25 @@ test('HardwareMapper, should get address, 0x2000', (t) => {
 
 test('HardwareMapper, should get address, 0x3800', (t) => {
   const expectedResult = {
-    offset: 14336,
+    offset: 0x3800,
     subsystem: 'dmd',
   };
   const result = HardwareMapper.getAddress(0x3800);
   t.deepEqual(result, expectedResult);
 });
 
+test('HardwareMapper, should get address, 0x3c00', (t) => {
+  const expectedResult = {
+    offset: 0x3C00,
+    subsystem: 'dmd',
+  };
+  const result = HardwareMapper.getAddress(0x3c00);
+  t.deepEqual(result, expectedResult);
+});
+
 test('HardwareMapper, should get address, 0x3FC0', (t) => {
   const expectedResult = {
-    offset: 16320,
+    offset: 0x3FC0,
     subsystem: 'sound',
   };
   const result = HardwareMapper.getAddress(0x3FC0);
@@ -57,7 +66,7 @@ test('HardwareMapper, should get address, 0x3FC0', (t) => {
 
 test('HardwareMapper, should get address, 0x3FE0', (t) => {
   const expectedResult = {
-    offset: 16352,
+    offset: 0x3FE0,
     subsystem: 'wpcio',
   };
   const result = HardwareMapper.getAddress(0x3FE0);
