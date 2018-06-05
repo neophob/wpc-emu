@@ -27,7 +27,7 @@ test('externalIo, read from soundboard', (t) => {
   t.is(result, 0xff);
 });
 
-test('should getBankRomOffset 12', (t) => {
+test('should getBankRomOffset 124', (t) => {
   const soundBoard = t.context;
   const result = soundBoard._getBankRomOffset(124);
   t.is(result, 0x60000);

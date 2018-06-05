@@ -36,7 +36,7 @@ function updateCanvas(emuState, cpuState) {
     return;
   }
   c.fillStyle = '#000';
-  c.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 220, 122);
+  c.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 245, 135);
   c.fillRect(LEFT_X_OFFSET, YPOS_DMD_DATA, 150, 40);
 
   c.fillStyle = COLOR_DMD[2];

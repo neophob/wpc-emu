@@ -1,5 +1,9 @@
 # HISTORY
 
+## 06/06/18
+- minor progress with the sound board, fixed banked read bug
+- simplify cpu reset
+
 ## 21/05/18
 
 - cpu6809 is now a class - multiple instances possible
