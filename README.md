@@ -125,8 +125,8 @@ Operating system:
 - Mono output, Sample rate 11KHz, 25 watts power, 8 ohm
 - intelligent and have processors running their own operating system dedicated to sound tasks
 - CPU: Motorola 6809 (MC68A09EP), frequency 2MHz
-- OPM: Yamaha YM2151 OPM (FM Operator Type-M), frequency 3.579545MHz
-- DAC: AD-7524 (Digital Analog converter)
+- OPM: Yamaha YM2151 OPM (FM Operator Type-M), frequency 3.579545MHz (8-voice FM sound synthesiser)
+- DAC: AD-7524 (Digital Analog converter) and YM3012
 - Harris HC-55536 CVSD (Continuously variable slope delta modulation). Note HC-55536 is pin compatible with 55516 and 55564.
 - MC6821 Peripheral Interface Adaptor (PIA)
 - ROMS: U14, U15 and U18
@@ -190,6 +190,9 @@ The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). 
 ## ROM
 - http://www.ipdb.org/
 - http://www.planetarypinball.com/mm5/Williams/tech/wpcroms.html
+
+## Custom Power Driver
+- https://www.multimorphic.com/store/circuit-boards/pd-16/
 
 # Game List
 
