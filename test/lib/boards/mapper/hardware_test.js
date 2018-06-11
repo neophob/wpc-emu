@@ -3,12 +3,12 @@
 import test from 'ava';
 import HardwareMapper from '../../../../lib/boards/mapper/hardware';
 
-test('HardwareMapper, should get address, 16322', (t) => {
+test('HardwareMapper, should get address, 0x3FC2', (t) => {
   const expectedResult = {
-    offset: 16322,
-    subsystem: 'sound',
+    offset: 2,
+    subsystem: 'externalIo',
   };
-  const result = HardwareMapper.getAddress(16322);
+  const result = HardwareMapper.getAddress(0x3FC2);
   t.deepEqual(result, expectedResult);
 });
 
@@ -57,8 +57,8 @@ test('HardwareMapper, should get address, 0x3c00', (t) => {
 
 test('HardwareMapper, should get address, 0x3FC0', (t) => {
   const expectedResult = {
-    offset: 0x3FC0,
-    subsystem: 'sound',
+    offset: 0,
+    subsystem: 'externalIo',
   };
   const result = HardwareMapper.getAddress(0x3FC0);
   t.deepEqual(result, expectedResult);
