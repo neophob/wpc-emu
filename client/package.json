@@ -17,6 +17,7 @@
   "license": "ISC",
   "devDependencies": {
     "ava": "^0.25.0",
+    "babel-register": "^6.26.0",
     "babel-minify-webpack-plugin": "^0.3.1",
     "css-loader": "^0.28.11",
     "html-webpack-plugin": "^3.2.0",
@@ -65,9 +66,5 @@
       "prefer-destructuring": 0,
       "no-use-extend-native/no-use-extend-native": 0
     }
-  },
-  "dependencies": {
-    "babel-register": "^6.26.0",
-    "ringbufferjs": "^1.1.0"
   }
 }

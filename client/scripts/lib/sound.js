@@ -1,14 +1,12 @@
 'use strict';
 
-import RingBuffer from 'ringbufferjs';
-
 export { AudioOutput };
 
 function AudioOutput(AudioContext, sampleSize) {
   return new Sound(AudioContext, sampleSize);
 }
 
-const DEFAULT_SAMPLE_SIZE = 1024 * 4;
+const DEFAULT_SAMPLE_SIZE = 1024 * 5;
 const INPUT_SAMPLE_RATE_HZ = 11000;
 
 //If a speech signal is sampled at 22050 Hz, the highest frequency that we can expect to be present
@@ -22,14 +20,14 @@ const CUTOFF_FREQUENCY_HZ = INPUT_SAMPLE_RATE_HZ / 2;
 
 class Sound {
 
-  constructor(AudioContext, sampleSize = DEFAULT_SAMPLE_SIZE) {
+  constructor(AudioContext) {
     this.audioCtx = new AudioContext();
 
     // TODO replace me with audio workers
 
     // create elements
-    this.audioSourceNode = this.audioCtx.createScriptProcessor(sampleSize, 1, 1);
-    this.audioSourceNode.onaudioprocess = this.onaudioprocess.bind(this);
+    //this.audioSourceNode = this.audioCtx.createScriptProcessor(sampleSize, 1, 1);
+    //this.audioSourceNode.onaudioprocess = this.onaudioprocess.bind(this);
     this.gainNode = this.audioCtx.createGain();
     this.lowpassFilter = this.audioCtx.createBiquadFilter();
 
@@ -41,50 +39,40 @@ class Sound {
     this.lowpassFilter.Q.value = 1;
 
     // connect nodes
-    this.audioSourceNode.connect(this.lowpassFilter);
     this.lowpassFilter.connect(this.gainNode);
     this.gainNode.connect(this.audioCtx.destination);
 
-    this.bufferSize = DEFAULT_SAMPLE_SIZE * 4;
-    this.buffer = new RingBuffer(this.bufferSize);
-    console.log('sound init', this.buffer.size(), this.audioCtx.sampleRate);
-  }
-
-  onaudioprocess(event) {
-    const output = event.outputBuffer.getChannelData(0);
-    const size = output.length;
-
-    try {
-      const samples = this.buffer.deqN(size);
-
-      for (var i = 0; i < size; i++) {
-        output[i] = samples[i];
-      }
-    } catch (e) {
-      // onBufferUnderrun failed to fill the buffer, so handle a real buffer
-      // underrun
-
-      // ignore empty buffers... assume audio has just stopped
-      const bufferSize = this.buffer.size();
-      if (bufferSize > 0) {
-        //console.log(`Buffer underrun (needed ${size}, got ${bufferSize})`);
-      }
-      for (var j = 0; j < size; j++) {
-        output[j] = 0;
-      }
-      return;
-    }
+    this.count = 0;
+    this.buffer = this.audioCtx.createBuffer(1, DEFAULT_SAMPLE_SIZE, INPUT_SAMPLE_RATE_HZ);
+    this.bufferData = this.buffer.getChannelData(0);
+    this.audioBuffer = this.audioCtx.createBufferSource();
+    this.audioBuffer.connect(this.lowpassFilter);
   }
 
   writeAudioData(value) {
-    if (this.buffer.size() >= this.bufferSize) {
-      console.log('Buffer overrun');
+    if (this.count < DEFAULT_SAMPLE_SIZE) {
+      // fill buffer with values form -1.0 and 1.0
+      this.bufferData[this.count++] = (value - 128) / 128;
+      this.bufferData[this.count++] = 0;
+      this.bufferData[this.count++] = 0;
+      this.bufferData[this.count++] = 0;
+    } else {
+      // set the buffer in the AudioBufferSourceNode
+      this.audioBuffer.buffer = this.buffer;
+      // connect the AudioBufferSourceNode to the
+      // destination so we can hear the sound
+
+      // start the source playing
+      this.audioBuffer.start();
+      console.log('sound output');
+
+      this.buffer = this.audioCtx.createBuffer(1, DEFAULT_SAMPLE_SIZE, INPUT_SAMPLE_RATE_HZ);
+      this.bufferData = this.buffer.getChannelData(0);
+      this.audioBuffer = this.audioCtx.createBufferSource();
+      //TODO is this leaking?
+      this.audioBuffer.connect(this.lowpassFilter);
+      this.count = 0;
     }
-    //poor man resampling from 11khz to 44khz
-    this.buffer.enq(value);
-    this.buffer.enq(0);
-    this.buffer.enq(0);
-    this.buffer.enq(0);
   }
 
   setVolume(floatVolume) {
