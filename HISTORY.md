@@ -1,5 +1,12 @@
 # HISTORY
 
+## 13/06/18
+- fixed missed memory region that we relayed to DMD (0x3C00 - 0x3FAF)
+- update docs about soundboard memory mapper
+- unconfirmed mapping of the sound cpu system rom to page 0x7f
+- add external io controller board
+- enhance gamelist
+
 ## 06/06/18
 - minor progress with the sound board, fixed banked read bug
 - simplify cpu reset
