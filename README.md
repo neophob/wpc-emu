@@ -9,11 +9,16 @@
 - Emulate game "Hurricane" - also "Gilligan's Island", "Terminator2" and "Party Zone"
 - It should be pretty easy to run "WPC Fliptronic" too, as there *seems* no software changes
 
-## State
-- it boots!
-- dmd (incl. 2bit shading) works
-- Emulator shows invalid ram settings -> TODO add dump nvram to get "valid" settings
-- then game boots up
+## TODO
+- add more games to the db (gamelist.js)
+- find out how to simulate a ball is lost - currently I cannot trigger a game over. add that to the gamelist.js
+- find out if the ym2151 works
+- find out how to correctly use ym2151
+- implement HC-55536 CVSD
+- Fish Tales has DMD issues when displaying system menu
+
+### Crashes
+- High Speed II: as soon as the speed display is shown, sound cpu board gets mad! unknown how to reproduce
 
 # Implementation Status
 

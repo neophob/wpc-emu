@@ -68,3 +68,21 @@ test('MemoryMapper, should get address, 0x8000', (t) => {
   const result = MemoryMapper.getAddress(0x8000);
   t.deepEqual(result, expectedResult);
 });
+
+test('MemoryMapper, should get address, 0x3C00', (t) => {
+  const expectedResult = {
+    offset: 0x3C00,
+    subsystem: 'ram',
+  };
+  const result = MemoryMapper.getAddress(0x3C00);
+  t.deepEqual(result, expectedResult);
+});
+
+test('MemoryMapper, should get address, 0x3FAF', (t) => {
+  const expectedResult = {
+    offset: 0x3FAF,
+    subsystem: 'ram',
+  };
+  const result = MemoryMapper.getAddress(0x3FAF);
+  t.deepEqual(result, expectedResult);
+});
