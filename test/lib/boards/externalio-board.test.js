@@ -16,6 +16,6 @@ test('externalIo, should read write to ticket dispense', (t) => {
 
 test('externalIo, read from offset 0', (t) => {
   const ioBoard = t.context;
-  const result = ioBoard.readInterface(0);
+  const result = ioBoard.read(0);
   t.is(result, 0);
 });
