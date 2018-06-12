@@ -8,14 +8,9 @@ test.beforeEach((t) => {
 });
 
 test('externalIo, should read write to ticket dispense', (t) => {
-  const offset = 0x3FC6 - 0x3FC0;
+  const offset = 0x3FC6;
   const ioBoard = t.context;
   ioBoard.write(offset, 255);
-  t.is(ioBoard.ram[offset], 0xFF);
-});
-
-test('externalIo, read from offset 0', (t) => {
-  const ioBoard = t.context;
-  const result = ioBoard.read(0);
-  t.is(result, 0);
+  const result = ioBoard.read(offset);
+  t.is(result, 0xFF);
 });

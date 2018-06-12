@@ -5,7 +5,7 @@ import HardwareMapper from '../../../../lib/boards/mapper/hardware';
 
 test('HardwareMapper, should get address, 0x3FC2', (t) => {
   const expectedResult = {
-    offset: 2,
+    offset: 0x3FC2,
     subsystem: 'externalIo',
   };
   const result = HardwareMapper.getAddress(0x3FC2);
@@ -57,7 +57,7 @@ test('HardwareMapper, should get address, 0x3c00', (t) => {
 
 test('HardwareMapper, should get address, 0x3FC0', (t) => {
   const expectedResult = {
-    offset: 0,
+    offset: 0x3FC0,
     subsystem: 'externalIo',
   };
   const result = HardwareMapper.getAddress(0x3FC0);
