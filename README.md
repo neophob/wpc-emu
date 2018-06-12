@@ -11,7 +11,7 @@
 
 ## TODO
 - add more games to the db (gamelist.js)
-- find out how to simulate a ball is lost - currently I cannot trigger a game over. add that to the gamelist.js
+- find out how to simulate a ball is lost - currently I cannot trigger a game over. add that to the gamelist.js (Outhole? Drain?)
 - find out if the ym2151 works
 - find out how to correctly use ym2151
 - implement HC-55536 CVSD
