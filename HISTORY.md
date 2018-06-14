@@ -1,5 +1,10 @@
 # HISTORY
 
+## 14/06/18
+- firq is called on the soundboard, fixed ym2151 setreg call
+- relaxed soundboard rom bank switch selection
+- i heard sound for about 1s using twilight zone - however it crashed after
+
 ## 13/06/18
 - fixed missed memory region that we relayed to DMD (0x3C00 - 0x3FAF)
 - update docs about soundboard memory mapper
