@@ -4,11 +4,12 @@ import test from 'ava';
 import SoundBoard from '../../../lib/boards/sound-board';
 
 test.beforeEach((t) => {
-  const ram = new Uint8Array(0x4000);
   const initObject = {
     interruptCallback: {},
-    ram,
-    romObject: {}
+    romObject: {
+      concatinatedSoundRom: new Uint8Array(0x80000 * 3).fill(0xff),
+      soundSystemRom: new Uint8Array(0x4000).fill(0xff),
+    },
   };
   t.context = SoundBoard.getInstance(initObject);
 });
