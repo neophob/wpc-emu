@@ -46,6 +46,7 @@ this.fillSamples = function(audioBuffer, channelCount) {
           samples_remaining += (nextCommand() * self.playbackFactor);
       }
   }
-
+  return audioBuffer;
+}
 
 ```
