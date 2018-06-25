@@ -1,5 +1,7 @@
 # HISTORY
 
+![25.06.18](assets/25.06.18.png?raw=true)
+
 ## 14/06/18
 - firq is called on the soundboard, fixed ym2151 setreg call
 - relaxed soundboard rom bank switch selection
