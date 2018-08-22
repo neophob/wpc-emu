@@ -3,7 +3,7 @@
 In this talk Michael will show you how to emulate a 27 years old Williams pinball machine
 in your browser. He will demonstrate step by step how the emulator was build.
 
-He will explain how to emulate the CPU, FPGA, a dot matrix controller and other hardware
+He will explain how to emulate the CPU, ASIC, a dot matrix controller and other hardware
 in JavaScript and the underlying architecture of the emulator to provide tick accurate
 timing.
 His goal is to show that emulating a CPU is not black magic...

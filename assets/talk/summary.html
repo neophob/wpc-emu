@@ -98,7 +98,9 @@
         background: #fff;
         z-index: 0;
       }
-
+      img {
+        max-width: 100%;
+      }
       /* Two-column layout */
       .left-column {
         color: #777;
@@ -183,10 +185,38 @@ class: center, middle, inverse
 
 # WHAT?
 
+???
+- I guess most of you played at least once on a pinball machine
+
 ---
 # WHAT?
 
-- todo
+.left-column[
+  .left[![](pics/wpc-t2.jpg)]
+]
+
+???
+- Williams created different models of their pinball series
+- there are total 6 generations
+- for now i focus on the second generation of pinball machines - compared to the first version they have a dot matric display instead of an alphanumeric display
+
+--
+.right-column[
+### WPC-89 Hardware
+
+- Build in 1991
+
+- CPU Board: 6809 CPU (2MHz), 8kb RAM, Williams ASIC
+
+- Sound Board: 6809 CPU (2MHz), 8kb RAM, Mono output, Sample rate 11KHz
+
+- Dot Matrix Board: drives the 128 x 32 display, 3 different brightness levels, 8kb RAM,
+]
+
+???
+
+- Note: ASIC (Application Specific Integrated Circuits), analog and digital functionalities, custom chip
+
 
 ---
 class: center, middle, inverse
@@ -194,18 +224,34 @@ class: center, middle, inverse
 # WHY?
 
 ???
-- I was fascinated since I started the first VMWare workstation about 20 years ago
-- I always wondered how emulation works
-- The WPC system seems to be a nice candidate, as it seems to be pretty understandable what the hardware do - at least on a high level
+- So why should i care about an antiquated machine
 
 ---
 
 # WHY?
 
-- TODO!
+- I'm fascinated with emulators
 
 ???
-- at least I enjoy it, its completly different that a business project, you're allowed or forced to produce ugly looking code, pollute the global scope etc. any you can create something beautiful. and there's the competition
+- ... since I started the first VMWare workstation about 20 years ago
+- I always wondered how emulation works
+
+--
+
+- Started a NES Emu last year, canceled
+
+???
+- Main reason was the graphics chip is quite complex - so it wasnt compatible with coding while watching netflix
+- There are already plenty of NES Emus around
+
+--
+
+- Williams Pinball Machine seems to be a nice candidate
+
+???
+- i didn't found another emulator except MAME/PinMAME
+- Hardware seems to be simple
+- Really like that retro sound and nice visuals on the display
 
 ---
 class: center, middle, inverse
@@ -223,6 +269,17 @@ The process how I build the emulator
 
 ???
 I guess I choosed the only sane option to build a emulator, which is the CPU
+
+--
+
+- load rom
+- initialise
+- state machine
+- opcodes
+- irqs
+- memory mapping / comm with other periperals
+- test
+
 
 ---
 class: center, middle, inverse
