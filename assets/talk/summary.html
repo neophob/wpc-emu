@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How to run a 27 years old pinball machine in your browser</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 45%;
+        height: 92%;
+        float: left;
+      }
+      .left-column h2:last-of-type, .left-column h3:last-child {
+        color: #000;
+      }
+      .right-column {
+        width: 50%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+name: inverse
+layout: false
+class: center, middle, inverse
+
+# Run a 27 years old Pinball Machine in your browser
+2018 by Michael Vogt
+.footnote[Go directly to [project site](https://github.com/neophob/wpc-emu)]
+
+???
+- Hi Welcome to my talk "Run a 27 years old pinball machine in your browser"
+
+- My name is Michael, during the day I'm working as JS Software developper at NEEO. We're a consumer electronic startup located in bern, solothurn and cuppertino
+
+- at night I sometimes try to emulate old hardware
+
+- the goal of this talk is to show how to build an emulator - that in fact not that hard.
+
+- lets jump to the agenda
+---
+
+# Agenda
+
+1. What?
+
+???
+
+- WHAT is a Williams Pinball Machine - how does it look like
+
+--
+
+1. Why?
+
+???
+
+- WHY would someome invest time in emulating an antiquated machine?
+
+--
+
+1. Step-by-Step
+
+???
+
+- Walk through how I build my emulator
+
+--
+
+1. Demo
+
+???
+
+- I'll show how my emulator looks like
+
+--
+
+1. Outlook
+
+???
+
+- What's next? Whats missing?
+
+---
+class: center, middle, inverse
+
+# WHAT?
+
+---
+# WHAT?
+
+- todo
+
+---
+class: center, middle, inverse
+
+# WHY?
+
+???
+- I was fascinated since I started the first VMWare workstation about 20 years ago
+- I always wondered how emulation works
+- The WPC system seems to be a nice candidate, as it seems to be pretty understandable what the hardware do - at least on a high level
+
+---
+
+# WHY?
+
+- TODO!
+
+???
+- at least I enjoy it, its completly different that a business project, you're allowed or forced to produce ugly looking code, pollute the global scope etc. any you can create something beautiful. and there's the competition
+
+---
+class: center, middle, inverse
+
+# Step-by-Step
+
+???
+
+The process how I build the emulator
+
+---
+# Step-by-Step
+
+- Start the emulator with...
+
+???
+I guess I choosed the only sane option to build a emulator, which is the CPU
+
+---
+class: center, middle, inverse
+
+# Demo
+
+???
+
+- Of course the final asset I showed you before is not made manually
+
+- Here I show you the toolchain I used
+
+---
+class: center, middle, inverse
+
+# Outlook
+
+???
+
+My next goals with the Emulator
+
+---
+class: center, middle, inverse
+
+# EOF
+
+???
+
+- If you're interessted in realtime generated animations, don't hesitate to visit the Demonights event in the Effinger, there are about 4 Demonights per year
+
+    </textarea>
+    <script src="remark/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create({
+        navigation: {
+          scroll: false
+        },
+        slideNumberFormat: '',
+      });
+    </script>
+  </body>
+</html>

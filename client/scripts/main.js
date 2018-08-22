@@ -33,11 +33,11 @@ function initialiseEmu(gameEntry) {
   const u18Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u18);
 
   return Promise.all([
-    u06Promise,
-    u14Promise,
-    u15Promise,
-    u18Promise,
-  ])
+      u06Promise,
+      u14Promise,
+      u15Promise,
+      u18Promise,
+    ])
     .then((romFiles) => {
       console.log('Successully loaded ROM');
       const romData = {
@@ -60,6 +60,7 @@ function initialiseEmu(gameEntry) {
       };
       wpcSystem.start();
       wpcSystem.registerAudioConsumer(dacCallback);
+      soundInstance.setMixStereoFunction(wpcSystem.mixStereo);
       console.log('Successully started EMU');
       return emuDebugUi.initialise();
     })

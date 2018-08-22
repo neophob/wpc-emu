@@ -8,6 +8,7 @@ function AudioOutput(AudioContext, sampleSize) {
 
 const DEFAULT_SAMPLE_SIZE = 1024 * 1;
 const INPUT_SAMPLE_RATE_HZ = 11000;
+const MONO = 1;
 
 class Sound {
 
@@ -22,10 +23,16 @@ class Sound {
     this.gainNode.connect(this.audioCtx.destination);
 
     this._prepareAudio();
+
+    setInterval(() => {
+      this._fillAudioBuffer();
+    }, 50);
   }
 
   _prepareAudio() {
-    this.buffer = this.audioCtx.createBuffer(1, DEFAULT_SAMPLE_SIZE, INPUT_SAMPLE_RATE_HZ);
+    this.ym2151buffer = this.audioCtx.createBuffer(2, DEFAULT_SAMPLE_SIZE, 44100);
+
+    this.buffer = this.audioCtx.createBuffer(MONO, DEFAULT_SAMPLE_SIZE, INPUT_SAMPLE_RATE_HZ);
     this.bufferData = this.buffer.getChannelData(0);
     this.audioBuffer = this.audioCtx.createBufferSource();
     this.audioBuffer.playbackRate.value = 0.2494331066;
@@ -52,6 +59,16 @@ class Sound {
 
   setVolume(floatVolume) {
     this.gainNode.gain.value = floatVolume;
+  }
+
+  _fillAudioBuffer() {
+    this.mixStereoFunction(this.ym2151buffer, this.ym2151buffer.length, 0);
+    console.log('bufr',this.ym2151buffer);
+  }
+
+  setMixStereoFunction(mixStereoFunction) {
+    this.mixStereoFunction = mixStereoFunction;
+    console.log('XXXmixStereoFunction', this.mixStereoFunction);
   }
 
   stop() {
