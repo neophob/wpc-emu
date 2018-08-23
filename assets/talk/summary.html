@@ -162,7 +162,7 @@ class: center, middle, inverse
 
 ???
 
-- Walk through how I build my emulator
+- Walk through how I build my emulator, will be the biggest part of this talk
 
 --
 
@@ -196,9 +196,10 @@ class: center, middle, inverse
 ]
 
 ???
+- THATS the model i want to emulate
 - Williams created different models of their pinball series
 - there are total 6 generations
-- for now i focus on the second generation of pinball machines - compared to the first version they have a dot matric display instead of an alphanumeric display
+- for now i focus on the second generation of pinball machines - compared to the first version they have a dot matrix display instead of an alphanumeric display
 
 --
 .right-column[
@@ -217,6 +218,20 @@ class: center, middle, inverse
 
 - Note: ASIC (Application Specific Integrated Circuits), analog and digital functionalities, custom chip
 
+---
+
+# WHAT?
+
+.left-column[
+  .left[![](pics/wpc-t2.jpg)]
+]
+
+.right-column[
+  .left[![](pics/wpc-backbox-removed.jpg)]
+]
+
+???
+- All electronic boards are installed behind the backbox
 
 ---
 class: center, middle, inverse
@@ -241,17 +256,18 @@ class: center, middle, inverse
 - Started a NES Emu last year, canceled
 
 ???
-- Main reason was the graphics chip is quite complex - so it wasnt compatible with coding while watching netflix
+- Main reason was the graphics chip is quite complex - so it wasnt compatible with coding while watching Netflix
 - There are already plenty of NES Emus around
 
 --
 
-- Williams Pinball Machine seems to be a nice candidate
+- I recently played on such a Pinball Machine
 
 ???
-- i didn't found another emulator except MAME/PinMAME
-- Hardware seems to be simple
+- My oncle own one and I spend quite some time infront of that machine with my son
 - Really like that retro sound and nice visuals on the display
+- i didn't found another emulator except MAME/PinMAME
+- Hardware seems to be simple enough to emulate
 
 ---
 class: center, middle, inverse
@@ -259,18 +275,280 @@ class: center, middle, inverse
 # Step-by-Step
 
 ???
+- I like starting a new project where you have basically no clue how this damn thing works!
 
-The process how I build the emulator
+---
+background-image: url(pics/fn_skill.jpg)
+
+
+???
+- that image explains very good how i felt after the first hours working on the emulator.
 
 ---
 # Step-by-Step
 
-- Start the emulator with...
+- Start the emulator with emulating ...
 
 ???
 I guess I choosed the only sane option to build a emulator, which is the CPU
 
+---
+
+# Step-by-Step
+
+- Start the emulator with emulating the Motorola 6809 CPU
+
+???
+- is an 8-bit microprocessor CPU with some 16-bit features
+- produced 1978 - thats 40 years ago!
 --
+
+- To use the CPU we need a ROM file
+
+???
+
+- Thanks to MAME most of the pinball machine ROM files are available
+- Loading a ROM is straightforward - just load the file into memory
+- ROM size is variable, between 128kb and 1mb.
+- The files were stored on a hardware EEPROM file, thus its size was definitive a cost factor
+
+--
+
+- After some reasearch I found an existing 6809 CPU emulator written JS
+
+???
+
+- As I already wrote a 6502 CPU emulator for my canceled NES emu - I wasnt sad someone did all the hard work
+- Important when writing a CPU emulator are test ROM's. There are plenty of test ROMs available for NES but I couln't find a single one for a williams pinball machine
+- Test ROMs will test for example each CPU instruction, validate timing etc.
+
+- Lets get started with the CPU Emu!
+
+---
+
+class: center, middle, inverse
+
+## CPU Emulation
+
+---
+## CPU Emulation
+
+Very highlevel a CPU works like this
+
+--
+
+```js
+  initialise CPU
+
+  load program into memory
+
+  do
+
+    interrupt handling
+
+    fetch next opcode at current position
+
+    execute opcode and modify CPU state
+      optionally fetch more data from current position
+
+    update CPU state
+
+  forever
+
+```
+
+???
+- initialise CPU sets its state to a defined state, for example the current position will be defined
+
+- load the program into the CPU memory, so the CPU has something to execute
+
+- interrupt handling TODO
+
+- a CPU opcode is an instruction of the cpu, for example an addition
+
+- the CPU
+
+---
+## CPU Emulation
+
+### CPU State
+
+```js
+class Cpu6809 {
+  constructor(memoryWriteFunction, memoryReadFunction) {
+    this.memoryWriteFunction = memoryWriteFunction;
+    this.memoryReadFunction = memoryReadFunction;
+
+    this.tickCount = 0;
+    this.missedIRQ = 0;
+    this.missedFIRQ = 0;
+    this.waitOnInterrupt = false;
+    this.irqPendingNMI = false;
+    this.irqPendingFIRQ = false;
+    this.irqPendingIRQ = false;
+    this.irqCount = 0;
+    this.firqCount = 0;
+
+    this.regA = 0;
+    this.regB = 0;
+    this.regX = 0;
+    this.regY = 0;
+    this.regU = 0;
+    this.regS = 0;
+    this.regCC = 0;
+    this.regPC = 0;
+    this.regDP = 0;
+  }
+```
+
+???
+- this model provides function to read and write to memory
+- this CPU have 9 registers (???)
+- ( 8) A, B -> Accumulators (arithmetic and logic results are stored)
+- (16) X, Y -> Index Register
+- (16) U: User Stack pointer
+- (16) S: System Stack pointer
+- (16) PC: Program Counter -> also alled instruction pointer, points to the current instruction in the memory
+- ( 8) CC: Condition Code
+- ( 8) DP: Direct Page -> ???
+
+---
+## CPU Emulation
+
+### Interrupt handling
+
+???
+
+- the part i spend most of the time when i did the NES emulator
+- the emulator i use had no interrupt handling included, so i had to add this
+
+--
+
+```js
+// check for pending irq, order or interrupts is important: NMI/FIRQ/IRQ
+if (this.irqPendingNMI) {
+  this.waitOnInterrupt = false;
+  this.irqPendingNMI = false;
+  this._executeNmi();
+} else if (this.irqPendingFIRQ && (this.regCC & F_FIRQMASK) === 0) {
+  this.waitOnInterrupt = false;
+  this.irqPendingFIRQ = false;
+  this.firqCount++;
+  this._executeFirq();
+} else if (this.irqPendingIRQ && (this.regCC & F_IRQMASK) === 0) {
+  this.waitOnInterrupt = false;
+  this.irqPendingIRQ = false;
+  this.irqCount++;
+  this._executeIrq();
+}
+
+// if there's another irq pending, bail out here
+if (this.waitOnInterrupt) {
+  console.log('waitOnInterrupt');
+  this.tickCount++;
+  return 0;
+}
+
+```
+
+???
+
+- BLAH
+- IRQ masking
+- to enable a interrupt, we set the coresponding flag to true
+
+---
+
+## CPU Emulation
+
+### Interrupt handling
+
+```js
+_executeIrq() {
+  debug('exec irq');
+  this.PUSHW(this.regPC);
+  this.PUSHW(this.regU);
+  this.PUSHW(this.regY);
+  this.PUSHW(this.regX);
+  this.PUSHB(this.regDP);
+  this.PUSHB(this.regB);
+  this.PUSHB(this.regA);
+  // set ENTIRE flag to this.regCC, used for RTI
+  this.regCC |= F_ENTIRE;
+  this.PUSHB(this.regCC);
+  // Disable interrupts, Set I
+  this.regCC |= F_IRQMASK;
+  this.regPC = this.ReadWord(vecIRQ);
+  this.tickCount += 19;
+}
+
+```
+
+???
+
+- save current state
+
+---
+
+## CPU Emulation
+
+### Fetch next opcode
+
+```js
+fetch() {
+  const v = this.memoryReadFunction(this.regPC++);
+  this.regPC &= 0xffff;
+  return v;
+}
+
+var opcode = this.fetch();
+this.tickCount += cycles[opcode];
+
+switch (opcode) {
+  case 0x00: //NEG DP
+    addr = this.dpadd();
+    this.memoryWriteFunction(
+      addr,
+      this.oNEG(this.memoryReadFunction(addr))
+    );
+    break;
+  case 0x03: //COM DP
+    addr = this.dpadd();
+
+  ...
+
+```
+
+---
+
+## CPU Emulation
+
+### Update CPU State
+
+```js
+const cycles = [
+  6, 0, 0, 6, 6, 0, 6, 6, 6, 6, 6, 0, 6, 6, 3, 6,  /* 00-0F */
+  0, 0, 2, 4, 0, 0, 5, 9, 0, 2, 3, 0, 3, 2, 8, 6,  /* 10-1F */
+  3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,  /* 20-2F */
+  4, 4, 4, 4, 5, 5, 5, 5, 0, 5, 3, 6, 9,11, 0, 19, /* 30-3F */
+  2, 0, 0, 2, 2, 0, 2, 2, 2, 2, 2, 0, 2, 2, 0, 2,  /* 40-4F */
+  2, 0, 0, 2, 2, 0, 2, 2, 2, 2, 2, 0, 2, 2, 0, 2,  /* 50-5F */
+  6, 0, 0, 6, 6, 0, 6, 6, 6, 6, 6, 0, 6, 6, 3, 6,  /* 60-6F */
+  7, 0, 0, 7, 7, 0, 7, 7, 7, 7, 7, 0, 7, 7, 4, 7,  /* 70-7F */
+  2, 2, 2, 4, 2, 2, 2, 0, 2, 2, 2, 2, 4, 7, 3, 0,  /* 80-8F */
+  4, 4, 4, 6, 4, 4, 4, 4, 4, 4, 4, 4, 6, 7, 5, 5,  /* 90-9F */
+  4, 4, 4, 6, 4, 4, 4, 4, 4, 4, 4, 4, 6, 7, 5, 5,  /* A0-AF */
+  5, 5, 5, 7, 5, 5, 5, 5, 5, 5, 5, 5, 7, 8, 6, 6,  /* B0-BF */
+  2, 2, 2, 4, 2, 2, 2, 0, 2, 2, 2, 2, 3, 0, 3, 0,  /* C0-CF */
+  4, 4, 4, 6, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5,  /* D0-DF */
+  4, 4, 4, 6, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5,  /* E0-EF */
+  5, 5, 5, 7, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6   /* F0-FF */
+];
+
+```
+---
+
+# Step-by-Step
 
 - load rom
 - initialise

@@ -6,9 +6,9 @@ in your browser. He will demonstrate step by step how the emulator was build.
 He will explain how to emulate the CPU, ASIC, a dot matrix controller and other hardware
 in JavaScript and the underlying architecture of the emulator to provide tick accurate
 timing.
-His goal is to show that emulating a CPU is not black magic...
+His goal is to show that emulating is not black magic...
 
-This talk also features a live demo of the Williams pinball emulator, including how to
+This talk also features a live demo of the Williams Pinball emulator, including how to
 visualise internal emulator state to help debugging.
 
 
