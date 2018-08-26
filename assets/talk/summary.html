@@ -379,15 +379,11 @@ class Cpu6809 {
     this.memoryWriteFunction = memoryWriteFunction;
     this.memoryReadFunction = memoryReadFunction;
 
-    this.tickCount = 0;
-    this.missedIRQ = 0;
-    this.missedFIRQ = 0;
     this.waitOnInterrupt = false;
     this.irqPendingNMI = false;
     this.irqPendingFIRQ = false;
     this.irqPendingIRQ = false;
-    this.irqCount = 0;
-    this.firqCount = 0;
+    this.tickCount = 0;
 
     this.regA = 0;
     this.regB = 0;
@@ -403,6 +399,8 @@ class Cpu6809 {
 
 ???
 - this model provides function to read and write to memory
+- waitOnInterrupt is an explicit state where the cpu waits until a interrupt happen
+- the irqPending* flags define if an specific interrupt is pending
 - this CPU have 9 registers (???)
 - ( 8) A, B -> Accumulators (arithmetic and logic results are stored)
 - (16) X, Y -> Index Register
@@ -410,7 +408,50 @@ class Cpu6809 {
 - (16) S: System Stack pointer
 - (16) PC: Program Counter -> also alled instruction pointer, points to the current instruction in the memory
 - ( 8) CC: Condition Code
-- ( 8) DP: Direct Page -> ???
+- ( 8) DP: Direct Page -> there are 10 different address mode the CPU provides, in the direct addressing mode this register contains the upper 8 bits of the addressing mode
+
+---
+## CPU API
+
+#### Limited CPU API:
+```js
+  reset()
+  steps(ticks)
+  irq()
+  clearIrqMasking()
+  firq()
+  clearFirqMasking()
+  nmi()
+```
+
+???
+- to modify CPU state, the cpu provides this limited API
+- reset: set the irq in a defined state
+- steps: run cpu instructions for a defined amount of ticks
+- set interrupts or clear interrupt masks
+
+--
+
+#### Reset CPU function:
+
+```js
+reset() {
+  this.regDP = 0;
+  this.waitOnInterrupt = false;
+  this.irqPendingIRQ = false;
+  this.irqPendingFIRQ = false;
+  this.irqPendingNMI = false;
+  // disable IRQ and FIRQ
+  this.regCC = F_IRQMASK | F_FIRQMASK;
+  this.regPC = this.ReadWord(vecRESET);
+  this.tickCount = 0;
+}
+```
+
+???
+- most important we disable all interrupts
+- load the initial vector for the PC register (0xFFFE)
+- thats the location where the loaded ROM file boots
 
 ---
 ## CPU Emulation
@@ -420,7 +461,7 @@ class Cpu6809 {
 ???
 
 - the part i spend most of the time when i did the NES emulator
-- the emulator i use had no interrupt handling included, so i had to add this
+- the emulator i use had no interrupt handling included, so i had to implement this
 
 --
 
@@ -433,12 +474,10 @@ if (this.irqPendingNMI) {
 } else if (this.irqPendingFIRQ && (this.regCC & F_FIRQMASK) === 0) {
   this.waitOnInterrupt = false;
   this.irqPendingFIRQ = false;
-  this.firqCount++;
   this._executeFirq();
 } else if (this.irqPendingIRQ && (this.regCC & F_IRQMASK) === 0) {
   this.waitOnInterrupt = false;
   this.irqPendingIRQ = false;
-  this.irqCount++;
   this._executeIrq();
 }
 
@@ -453,8 +492,10 @@ if (this.waitOnInterrupt) {
 
 ???
 
-- BLAH
-- IRQ masking
+- This CPU provides 3 different interrupt types: NMI, FIRQ, IRQ
+- important is that the interrupts have priority, so if multiple interrupts are pending, the most important one is run first
+- IRQ and FIRQ can be enabled or disabled (called masking), the NMI interrupt cannot be disabled thus its called non maskble interrupt
+- FIRQ is called fast interrupt because this interrupt does not store and restore all registers befor calling the interrupt routine. so this routing must save and load all used registers
 - to enable a interrupt, we set the coresponding flag to true
 
 ---
@@ -518,6 +559,11 @@ switch (opcode) {
   ...
 
 ```
+???
+- after the CPU reset, the CPU will fetch the first instruction using the PC register
+- the 6809 CPU provides 59 different instruction
+- if the instruction needs parameter, the needed parameter are fetched from the PC register and its offset will be increased
+- each of the 59 instructions needs to be implemented
 
 ---
 
@@ -546,6 +592,12 @@ const cycles = [
 ];
 
 ```
+
+???
+- each instruction have a specific machine cycles it needs to run
+- we use a look up table to increase the tick count
+- tick count is important to know how long the cpu is running
+
 ---
 
 # Step-by-Step
