@@ -282,7 +282,9 @@ background-image: url(pics/fn_skill.jpg)
 
 
 ???
-- that image explains very good how i felt after the first hours working on the emulator.
+- thats how i felt after the first hours working on the emulator.
+
+- but i like that when you start on a new project where everything is new and you have no idea.
 
 ---
 # Step-by-Step
@@ -290,7 +292,7 @@ background-image: url(pics/fn_skill.jpg)
 - Start the emulator with emulating ...
 
 ???
-I guess I choosed the only sane option to build a emulator, which is the CPU
+The only sane option to start a emulator for me was .... anybody?
 
 ---
 
@@ -299,7 +301,8 @@ I guess I choosed the only sane option to build a emulator, which is the CPU
 - Start the emulator with emulating the Motorola 6809 CPU
 
 ???
-- is an 8-bit microprocessor CPU with some 16-bit features
+- is an 8-bit microprocessor CPU with 16-bit registers
+
 - produced 1978 - thats 40 years ago!
 --
 
@@ -333,7 +336,7 @@ class: center, middle, inverse
 ---
 ## CPU Emulation
 
-Very highlevel a CPU works like this
+Very highlevel view how the CPU Emulator works
 
 --
 
@@ -349,24 +352,27 @@ Very highlevel a CPU works like this
     fetch next opcode at current position
 
     execute opcode and modify CPU state
-      optionally fetch more data from current position
 
-    update CPU state
+    update CPU ticks
 
   forever
 
 ```
 
 ???
-- initialise CPU sets its state to a defined state, for example the current position will be defined
+- I'll show the concrete examples in the following slides, here's just a quick overview
 
-- load the program into the CPU memory, so the CPU has something to execute
+- first the CPU must be set to a defined state
 
-- interrupt handling TODO
+- then load the program into the memory, so the CPU has something to execute
 
-- a CPU opcode is an instruction of the cpu, for example an addition
+- then the infinite loop starts
 
-- the CPU
+- interrupt handling is useful to react fast on certain events
+
+- execute current opcode - an opcode is an instruction of the cpu, for example an mathematical addition
+
+- add the end we update the CPU ticks to know what the CPU executed, important for time sych
 
 ---
 ## CPU Emulation
@@ -398,17 +404,21 @@ class Cpu6809 {
 ```
 
 ???
+- This is more or less the CPU state
+
 - this model provides function to read and write to memory
 - waitOnInterrupt is an explicit state where the cpu waits until a interrupt happen
-- the irqPending* flags define if an specific interrupt is pending
+- the irqPending* flags define that a specific interrupt is pending
 - this CPU have 9 registers (???)
 - ( 8) A, B -> Accumulators (arithmetic and logic results are stored)
-- (16) X, Y -> Index Register
-- (16) U: User Stack pointer
-- (16) S: System Stack pointer
-- (16) PC: Program Counter -> also alled instruction pointer, points to the current instruction in the memory
-- ( 8) CC: Condition Code
-- ( 8) DP: Direct Page -> there are 10 different address mode the CPU provides, in the direct addressing mode this register contains the upper 8 bits of the addressing mode
+- (16) X, Y -> Index Register, usually contain an index used for indexed addressing modes
+- (16) U: User Stack pointer, The user stack is usually used to pass arguments to/from subroutines, and it can also be used for temporary data storage
+- (16) S: System Stack pointer, The system stack stores machine state during subroutine calls and interrupts.
+- (16) PC: Program Counter -> register pointing to the next instruction that will be executed by the CPU
+- ( 8) CC: Condition Code -> contains the flags, for example to mask FIRQ and IRQ, entire flag used when returning from an interrupt to restore the correct data of the registers
+- ( 8) DP: Direct Page -> there are 10 different address mode the CPU provides, in the direct addressing mode this register contains the most significant byte of the zero page address
+
+
 
 ---
 ## CPU API
@@ -425,11 +435,12 @@ class Cpu6809 {
 ```
 
 ???
-- to modify CPU state, the cpu provides this limited API
-- reset: set the irq in a defined state
+to work with the CPU, it provides this limited API
+- reset: set the CPU in a defined state
 - steps: run cpu instructions for a defined amount of ticks
 - set interrupts or clear interrupt masks
 
+Resetting the CPU looks simple as
 --
 
 #### Reset CPU function:
@@ -450,8 +461,8 @@ reset() {
 
 ???
 - most important we disable all interrupts
-- load the initial vector for the PC register (0xFFFE)
-- thats the location where the loaded ROM file boots
+- load the initial vector for the PC register (0xFFFE) - thats the location where the loaded ROM file boots
+- there are other hardcoded address spaces, for example all the IRQ routines can be found at 0xFFF6, 0xFFF8 and 0xFFFC
 
 ---
 ## CPU Emulation
@@ -597,6 +608,22 @@ const cycles = [
 - each instruction have a specific machine cycles it needs to run
 - we use a look up table to increase the tick count
 - tick count is important to know how long the cpu is running
+
+---
+
+## CPU Emulation
+
+### Can I run a ROM now?
+
+???
+- CPU Emulation is implemented, does that mean I can run my ROM?
+
+--
+
+.center[![](pics/fn_no.jpg)]
+
+???
+- a pretty clear NO!
 
 ---
 
