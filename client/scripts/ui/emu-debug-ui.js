@@ -13,6 +13,7 @@ const CANVAS_HEIGHT = 560;
 const YPOS_DMD_MAIN_VIEW = 15;
 const YPOS_GENERIC_DATA = 225;
 const YPOS_DMD_DATA = 385;
+const YPOS_MEM_DATA = YPOS_DMD_DATA + 70;
 
 const LEFT_X_OFFSET = 15;
 const MIDDLE_X_OFFSET = 250 + LEFT_X_OFFSET;
@@ -67,7 +68,7 @@ function updateCanvas(emuState, cpuState) {
   c.fillText('DMD ACTIVE PAGE: ' + activePage, LEFT_X_OFFSET, YPOS_DMD_DATA + 30);
 
   if (emuState.asic.sound.ram) {
-    drawMemRegion(emuState.asic.sound.ram, LEFT_X_OFFSET + 120, YPOS_DMD_DATA + 80, 128);
+    drawMemRegion(emuState.asic.sound.ram, LEFT_X_OFFSET + 125, YPOS_MEM_DATA + 20, 120);
   }
 
   if (emuState.asic.dmd.dmdShadedBuffer) {
@@ -75,7 +76,7 @@ function updateCanvas(emuState, cpuState) {
   }
 
   if (emuState.asic.ram) {
-    drawMemRegion(emuState.asic.ram, LEFT_X_OFFSET, YPOS_DMD_DATA + 80, 120);
+    drawMemRegion(emuState.asic.ram, LEFT_X_OFFSET, YPOS_MEM_DATA + 20, 120);
   }
 
   if (emuState.asic.wpc.lampState) {
@@ -111,7 +112,7 @@ function updateCanvas(emuState, cpuState) {
 
 function drawMemRegion(data, x, y, width) {
   c.fillStyle = COLOR_DMD[0];
-  c.fillRect(x, y, width, 65);
+  c.fillRect(x, y, width, 70);
 
   var offsetX = 0;
   var offsetY = 0;
@@ -124,7 +125,7 @@ function drawMemRegion(data, x, y, width) {
       }
       c.fillRect(x + offsetX, y + offsetY, 1, 1);
     }
-    if (offsetX++ === width) {
+    if (offsetX++ >= width-1) {
       offsetX = 0;
       offsetY++;
     }
@@ -208,6 +209,7 @@ function initCanvas() {
   c.fillStyle = COLOR_DMD[3];
   c.fillText('# DEBUG DATA:', LEFT_X_OFFSET, YPOS_GENERIC_DATA);
   c.fillText('# DMD BOARD DATA:', LEFT_X_OFFSET, YPOS_DMD_DATA);
+  c.fillText('# MEMORY:', LEFT_X_OFFSET, YPOS_MEM_DATA);
 
   c.fillStyle = COLOR_DMD[2];
   c.fillText('SOLENOID OUT MATRIX', MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 10);
@@ -215,7 +217,8 @@ function initCanvas() {
   c.fillText('LAMP OUT MATRIX', RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 10);
   c.fillText('SWITCH IN MATRIX', RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 10);
   c.fillText('DMD PAGE RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
-  c.fillText('RAM:', LEFT_X_OFFSET, YPOS_DMD_DATA + 70);
+  c.fillText('WPC CPU RAM:', LEFT_X_OFFSET, YPOS_MEM_DATA + 10);
+  c.fillText('SOUND CPU RAM:', LEFT_X_OFFSET + 125, YPOS_MEM_DATA + 10);
 }
 
 function initialise() {

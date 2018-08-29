@@ -131,11 +131,11 @@ class: center, middle, inverse
 ???
 - Hi Welcome to my talk "Run a 27 years old pinball machine in your browser"
 
-- My name is Michael, during the day I'm working as JS Software developper at NEEO. We're a consumer electronic startup located in bern, solothurn and cuppertino
+- My name is Michael, during the day I'm working as Software developper at NEEO. We're a consumer electronic startup located in Bern, Solothurn and Cupertino
 
 - at night I sometimes try to emulate old hardware
 
-- the goal of this talk is to show how to build an emulator - that in fact not that hard.
+- the goal of this talk is to show how to build an emulator - which in fact is not that hard.
 
 - lets jump to the agenda
 ---
@@ -158,7 +158,7 @@ class: center, middle, inverse
 
 --
 
-1. Step-by-Step
+1. Build an Emulator, Step-by-Step
 
 ???
 
@@ -196,9 +196,10 @@ class: center, middle, inverse
 ]
 
 ???
-- THATS the model i want to emulate
-- Williams created different models of their pinball series
+- THATS the model i want to emulate - a Williams WPC machine
+
 - there are total 6 generations
+
 - for now i focus on the second generation of pinball machines - compared to the first version they have a dot matrix display instead of an alphanumeric display
 
 --
@@ -232,6 +233,7 @@ class: center, middle, inverse
 
 ???
 - All electronic boards are installed behind the backbox
+
 
 ---
 class: center, middle, inverse
@@ -272,10 +274,10 @@ class: center, middle, inverse
 ---
 class: center, middle, inverse
 
-# Step-by-Step
+# Build an Emulator, Step-by-Step
 
 ???
-- I like starting a new project where you have basically no clue how this damn thing works!
+- Sooo, lets start with the real stuff!
 
 ---
 background-image: url(pics/fn_skill.jpg)
@@ -360,7 +362,7 @@ Very highlevel view how the CPU Emulator works
 ```
 
 ???
-- I'll show the concrete examples in the following slides, here's just a quick overview
+I'll show the concrete examples in the following slides, here's just a quick overview
 
 - first the CPU must be set to a defined state
 
@@ -370,9 +372,9 @@ Very highlevel view how the CPU Emulator works
 
 - interrupt handling is useful to react fast on certain events
 
-- execute current opcode - an opcode is an instruction of the cpu, for example an mathematical addition
+- execute next opcode - an opcode is an instruction of the cpu, for example an mathematical addition
 
-- add the end we update the CPU ticks to know what the CPU executed, important for time sych
+- add the end we update the CPU ticks to know what the CPU executed, important for time sync
 
 ---
 ## CPU Emulation
@@ -625,20 +627,86 @@ const cycles = [
 ???
 - a pretty clear NO!
 
----
+- Why? The ROM expects that other hardware can be accessed. Thats not really possible now, so either we wait forever - maybe because an interrupt is not triggered - or the program crashes.
 
-# Step-by-Step
-
-- load rom
-- initialise
-- state machine
-- opcodes
-- irqs
-- memory mapping / comm with other periperals
-- test
-
+-
 
 ---
+
+class: center, middle, inverse
+
+## Communicate with other peripherals
+
+???
+- So how can the CPU communicate with other periperals?
+
+- The short answer is: through the injected memory read/write functions.
+
+- The longer answer is, its a common technique to use memory mapping
+
+---
+## Communicate with other peripherals
+
+### Memory-mapped I/O (MMIO)
+
+The CPU has access to an address space of 64kb (16 bit).
+
+
+The memory map of the WPC-89 Hardware looks like this:
+
+- $0000-$1FFF (8kb)	RAM
+- $2000-$3FFF (8kb)	Hardware
+- $4000-$7FFF (16kb) Bankswitched ROM (paging area) - READ ONLY
+- $8000-$FFFF (32kb) Non-bankswitched "System ROM"
+
+
+???
+- memory map
+
+---
+## Communicate with other peripherals
+
+### Read Memory implementation
+
+```js
+
+  _read8(offset) {
+    const address = memoryMapper.getAddress(offset);
+    switch (address.subsystem) {
+
+      case memoryMapper.SUBSYSTEM_RAM:
+        return this.ram[address.offset];
+
+      case memoryMapper.SUBSYSTEM_HARDWARE:
+        return this._hardwareRead(address.offset);
+
+      case memoryMapper.SUBSYSTEM_BANKSWITCHED:
+        return this._bankswitchedRead(address.offset);
+
+      case memoryMapper.SUBSYSTEM_SYSTEMROM:
+        return this.systemRom[address.offset];
+
+      default:
+        throw new Error('INVALID_READ_SUBSYSTEM');
+    }
+  }
+```
+---
+
+## ASIC Emulation
+
+???
+- TODO
+
+---
+
+## Timing
+
+???
+- Synchronise devices
+
+---
+
 class: center, middle, inverse
 
 # Demo
