@@ -120,6 +120,8 @@
   </head>
   <body>
     <textarea id="source">
+class: center, middle, inverse
+---
 name: inverse
 layout: false
 class: center, middle, inverse
@@ -137,7 +139,7 @@ class: center, middle, inverse
 
 - the goal of this talk is to show how to build an emulator - which in fact is not that hard.
 
-- lets jump to the agenda
+- so, lets jump to the agenda
 ---
 
 # Agenda
@@ -232,8 +234,20 @@ class: center, middle, inverse
 ]
 
 ???
-- All electronic boards are installed behind the backbox
+- All electronic boards are installed behind the backbox - or Arnies head
+- There are dedicated boards
+- - the main CPU board
+- - Dot matrix display driver
+- - An IO board
+- - Sound board
 
+A Pinball Machine works quite simple:
+- there are **inputs** lines from the mechanical board that go to the IO board that report where the Pinball is using switches.
+- there are **output** lines to the mechanical board that light up lamps or activate motors
+
+Note about the Sound board:
+- it runs a dedicated 6809 CPU for sound processing
+- I didn't fully emulate the Sound board yet - so I won't talk about that board alot
 
 ---
 class: center, middle, inverse
@@ -559,12 +573,9 @@ var opcode = this.fetch();
 this.tickCount += cycles[opcode];
 
 switch (opcode) {
-  case 0x00: //NEG DP
+  case 0x00: //NEG Direct Page
     addr = this.dpadd();
-    this.memoryWriteFunction(
-      addr,
-      this.oNEG(this.memoryReadFunction(addr))
-    );
+    this.memoryWriteFunction(addr, this.oNEG(this.memoryReadFunction(addr)));
     break;
   case 0x03: //COM DP
     addr = this.dpadd();
@@ -573,8 +584,9 @@ switch (opcode) {
 
 ```
 ???
-- after the CPU reset, the CPU will fetch the first instruction using the PC register
+- after the CPU reset, the CPU will fetch the next instruction using the PC register
 - the 6809 CPU provides 59 different instruction
+- there's a Instruction Sets manual for each CPU that explains what each opcode does
 - if the instruction needs parameter, the needed parameter are fetched from the PC register and its offset will be increased
 - each of the 59 instructions needs to be implemented
 
@@ -640,36 +652,65 @@ class: center, middle, inverse
 ???
 - So how can the CPU communicate with other periperals?
 
-- The short answer is: through the injected memory read/write functions.
+- Devices can communicate with the CPU using the interrupts - see the exposed CPU API
 
-- The longer answer is, its a common technique to use memory mapping
+- The CPU can use the injected memory read/write functions to communicate with devices, called memory mapping or memory mapper io.
 
 ---
 ## Communicate with other peripherals
 
 ### Memory-mapped I/O (MMIO)
 
+???
+- Memory Mapped IO is a hardware feature build in the CPU
+
+--
 The CPU has access to an address space of 64kb (16 bit).
 
+???
+- our system has only 8kb RAM, so what to do with 64kb?
+- the answer is: we can communicate with other hardware
+
+--
 
 The memory map of the WPC-89 Hardware looks like this:
 
 - $0000-$1FFF (8kb)	RAM
-- $2000-$3FFF (8kb)	Hardware
-- $4000-$7FFF (16kb) Bankswitched ROM (paging area) - READ ONLY
-- $8000-$FFFF (32kb) Non-bankswitched "System ROM"
-
 
 ???
-- memory map
+- The memory map is static
+- communicate with RAM should be pretty clear
+
+--
+- $2000-$3FFF (8kb)	Hardware
+
+???
+- There is an 8kb address space reserved to communicate with the **Hardware**
+- Examples: Dot Matrix Controller, Sound Controller, Lamp output, Switch input, Bankswitched region...
+
+--
+- $4000-$7FFF (16kb) Bankswitched ROM (paging area) - READ ONLY
+???
+- **Bankswitched ROM**: Wikipedia describe Bank switching as: "Bank switching is a technique used in computer design to increase the amount of usable memory beyond the amount directly addressable by the processor"
+- the ROM file can be up to 1MB size - Bankswitching means to access parts of the ROM, the ROM is divided into 16kb junks (maximal 64 junks if the ROM is 1MB)
+
+--
+
+- $8000-$FFFF (32kb) Non-bankswitched "System ROM"
+
+???
+- **System ROM** is the last 32kb of the ROM and per definition the bootable part, aka the OS.
+- The OS is called Apple which means "Advanced Pinball Programming Logic Executive" and is always available
 
 ---
 ## Communicate with other peripherals
 
 ### Read Memory implementation
 
-```js
+Implementation of the memory read function
+--
 
+```js
   _read8(offset) {
     const address = memoryMapper.getAddress(offset);
     switch (address.subsystem) {
@@ -691,6 +732,12 @@ The memory map of the WPC-89 Hardware looks like this:
     }
   }
 ```
+
+???
+- thats the function the CPU uses when a byte is loaded from the "memory"
+
+- the memoryMapper returns which subsystem the read function is responsible and delegates the function to it.
+
 ---
 
 ## ASIC Emulation
@@ -702,8 +749,69 @@ The memory map of the WPC-89 Hardware looks like this:
 
 ## Timing
 
+One of the key elements of our Emulator
+
+--
+
+### CPU Requirements
+
+- The CPU runs at 2 MHz
+
 ???
-- Synchronise devices
+- this means the CPU can execute 2 Million ticks per second
+
+--
+
+- Execute approx. 350'000 operations per seconds
+
+???
+- DONT use debug statements if your Emulator should run at a decent framerate!
+
+--
+
+- Interrupts relies on exact timing
+
+???
+- If an interrupts is fired to late or early our program might crash or stuck forever
+
+---
+
+## Timing
+
+#### Mainloop of the Emulator
+
+???
+To fulfill the requirements, I expose one function that executes several ticks
+
+--
+```js
+executeCycle(ticksToRun, tickSteps) {
+  let ticksExecuted = 0;
+  while (ticksExecuted < ticksToRun) {
+    const singleTicks = this.cpu.steps(tickSteps);
+    ticksExecuted += singleTicks;
+    this.ticksIrq += singleTicks;
+    if (this.ticksIrq >= timing.CALL_IRQ_AFTER_TICKS) {
+      this.ticksIrq -= timing.CALL_IRQ_AFTER_TICKS;
+      this.cpu.irq();
+    }
+
+    this.ticksUpdateDmd += singleTicks;
+    if (this.ticksUpdateDmd >= timing.CALL_WPC_UPDATE_DISPLAY_AFTER_TICKS) {
+      this.ticksUpdateDmd -= timing.CALL_WPC_UPDATE_DISPLAY_AFTER_TICKS;
+      this.dmdBoard.copyScanline();
+    }
+
+    this.cpuBoardAsic.executeCycle(singleTicks);
+  }
+
+  this.soundBoard.executeCycle(ticksToRun, tickSteps);
+  return ticksExecuted;
+}
+```
+
+???
+- TODO explain ticksToRun, tickSteps
 
 ---
 
@@ -722,9 +830,13 @@ class: center, middle, inverse
 
 # Outlook
 
+-
 ???
 
 My next goals with the Emulator
+- Buy a real Williams Pinball machine
+- Replace main CPU Board and Dot Matrix Display Controller with a RPi
+- Use input switches as trigger
 
 ---
 class: center, middle, inverse
@@ -733,7 +845,8 @@ class: center, middle, inverse
 
 ???
 
-- If you're interessted in realtime generated animations, don't hesitate to visit the Demonights event in the Effinger, there are about 4 Demonights per year
+- Thats it, thanks for listening.
+- Questions?
 
     </textarea>
     <script src="remark/remark-latest.min.js">
