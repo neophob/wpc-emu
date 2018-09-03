@@ -48,7 +48,7 @@ class Sound {
     } else {
       // set the buffer in the AudioBufferSourceNode
       this.audioBuffer.buffer = this.buffer;
-      console.log('sound output', this.audioBuffer.buffer.duration);
+//      console.log('sound output', this.audioBuffer.buffer.duration);
 
       // start the source playing
       this.audioBuffer.start();
@@ -62,13 +62,13 @@ class Sound {
   }
 
   _fillAudioBuffer() {
-    this.mixStereoFunction(this.ym2151buffer, this.ym2151buffer.length, 0);
-    console.log('bufr',this.ym2151buffer);
+//    this.mixStereoFunction(this.ym2151buffer, this.ym2151buffer.length, 0);
+//    console.log('bufr',this.ym2151buffer);
   }
 
   setMixStereoFunction(mixStereoFunction) {
     this.mixStereoFunction = mixStereoFunction;
-    console.log('XXXmixStereoFunction', this.mixStereoFunction);
+//    console.log('XXXmixStereoFunction', this.mixStereoFunction);
   }
 
   stop() {

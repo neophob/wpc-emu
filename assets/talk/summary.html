@@ -979,7 +979,7 @@ class: center, middle, inverse
 
 # Toolchain
 
-## Emulator
+## Emulator / Backend
 
 - The main emulator is build as a library
 - No runtime dependencies
@@ -993,13 +993,63 @@ class: center, middle, inverse
 ## Frontend
 
 - Use the Emulator
-- Uses VanillaJS + Canvas
+- Uses ES6 VanillaJS + Canvas
 - Use Webpack to compile
 - Fetches ROM files and has the game library 
 
 ???
 - The frontend uses less than 2k lines of code
 - I have a confession to make - I suck a frontends, thats why I choose Canvas
+
+---
+
+# Demo
+
+## Frontend Game Library
+
+```js
+{
+  name: 'Terminator 2',
+  version: 'L-8',
+  rom: {
+    u06: 'https://VERY-SECRET/t2_l8.rom',
+    u14: 'https://VERY-SECRET/t2_u14.l3',
+  },
+  switchMapping: [
+    { id: 11, name: 'RIGHT FLIPPER' },
+...
+    { id: 78, name: 'SHOOTER' }],
+  skipWmcRomCheck: true,
+  initialise: {
+    closedSwitches: [ 15, 16, 17 ],
+    initialAction: [
+      {
+        delayMs: 1000,
+        source: 'cabinetInput',
+        value: 16
+      }
+    ],
+  }
+```
+
+???
+Last slide before the demo starts. 
+- defines game name and ROM URL
+- Each game has unique switch mappings which is configured in the database
+- optimisations, skipWmcRomCheck disable ROM check and increases boot speed
+- initialAction skips the warning because of invalid data/time settings
+- define inital state of the emulator
+
+---
+
+# Demo
+
+???
+Show Emu in action
+
+- Open/Close Cabinet Door and enter system menu
+- show display test
+- explain debug output (game paused)
 
 ---
 class: center, middle, inverse
