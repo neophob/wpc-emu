@@ -168,11 +168,11 @@ class: center, middle, inverse
 
 --
 
-1. Demo
+1. Toolchain & Demo
 
 ???
 
-- I'll show how my emulator looks like
+- I'll show how I build and run the Emulator
 
 --
 
@@ -200,9 +200,11 @@ class: center, middle, inverse
 ???
 - THATS the model i want to emulate - a Williams WPC machine
 
-- there are total 6 generations
+- there are total 6 generations of this system
 
 - for now i focus on the second generation of pinball machines - compared to the first version they have a dot matrix display instead of an alphanumeric display
+
+- produced 1990 and early 1999
 
 --
 .right-column[
@@ -302,13 +304,7 @@ background-image: url(pics/fn_skill.jpg)
 
 - but i like that when you start on a new project where everything is new and you have no idea.
 
----
-# Step-by-Step
-
-- Start the emulator with emulating ...
-
-???
-The only sane option to start a emulator for me was .... anybody?
+- So i didn't know a lot when I started this project, but I know I definitive need to emulate the CPU
 
 ---
 
@@ -318,7 +314,6 @@ The only sane option to start a emulator for me was .... anybody?
 
 ???
 - is an 8-bit microprocessor CPU with 16-bit registers
-
 - produced 1978 - thats 40 years ago!
 --
 
@@ -326,10 +321,10 @@ The only sane option to start a emulator for me was .... anybody?
 
 ???
 
-- Thanks to MAME most of the pinball machine ROM files are available
+- Thanks to some websites most of the pinball machine ROM files are available to download
+- The files were stored on a hardware EEPROM file, thus its size was definitive a cost factor. 
+- The size of a ROM varies between 128kb and 1mb.
 - Loading a ROM is straightforward - just load the file into memory
-- ROM size is variable, between 128kb and 1mb.
-- The files were stored on a hardware EEPROM file, thus its size was definitive a cost factor
 
 --
 
@@ -338,10 +333,9 @@ The only sane option to start a emulator for me was .... anybody?
 ???
 
 - As I already wrote a 6502 CPU emulator for my canceled NES emu - I wasnt sad someone did all the hard work
-- Important when writing a CPU emulator are test ROM's. There are plenty of test ROMs available for NES but I couln't find a single one for a williams pinball machine
-- Test ROMs will test for example each CPU instruction, validate timing etc.
-
-- Lets get started with the CPU Emu!
+- There were a couple of typos in the emulator - so I wasn't really sure about its quality. Also test coverage was pretty bad. But I thought better than nothing...
+- First thing I did was to write a ROM loader. That was quite easy, basically the last 32kb of the ROM is the OS that needs to be split from the rest.
+- After that i was able to get started with the CPU Emu!
 
 ---
 
@@ -352,43 +346,61 @@ class: center, middle, inverse
 ---
 ## CPU Emulation
 
-Very highlevel view how the CPU Emulator works
+Highlevel view how the CPU Emulator works
+
+???
+I'll show the concrete examples in the following slides, here's just a overview what the CPU emu need to do
 
 --
 
 ```js
-  initialise CPU
-
-  load program into memory
-
-  do
-
-    interrupt handling
-
-    fetch next opcode at current position
-
-    execute opcode and modify CPU state
-
-    update CPU ticks
-
-  forever
-
+  1. reset CPU
 ```
-
 ???
-I'll show the concrete examples in the following slides, here's just a quick overview
-
 - first the CPU must be set to a defined state
 
+--
+
+```js
+  2. load program into memory
+```
+???
 - then load the program into the memory, so the CPU has something to execute
 
-- then the infinite loop starts
+--
 
-- interrupt handling is useful to react fast on certain events
+```js
+  3. start infinite loop
+```
+???
+- the infinite loop starts
 
-- execute next opcode - an opcode is an instruction of the cpu, for example an mathematical addition
+--
 
+```js
+  4.     interrupt handling
+```
+???
+- interrupt handling is useful to react fast on certain events, can be initiated by devices
+
+--
+
+```js
+  5.     execute next opcode and modify CPU state 
+```
+???
+- execute next opcode - an opcode is an instruction of the cpu, for example an mathematical addition. depending on the operation, the cpu state gets modified
+
+--
+
+```js
+  6.     update CPU ticks
+```
+???
 - add the end we update the CPU ticks to know what the CPU executed, important for time sync
+
+
+Before we can reset the CPU, we take a look how its state and API looks like
 
 ---
 ## CPU Emulation
@@ -401,7 +413,6 @@ class Cpu6809 {
     this.memoryWriteFunction = memoryWriteFunction;
     this.memoryReadFunction = memoryReadFunction;
 
-    this.waitOnInterrupt = false;
     this.irqPendingNMI = false;
     this.irqPendingFIRQ = false;
     this.irqPendingIRQ = false;
@@ -413,65 +424,86 @@ class Cpu6809 {
     this.regY = 0;
     this.regU = 0;
     this.regS = 0;
-    this.regCC = 0;
     this.regPC = 0;
+    this.regCC = 0;
     this.regDP = 0;
   }
 ```
 
 ???
-- This is more or less the CPU state
+Thats a simplified view of the CPU Emulator:
+- there are function to read and write to memory
 
-- this model provides function to read and write to memory
-- waitOnInterrupt is an explicit state where the cpu waits until a interrupt happen
-- the irqPending* flags define that a specific interrupt is pending
-- this CPU have 9 registers (???)
+
+- the irqPending* flags define if a specific interrupt is pending
+
+
+- there's a tick counter thats used to synchronise the CPU against the time
+
+
+- and last but not least there are 9 registers
+- I wont go into details here, we take a closer look at two registers:
+- - (16) PC: Program Counter -> register pointing to the next instruction that will be executed by the CPU. after reading one byte, the counter value is increased
+- - ( 8) CC: Condition Code -> contains the flags, for example to mask FIRQ and IRQ, entire flag used when returning from an interrupt to restore the correct data of the registers
+
+
+thats all we need to know for now.
+
+
 - ( 8) A, B -> Accumulators (arithmetic and logic results are stored)
 - (16) X, Y -> Index Register, usually contain an index used for indexed addressing modes
 - (16) U: User Stack pointer, The user stack is usually used to pass arguments to/from subroutines, and it can also be used for temporary data storage
 - (16) S: System Stack pointer, The system stack stores machine state during subroutine calls and interrupts.
-- (16) PC: Program Counter -> register pointing to the next instruction that will be executed by the CPU
-- ( 8) CC: Condition Code -> contains the flags, for example to mask FIRQ and IRQ, entire flag used when returning from an interrupt to restore the correct data of the registers
 - ( 8) DP: Direct Page -> there are 10 different address mode the CPU provides, in the direct addressing mode this register contains the most significant byte of the zero page address
 
 
 
 ---
-## CPU API
+## CPU Emulation
 
-#### Limited CPU API:
+### CPU API
+
+The CPU Emulator exposes those functions:
 ```js
   reset()
+  
   steps(ticks)
+  
   irq()
-  clearIrqMasking()
   firq()
-  clearFirqMasking()
   nmi()
+
+  clearFirqMasking()
+  clearIrqMasking()
+
 ```
 
 ???
 to work with the CPU, it provides this limited API
-- reset: set the CPU in a defined state
-- steps: run cpu instructions for a defined amount of ticks
-- set interrupts or clear interrupt masks
+- **reset**: set the CPU in a defined state
+- **steps**: execute next opcodes for a defined amount of ticks
+- the rest of the functions are used to set interrupts or clear interrupt masks
 
 Resetting the CPU looks simple as
---
 
-#### Reset CPU function:
+---
+
+## CPU Emulation
+
+### Reset CPU
 
 ```js
 reset() {
-  this.regDP = 0;
-  this.waitOnInterrupt = false;
   this.irqPendingIRQ = false;
   this.irqPendingFIRQ = false;
   this.irqPendingNMI = false;
-  // disable IRQ and FIRQ
+
+  // disable IRQ and FIRQ (set the mask flag)
   this.regCC = F_IRQMASK | F_FIRQMASK;
-  this.regPC = this.ReadWord(vecRESET);
+
+  this.regPC = this.ReadWord(0xFFFE);
   this.tickCount = 0;
+  this.regDP = 0;
 }
 ```
 
@@ -483,37 +515,54 @@ reset() {
 ---
 ## CPU Emulation
 
+### Interrupts?
+
+Interrupt definition of Wikipedia
+
+> an interrupt is a **signal to the processor** emitted by hardware or software indicating an event that needs immediate attention. 
+
+> An interrupt alerts the processor to a **high-priority condition** requiring the interruption of the current code the processor is executing. 
+
+> The processor responds by **suspending its current activities**, saving its state, and executing a function called an interrupt handler to deal with the event. 
+
+> This interruption is temporary, and, after the interrupt handler finishes, the processor **resumes normal activities**.
+
+???
+- I let you read those Wikipedia quotes first
+
+- So, interrupts can be triggered for example if a button is pressed - then the CPU stopps it current activity, process the read key function, then resumes its last actvity
+
+- Interrupts functions should be coded very efficient and executed using as less ticks as possible to reduce the impact of the running program
+
+Lets take a look how to implement them in software...
+
+---
+## CPU Emulation
+
 ### Interrupt handling
 
 ???
-
 - the part i spend most of the time when i did the NES emulator
-- the emulator i use had no interrupt handling included, so i had to implement this
+- its tricky to implement and very hard to debug
+- the emulator i use had no interrupt handling included, so i had to implement this myself. 
+- the result looks like this:
 
 --
 
 ```js
-// check for pending irq, order or interrupts is important: NMI/FIRQ/IRQ
 if (this.irqPendingNMI) {
-  this.waitOnInterrupt = false;
   this.irqPendingNMI = false;
   this._executeNmi();
+
 } else if (this.irqPendingFIRQ && (this.regCC & F_FIRQMASK) === 0) {
-  this.waitOnInterrupt = false;
   this.irqPendingFIRQ = false;
   this._executeFirq();
+
 } else if (this.irqPendingIRQ && (this.regCC & F_IRQMASK) === 0) {
-  this.waitOnInterrupt = false;
   this.irqPendingIRQ = false;
   this._executeIrq();
 }
 
-// if there's another irq pending, bail out here
-if (this.waitOnInterrupt) {
-  console.log('waitOnInterrupt');
-  this.tickCount++;
-  return 0;
-}
 
 ```
 
@@ -523,17 +572,16 @@ if (this.waitOnInterrupt) {
 - important is that the interrupts have priority, so if multiple interrupts are pending, the most important one is run first
 - IRQ and FIRQ can be enabled or disabled (called masking), the NMI interrupt cannot be disabled thus its called non maskble interrupt
 - FIRQ is called fast interrupt because this interrupt does not store and restore all registers befor calling the interrupt routine. so this routing must save and load all used registers
-- to enable a interrupt, we set the coresponding flag to true
 
+Lets take a look how a execute interrupt function looks like...
 ---
 
 ## CPU Emulation
 
-### Interrupt handling
+### Interrupt handling - Executing
 
 ```js
 _executeIrq() {
-  debug('exec irq');
   this.PUSHW(this.regPC);
   this.PUSHW(this.regU);
   this.PUSHW(this.regY);
@@ -554,7 +602,47 @@ _executeIrq() {
 
 ???
 
-- save current state
+- save current state to the stack
+- set the bit in the CC register to define if its a IRQ or FIRQ
+- set PC register to the correct interrupt address
+- increase tick count
+
+The last call of the interrupt code is a RTI opcode - sidenote: that is part of the ROM.
+
+RTI means Return from Interrupt, this code basically restores the register content ...
+
+---
+
+## CPU Emulation
+
+### Interrupt handling - Returning
+
+```js
+case 0x3b: //RTI
+  this.regCC = this.PULLB();
+  // Check for fast interrupt
+  if (this.regCC & F_ENTIRE) {
+    this.tickCount += 9;
+    this.regA = this.PULLB();
+    this.regB = this.PULLB();
+    this.regDP = this.PULLB();
+    this.regX = this.PULLW();
+    this.regY = this.PULLW();
+    this.regU = this.PULLW();
+  }
+  this.regPC = this.PULLW();
+  break;
+
+```
+
+???
+
+.. and this is how it looks. 
+
+- This function is used for all the interrupt functions
+- all registers looks like befire the interrupt was called - the cpu resumes where it was interrupted
+
+So - that was already the hardest part, lets go on with the next part
 
 ---
 
@@ -563,13 +651,7 @@ _executeIrq() {
 ### Fetch next opcode
 
 ```js
-fetch() {
-  const v = this.memoryReadFunction(this.regPC++);
-  this.regPC &= 0xffff;
-  return v;
-}
-
-var opcode = this.fetch();
+const opcode = this.memoryReadFunction(this.regPC++);
 this.tickCount += cycles[opcode];
 
 switch (opcode) {
@@ -584,11 +666,14 @@ switch (opcode) {
 
 ```
 ???
-- after the CPU reset, the CPU will fetch the next instruction using the PC register
-- the 6809 CPU provides 59 different instruction
+
+If no interrupts are pending, we fetch the next opcode
+
+- the 6809 CPU provides 59 different instruction - which of course needs to be implemented
+
 - there's a Instruction Sets manual for each CPU that explains what each opcode does
+
 - if the instruction needs parameter, the needed parameter are fetched from the PC register and its offset will be increased
-- each of the 59 instructions needs to be implemented
 
 ---
 
@@ -619,7 +704,7 @@ const cycles = [
 ```
 
 ???
-- each instruction have a specific machine cycles it needs to run
+- each instruction have a specific numbers of ticks it needs to run, thats bascially how "expensive" an operation is
 - we use a look up table to increase the tick count
 - tick count is important to know how long the cpu is running
 
@@ -639,9 +724,10 @@ const cycles = [
 ???
 - a pretty clear NO!
 
-- Why? The ROM expects that other hardware can be accessed. Thats not really possible now, so either we wait forever - maybe because an interrupt is not triggered - or the program crashes.
+- Why? The ROM expects that other hardware can be available. 
+- As we didn't implemented other hardware yet, the program will either wait forever - maybe because an interrupt is not triggered - or the program crashes.
 
--
+But first - how can the CPU communicate with other hardware?
 
 ---
 
@@ -654,7 +740,7 @@ class: center, middle, inverse
 
 - Devices can communicate with the CPU using the interrupts - see the exposed CPU API
 
-- The CPU can use the injected memory read/write functions to communicate with devices, called memory mapping or memory mapper io.
+- The CPU can use the injected memory read/write functions to communicate with devices, using a technique called memory mapper io.
 
 ---
 ## Communicate with other peripherals
@@ -701,6 +787,7 @@ The memory map of the WPC-89 Hardware looks like this:
 ???
 - **System ROM** is the last 32kb of the ROM and per definition the bootable part, aka the OS.
 - The OS is called Apple which means "Advanced Pinball Programming Logic Executive" and is always available
+- this OS contains the core operating system functions
 
 ---
 ## Communicate with other peripherals
@@ -738,12 +825,81 @@ Implementation of the memory read function
 
 - the memoryMapper returns which subsystem the read function is responsible and delegates the function to it.
 
+We have now the bridge between CPU and the other hardware to implement, lets go!
+
 ---
 
-## ASIC Emulation
+## Hardware Emulation
+
+### WPC-ASIC 
+
+.left-column[
+  .left[![](pics/wpc-asic.jpg)]
+]
+
+.right-column[
+- The Heart of the WPC System
+
+- Custom made by Williams for this Pinball System
+
+- Giant address decoder
+]
 
 ???
-- TODO
+
+- Note: ASIC (Application Specific Integrated Circuits), analog and digital functionalities, custom chip
+
+- All read/write requests from the CPU are first seen by the ASIC, which can then either respond to it directly if it is an internal function, or forward the request to another device.
+
+---
+
+## Hardware Emulation
+
+### WPC-ASIC 
+
+The ASIC generates the reset, IRQ, and FIRQ signals which are sent to the CPU.
+
+IRQ is generated 976 times per second, about once every 1.02ms. An oscillator on the CPU board generates the frequency. The periodic interrupt can be disabled/enabled by writing to the ASIC's WPC_ZEROCROSS_IRQ_CLEAR register. Separately, IRQ can be masked/unmasked by writing to the 6809's condition-code (CC) register.
+
+Switch Matric
+
+WPC supports up to 64 individually controllable lamps. The lamps are arranged in an 8x8 matrix. At any given instant, only 8 of the lamps can receive power. A column strobe is written to determine which set of 8 lamps is being addressed. A row output is written to specify the on/off states of that set of lamps. Software must repeatedly strobe each of the lamp columns in order to update all 64 lamps.
+
+
+---
+
+## Hardware Emulation
+
+### Dot Matrix Display Controller 
+
+.left-column[
+  .left[![](pics/wpc-dmd.jpg)]
+]
+
+.right-column[
+- Display size: 128 x 32, refreshes at 122Mhz
+
+- A full frame in RAM needs 512 bytes
+
+- Supports 3 level of brightness, by blending different pages at high framerate
+]
+
+???
+
+- Note: ASIC (Application Specific Integrated Circuits), analog and digital functionalities, custom chip
+
+- All read/write requests from the CPU are first seen by the ASIC, which can then either respond to it directly if it is an internal function, or forward the request to another device.
+
+---
+
+## Hardware Emulation
+
+### Dot Matrix Display Controller 
+
+FIRQ can be generated in two ways: from the dot matrix controller after a certain scanline is redrawn, or from the high-performance timer. When an FIRQ is received, the CPU has to determine which of these occurred to determine how to process it.
+
+The DMD controller can interrupt via FIRQ when a particular scanline of the display has just been sent to the display. This can be used to tell the CPU when to display a new frame.
+
 
 ---
 
@@ -778,7 +934,7 @@ One of the key elements of our Emulator
 
 ## Timing
 
-#### Mainloop of the Emulator
+### Mainloop of the Emulator
 
 ???
 To fulfill the requirements, I expose one function that executes several ticks
@@ -817,13 +973,33 @@ executeCycle(ticksToRun, tickSteps) {
 
 class: center, middle, inverse
 
-# Demo
+# Toolchain & Demo
+
+---
+
+# Toolchain
+
+## Emulator
+
+- The main emulator is build as a library
+- No runtime dependencies
+- Use Webpack to compile
 
 ???
+- The emulator uses less than 10k lines of code
 
-- Of course the final asset I showed you before is not made manually
+--
 
-- Here I show you the toolchain I used
+## Frontend
+
+- Use the Emulator
+- Uses VanillaJS + Canvas
+- Use Webpack to compile
+- Fetches ROM files and has the game library 
+
+???
+- The frontend uses less than 2k lines of code
+- I have a confession to make - I suck a frontends, thats why I choose Canvas
 
 ---
 class: center, middle, inverse
