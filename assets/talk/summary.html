@@ -216,7 +216,7 @@ class: center, middle, inverse
 
 - Sound Board: 6809 CPU (2MHz), 8kb RAM, Mono output, Sample rate 11KHz
 
-- Dot Matrix Board: drives the 128 x 32 display, 3 different brightness levels, 8kb RAM,
+- Dot Matrix Board: drives the 128 x 32 display, 4 different brightness levels, 8kb RAM,
 ]
 
 ???
@@ -795,6 +795,10 @@ The memory map of the WPC-89 Hardware looks like this:
 ### Read Memory implementation
 
 Implementation of the memory read function
+
+???
+NOTE: thats the key concept how to Emulator works - it allows to split the emulator up in different pieces
+
 --
 
 ```js
@@ -825,6 +829,8 @@ Implementation of the memory read function
 
 - the memoryMapper returns which subsystem the read function is responsible and delegates the function to it.
 
+- the write function is similar, except it cannot write to the BANKSWITCHED and SYSTEMROM
+
 We have now the bridge between CPU and the other hardware to implement, lets go!
 
 ---
@@ -851,20 +857,142 @@ We have now the bridge between CPU and the other hardware to implement, lets go!
 
 - All read/write requests from the CPU are first seen by the ASIC, which can then either respond to it directly if it is an internal function, or forward the request to another device.
 
+- It provides quite a lot of functionallity, I will show you
 ---
 
 ## Hardware Emulation
 
-### WPC-ASIC 
+### WPC-ASIC Functions
 
-The ASIC generates the reset, IRQ, and FIRQ signals which are sent to the CPU.
+???
+The ASIC is quite complex, so I give you only a quick overiew
 
-IRQ is generated 976 times per second, about once every 1.02ms. An oscillator on the CPU board generates the frequency. The periodic interrupt can be disabled/enabled by writing to the ASIC's WPC_ZEROCROSS_IRQ_CLEAR register. Separately, IRQ can be masked/unmasked by writing to the 6809's condition-code (CC) register.
+--
 
-Switch Matric
+- Triggers IRQ and FIRQ
 
-WPC supports up to 64 individually controllable lamps. The lamps are arranged in an 8x8 matrix. At any given instant, only 8 of the lamps can receive power. A column strobe is written to determine which set of 8 lamps is being addressed. A row output is written to specify the on/off states of that set of lamps. Software must repeatedly strobe each of the lamp columns in order to update all 64 lamps.
 
+???
+
+- The ASIC is responsible for the Timing as it will trigger CPU interrupts
+
+- IRQ is triggered 976 times per second, about once every 1024us and is used as a generic timer
+
+- FIRQ is triggered when the Dot Matrix Controller finished drawing a specific Scanline, so the CPU can switch to the next frame to display
+
+--
+
+- Read the input switches using a 8x8 matrix
+- Update the lamps using a 8x8 matrix
+- Update 28 controlled outputs for solenoids, motors
+
+
+???
+- Updates all lamps and motors and report the switch state - bascially make sure the User IO is up to date
+
+
+--
+
+- Triggers Diagnostic LED .. and more
+- Implements a Bit shifter which offloads the CPU
+
+???
+
+- there is a diagnostic LED on board that slowly blinks and gives you feedback if the system is running
+
+- there is more hardware we don't have time to talk about, for example a watchdog - but those systems are not mandatory to implement 
+
+and the bitshifter we will look at
+
+---
+
+## Hardware Emulation
+
+### WPC-ASIC Bit Shifter Write
+
+???
+- multiplications are the most expensive mathematical ops, they use quite alot of ticks (11) to execute. 
+- one way to avoid this is to use this bit shifter which means that this is a very primitive co-processor
+--
+
+```js
+write(offset, value) {
+  this.ram[offset] = value;
+
+  switch (offset) {
+    ...
+    case OP.WPC_SHIFTADDRH:
+    case OP.WPC_SHIFTADDRL:
+    case OP.WPC_SHIFTBIT:
+    case OP.WPC_SHIFTBIT2:
+      debug('WRITE', REVERSEOP[offset], value);
+      break;
+```
+???
+NOTE: this write function is called when the CPU writes to the ASIC part of the memory space
+
+- The write function is pretty easy, we just store the values in RAM
+
+--
+
+Exposes two functions:
+
+ - Shift Bit
+ - Shift Address
+
+???
+
+- Shift Bit sets bit 0-7 for a 8 bit value
+- Shift Address
+The shifter works with 16bit numbers, thats why we have a H and L part of WPC_SHIFTADDR
+
+- The bit shifter is used to optimize bit-level operations (set, clear, test, and toggle). 
+
+---
+
+## Hardware Emulation
+
+### WPC-ASIC Bit Shifter Read
+
+```js
+read(offset) {
+  switch (offset) {
+    ...
+    case OP.WPC_SHIFTADDRH:
+      return this.ram[OP.WPC_SHIFTADDRH] + ((this.ram[OP.WPC_SHIFTADDRL] 
+              + (this.ram[OP.WPC_SHIFTBIT] >>> 3)) >>> 8);
+
+    case OP.WPC_SHIFTADDRL:
+      return (this.ram[OP.WPC_SHIFTADDRL] 
+               + (this.ram[OP.WPC_SHIFTBIT] >>> 3)) & 0xFF;
+
+    case OP.WPC_SHIFTBIT:
+    case OP.WPC_SHIFTBIT2:
+      return 1 << (this.ram[offset] & 0x07);
+    
+```
+
+???
+
+First the easier shiftbit function:
+- WPC_SHIFTBIT and WPC_SHIFTBIT2 are used to set bit 0 to 7, depending which on the input value
+
+Now to the shiftadd
+- WPC_SHIFTADDRL is shifted right by 3 to avoid overflow
+
+-
+
+- todo explain
+$3FF4     Byte     WPC_SHIFTADDRH
+$3FF5     Byte     WPC_SHIFTADDRL
+                    15-0: R/W: The base address for the bit shifter.
+                    Writing to this address initializes the shifter.
+                    Reading from this address after a shift command returns the
+                    shifted address.
+$3FF6     Byte     WPC_SHIFTBIT
+                    7-0: W: Sets the bit position for a shift command.
+                    7-0: R: Returns the output of the last shift command as a bitmask.
+$3FF7     Byte     WPC_SHIFTBIT2
 
 ---
 
@@ -896,11 +1024,38 @@ WPC supports up to 64 individually controllable lamps. The lamps are arranged in
 
 ### Dot Matrix Display Controller 
 
-FIRQ can be generated in two ways: from the dot matrix controller after a certain scanline is redrawn, or from the high-performance timer. When an FIRQ is received, the CPU has to determine which of these occurred to determine how to process it.
+```js
+copyScanline() {
+  const srcAddr = activePage * DMD_PAGE_SIZE + scanline * DMD_SCANLINE_SIZE_IN_BYTES;
+  const destAddr = videoOutputPointer * DMD_PAGE_SIZE + scanline * DMD_SCANLINE_SIZE_IN_BYTES;
+  for (let i = 0; i < DMD_SCANLINE_SIZE_IN_BYTES; i++) {
+    videoOutputBuffer[destAddr + i] = videoRam[srcAddr + i];
+  }  
+  // select next scanline
+  scanline = (scanline + 1) & 0x1F;
+  // framebuffer switch
+  if (scanline === 0) {
+    // flip output buffer, needed to calculate shading
+    videoOutputPointer = (videoOutputPointer + 1) % DMD_SHADING_FRAMES;
+    // update output video frame, shading is made for the last 3 frames
+    outputDmdDisplay.updateVideoBuffer(videoOutputBuffer);
+    if (Number.isInteger(nextActivePage)) {
+      activePage = nextActivePage;
+      nextActivePage = undefined;
+    }
+  }
+  if (requestFIRQ === true) {
+    if (scanline === ram[OP.WPC_DMD_SCANLINE] & 0x1F) {
+      interruptCallback.firqFromDmd();
+      requestFIRQ = false;
+    }
+  }
+}
+```
+???
+- copy a scanline from the activePage to the output video buffer
 
-The DMD controller can interrupt via FIRQ when a particular scanline of the display has just been sent to the display. This can be used to tell the CPU when to display a new frame.
-
-
+- generate FIRQ if requested
 ---
 
 ## Timing
@@ -934,17 +1089,17 @@ One of the key elements of our Emulator
 
 ## Timing
 
-### Mainloop of the Emulator
+### Mainloop of the Backend/Emulator
 
 ???
-To fulfill the requirements, I expose one function that executes several ticks
+To fulfill the requirements, the Emu expose one function that executes several ticks
 
 --
 ```js
-executeCycle(ticksToRun, tickSteps) {
+executeCycle(ticksToRun) {
   let ticksExecuted = 0;
   while (ticksExecuted < ticksToRun) {
-    const singleTicks = this.cpu.steps(tickSteps);
+    const singleTicks = this.cpu.steps();
     ticksExecuted += singleTicks;
     this.ticksIrq += singleTicks;
     if (this.ticksIrq >= timing.CALL_IRQ_AFTER_TICKS) {
@@ -961,13 +1116,52 @@ executeCycle(ticksToRun, tickSteps) {
     this.cpuBoardAsic.executeCycle(singleTicks);
   }
 
-  this.soundBoard.executeCycle(ticksToRun, tickSteps);
   return ticksExecuted;
 }
 ```
 
 ???
-- TODO explain ticksToRun, tickSteps
+- the cpu execute steps until ticksToRun is exceeded
+- IRQ callback is called after 2049 ticks
+- we also need to call the DMD copy scanline function after 512 ticks
+
+The rest is made with the memory mapped function.
+
+---
+
+## Timing
+
+### Mainloop of the Frontend
+
+Client use `requestAnimationFrame` to get 60 FPS
+
+???
+Nothing fancy here, we just to make sure drawing one frame does not exceed 16ms
+--
+
+To calculate the ticks we to draw one frame, use this simple calculation:
+
+```
+const HZ = 2000000;
+const DESIRED_FPS = 60;
+const TICKS_PER_STEP = parseInt(HZ / DESIRED_FPS, 10);
+``` 
+
+???
+This gives us about 33'000 ticks per call
+
+---
+
+## Timing
+
+### Mainloop of the Frontend
+
+.center[![](pics/wpc-client-perf.jpg)]
+
+???
+this works pretty fine, it takes about 8ms to process 33000 ticks and render all elements.
+
+Sidenote: this is the time need to actually run two emulated CPU's - the main CPU and the sound board
 
 ---
 
@@ -998,8 +1192,7 @@ class: center, middle, inverse
 - Fetches ROM files and has the game library 
 
 ???
-- The frontend uses less than 2k lines of code
-- I have a confession to make - I suck a frontends, thats why I choose Canvas
+- The frontend uses less than 1k lines of code
 
 ---
 

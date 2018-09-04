@@ -34,7 +34,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Watchdog (not sure if needed, no reboot in case of an error which make it easier to find bugs in the emu)
 - Bit Shifter ✓
 - Memory Protection (not sure if needed)
-- Time of Day Clock ✓
+- Time of Day Clock ✓ - not sure, Twilight Zone's Clock time does not work
 - High Resolution Timer (not used, was used by alphanumeric games to do display dimming)
 - Bank Switching ✓
 - The Switch Matrix ✓
