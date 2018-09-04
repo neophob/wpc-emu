@@ -156,7 +156,7 @@ class: center, middle, inverse
 
 ???
 
-- WHY would someome invest time in emulating an antiquated machine?
+- WHY would someone invest time in emulating an antiquated machine?
 
 --
 
@@ -176,11 +176,11 @@ class: center, middle, inverse
 
 --
 
-1. Outlook
+1. Next Steps
 
 ???
 
-- What's next? Whats missing?
+- Future improvements
 
 ---
 class: center, middle, inverse
@@ -282,7 +282,7 @@ class: center, middle, inverse
 - I recently played on such a Pinball Machine
 
 ???
-- My oncle own one and I spend quite some time infront of that machine with my son
+- My oncle own one and I spend quite some time in front of that machine with my son
 - Really like that retro sound and nice visuals on the display
 - i didn't found another emulator except MAME/PinMAME
 - Hardware seems to be simple enough to emulate
@@ -328,7 +328,7 @@ background-image: url(pics/fn_skill.jpg)
 
 --
 
-- After some reasearch I found an existing 6809 CPU emulator written JS
+- After some research I found an existing 6809 CPU emulator written JS
 
 ???
 
@@ -346,7 +346,7 @@ class: center, middle, inverse
 ---
 ## CPU Emulation
 
-Highlevel view how the CPU Emulator works
+High Level view how the CPU Emulator works
 
 ???
 I'll show the concrete examples in the following slides, here's just a overview what the CPU emu need to do
@@ -512,6 +512,8 @@ reset() {
 - load the initial vector for the PC register (0xFFFE) - thats the location where the loaded ROM file boots
 - there are other hardcoded address spaces, for example all the IRQ routines can be found at 0xFFF6, 0xFFF8 and 0xFFFC
 
+Lets take a look what interrupts are and why they are useful...
+
 ---
 ## CPU Emulation
 
@@ -530,11 +532,11 @@ Interrupt definition of Wikipedia
 ???
 - I let you read those Wikipedia quotes first
 
-- So, interrupts can be triggered for example if a button is pressed - then the CPU stopps it current activity, process the read key function, then resumes its last actvity
+- So, interrupts can be triggered for example if a button is pressed - then the CPU stops it current activity, process the read key function, then resumes its last activity
 
 - Interrupts functions should be coded very efficient and executed using as less ticks as possible to reduce the impact of the running program
 
-Lets take a look how to implement them in software...
+Lets take a look how to implement them in the Emulator...
 
 ---
 ## CPU Emulation
@@ -570,8 +572,8 @@ if (this.irqPendingNMI) {
 
 - This CPU provides 3 different interrupt types: NMI, FIRQ, IRQ
 - important is that the interrupts have priority, so if multiple interrupts are pending, the most important one is run first
-- IRQ and FIRQ can be enabled or disabled (called masking), the NMI interrupt cannot be disabled thus its called non maskble interrupt
-- FIRQ is called fast interrupt because this interrupt does not store and restore all registers befor calling the interrupt routine. so this routing must save and load all used registers
+- IRQ and FIRQ can be enabled or disabled (called masking), the NMI interrupt cannot be disabled thus its called non maskable interrupt
+- FIRQ is called fast interrupt because this interrupt does not store and restore all registers before calling the interrupt routine. so this routing must save and load all used registers
 
 Lets take a look how a execute interrupt function looks like...
 ---
@@ -640,7 +642,7 @@ case 0x3b: //RTI
 .. and this is how it looks. 
 
 - This function is used for all the interrupt functions
-- all registers looks like befire the interrupt was called - the cpu resumes where it was interrupted
+- all registers looks like before the interrupt was called - the cpu resumes where it was interrupted
 
 So - that was already the hardest part, lets go on with the next part
 
@@ -704,7 +706,7 @@ const cycles = [
 ```
 
 ???
-- each instruction have a specific numbers of ticks it needs to run, thats bascially how "expensive" an operation is
+- each instruction have a specific numbers of ticks it needs to run, thats basically how "expensive" an operation is
 - we use a look up table to increase the tick count
 - tick count is important to know how long the cpu is running
 
@@ -727,7 +729,7 @@ const cycles = [
 - Why? The ROM expects that other hardware can be available. 
 - As we didn't implemented other hardware yet, the program will either wait forever - maybe because an interrupt is not triggered - or the program crashes.
 
-But first - how can the CPU communicate with other hardware?
+So the main question now is, how can the CPU communicate with other hardware?
 
 ---
 
@@ -736,7 +738,7 @@ class: center, middle, inverse
 ## Communicate with other peripherals
 
 ???
-- So how can the CPU communicate with other periperals?
+- So how can the CPU communicate with other peripherals?
 
 - Devices can communicate with the CPU using the interrupts - see the exposed CPU API
 
@@ -857,7 +859,7 @@ We have now the bridge between CPU and the other hardware to implement, lets go!
 
 - All read/write requests from the CPU are first seen by the ASIC, which can then either respond to it directly if it is an internal function, or forward the request to another device.
 
-- It provides quite a lot of functionallity, I will show you
+- It provides quite a lot of functionality, I will show you
 ---
 
 ## Hardware Emulation
@@ -865,7 +867,7 @@ We have now the bridge between CPU and the other hardware to implement, lets go!
 ### WPC-ASIC Functions
 
 ???
-The ASIC is quite complex, so I give you only a quick overiew
+The ASIC is quite complex, so I give you only a quick overview
 
 --
 
@@ -888,7 +890,7 @@ The ASIC is quite complex, so I give you only a quick overiew
 
 
 ???
-- Updates all lamps and motors and report the switch state - bascially make sure the User IO is up to date
+- Updates all lamps and motors and report the switch state - basically make sure the User IO is up to date
 
 
 --
@@ -1231,7 +1233,7 @@ Last slide before the demo starts.
 - Each game has unique switch mappings which is configured in the database
 - optimisations, skipWmcRomCheck disable ROM check and increases boot speed
 - initialAction skips the warning because of invalid data/time settings
-- define inital state of the emulator
+- define initial state of the emulator
 
 ---
 
@@ -1247,7 +1249,7 @@ Show Emu in action
 ---
 class: center, middle, inverse
 
-# Outlook
+# Next Steps
 
 -
 ???
