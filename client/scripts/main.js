@@ -11,9 +11,9 @@ import * as gamelist from './db/gamelist';
 import { populateControlUiView } from './ui/control-ui';
 import * as emuDebugUi from './ui/emu-debug-ui';
 
-const HZ = 2000000;
+const TICKS = 2000000;
 const DESIRED_FPS = 58;
-const TICKS_PER_STEP = parseInt(HZ / DESIRED_FPS, 10);
+const TICKS_PER_STEP = parseInt(TICKS / DESIRED_FPS, 10);
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const soundInstance = AudioOutput(AudioContext);
