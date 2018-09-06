@@ -9,7 +9,7 @@ const romU14Path = process.argv[3] || 'rom/U14.PP';
 const romU15Path = process.argv[4] || 'rom/U15.PP';
 const romU18Path = process.argv[5] || 'rom/U18.PP';
 
-const CYCLE_COUNT = process.env.CYCLES || 2000000;
+const CYCLE_COUNT = process.env.CYCLES || 2000000 * 2;
 
 function loadFile(fileName) {
   return new Promise((resolve, reject) => {
@@ -76,4 +76,7 @@ Promise.resolve()
   .then(() => benchmarkWithCycleCount(2048))
   .then(() => benchmarkWithCycleCount(4096))
   .then(() => benchmarkWithCycleCount(8192))
-  .then(() => benchmarkWithCycleCount(16384));
+  .then(() => benchmarkWithCycleCount(16384))
+  .then(() => benchmarkWithCycleCount(32768))
+  .then(() => benchmarkWithCycleCount(65536))
+  ;

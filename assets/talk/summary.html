@@ -318,24 +318,23 @@ background-image: url(pics/fn_skill.jpg)
 - produced 1978 - thats 40 years ago!
 --
 
-- To use the CPU we need a ROM file
-
-???
-
-- Thanks to some websites most of the pinball machine ROM files are available to download
-- The files were stored on a hardware EEPROM file, thus its size was definitive a cost factor. 
-- The size of a ROM varies between 128kb and 1mb.
-- Loading a ROM is straightforward - just load the file into memory
-
---
-
 - After some research I found an existing 6809 CPU emulator written JS
 
 ???
 
 - As I already wrote a 6502 CPU emulator for my canceled NES emu - I wasnt sad someone did all the hard work
 - There were a couple of typos in the emulator - so I wasn't really sure about its quality. Also test coverage was pretty bad. But I thought better than nothing...
-- First thing I did was to write a ROM loader. That was quite easy, basically the last 32kb of the ROM is the OS that needs to be split from the rest.
+- Anyway to use a CPU we need to load a ROM file
+
+--
+
+- To use the CPU we need a ROM file
+
+???
+
+- Loading a ROM is straightforward - just load the file into memory
+
+
 - After that i was able to get started with the CPU Emu!
 
 ---
@@ -363,15 +362,7 @@ I'll show the concrete examples in the following slides, here's just a overview 
 --
 
 ```js
-  2. load program into memory
-```
-???
-- then load the program into the memory, so the CPU has something to execute
-
---
-
-```js
-  3. start infinite loop
+  2. start infinite loop
 ```
 ???
 - the infinite loop starts
@@ -379,7 +370,7 @@ I'll show the concrete examples in the following slides, here's just a overview 
 --
 
 ```js
-  4.     interrupt handling
+  3.     interrupt handling
 ```
 ???
 - interrupt handling is useful to react fast on certain events, can be initiated by devices
@@ -387,7 +378,7 @@ I'll show the concrete examples in the following slides, here's just a overview 
 --
 
 ```js
-  5.     execute next opcode and modify CPU state 
+  4.     execute next opcode and modify CPU state 
 ```
 ???
 - execute next opcode - an opcode is an instruction of the cpu, for example an mathematical addition. depending on the operation, the cpu state gets modified
@@ -395,7 +386,7 @@ I'll show the concrete examples in the following slides, here's just a overview 
 --
 
 ```js
-  6.     update CPU ticks
+  5.     update CPU ticks
 ```
 ???
 - add the end we update the CPU ticks to know what the CPU executed, important for time sync
@@ -491,7 +482,7 @@ So the first step for the CPU Emulation was resetting the CPU, this looks simple
 
 ## CPU Emulation
 
-### Reset CPU
+### 1. Reset CPU
 
 ```js
 reset() {
@@ -518,36 +509,17 @@ Lets take a look what interrupts are and why they are useful...
 ---
 ## CPU Emulation
 
-### Interrupts?
-
-Interrupt definition (Wikipedia)
-
-> an interrupt is a **signal to the processor** emitted by hardware or software indicating an event that needs immediate attention. 
-
-> An interrupt alerts the processor to a **high-priority condition** requiring the interruption of the current code the processor is executing. 
-
-> The processor responds by **suspending its current activities**, saving its state, and executing a function called an interrupt handler to deal with the event. 
-
-> This interruption is temporary, and, after the interrupt handler finishes, the processor **resumes normal activities**.
-
-???
-- I let you read those Wikipedia quotes first
-
-- So, interrupts can be triggered for example if a button is pressed - then the CPU stops it current activity, process the read key function, then resumes its last activity
-
-- Interrupts functions should be coded very efficient and executed using as less ticks as possible to reduce the impact of the running program
-
-Lets take a look how to implement them in the Emulator...
-
----
-## CPU Emulation
-
-### Interrupt handling
+### 3. Interrupt handling
 
 ???
 - the part I spend a lot of the time when i did the NES emulator
-- its tricky to implement and very hard to debug
 - the CPU Emulator i use had no interrupt handling included, so i had to implement this myself. 
+
+
+- **WHATS** an Interrupt? its a message from a device to the cpu to indicate there is something important to handle
+- The CPU will **suspending its current activities** and execute the interrupt routine
+
+
 - the result looks like this:
 
 --
@@ -582,7 +554,7 @@ Lets take a look how a execute interrupt function looks like...
 
 ## CPU Emulation
 
-### Interrupt handling - Executing
+### 3. Interrupt handling - Pre execute
 
 ```js
 _executeIrq() {
@@ -619,7 +591,7 @@ RTI means Return from Interrupt, this code basically restores the register conte
 
 ## CPU Emulation
 
-### Interrupt handling - Returning
+### 3. Interrupt handling - Post execute
 
 ```js
 case 0x3b: //RTI
@@ -652,7 +624,7 @@ So - that was already the hardest part, lets go on with the next part
 
 ## CPU Emulation
 
-### Fetch next opcode
+### 4. Fetch next opcode
 
 ```js
 .. interrupt code
@@ -670,6 +642,10 @@ switch (opcode) {
     this.memoryWriteFunction(addr, this.oCOM(this.memoryReadFunction(addr)));
     break;
   case 0x12: //NOP
+    break;
+  case 0x0e: //JMP DP
+    addr = this.dpadd();
+    this.regPC = addr;
     break;
 
   ...
@@ -689,7 +665,7 @@ If no interrupts are pending, we fetch the next opcode
 
 ## CPU Emulation
 
-### Update CPU ticks
+### 5. Update CPU ticks
 
 ```js
 const cycles = [
@@ -710,6 +686,10 @@ const cycles = [
   4, 4, 4, 6, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5,  /* E0-EF */
   5, 5, 5, 7, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6   /* F0-FF */
 ];
+
+
+...
+this.tickCount += cycles[opcode];
 
 ```
 
@@ -933,8 +913,6 @@ write(offset, value) {
 
   switch (offset) {
     ...
-    case OP.WPC_SHIFTADDRH:
-    case OP.WPC_SHIFTADDRL:
     case OP.WPC_SHIFTBIT:
     case OP.WPC_SHIFTBIT2:
       debug('WRITE', REVERSEOP[offset], value);
@@ -944,16 +922,6 @@ write(offset, value) {
 NOTE: this write function is called when the CPU writes to the ASIC part of the memory space
 
 - The write function is pretty easy, we just store the values in RAM
-
---
-
-Exposes two functions:
-TODO!
- - Shift Bit
- - Shift Address
-
-???
-
 - Shift Bit sets bit 0-7 for a 8 bit value
 - Shift Address
 The shifter works with 16bit numbers, thats why we have a H and L part of WPC_SHIFTADDR
@@ -970,13 +938,6 @@ The shifter works with 16bit numbers, thats why we have a H and L part of WPC_SH
 read(offset) {
   switch (offset) {
     ...
-    case OP.WPC_SHIFTADDRH:
-      return this.ram[OP.WPC_SHIFTADDRH] + ((this.ram[OP.WPC_SHIFTADDRL] 
-              + (this.ram[OP.WPC_SHIFTBIT] >>> 3)) >>> 8);
-
-    case OP.WPC_SHIFTADDRL:
-      return (this.ram[OP.WPC_SHIFTADDRL] 
-               + (this.ram[OP.WPC_SHIFTBIT] >>> 3)) & 0xFF;
 
     case OP.WPC_SHIFTBIT:
     case OP.WPC_SHIFTBIT2:
@@ -986,25 +947,7 @@ read(offset) {
 
 ???
 
-First the easier shiftbit function:
 - WPC_SHIFTBIT and WPC_SHIFTBIT2 are used to set bit 0 to 7, depending which on the input value
-
-Now to the shiftadd
-- WPC_SHIFTADDRL is shifted right by 3 to avoid overflow
-
--
-
-- todo explain
-$3FF4     Byte     WPC_SHIFTADDRH
-$3FF5     Byte     WPC_SHIFTADDRL
-                    15-0: R/W: The base address for the bit shifter.
-                    Writing to this address initializes the shifter.
-                    Reading from this address after a shift command returns the
-                    shifted address.
-$3FF6     Byte     WPC_SHIFTBIT
-                    7-0: W: Sets the bit position for a shift command.
-                    7-0: R: Returns the output of the last shift command as a bitmask.
-$3FF7     Byte     WPC_SHIFTBIT2
 
 ---
 
@@ -1021,7 +964,7 @@ $3FF7     Byte     WPC_SHIFTBIT2
 
 - A full frame in RAM needs 512 bytes
 
-- Supports 3 level of brightness, by blending different pages at high framerate
+- Supports 4 level of brightness, by blending different pages at high framerate
 ]
 
 ???

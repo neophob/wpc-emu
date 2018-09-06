@@ -11,5 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "canvas": "^2.0.0-alpha.13"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "forever": "while true; do npm start; sleep 1; done"
   }
 }
