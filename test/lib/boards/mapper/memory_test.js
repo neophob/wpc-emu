@@ -26,11 +26,12 @@ test('MemoryMapper, should fail when using invalid offset', (t) => {
 });
 
 test('MemoryMapper, should get address, -1', (t) => {
-  t.throws(() => MemoryMapper.getAddress(-1), 'MEMORY_GET_ADDRESS_INVALID_MEMORY_REGION_0x-1');
-});
-
-test('MemoryMapper, should get address, 0x10000', (t) => {
-  t.throws(() => MemoryMapper.getAddress(0x10000), 'MEMORY_GET_ADDRESS_INVALID_MEMORY_REGION_0x10000');
+  const expectedResult = {
+    offset: 32767,
+    subsystem: 'system',
+  };
+  const result = MemoryMapper.getAddress(-1);
+  t.deepEqual(result, expectedResult);
 });
 
 test('MemoryMapper, should get address, 0x0', (t) => {
@@ -66,6 +67,15 @@ test('MemoryMapper, should get address, 0x8000', (t) => {
     subsystem: 'system',
   };
   const result = MemoryMapper.getAddress(0x8000);
+  t.deepEqual(result, expectedResult);
+});
+
+test('MemoryMapper, should get address, 0x10000', (t) => {
+  const expectedResult = {
+    offset: 0,
+    subsystem: 'ram',
+  };
+  const result = MemoryMapper.getAddress(0x10000);
   t.deepEqual(result, expectedResult);
 });
 

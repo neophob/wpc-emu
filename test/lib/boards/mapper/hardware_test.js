@@ -17,7 +17,7 @@ test('HardwareMapper, should get address, 0', (t) => {
 });
 
 test('HardwareMapper, should get address, -1', (t) => {
-  t.throws(() => HardwareMapper.getAddress(-1), 'HW_GET_ADDRESS_INVALID_MEMORY_REGION_0x-1');
+  t.throws(() => HardwareMapper.getAddress(-1), 'HW_GET_ADDRESS_INVALID_MEMORY_REGION_0xffff');
 });
 
 test('HardwareMapper, should get address, 0x4000', (t) => {

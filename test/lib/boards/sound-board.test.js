@@ -7,8 +7,8 @@ test.beforeEach((t) => {
   const initObject = {
     interruptCallback: {},
     romObject: {
-      concatinatedSoundRom: new Uint8Array(0x80000 * 3).fill(0xff),
-      soundSystemRom: new Uint8Array(0x4000).fill(0xff),
+      concatinatedSoundRom: new Uint8Array(0x80000 * 3).fill(0xFF),
+      soundSystemRom: new Uint8Array(0x4000).fill(0xFF),
     },
   };
   t.context = SoundBoard.getInstance(initObject);

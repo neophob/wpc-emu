@@ -8,11 +8,21 @@ test('SoundMapper, should fail when using invalid offset', (t) => {
 });
 
 test('SoundMapper, should get address, -1', (t) => {
-  t.throws(() => SoundMapper.getAddress(-1), 'SND_GET_ADDRESS_INVALID_MEMORY_REGION_0x-1');
+  const expectedResult = {
+    offset: 16383,
+    subsystem: 'rom',
+  };
+  const result = SoundMapper.getAddress(-1);
+  t.deepEqual(result, expectedResult);
 });
 
 test('SoundMapper, should get address, 0x10000', (t) => {
-  t.throws(() => SoundMapper.getAddress(0x10000), 'SND_GET_ADDRESS_INVALID_MEMORY_REGION_0x10000');
+  const expectedResult = {
+    offset: 0,
+    subsystem: 'ram',
+  };
+  const result = SoundMapper.getAddress(0x10000);
+  t.deepEqual(result, expectedResult);
 });
 
 test('SoundMapper, should get address, 0x0', (t) => {
