@@ -165,7 +165,7 @@ class: center, middle, inverse
 ???
 
 - Walk through how I build my emulator, will be the biggest part of this talk
-- As we connot cover the whole Emulator in half an hour, I focus on the most important parts of it
+- As we cannot cover the whole Emulator in half an hour, I'll focus on the most important parts of it
 
 --
 
@@ -199,11 +199,7 @@ class: center, middle, inverse
 ]
 
 ???
-- THATS the model i want to emulate - a Williams WPC machine
-
-- there are total 6 generations of this system
-
-- for now i focus on the second generation of pinball machines - compared to the first version they have a dot matrix display instead of an alphanumeric display
+- THATS a Williams WPC machine we will emulate
 
 - produced 1990 and early 1999
 
@@ -215,9 +211,10 @@ class: center, middle, inverse
 
 - CPU Board: 6809 CPU (2MHz), 8kb RAM, Williams ASIC
 
-- Sound Board: 6809 CPU (2MHz), 8kb RAM, Mono output, Sample rate 11KHz
+- Dot Matrix Board: 128 x 32 resolution, 4 different brightness levels
 
-- Dot Matrix Board: drives the 128 x 32 display, 4 different brightness levels, 8kb RAM,
+- and more: Sound Board, IO Board ...
+
 ]
 
 ???
@@ -297,51 +294,35 @@ class: center, middle, inverse
 - Sooo, lets start with the real stuff!
 
 ---
-background-image: url(pics/fn_skill.jpg)
-
-
-???
-- thats how i felt after the first hours working on the emulator.
-
-- but i like that when you start on a new project where everything is new and you have no idea.
-
-- So i didn't know a lot when I started this project, but I know I definitive need to emulate the CPU
-
----
 
 # Step-by-Step
 
-- Start the emulator with emulating the Motorola 6809 CPU
+## Overview
 
-???
-- is an 8-bit microprocessor CPU with 16-bit registers
-- produced 1978 - thats 40 years ago!
---
-
-- After some research I found an existing 6809 CPU emulator written JS
-
-???
-
-- As I already wrote a 6502 CPU emulator for my canceled NES emu - I wasnt sad someone did all the hard work
-- There were a couple of typos in the emulator - so I wasn't really sure about its quality. Also test coverage was pretty bad. But I thought better than nothing...
-- Anyway to use a CPU we need to load a ROM file
-
---
-
-- To use the CPU we need a ROM file
+- CPU Emulation
+- Communication between peripherals
+- WPC Hardware Emulation
+- Emulator Timing
 
 ???
 
-- Loading a ROM is straightforward - just load the file into memory
-
-
-- After that i was able to get started with the CPU Emu!
-
+xxx
 ---
 
 class: center, middle, inverse
 
-## CPU Emulation
+## 6809 CPU Emulation 
+
+???
+- is an 8-bit microprocessor CPU with 16-bit registers
+- produced 1978 - thats 40 years ago!
+
+
+- After some research I found an existing 6809 CPU emulator written JS
+- As I already wrote a 6502 CPU emulator for my canceled NES emu - I wasnt sad someone did all the hard work
+- There were a couple of typos in the emulator - so I wasn't really sure about its quality. Also test coverage was pretty bad. But I thought better than nothing...
+
+Lts take a look how the CPU Emulator works
 
 ---
 ## CPU Emulation
@@ -405,7 +386,6 @@ class Cpu6809 {
     this.memoryWriteFunction = memoryWriteFunction;
     this.memoryReadFunction = memoryReadFunction;
 
-    this.irqPendingNMI = false;
     this.irqPendingFIRQ = false;
     this.irqPendingIRQ = false;
     this.tickCount = 0;
@@ -463,7 +443,6 @@ The CPU Emulator exposes those functions:
   
   irq()
   firq()
-  nmi()
 
   clearFirqMasking()
   clearIrqMasking()
@@ -488,7 +467,6 @@ So the first step for the CPU Emulation was resetting the CPU, this looks simple
 reset() {
   this.irqPendingIRQ = false;
   this.irqPendingFIRQ = false;
-  this.irqPendingNMI = false;
 
   // disable IRQ and FIRQ (set the mask flag)
   this.regCC = F_IRQMASK | F_FIRQMASK;
@@ -525,11 +503,7 @@ Lets take a look what interrupts are and why they are useful...
 --
 
 ```js
-if (this.irqPendingNMI) {
-  this.irqPendingNMI = false;
-  this._executeNmi();
-
-} else if (this.irqPendingFIRQ && (this.regCC & F_FIRQMASK) === 0) {
+if (this.irqPendingFIRQ && (this.regCC & F_FIRQMASK) === 0) {
   this.irqPendingFIRQ = false;
   this._executeFirq();
 
@@ -546,7 +520,7 @@ if (this.irqPendingNMI) {
 
 - This CPU provides 3 different interrupt types: NMI, FIRQ, IRQ
 - important is that the interrupts have priority, so if multiple interrupts are pending, the most important one is run first
-- IRQ and FIRQ can be enabled or disabled (called masking), the NMI interrupt cannot be disabled thus its called non maskable interrupt
+- IRQ and FIRQ can be enabled or disabled (called masking)
 - FIRQ is called fast interrupt because this interrupt does not store and restore all registers before calling the interrupt routine. so this routing must save and load all used registers
 
 Lets take a look how a execute interrupt function looks like...
@@ -827,7 +801,7 @@ We have now the bridge between CPU and the other hardware to implement, lets go!
 
 ---
 
-## Hardware Emulation
+## WPC Hardware Emulation
 
 ### WPC-ASIC 
 
@@ -852,7 +826,7 @@ We have now the bridge between CPU and the other hardware to implement, lets go!
 Let check which concrete functions this chip provides...
 ---
 
-## Hardware Emulation
+## WPC Hardware Emulation
 
 ### WPC-ASIC Functions
 
@@ -898,7 +872,7 @@ and the bitshifter we will look at
 
 ---
 
-## Hardware Emulation
+## WPC Hardware Emulation
 
 ### WPC-ASIC Bit Shifter Write
 
@@ -930,7 +904,7 @@ The shifter works with 16bit numbers, thats why we have a H and L part of WPC_SH
 
 ---
 
-## Hardware Emulation
+## WPC Hardware Emulation
 
 ### WPC-ASIC Bit Shifter Read
 
@@ -951,7 +925,7 @@ read(offset) {
 
 ---
 
-## Hardware Emulation
+## WPC Hardware Emulation
 
 ### Dot Matrix Display Controller 
 
@@ -977,7 +951,7 @@ read(offset) {
 
 ---
 
-## Hardware Emulation
+## WPC Hardware Emulation
 
 ### Dot Matrix Display Controller 
 
@@ -988,9 +962,7 @@ copyScanline() {
   for (let i = 0; i < DMD_SCANLINE_SIZE_IN_BYTES; i++) {
     videoOutputBuffer[destAddr + i] = videoRam[srcAddr + i];
   }  
-  // select next scanline
   scanline = (scanline + 1) & 0x1F;
-  // framebuffer switch
   if (scanline === 0) {
     // flip output buffer, needed to calculate shading
     videoOutputPointer = (videoOutputPointer + 1) % DMD_SHADING_FRAMES;
@@ -1020,13 +992,14 @@ The goal here is not to understand the code, as its a bit hard without the whole
 that there are quite alot of different hardware we need to emulate
 ---
 
-## Timing
+## Emulator Timing
 
-One of the key elements of our Emulator
+???
+So how this timing
 
 --
 
-### CPU Requirements
+### CPU Specs
 
 - The CPU runs at 2 MHz
 
@@ -1049,7 +1022,7 @@ One of the key elements of our Emulator
 
 ---
 
-## Timing
+## Emulator Timing
 
 ### Mainloop of the Backend/Emulator
 
@@ -1091,7 +1064,7 @@ The rest is made with the memory mapped function.
 
 ---
 
-## Timing
+## Emulator Timing
 
 ### Mainloop of the Frontend
 
@@ -1114,14 +1087,14 @@ This gives us about 33'000 ticks per call
 
 ---
 
-## Timing
+## Emulator Timing
 
 ### Mainloop of the Frontend
 
 .center[![](pics/wpc-client-perf.jpg)]
 
 ???
-this works pretty fine, it takes about 8ms to process 33000 ticks and render all elements.
+this works pretty fine, it takes about 8ms to process 33000 ticks/6000 ops and render all elements.
 
 Sidenote: this is the time need to actually run two emulated CPU's - the main CPU and the sound board
 
@@ -1211,18 +1184,39 @@ class: center, middle, inverse
 
 # Next Steps
 
--
+???
+Quick outlook what ideas I have
+
+---
+
+# Next Steps
+
+## DMD Frame dumper
+
+.center[![](pics/dmd-dump.png)]
+
+???
+- Little side project, an AI plays pinball and a computer vision algorithm takes screenshots
+
+- OK complete bullshit, just wanted to use some buzzwords... I start the emulator in the console, trigger random input switches and grab interesting frames from the video ram
+
+- maybe i'll do some nice looking posters
+---
+
+# Next Steps
+
+## Let's get physical 
+
 ???
 
-My next goals with the Emulator
 - Buy a real Williams Pinball machine
-- Replace main CPU Board and Dot Matrix Display Controller with a RPi
+- Replace main CPU Board and Dot Matrix Display Controller with a RPi and this emulator
 - Use input switches as trigger
 
 ---
 class: center, middle, inverse
 
-# EOF
+# Questions!
 
 ???
 
