@@ -473,7 +473,6 @@ reset() {
 
   this.regPC = this.ReadWord(0xFFFE);
   this.tickCount = 0;
-  this.regDP = 0;
 }
 ```
 
@@ -604,7 +603,6 @@ So - that was already the hardest part, lets go on with the next part
 .. interrupt code
 
 const opcode = this.memoryReadFunction(this.regPC++);
-this.tickCount += cycles[opcode];
 
 switch (opcode) {
   case 0x00: //NEG Direct Page
@@ -860,7 +858,7 @@ The ASIC is quite complex, so I give you only a quick overview
 --
 
 - Triggers Diagnostic LED .. and more
-- Implements a Bit shifter which offloads the CPU
+- Implements a Bit shifter 
 
 ???
 
@@ -1128,45 +1126,7 @@ class: center, middle, inverse
 
 ???
 - The frontend uses less than 1k lines of code
-
----
-
-# Demo
-
-## Frontend Game Library
-
-```js
-{
-  name: 'Terminator 2',
-  version: 'L-8',
-  rom: {
-    u06: 'https://VERY-SECRET/t2_l8.rom',
-    u14: 'https://VERY-SECRET/t2_u14.l3',
-  },
-  switchMapping: [
-    { id: 11, name: 'RIGHT FLIPPER' },
-...
-    { id: 78, name: 'SHOOTER' }],
-  skipWmcRomCheck: true,
-  initialise: {
-    closedSwitches: [ 15, 16, 17 ],
-    initialAction: [
-      {
-        delayMs: 1000,
-        source: 'cabinetInput',
-        value: 16
-      }
-    ],
-  }
-```
-
-???
-Last slide before the demo starts. 
-- defines game name and ROM URL
-- Each game has unique switch mappings which is configured in the database
-- optimisations, skipWmcRomCheck disable ROM check and increases boot speed
-- initialAction skips the warning because of invalid data/time settings
-- define initial state of the emulator
+- game lib has game specific data
 
 ---
 
