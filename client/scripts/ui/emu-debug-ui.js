@@ -179,19 +179,21 @@ function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
 }
 
 function drawDmdShaded(data, x, y, width, SCALE_FACTOR = 1) {
+  const MARGIN = 2;
   c.fillStyle = COLOR_DMD[0];
   c.fillRect(x, y, width * SCALE_FACTOR, 32 * SCALE_FACTOR);
 
-  var offsetX = 0;
-  var offsetY = 0;
-  var color = 0;
-  for (var i = 0; i < data.length; i++) {
+  let offsetX = 0;
+  let offsetY = 0;
+  let color = 0;
+  for (let i = 0; i < data.length; i++) {
     if (data[i] > 0) {
       if (color !== data[i]) {
         color = data[i];
         c.fillStyle = COLOR_DMD[color];
       }
-      c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
+      c.fillRect(MARGIN + x + offsetX * SCALE_FACTOR, MARGIN + y + offsetY * SCALE_FACTOR, 
+          SCALE_FACTOR - MARGIN, SCALE_FACTOR - MARGIN);
     }
     offsetX++;
     if (offsetX === width) {

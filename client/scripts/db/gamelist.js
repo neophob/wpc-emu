@@ -136,7 +136,6 @@ const wpcGames = [
     }
   },
   {
-    //TODO FIXME
     name: 'Indiana Jones: The Pinball Adventure',
     version: 'L-7',
     rom: {
