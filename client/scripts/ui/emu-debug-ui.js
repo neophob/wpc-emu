@@ -8,7 +8,9 @@ export { initialise, updateCanvas };
 
 // HINT enable debug in the browser by entering "localStorage.debug = '*'" in the browser
 
-const CANVAS_WIDTH = 800;
+const LAMP_DISPLAY_WIDTH = 200;
+
+const CANVAS_WIDTH = 815 + LAMP_DISPLAY_WIDTH;
 const CANVAS_HEIGHT = 560;
 const YPOS_DMD_MAIN_VIEW = 15;
 const YPOS_GENERIC_DATA = 225;
@@ -30,7 +32,20 @@ const COLOR_DMD = [
   'rgb(255,198,0)',
 ];
 
-var c;
+let c;
+let playfieldData;
+let playfieldImage;
+
+const colorLut = new Map();
+colorLut.set('YELLOW', 'rgba(255,255,0,0.8)');
+colorLut.set('ORANGE', 'rgba(255,165,0,0.8)');
+colorLut.set('RED', 'rgba(255,0,0,0.8)');
+colorLut.set('LBLUE', 'rgba(173,216,230,0.8)');
+colorLut.set('WHITE', 'rgba(255,255,255,0.8)');
+colorLut.set('GREEN', 'rgba(0,255,0,0.8)');
+colorLut.set('BLACK', 'rgba(0,0,0,0)');
+
+
 
 function updateCanvas(emuState, cpuState) {
   if (!emuState) {
@@ -81,6 +96,7 @@ function updateCanvas(emuState, cpuState) {
 
   if (emuState.asic.wpc.lampState) {
     drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 20);
+    drawLampPositions(emuState.asic.wpc.lampState, 800, YPOS_DMD_MAIN_VIEW);
   }
 
   if (emuState.asic.wpc.solenoidState) {
@@ -139,6 +155,36 @@ function drawMatrix8x8(data, x, y, GRIDSIZE = 15) {
     const i = x + (index % 8) * GRIDSIZE;
     const j = y + parseInt(index / 8, 10) * GRIDSIZE;
     c.fillRect(i, j, GRIDSIZE, GRIDSIZE);
+  });
+}
+
+const LAMP_SIZE = 6;
+const LAMP_SIZE2 = LAMP_SIZE / 2;
+function drawLampPositions(lampState, x, y) {
+  if (!playfieldData || !lampState || !Array.isArray(playfieldData.lamps)) {
+    return;
+  }
+
+  lampState.forEach((lamp, index) => {
+    if (index >= playfieldData.lamps.length) {
+      return;
+    }
+    const isOn = lamp & 0x80 ? true :
+      lamp & 0x70 ? true : false;
+
+    //[{ x: 33, y: 10, color: 'ORANGE' }],
+    const lampObjects = playfieldData.lamps[index];
+    if (!lampObjects) {
+      return;
+    }
+    lampObjects.forEach((lampObject) => {
+      if (isOn) {
+        c.fillStyle = colorLut.get(lampObject.color);
+      } else {
+        c.fillStyle = 'black';
+      }
+      c.fillRect(x + lampObject.x - LAMP_SIZE2, y + lampObject.y - LAMP_SIZE2, LAMP_SIZE, LAMP_SIZE);        
+    });
   });
 }
 
@@ -223,7 +269,7 @@ function initCanvas() {
   c.fillText('SOUND CPU RAM:', LEFT_X_OFFSET + 125, YPOS_MEM_DATA + 10);
 }
 
-function initialise() {
+function initialise(gameEntry) {
   console.log('initialise');
 
   // prepare view
@@ -232,7 +278,17 @@ function initialise() {
   canvas.height = CANVAS_HEIGHT;
   c = canvas.getContext('2d', { alpha: false });
 
+  playfieldData = gameEntry.playfield;
   replaceNode('canvasNode', canvas);
+  
+  playfieldImage = null;
+  if (playfieldData) {
+    playfieldImage = new Image();
+    playfieldImage.onload = function() {
+      c.drawImage(playfieldImage, 800, YPOS_DMD_MAIN_VIEW);
+    };
+    playfieldImage.src = playfieldData.image;    
+  }
 
   initCanvas();
 }

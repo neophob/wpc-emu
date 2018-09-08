@@ -1,5 +1,6 @@
 'use strict';
 
+const debug = require('debug')('wpcemu:benchmark');
 const path = require('path');
 const fs = require('fs');
 const Emulator = require('../../lib/emulator');
@@ -8,6 +9,8 @@ const romU06Path = process.env.ROMFILE || path.join(__dirname, '/../../rom.freew
 const romU14Path = process.argv[3] || 'rom/U14.PP';
 const romU15Path = process.argv[4] || 'rom/U15.PP';
 const romU18Path = process.argv[5] || 'rom/U18.PP';
+
+debug('roms', { romU06Path, romU14Path, romU15Path, romU18Path });
 
 const CYCLE_COUNT = process.env.CYCLES || 2000000 * 2;
 
@@ -26,9 +29,9 @@ function benchmarkWithCycleCount(tickSteps) {
 
   const loadRomFilesPromise = Promise.all([
     loadFile(romU06Path),
-    loadFile(romU14Path),
-    loadFile(romU15Path),
-    loadFile(romU18Path),
+    loadFile(romU14Path).catch((error) => { debug(error.message); }),
+    loadFile(romU15Path).catch((error) => { debug(error.message); }),
+    loadFile(romU18Path).catch((error) => { debug(error.message); }),
   ]);
 
   return loadRomFilesPromise

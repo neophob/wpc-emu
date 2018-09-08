@@ -62,7 +62,7 @@ function initialiseEmu(gameEntry) {
       wpcSystem.registerAudioConsumer(dacCallback);
       soundInstance.setMixStereoFunction(wpcSystem.mixStereo);
       console.log('Successully started EMU');
-      return emuDebugUi.initialise();
+      return emuDebugUi.initialise(gameEntry);
     })
     .catch((error) => {
       console.error('FAILED to load ROM:', error.message);
@@ -88,7 +88,6 @@ initEmuWithGameName('Hurricane');
 //called at 60hz -> 16.6ms
 function step() {
   perfTicksExecuted = wpcSystem.executeCycle(TICKS_PER_STEP, 16);
-//  perfTicksExecuted = wpcSystem.executeCycle(TICKS_PER_STEP, 16);
   const emuState = wpcSystem.getUiState();
   const cpuState = intervalId ? 'running' : 'paused';
   emuDebugUi.updateCanvas(emuState, cpuState);
