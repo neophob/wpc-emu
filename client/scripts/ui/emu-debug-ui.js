@@ -37,12 +37,12 @@ let playfieldData;
 let playfieldImage;
 
 const colorLut = new Map();
-colorLut.set('YELLOW', 'rgba(255,255,0,0.8)');
-colorLut.set('ORANGE', 'rgba(255,165,0,0.8)');
-colorLut.set('RED', 'rgba(255,0,0,0.8)');
-colorLut.set('LBLUE', 'rgba(173,216,230,0.8)');
-colorLut.set('WHITE', 'rgba(255,255,255,0.8)');
-colorLut.set('GREEN', 'rgba(0,255,0,0.8)');
+colorLut.set('YELLOW', 'rgba(255,255,0,');
+colorLut.set('ORANGE', 'rgba(255,165,0,');
+colorLut.set('RED', 'rgba(255,0,0,');
+colorLut.set('LBLUE', 'rgba(173,216,230,');
+colorLut.set('WHITE', 'rgba(255,255,255,');
+colorLut.set('GREEN', 'rgba(0,255,0,');
 colorLut.set('BLACK', 'rgba(0,0,0,0)');
 
 
@@ -136,8 +136,8 @@ function drawMemRegion(data, x, y, width) {
   for (var i = 0; i < data.length; i++) {
     if (data[i] > 0) {
       if (color !== data[i]) {
-        color = data[i];
-        c.fillStyle = 'rgb(' + color + ',' + color + ',' + color + ')';
+        color = data[i].toString(16);
+        c.fillStyle = '#' + color + color + color;
       }
       c.fillRect(x + offsetX, y + offsetY, 1, 1);
     }
@@ -169,17 +169,16 @@ function drawLampPositions(lampState, x, y) {
     if (index >= playfieldData.lamps.length) {
       return;
     }
-    const isOn = lamp & 0x80 ? true :
-      lamp & 0x70 ? true : false;
-
-    //[{ x: 33, y: 10, color: 'ORANGE' }],
     const lampObjects = playfieldData.lamps[index];
     if (!lampObjects) {
       return;
     }
+
+    const alpha = ((lamp/512) ).toFixed(2);
+    const isOn = lamp > 0;
     lampObjects.forEach((lampObject) => {
       if (isOn) {
-        c.fillStyle = colorLut.get(lampObject.color);
+        c.fillStyle = colorLut.get(lampObject.color) + alpha + ')';
       } else {
         c.fillStyle = 'black';
       }
@@ -199,9 +198,9 @@ function drawMatrix8x8Binary(data, x, y) {
   drawMatrix8x8(dataUnpacked, x, y);
 }
 
-function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
+function drawDmd(data, x, y, width) {
   c.fillStyle = COLOR_DMD[0];
-  c.fillRect(x, y, width * SCALE_FACTOR, 32 * SCALE_FACTOR);
+  c.fillRect(x, y, width, 32);
   c.fillStyle = COLOR_DMD[3];
 
   var offsetX = 0;
@@ -212,7 +211,7 @@ function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
       if (packedByte > 0) {
         const mask = BIT_ARRAY[j];
         if (mask & packedByte) {
-          c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
+          c.fillRect(x + offsetX, y + offsetY, 1, 1);
         }
       }
       offsetX++;
