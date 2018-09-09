@@ -5,19 +5,21 @@
     <title>WPC Emu Debug view</title>
     <meta name="viewport" content="viewport-fit=cover, initial-scale=1, user-scalable=yes, width=device-width">
     <script src="wpc-emu.js"></script>
+    
+    <style>
+      canvas { position: absolute; }
+      #rootNode { z-index: 1 }
+      #canvasOverlayNode { z-index: 2 }
+    </style>
+        
   </head>
   <body>
     <main class="wrapper">
       <div class="container">
         <div id="rootNode"></div>
         <div id="canvasNode"></div>
+        <div id="canvasOverlayNode"></div>
       </div>
-
-      <footer class="footer">
-        <section class="container">
-          <p>Designed with ♥ by Michael Vogt</p>
-        </section>
-      </footer>
     </main>
   </body>
 </html>
