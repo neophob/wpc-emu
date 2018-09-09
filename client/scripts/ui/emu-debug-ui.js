@@ -115,7 +115,7 @@ function updateCanvas(emuState, cpuState) {
     const DMD_PAGE_SIZE = 0x200;
     let xpos = MIDDLE_X_OFFSET;
     let ypos = YPOS_DMD_DATA + 20;
-    for (var i = 0; i < 16; i++) {
+    for (let i = 0; i < 16; i++) {
       drawDmd(videoRam.slice(i * DMD_PAGE_SIZE, (i + 1) * DMD_PAGE_SIZE), xpos, ypos, 128);
       xpos += 130;
       if (xpos > (800 - 130)) {

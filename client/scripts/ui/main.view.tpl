@@ -25,6 +25,9 @@
 
       <div class="column column-10">Coindoor</div>
       <div class="column">
+        <button class="button-black button-small black" onclick="wpcInterface.wpcSystem.setCabinetInput(1);">Coin#1</button>
+        <button class="button-black button-small black" onclick="wpcInterface.wpcSystem.setCabinetInput(2);">Coin#2</button>
+        <button class="button-black button-small black" onclick="wpcInterface.wpcSystem.setCabinetInput(4);">Coin#3</button>
         <button class="button-black button-small black" onclick="wpcInterface.wpcSystem.setCabinetInput(16);">Escape</button>
         <button class="button-black button-small black" onclick="wpcInterface.wpcSystem.setCabinetInput(32);">-</button>
         <button class="button-black button-small black" onclick="wpcInterface.wpcSystem.setCabinetInput(64);">+</button>
