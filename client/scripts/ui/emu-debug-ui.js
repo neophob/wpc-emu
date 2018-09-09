@@ -130,10 +130,10 @@ function drawMemRegion(data, x, y, width) {
   c.fillStyle = COLOR_DMD[0];
   c.fillRect(x, y, width, 70);
 
-  var offsetX = 0;
-  var offsetY = 0;
-  var color = 0;
-  for (var i = 0; i < data.length; i++) {
+  let offsetX = 0;
+  let offsetY = 0;
+  let color = 0;
+  for (let i = 0; i < data.length; i++) {
     if (data[i] > 0) {
       if (color !== data[i]) {
         color = data[i].toString(16);
@@ -189,8 +189,8 @@ function drawLampPositions(lampState, x, y) {
 
 function drawMatrix8x8Binary(data, x, y) {
   const dataUnpacked = [];
-  for (var i = 0; i < 8; i++) {
-    for (var j = 0; j < 8; j++) {
+  for (let i = 0; i < 8; i++) {
+    for (let j = 0; j < 8; j++) {
       const entry = data[i] & BIT_ARRAY[j];
       dataUnpacked.push(entry > 0 ? 255 : 0);
     }
@@ -203,16 +203,14 @@ function drawDmd(data, x, y, width) {
   c.fillRect(x, y, width, 32);
   c.fillStyle = COLOR_DMD[3];
 
-  var offsetX = 0;
-  var offsetY = 0;
-  for (var i = 0; i < data.length; i++) {
+  let offsetX = 0;
+  let offsetY = 0;
+  for (let i = 0; i < data.length; i++) {
     const packedByte = data[i];
-    for (var j = 0; j < BIT_ARRAY.length; j++) {
-      if (packedByte > 0) {
-        const mask = BIT_ARRAY[j];
-        if (mask & packedByte) {
-          c.fillRect(x + offsetX, y + offsetY, 1, 1);
-        }
+    for (let j = 0; j < BIT_ARRAY.length; j++) {
+      const mask = BIT_ARRAY[j];
+      if (mask & packedByte) {
+        c.fillRect(x + offsetX, y + offsetY, 1, 1);
       }
       offsetX++;
       if (offsetX === width) {
