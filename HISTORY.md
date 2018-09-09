@@ -1,5 +1,14 @@
 # HISTORY
 
+## 07/09/18
+- show flasher in client
+- use multiple canvas 
+
+## 07/09/18
+- update ui, add playfield db entry
+- show background image
+- show lights in client
+
 ![25.06.18](assets/25.06.18.png?raw=true)
 
 ## 14/06/18

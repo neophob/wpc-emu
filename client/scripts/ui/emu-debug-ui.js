@@ -102,8 +102,8 @@ function updateCanvas(emuState, cpuState) {
 
   if (emuState.asic.wpc.solenoidState) {
     drawMatrix8x8(emuState.asic.wpc.solenoidState, MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 20);
+    drawFlashlamps(emuState.asic.wpc.solenoidState, 800, YPOS_DMD_MAIN_VIEW);
   }
-  drawFlashlamps(emuState.asic.wpc.solenoidState, 800, YPOS_DMD_MAIN_VIEW);
 
   if (emuState.asic.wpc.inputState) {
     drawMatrix8x8Binary(emuState.asic.wpc.inputState, RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
