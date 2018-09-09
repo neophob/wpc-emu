@@ -161,10 +161,16 @@ main loop that executes some CPU ops then check if one of the following callback
 ### DMD display scanline
 The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). At this rate, it takes 256 microseconds per row and a little more than 8 milliseconds per complete frame.
 
+## Gameplay
+- TROUGH switches need to be closed to be able to start the game, else you see the "Pinball missing messages"
+- Ball drain is detected with the "out lane" switch?
+
 # References
 
 ## Terms
 - Attraction Mode: the time when no game is running and the lamps are blinking to attract people
+- Drain: The common term used to refer to the area beneath the flippers. If the ball rolls into the drain area via an outlane or between the flippers, it will be lost. Also refers to the act of losing a ball in this manner.
+- Plunger: The object used to launch a ball onto the playfield
 
 ## WPC
 

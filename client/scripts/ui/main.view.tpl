@@ -17,14 +17,14 @@
     </div>
     <div class="row">
       <div class="column column-10">Emulator</div>
-      <div class="column">
+      <div class="column column-20">
         <button class="button-black button-small black" onclick="console.log('reset...'); wpcInterface.wpcSystem.reset();">RESET</button>
         <button class="button-black button-outline button-small black" onclick="wpcInterface.pauseEmu();">Pause</button>
         <button class="button-black button-outline button-small black" onclick="wpcInterface.resumeEmu();">Resume</button>
       </div>
 
       <div class="column column-10">Coindoor</div>
-      <div class="column">
+      <div class="column column-60">
         <button class="button-black button-small black" onclick="wpcInterface.wpcSystem.setCabinetInput(1);">Coin#1</button>
         <button class="button-black button-small black" onclick="wpcInterface.wpcSystem.setCabinetInput(2);">Coin#2</button>
         <button class="button-black button-small black" onclick="wpcInterface.wpcSystem.setCabinetInput(4);">Coin#3</button>
