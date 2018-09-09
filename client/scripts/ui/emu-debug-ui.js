@@ -41,10 +41,10 @@ colorLut.set('YELLOW', 'rgba(255,255,0,');
 colorLut.set('ORANGE', 'rgba(255,165,0,');
 colorLut.set('RED', 'rgba(255,0,0,');
 colorLut.set('LBLUE', 'rgba(173,216,230,');
+colorLut.set('LPURPLE', 'rgba(218,112,214,');
 colorLut.set('WHITE', 'rgba(255,255,255,');
 colorLut.set('GREEN', 'rgba(0,255,0,');
 colorLut.set('BLACK', 'rgba(0,0,0,0)');
-
 
 
 function updateCanvas(emuState, cpuState) {

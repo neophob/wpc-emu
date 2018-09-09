@@ -12,6 +12,79 @@ module.exports = {
   playfield: {
     //size must be 200x400, lamp positions according to image
     image: 'https://s3-eu-west-1.amazonaws.com/foo-temp/playfield-t2.jpg',
+    lamps: [
+      [{ x: 61, y: 309, color: 'GREEN' }],
+      [{ x: 74, y: 303, color: 'GREEN' }],
+      [{ x: 89, y: 301, color: 'ORANGE' }],
+      [{ x: 102, y: 303, color: 'GREEN' }],
+      [{ x: 115, y: 309, color: 'GREEN' }],
+      [{ x: 88, y: 353, color: 'YELLOW' }],
+      [{ x: 89, y: 283, color: 'WHITE' }],
+      [{ x: 0, y: 0, color: 'BLACK' }], //#17 NOT USED
+
+      [{ x: 18, y: 310, color: 'ORANGE' }], //#21
+      [{ x: 18, y: 291, color: 'RED' }, { x: 160, y: 291, color: 'RED' }],
+      [{ x: 30, y: 279, color: 'WHITE' }],
+      [{ x: 147, y: 279, color: 'ORANGE' }],
+      [{ x: 77, y: 160, color: 'YELLOW' }],
+      [{ x: 74, y: 141, color: 'GREEN' }], //#26
+      [{ x: 71, y: 121, color: 'ORANGE' }],
+      [{ x: 68, y: 100, color: 'LPURPLE' }],
+ 
+      [{ x: 53, y: 146, color: 'YELLOW' }], //#31
+      [{ x: 55, y: 156, color: 'YELLOW' }],
+      [{ x: 58, y: 165, color: 'YELLOW' }],
+      [{ x: 60, y: 174, color: 'YELLOW' }],
+      [{ x: 62, y: 183, color: 'YELLOW' }], 
+      [{ x: 89, y: 154, color: 'RED' }],
+      [{ x: 98, y: 160, color: 'RED' }],
+      [{ x: 105, y: 167, color: 'RED' }], 
+
+      [{ x: 34, y: 184, color: 'GREEN' }], //#41
+      [{ x: 40, y: 204, color: 'ORANGE' }],
+      [{ x: 47, y: 219, color: 'RED' }],
+      [{ x: 50, y: 233, color: 'RED' }],
+      [{ x: 55, y: 246, color: 'RED' }],
+      [{ x: 59, y: 260, color: 'RED' }],
+      [{ x: 62, y: 272, color: 'RED' }],
+      [{ x: 67, y: 286, color: 'RED' }], 
+
+      [{ x: 84, y: 268, color: 'RED' }, { x: 94, y: 268, color: 'RED' }], //#51
+      [{ x: 53, y: 64, color: 'RED' }, { x: 69, y: 64, color: 'RED' }],
+      [{ x: 136, y: 220, color: 'RED' }],
+      [{ x: 133, y: 234, color: 'RED' }],
+      [{ x: 126, y: 247, color: 'RED' }],
+      [{ x: 120, y: 260, color: 'RED' }],
+      [{ x: 115, y: 272, color: 'RED' }],
+      [{ x: 111, y: 286, color: 'RED' }], 
+      
+      [{ x: 66, y: 196, color: 'ORANGE' }], //#61
+      [{ x: 68, y: 209, color: 'ORANGE' }],
+      [{ x: 71, y: 221, color: 'ORANGE' }],
+      [{ x: 74, y: 233, color: 'ORANGE' }],
+      [{ x: 77, y: 244, color: 'ORANGE' }], 
+      [{ x: 30, y: 237, color: 'GREEN' }],
+      [{ x: 39, y: 255, color: 'ORANGE' }],
+      [{ x: 50, y: 130, color: 'RED' }],        
+
+      [{ x: 125, y: 198, color: 'ORANGE' }], //#71
+      [{ x: 120, y: 210, color: 'ORANGE' }],
+      [{ x: 115, y: 221, color: 'ORANGE' }],
+      [{ x: 111, y: 233, color: 'ORANGE' }],
+      [{ x: 107, y: 244, color: 'ORANGE' }], 
+      [{ x: 146, y: 241, color: 'YELLOW' }],
+      [{ x: 146, y: 250, color: 'YELLOW' }],
+      [{ x: 146, y: 259, color: 'YELLOW' }],
+
+      [{ x: 151, y: 189, color: 'RED' }], //#81
+      [{ x: 129, y: 187, color: 'RED' }], 
+      [{ x: 144, y: 205, color: 'WHITE' }],
+      [{ x: 41, y: 379, color: 'YELLOW' }],
+      [{ x: 64, y: 80, color: 'WHITE' }], 
+      [{ x: 98, y: 29, color: 'GREEN' }],
+      [{ x: 118, y: 33, color: 'GREEN' }],
+      [{ x: 139, y: 38, color: 'GREEN' }], 
+    ],
   },
   switchMapping: [
     { id: 11, name: 'RIGHT FLIPPER' },
