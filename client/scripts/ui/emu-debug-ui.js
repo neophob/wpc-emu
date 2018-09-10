@@ -165,20 +165,17 @@ function drawFlashlamps(lampState, x, y) {
   if (!playfieldData || !lampState || !Array.isArray(playfieldData.flashlamps)) {
     return;
   }
-  canvasOverlay.clearRect(x, y, 200, 400);
 
   playfieldData.flashlamps.forEach((lamp) => {
     const selectedLamp = lampState[lamp.id - 1];
     if (!selectedLamp) {
       return;
     }
-    if (selectedLamp > 4) {
-      const alpha = (selectedLamp/255).toFixed(2);
-      canvasOverlay.beginPath();
-      canvasOverlay.fillStyle = 'rgba(255,255,255,'+alpha+')';
-      canvasOverlay.arc(x + lamp.x, y + lamp.y, 25, 0, 2 * Math.PI);
-      canvasOverlay.fill();
-    }
+    const alpha = (selectedLamp/255).toFixed(2);
+    canvasOverlay.beginPath();
+    canvasOverlay.fillStyle = 'rgba(255,255,255,'+alpha+')';
+    canvasOverlay.arc(x + lamp.x, y + lamp.y, 24, 0, 2 * Math.PI);
+    canvasOverlay.fill();
   });
 }
 
