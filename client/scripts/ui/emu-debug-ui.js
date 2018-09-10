@@ -96,12 +96,12 @@ function updateCanvas(emuState, cpuState) {
 
   if (emuState.asic.wpc.lampState) {
     drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 20);
-    canvasOverlay.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
     drawLampPositions(emuState.asic.wpc.lampState, 800, YPOS_DMD_MAIN_VIEW);
   }
 
   if (emuState.asic.wpc.solenoidState) {
     drawMatrix8x8(emuState.asic.wpc.solenoidState, MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 20);
+    canvasOverlay.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
     drawFlashlamps(emuState.asic.wpc.solenoidState, 800, YPOS_DMD_MAIN_VIEW);
   }
 
