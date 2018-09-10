@@ -114,17 +114,18 @@ function updateCanvas(emuState, cpuState) {
   //dmd pages - 8 pixel (on/off) per byte, display is 128x32 pixels
   const videoRam = emuState.asic.dmd.videoRam;
   if (videoRam) {
-    const DMD_PAGE_SIZE = 0x200;
     let xpos = MIDDLE_X_OFFSET;
     let ypos = YPOS_DMD_DATA + 20;
-    for (let i = 0; i < 16; i++) {
-      drawDmd(videoRam.slice(i * DMD_PAGE_SIZE, (i + 1) * DMD_PAGE_SIZE), xpos, ypos, 128);
+    videoRam.forEach((video) => {
+      if (video.length > 0) {
+        drawDmd(video, xpos, ypos, 128);
+      }
       xpos += 130;
       if (xpos > (800 - 130)) {
         xpos = MIDDLE_X_OFFSET;
         ypos += 35;
       }
-    }
+    });
   }
 }
 
@@ -221,7 +222,7 @@ function drawMatrix8x8Binary(data, x, y) {
   drawMatrix8x8(dataUnpacked, x, y);
 }
 
-function drawDmd(data, x, y, width) {
+function drawDmd(data, x, y, width) {  
   canvas.fillStyle = COLOR_DMD[0];
   canvas.fillRect(x, y, width, 32);
   canvas.fillStyle = COLOR_DMD[3];
@@ -231,9 +232,12 @@ function drawDmd(data, x, y, width) {
   for (let i = 0; i < data.length; i++) {
     const packedByte = data[i];
     for (let j = 0; j < BIT_ARRAY.length; j++) {
-      const mask = BIT_ARRAY[j];
-      if (mask & packedByte) {
-        canvas.fillRect(x + offsetX, y + offsetY, 1, 1);
+      //NOTE: important speed optimize here...
+      if (packedByte > 0) {
+        const mask = BIT_ARRAY[j];
+        if (mask & packedByte) {
+          canvas.fillRect(x + offsetX, y + offsetY, 1, 1);
+        }
       }
       offsetX++;
       if (offsetX === width) {
@@ -299,7 +303,7 @@ function initialise(gameEntry) {
   canvas = canvasRootElement.getContext('2d', { alpha: false });
   replaceNode('canvasNode', canvasRootElement);
 
-//TODO make canvas smaller
+  //TODO make canvas smaller
   const canvasOverlayElement = document.createElement('canvas');
   canvasOverlayElement.width = CANVAS_WIDTH;
   canvasOverlayElement.height = CANVAS_HEIGHT;
