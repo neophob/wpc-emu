@@ -106,5 +106,5 @@ function pauseEmu() {
   console.log('stop emu');
   cancelAnimationFrame(intervalId);
   intervalId = false;
-  emuDebugUi.updateCanvas();
+  emuDebugUi.updateCanvas(wpcSystem.getUiState(), 'paused');
 }

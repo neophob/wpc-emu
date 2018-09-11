@@ -992,7 +992,7 @@ To fulfill the requirements, the Emu expose one function that executes several t
 
 --
 ```js
-executeCycle(ticksToRun) {
+executeCycles(ticksToRun) {
   let ticksExecuted = 0;
   while (ticksExecuted < ticksToRun) {
     const singleTicks = this.cpu.steps();

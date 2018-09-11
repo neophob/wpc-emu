@@ -36,7 +36,7 @@ let canvas, canvasOverlay;
 let playfieldData;
 let playfieldImage;
 let videoRam;
-let frame = 0;;
+let frame = 0;
 
 const colorLut = new Map();
 colorLut.set('YELLOW', 'rgba(255,255,0,');

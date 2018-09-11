@@ -186,6 +186,7 @@ The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). 
 - http://techniek.flipperwinkel.nl/wpc/index2.htm#switch
 - http://arcarc.xmission.com/Pinball/PDF%20Pinball%20Manuals%20and%20Schematics/
 - https://github.com/tanseydavid/WPCResources
+- https://github.com/tomlogic/pinmame-nvram-maps
 
 ## DMD
 - http://webpages.charter.net/coinopcauldron/dotarticle.html

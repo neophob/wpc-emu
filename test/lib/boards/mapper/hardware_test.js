@@ -31,7 +31,7 @@ test('HardwareMapper, should fail when using invalid offset', (t) => {
 test('HardwareMapper, should get address, 0x2000', (t) => {
   const expectedResult = {
     offset: 0x2000,
-    subsystem: 'sound',
+    subsystem: 'expansion',
   };
   const result = HardwareMapper.getAddress(0x2000);
   t.deepEqual(result, expectedResult);
