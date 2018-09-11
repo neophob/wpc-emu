@@ -938,69 +938,17 @@ read(offset) {
 
 ## WPC Hardware Emulation
 
-### Dot Matrix Display Controller 
-
-.left-column[
-  .left[![](pics/wpc-dmd.jpg)]
-]
-
-.right-column[
-- Display size: 128 x 32, refreshes at 122Mhz
-
-- A full frame in RAM needs 512 bytes
-
-- Supports 4 level of brightness, by blending different pages at high framerate
-]
+### Much more to cover ...
 
 ???
 
-- Drives the Dot Matrix Display
+Of course there are much more peripherals we need to implement, for example
+- the Dot Matrix Controller
+- drive the lamps
+- read input switches etc.
 
-- Can store up to 16 pages in memory
+However, Beer is waiting so I rather skip to the next chapter
 
-- Implements 4 color Shading by swapping those pages in a clever way
-
----
-
-## WPC Hardware Emulation
-
-### Dot Matrix Display Controller 
-
-```js
-copyScanline() {
-  const srcAddr = activePage * DMD_PAGE_SIZE + scanline * DMD_SCANLINE_SIZE_IN_BYTES;
-  const destAddr = videoOutputPointer * DMD_PAGE_SIZE + scanline * DMD_SCANLINE_SIZE_IN_BYTES;
-  for (let i = 0; i < DMD_SCANLINE_SIZE_IN_BYTES; i++) {
-    videoOutputBuffer[destAddr + i] = videoRam[srcAddr + i];
-  }  
-  scanline = (scanline + 1) & 0x1F;
-  if (scanline === 0) {
-    // flip output buffer, needed to calculate shading
-    videoOutputPointer = (videoOutputPointer + 1) % DMD_SHADING_FRAMES;
-    // update output video frame, shading is made for the last 3 frames
-    outputDmdDisplay.updateVideoBuffer(videoOutputBuffer);
-    if (Number.isInteger(nextActivePage)) {
-      activePage = nextActivePage;
-      nextActivePage = undefined;
-    }
-  }
-  if (requestFIRQ === true) {
-    if (scanline === ram[OP.WPC_DMD_SCANLINE] & 0x1F) {
-      interruptCallback.firqFromDmd();
-      requestFIRQ = false;
-    }
-  }
-}
-```
-???
-I think that was the part I liked most about the whole emulator - here's a code snipped that updates the scanline
-
-- copy a scanline from the activePage to the output video buffer
-
-- generate FIRQ if requested
-
-The goal here is not to understand the code, as its a bit hard without the whole context, I just want to show you
-that there are quite alot of different hardware we need to emulate
 ---
 
 ## Emulator Timing
@@ -1031,6 +979,8 @@ So how this timing
 ???
 - If an interrupts is fired to late or early our program might crash or stuck forever
 
+-> Its obvious that the setTimeout function do not work, here's how I structure it
+
 ---
 
 ## Emulator Timing
@@ -1058,8 +1008,6 @@ executeCycle(ticksToRun) {
       this.ticksUpdateDmd -= timing.CALL_WPC_UPDATE_DISPLAY_AFTER_TICKS;
       this.dmdBoard.copyScanline();
     }
-
-    this.cpuBoardAsic.executeCycle(singleTicks);
   }
 
   return ticksExecuted;
@@ -1071,7 +1019,7 @@ executeCycle(ticksToRun) {
 - IRQ callback is called after 2049 ticks
 - we also need to call the DMD copy scanline function after 512 ticks
 
-The rest is made with the memory mapped function.
+Thats the mainloop - the rest is made with the memory mapped function.
 
 ---
 

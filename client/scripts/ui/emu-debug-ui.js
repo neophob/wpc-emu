@@ -35,6 +35,8 @@ const COLOR_DMD = [
 let canvas, canvasOverlay;
 let playfieldData;
 let playfieldImage;
+let videoRam;
+let frame = 0;;
 
 const colorLut = new Map();
 colorLut.set('YELLOW', 'rgba(255,255,0,');
@@ -112,20 +114,30 @@ function updateCanvas(emuState, cpuState) {
   drawMatrix8x8(emuState.asic.wpc.generalIlluminationState, MIDDLE_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
 
   //dmd pages - 8 pixel (on/off) per byte, display is 128x32 pixels
-  const videoRam = emuState.asic.dmd.videoRam;
-  if (videoRam) {
+  if (emuState.asic.dmd.videoRam) {
+    videoRam = emuState.asic.dmd.videoRam;
+  }
+  frame++;
+  const dmdRow = frame % 4;
+  // draw only 4 dmd frames to avoid dropping fps
+  if (Array.isArray(videoRam)) {
     let xpos = MIDDLE_X_OFFSET;
     let ypos = YPOS_DMD_DATA + 20;
-    videoRam.forEach((video) => {
-      if (video.length > 0) {
-        drawDmd(video, xpos, ypos, 128);
-      }
+    for (let i=0; i<dmdRow * 4; i++) {
       xpos += 130;
       if (xpos > (800 - 130)) {
         xpos = MIDDLE_X_OFFSET;
         ypos += 35;
       }
-    });
+    }
+    for (let i=0; i<4; i++) {
+      drawDmd(videoRam[dmdRow * 4 + i], xpos, ypos, 128);
+      xpos += 130;
+      if (xpos > (800 - 130)) {
+        xpos = MIDDLE_X_OFFSET;
+        ypos += 35;
+      }
+    }
   }
 }
 

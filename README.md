@@ -165,6 +165,10 @@ The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). 
 - TROUGH switches need to be closed to be able to start the game, else you see the "Pinball missing messages"
 - Ball drain is detected with the "out lane" switch?
 
+## To Test:
+- memory position of current score, player number, credits
+- serial port? 
+
 # References
 
 ## Terms
@@ -181,6 +185,7 @@ The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). 
 - http://www.edcheung.com/album/album07/Pinball/wpc_sound.htm
 - http://techniek.flipperwinkel.nl/wpc/index2.htm#switch
 - http://arcarc.xmission.com/Pinball/PDF%20Pinball%20Manuals%20and%20Schematics/
+- https://github.com/tanseydavid/WPCResources
 
 ## DMD
 - http://webpages.charter.net/coinopcauldron/dotarticle.html
