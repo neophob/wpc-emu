@@ -75,7 +75,7 @@ test('SoundMapper, should get address, 0x24ff', (t) => {
     offset: 0x2401,
     subsystem: 'hardware',
   };
-  const result = SoundMapper.getAddress(0x24ff);
+  const result = SoundMapper.getAddress(0x24FF);
   t.deepEqual(result, expectedResult);
 });
 

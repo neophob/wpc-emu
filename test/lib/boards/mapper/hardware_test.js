@@ -51,7 +51,7 @@ test('HardwareMapper, should get address, 0x3c00', (t) => {
     offset: 0x3C00,
     subsystem: 'dmd',
   };
-  const result = HardwareMapper.getAddress(0x3c00);
+  const result = HardwareMapper.getAddress(0x3C00);
   t.deepEqual(result, expectedResult);
 });
 

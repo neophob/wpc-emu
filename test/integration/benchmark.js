@@ -1,8 +1,8 @@
 'use strict';
 
+const fs = require('fs');
 const debug = require('debug')('wpcemu:benchmark');
 const path = require('path');
-const fs = require('fs');
 const Emulator = require('../../lib/emulator');
 
 const romU06Path = process.env.ROMFILE || path.join(__dirname, '/../../rom.freewpc/ft20_32.rom');
