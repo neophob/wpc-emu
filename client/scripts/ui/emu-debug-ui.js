@@ -222,7 +222,7 @@ function drawLampPositions(lampState, x, y) {
 
 function drawMatrix8x8Binary(data, x, y) {
   const dataUnpacked = [];
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 8; j++) {
       const entry = data[i] & BIT_ARRAY[j];
       dataUnpacked.push(entry > 0 ? 255 : 0);
