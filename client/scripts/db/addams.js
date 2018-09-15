@@ -80,7 +80,7 @@ module.exports = {
   ],
   skipWmcRomCheck: true,
   initialise: {
-    closedSwitches: [ 15, 16, 17 ],
+    closedSwitches: [ 15, 16, 17, 22 ],
     initialAction: [
       {
         delayMs: 1000,

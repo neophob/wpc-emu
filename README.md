@@ -48,6 +48,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Solenoid Circuits ✓ (fade out timing missing)
 - General Illumination Circuits (Triac) ✓ (fade out timing missing)
 - Zero Cross Circuit ✓
+- support Fliptronics flipper
 
 ## Sound Board
 - load Sound ROM files ✓
@@ -162,8 +163,26 @@ main loop that executes some CPU ops then check if one of the following callback
 The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). At this rate, it takes 256 microseconds per row and a little more than 8 milliseconds per complete frame.
 
 ## Gameplay
-- TROUGH switches need to be closed to be able to start the game, else you see the "Pinball missing messages"
-- Ball drain is detected with the "out lane" switch?
+- (during active game) if you press and keep pressed left or right FLIPPER - a status report will be shown
+- the TROUGH switches need to be closed to be able to start the game, else you see the "Pinball missing messages" -> these switches are used to detect that there are still balls in the TROUGH - depending on the model there are more or less ball and switches available
+- the OUTHOLE is off when the game starts
+
+TODO:
+OUTHOLE ON, TROUGH 1 ON, OUTHOLE OFF, TROUGH 1 OFF
+
+This very primitive schema shows where the switches are:
+- 1: OUTHOLE SWITCH
+- 2,3,4: TROUGH SWITCHES
+```
+   +--------------+
+   |              |
+   |              |
+   |              |
+   |   \      /   |
+   |              |
+   |      1  234  |
+
+```
 
 ## To Test:
 - memory position of current score, player number, credits

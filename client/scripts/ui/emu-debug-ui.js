@@ -68,7 +68,7 @@ function updateCanvas(emuState, cpuState) {
   canvas.fillText('FIRQ CALLS/MISSED: ' + emuState.firqCount + '/' + emuState.missedFirqCall,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
 
-  const diagnosticLed = emuState.asic.wpc.diagnosticLed ? emuState.asic.wpc.diagnosticLed.toString(2) : '00000000';
+  const diagnosticLed = emuState.asic.wpc.diagnosticLed ? 1 : 0;
   const activePage = emuState.asic.dmd.activepage;
   canvas.fillText('DIAGLED STATE: ' + diagnosticLed, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 70);
   canvas.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 80);
