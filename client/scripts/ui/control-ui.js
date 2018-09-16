@@ -6,7 +6,7 @@ import { replaceNode } from './htmlselector';
 export { populateControlUiView };
 
 const INITIAL_GAME = 'Hurricane';
-let selectedIndex = 0;
+let selectedIndex = -1;
 
 function addEmulatorControls() {
   const div = document.createElement('div');
@@ -44,7 +44,7 @@ function addGameTitles(gameList) {
     option.value = name;
     option.text = name;
     selectElement.add(option, null);
-    if (name === INITIAL_GAME) {
+    if (selectedIndex === -1 && name === INITIAL_GAME) {
       selectedIndex = index;
     }
   });

@@ -35,7 +35,7 @@ const wpcGames = [
 function getAllNames() {
   return wpcGames
     .filter((entry) => {
-      return entry.rom && entry.rom.u06 && entry.rom.u18;
+      return entry.rom && entry.rom.u06;
     })
     .map((entry) => entry.name);
 }
