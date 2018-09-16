@@ -5,6 +5,8 @@ import { replaceNode } from './htmlselector';
 
 export { populateControlUiView };
 
+let selectedIndex = 0;
+
 function addEmulatorControls() {
   const div = document.createElement('div');
   div.insertAdjacentHTML('afterbegin', viewTpl);
@@ -26,8 +28,34 @@ function addGameSpecificControls(gameEntry) {
   }
 }
 
-function populateControlUiView(gameEntry) {
+function loadROM(event) {
+  const selectedRom = event.target.value;
+  console.log('load ROM', selectedRom);
+  selectedIndex = event.target.selectedIndex;
+  wpcInterface.romSelection(selectedRom);
+}
+
+function addGameTitles(gameList) {
+  const selectElementRoot = document.getElementById('game-selection');  
+  const selectElement = document.createElement('select');  
+  gameList.getAllNames().forEach((name) => {
+    const option = document.createElement('option');
+    option.value = name;
+    option.text = name;
+    selectElement.add(option, null);
+  });
+  selectElement.addEventListener('change', loadROM);
+  selectElement.selectedIndex = selectedIndex;
+  
+  while (selectElementRoot.firstChild) {
+    selectElementRoot.removeChild(selectElementRoot.firstChild);
+  }
+  selectElementRoot.appendChild(selectElement);
+}
+
+function populateControlUiView(gameEntry, gameList) {
   console.log(gameEntry);
   addEmulatorControls();
   addGameSpecificControls(gameEntry);
+  addGameTitles(gameList);
 }

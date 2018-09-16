@@ -75,7 +75,7 @@ function romSelection(romName) {
 
 function initEmuWithGameName(name) {
   const gameEntry = gamelist.getByName(name);
-  populateControlUiView(gameEntry);
+  populateControlUiView(gameEntry, gamelist);
   return initialiseEmu(gameEntry)
     .then(() => {
       resumeEmu();
