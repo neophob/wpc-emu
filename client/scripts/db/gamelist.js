@@ -9,6 +9,7 @@ import highspeed2 from './highspeed2';
 import hotshot from './hotshot';
 import hurricane from './hurricane';
 import indianajones from './indianajones';
+import mm from './mm';
 import t2Freewpc from './t2.freewpc';
 import t2 from './t2';
 import tpz from './tpz';
@@ -26,6 +27,7 @@ const wpcGames = [
   hotshot,
   hurricane,
   indianajones,
+  mm,
   t2Freewpc,
   t2,
   tpz,
