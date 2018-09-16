@@ -5,6 +5,7 @@ import { replaceNode } from './htmlselector';
 
 export { populateControlUiView };
 
+const INITIAL_GAME = 'Hurricane';
 let selectedIndex = 0;
 
 function addEmulatorControls() {
@@ -18,7 +19,7 @@ function addGameSpecificControls(gameEntry) {
   if (Array.isArray(gameEntry.switchMapping)) {
     gameEntry.switchMapping.forEach((mapping) => {
       const child = document.createElement('button');
-      child.innerHTML = mapping.name;
+      child.textContent = mapping.name;
       child.className = 'button-black button-outline button-small black';
       child.addEventListener('click', () => {
         window.wpcInterface.wpcSystem.setInput(mapping.id);
@@ -38,11 +39,14 @@ function loadROM(event) {
 function addGameTitles(gameList) {
   const selectElementRoot = document.getElementById('game-selection');  
   const selectElement = document.createElement('select');  
-  gameList.getAllNames().forEach((name) => {
+  gameList.getAllNames().forEach((name, index) => {
     const option = document.createElement('option');
     option.value = name;
     option.text = name;
     selectElement.add(option, null);
+    if (name === INITIAL_GAME) {
+      selectedIndex = index;
+    }
   });
   selectElement.addEventListener('change', loadROM);
   selectElement.selectedIndex = selectedIndex;

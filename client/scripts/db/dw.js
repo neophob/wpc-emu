@@ -9,10 +9,79 @@ module.exports = {
     u15: 'https://s3-eu-west-1.amazonaws.com/foo-temp/dw_u15.l1',
     u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/dw_u18.l1',
   },
+  switchMapping: [
+    { id: 13, name: 'START BUTTON' },
+    { id: 14, name: 'PLUMB BOB TILT' },
+    { id: 15, name: 'LEFT SLING' },
+    { id: 16, name: 'RIGHT SLING' },
+    { id: 17, name: 'SHOOTER LANE' },
+    { id: 18, name: 'EXIT JETS' },
+
+    { id: 21, name: 'SLAM TILT' },
+    { id: 22, name: 'COIN DOOR CLOSED' },
+    { id: 23, name: 'TICKET OPTQ' },
+    { id: 25, name: 'TROUGH 1 BALL' },
+    { id: 26, name: 'TROUGH 2 BALLS' },
+    { id: 27, name: 'TROUGH 3 BALLS' },
+    { id: 28, name: 'OUTHOLE' },
+    
+    { id: 31, name: 'OPTO POPPER' },
+    { id: 32, name: 'MINI HOME OPTO' },
+    { id: 33, name: 'ENTER TRAMP OPTO' },
+    { id: 34, name: 'LAUNCH BALL' },
+    { id: 35, name: 'SCORE TOP RAMP' },
+    { id: 36, name: 'ENTER BOT RAMP' },
+    { id: 37, name: 'SCORE BOT RAMP' },
+    { id: 38, name: 'MINI DOOR MID' },
+
+    { id: 41, name: '<E>S-C-A-P-E' },
+    { id: 42, name: 'E<S>C-A-P-E' },
+    { id: 43, name: 'E-S<C>A-P-E' },
+    { id: 44, name: 'E-S-C<A>P-E' },
+    { id: 45, name: 'E-S-C-A<P>E' },
+    { id: 46, name: 'E-S-C-A-P<E>' },
+    { id: 47, name: 'HANGON SCORE' },
+    { id: 48, name: 'SELECT DOCTOR' },
+
+    { id: 51, name: '<R>E-P-A-I-R' },
+    { id: 52, name: 'R<E>P-A-I-R' },
+    { id: 53, name: 'R-E<P>A-I-R' },
+    { id: 54, name: 'R-E-P<A>I-R' },
+    { id: 55, name: 'R-E-P-A<I>R' },
+    { id: 56, name: 'R-E-P-A-I<R>' },
+    { id: 57, name: 'TRAP DOOR DOWN' },
+    { id: 58, name: 'ACTIVAT TRANSMAT' },
+    
+    { id: 61, name: 'LEFT JET' },
+    { id: 62, name: 'RIGHT JET' },
+    { id: 63, name: 'BOTTOM JET' },
+    { id: 64, name: 'LEFT DRAIN' },
+    { id: 65, name: 'LEFT RETURN' },
+    { id: 66, name: 'RIGHT RETURN' },
+    { id: 67, name: 'RIGHT DRAIN' },
+    { id: 68, name: 'MINI DOOR LEFT' },
+    
+    { id: 71, name: 'MINIOPTO5BANK R1' },
+    { id: 72, name: 'MINIOPTO5BANK R2' },
+    { id: 73, name: 'MINIOPTO5BANK M' },
+    { id: 74, name: 'MINIOPTO5BANK L2' },
+    { id: 75, name: 'MINIOPTO5BANK L1' },
+    { id: 76, name: 'MINI L OPTOEJECT' },
+    { id: 77, name: 'MINI R OPTOEJECT' },
+    { id: 78, name: 'MINI LITES LOCK' },
+
+    { id: 82, name: 'PLAYFIELD GLASS' },
+    { id: 88, name: 'MINI DOOR RIGHT' },
+  ],  
   skipWmcRomCheck: true,
   initialise: {
-    closedSwitches: [ 15, 16, 17 ],
+    closedSwitches: [ 22, 25, 26, 27, 82 ],
     initialAction: [
+      {
+        delayMs: 1000,
+        source: 'cabinetInput',
+        value: 16
+      }      
     ],
   }
 };
