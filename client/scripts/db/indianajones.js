@@ -18,7 +18,7 @@ module.exports = {
     { id: 21, name: 'SLAM TILT' },
     { id: 22, name: 'COIN DOOR CLOSED' },
     { id: 23, name: 'TICKED OPTQ' },
-    { id: 25, name: '(I)NDY LANE)' },
+    { id: 25, name: '(I)NDY LANE' },
     { id: 26, name: 'I(N)DY LANE' },
     { id: 27, name: 'IN(D)Y LANE' },
     { id: 28, name: 'IND(Y) LANE' },

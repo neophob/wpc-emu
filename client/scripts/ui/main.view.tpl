@@ -14,6 +14,7 @@
         <button class="button-black button-small black" onclick="wpcInterface.romSelection('Hot Shot Basketball');">Hot Shot Basketball</button>
         <button class="button-black button-small black" onclick="wpcInterface.romSelection('The Party Zone');">The Party Zone</button>
         <button class="button-black button-small black" onclick="wpcInterface.romSelection('Dr. Who');">Dr. Who</button>
+        <button class="button-black button-small black" onclick="wpcInterface.romSelection('Dirty Harry');">Dirty Harry</button>
     </div>
     </div>
     <div class="row">
