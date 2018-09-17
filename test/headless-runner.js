@@ -45,15 +45,14 @@ function bootEmu() {
     })
     .then((wpcSystem) => {
       wpcSystem.start();
-
+      boot(wpcSystem);
+      
       let x = 0;
       while (1) {
         x++;
-        console.log(x);
-        if (x%500 === 50) {
+        if (x%200 === 50) {
           const status = wpcSystem.getUiState();
-          console.log('RE-ARM', { ticks: status.ticks, opsMs: status.opsMs });
-          boot(wpcSystem);
+          console.log('# RE-ARM', { ticks: status.ticks, opsMs: status.opsMs });
         }
         
         const cycles = HALF_SECOND_TICKS + HALF_SECOND_TICKS * parseInt(10 * Math.random());
