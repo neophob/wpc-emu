@@ -59,7 +59,6 @@ function initialiseEmu(gameEntry) {
         romSelection
       };
       wpcSystem.registerAudioConsumer(dacCallback);
-      wpcSystem.reset();
       wpcSystem.start();
       soundInstance.setMixStereoFunction(wpcSystem.mixStereo);
       console.log('Successully started EMU');
@@ -67,6 +66,7 @@ function initialiseEmu(gameEntry) {
     })
     .catch((error) => {
       console.error('FAILED to load ROM:', error.message);
+      console.log(error.stack);
     });
 }
 

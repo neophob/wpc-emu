@@ -52,7 +52,7 @@ function bootEmu() {
         x++;
         if (x%200 === 50) {
           const status = wpcSystem.getUiState();
-          console.log('# RE-ARM', { ticks: status.ticks, opsMs: status.opsMs });
+          console.log('# STATUS', { ticks: status.ticks, opsMs: status.opsMs });
         }
         
         const cycles = HALF_SECOND_TICKS + HALF_SECOND_TICKS * parseInt(10 * Math.random());
@@ -63,6 +63,7 @@ function bootEmu() {
           if (switchBlacklist.includes(input)) {
             input = 13;
           }
+          console.log('toggle',input);
           wpcSystem.setInput(input);            
           wpcSystem.executeCycle(KEYPRESS_TICKS, CPU_STEPS);
           wpcSystem.setInput(input);   
@@ -76,8 +77,6 @@ function bootEmu() {
 bootEmu();
 
 function boot(wpcSystem) {
-  wpcSystem.executeCycle(HALF_SECOND_TICKS * 6, CPU_STEPS);
-  wpcSystem.reset();    
   wpcSystem.executeCycle(HALF_SECOND_TICKS * 8, CPU_STEPS);
   
   wpcSystem.setCabinetInput(16);
