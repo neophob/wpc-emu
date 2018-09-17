@@ -7,7 +7,10 @@ function AudioOutput(AudioContext, sampleSize) {
 }
 
 const DEFAULT_SAMPLE_SIZE = 1024 * 1;
-const INPUT_SAMPLE_RATE_HZ = 11000;
+//at least the from DAC
+const INPUT_SAMPLE_RATE_HZ = 8000;
+const OUTPUT_SAMPLE_RATE_HZ = 44100;
+const PLAYBACK_RATE = INPUT_SAMPLE_RATE_HZ / OUTPUT_SAMPLE_RATE_HZ;
 const MONO = 1;
 
 class Sound {
@@ -30,12 +33,12 @@ class Sound {
   }
 
   _prepareAudio() {
-    this.ym2151buffer = this.audioCtx.createBuffer(2, DEFAULT_SAMPLE_SIZE, 44100);
+    this.ym2151buffer = this.audioCtx.createBuffer(2, DEFAULT_SAMPLE_SIZE, OUTPUT_SAMPLE_RATE_HZ);
 
     this.buffer = this.audioCtx.createBuffer(MONO, DEFAULT_SAMPLE_SIZE, INPUT_SAMPLE_RATE_HZ);
     this.bufferData = this.buffer.getChannelData(0);
     this.audioBuffer = this.audioCtx.createBufferSource();
-    this.audioBuffer.playbackRate.value = 0.2494331066;
+    this.audioBuffer.playbackRate.value = PLAYBACK_RATE;
     //TODO is this leaking?
     this.audioBuffer.connect(this.gainNode);
     this.count = 0;
@@ -44,7 +47,7 @@ class Sound {
   writeAudioData(value) {
     if (this.count < DEFAULT_SAMPLE_SIZE) {
       // fill buffer with values form -1.0 and 1.0
-      this.bufferData[this.count++] = (value - 128) / 128;
+      this.bufferData[this.count++] = (value - 64) / 64;
     } else {
       // set the buffer in the AudioBufferSourceNode
       this.audioBuffer.buffer = this.buffer;
