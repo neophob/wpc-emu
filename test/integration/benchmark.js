@@ -1,8 +1,8 @@
 'use strict';
 
+const path = require('path');
 const fs = require('fs');
 const debug = require('debug')('wpcemu:benchmark');
-const path = require('path');
 const Emulator = require('../../lib/emulator');
 
 const romU06Path = process.env.ROMFILE || path.join(__dirname, '/../../rom.freewpc/ft20_32.rom');
@@ -81,5 +81,4 @@ Promise.resolve()
   .then(() => benchmarkWithCycleCount(8192))
   .then(() => benchmarkWithCycleCount(16384))
   .then(() => benchmarkWithCycleCount(32768))
-  .then(() => benchmarkWithCycleCount(65536))
-  ;
+  .then(() => benchmarkWithCycleCount(65536));
