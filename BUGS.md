@@ -21,7 +21,21 @@ Error: INVALID_WRITE_SUBSYSTEM_0xbfc2 {"offset":16322,"subsystem":"system"} 1
 - DMD is messes up after the bonus selection
 - Guess its related to timing
 
+## FREEWPC T2
 
+```
+sound-board.js:244 wpcemu:boards:sound-board: CPU_WRITE8_FAIL {"offset":14907,"subsystem":"rom"} 64059 149
+22:24:39.356 sound-board.js:245 Uncaught Error: SND_INVALID_WRITE_SUBSYSTEM_0x3a3b
+    at SoundBoard._cpuWrite8 (sound-board.js:245)
+    at Cpu6809.WriteWord (cpu6809.js:502)
+    at Cpu6809.step (cpu6809.js:1937)
+    at Cpu6809.steps (cpu6809.js:2378)
+    at SoundBoard.executeCycle (sound-board.js:140)
+    at WpcAsic.executeCycle (cpu-board.js:162)
+    at Emulator.executeCycle (emulator.js:45)
+    at step (main.js:103)
+```
+    
 ## Medieval Madness
 
 After about 100k cycles the emu crashes with this error message:

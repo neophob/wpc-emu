@@ -10,6 +10,7 @@ test.beforeEach((t) => {
     ram,
   };
   const dmd = DMD.getInstance(initObject);
+  dmd.reset();
   t.context = dmd;
 });
 
