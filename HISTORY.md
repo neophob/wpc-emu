@@ -1,5 +1,9 @@
 # HISTORY
 
+## 17/09/18
+- implement memory protection
+- free wpc games work
+
 ## 07/09/18
 - show flasher in client
 - use multiple canvas 
