@@ -17,6 +17,7 @@
     "test": "ava --verbose test/lib/**",
     "test:debug": "DEBUG='wpc*' ava --verbose test/lib/**",
     "test:integration": "ava --verbose test/integration/*.test.js",
+    "test:runner": "node test/headless-runner.js",
     "test:soundboard": "env DEBUG='*' node test/integration/soundboard.js",
     "benchmark": "node test/integration/benchmark.js > /dev/null",
     "benchmark:tr2": "CYCLES=20000000 ROMFILE=./rom/t2_l8.rom node test/integration/benchmark.js > /dev/null",    
