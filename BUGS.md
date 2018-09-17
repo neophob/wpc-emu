@@ -1,6 +1,13 @@
 # Known Issues
 
-There are some known issues with the Emu, here I try to collect most of them
+There are some known issues with the Emu, here I try to collect most of them.
+
+## Missing EMU features
+
+- enable / disable IRQ in the ASIC emu should work - currently the IRQ is fired all the time
+- CWAI instruction not implemented properly, not sure if its used at all
+- GI (General Illumination dimming) to implemented properly
+- Fliptronic Flipper not implemented
 
 ## Hurricane
 
