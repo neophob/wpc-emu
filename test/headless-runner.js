@@ -63,7 +63,6 @@ function bootEmu() {
           if (switchBlacklist.includes(input)) {
             input = 13;
           }
-          console.log('toggle',input);
           wpcSystem.setInput(input);            
           wpcSystem.executeCycle(KEYPRESS_TICKS, CPU_STEPS);
           wpcSystem.setInput(input);   
