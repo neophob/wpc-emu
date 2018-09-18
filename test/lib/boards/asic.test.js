@@ -1,7 +1,7 @@
 'use strict';
 
 import test from 'ava';
-import CpuBoardAsic from '../../../lib/boards/cpu-board-asic';
+import CpuBoardAsic from '../../../lib/boards/asic';
 
 test.beforeEach((t) => {
   const ram = new Uint8Array(0x4000);
