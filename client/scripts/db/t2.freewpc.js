@@ -2,7 +2,7 @@
 
 module.exports = {
   name: 'FreeWPC T2',
-  version: 'FreeWPC 1.00',
+  version: '1.00',
   rom: {
     u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/ft20_32.rom',
     u14: 'https://s3-eu-west-1.amazonaws.com/foo-temp/t2_u14.l3',
