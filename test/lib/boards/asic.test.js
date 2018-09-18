@@ -22,7 +22,7 @@ test('wpc, should clear zerocross flag when read', (t) => {
   const wpc = t.context;
   wpc.setZeroCrossFlag();
   const result = wpc.read(CpuBoardAsic.OP.WPC_ZEROCROSS_IRQ_CLEAR);
-  t.is(result, 128);
+  t.is(result, 0x80);
   t.is(wpc.zeroCrossFlag, 0);
 });
 
@@ -32,6 +32,14 @@ test('wpc, should respect old zerocross flag state when read', (t) => {
   wpc.setZeroCrossFlag();
   const result = wpc.read(CpuBoardAsic.OP.WPC_ZEROCROSS_IRQ_CLEAR);
   t.is(result, 0xFF);
+  t.is(wpc.zeroCrossFlag, 0);
+});
+
+test('wpc, should respect old zerocross flag state when read,xxx', (t) => {
+  const wpc = t.context;
+  wpc.write(CpuBoardAsic.OP.WPC_ZEROCROSS_IRQ_CLEAR, 0x10);
+  const result = wpc.read(CpuBoardAsic.OP.WPC_ZEROCROSS_IRQ_CLEAR);
+  t.is(result, 0x10);
   t.is(wpc.zeroCrossFlag, 0);
 });
 
