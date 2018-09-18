@@ -14,8 +14,8 @@ const CANVAS_WIDTH = 815 + LAMP_DISPLAY_WIDTH;
 const CANVAS_HEIGHT = 560;
 const YPOS_DMD_MAIN_VIEW = 15;
 const YPOS_GENERIC_DATA = 225;
-const YPOS_DMD_DATA = 385;
-const YPOS_MEM_DATA = YPOS_DMD_DATA + 70;
+const YPOS_DMD_DATA = 400;
+const YPOS_MEM_DATA = YPOS_DMD_DATA + 65;
 
 const LEFT_X_OFFSET = 15;
 const MIDDLE_X_OFFSET = 250 + LEFT_X_OFFSET;
@@ -54,7 +54,7 @@ function updateCanvas(emuState, cpuState) {
     return;
   }
   canvas.fillStyle = '#000';
-  canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 245, 135);
+  canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 245, 145);
   canvas.fillRect(LEFT_X_OFFSET, YPOS_DMD_DATA, 150, 40);
 
   canvas.fillStyle = COLOR_DMD[2];
@@ -80,6 +80,7 @@ function updateCanvas(emuState, cpuState) {
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 120);
   canvas.fillText('SND FIRQ CALLS/MISSED: ' + emuState.asic.sound.firqCount + '/' + emuState.asic.sound.missedFirqCall,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 130);
+  canvas.fillText('SND VOLUME: ' + emuState.asic.sound.volume, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 140);
 
   canvas.fillText('DMD LOW PAGE: ' + emuState.asic.dmd.lowpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
   canvas.fillText('DMD HIGH PAGE: ' + emuState.asic.dmd.highpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
