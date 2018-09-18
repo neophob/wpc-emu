@@ -55,6 +55,15 @@ test('HardwareMapper, should get address, 0x3c00', (t) => {
   t.deepEqual(result, expectedResult);
 });
 
+test('HardwareMapper, should get address, 0x3E66 - WPC_SERIAL_CONTROL_PORT **FIXME**', (t) => {
+  const expectedResult = {
+    offset: 0x3E66,
+    subsystem: 'dmd',
+  };
+  const result = HardwareMapper.getAddress(0x3E66);
+  t.deepEqual(result, expectedResult);
+});
+
 test('HardwareMapper, should get address, 0x3FC0', (t) => {
   const expectedResult = {
     offset: 0x3FC0,
