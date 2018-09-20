@@ -44,7 +44,7 @@ sound-board.js:244 wpcemu:boards:sound-board: CPU_WRITE8_FAIL {"offset":14907,"s
     cpu-board.js:233 Uncaught Error: INVALID_WRITE_SUBSYSTEM_0x47e0
         at WpcAsic._write8 (cpu-board.js:233)
         at Cpu6809.WriteWord (cpu6809.js:502)
-        at Cpu6809.step (cpu6809.js:1668)
+        at Cpu6809.step (cpu6809.js:1668) >> this.oADD
         at Cpu6809.steps (cpu6809.js:2378)
         at WpcAsic.executeCycle (cpu-board.js:141)
         at Emulator.executeCycle (emulator.js:45)
@@ -58,10 +58,11 @@ sound-board.js:244 wpcemu:boards:sound-board: CPU_WRITE8_FAIL {"offset":14907,"s
           break;
 
     Last font test
+    CPU_WRITE8_FAIL {"offset":312,"subsystem":"bank"} 16696 255
     cpu-board.js:233 Uncaught Error: INVALID_WRITE_SUBSYSTEM_0x4138
         at WpcAsic._write8 (cpu-board.js:233)
         at Cpu6809.WriteWord (cpu6809.js:502)
-        at Cpu6809.step (cpu6809.js:1938)
+        at Cpu6809.step (cpu6809.js:1938) >> this.oADC
         at Cpu6809.steps (cpu6809.js:2379)
         at WpcAsic.executeCycle (cpu-board.js:141)
         at Emulator.executeCycle (emulator.js:45)
