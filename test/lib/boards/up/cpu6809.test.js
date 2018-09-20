@@ -104,3 +104,32 @@ test('oNEG() should set CARRY flag correctly', (t) => {
   t.is(readMemoryAddress[2], NaN);
   t.is(readMemoryAddress[3], undefined);
 });
+
+test('signed byte', (t) => {
+  const cpu = t.context;
+  const val0 = cpu.signed(0);
+  const val7f = cpu.signed(0x7F);
+  const val80 = cpu.signed(0x80);
+  const valff = cpu.signed(0xFF);
+  const valUndef = cpu.signed();
+  t.is(val0, 0);
+  t.is(val7f, 0x7F);
+  t.is(val80, -128);
+  t.is(valff, -1);
+  t.is(valUndef, undefined);
+});
+
+test('signed word', (t) => {
+  const cpu = t.context;
+  const val0 = cpu.signed(0);
+  const val7fff = cpu.signed(0x7FFF);
+  const val8000 = cpu.signed(0x8000);
+  const valffff = cpu.signed(0xFFFF);
+  const valUndef = cpu.signed();
+  t.is(val0, 0);
+  t.is(val7fff, 0x7EFF);
+  t.is(val8000, 32512);
+  t.is(valffff, 65279);
+  t.is(valUndef, undefined);
+});
+
