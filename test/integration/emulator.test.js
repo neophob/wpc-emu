@@ -18,9 +18,24 @@ function loadFile(fileName) {
 
 test.beforeEach((t) => {
   const ROMFILE = path.join(__dirname, '/../../rom.freewpc/ft20_32.rom');
-  return loadFile(ROMFILE)
-    .then((rom) => {
-      return Emulator.initVMwithRom(rom, 'unittest');
+  const U14 = path.join(__dirname, '/../../rom.freewpc/U14.PP');
+  const U15 = path.join(__dirname, '/../../rom.freewpc/U15.PP');
+  const U18 = path.join(__dirname, '/../../rom.freewpc/U18.PP');
+
+  return Promise.all([
+    loadFile(ROMFILE),
+    loadFile(U14),
+    loadFile(U15),
+    loadFile(U18),
+  ])
+    .then((romFiles) => {
+      const romData = {
+        u06: romFiles[0],
+        u14: romFiles[1],
+        u15: romFiles[2],
+        u18: romFiles[3],
+      };
+      return Emulator.initVMwithRom(romData, 'unittest');
     })
     .then((wpcSystem) => {
       t.context = wpcSystem;
@@ -36,7 +51,7 @@ test.serial('Smoketest, run emulator with rom ft20_32.rom', (t) => {
   }
 
   const uiState = wpcSystem.getUiState();
-  t.is(uiState.ticks, 32952724);
+  t.is(uiState.ticks, 32952718);
   t.is(uiState.asic.dmd.scanline, 8);
   t.is(uiState.asic.dmd.lowpage, 0);
   t.is(uiState.asic.dmd.highpage, 0);

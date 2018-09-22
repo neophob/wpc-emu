@@ -2,3 +2,5 @@
 node_modules
 /rom
 /dist
+test/dmdripper/imgOK
+test/dmdripper/img2

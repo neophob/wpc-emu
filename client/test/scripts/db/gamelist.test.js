@@ -5,7 +5,7 @@ import * as gamelist from '../../../scripts/db/gamelist';
 
 test('gamelist, should getAllNames', (t) => {
   const result = gamelist.getAllNames();
-  t.is(result.length, 11);
+  t.is(result.length, 10);
 });
 
 test('gamelist, should getByName', (t) => {
