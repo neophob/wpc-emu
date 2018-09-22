@@ -1,6 +1,5 @@
 # WPC (Dot Matrix) Emulator
 
-
 [![Build Status](https://travis-ci.org/neophob/wpc-emu.svg?branch=master)](https://travis-ci.org/neophob/wpc-emu)
 
 # Goal
@@ -10,15 +9,16 @@
 - Emulate game "Hurricane" - also "Gilligan's Island", "Terminator2" and "Party Zone"
 - It should be pretty easy to run "WPC Fliptronic" too, as there *seems* no software changes
 
-## State
-- it boots!
-- dmd (incl. 2bit shading) works
-- Emulator shows invalid ram settings -> TODO add dump nvram to get "valid" settings
-- then game boots up
+## TODO
+- add more games to the db (gamelist.js)
+- find out how to simulate a ball is lost - currently I cannot trigger a game over. add that to the gamelist.js (Outhole? Drain?)
+- find out if the ym2151 works
+- find out how to correctly use ym2151
+- implement HC-55536 CVSD
+- Fish Tales has DMD issues when displaying system menu
 
-## TODO Shortterm
-- implement initial switch state
-- add address mapper with callback, remove memory mappers
+### Crashes
+- High Speed II: as soon as the speed display is shown, sound cpu board gets mad! unknown how to reproduce
 
 # Implementation Status
 
@@ -28,13 +28,13 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - read Game ROM file ✓
 - emulate 6809 CPU ✓
 
-## CPU Board
+## CPU/ASIC Board
 - Blanking (not sure if needed)
 - Diagnostics LED ✓
 - Watchdog (not sure if needed, no reboot in case of an error which make it easier to find bugs in the emu)
 - Bit Shifter ✓
-- Memory Protection (not sure if needed)
-- Time of Day Clock ✓
+- Memory Protection ✓
+- Time of Day Clock ✓ - not sure, Twilight Zone's Clock time does not work
 - High Resolution Timer (not used, was used by alphanumeric games to do display dimming)
 - Bank Switching ✓
 - The Switch Matrix ✓
@@ -42,15 +42,19 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Interrupt Reset ✓
 - Interrupt IRQ ✓
 - Interrupt FIRQ ✓ (incl. source - not sure if needed)
+- Security Chip
 
 ## Power Driver Board
 - Lamp Circuits ✓
 - Solenoid Circuits ✓ (fade out timing missing)
 - General Illumination Circuits (Triac) ✓ (fade out timing missing)
 - Zero Cross Circuit ✓
+- support Fliptronics flipper
 
 ## Sound Board
-- load Sound ROM files
+- load Sound ROM files ✓
+- Bank Switching ✓
+- Resample audio to 44.1khz
 - emulate 6809 CPU ✓
 - emulate YM2151 FM Generator
 - emulate HC-55536 CVSD (speech synth)
@@ -128,8 +132,8 @@ Operating system:
 - Mono output, Sample rate 11KHz, 25 watts power, 8 ohm
 - intelligent and have processors running their own operating system dedicated to sound tasks
 - CPU: Motorola 6809 (MC68A09EP), frequency 2MHz
-- OPM: Yamaha YM2151 (FM Operator Type-M), frequency 3.579545MHz
-- DAC (Digital Analog converter)
+- OPM: Yamaha YM2151 OPM (FM Operator Type-M), frequency 3.579545MHz (8-voice FM sound synthesiser)
+- DAC: AD-7524 (Digital Analog converter) and YM3012
 - Harris HC-55536 CVSD (Continuously variable slope delta modulation). Note HC-55536 is pin compatible with 55516 and 55564.
 - MC6821 Peripheral Interface Adaptor (PIA)
 - ROMS: U14, U15 and U18
@@ -159,10 +163,38 @@ main loop that executes some CPU ops then check if one of the following callback
 ### DMD display scanline
 The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). At this rate, it takes 256 microseconds per row and a little more than 8 milliseconds per complete frame.
 
+## Gameplay
+- (during active game) if you press and keep pressed left or right FLIPPER - a status report will be shown
+- the TROUGH switches need to be closed to be able to start the game, else you see the "Pinball missing messages" -> these switches are used to detect that there are still balls in the TROUGH - depending on the model there are more or less ball and switches available
+- the OUTHOLE is off when the game starts
+
+TODO:
+OUTHOLE ON, TROUGH 1 ON, OUTHOLE OFF, TROUGH 1 OFF
+
+This very primitive schema shows where the switches are:
+- 1: OUTHOLE SWITCH
+- 2,3,4: TROUGH SWITCHES
+```
+   +--------------+
+   |              |
+   |              |
+   |              |
+   |   \      /   |
+   |              |
+   |      1  234  |
+
+```
+
+## To Test:
+- memory position of current score, player number, credits
+- serial port? 
+
 # References
 
 ## Terms
 - Attraction Mode: the time when no game is running and the lamps are blinking to attract people
+- Drain: The common term used to refer to the area beneath the flippers. If the ball rolls into the drain area via an outlane or between the flippers, it will be lost. Also refers to the act of losing a ball in this manner.
+- Plunger: The object used to launch a ball onto the playfield
 
 ## WPC
 
@@ -173,6 +205,8 @@ The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). 
 - http://www.edcheung.com/album/album07/Pinball/wpc_sound.htm
 - http://techniek.flipperwinkel.nl/wpc/index2.htm#switch
 - http://arcarc.xmission.com/Pinball/PDF%20Pinball%20Manuals%20and%20Schematics/
+- https://github.com/tanseydavid/WPCResources
+- https://github.com/tomlogic/pinmame-nvram-maps
 
 ## DMD
 - http://webpages.charter.net/coinopcauldron/dotarticle.html
@@ -181,7 +215,6 @@ The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). 
 - http://atjs.mbnet.fi/mc6809/
 - https://github.com/maly/6809js (use this CPU core, fixed typos + implemented IRQ handling)
 - http://www.roust-it.dk/coco/6809irq.pdf
-- https://bitbucket.org/grumdrig/williams/src/master/
 
 ## Sound Chip
 - http://www.ionpool.net/arcade/gottlieb/technical/datasheets/YM2151_datasheet.pdf
@@ -189,11 +222,14 @@ The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). 
 - https://github.com/kode54/Game_Music_Emu/blob/master/gme/
 - http://www.cx5m.net/fmunit.htm
 - https://github.com/apollolux/ym2413-js/blob/master/ym2413.js
-- https://github.com/vgm/node-vgmplay/blob/master/res/js/vgm/ym2151.js (use this CPU core)
+- https://github.com/vgm/node-vgmplay/blob/master/res/js/vgm/ym2151.js (WPC-EMU use this)
 
 ## ROM
 - http://www.ipdb.org/
 - http://www.planetarypinball.com/mm5/Williams/tech/wpcroms.html
+
+## Custom Power Driver
+- https://www.multimorphic.com/store/circuit-boards/pd-16/
 
 # Game List
 

@@ -2,6 +2,65 @@
 
 Run `npm run benchmark` to run the CPU benchmark.
 
+## WPC-EMU v0.6.0
+
+- Converted cpu6809 code to a class - needed to have multiple instances of the CPU. This increased the duration to execute 2 million instructions.
+- Starting in this version, the CPU Board drives the soundboard - which needs to update a second 6809 CPU.
+
+### Node v8.11.2
+
+```
+BENCHMARK START, ROM: /Users/michaelvogt/_code/github/wpc-emu/rom.freewpc/ft20_32.rom
+Ticks to execute: 2000000 => CPU REALTIME: 1000ms (CPU HZ: 2000000)
+  tickSteps	durationMs	missed IRQ	missed FIRQ	ticksExecuted
+  1		353		975		0		2000001
+  2		172		975		0		2000001
+  4		120		975		0		2000001
+  5		113		975		0		2000001
+  8		111		975		0		2000005
+  10		111		975		0		2000008
+  12		108		975		0		2000001
+  16		110		975		0		2000001
+  32		105		975		0		2000001
+  64		108		975		0		2000033
+  256		107		975		0		2000172
+  390		106		975		0		2000216
+  393		110		975		0		2000128
+  512		106		975		0		2000408
+  1024		103		975		0		2000964
+  2048		111		974		0		2001103
+  4096		102		488		0		2004016
+  8192		145		244		0		2007691
+  16384		106		122		0		2015471
+```
+
+### Node v10.1.0
+
+```
+BENCHMARK START, ROM: /Users/michaelvogt/_code/github/wpc-emu/rom.freewpc/ft20_32.rom
+Ticks to execute: 2000000 => CPU REALTIME: 1000ms (CPU HZ: 2000000)
+  tickSteps	durationMs	missed IRQ	missed FIRQ	ticksExecuted
+  1		296		975		0		2000001
+  2		256		975		0		2000001
+  4		124		975		0		2000001
+  5		117		975		0		2000001
+  8		118		975		0		2000005
+  10		116		975		0		2000008
+  12		120		975		0		2000001
+  16		121		975		0		2000001
+  32		118		975		0		2000001
+  64		117		975		0		2000033
+  256		116		975		0		2000172
+  390		115		975		0		2000216
+  393		114		975		0		2000128
+  512		110		975		0		2000408
+  1024		106		975		0		2000964
+  2048		109		974		0		2001103
+  4096		113		488		0		2004016
+  8192		134		244		0		2007691
+  16384		137		122		0		2015471
+```
+
 ## WPC-EMU v0.5.6
 
 ### Node v6.9.1

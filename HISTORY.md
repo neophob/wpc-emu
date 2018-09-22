@@ -1,8 +1,59 @@
 # HISTORY
 
+![22.09.18](assets/22.09.18.png?raw=true)
+
+## 22/09/18
+- support more visualisation in games
+- fixed dmd reset
+
+## 17/09/18
+- implement memory protection
+- free wpc games boot now, dmd has still issues
+
+## 07/09/18
+- show flasher in client
+- use multiple canvas 
+
+## 07/09/18
+- update ui, add playfield db entry
+- show background image
+- show lights in client
+
+![25.06.18](assets/25.06.18.png?raw=true)
+
+## 14/06/18
+- firq is called on the soundboard, fixed ym2151 setreg call
+- relaxed soundboard rom bank switch selection
+- i heard sound for about 1s using twilight zone - however it crashed after
+
+## 13/06/18
+- fixed missed memory region that we relayed to DMD (0x3C00 - 0x3FAF)
+- update docs about soundboard memory mapper
+- unconfirmed mapping of the sound cpu system rom to page 0x7f
+- add external io controller board
+- enhance gamelist
+
+## 06/06/18
+- minor progress with the sound board, fixed banked read bug
+- simplify cpu reset
+
+## 21/05/18
+
+- cpu6809 is now a class - multiple instances possible
+- implement ring buffer for sound data
+
+## 16/05/18
+
+- start refactoring to simplify sound integration
+- start sketching the audio interface
+
+## 15/05/18
+
+- start working on the sound board, CPU seems to boot from u18 rom, RAM, ROM and bankswitching seems to work
+
 ## 14/05/18
 
-- implement dirty checking for ui elements, no more fans when opening the debug view
+- implement dirty checking for ui elements, no more loud fans when opening the debug view (lower CPU usage)
 
 ## 13/05/18
 

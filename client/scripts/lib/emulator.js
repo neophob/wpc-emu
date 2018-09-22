@@ -5,7 +5,7 @@
 export { initialiseEmulator };
 
 function initialiseEmulator(romData, gameEntry) {
-  const romUrl = gameEntry.url;
+  const romUrl = gameEntry.rom.u06;
   const fileName = romUrl.substring(romUrl.lastIndexOf('/') + 1);
   const romObject = {
     fileName,

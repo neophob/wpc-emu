@@ -8,11 +8,14 @@ export { initialise, updateCanvas };
 
 // HINT enable debug in the browser by entering "localStorage.debug = '*'" in the browser
 
-const CANVAS_WIDTH = 800;
+const LAMP_DISPLAY_WIDTH = 200;
+
+const CANVAS_WIDTH = 815 + LAMP_DISPLAY_WIDTH;
 const CANVAS_HEIGHT = 560;
 const YPOS_DMD_MAIN_VIEW = 15;
 const YPOS_GENERIC_DATA = 225;
-const YPOS_DMD_DATA = 385;
+const YPOS_DMD_DATA = 400;
+const YPOS_MEM_DATA = YPOS_DMD_DATA + 65;
 
 const LEFT_X_OFFSET = 15;
 const MIDDLE_X_OFFSET = 250 + LEFT_X_OFFSET;
@@ -29,45 +32,81 @@ const COLOR_DMD = [
   'rgb(255,198,0)',
 ];
 
-var c;
+let canvas, canvasOverlay;
+let playfieldData;
+let playfieldImage;
+let videoRam;
+let frame = 0;
+
+const colorLut = new Map();
+colorLut.set('YELLOW', 'rgba(255,255,0,');
+colorLut.set('ORANGE', 'rgba(255,165,0,');
+colorLut.set('RED', 'rgba(255,0,0,');
+colorLut.set('LBLUE', 'rgba(173,216,230,');
+colorLut.set('LPURPLE', 'rgba(218,112,214,');
+colorLut.set('WHITE', 'rgba(255,255,255,');
+colorLut.set('GREEN', 'rgba(0,255,0,');
+colorLut.set('BLACK', 'rgba(0,0,0,0)');
+
 
 function updateCanvas(emuState, cpuState) {
-  c.fillStyle = '#000';
-  c.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 170, 100);
-  c.fillRect(LEFT_X_OFFSET, YPOS_DMD_DATA, 150, 40);
+  if (!emuState) {
+    return;
+  }
+  canvas.fillStyle = '#000';
+  canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 245, 145);
+  canvas.fillRect(LEFT_X_OFFSET, YPOS_DMD_DATA, 150, 40);
 
-  c.fillStyle = COLOR_DMD[2];
-  c.fillText('ROM: ' + emuState.asic.romFileName, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 10);
-  c.fillText('CPU TICKS: ' + emuState.ticks, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 20);
-  c.fillText('CPU TICKS/ms: ' + emuState.opsMs, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 30);
-  c.fillText('CPU STATE: ' + cpuState, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 40);
-  c.fillText('IRQ missed: ' + (emuState.missedIrqCall - emuState.missedIrqMaskCall||0), LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
-  c.fillText('FIRQ missed: ' + emuState.missedFirqCall, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
+  canvas.fillStyle = COLOR_DMD[2];
+  canvas.fillText('ROM: ' + emuState.romFileName, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 10);
+  canvas.fillText('CPU TICKS: ' + emuState.ticks, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 20);
+  canvas.fillText('CPU TICKS/ms: ' + emuState.opsMs, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 30);
+  canvas.fillText('CPU STATE: ' + cpuState, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 40);
+  const irqMissed = emuState.missedIrqCall - emuState.missedIrqMaskCall || 0;
+  canvas.fillText('IRQ CALLS/MISSED: ' + emuState.irqCount + '/' + irqMissed,
+    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
+  canvas.fillText('FIRQ CALLS/MISSED: ' + emuState.firqCount + '/' + emuState.missedFirqCall,
+    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
 
-  const diagnosticLed = emuState.asic.wpc.diagnosticLed ? emuState.asic.wpc.diagnosticLed.toString(2) : '00000000';
+  const diagnosticLed = emuState.asic.wpc.diagnosticLed ? 1 : 0;
   const activePage = emuState.asic.dmd.activepage;
-  c.fillText('DIAGLED STATE: ' + diagnosticLed, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 70);
-  c.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 80);
-  c.fillText('Active ROM Bank: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 90);
+  canvas.fillText('DIAGLED STATE: ' + diagnosticLed, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 70);
+  canvas.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 80);
+  canvas.fillText('ACTIVE ROM BANK: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 90);
+  canvas.fillText('WRITE TO LOCKED MEM: ' + emuState.protectedMemoryWriteAttempts, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 100);
 
-  c.fillText('DMD LOW PAGE: ' + emuState.asic.dmd.lowpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
-  c.fillText('DMD HIGH PAGE: ' + emuState.asic.dmd.highpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
-  c.fillText('DMD ACTIVE PAGE: ' + activePage, LEFT_X_OFFSET, YPOS_DMD_DATA + 30);
+  canvas.fillText('SND CPU TICK: ' + emuState.asic.sound.ticks, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 110);
+  canvas.fillText('SND IRQ CALLS/MISSED: ' + emuState.asic.sound.irqCount + '/' + emuState.asic.sound.missedIrqCall,
+    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 120);
+  canvas.fillText('SND FIRQ CALLS/MISSED: ' + emuState.asic.sound.firqCount + '/' + emuState.asic.sound.missedFirqCall,
+    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 130);
+  canvas.fillText('SND VOLUME: ' + emuState.asic.sound.volume, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 140);
+
+  canvas.fillText('DMD LOW PAGE: ' + emuState.asic.dmd.lowpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
+  canvas.fillText('DMD HIGH PAGE: ' + emuState.asic.dmd.highpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
+  canvas.fillText('DMD ACTIVE PAGE: ' + activePage, LEFT_X_OFFSET, YPOS_DMD_DATA + 30);
+
+  if (emuState.asic.sound.ram) {
+    drawMemRegion(emuState.asic.sound.ram, LEFT_X_OFFSET + 125, YPOS_MEM_DATA + 20, 120);
+  }
 
   if (emuState.asic.dmd.dmdShadedBuffer) {
     drawDmdShaded(emuState.asic.dmd.dmdShadedBuffer, LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
   }
 
   if (emuState.asic.ram) {
-    drawMemRegion(emuState.asic.ram, LEFT_X_OFFSET, YPOS_DMD_DATA + 80, 128);
+    drawMemRegion(emuState.asic.ram, LEFT_X_OFFSET, YPOS_MEM_DATA + 20, 120);
   }
 
   if (emuState.asic.wpc.lampState) {
     drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 20);
+    drawLampPositions(emuState.asic.wpc.lampState, 800, YPOS_DMD_MAIN_VIEW);
   }
 
   if (emuState.asic.wpc.solenoidState) {
     drawMatrix8x8(emuState.asic.wpc.solenoidState, MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 20);
+    canvasOverlay.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+    drawFlashlamps(emuState.asic.wpc.solenoidState, 800, YPOS_DMD_MAIN_VIEW);
   }
 
   if (emuState.asic.wpc.inputState) {
@@ -77,13 +116,24 @@ function updateCanvas(emuState, cpuState) {
   drawMatrix8x8(emuState.asic.wpc.generalIlluminationState, MIDDLE_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
 
   //dmd pages - 8 pixel (on/off) per byte, display is 128x32 pixels
-  const videoRam = emuState.asic.dmd.videoRam;
-  if (videoRam) {
-    const DMD_PAGE_SIZE = 0x200;
+  if (emuState.asic.dmd.videoRam) {
+    videoRam = emuState.asic.dmd.videoRam;
+  }
+  frame++;
+  const dmdRow = frame % 4;
+  // draw only 4 dmd frames to avoid dropping fps
+  if (Array.isArray(videoRam)) {
     let xpos = MIDDLE_X_OFFSET;
     let ypos = YPOS_DMD_DATA + 20;
-    for (var i = 0; i < 16; i++) {
-      drawDmd(videoRam.slice(i * DMD_PAGE_SIZE, (i + 1) * DMD_PAGE_SIZE), xpos, ypos, 128);
+    for (let i=0; i<dmdRow * 4; i++) {
+      xpos += 130;
+      if (xpos > (800 - 130)) {
+        xpos = MIDDLE_X_OFFSET;
+        ypos += 35;
+      }
+    }
+    for (let i=0; i<4; i++) {
+      drawDmd(videoRam[dmdRow * 4 + i], xpos, ypos, 128);
       xpos += 130;
       if (xpos > (800 - 130)) {
         xpos = MIDDLE_X_OFFSET;
@@ -94,21 +144,21 @@ function updateCanvas(emuState, cpuState) {
 }
 
 function drawMemRegion(data, x, y, width) {
-  c.fillStyle = COLOR_DMD[0];
-  c.fillRect(x, y, width, 65);
+  canvas.fillStyle = COLOR_DMD[0];
+  canvas.fillRect(x, y, width, 70);
 
-  var offsetX = 0;
-  var offsetY = 0;
-  var color = 0;
-  for (var i = 0; i < data.length; i++) {
+  let offsetX = 0;
+  let offsetY = 0;
+  let color = 0;
+  for (let i = 0; i < data.length; i++) {
     if (data[i] > 0) {
       if (color !== data[i]) {
-        color = data[i];
-        c.fillStyle = 'rgb(' + color + ',' + color + ',' + color + ')';
+        color = data[i].toString(16);
+        canvas.fillStyle = '#' + color + color + color;
       }
-      c.fillRect(x + offsetX, y + offsetY, 1, 1);
+      canvas.fillRect(x + offsetX, y + offsetY, 1, 1);
     }
-    if (offsetX++ === width) {
+    if (offsetX++ >= width-1) {
       offsetX = 0;
       offsetY++;
     }
@@ -117,18 +167,65 @@ function drawMemRegion(data, x, y, width) {
 
 function drawMatrix8x8(data, x, y, GRIDSIZE = 15) {
   data.forEach((lamp, index) => {
-    c.fillStyle = lamp & 0x80 ? COLOR_DMD[3] :
+    canvas.fillStyle = lamp & 0x80 ? COLOR_DMD[3] :
       lamp & 0x70 ? COLOR_DMD[1] : COLOR_DMD[0];
     const i = x + (index % 8) * GRIDSIZE;
     const j = y + parseInt(index / 8, 10) * GRIDSIZE;
-    c.fillRect(i, j, GRIDSIZE, GRIDSIZE);
+    canvas.fillRect(i, j, GRIDSIZE, GRIDSIZE);
+  });
+}
+
+function drawFlashlamps(lampState, x, y) {
+  if (!playfieldData || !lampState || !Array.isArray(playfieldData.flashlamps)) {
+    return;
+  }
+
+  playfieldData.flashlamps.forEach((lamp) => {
+    const selectedLamp = lampState[lamp.id - 1];
+    if (!selectedLamp) {
+      return;
+    }
+    const alpha = (selectedLamp/255).toFixed(2);
+    canvasOverlay.beginPath();
+    canvasOverlay.fillStyle = 'rgba(255,255,255,'+alpha+')';
+    canvasOverlay.arc(x + lamp.x, y + lamp.y, 24, 0, 2 * Math.PI);
+    canvasOverlay.fill();
+  });
+}
+
+const LAMP_SIZE = 6;
+const LAMP_SIZE2 = LAMP_SIZE / 2;
+function drawLampPositions(lampState, x, y) {
+  if (!playfieldData || !lampState || !Array.isArray(playfieldData.lamps)) {
+    return;
+  }
+
+  lampState.forEach((lamp, index) => {
+    if (index >= playfieldData.lamps.length) {
+      return;
+    }
+    const lampObjects = playfieldData.lamps[index];
+    if (!lampObjects) {
+      return;
+    }
+
+    const alpha = (lamp/512).toFixed(2);
+    const isOn = lamp > 0;
+    lampObjects.forEach((lampObject) => {
+      if (isOn) {
+        canvas.fillStyle = colorLut.get(lampObject.color) + alpha + ')';
+      } else {
+        canvas.fillStyle = 'black';
+      }
+      canvas.fillRect(x + lampObject.x - LAMP_SIZE2, y + lampObject.y - LAMP_SIZE2, LAMP_SIZE, LAMP_SIZE);        
+    });
   });
 }
 
 function drawMatrix8x8Binary(data, x, y) {
   const dataUnpacked = [];
-  for (var i = 0; i < 8; i++) {
-    for (var j = 0; j < 8; j++) {
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 8; j++) {
       const entry = data[i] & BIT_ARRAY[j];
       dataUnpacked.push(entry > 0 ? 255 : 0);
     }
@@ -136,20 +233,21 @@ function drawMatrix8x8Binary(data, x, y) {
   drawMatrix8x8(dataUnpacked, x, y);
 }
 
-function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
-  c.fillStyle = COLOR_DMD[0];
-  c.fillRect(x, y, width * SCALE_FACTOR, 32 * SCALE_FACTOR);
-  c.fillStyle = COLOR_DMD[3];
+function drawDmd(data, x, y, width) {  
+  canvas.fillStyle = COLOR_DMD[0];
+  canvas.fillRect(x, y, width, 32);
+  canvas.fillStyle = COLOR_DMD[3];
 
-  var offsetX = 0;
-  var offsetY = 0;
-  for (var i = 0; i < data.length; i++) {
+  let offsetX = 0;
+  let offsetY = 0;
+  for (let i = 0; i < data.length; i++) {
     const packedByte = data[i];
-    for (var j = 0; j < BIT_ARRAY.length; j++) {
+    for (let j = 0; j < BIT_ARRAY.length; j++) {
+      //NOTE: important speed optimize here...
       if (packedByte > 0) {
         const mask = BIT_ARRAY[j];
         if (mask & packedByte) {
-          c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
+          canvas.fillRect(x + offsetX, y + offsetY, 1, 1);
         }
       }
       offsetX++;
@@ -162,19 +260,21 @@ function drawDmd(data, x, y, width, SCALE_FACTOR = 1) {
 }
 
 function drawDmdShaded(data, x, y, width, SCALE_FACTOR = 1) {
-  c.fillStyle = COLOR_DMD[0];
-  c.fillRect(x, y, width * SCALE_FACTOR, 32 * SCALE_FACTOR);
+  const MARGIN = 2;
+  canvas.fillStyle = COLOR_DMD[0];
+  canvas.fillRect(x, y, width * SCALE_FACTOR, 32 * SCALE_FACTOR);
 
-  var offsetX = 0;
-  var offsetY = 0;
-  var color = 0;
-  for (var i = 0; i < data.length; i++) {
+  let offsetX = 0;
+  let offsetY = 0;
+  let color = 0;
+  for (let i = 0; i < data.length; i++) {
     if (data[i] > 0) {
       if (color !== data[i]) {
         color = data[i];
-        c.fillStyle = COLOR_DMD[color];
+        canvas.fillStyle = COLOR_DMD[color];
       }
-      c.fillRect(x + offsetX * SCALE_FACTOR, y + offsetY * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
+      canvas.fillRect(MARGIN + x + offsetX * SCALE_FACTOR, MARGIN + y + offsetY * SCALE_FACTOR, 
+          SCALE_FACTOR - MARGIN, SCALE_FACTOR - MARGIN);
     }
     offsetX++;
     if (offsetX === width) {
@@ -185,33 +285,52 @@ function drawDmdShaded(data, x, y, width, SCALE_FACTOR = 1) {
 }
 
 function initCanvas() {
-  c.fillStyle = '#000';
-  c.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  canvas.fillStyle = '#000';
+  canvas.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-  c.font = '10px Monaco';
-  c.fillStyle = COLOR_DMD[3];
-  c.fillText('# DEBUG DATA:', LEFT_X_OFFSET, YPOS_GENERIC_DATA);
-  c.fillText('# DMD BOARD DATA:', LEFT_X_OFFSET, YPOS_DMD_DATA);
+  canvas.font = '10px Monaco';
+  canvas.fillStyle = COLOR_DMD[3];
+  canvas.fillText('# DEBUG DATA:', LEFT_X_OFFSET, YPOS_GENERIC_DATA);
+  canvas.fillText('# DMD BOARD DATA:', LEFT_X_OFFSET, YPOS_DMD_DATA);
+  canvas.fillText('# MEMORY:', LEFT_X_OFFSET, YPOS_MEM_DATA);
 
-  c.fillStyle = COLOR_DMD[2];
-  c.fillText('SOLENOID OUT MATRIX', MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 10);
-  c.fillText('ILLUM. OUT MATRIX', MIDDLE_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 10);
-  c.fillText('LAMP OUT MATRIX', RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 10);
-  c.fillText('SWITCH IN MATRIX', RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 10);
-  c.fillText('DMD PAGE RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
-  c.fillText('RAM:', LEFT_X_OFFSET, YPOS_DMD_DATA + 70);
+  canvas.fillStyle = COLOR_DMD[2];
+  canvas.fillText('SOLENOID OUT MATRIX', MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 10);
+  canvas.fillText('ILLUM. OUT MATRIX', MIDDLE_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 10);
+  canvas.fillText('LAMP OUT MATRIX', RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 10);
+  canvas.fillText('SWITCH IN MATRIX', RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 10);
+  canvas.fillText('DMD PAGE RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
+  canvas.fillText('WPC CPU RAM:', LEFT_X_OFFSET, YPOS_MEM_DATA + 10);
+  canvas.fillText('SOUND CPU RAM:', LEFT_X_OFFSET + 125, YPOS_MEM_DATA + 10);
 }
 
-function initialise() {
+function initialise(gameEntry) {
   console.log('initialise');
 
   // prepare view
-  const canvas = document.createElement('canvas');
-  canvas.width = CANVAS_WIDTH;
-  canvas.height = CANVAS_HEIGHT;
-  c = canvas.getContext('2d', { alpha: false });
+  const canvasRootElement = document.createElement('canvas');
+  canvasRootElement.width = CANVAS_WIDTH;
+  canvasRootElement.height = CANVAS_HEIGHT;
+  canvas = canvasRootElement.getContext('2d', { alpha: false });
+  replaceNode('canvasNode', canvasRootElement);
 
-  replaceNode('canvasNode', canvas);
+  //TODO make canvas smaller
+  const canvasOverlayElement = document.createElement('canvas');
+  canvasOverlayElement.width = CANVAS_WIDTH;
+  canvasOverlayElement.height = CANVAS_HEIGHT;
+  canvasOverlay = canvasOverlayElement.getContext('2d', { alpha: true });
+  replaceNode('canvasOverlayNode', canvasOverlayElement);
+    
+  // preload data
+  playfieldData = gameEntry.playfield;
+  playfieldImage = null;
+  if (playfieldData) {
+    playfieldImage = new Image();
+    playfieldImage.onload = function() {
+      canvas.drawImage(playfieldImage, 800, YPOS_DMD_MAIN_VIEW);
+    };
+    playfieldImage.src = playfieldData.image;    
+  }
 
   initCanvas();
 }
