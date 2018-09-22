@@ -1,10 +1,10 @@
 # HISTORY
 
-![22.09.18](assets/22.09.18.png?raw=true)
-
 ## 22/09/18
 - support more visualisation in games
 - fixed dmd reset
+
+![22.09.18](assets/22.09.18.png?raw=true)
 
 ## 17/09/18
 - implement memory protection
