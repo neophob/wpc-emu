@@ -37,8 +37,8 @@ function loadROM(event) {
 }
 
 function addGameTitles(gameList) {
-  const selectElementRoot = document.getElementById('game-selection');  
-  const selectElement = document.createElement('select');  
+  const selectElementRoot = document.getElementById('game-selection');
+  const selectElement = document.createElement('select');
   gameList.getAllNames().forEach((name, index) => {
     const option = document.createElement('option');
     option.value = name;
@@ -50,7 +50,7 @@ function addGameTitles(gameList) {
   });
   selectElement.addEventListener('change', loadROM);
   selectElement.selectedIndex = selectedIndex;
-  
+
   while (selectElementRoot.firstChild) {
     selectElementRoot.removeChild(selectElementRoot.firstChild);
   }

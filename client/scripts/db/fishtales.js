@@ -20,7 +20,7 @@ module.exports = {
       [{ x: 93, y: 125, color: 'RED' }],
       [{ x: 102, y: 25, color: 'YELLOW' }],
       [{ x: 128, y: 23, color: 'YELLOW' }],
-      [{ x: 151, y: 25, color: 'YELLOW' }], 
+      [{ x: 151, y: 25, color: 'YELLOW' }],
 
       [{ x: 66, y: 260, color: 'YELLOW' }], //21
       [{ x: 84, y: 268, color: 'YELLOW' }],
@@ -29,7 +29,7 @@ module.exports = {
       [{ x: 50, y: 172, color: 'LPURPLE' }],
       [{ x: 46, y: 148, color: 'YELLOW' }],
       [{ x: 43, y: 123, color: 'YELLOW' }],
-      [{ x: 39, y: 102, color: 'RED' }], 
+      [{ x: 39, y: 102, color: 'RED' }],
 
       [{ x: 66, y: 277, color: 'YELLOW' }], //31
       [{ x: 84, y: 280, color: 'YELLOW' }],
@@ -38,7 +38,7 @@ module.exports = {
       [{ x: 110, y: 160, color: 'GREEN' }],
       [{ x: 110, y: 128, color: 'LPURPLE' }],
       [{ x: 77, y: 160, color: 'GREEN' }],
-      [{ x: 77, y: 128, color: 'LPURPLE' }], 
+      [{ x: 77, y: 128, color: 'LPURPLE' }],
 
       [{ x: 75, y: 300, color: 'GREEN' }], //41
       [{ x: 92, y: 300, color: 'GREEN' }],
@@ -47,7 +47,7 @@ module.exports = {
       [{ x: 56, y: 225, color: 'GREEN' }],
       [{ x: 50, y: 234, color: 'GREEN' }],
       [{ x: 48, y: 246, color: 'GREEN' }],
-      [{ x: 15, y: 272, color: 'RED' }, { x: 170, y: 272, color: 'RED' }], 
+      [{ x: 15, y: 272, color: 'RED' }, { x: 170, y: 272, color: 'RED' }],
 
       [{ x: 80, y: 332, color: 'YELLOW' }], //51
       [{ x: 91, y: 329, color: 'YELLOW' }],
@@ -56,8 +56,8 @@ module.exports = {
       [{ x: 152, y: 238, color: 'GREEN' }],
       [{ x: 151, y: 226, color: 'GREEN' }],
       [{ x: 147, y: 212, color: 'GREEN' }],
-      [{ x: 28, y: 272, color: 'YELLOW' }], 
-      
+      [{ x: 28, y: 272, color: 'YELLOW' }],
+
       [{ x: 61, y: 205, color: 'GREEN' }], //61
       [{ x: 74, y: 209, color: 'GREEN' }],
       [{ x: 86, y: 214, color: 'GREEN' }],
@@ -65,7 +65,7 @@ module.exports = {
       [{ x: 110, y: 209, color: 'GREEN' }],
       [{ x: 123, y: 205, color: 'GREEN' }],
       [{ x: 93, y: 196, color: 'RED' }],
-      [{ x: 175, y: 272, color: 'YELLOW' }],       
+      [{ x: 175, y: 272, color: 'YELLOW' }],
 
       [{ x: 170, y: 84, color: 'YELLOW' }], //71
       [{ x: 152, y: 155, color: 'RED' }],
@@ -74,7 +74,7 @@ module.exports = {
       [{ x: 165, y: 117, color: 'GREEN' }],
       [{ x: 168, y: 172, color: 'LPURPLE' }],
       [{ x: 175, y: 151, color: 'RED' }],
-      [{ x: 148, y: 121, color: 'ORANGE' }],       
+      [{ x: 148, y: 121, color: 'ORANGE' }],
 
       [{ x: 15, y: 60, color: 'YELLOW' }], //81
       [{ x: 15, y: 52, color: 'YELLOW' }],
@@ -83,7 +83,7 @@ module.exports = {
       [{ x: 15, y: 28, color: 'YELLOW' }],
       [{ x: 0, y: 0, color: 'BLACK' }],
       [{ x: 189, y: 395, color: 'YELLOW' }],
-      [{ x: 33, y: 391, color: 'YELLOW' }],       
+      [{ x: 33, y: 391, color: 'YELLOW' }],
     ],
     flashlamps: [
       { id: 17, x: 38, y: 101 },
@@ -98,7 +98,7 @@ module.exports = {
       { id: 27, x: 168, y: 109 },
       { id: 28, x: 20, y: 180 },
     ],
-    
+
   },
   switchMapping: [
     { id: 13, name: 'CREDIT BUTTON' },

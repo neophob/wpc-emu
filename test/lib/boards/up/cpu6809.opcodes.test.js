@@ -35,26 +35,25 @@ test.beforeEach((t) => {
 test('should read RESET vector on boot', (t) => {
   const cpu = t.context;
   cpu.reset();
-  t.deepEqual(readMemoryAddressAccess, 
+  t.deepEqual(readMemoryAddressAccess,
     [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI ]);
 });
 
 test('ADDA / oADD', (t) => {
-  const OP_ADDA = 0x8b;
-  const ADD_VALUE_1 = 0xff;
-  const ADD_VALUE_2 = 0xff;
+  const OP_ADDA = 0x8B;
+  const ADD_VALUE_1 = 0xFF;
+  const ADD_VALUE_2 = 0xFF;
   const cpu = t.context;
   // add command in reverse order
   readMemoryAddress = [ ADD_VALUE_2, OP_ADDA, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
-  
+
   cpu.reset();
   cpu.regA = ADD_VALUE_1;
   cpu.step();
-  
-  t.deepEqual(readMemoryAddressAccess, 
+
+  t.deepEqual(readMemoryAddressAccess,
     [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO, EXPECTED_RESET_READ_OFFSET_HI ]);
   t.is(cpu.regA, 254);
   t.is(cpu.tickCount, 2);
-  t.is(cpu.flagsToString(), 'eFHINzvC'); 
+  t.is(cpu.flagsToString(), 'eFHINzvC');
 });
-

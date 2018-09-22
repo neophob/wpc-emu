@@ -32,7 +32,8 @@ const COLOR_DMD = [
   'rgb(255,198,0)',
 ];
 
-let canvas, canvasOverlay;
+let canvas;
+let canvasOverlay;
 let playfieldData;
 let playfieldImage;
 let videoRam;
@@ -47,7 +48,6 @@ colorLut.set('LPURPLE', 'rgba(218,112,214,');
 colorLut.set('WHITE', 'rgba(255,255,255,');
 colorLut.set('GREEN', 'rgba(0,255,0,');
 colorLut.set('BLACK', 'rgba(0,0,0,0)');
-
 
 function updateCanvas(emuState, cpuState) {
   if (!emuState) {
@@ -125,14 +125,14 @@ function updateCanvas(emuState, cpuState) {
   if (Array.isArray(videoRam)) {
     let xpos = MIDDLE_X_OFFSET;
     let ypos = YPOS_DMD_DATA + 20;
-    for (let i=0; i<dmdRow * 4; i++) {
+    for (let i = 0; i < dmdRow * 4; i++) {
       xpos += 130;
       if (xpos > (800 - 130)) {
         xpos = MIDDLE_X_OFFSET;
         ypos += 35;
       }
     }
-    for (let i=0; i<4; i++) {
+    for (let i = 0; i < 4; i++) {
       drawDmd(videoRam[dmdRow * 4 + i], xpos, ypos, 128);
       xpos += 130;
       if (xpos > (800 - 130)) {
@@ -158,7 +158,7 @@ function drawMemRegion(data, x, y, width) {
       }
       canvas.fillRect(x + offsetX, y + offsetY, 1, 1);
     }
-    if (offsetX++ >= width-1) {
+    if (offsetX++ >= width - 1) {
       offsetX = 0;
       offsetY++;
     }
@@ -185,9 +185,9 @@ function drawFlashlamps(lampState, x, y) {
     if (!selectedLamp) {
       return;
     }
-    const alpha = (selectedLamp/255).toFixed(2);
+    const alpha = (selectedLamp / 255).toFixed(2);
     canvasOverlay.beginPath();
-    canvasOverlay.fillStyle = 'rgba(255,255,255,'+alpha+')';
+    canvasOverlay.fillStyle = 'rgba(255,255,255,' + alpha + ')';
     canvasOverlay.arc(x + lamp.x, y + lamp.y, 24, 0, 2 * Math.PI);
     canvasOverlay.fill();
   });
@@ -209,7 +209,7 @@ function drawLampPositions(lampState, x, y) {
       return;
     }
 
-    const alpha = (lamp/512).toFixed(2);
+    const alpha = (lamp / 512).toFixed(2);
     const isOn = lamp > 0;
     lampObjects.forEach((lampObject) => {
       if (isOn) {
@@ -217,7 +217,7 @@ function drawLampPositions(lampState, x, y) {
       } else {
         canvas.fillStyle = 'black';
       }
-      canvas.fillRect(x + lampObject.x - LAMP_SIZE2, y + lampObject.y - LAMP_SIZE2, LAMP_SIZE, LAMP_SIZE);        
+      canvas.fillRect(x + lampObject.x - LAMP_SIZE2, y + lampObject.y - LAMP_SIZE2, LAMP_SIZE, LAMP_SIZE);
     });
   });
 }
@@ -233,7 +233,7 @@ function drawMatrix8x8Binary(data, x, y) {
   drawMatrix8x8(dataUnpacked, x, y);
 }
 
-function drawDmd(data, x, y, width) {  
+function drawDmd(data, x, y, width) {
   canvas.fillStyle = COLOR_DMD[0];
   canvas.fillRect(x, y, width, 32);
   canvas.fillStyle = COLOR_DMD[3];
@@ -273,8 +273,8 @@ function drawDmdShaded(data, x, y, width, SCALE_FACTOR = 1) {
         color = data[i];
         canvas.fillStyle = COLOR_DMD[color];
       }
-      canvas.fillRect(MARGIN + x + offsetX * SCALE_FACTOR, MARGIN + y + offsetY * SCALE_FACTOR, 
-          SCALE_FACTOR - MARGIN, SCALE_FACTOR - MARGIN);
+      canvas.fillRect(MARGIN + x + offsetX * SCALE_FACTOR, MARGIN + y + offsetY * SCALE_FACTOR,
+        SCALE_FACTOR - MARGIN, SCALE_FACTOR - MARGIN);
     }
     offsetX++;
     if (offsetX === width) {
@@ -320,7 +320,7 @@ function initialise(gameEntry) {
   canvasOverlayElement.height = CANVAS_HEIGHT;
   canvasOverlay = canvasOverlayElement.getContext('2d', { alpha: true });
   replaceNode('canvasOverlayNode', canvasOverlayElement);
-    
+
   // preload data
   playfieldData = gameEntry.playfield;
   playfieldImage = null;
@@ -329,7 +329,7 @@ function initialise(gameEntry) {
     playfieldImage.onload = function() {
       canvas.drawImage(playfieldImage, 800, YPOS_DMD_MAIN_VIEW);
     };
-    playfieldImage.src = playfieldData.image;    
+    playfieldImage.src = playfieldData.image;
   }
 
   initCanvas();

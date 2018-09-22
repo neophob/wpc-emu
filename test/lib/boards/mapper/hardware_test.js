@@ -82,15 +82,6 @@ test('HardwareMapper, should get address, 0x3FD6', (t) => {
   t.deepEqual(result, expectedResult);
 });
 
-test('HardwareMapper, should get address, 0x3FC2', (t) => {
-  const expectedResult = {
-    offset: 0x3FC2,
-    subsystem: 'externalIo',
-  };
-  const result = HardwareMapper.getAddress(0x3FC2);
-  t.deepEqual(result, expectedResult);
-});
-
 test('HardwareMapper, should get address, 0x3FDC - WPCS_DATA', (t) => {
   const expectedResult = {
     offset: 0x3FDC,
