@@ -7,18 +7,7 @@
 - Emulate the Williams Pinball machine WPC-89 (6/91 - 10/91)
 - 2nd generation Williams WPC hardware called "WPC Dot Matrix" aka WPC DMD
 - Emulate game "Hurricane" - also "Gilligan's Island", "Terminator2" and "Party Zone"
-- It should be pretty easy to run "WPC Fliptronic" too, as there *seems* no software changes
-
-## TODO
-- add more games to the db (gamelist.js)
-- find out how to simulate a ball is lost - currently I cannot trigger a game over. add that to the gamelist.js (Outhole? Drain?)
-- find out if the ym2151 works
-- find out how to correctly use ym2151
-- implement HC-55536 CVSD
-- Fish Tales has DMD issues when displaying system menu
-
-### Crashes
-- High Speed II: as soon as the speed display is shown, sound cpu board gets mad! unknown how to reproduce
+- It should be pretty easy to run "WPC Fliptronic" too
 
 # Implementation Status
 
@@ -59,7 +48,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - emulate YM2151 FM Generator
 - emulate HC-55536 CVSD (speech synth)
 - emulate MC6821 PIA
-- emulate DAC
+- emulate DAC ✓
 
 ## Dot Matrix Controller Board
 - Page Selection ✓
