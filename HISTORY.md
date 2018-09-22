@@ -1,8 +1,14 @@
 # HISTORY
 
+![22.09.18](assets/22.09.18.png?raw=true)
+
+## 22/09/18
+- support more visualisation in games
+- fixed dmd reset
+
 ## 17/09/18
 - implement memory protection
-- free wpc games work
+- free wpc games boot now, dmd has still issues
 
 ## 07/09/18
 - show flasher in client
