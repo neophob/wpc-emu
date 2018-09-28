@@ -127,7 +127,7 @@ function updateCanvas(emuState, cpuState) {
   // draw only 4 dmd frames to avoid dropping fps
   if (Array.isArray(videoRam)) {
     let xpos = MIDDLE_X_OFFSET;
-    let ypos = YPOS_DMD_DATA + 20;
+    let ypos = YPOS_DMD_DATA;
     for (let i = 0; i < dmdRow * 4; i++) {
       xpos += 130;
       if (xpos > (800 - 130)) {
