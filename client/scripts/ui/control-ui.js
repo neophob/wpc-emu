@@ -37,7 +37,7 @@ function addGameSpecificControls(gameEntry) {
       child.textContent = mapping.name;
       child.className = 'button-black button-outline button-small black';
       child.addEventListener('click', () => {
-        window.wpcInterface.wpcSystem.setInput(mapping.id);
+        window.wpcInterface.wpcSystem.setFliptronicsInput(mapping.id);
       });
       element.appendChild(child);
     });
