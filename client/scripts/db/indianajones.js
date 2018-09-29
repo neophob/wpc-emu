@@ -72,14 +72,14 @@ module.exports = {
     { id: 88, name: 'SHOOTER' },
   ],
   fliptronicsMapping: [
-    { id: 'F1', name: 'L FLIPPER EOS' },
+    { id: 'F1', name: 'R FLIPPER EOS' },
     { id: 'F2', name: 'R FLIPPER BUTTON' },
     { id: 'F3', name: 'L FLIPPER EOS' },
     { id: 'F4', name: 'L FLIPPER BUTTON' },
     { id: 'F5', name: 'DROP ADV(E)NTURE' },
     { id: 'F6', name: 'DROP ADVE(N)TURE' },
     { id: 'F7', name: 'DROP ADVEN(T)URE' },
-    { id: 'F8', name: 'LEFT RAMP MODE' },
+    { id: 'F8', name: 'LEFT RAMP MADE' },
   ],
   skipWmcRomCheck: true,
   initialise: {
