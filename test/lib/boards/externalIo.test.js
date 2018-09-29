@@ -1,7 +1,7 @@
 'use strict';
 
 import test from 'ava';
-import IoBoard from '../../../lib/boards/externalio-board';
+import IoBoard from '../../../lib/boards/externalIo';
 
 test.beforeEach((t) => {
   t.context = IoBoard.getInstance();
