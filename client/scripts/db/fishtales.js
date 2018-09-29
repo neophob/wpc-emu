@@ -144,17 +144,16 @@ module.exports = {
     { id: 64, name: 'TOP LEFT LOOP' },
     { id: 65, name: 'RIGHT RETURN' },
     { id: 66, name: 'RIGHT OUTLANE' },
-    //TODO support
-    /*
-    { id: F1, name: 'R FLIPPER EOS' },
-    { id: F2, name: 'R FLIPPER BUTTON' },
-    { id: F3, name: 'L FLIPPER EOS' },
-    { id: F4, name: 'L FLIPPER BUTTON' },
-    */
+  ],
+  fliptronicsMapping: [
+    { id: 'F1', name: 'R FLIPPER EOS' },
+    { id: 'F2', name: 'R FLIPPER BUTTON' },
+    { id: 'F3', name: 'L FLIPPER EOS' },
+    { id: 'F4', name: 'L FLIPPER BUTTON' },
   ],
   skipWmcRomCheck: true,
   initialise: {
-    closedSwitches: [ 15, 16, 17, 18 ],
+    closedSwitches: [ 15, 16, 17, 18, 22 ],
     initialAction: [
       {
         delayMs: 1000,

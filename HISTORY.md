@@ -1,5 +1,9 @@
 # HISTORY
 
+## 29/09/18
+- support fliptronics switches
+- cpu errors now on invalid state - currently more crashes
+
 ## 22/09/18
 - support more visualisation in games
 - fixed dmd reset
@@ -12,7 +16,7 @@
 
 ## 07/09/18
 - show flasher in client
-- use multiple canvas 
+- use multiple canvas
 
 ## 07/09/18
 - update ui, add playfield db entry

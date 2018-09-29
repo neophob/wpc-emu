@@ -70,6 +70,14 @@ module.exports = {
     { id: 87, name: 'L BANK MID' },
     { id: 88, name: 'L BANK TOP' },
   ],
+  fliptronicsMapping: [
+    { id: 'F1', name: 'R FLIPPER EOS' },
+    { id: 'F2', name: 'R FLIPPER BUTTON' },
+    { id: 'F3', name: 'L FLIPPER EOS' },
+    { id: 'F4', name: 'L FLIPPER BUTTON' },
+    { id: 'F5', name: 'UR FLIPPER EOS' },
+    { id: 'F6', name: 'UR FLIPPER BUT' },
+  ],
   skipWmcRomCheck: true,
   initialise: {
     closedSwitches: [ 55, 56, 57, 58 ],

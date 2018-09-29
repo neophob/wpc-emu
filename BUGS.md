@@ -21,6 +21,34 @@ Error: INVALID_WRITE_SUBSYSTEM_0xbfc2 {"offset":16322,"subsystem":"system"} 1
 - DMD is messes up after the bonus selection
 - Guess its related to timing
 
+## Dirty Harry
+
+```
+cpu-board.js:279 EXPANSION_WRITE_NOT_IMPL {offset: 13116, value: 255} offset: 13116value: 255__proto__: Object
+19:39:41.452 cpu-board.js:279 EXPANSION_WRITE_NOT_IMPL {offset: 13117, value: 6}
+19:39:41.454 cpu-board.js:279 EXPANSION_WRITE_NOT_IMPL {offset: 13116, value: 65}
+19:39:41.456 cpu-board.js:279 EXPANSION_WRITE_NOT_IMPL {offset: 13117, value: 6}
+19:39:41.457 cpu-board.js:300 EXPANSION_READ_NOT_IMPL {offset: 13116}
+19:39:41.458 EXPANSION_WRITE_NOT_IMPL {offset: 13116, value: 255} offset: 13116value: 255__proto__: Object
+19:39:41.452 cpu-board.js:279 EXPANSION_WRITE_NOT_IMPL {offset: 13117, value: 6}
+19:39:41.454 cpu-board.js:279 EXPANSION_WRITE_NOT_IMPL {offset: 13116, value: 65}
+19:39:41.456 cpu-board.js:279 EXPANSION_WRITE_NOT_IMPL {offset: 13117, value: 6}
+19:39:41.457 cpu-board.js:300 EXPANSION_READ_NOT_IMPL {offset: 13116}
+19:39:41.458 cpu-board.js:279 EXPANSION_WRITE_NOT_IMPL {offset: 13116, value: 255}
+19:39:41.460 cpu6809.js:636 Uncaught Error: INVALID_ADDRESS_MODE_0x0E
+    at Cpu6809.PostByte (cpu6809.js:636)
+    at Cpu6809.step (cpu6809.js:1365)
+    at Cpu6809.steps (cpu6809.js:2415)
+    at WpcCpuBoard.executeCycle (cpu-board.js:153)
+    at Emulator.executeCycle (emulator.js:45)
+    at step (main.js:102)
+PostByte @ cpu6809.js:636
+step @ cpu6809.js:1365
+steps @ cpu6809.js:2415
+executeCycle @ cpu-board.js:153
+executeCycle @ emulator.js:45
+```
+
 ## FREEWPC T2
 
 ```
@@ -39,7 +67,7 @@ sound-board.js:244 wpcemu:boards:sound-board: CPU_WRITE8_FAIL {"offset":14907,"s
     23:11:55.400 sound-board.js:242 wpcemu:boards:sound-board: CPU_WRITE8_FAIL {offset: "0xfa3a", subsstem: "rom", value: 60}
     23:11:55.400 sound-board.js:242 wpcemu:boards:sound-board: CPU_WRITE8_FAIL {offset: "0xfa3b", subsstem: "rom", value: 149}
     23:11:55.401 sound-board.js:242 wpcemu:boards:sound-board: CPU_WRITE8_FAIL {offset: "0xfa3c", subsstem: "rom", value: 60}
-    
+
     last Transitions test
     cpu-board.js:233 Uncaught Error: INVALID_WRITE_SUBSYSTEM_0x47e0
         at WpcAsic._write8 (cpu-board.js:233)
@@ -67,13 +95,13 @@ sound-board.js:244 wpcemu:boards:sound-board: CPU_WRITE8_FAIL {"offset":14907,"s
         at WpcAsic.executeCycle (cpu-board.js:141)
         at Emulator.executeCycle (emulator.js:45)
         at step (main.js:103)        
-        
+
         case 0xed: //STD indexed
           addr = this.PostByte();
           >> this.WriteWord(addr, this.getD());
           this.regCC &= ~F_OVERFLOW;
           break;
-          
+
   dmd-board.js:207 DMD R_NOT_IMPLEMENTED 0x3fb0 0
   00:04:43.898 dmd-board.js:177 DMD W_NOT_IMPLEMENTED 0x3fb0 67
   00:04:43.899 dmd-board.js:207 DMD R_NOT_IMPLEMENTED 0x3fbf 10
@@ -88,10 +116,10 @@ sound-board.js:244 wpcemu:boards:sound-board: CPU_WRITE8_FAIL {"offset":14907,"s
   00:04:43.905 sound-board.js:278 SND_W_NOT_IMPLEMENTED 0x3fdf 128
   00:04:43.906 cpu-board-asic.js:342 R_NOT_IMPLEMENTED 0x3ff0 0
   00:04:43.906 cpu-board-asic.js:263 W_NOT_IMPLEMENTED 0x3ff0 2          
-        
+
 ```
 
-    
+
 ## Medieval Madness
 
 After about 100k cycles the emu crashes with this error message:

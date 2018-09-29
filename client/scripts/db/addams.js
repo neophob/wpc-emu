@@ -66,17 +66,16 @@ module.exports = {
     { id: 85, name: 'THING UP OPTO' },
     { id: 86, name: 'GRAVE "A"' },
     { id: 87, name: 'THING EJECT HOLE' },
-    //TODO support
-    /*
-    { id: F1, name: 'R FLIPPER EOS' },
-    { id: F2, name: 'R FLIPPER BUTTON' },
-    { id: F3, name: 'L FLIPPER EOS' },
-    { id: F4, name: 'L FLIPPER BUTTON' },
-    { id: F5, name: 'UR FLIPPER EOS' },
-    { id: F6, name: 'UR FLIPPER BUT' },
-    { id: F7, name: 'UL FLIPPER EOS' },
-    { id: F8, name: 'UL FLIPPER BUT' },
-    */
+  ],
+  fliptronicsMapping: [
+    { id: 'F1', name: 'R FLIPPER EOS' },
+    { id: 'F2', name: 'R FLIPPER BUTTON' },
+    { id: 'F3', name: 'L FLIPPER EOS' },
+    { id: 'F4', name: 'L FLIPPER BUTTON' },
+    { id: 'F5', name: 'UR FLIPPER EOS' },
+    { id: 'F6', name: 'UR FLIPPER BUT' },
+    { id: 'F7', name: 'UL FLIPPER EOS' },
+    { id: 'F8', name: 'UL FLIPPER BUT' },
   ],
   skipWmcRomCheck: true,
   initialise: {

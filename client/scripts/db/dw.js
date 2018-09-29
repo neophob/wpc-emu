@@ -73,6 +73,16 @@ module.exports = {
     { id: 82, name: 'PLAYFIELD GLASS' },
     { id: 88, name: 'MINI DOOR RIGHT' },
   ],
+  fliptronicsMapping: [
+    { id: 'F1', name: 'R FLIPPER EOS' },
+    { id: 'F2', name: 'R FLIPPER BUTTON' },
+    { id: 'F3', name: 'L FLIPPER EOS' },
+    { id: 'F4', name: 'L FLIPPER BUTTON' },
+    { id: 'F5', name: 'UR FLIPPER EOS' },
+    { id: 'F6', name: 'UR FLIPPER BUT' },
+    { id: 'F7', name: 'UL FLIPPER EOS' },
+    { id: 'F8', name: 'UL FLIPPER BUT' },    
+  ],
   skipWmcRomCheck: true,
   initialise: {
     closedSwitches: [ 22, 25, 26, 27, 82 ],
