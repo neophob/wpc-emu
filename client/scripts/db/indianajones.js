@@ -70,17 +70,16 @@ module.exports = {
     { id: 86, name: 'TROUGH 1' },
     { id: 87, name: 'TOP TROUGH' },
     { id: 88, name: 'SHOOTER' },
-    //TODO support
-    /*
-    { id: F1, name: 'L FLIPPER EOS' },
-    { id: F2, name: 'R FLIPPER BUTTON' },
-    { id: F3, name: 'L FLIPPER EOS' },
-    { id: F4, name: 'L FLIPPER BUTTON' },
-    { id: F5, name: 'DROP ADV(E)NTURE' },
-    { id: F6, name: 'DROP ADVE(N)TURE' },
-    { id: F7, name: 'DROP ADVEN(T)URE' },
-    { id: F8, name: 'LEFT RAMP MODE' },
-    */
+  ],
+  fliptronicsMapping: [
+    { id: 'F1', name: 'L FLIPPER EOS' },
+    { id: 'F2', name: 'R FLIPPER BUTTON' },
+    { id: 'F3', name: 'L FLIPPER EOS' },
+    { id: 'F4', name: 'L FLIPPER BUTTON' },
+    { id: 'F5', name: 'DROP ADV(E)NTURE' },
+    { id: 'F6', name: 'DROP ADVE(N)TURE' },
+    { id: 'F7', name: 'DROP ADVEN(T)URE' },
+    { id: 'F8', name: 'LEFT RAMP MODE' },
   ],
   skipWmcRomCheck: true,
   initialise: {
