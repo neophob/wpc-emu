@@ -1,5 +1,9 @@
 # HISTORY
 
+## 30/09/18
+- refactor fliptronics switch input, handled by input switch matrix
+- display fliptroics switches in debug ui
+
 ## 29/09/18
 - support fliptronics switches
 - cpu errors now on invalid state - currently more crashes
