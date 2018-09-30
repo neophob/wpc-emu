@@ -11,8 +11,8 @@ test.beforeEach((t) => {
 
 test('SecurityPic, foo', (t) => {
   const inputSwitchMatrix = t.context;
-  const expectedSerial = [ 5, 3, 0, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 0, 0, 0 ];
-  const expectedPicSerial = [ 58, 40, 0, 1, 110, 0, 126, 0, 37, 208, 0, 45, 150, 0, 100, 178 ];
+  const expectedSerial = [ 5, 3, 0, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 1, 2, 3 ];
+  const expectedPicSerial = [ 26, 40, 0, 27, 110, 0, 91, 1, 85, 208, 0, 45, 23, 0, 255, 178 ];
   t.deepEqual(inputSwitchMatrix.serialNumber, new Uint8Array(expectedSerial));
   t.deepEqual(inputSwitchMatrix.picSerialNumber, new Uint8Array(expectedPicSerial));
 });

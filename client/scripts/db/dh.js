@@ -64,6 +64,9 @@ module.exports = {
     { id: 88, name: 'TEST SWITCH' },
   ],
   skipWmcRomCheck: true,
+  features: [
+    'securityPic',
+  ],
   initialise: {
     closedSwitches: [ 22, 32, 33, 34, 35 ],
     initialAction: [

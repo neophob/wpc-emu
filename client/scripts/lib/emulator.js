@@ -10,6 +10,7 @@ function initialiseEmulator(romData, gameEntry) {
     fileName,
     skipWmcRomCheck: gameEntry.skipWmcRomCheck,
     switchesEnabled: gameEntry.switchesEnabled,
+    features: gameEntry.features,
   };
   return WpcEmu.initVMwithRom(romData, romObject);
 }
