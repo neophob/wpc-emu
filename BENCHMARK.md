@@ -9,8 +9,10 @@ Run `npm run benchmark` to run the CPU benchmark.
 
 ### Node v8.11.2
 
+#### MacBook Pro
+
 ```
-BENCHMARK START, ROM: /Users/michaelvogt/_code/github/wpc-emu/rom.freewpc/ft20_32.rom
+BENCHMARK START, ROM: /_code/github/wpc-emu/rom.freewpc/ft20_32.rom
 Ticks to execute: 2000000 => CPU REALTIME: 1000ms (CPU HZ: 2000000)
   tickSteps	durationMs	missed IRQ	missed FIRQ	ticksExecuted
   1		353		975		0		2000001
@@ -34,10 +36,38 @@ Ticks to execute: 2000000 => CPU REALTIME: 1000ms (CPU HZ: 2000000)
   16384		106		122		0		2015471
 ```
 
+#### MacBook Air, Mid 2012
+
+```
+BENCHMARK START, ROM: /_code/github/wpc-emu/rom.freewpc/ft20_32.rom
+Ticks to execute: 2000000 => CPU REALTIME: 1000ms (CPU HZ: 2000000)
+  tickSteps	durationMs	missed IRQ	missed FIRQ	ticksExecuted
+  1		775		975		0		2000001
+  2		262		975		0		2000001
+  4		199		975		0		2000001
+  5		228		975		0		2000001
+  8		221		975		0		2000005
+  10		214		975		0		2000008
+  12		214		975		0		2000001
+  16		214		975		0		2000001
+  32		209		975		0		2000001
+  64		216		975		0		2000033
+  256		202		975		0		2000172
+  390		251		975		0		2000216
+  393		293		975		0		2000128
+  512		376		975		0		2000408
+  1024		292		975		0		2000964
+  2048		516		974		0		2001103
+  4096		369		488		0		2004016
+  8192		623		244		0		2007691
+  16384		621		122		0		2015471
+
+```
+
 ### Node v10.1.0
 
 ```
-BENCHMARK START, ROM: /Users/michaelvogt/_code/github/wpc-emu/rom.freewpc/ft20_32.rom
+BENCHMARK START, ROM: /_code/github/wpc-emu/rom.freewpc/ft20_32.rom
 Ticks to execute: 2000000 => CPU REALTIME: 1000ms (CPU HZ: 2000000)
   tickSteps	durationMs	missed IRQ	missed FIRQ	ticksExecuted
   1		296		975		0		2000001
@@ -66,7 +96,7 @@ Ticks to execute: 2000000 => CPU REALTIME: 1000ms (CPU HZ: 2000000)
 ### Node v6.9.1
 
 ```
-BENCHMARK START, ROM: /Users/michaelvogt/_code/github/wpc-emu/rom.freewpc/ft20_32.rom
+BENCHMARK START, ROM: /_code/github/wpc-emu/rom.freewpc/ft20_32.rom
 Ticks to execute: 2000000 => CPU REALTIME: 1000ms (CPU HZ: 2000000)
   tickSteps	durationMs	missed IRQ	missed FIRQ	ticksExecuted
   1		207		975		0		2000001
@@ -93,7 +123,7 @@ Ticks to execute: 2000000 => CPU REALTIME: 1000ms (CPU HZ: 2000000)
 ### Node v8.11.2
 
 ```
-BENCHMARK START, ROM: /Users/michaelvogt/_code/github/wpc-emu/rom.freewpc/ft20_32.rom
+BENCHMARK START, ROM: /_code/github/wpc-emu/rom.freewpc/ft20_32.rom
 Ticks to execute: 2000000 => CPU REALTIME: 1000ms (CPU HZ: 2000000)
   tickSteps	durationMs	missed IRQ	missed FIRQ	ticksExecuted
   1		205		975		0		2000001
@@ -120,7 +150,7 @@ Ticks to execute: 2000000 => CPU REALTIME: 1000ms (CPU HZ: 2000000)
 ### Node v10.1.0
 
 ```
-BENCHMARK START, ROM: /Users/michaelvogt/_code/github/wpc-emu/rom.freewpc/ft20_32.rom
+BENCHMARK START, ROM: /_code/github/wpc-emu/rom.freewpc/ft20_32.rom
 Ticks to execute: 2000000 => CPU REALTIME: 1000ms (CPU HZ: 2000000)
   tickSteps	durationMs	missed IRQ	missed FIRQ	ticksExecuted
   1		146		975		0		2000001

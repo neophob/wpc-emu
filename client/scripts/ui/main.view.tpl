@@ -10,7 +10,6 @@
 </div>
 
 <div class="row">
-
   <div class="column column-10">Coindoor</div>
   <div class="column column-60">
     <button class="button-black button-small black" onclick="wpcInterface.wpcSystem.setCabinetInput(1);">Coin#1</button>
@@ -25,6 +24,12 @@
 
 <div class="row">
   <div class="column column-10">Switch</div>
-  <div id="pinball-specfic-switch-input" class="column">
+  <div id="pinball-specific-switch-input" class="column-90">
+  </div>
+</div>
+
+<div id="pinball-specific-fliptronics-root" class="row">
+  <div class="column column-10">Fliptronics</div>
+  <div id="pinball-specific-fliptronics-input" class="column-90">
   </div>
 </div>

@@ -24,7 +24,7 @@ module.exports = {
     { id: 26, name: 'TROUGH 2 BALLS' },
     { id: 27, name: 'TROUGH 3 BALLS' },
     { id: 28, name: 'OUTHOLE' },
-    
+
     { id: 31, name: 'OPTO POPPER' },
     { id: 32, name: 'MINI HOME OPTO' },
     { id: 33, name: 'ENTER TRAMP OPTO' },
@@ -51,7 +51,7 @@ module.exports = {
     { id: 56, name: 'R-E-P-A-I<R>' },
     { id: 57, name: 'TRAP DOOR DOWN' },
     { id: 58, name: 'ACTIVAT TRANSMAT' },
-    
+
     { id: 61, name: 'LEFT JET' },
     { id: 62, name: 'RIGHT JET' },
     { id: 63, name: 'BOTTOM JET' },
@@ -60,7 +60,7 @@ module.exports = {
     { id: 66, name: 'RIGHT RETURN' },
     { id: 67, name: 'RIGHT DRAIN' },
     { id: 68, name: 'MINI DOOR LEFT' },
-    
+
     { id: 71, name: 'MINIOPTO5BANK R1' },
     { id: 72, name: 'MINIOPTO5BANK R2' },
     { id: 73, name: 'MINIOPTO5BANK M' },
@@ -72,7 +72,17 @@ module.exports = {
 
     { id: 82, name: 'PLAYFIELD GLASS' },
     { id: 88, name: 'MINI DOOR RIGHT' },
-  ],  
+  ],
+  fliptronicsMapping: [
+    { id: 'F1', name: 'R FLIPPER EOS' },
+    { id: 'F2', name: 'R FLIPPER BUTTON' },
+    { id: 'F3', name: 'L FLIPPER EOS' },
+    { id: 'F4', name: 'L FLIPPER BUTTON' },
+    { id: 'F5', name: 'UR FLIPPER EOS' },
+    { id: 'F6', name: 'UR FLIPPER BUT' },
+    { id: 'F7', name: 'UL FLIPPER EOS' },
+    { id: 'F8', name: 'UL FLIPPER BUT' },    
+  ],
   skipWmcRomCheck: true,
   initialise: {
     closedSwitches: [ 22, 25, 26, 27, 82 ],
@@ -81,7 +91,7 @@ module.exports = {
         delayMs: 1000,
         source: 'cabinetInput',
         value: 16
-      }      
+      }
     ],
   }
 };

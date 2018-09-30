@@ -35,26 +35,169 @@ test.beforeEach((t) => {
 test('should read RESET vector on boot', (t) => {
   const cpu = t.context;
   cpu.reset();
-  t.deepEqual(readMemoryAddressAccess, 
+  t.deepEqual(readMemoryAddressAccess,
     [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI ]);
 });
 
 test('ADDA / oADD', (t) => {
-  const OP_ADDA = 0x8b;
-  const ADD_VALUE_1 = 0xff;
-  const ADD_VALUE_2 = 0xff;
+  const OP_ADDA = 0x8B;
+  const ADD_VALUE_1 = 0xFF;
+  const ADD_VALUE_2 = 0xFF;
   const cpu = t.context;
   // add command in reverse order
   readMemoryAddress = [ ADD_VALUE_2, OP_ADDA, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
-  
+
   cpu.reset();
   cpu.regA = ADD_VALUE_1;
   cpu.step();
-  
-  t.deepEqual(readMemoryAddressAccess, 
+
+  t.deepEqual(readMemoryAddressAccess,
     [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO, EXPECTED_RESET_READ_OFFSET_HI ]);
   t.is(cpu.regA, 254);
   t.is(cpu.tickCount, 2);
-  t.is(cpu.flagsToString(), 'eFHINzvC'); 
+  t.is(cpu.flagsToString(), 'eFHINzvC');
 });
 
+test('oROL', (t) => {
+  const OP_ROL = 0x49;
+  const ADD_VALUE_1 = 0xFF;
+  const cpu = t.context;
+  // add command in reverse order
+  readMemoryAddress = [ OP_ROL, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+
+  cpu.reset();
+  cpu.regA = ADD_VALUE_1;
+  cpu.step();
+
+  t.deepEqual(readMemoryAddressAccess,
+    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
+  t.is(cpu.regA, 254);
+  t.is(cpu.tickCount, 2);
+  t.is(cpu.flagsToString(), 'eFhINzvC');
+});
+
+test('oROR', (t) => {
+  const OP_ROR = 0x46;
+  const ADD_VALUE_1 = 0xFF;
+  const cpu = t.context;
+  // add command in reverse order
+  readMemoryAddress = [ OP_ROR, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+
+  cpu.reset();
+  cpu.regA = ADD_VALUE_1;
+  cpu.step();
+
+  t.deepEqual(readMemoryAddressAccess,
+    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
+  t.is(cpu.regA, 0x7F);
+  t.is(cpu.tickCount, 2);
+  t.is(cpu.flagsToString(), 'eFhInzvC');
+});
+
+test('oASL, overflow', (t) => {
+  const OP_ASL = 0x48;
+  const ADD_VALUE_1 = 0x81;
+  const cpu = t.context;
+  // add command in reverse order
+  readMemoryAddress = [ OP_ASL, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+
+  cpu.reset();
+  cpu.regA = ADD_VALUE_1;
+  cpu.step();
+
+  t.deepEqual(readMemoryAddressAccess,
+    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
+  t.is(cpu.regA, 2);
+  t.is(cpu.tickCount, 2);
+  t.is(cpu.flagsToString(), 'eFhInzVC');
+});
+
+test('oASL, no overflow', (t) => {
+  const OP_ASL = 0x48;
+  const ADD_VALUE_1 = 1;
+  const cpu = t.context;
+  // add command in reverse order
+  readMemoryAddress = [ OP_ASL, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+
+  cpu.reset();
+  cpu.regA = ADD_VALUE_1;
+  cpu.step();
+
+  t.deepEqual(readMemoryAddressAccess,
+    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
+  t.is(cpu.regA, 2);
+  t.is(cpu.tickCount, 2);
+  t.is(cpu.flagsToString(), 'eFhInzvc');
+});
+
+test('oNEG, 0x1', (t) => {
+  const OP_NEG = 0x40;
+  const ADD_VALUE_1 = 1;
+  const cpu = t.context;
+  // add command in reverse order
+  readMemoryAddress = [ OP_NEG, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+
+  cpu.reset();
+  cpu.regA = ADD_VALUE_1;
+  cpu.step();
+
+  t.deepEqual(readMemoryAddressAccess,
+    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
+  t.is(cpu.regA, 0xFF);
+  t.is(cpu.tickCount, 2);
+  t.is(cpu.flagsToString(), 'eFhINzvC');
+});
+
+test('oNEG, 0xFF', (t) => {
+  const OP_NEG = 0x40;
+  const ADD_VALUE_1 = 0x1;
+  const cpu = t.context;
+  // add command in reverse order
+  readMemoryAddress = [ OP_NEG, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+
+  cpu.reset();
+  cpu.regA = ADD_VALUE_1;
+  cpu.step();
+
+  t.deepEqual(readMemoryAddressAccess,
+    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
+  t.is(cpu.regA, 0xFF);
+  t.is(cpu.tickCount, 2);
+  t.is(cpu.flagsToString(), 'eFhINzvC');
+});
+
+test('oDEC, 0x80 (no overflow)', (t) => {
+  const OP_DEC = 0x4A;
+  const ADD_VALUE_1 = 0x80;
+  const cpu = t.context;
+  // add command in reverse order
+  readMemoryAddress = [ OP_DEC, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+
+  cpu.reset();
+  cpu.regA = ADD_VALUE_1;
+  cpu.step();
+
+  t.deepEqual(readMemoryAddressAccess,
+    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
+  t.is(cpu.regA, 0x7F);
+  t.is(cpu.tickCount, 2);
+  t.is(cpu.flagsToString(), 'eFhInzVc');
+});
+
+test('oDEC, 0x0 (overflow)', (t) => {
+  const OP_DEC = 0x4A;
+  const ADD_VALUE_1 = 0x0;
+  const cpu = t.context;
+  // add command in reverse order
+  readMemoryAddress = [ OP_DEC, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+
+  cpu.reset();
+  cpu.regA = ADD_VALUE_1;
+  cpu.step();
+
+  t.deepEqual(readMemoryAddressAccess,
+    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
+  t.is(cpu.regA, 0xFF);
+  t.is(cpu.tickCount, 2);
+  t.is(cpu.flagsToString(), 'eFhINzVc');
+});

@@ -82,15 +82,6 @@ test('HardwareMapper, should get address, 0x3FD6', (t) => {
   t.deepEqual(result, expectedResult);
 });
 
-test('HardwareMapper, should get address, 0x3FC2', (t) => {
-  const expectedResult = {
-    offset: 0x3FC2,
-    subsystem: 'externalIo',
-  };
-  const result = HardwareMapper.getAddress(0x3FC2);
-  t.deepEqual(result, expectedResult);
-});
-
 test('HardwareMapper, should get address, 0x3FDC - WPCS_DATA', (t) => {
   const expectedResult = {
     offset: 0x3FDC,
@@ -124,5 +115,15 @@ test('HardwareMapper, should get address, 0x3FE0', (t) => {
     subsystem: 'wpcio',
   };
   const result = HardwareMapper.getAddress(0x3FE0);
+  t.deepEqual(result, expectedResult);
+});
+
+test('HardwareMapper, should get exception for fliptronics address', (t) => {
+  const MEMORY_ADDR_FLIPTRONICS_FLIPPER_PORT_A = 0x3FD4;
+  const expectedResult = {
+    offset: MEMORY_ADDR_FLIPTRONICS_FLIPPER_PORT_A,
+    subsystem: 'wpcio',
+  };
+  const result = HardwareMapper.getAddress(MEMORY_ADDR_FLIPTRONICS_FLIPPER_PORT_A);
   t.deepEqual(result, expectedResult);
 });

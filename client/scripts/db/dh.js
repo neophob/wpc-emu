@@ -23,7 +23,7 @@ module.exports = {
     { id: 26, name: 'LEFT OUTLANE' },
     { id: 27, name: 'STANDUP 1' },
     { id: 28, name: 'STANDUP 2' },
-    
+
     { id: 31, name: 'TROUGH JAM' },
     { id: 32, name: 'TROUGH 1' },
     { id: 33, name: 'TROUGH 2' },
@@ -46,7 +46,7 @@ module.exports = {
     { id: 56, name: 'STANDUP 5' },
     { id: 57, name: 'STANDUP 4' },
     { id: 58, name: 'STANDUP 3' },
-    
+
     { id: 61, name: 'LEFT SLING' },
     { id: 62, name: 'RIGHT SLING' },
     { id: 63, name: 'LEFT JET' },
@@ -55,7 +55,7 @@ module.exports = {
     { id: 66, name: 'LEFT ROLLOVER' },
     { id: 67, name: 'MIDDLE ROLLOVER' },
     { id: 68, name: 'RIGHT ROLLOVER' },
-    
+
     { id: 71, name: 'LEFT LOOP' },
     { id: 73, name: 'TOP L POPPER' },
     { id: 76, name: 'GUN POSITION' },
