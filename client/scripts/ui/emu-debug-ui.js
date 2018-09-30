@@ -113,7 +113,7 @@ function updateCanvas(emuState, cpuState) {
   }
 
   if (emuState.asic.wpc.inputState) {
-    drawMatrix8x8Binary(emuState.asic.wpc.inputState, RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
+    drawInputStateMatrix(emuState.asic.wpc.inputState, RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
   }
 
   drawMatrix8x8(emuState.asic.wpc.generalIlluminationState, MIDDLE_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
@@ -225,9 +225,9 @@ function drawLampPositions(lampState, x, y) {
   });
 }
 
-function drawMatrix8x8Binary(data, x, y) {
+function drawInputStateMatrix(data, x, y) {
   const dataUnpacked = [];
-  for (let i = 0; i < 9; i++) {
+  for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 8; j++) {
       const entry = data[i] & BIT_ARRAY[j];
       dataUnpacked.push(entry > 0 ? 255 : 0);
