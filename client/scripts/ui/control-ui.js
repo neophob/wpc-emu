@@ -15,8 +15,9 @@ function addEmulatorControls() {
 }
 
 function addGameSpecificControls(gameEntry) {
-  const element = document.getElementById('pinball-specfic-switch-input');
+  //switch input
   if (Array.isArray(gameEntry.switchMapping)) {
+    const element = document.getElementById('pinball-specific-switch-input');
     gameEntry.switchMapping.forEach((mapping) => {
       const child = document.createElement('button');
       child.textContent = mapping.name;
@@ -26,6 +27,22 @@ function addGameSpecificControls(gameEntry) {
       });
       element.appendChild(child);
     });
+  }
+
+  //fliptronics input
+  if (Array.isArray(gameEntry.fliptronicsMapping)) {
+    const element = document.getElementById('pinball-specific-fliptronics-input');
+    gameEntry.fliptronicsMapping.forEach((mapping) => {
+      const child = document.createElement('button');
+      child.textContent = mapping.name;
+      child.className = 'button-black button-outline button-small black';
+      child.addEventListener('click', () => {
+        window.wpcInterface.wpcSystem.setFliptronicsInput(mapping.id);
+      });
+      element.appendChild(child);
+    });
+  } else {
+    replaceNode('pinball-specific-fliptronics-root', document.createElement('div'));
   }
 }
 
@@ -37,8 +54,8 @@ function loadROM(event) {
 }
 
 function addGameTitles(gameList) {
-  const selectElementRoot = document.getElementById('game-selection');  
-  const selectElement = document.createElement('select');  
+  const selectElementRoot = document.getElementById('game-selection');
+  const selectElement = document.createElement('select');
   gameList.getAllNames().forEach((name, index) => {
     const option = document.createElement('option');
     option.value = name;
@@ -50,7 +67,7 @@ function addGameTitles(gameList) {
   });
   selectElement.addEventListener('change', loadROM);
   selectElement.selectedIndex = selectedIndex;
-  
+
   while (selectElementRoot.firstChild) {
     selectElementRoot.removeChild(selectElementRoot.firstChild);
   }

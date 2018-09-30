@@ -1,6 +1,6 @@
 {
   "name": "wpc-emu",
-  "version": "0.6.0",
+  "version": "0.6.2",
   "description": "WPC pinball machine emu",
   "main": "index.js",
   "engines": {
@@ -20,7 +20,7 @@
     "test:runner": "node test/headless-runner.js",
     "test:soundboard": "env DEBUG='*' node test/integration/soundboard.js",
     "benchmark": "node test/integration/benchmark.js > /dev/null",
-    "benchmark:tr2": "CYCLES=20000000 ROMFILE=./rom/t2_l8.rom node test/integration/benchmark.js > /dev/null",    
+    "benchmark:t2": "CYCLES=20000000 ROMFILE=./rom/t2_l8.rom node test/integration/benchmark.js > /dev/null",
     "release": "npm run build:production && cd client && npm run build:production && cd .. && cp -f ./dist/* ./docs"
   },
   "author": "Michael Vogt",
@@ -64,7 +64,8 @@
     "ignores": [
       "client",
       "docs",
-      "lib/boards/up/ym2151.js"
+      "lib/boards/up/ym2151.js",
+      "lib/boards/up/mc6809.js"
     ]
   }
 }

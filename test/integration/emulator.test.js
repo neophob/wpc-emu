@@ -57,7 +57,7 @@ test.serial('Smoketest, run emulator with rom ft20_32.rom', (t) => {
   t.is(uiState.asic.dmd.activepage, 2);
   t.is(uiState.asic.wpc.activeRomBank, 24);
   t.is(uiState.asic.wpc.diagnosticLedToggleCount, 232);
-  t.is(uiState.ticks, 32906855);
+  t.is(uiState.ticks, 32906856);
 
   wpcSystem.executeCycle();
   wpcSystem.getUiState();

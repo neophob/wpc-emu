@@ -20,7 +20,6 @@ const soundInstance = AudioOutput(AudioContext);
 
 var wpcSystem;
 var intervalId;
-var perfTicksExecuted = 0;
 
 function dacCallback(value) {
   soundInstance.writeAudioData(value);
@@ -88,7 +87,7 @@ initEmuWithGameName('Hurricane');
 
 //called at 60hz -> 16.6ms
 function step() {
-  perfTicksExecuted = wpcSystem.executeCycle(TICKS_PER_STEP, 16);
+  wpcSystem.executeCycle(TICKS_PER_STEP, 16);
   const emuState = wpcSystem.getUiState();
   const cpuState = intervalId ? 'running' : 'paused';
   emuDebugUi.updateCanvas(emuState, cpuState);

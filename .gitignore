@@ -4,3 +4,4 @@ node_modules
 /dist
 test/dmdripper/imgOK
 test/dmdripper/img2
+npm-debug.log

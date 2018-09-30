@@ -15,14 +15,14 @@ module.exports = {
     { id: 16, name: 'LEFT OUTLANE' },
     { id: 17, name: 'RIGHT RETURN' },
     { id: 18, name: 'SHOOTER LANE' },
-    
+
     { id: 21, name: 'SLAM TILT' },
     { id: 22, name: 'COIN DOOR CLOSED' },
     { id: 25, name: 'R TROLL TARGET' },
     { id: 26, name: 'LEFT RETURN' },
     { id: 27, name: 'RIGHT OUTLANE' },
     { id: 28, name: 'RIGHT EJECT' },
-    
+
     { id: 31, name: 'TROUGH EJECT' },
     { id: 32, name: 'TROUGH BALL 1' },
     { id: 33, name: 'TROUGH BALL 2' },
@@ -31,14 +31,14 @@ module.exports = {
     { id: 36, name: 'LEFT POPPER' },
     { id: 37, name: 'CASTLE GATE' },
     { id: 38, name: 'CATAPULT' },
-    
+
     { id: 41, name: 'MOAT ENTER' },
     { id: 44, name: 'CASTLE LOCK' },
     { id: 45, name: 'L TROLL (U/PLDF)' },
     { id: 46, name: 'R TROLL (U/PLDF)' },
     { id: 47, name: 'LEFT TOP LANE' },
     { id: 48, name: 'RIGHT TOP LANE' },
-    
+
     { id: 51, name: 'LEFT SLINGSHOT' },
     { id: 52, name: 'RIGHT SLINGSHOT' },
     { id: 53, name: 'LEFT JET' },
@@ -47,7 +47,7 @@ module.exports = {
     { id: 56, name: 'DRAWBRIDGE UP' },
     { id: 57, name: 'DRAWBRIDGE DOWN' },
     { id: 58, name: 'TOWER EXIT' },
-    
+
     { id: 61, name: 'L RAMP ENTER' },
     { id: 62, name: 'L RAMP EXIT' },
     { id: 63, name: 'R RAMP ENTER' },
@@ -56,7 +56,7 @@ module.exports = {
     { id: 66, name: 'LEFT LOOP HI' },
     { id: 67, name: 'RIGHT LOOP LO' },
     { id: 68, name: 'RIGHT LOOP HI' },
-    
+
     { id: 71, name: 'RIGHT BANK TOP' },
     { id: 72, name: 'RIGHT BANK MID' },
     { id: 73, name: 'RIGHT BANK BOT' },

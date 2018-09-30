@@ -14,7 +14,7 @@ const CANVAS_WIDTH = 815 + LAMP_DISPLAY_WIDTH;
 const CANVAS_HEIGHT = 560;
 const YPOS_DMD_MAIN_VIEW = 15;
 const YPOS_GENERIC_DATA = 225;
-const YPOS_DMD_DATA = 400;
+const YPOS_DMD_DATA = 415;
 const YPOS_MEM_DATA = YPOS_DMD_DATA + 65;
 
 const LEFT_X_OFFSET = 15;
@@ -32,7 +32,8 @@ const COLOR_DMD = [
   'rgb(255,198,0)',
 ];
 
-let canvas, canvasOverlay;
+let canvas;
+let canvasOverlay;
 let playfieldData;
 let playfieldImage;
 let videoRam;
@@ -48,13 +49,12 @@ colorLut.set('WHITE', 'rgba(255,255,255,');
 colorLut.set('GREEN', 'rgba(0,255,0,');
 colorLut.set('BLACK', 'rgba(0,0,0,0)');
 
-
 function updateCanvas(emuState, cpuState) {
   if (!emuState) {
     return;
   }
   canvas.fillStyle = '#000';
-  canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 245, 145);
+  canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 245, 165);
   canvas.fillRect(LEFT_X_OFFSET, YPOS_DMD_DATA, 150, 40);
 
   canvas.fillStyle = COLOR_DMD[2];
@@ -67,27 +67,30 @@ function updateCanvas(emuState, cpuState) {
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
   canvas.fillText('FIRQ CALLS/MISSED: ' + emuState.firqCount + '/' + emuState.missedFirqCall,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
+  canvas.fillText('NMI CALLS: ' + emuState.nmiCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 70);
 
   const diagnosticLed = emuState.asic.wpc.diagnosticLed ? 1 : 0;
   const activePage = emuState.asic.dmd.activepage;
-  canvas.fillText('DIAGLED STATE: ' + diagnosticLed, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 70);
-  canvas.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 80);
-  canvas.fillText('ACTIVE ROM BANK: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 90);
-  canvas.fillText('WRITE TO LOCKED MEM: ' + emuState.protectedMemoryWriteAttempts, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 100);
+  canvas.fillText('DIAGLED STATE: ' + diagnosticLed, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 80);
+  canvas.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 90);
+  canvas.fillText('ACTIVE ROM BANK: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 100);
+  canvas.fillText('WRITE TO LOCKED MEM: ' + emuState.protectedMemoryWriteAttempts, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 110);
 
-  canvas.fillText('SND CPU TICK: ' + emuState.asic.sound.ticks, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 110);
+  canvas.fillText('SND CPU TICK: ' + emuState.asic.sound.ticks, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 120);
   canvas.fillText('SND IRQ CALLS/MISSED: ' + emuState.asic.sound.irqCount + '/' + emuState.asic.sound.missedIrqCall,
-    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 120);
-  canvas.fillText('SND FIRQ CALLS/MISSED: ' + emuState.asic.sound.firqCount + '/' + emuState.asic.sound.missedFirqCall,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 130);
-  canvas.fillText('SND VOLUME: ' + emuState.asic.sound.volume, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 140);
+  canvas.fillText('SND FIRQ CALLS/MISSED: ' + emuState.asic.sound.firqCount + '/' + emuState.asic.sound.missedFirqCall,
+    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 140);
+  canvas.fillText('SND NMI CALLS: ' + emuState.asic.sound.nmiCount,
+    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 150);
+  canvas.fillText('SND VOLUME: ' + emuState.asic.sound.volume, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 160);
 
   canvas.fillText('DMD LOW PAGE: ' + emuState.asic.dmd.lowpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
   canvas.fillText('DMD HIGH PAGE: ' + emuState.asic.dmd.highpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
   canvas.fillText('DMD ACTIVE PAGE: ' + activePage, LEFT_X_OFFSET, YPOS_DMD_DATA + 30);
 
   if (emuState.asic.sound.ram) {
-    drawMemRegion(emuState.asic.sound.ram, LEFT_X_OFFSET + 125, YPOS_MEM_DATA + 20, 120);
+    drawMemRegion(emuState.asic.sound.ram, LEFT_X_OFFSET + 125, YPOS_MEM_DATA, 120);
   }
 
   if (emuState.asic.dmd.dmdShadedBuffer) {
@@ -95,7 +98,7 @@ function updateCanvas(emuState, cpuState) {
   }
 
   if (emuState.asic.ram) {
-    drawMemRegion(emuState.asic.ram, LEFT_X_OFFSET, YPOS_MEM_DATA + 20, 120);
+    drawMemRegion(emuState.asic.ram, LEFT_X_OFFSET, YPOS_MEM_DATA, 120);
   }
 
   if (emuState.asic.wpc.lampState) {
@@ -110,7 +113,7 @@ function updateCanvas(emuState, cpuState) {
   }
 
   if (emuState.asic.wpc.inputState) {
-    drawMatrix8x8Binary(emuState.asic.wpc.inputState, RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
+    drawInputStateMatrix(emuState.asic.wpc.inputState, RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
   }
 
   drawMatrix8x8(emuState.asic.wpc.generalIlluminationState, MIDDLE_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
@@ -124,15 +127,15 @@ function updateCanvas(emuState, cpuState) {
   // draw only 4 dmd frames to avoid dropping fps
   if (Array.isArray(videoRam)) {
     let xpos = MIDDLE_X_OFFSET;
-    let ypos = YPOS_DMD_DATA + 20;
-    for (let i=0; i<dmdRow * 4; i++) {
+    let ypos = YPOS_DMD_DATA;
+    for (let i = 0; i < dmdRow * 4; i++) {
       xpos += 130;
       if (xpos > (800 - 130)) {
         xpos = MIDDLE_X_OFFSET;
         ypos += 35;
       }
     }
-    for (let i=0; i<4; i++) {
+    for (let i = 0; i < 4; i++) {
       drawDmd(videoRam[dmdRow * 4 + i], xpos, ypos, 128);
       xpos += 130;
       if (xpos > (800 - 130)) {
@@ -158,7 +161,7 @@ function drawMemRegion(data, x, y, width) {
       }
       canvas.fillRect(x + offsetX, y + offsetY, 1, 1);
     }
-    if (offsetX++ >= width-1) {
+    if (offsetX++ >= width - 1) {
       offsetX = 0;
       offsetY++;
     }
@@ -185,9 +188,9 @@ function drawFlashlamps(lampState, x, y) {
     if (!selectedLamp) {
       return;
     }
-    const alpha = (selectedLamp/255).toFixed(2);
+    const alpha = (selectedLamp / 255).toFixed(2);
     canvasOverlay.beginPath();
-    canvasOverlay.fillStyle = 'rgba(255,255,255,'+alpha+')';
+    canvasOverlay.fillStyle = 'rgba(255,255,255,' + alpha + ')';
     canvasOverlay.arc(x + lamp.x, y + lamp.y, 24, 0, 2 * Math.PI);
     canvasOverlay.fill();
   });
@@ -209,7 +212,7 @@ function drawLampPositions(lampState, x, y) {
       return;
     }
 
-    const alpha = (lamp/512).toFixed(2);
+    const alpha = (lamp / 512).toFixed(2);
     const isOn = lamp > 0;
     lampObjects.forEach((lampObject) => {
       if (isOn) {
@@ -217,14 +220,14 @@ function drawLampPositions(lampState, x, y) {
       } else {
         canvas.fillStyle = 'black';
       }
-      canvas.fillRect(x + lampObject.x - LAMP_SIZE2, y + lampObject.y - LAMP_SIZE2, LAMP_SIZE, LAMP_SIZE);        
+      canvas.fillRect(x + lampObject.x - LAMP_SIZE2, y + lampObject.y - LAMP_SIZE2, LAMP_SIZE, LAMP_SIZE);
     });
   });
 }
 
-function drawMatrix8x8Binary(data, x, y) {
+function drawInputStateMatrix(data, x, y) {
   const dataUnpacked = [];
-  for (let i = 0; i < 9; i++) {
+  for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 8; j++) {
       const entry = data[i] & BIT_ARRAY[j];
       dataUnpacked.push(entry > 0 ? 255 : 0);
@@ -233,7 +236,7 @@ function drawMatrix8x8Binary(data, x, y) {
   drawMatrix8x8(dataUnpacked, x, y);
 }
 
-function drawDmd(data, x, y, width) {  
+function drawDmd(data, x, y, width) {
   canvas.fillStyle = COLOR_DMD[0];
   canvas.fillRect(x, y, width, 32);
   canvas.fillStyle = COLOR_DMD[3];
@@ -273,8 +276,8 @@ function drawDmdShaded(data, x, y, width, SCALE_FACTOR = 1) {
         color = data[i];
         canvas.fillStyle = COLOR_DMD[color];
       }
-      canvas.fillRect(MARGIN + x + offsetX * SCALE_FACTOR, MARGIN + y + offsetY * SCALE_FACTOR, 
-          SCALE_FACTOR - MARGIN, SCALE_FACTOR - MARGIN);
+      canvas.fillRect(MARGIN + x + offsetX * SCALE_FACTOR, MARGIN + y + offsetY * SCALE_FACTOR,
+        SCALE_FACTOR - MARGIN, SCALE_FACTOR - MARGIN);
     }
     offsetX++;
     if (offsetX === width) {
@@ -292,7 +295,6 @@ function initCanvas() {
   canvas.fillStyle = COLOR_DMD[3];
   canvas.fillText('# DEBUG DATA:', LEFT_X_OFFSET, YPOS_GENERIC_DATA);
   canvas.fillText('# DMD BOARD DATA:', LEFT_X_OFFSET, YPOS_DMD_DATA);
-  canvas.fillText('# MEMORY:', LEFT_X_OFFSET, YPOS_MEM_DATA);
 
   canvas.fillStyle = COLOR_DMD[2];
   canvas.fillText('SOLENOID OUT MATRIX', MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 10);
@@ -300,8 +302,8 @@ function initCanvas() {
   canvas.fillText('LAMP OUT MATRIX', RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 10);
   canvas.fillText('SWITCH IN MATRIX', RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 10);
   canvas.fillText('DMD PAGE RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
-  canvas.fillText('WPC CPU RAM:', LEFT_X_OFFSET, YPOS_MEM_DATA + 10);
-  canvas.fillText('SOUND CPU RAM:', LEFT_X_OFFSET + 125, YPOS_MEM_DATA + 10);
+  canvas.fillText('WPC CPU RAM:', LEFT_X_OFFSET, YPOS_MEM_DATA - 10);
+  canvas.fillText('SOUND CPU RAM:', LEFT_X_OFFSET + 125, YPOS_MEM_DATA - 10);
 }
 
 function initialise(gameEntry) {
@@ -320,7 +322,7 @@ function initialise(gameEntry) {
   canvasOverlayElement.height = CANVAS_HEIGHT;
   canvasOverlay = canvasOverlayElement.getContext('2d', { alpha: true });
   replaceNode('canvasOverlayNode', canvasOverlayElement);
-    
+
   // preload data
   playfieldData = gameEntry.playfield;
   playfieldImage = null;
@@ -329,7 +331,7 @@ function initialise(gameEntry) {
     playfieldImage.onload = function() {
       canvas.drawImage(playfieldImage, 800, YPOS_DMD_MAIN_VIEW);
     };
-    playfieldImage.src = playfieldData.image;    
+    playfieldImage.src = playfieldData.image;
   }
 
   initCanvas();
