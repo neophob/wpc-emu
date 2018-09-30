@@ -81,7 +81,7 @@ module.exports = {
     { id: 'F5', name: 'UR FLIPPER EOS' },
     { id: 'F6', name: 'UR FLIPPER BUT' },
     { id: 'F7', name: 'UL FLIPPER EOS' },
-    { id: 'F8', name: 'UL FLIPPER BUT' },    
+    { id: 'F8', name: 'UL FLIPPER BUT' },
   ],
   skipWmcRomCheck: true,
   initialise: {
