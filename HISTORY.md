@@ -1,5 +1,8 @@
 # HISTORY
 
+## 01/10/18
+- fix dipswitch settings, use USA/CANADA
+
 ## 30/09/18
 - refactor fliptronics switch input, handled by input switch matrix
 - display fliptroics switches in debug ui
