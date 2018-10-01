@@ -7,6 +7,7 @@ There are some known issues with the Emu, here I try to collect most of them.
 - enable / disable IRQ in the ASIC emu should work - currently the IRQ is fired all the time
 - CWAI instruction not implemented properly, not sure if its used at all
 - GI (General Illumination dimming) to implemented properly
+- DIP language selection does not work for TZ
 
 ## Hurricane
 
