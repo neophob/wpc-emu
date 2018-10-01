@@ -96,7 +96,7 @@ function step() {
 
 function resumeEmu() {
   if (intervalId) {
-    return;
+    pauseEmu();
   }
   console.log('client start emu');
   intervalId = requestAnimationFrame(step);
