@@ -131,11 +131,15 @@ Operating system:
 ### Security PIC (U22)
 FreeWPC documentation about this security feature:
 
+```
 A security PIC chip is added between the ASIC and the switch matrix
 inputs.  The CPU no longer reads the switch data directly; it sends
 commands to the PIC which then reads the data.  The PIC requires some
 special cryptic codes to be sent otherwise it will not return valid
 switch data, making the game unplayable.
+```
+- If the security chip implementation is invalid, the DMD display will show "U22 ERROR" or "G10 ERROR" (WPC95)
+- If the security chip works but does not match the expected Pinball model, the DMD will show "Incorrect U22 for this game"
 
 ## POWER-DRIVER-BOARD
 - Williams part number: A-12697-1
