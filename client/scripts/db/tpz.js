@@ -4,10 +4,10 @@ module.exports = {
   name: 'The Party Zone',
   version: 'L-2',
   rom: {
-    u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/PZ_U6.L2',
-    u14: 'https://s3-eu-west-1.amazonaws.com/foo-temp/pz_u14.l1',
-    u15: 'https://s3-eu-west-1.amazonaws.com/foo-temp/pz_u15.l1',
-    u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/pz_u18.l1',
+    u06: 'PZ_U6.L2',
+    u14: 'pz_u14.l1',
+    u15: 'pz_u15.l1',
+    u18: 'pz_u18.l1',
   },
   switchMapping: [
     { id: 11, name: 'RIGHT FLIPPER' },

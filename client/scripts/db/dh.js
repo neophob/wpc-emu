@@ -4,7 +4,7 @@ module.exports = {
   name: 'Dirty Harry',
   version: 'LX-2',
   rom: {
-    u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/harr_lx2.rom',
+    u06: 'harr_lx2.rom',
     //dh_snd.u2 - dh_snd.u6
   },
   switchMapping: [

@@ -4,10 +4,10 @@ module.exports = {
   name: 'Gilligan\'s Island',
   version: 'L-9',
   rom: {
-    u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/gilli_l9.rom',
-    u14: 'https://s3-eu-west-1.amazonaws.com/foo-temp/gi_u14.l2',
-    u15: 'https://s3-eu-west-1.amazonaws.com/foo-temp/gi_u15.l2',
-    u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/gi_u18.l2',
+    u06: 'gilli_l9.rom',
+    u14: 'gi_u14.l2',
+    u15: 'gi_u15.l2',
+    u18: 'gi_u18.l2',
   },
   switchMapping: [
     { id: 11, name: 'RIGHT FLIPPER' },

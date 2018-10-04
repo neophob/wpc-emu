@@ -1,7 +1,9 @@
 .DS_Store
 node_modules
-/rom
 /dist
 test/dmdripper/imgOK
 test/dmdripper/img2
 npm-debug.log
+*.ROM
+*.PP
+*.bin

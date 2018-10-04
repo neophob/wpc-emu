@@ -4,12 +4,12 @@ module.exports = {
   name: 'High Speed II: The Getaway',
   version: 'P-C',
   rom: {
-    u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/u6-p-c.rom',
-    u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/u18-sp1.rom',
+    u06: 'u6-p-c.rom',
+    u18: 'u18-sp1.rom',
   },
   playfield: {
     //size must be 200x400, lamp positions according to image
-    image: 'https://s3-eu-west-1.amazonaws.com/foo-temp/playfield-getaway.jpg',
+    image: 'playfield-getaway.jpg',
   },
   switchMapping: [
     { id: 11, name: 'RIGHT FLIPPER' },

@@ -1,11 +1,14 @@
 # HISTORY
 
+## 04/10/18
+- option to serve ROM files from localhost
+
 ## 01/10/18
 - fix dipswitch settings, use USA/CANADA
 
 ## 30/09/18
 - refactor fliptronics switch input, handled by input switch matrix
-- display fliptroics switches in debug ui
+- display fliptronics switches in debug ui
 
 ## 29/09/18
 - support fliptronics switches

@@ -7,10 +7,10 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "build": "webpack --mode development",
+    "build": "SERVEURL=http://127.0.0.1:8080/ webpack --mode development",
     "build:production": "webpack --mode production",
     "test": "ava --verbose test/**",
-    "watch": "webpack --mode development --watch",
+    "watch": "SERVEURL=http://127.0.0.1:8080/ webpack --mode development --watch",
     "xo": "xo"
   },
   "author": "Michael Vogt",

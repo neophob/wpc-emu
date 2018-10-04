@@ -61,6 +61,20 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Cabinet input keys work ✓
 - Adaptive FPS ✓
 
+# Development
+
+## Serve ROM's from localhost
+- create the `./rom` directory and copy your ROM files inside this directory
+- Run `npm run start:fileserv` to start local file serve
+- check out the "Run Watch" chapter
+
+## Run Watch
+- Run `npm run watch` in the root directory and the `client` directory
+
+## Build Release
+- Run `build:production` in the root directory and the `client` directory
+- output is available in the `./dist` directory
+
 # Future ideas
 - Hook it up to a Virtual Pinball / Pinball frontend
 - Hook it up to a broken Pinball machine, replace whole electronics with a RPI
@@ -176,7 +190,7 @@ This very primitive schema shows where the switches are:
 
 ## To Test:
 - memory position of current score, player number, credits
-- serial port? 
+- serial port?
 
 # References
 
