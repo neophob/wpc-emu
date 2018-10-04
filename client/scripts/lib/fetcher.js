@@ -6,8 +6,7 @@ function downloadFileFromUrlAsUInt8Array(filename) {
   if (!filename) {
     return Promise.resolve();
   }
-  console.log('FETCHURL' + FETCHURL );
-  return fetch('http://127.0.0.1:8080/' + filename)
+  return fetch(FETCHURL + filename)
     .then((response) => {
       if (response.status >= 400) {
         throw new Error('INVALID_STATUSCODE_' + response.status);
