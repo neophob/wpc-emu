@@ -4,7 +4,7 @@ module.exports = {
   name: 'Indiana Jones: The Pinball Adventure',
   version: 'L-7',
   rom: {
-    u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/ijone_l7.rom',
+    u06: 'ijone_l7.rom',
   },
   switchMapping: [
     { id: 11, name: 'SINGLE DROP' },

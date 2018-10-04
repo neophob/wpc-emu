@@ -4,7 +4,7 @@ module.exports = {
   name: 'Medieval Madness',
   version: 'L-8',
   rom: {
-    u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/mm_109b.bin',
+    u06: 'mm_109b.bin',
   },
   switchMapping: [
     { id: 11, name: 'LAUNCH BUTTON' },

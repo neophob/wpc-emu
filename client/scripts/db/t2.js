@@ -4,14 +4,14 @@ module.exports = {
   name: 'Terminator 2',
   version: 'L-8',
   rom: {
-    u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/t2_l8.rom',
-    u14: 'https://s3-eu-west-1.amazonaws.com/foo-temp/t2_u14.l3',
-    u15: 'https://s3-eu-west-1.amazonaws.com/foo-temp/t2_u15.l3',
-    u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/t2_u18.l3',
+    u06: 't2_l8.rom',
+    u14: 't2_u14.l3',
+    u15: 't2_u15.l3',
+    u18: 't2_u18.l3',
   },
   playfield: {
     //size must be 200x400, lamp positions according to image
-    image: 'https://s3-eu-west-1.amazonaws.com/foo-temp/playfield-t2.jpg',
+    image: 'playfield-t2.jpg',
     lamps: [
       [{ x: 61, y: 309, color: 'GREEN' }],
       [{ x: 74, y: 303, color: 'GREEN' }],

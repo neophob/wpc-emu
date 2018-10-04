@@ -5,8 +5,7 @@
 export { initialiseEmulator };
 
 function initialiseEmulator(romData, gameEntry) {
-  const romUrl = gameEntry.rom.u06;
-  const fileName = romUrl.substring(romUrl.lastIndexOf('/') + 1);
+  const fileName = gameEntry.rom.u06;
   const romObject = {
     fileName,
     skipWmcRomCheck: gameEntry.skipWmcRomCheck,

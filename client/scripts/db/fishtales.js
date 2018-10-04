@@ -4,14 +4,14 @@ module.exports = {
   name: 'Fish Tales',
   version: 'P-4',
   rom: {
-    u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/ft_p4.u6',
-    u14: 'https://s3-eu-west-1.amazonaws.com/foo-temp/t2_u14.l3',
-    u15: 'https://s3-eu-west-1.amazonaws.com/foo-temp/t2_u15.l3',
-    u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/t2_u18.l3',
+    u06: 'ft_p4.u6',
+    u14: 't2_u14.l3',
+    u15: 't2_u15.l3',
+    u18: 't2_u18.l3',
   },
   playfield: {
     //size must be 200x400, lamp positions according to image
-    image: 'https://s3-eu-west-1.amazonaws.com/foo-temp/playfield-ft.jpg',
+    image: 'playfield-ft.jpg',
     lamps: [
       [{ x: 93, y: 165, color: 'WHITE' }], //11
       [{ x: 93, y: 155, color: 'GREEN' }],
