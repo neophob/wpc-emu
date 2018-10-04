@@ -55,6 +55,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Page Selection ✓
 - Scanline Handling ✓
 - Dimming / multi color display ✓
+- WPC 95 support
 
 ## Debug UI
 - DMD output ✓
