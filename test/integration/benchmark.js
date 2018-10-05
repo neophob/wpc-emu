@@ -12,7 +12,7 @@ const romU18Path = process.argv[5] || 'rom/U18.PP';
 
 debug('roms', { romU06Path, romU14Path, romU15Path, romU18Path });
 
-const CYCLE_COUNT = process.env.CYCLES || 2000000 * 2;
+const CYCLE_COUNT = process.env.CYCLES || 2000000 * 1;
 
 function loadFile(fileName) {
   return new Promise((resolve, reject) => {
