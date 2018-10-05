@@ -75,6 +75,12 @@ module.exports = {
     { id: 87, name: 'GUMBALL ENTER' },
     { id: 88, name: 'LOCK LOWER' },
   ],
+  fliptronicsMapping: [
+    { id: 'F1', name: 'R FLIPPER EOS' },
+    { id: 'F2', name: 'R FLIPPER BUTTON' },
+    { id: 'F3', name: 'L FLIPPER EOS' },
+    { id: 'F4', name: 'L FLIPPER BUTTON' },
+  ],  
   skipWmcRomCheck: true,
   initialise: {
     closedSwitches: [ 15, 16, 17 ],

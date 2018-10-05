@@ -63,7 +63,16 @@ module.exports = {
 
     { id: 88, name: 'TEST SWITCH' },
   ],
+  fliptronicsMapping: [
+    { id: 'F1', name: 'R FLIPPER EOS' },
+    { id: 'F2', name: 'R FLIPPER BUTTON' },
+    { id: 'F3', name: 'L FLIPPER EOS' },
+    { id: 'F4', name: 'L FLIPPER BUTTON' },
+  ],
   skipWmcRomCheck: true,
+  features: [
+    'securityPic',
+  ],
   initialise: {
     closedSwitches: [ 22, 32, 33, 34, 35 ],
     initialAction: [

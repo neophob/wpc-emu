@@ -27,7 +27,7 @@ test('InputSwitchMatrix, getCabinetKey', (t) => {
 
 test('InputSwitchMatrix, setFliptronicsInput invalid', (t) => {
   const inputSwitchMatrix = t.context;
-  t.throws(() => inputSwitchMatrix.setFliptronicsInput(0x1), 'INVALID_INPUT_VALUE_1');
+  t.is(inputSwitchMatrix.getFliptronicsKeys(), 0);
 });
 
 test('InputSwitchMatrix, getFliptronicsKeys', (t) => {
@@ -35,6 +35,12 @@ test('InputSwitchMatrix, getFliptronicsKeys', (t) => {
   inputSwitchMatrix.setFliptronicsInput('F0');
   inputSwitchMatrix.setFliptronicsInput('F6');
   t.is(inputSwitchMatrix.getFliptronicsKeys(), 32);
+});
+
+test('InputSwitchMatrix, getRow', (t) => {
+  const inputSwitchMatrix = t.context;
+  const result = inputSwitchMatrix.getRow(0);
+  t.is(result, 0);
 });
 
 //TODO add setInputKey tests

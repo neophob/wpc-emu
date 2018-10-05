@@ -28,10 +28,11 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Bank Switching ✓
 - The Switch Matrix ✓
 - External I/O ✓ (except sound)
+- Fliptronic Flipper ✓
 - Interrupt Reset ✓
 - Interrupt IRQ ✓
 - Interrupt FIRQ ✓ (incl. source - not sure if needed)
-- Security Chip
+- Security Chip ✓
 
 ## Power Driver Board
 - Lamp Circuits ✓
@@ -54,6 +55,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Page Selection ✓
 - Scanline Handling ✓
 - Dimming / multi color display ✓
+- WPC 95 support
 
 ## Debug UI
 - DMD output ✓
@@ -126,6 +128,47 @@ Operating system:
 ### MEMORY
 - Total 8KB RAM, battery-backed
 - The memory storage format is Big Endian
+
+### Security PIC (U22)
+FreeWPC documentation about this security feature:
+
+```
+A security PIC chip is added between the ASIC and the switch matrix
+inputs.  The CPU no longer reads the switch data directly; it sends
+commands to the PIC which then reads the data.  The PIC requires some
+special cryptic codes to be sent otherwise it will not return valid
+switch data, making the game unplayable.
+```
+- If the security chip implementation is invalid, the DMD display will show "U22 ERROR" or "G10 ERROR" (WPC95)
+- If the security chip works but does not match the expected Pinball model, the DMD will show "Incorrect U22 for this game"
+
+WPC-EMU uses the technique by Ed Cheung (http://www.edcheung.com/album/album07/Pinball/wpc_sound2.htm)
+to bypass the Security PIC:
+
+```
+The ROM is searched sequentially for "EC 9F xx yy 83 12 34".  This is a
+pattern that marks the address of a pointer to the location of the game ID.
+at this location there is a 2 byte number which is the game id
+```
+**NOTE**: this works only for WPC games but NOT for FreeWPC games!
+
+The file `rom/game-id.js` searches the ROM for the (unique) game ID. This id is later patched
+(using the memory patch function) with the game ID of Medieval Madness (Game ID: 559).
+
+- Dirty Harry (530) game ID is stored at location 0xE873 and contains 0xE8/0x73
+- Medieval Madness (559) game ID is stored at location 0xE885 and contains 0xE8/0x85
+- No Fear (525) game ID is stored at location 0xE80D and contains 0xE8/0x0D
+
+Here is a debug log of "Dirty Harry" ROM booting and the read the game ID. The pointer to the game ID location
+is stored at 0x81C9/0x81CA (16 bit) for this game.
+
+```
+2018-10-04T21:33:43.053Z wpcemu:boards:cpu-board mem-read 81c9
+2018-10-04T21:33:43.053Z wpcemu:boards:cpu-board mem-read 81ca
+2018-10-04T21:33:43.053Z wpcemu:boards:cpu-board read securityPic machine id
+2018-10-04T21:33:43.053Z wpcemu:boards:cpu-board mem-read e873
+2018-10-04T21:33:43.053Z wpcemu:boards:cpu-board mem-read e874
+```
 
 ## POWER-DRIVER-BOARD
 - Williams part number: A-12697-1

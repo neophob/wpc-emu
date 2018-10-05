@@ -1,7 +1,7 @@
 'use strict';
 
 import addams from './addams';
-//import dh from './dh';
+import dh from './dh';
 import dw from './dw';
 import fishtales from './fishtales';
 import gilligan from './gilligan';
@@ -10,6 +10,7 @@ import hotshot from './hotshot';
 import hurricane from './hurricane';
 import indianajones from './indianajones';
 import mm from './mm';
+import nofear from './nofear';
 import t2Freewpc from './t2.freewpc';
 import t2 from './t2';
 import tpz from './tpz';
@@ -20,7 +21,7 @@ export { getAllNames, getByName };
 const wpcGames = [
   addams,
   dw,
-//  dh,
+  dh,
   fishtales,
   gilligan,
   highspeed2,
@@ -28,6 +29,7 @@ const wpcGames = [
   hurricane,
   indianajones,
   mm,
+  nofear,
   t2Freewpc,
   t2,
   tpz,

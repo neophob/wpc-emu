@@ -5,8 +5,8 @@ There are some known issues with the Emu, here I try to collect most of them.
 ## Missing EMU features
 
 - enable / disable IRQ in the ASIC emu should work - currently the IRQ is fired all the time
-- CWAI instruction not implemented properly, not sure if its used at all
 - GI (General Illumination dimming) to implemented properly
+- DIP language selection does not work for TZ
 
 ## Hurricane
 
@@ -966,34 +966,6 @@ Error: INVALID_WRITE_SUBSYSTEM_0xbfc2 {"offset":16322,"subsystem":"system"} 1
 16:31:35.183 externalIo.js:86 IO R_NOT_IMPLEMENTED 0x3fd9
 16:31:35.184 externalIo.js:86 IO R_NOT_IMPLEMENTED 0x3fda
 16:31:35.185 externalIo.js:86 IO R_NOT_IMPLEMENTED 0x3fdb
-```
-
-## Dirty Harry
-
-```
-cpu-board.js:279 EXPANSION_WRITE_NOT_IMPL {offset: 13116, value: 255} offset: 13116value: 255__proto__: Object
-19:39:41.452 cpu-board.js:279 EXPANSION_WRITE_NOT_IMPL {offset: 13117, value: 6}
-19:39:41.454 cpu-board.js:279 EXPANSION_WRITE_NOT_IMPL {offset: 13116, value: 65}
-19:39:41.456 cpu-board.js:279 EXPANSION_WRITE_NOT_IMPL {offset: 13117, value: 6}
-19:39:41.457 cpu-board.js:300 EXPANSION_READ_NOT_IMPL {offset: 13116}
-19:39:41.458 EXPANSION_WRITE_NOT_IMPL {offset: 13116, value: 255} offset: 13116value: 255__proto__: Object
-19:39:41.452 cpu-board.js:279 EXPANSION_WRITE_NOT_IMPL {offset: 13117, value: 6}
-19:39:41.454 cpu-board.js:279 EXPANSION_WRITE_NOT_IMPL {offset: 13116, value: 65}
-19:39:41.456 cpu-board.js:279 EXPANSION_WRITE_NOT_IMPL {offset: 13117, value: 6}
-19:39:41.457 cpu-board.js:300 EXPANSION_READ_NOT_IMPL {offset: 13116}
-19:39:41.458 cpu-board.js:279 EXPANSION_WRITE_NOT_IMPL {offset: 13116, value: 255}
-19:39:41.460 cpu6809.js:636 Uncaught Error: INVALID_ADDRESS_MODE_0x0E
-    at Cpu6809.PostByte (cpu6809.js:636)
-    at Cpu6809.step (cpu6809.js:1365)
-    at Cpu6809.steps (cpu6809.js:2415)
-    at WpcCpuBoard.executeCycle (cpu-board.js:153)
-    at Emulator.executeCycle (emulator.js:45)
-    at step (main.js:102)
-PostByte @ cpu6809.js:636
-step @ cpu6809.js:1365
-steps @ cpu6809.js:2415
-executeCycle @ cpu-board.js:153
-executeCycle @ emulator.js:45
 ```
 
 ## FREEWPC T2

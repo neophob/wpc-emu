@@ -14,6 +14,7 @@ import * as emuDebugUi from './ui/emu-debug-ui';
 const TICKS = 2000000;
 const DESIRED_FPS = 58;
 const TICKS_PER_STEP = parseInt(TICKS / DESIRED_FPS, 10);
+const INITIAL_GAME = 'Hurricane';
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const soundInstance = AudioOutput(AudioContext);
@@ -75,7 +76,7 @@ function romSelection(romName) {
 
 function initEmuWithGameName(name) {
   const gameEntry = gamelist.getByName(name);
-  populateControlUiView(gameEntry, gamelist);
+  populateControlUiView(gameEntry, gamelist, name);
   return initialiseEmu(gameEntry)
     .then(() => {
       resumeEmu();
@@ -83,7 +84,7 @@ function initEmuWithGameName(name) {
     });
 }
 
-initEmuWithGameName('Hurricane');
+initEmuWithGameName(INITIAL_GAME);
 
 //called at 60hz -> 16.6ms
 function step() {
@@ -96,7 +97,7 @@ function step() {
 
 function resumeEmu() {
   if (intervalId) {
-    return;
+    pauseEmu();
   }
   console.log('client start emu');
   intervalId = requestAnimationFrame(step);
