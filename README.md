@@ -32,7 +32,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Interrupt Reset ✓
 - Interrupt IRQ ✓
 - Interrupt FIRQ ✓ (incl. source - not sure if needed)
-- Security Chip
+- Security Chip ✓
 
 ## Power Driver Board
 - Lamp Circuits ✓
@@ -141,6 +141,20 @@ switch data, making the game unplayable.
 ```
 - If the security chip implementation is invalid, the DMD display will show "U22 ERROR" or "G10 ERROR" (WPC95)
 - If the security chip works but does not match the expected Pinball model, the DMD will show "Incorrect U22 for this game"
+
+WPC-EMU uses the technique by Ed Cheung (http://www.edcheung.com/album/album07/Pinball/wpc_sound2.htm)
+to bypass the Security PIC:
+
+```
+The ROM is searched sequentially for "EC 9F xx yy 83 12 34".  This is a
+pattern that marks the address of a pointer to the location of the game ID.
+at this location there is a 2 byte number which is the game id
+```
+**NOTE**: this works only for WPC games but NOT for FreeWPC games!
+
+The file `rom/game-id` searches the ROM for the (unique) Game ID. This id is later patched
+(using the memory patch function) with the Game ID of Medieval Madness.
+
 
 ## POWER-DRIVER-BOARD
 - Williams part number: A-12697-1
