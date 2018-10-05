@@ -4,10 +4,10 @@ module.exports = {
   name: 'Dr. Who',
   version: 'L-1',
   rom: {
-    u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/drwho_l2.rom',
-    u14: 'https://s3-eu-west-1.amazonaws.com/foo-temp/dw_u14.l1',
-    u15: 'https://s3-eu-west-1.amazonaws.com/foo-temp/dw_u15.l1',
-    u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/dw_u18.l1',
+    u06: 'drwho_l2.rom',
+    u14: 'dw_u14.l1',
+    u15: 'dw_u15.l1',
+    u18: 'dw_u18.l1',
   },
   switchMapping: [
     { id: 13, name: 'START BUTTON' },

@@ -4,14 +4,14 @@ module.exports = {
   name: 'Twilight Zone',
   version: 'H-8',
   rom: {
-    u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/tz_h8.u6',
-    u14: 'https://s3-eu-west-1.amazonaws.com/foo-temp/Bally_1993_Twilight_Zone_TZ_Sound_P3_U14.rom',
-    u15: 'https://s3-eu-west-1.amazonaws.com/foo-temp/Bally_1993_Twilight_Zone_TZ_Sound_P3_U15.rom',
-    u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/Bally_1993_Twilight_Zone_TZ_Sound_P3_U18.rom',
+    u06: 'tz_h8.u6',
+    u14: 'Bally_1993_Twilight_Zone_TZ_Sound_P3_U14.rom',
+    u15: 'Bally_1993_Twilight_Zone_TZ_Sound_P3_U15.rom',
+    u18: 'Bally_1993_Twilight_Zone_TZ_Sound_P3_U18.rom',
   },
   playfield: {
     //size must be 200x400, lamp positions according to image
-    image: 'https://s3-eu-west-1.amazonaws.com/foo-temp/playfield-tz.jpg',
+    image: 'playfield-tz.jpg',
   },
   switchMapping: [
     { id: 11, name: 'RIGHT INLANE' },
@@ -75,6 +75,12 @@ module.exports = {
     { id: 87, name: 'GUMBALL ENTER' },
     { id: 88, name: 'LOCK LOWER' },
   ],
+  fliptronicsMapping: [
+    { id: 'F1', name: 'R FLIPPER EOS' },
+    { id: 'F2', name: 'R FLIPPER BUTTON' },
+    { id: 'F3', name: 'L FLIPPER EOS' },
+    { id: 'F4', name: 'L FLIPPER BUTTON' },
+  ],  
   skipWmcRomCheck: true,
   initialise: {
     closedSwitches: [ 15, 16, 17 ],

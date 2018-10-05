@@ -4,9 +4,9 @@ module.exports = {
   name: 'Hot Shot Basketball',
   version: 'P-8',
   rom: {
-    u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/hshot_p8.u6',
-    u14: 'https://s3-eu-west-1.amazonaws.com/foo-temp/hshot_l1.u14',
-    u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/hshot_l1.u18',
+    u06: 'hshot_p8.u6',
+    u14: 'hshot_l1.u14',
+    u18: 'hshot_l1.u18',
   },
   switchMapping: [
     { id: 13, name: 'START BUTTON' },

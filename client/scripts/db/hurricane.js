@@ -4,10 +4,10 @@ module.exports = {
   name: 'Hurricane',
   version: 'L-2',
   rom: {
-    u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/hurcnl_2.rom',
-    u14: 'https://s3-eu-west-1.amazonaws.com/foo-temp/U14.PP',
-    u15: 'https://s3-eu-west-1.amazonaws.com/foo-temp/U15.PP',
-    u18: 'https://s3-eu-west-1.amazonaws.com/foo-temp/U18.PP',
+    u06: 'hurcnl_2.rom',
+    u14: 'U14.PP',
+    u15: 'U15.PP',
+    u18: 'U18.PP',
   },
   switchMapping: [
     { id: 11, name: 'RIGHT FLIPPER' },
@@ -70,7 +70,7 @@ module.exports = {
   ],
   playfield: {
     //size must be 200x400, lamp positions according to image
-    image: 'https://s3-eu-west-1.amazonaws.com/foo-temp/playfield-hurricane.jpg',
+    image: 'playfield-hurricane.jpg',
     lamps: [
       [{ x: 82, y: 312, color: 'YELLOW' }],
       [{ x: 98, y: 312, color: 'YELLOW' }],

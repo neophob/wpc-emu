@@ -4,7 +4,7 @@ module.exports = {
   name: 'Dirty Harry',
   version: 'LX-2',
   rom: {
-    u06: 'https://s3-eu-west-1.amazonaws.com/foo-temp/harr_lx2.rom',
+    u06: 'harr_lx2.rom',
     //dh_snd.u2 - dh_snd.u6
   },
   switchMapping: [
@@ -63,7 +63,16 @@ module.exports = {
 
     { id: 88, name: 'TEST SWITCH' },
   ],
+  fliptronicsMapping: [
+    { id: 'F1', name: 'R FLIPPER EOS' },
+    { id: 'F2', name: 'R FLIPPER BUTTON' },
+    { id: 'F3', name: 'L FLIPPER EOS' },
+    { id: 'F4', name: 'L FLIPPER BUTTON' },
+  ],
   skipWmcRomCheck: true,
+  features: [
+    'securityPic',
+  ],
   initialise: {
     closedSwitches: [ 22, 32, 33, 34, 35 ],
     initialAction: [
