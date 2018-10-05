@@ -1,5 +1,8 @@
 # HISTORY
 
+## 05/10/18
+- security Pic works
+
 ## 04/10/18
 - option to serve ROM files from localhost
 

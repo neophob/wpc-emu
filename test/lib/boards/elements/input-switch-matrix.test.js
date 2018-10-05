@@ -37,4 +37,10 @@ test('InputSwitchMatrix, getFliptronicsKeys', (t) => {
   t.is(inputSwitchMatrix.getFliptronicsKeys(), 32);
 });
 
+test('InputSwitchMatrix, getRow', (t) => {
+  const inputSwitchMatrix = t.context;
+  const result = inputSwitchMatrix.getRow(0);
+  t.is(result, 0);
+});
+
 //TODO add setInputKey tests
