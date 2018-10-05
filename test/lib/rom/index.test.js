@@ -23,7 +23,7 @@ test('romParser should parse roms', (t) => {
     u18,
   };
   return romParser
-    .parse(romData) 
+    .parse(romData)
     .then((result) => {
       t.is(result.concatinatedSoundRom[0x000000], 44);
       t.is(result.concatinatedSoundRom[0x080000], 33);
