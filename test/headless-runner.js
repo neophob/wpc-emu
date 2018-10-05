@@ -41,12 +41,13 @@ function bootEmu() {
         fileName: 'foo',
         skipWmcRomCheck: true,
         switchesEnabled,
+        features: ['securityPic'],
       });
     })
     .then((wpcSystem) => {
       wpcSystem.start();
       boot(wpcSystem);
-      
+
       let x = 0;
       while (1) {
         x++;
@@ -54,19 +55,19 @@ function bootEmu() {
           const status = wpcSystem.getUiState();
           console.log('# STATUS', { ticks: status.ticks, opsMs: status.opsMs });
         }
-        
+
         const cycles = HALF_SECOND_TICKS + HALF_SECOND_TICKS * parseInt(10 * Math.random());
-        wpcSystem.executeCycle(cycles, CPU_STEPS);                      
+        wpcSystem.executeCycle(cycles, CPU_STEPS);
 
         for (let i=0; i<2; i++) {
           let input = parseInt(11+(Math.random()*77), 10);
           if (switchBlacklist.includes(input)) {
             input = 13;
           }
-          wpcSystem.setInput(input);            
+          wpcSystem.setInput(input);
           wpcSystem.executeCycle(KEYPRESS_TICKS, CPU_STEPS);
-          wpcSystem.setInput(input);   
-        }                
+          wpcSystem.setInput(input);
+        }
       }
 
       console.log('BYE');
@@ -77,7 +78,7 @@ bootEmu();
 
 function boot(wpcSystem) {
   wpcSystem.executeCycle(HALF_SECOND_TICKS * 8, CPU_STEPS);
-  
+
   wpcSystem.setCabinetInput(16);
   wpcSystem.executeCycle(HALF_SECOND_TICKS, CPU_STEPS);
   wpcSystem.setCabinetInput(16);
@@ -86,13 +87,13 @@ function boot(wpcSystem) {
   wpcSystem.executeCycle(HALF_SECOND_TICKS, CPU_STEPS);
   wpcSystem.setCabinetInput(16);
   wpcSystem.executeCycle(HALF_SECOND_TICKS, CPU_STEPS);
-  
+
   wpcSystem.setCabinetInput(16);
   wpcSystem.executeCycle(HALF_SECOND_TICKS*4, CPU_STEPS);
 
   wpcSystem.setInput(13);
   wpcSystem.executeCycle(2 * HALF_SECOND_TICKS, CPU_STEPS);
-  wpcSystem.setInput(13);  
+  wpcSystem.setInput(13);
   wpcSystem.executeCycle(2 * HALF_SECOND_TICKS, CPU_STEPS);
   wpcSystem.setInput(13);
   wpcSystem.executeCycle(2 * HALF_SECOND_TICKS, CPU_STEPS);
