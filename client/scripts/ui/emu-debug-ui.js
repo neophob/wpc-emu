@@ -331,7 +331,7 @@ function initialise(gameEntry) {
     playfieldImage.onload = function() {
       canvas.drawImage(playfieldImage, 800, YPOS_DMD_MAIN_VIEW);
     };
-    playfieldImage.src = playfieldData.image;
+    playfieldImage.src = FETCHURL + playfieldData.image;
   }
 
   initCanvas();
