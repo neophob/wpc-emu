@@ -10,9 +10,8 @@ test('memoryPatch, should not return a value', (t) => {
 });
 
 test('memoryPatch, should return a patched value', (t) => {
-  const memoryPatch = MemoryPatch.getInstance(0x50);
-  const gameIdLo = memoryPatch.hasPatch(0x50);
-  const gameIdHi = memoryPatch.hasPatch(0x51);
-  t.is(gameIdLo.value, 20);
-  t.is(gameIdHi.value, 99);
+  const memoryPatch = MemoryPatch.getInstance();
+  memoryPatch.addPatch(0x50, 20);
+  const result = memoryPatch.hasPatch(0x50);
+  t.is(result.value, 20);
 });
