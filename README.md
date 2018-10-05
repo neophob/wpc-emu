@@ -152,9 +152,23 @@ at this location there is a 2 byte number which is the game id
 ```
 **NOTE**: this works only for WPC games but NOT for FreeWPC games!
 
-The file `rom/game-id` searches the ROM for the (unique) Game ID. This id is later patched
-(using the memory patch function) with the Game ID of Medieval Madness.
+The file `rom/game-id.js` searches the ROM for the (unique) game ID. This id is later patched
+(using the memory patch function) with the game ID of Medieval Madness (Game ID: 559).
 
+- Dirty Harry (530) game ID is stored at location 0xE873 and contains 0xE8/0x73
+- Medieval Madness (559) game ID is stored at location 0xE885 and contains 0xE8/0x85
+- No Fear (525) game ID is stored at location 0xE80D and contains 0xE8/0x0D
+
+Here is a debug log of "Dirty Harry" ROM booting and the read the game ID. The pointer to the game ID location
+is stored at 0x81C9/0x81CA (16 bit) for this game.
+
+```
+2018-10-04T21:33:43.053Z wpcemu:boards:cpu-board mem-read 81c9
+2018-10-04T21:33:43.053Z wpcemu:boards:cpu-board mem-read 81ca
+2018-10-04T21:33:43.053Z wpcemu:boards:cpu-board read securityPic machine id
+2018-10-04T21:33:43.053Z wpcemu:boards:cpu-board mem-read e873
+2018-10-04T21:33:43.053Z wpcemu:boards:cpu-board mem-read e874
+```
 
 ## POWER-DRIVER-BOARD
 - Williams part number: A-12697-1
