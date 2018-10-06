@@ -61,7 +61,7 @@ function initialiseEmu(gameEntry) {
       wpcSystem.registerAudioConsumer(dacCallback);
       wpcSystem.start();
       soundInstance.setMixStereoFunction(wpcSystem.mixStereo);
-      console.log('Successully started EMU');
+      console.log('Successully started EMU v' + wpcSystem.version());
       return emuDebugUi.initialise(gameEntry);
     })
     .catch((error) => {

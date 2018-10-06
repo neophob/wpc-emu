@@ -9,7 +9,6 @@ function initialiseEmulator(romData, gameEntry) {
   const romObject = {
     fileName,
     skipWmcRomCheck: gameEntry.skipWmcRomCheck,
-    switchesEnabled: gameEntry.switchesEnabled,
     features: gameEntry.features,
   };
   return WpcEmu.initVMwithRom(romData, romObject);
