@@ -1,5 +1,8 @@
 # HISTORY
 
+## 06/10/18
+- fix dip country selection, twilight zone should work again
+
 ## 05/10/18
 - security Pic works
 
