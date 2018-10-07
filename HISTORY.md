@@ -1,5 +1,8 @@
 # HISTORY
 
+## 07/10/18
+- client works again on old safari browser (ios)
+
 ## 06/10/18
 - fix dip country selection, twilight zone should work again
 
