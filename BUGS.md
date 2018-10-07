@@ -20,7 +20,12 @@ Error: INVALID_WRITE_SUBSYSTEM_0xbfc2 {"offset":16322,"subsystem":"system"} 1
 - DMD is messes up after the bonus selection
 - Guess its related to timing
 
+## Circus Voltare
+check fuses f101 and f109, j127 and opto 12v supply
+
 ## Twilight Zone
+
+check fuses f115 and f116, j112 and opto 12v supply
 
 ```
 16:31:29.426 control-ui.js:56 load ROM Twilight Zone

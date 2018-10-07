@@ -28,9 +28,9 @@ function dacCallback(value) {
 
 function initialiseEmu(gameEntry) {
   const u06Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06);
-  const u14Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u14).catch(() => []);
-  const u15Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u15).catch(() => []);
-  const u18Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u18).catch(() => []);
+  const u14Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u14).catch(() => undefined);
+  const u15Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u15).catch(() => undefined);
+  const u18Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u18).catch(() => undefined);
 
   return Promise.all([
       u06Promise,
