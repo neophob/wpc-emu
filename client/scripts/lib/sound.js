@@ -25,16 +25,19 @@ class Sound {
     // connect nodes
     this.gainNode.connect(this.audioCtx.destination);
 
-    this._prepareAudio();
-
-    setInterval(() => {
-      this._fillAudioBuffer();
-    }, 50);
+    try {
+      this._prepareAudio();
+      setInterval(() => {
+        this._fillAudioBuffer();
+      }, 50);
+    } catch(error) {
+      console.log('AUDIO_INIT_FAILED', error.message);
+      this.noAudio = true;
+    }
   }
 
   _prepareAudio() {
     this.ym2151buffer = this.audioCtx.createBuffer(2, DEFAULT_SAMPLE_SIZE, OUTPUT_SAMPLE_RATE_HZ);
-
     this.buffer = this.audioCtx.createBuffer(MONO, DEFAULT_SAMPLE_SIZE, INPUT_SAMPLE_RATE_HZ);
     this.bufferData = this.buffer.getChannelData(0);
     this.audioBuffer = this.audioCtx.createBufferSource();
@@ -45,6 +48,9 @@ class Sound {
   }
 
   writeAudioData(value) {
+    if (this.noAudio) {
+      return;
+    }
     if (this.count < DEFAULT_SAMPLE_SIZE) {
       // fill buffer with values form -1.0 and 1.0
       this.bufferData[this.count++] = (value - 64) / 64;
@@ -61,6 +67,9 @@ class Sound {
   }
 
   setVolume(floatVolume) {
+    if (this.noAudio) {
+      return;
+    }
     this.gainNode.gain.value = floatVolume;
   }
 
