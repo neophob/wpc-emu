@@ -1,6 +1,6 @@
 {
   "name": "wpc-emu-frontend",
-  "version": "0.6.9",
+  "version": "0.6.10",
   "description": "WPC pinball machine emu frontend",
   "main": "index.js",
   "engines": {
@@ -28,6 +28,7 @@
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.9",
+    "whatwg-fetch": "^3.0.0",
     "xo": "^0.23.0"
   },
   "babel": {
