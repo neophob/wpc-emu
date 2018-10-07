@@ -30,7 +30,7 @@ function initialiseEmu(gameEntry) {
   const u06Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06);
   const u14Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u14).catch(() => []);
   const u15Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u15).catch(() => []);
-  const u18Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u18);
+  const u18Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u18).catch(() => []);
 
   return Promise.all([
       u06Promise,
@@ -49,7 +49,7 @@ function initialiseEmu(gameEntry) {
       return initialiseEmulator(romData, gameEntry);
     })
     .then((_wpcSystem) => {
-      console.log('Successully initialised emulator');
+      console.log('Successfully initialised emulator');
       wpcSystem = _wpcSystem;
       // TODO IIKS we pollute globals here
       window.wpcInterface = {
