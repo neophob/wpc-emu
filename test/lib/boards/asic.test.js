@@ -9,8 +9,8 @@ test.before(() => {
   clock = sinon.useFakeTimers();
 });
 
-test.after('cleanup', t => {
-	clock.restore();
+test.after('cleanup', () => {
+  clock.restore();
 });
 
 test.beforeEach((t) => {
