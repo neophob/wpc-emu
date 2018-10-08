@@ -1,7 +1,17 @@
 'use strict';
 
 import test from 'ava';
+import sinon from 'sinon';
 import CpuBoardAsic from '../../../lib/boards/asic';
+
+let clock;
+test.before(() => {
+  clock = sinon.useFakeTimers();
+});
+
+test.after('cleanup', t => {
+	clock.restore();
+});
 
 test.beforeEach((t) => {
   const ram = new Uint8Array(0x4000);
@@ -141,4 +151,12 @@ test('wpc, update active lamp', (t) => {
   wpc.write(CpuBoardAsic.OP.WPC_LAMP_COL_STROBE, 0x4);
   const result = wpc.getUiState().lampState;
   t.is(result[18], 0x80);
+});
+
+test('wpc, get time, should update checksum', (t) => {
+  const wpc = t.context;
+  const hours = wpc.read(CpuBoardAsic.OP.WPC_CLK_HOURS_DAYS);
+  t.is(hours, 1);
+  t.is(wpc.ram[0x1807], 255);
+  t.is(wpc.ram[0x1808], 62);
 });
