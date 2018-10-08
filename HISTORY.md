@@ -1,5 +1,8 @@
 # HISTORY
 
+## 08/10/18
+- write time checksum to RAM, current time is correct now
+
 ## 07/10/18
 - client works again on old safari browser (ios)
 
