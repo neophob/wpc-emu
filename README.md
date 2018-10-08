@@ -171,14 +171,16 @@ The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). 
 ## DMD controller
 
 WPC-89 exposes two memory regions (length 0x200 bytes) to write to the video ram:
-- `0x3800` for page 1
-- `0x3A00` for page 2
+- `0x3800 - 0x39FE` for page 1
+- `0x3A00 - 0x3BFF` for page 2
 
-WPC-95 extended the accessible video ram pages:
-- `0x3000` for page 3
-- `0x3200` for page 4
-- `0x3400` for page 5
-- `0x3600` for page 6
+WPC-95 added four CPU accessible video ram pages:
+- `0x3000 - 0x31FF` for page 3
+- `0x3200 - 0x33FF` for page 4
+- `0x3400 - 0x35FF` for page 5
+- `0x3600 - 0x37FF` for page 6
+
+TODO: I could not find a game that uses those additional video ram pages yet!
 
 ## Security PIC (U22)
 FreeWPC documentation about this security feature:
