@@ -42,7 +42,8 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - support Fliptronics flipper
 
 ## Sound Board
-- load Sound ROM files ✓
+- load pre DCS sound ROM files ✓
+- load DCS sound ROM files 
 - Bank Switching ✓
 - Resample audio to 44.1khz
 - emulate 6809 CPU ✓
@@ -163,7 +164,7 @@ Timings are very tight, we cannot use `setTimeout`/`setInterval` to call for exa
 main loop that executes some CPU ops then check if one of the following callbacks need to be triggered:
 - each 2049 ticks call IRQ (1025us)
 - each 16667 ticks update ZeroCross flag (8.3ms)
-- each 512 ticks update display Scanline (256us)
+- each 512 ticks update display scanline (256us)
 
 ### DMD display scanline
 The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). At this rate, it takes 256 microseconds per row and a little more than 8 milliseconds per complete frame.
