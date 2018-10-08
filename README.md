@@ -168,6 +168,18 @@ main loop that executes some CPU ops then check if one of the following callback
 ### DMD display scanline
 The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). At this rate, it takes 256 microseconds per row and a little more than 8 milliseconds per complete frame.
 
+## DMD controller
+
+WPC-89 exposes two memory regions (length 0x200 bytes) to write to the video ram:
+- `0x3800` for page 1
+- `0x3A00` for page 2
+
+WPC-95 extended the accessible video ram pages:
+- `0x3000` for page 3
+- `0x3200` for page 4
+- `0x3400` for page 5
+- `0x3600` for page 6
+
 ## Security PIC (U22)
 FreeWPC documentation about this security feature:
 
@@ -208,6 +220,22 @@ is stored at 0x81C9/0x81CA (16 bit) for this game.
 2018-10-04T21:33:43.053Z wpcemu:boards:cpu-board mem-read e873
 2018-10-04T21:33:43.053Z wpcemu:boards:cpu-board mem-read e874
 ```
+
+## RAM positions
+
+Known RAM positions for WPC games
+
+| Offset        | Comment        |
+| ------------- | -------------- |
+| 0x1800        | Date, year hi  |
+| 0x1801        | Date, year lo  |
+| 0x1802        | Date, month    |
+| 0x1803        | Date, day of month |
+| 0x1804        | Date, days since sunday |
+| 0x1805        | Date, 0x00 ? |
+| 0x1806        | Date, 0x01 ? |
+| 0x1807        | Date, checksum hi |
+| 0x1808        | Date, checksum lo |
 
 ## Gameplay
 - (during active game) if you press and keep pressed left or right FLIPPER - a status report will be shown
