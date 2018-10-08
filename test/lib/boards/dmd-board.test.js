@@ -83,6 +83,22 @@ test('dmd, should write next active page, wrap around', (t) => {
     offset: 0x3A00,
     command: DMD.OP.WPC_DMD_HIGH_PAGE,
   },
+  {
+    offset: 0x3000,
+    command: DMD.OP.WPC95_DMD_PAGE3000,
+  },
+  {
+    offset: 0x3200,
+    command: DMD.OP.WPC95_DMD_PAGE3200,
+  },
+  {
+    offset: 0x3400,
+    command: DMD.OP.WPC95_DMD_PAGE3400,
+  },
+  {
+    offset: 0x3600,
+    command: DMD.OP.WPC95_DMD_PAGE3600,
+  },
 ].forEach((testSet) => {
   test('dmd, should write to DMD RAM ' + testSet.offset, (t) => {
     const dmd = t.context;
