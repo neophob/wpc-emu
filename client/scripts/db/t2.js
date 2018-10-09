@@ -108,6 +108,7 @@ module.exports = {
     { id: 16, name: 'TROUGH CENTER' },
     { id: 17, name: 'TROUGH RIGHT' },
     { id: 18, name: 'OUTHOLE' },
+    
     { id: 21, name: 'SLAM TILT' },
     { id: 22, name: 'COIN DOOR CLOSED' },
     { id: 23, name: 'TICKED OPTQ' },
@@ -115,6 +116,7 @@ module.exports = {
     { id: 26, name: 'LEFT RET. LANE' },
     { id: 27, name: 'RIGHT RET. LANE' },
     { id: 28, name: 'RIGHT OUT LANE' },
+
     { id: 31, name: 'GUN LOADED' },
     { id: 32, name: 'GUN MARK' },
     { id: 33, name: 'GUN HOME' },
@@ -122,6 +124,7 @@ module.exports = {
     { id: 36, name: 'STAND MID LEFT' },
     { id: 37, name: 'STAND MID CENTER' },
     { id: 38, name: 'STAND MID RIGHT' },
+
     { id: 41, name: 'LEFT JET' },
     { id: 42, name: 'RIGHT JET' },
     { id: 43, name: 'BOTTOM JET' },
@@ -130,6 +133,7 @@ module.exports = {
     { id: 46, name: 'STAND RIGHT TOP' },
     { id: 47, name: 'STAND RIGHT MID' },
     { id: 48, name: 'STAND RIGHT BOT' },
+
     { id: 51, name: 'LEFT LOCK' },
     { id: 53, name: 'LO ESCAPE ROUTE' },
     { id: 54, name: 'HI ESCAPE ROUTE' },
@@ -137,12 +141,14 @@ module.exports = {
     { id: 56, name: 'TOP LANE LEFT' },
     { id: 57, name: 'TOP LANE CENTER' },
     { id: 58, name: 'TOP LANE RIGHT' },
+
     { id: 61, name: 'LEFT RAMP ENTRY' },
     { id: 62, name: 'LEFT RAMP MADE' },
     { id: 63, name: 'RIGHT RAMP ENTRY' },
     { id: 64, name: 'RIGHT RAMP MADE' },
     { id: 65, name: 'LO CHASE LOOP' },
     { id: 66, name: 'HI CHASE LOOP' },
+
     { id: 71, name: 'TARGET 1 HI' },
     { id: 72, name: 'TARGET 2' },
     { id: 73, name: 'TARGET 3' },

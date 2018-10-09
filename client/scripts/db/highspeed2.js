@@ -67,7 +67,7 @@ module.exports = {
     { id: 76, name: 'BOT LOCK' },
     { id: 77, name: 'EJECT HOLE' },
     { id: 78, name: 'SHOOTER' },
-    
+
     { id: 81, name: 'OPTO 1' },
     { id: 82, name: 'OPTO 2' },
     { id: 83, name: 'OPTO 3' },
@@ -90,6 +90,8 @@ module.exports = {
     closedSwitches: [
       22,
       55, 56, 57, 58,
+      //OPTO SWITCH
+      81, 82, 83,
       'F2', 'F4', 'F6', 'F8',
     ],
     initialAction: [

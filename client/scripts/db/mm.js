@@ -76,10 +76,11 @@ module.exports = {
     'securityPic',
   ],
   initialise: {
-    //OPTO SWITCHES: 31, 32, 33, 34, 35, 36, 37, 41, F2, F4, F6, F8
     closedSwitches: [
       22,
-      31, 32, 33, 34, 35, 36, 37, 41, 'F2', 'F4', 'F6', 'F8',
+      //OPTO SWITCHES
+      31, 32, 33, 34, 35, 36, 37, 41,
+      'F2', 'F4', 'F6', 'F8',
     ],
     initialAction: [
       {

@@ -77,6 +77,8 @@ module.exports = {
     { id: 86, name: 'TROUGH 1' },
     { id: 87, name: 'TOP TROUGH' },
     { id: 88, name: 'SHOOTER' },
+
+    //TODO 91 - 95
   ],
   fliptronicsMapping: [
     { id: 'F1', name: 'R FLIPPER EOS' },
@@ -92,6 +94,8 @@ module.exports = {
   initialise: {
     closedSwitches: [
       81, 82, 83, 84, 85, 86,
+      //OPTO SWITCHES
+      41, 42, 43, 44, 45, 47, 71, 72, 73,
       'F2', 'F4', 'F6', 'F8',
     ],
     initialAction: [
