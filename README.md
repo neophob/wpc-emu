@@ -43,7 +43,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 
 ## Sound Board
 - load pre DCS sound ROM files ✓
-- load DCS sound ROM files 
+- load DCS sound ROM files
 - Bank Switching ✓
 - Resample audio to 44.1khz
 - emulate 6809 CPU ✓
@@ -56,7 +56,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Page Selection ✓
 - Scanline Handling ✓
 - Dimming / multi color display ✓
-- WPC 95 support
+- WPC 95 support ✓
 
 ## Debug UI
 - DMD output ✓
