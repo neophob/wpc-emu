@@ -17,6 +17,7 @@ module.exports = {
     { id: 16, name: 'TROUGH LEFT' },
     { id: 17, name: 'TROUGH RIGHT' },
     { id: 18, name: 'OUTHOLE' },
+
     { id: 21, name: 'SLAM TILT' },
     { id: 22, name: 'COIN DOOR CLOSED' },
     { id: 23, name: 'TICKED OPTQ' },
@@ -24,6 +25,7 @@ module.exports = {
     { id: 26, name: 'LEFT RETURN LN' },
     { id: 27, name: 'RIGHT RETURN LN' },
     { id: 28, name: 'RIGHT OUT LANE' },
+
     { id: 31, name: 'PAYOFF MID LEFT' },
     { id: 32, name: 'RIGHT 10PT' },
     { id: 33, name: 'LEFT LOCK' },
@@ -31,6 +33,7 @@ module.exports = {
     { id: 36, name: 'LEFT BANK LEFT' },
     { id: 37, name: 'LEFT BANK MIDDLE' },
     { id: 38, name: 'LEFT BANK RIGHT' },
+
     { id: 41, name: 'LEFT JET' },
     { id: 42, name: 'RIGHT JET' },
     { id: 43, name: 'BOTTOM JET' },
@@ -39,6 +42,7 @@ module.exports = {
     { id: 46, name: 'RIGHT BANK LEFT' },
     { id: 47, name: 'RIGHT BANK MID' },
     { id: 48, name: 'RIGHT BANK RIGHT' },
+
     { id: 51, name: 'LAGOON - N' },
     { id: 52, name: 'LAGOON - O' },
     { id: 53, name: 'LAGOON - O' },
@@ -47,6 +51,7 @@ module.exports = {
     { id: 56, name: 'LAGOON - L' },
     { id: 57, name: 'RAMP_SUP' },
     { id: 58, name: 'JET 10PTS' },
+
     { id: 61, name: 'ISLAND ENTRANCE' },
     { id: 62, name: 'RAMP STATUS' },
     { id: 63, name: 'LEFT LOOP' },
@@ -55,6 +60,7 @@ module.exports = {
     { id: 66, name: 'BALL POPPER' },
     { id: 67, name: 'TOP EJECT' },
     { id: 68, name: 'TOP RIGHT' },
+
     { id: 71, name: 'PAYOFF TOP LEFT' },
     { id: 72, name: 'PAYOFF TOP RITE' },
     { id: 73, name: 'PAYOFF BOT RITE' },
@@ -63,6 +69,7 @@ module.exports = {
     { id: 76, name: 'WHEEL LOCK' },
     { id: 77, name: 'WHEEL OPTO' },
     { id: 78, name: 'SHOOTER' },
+    
     { id: 83, name: 'TOP LEFT LOOP' },
     { id: 84, name: 'TOP RIGHT LOOP' },
   ],

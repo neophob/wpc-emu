@@ -20,6 +20,7 @@ module.exports = {
     { id: 16, name: 'LEFT FREEWAY TOP' },
     { id: 17, name: 'FREEWAY BOT' },
     { id: 18, name: 'FREEWAY TOP' },
+
     { id: 21, name: 'SLAM TILT' },
     { id: 22, name: 'COIN DOOR CLOSED' },
     { id: 23, name: 'TICKED OPTQ' },
@@ -27,6 +28,7 @@ module.exports = {
     { id: 26, name: 'LEFT RET LANE' },
     { id: 27, name: 'RIGHT RET LANE' },
     { id: 28, name: 'RIGHT OUT LANE' },
+
     { id: 31, name: 'LEFT SLING' },
     { id: 32, name: 'RIGHT SLING' },
     { id: 33, name: 'GEAR SHIFTER LO' },
@@ -34,12 +36,14 @@ module.exports = {
     { id: 36, name: 'TOP RED' },
     { id: 37, name: 'MIDDLE RED' },
     { id: 38, name: 'BOTTOM RED' },
+
     { id: 41, name: 'TOP YELLOW' },
     { id: 42, name: 'MID YELLOW' },
     { id: 43, name: 'BOT YELLOW' },
     { id: 44, name: 'R BANK BOT' },
     { id: 45, name: 'R BANK MID' },
     { id: 46, name: 'R BANK TOP' },
+
     { id: 51, name: 'TOP GREEN' },
     { id: 52, name: 'MIDDLE GREEN' },
     { id: 53, name: 'BOTTOM GREEN' },
@@ -48,11 +52,13 @@ module.exports = {
     { id: 56, name: 'LEFT TROUGH' },
     { id: 57, name: 'CENTER TROUGH' },
     { id: 58, name: 'RIGHT TROUGH' },
+
     { id: 61, name: 'TOP JET' },
     { id: 62, name: 'LEFT JET' },
     { id: 63, name: 'BOTTOM JET' },
     { id: 65, name: 'MADE UP/DWN RAMP' },
     { id: 67, name: 'MADE L RAMP' },
+
     { id: 71, name: 'TOP LOOP' },
     { id: 72, name: 'MID LOOP' },
     { id: 73, name: 'BOT LOOP' },
@@ -61,6 +67,7 @@ module.exports = {
     { id: 76, name: 'BOT LOCK' },
     { id: 77, name: 'EJECT HOLE' },
     { id: 78, name: 'SHOOTER' },
+    
     { id: 81, name: 'OPTO 1' },
     { id: 82, name: 'OPTO 2' },
     { id: 83, name: 'OPTO 3' },
@@ -80,7 +87,11 @@ module.exports = {
   ],
   skipWmcRomCheck: true,
   initialise: {
-    closedSwitches: [ 55, 56, 57, 58 ],
+    closedSwitches: [
+      22,
+      55, 56, 57, 58,
+      'F2', 'F4', 'F6', 'F8',
+    ],
     initialAction: [
       {
         delayMs: 1000,

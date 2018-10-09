@@ -74,7 +74,11 @@ module.exports = {
     'securityPic',
   ],
   initialise: {
-    closedSwitches: [ 22, 32, 33, 34, 35 ],
+    closedSwitches: [
+      22,
+      32, 33, 34, 35,
+      'F2', 'F4',
+    ],
     initialAction: [
       {
         delayMs: 1000,

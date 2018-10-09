@@ -11,7 +11,11 @@ function initialiseActions(initObject, wpcSystem) {
   if (Array.isArray(initObject.closedSwitches)) {
     initObject.closedSwitches.forEach((switchIdToEnable) => {
       console.log('INIT::enable switch', switchIdToEnable);
-      wpcSystem.setInput(switchIdToEnable);
+      if (switchIdToEnable[0] === 'F') {
+        wpcSystem.setFliptronicsInput(switchIdToEnable);
+      } else {
+        wpcSystem.setInput(switchIdToEnable);
+      }
     });
   }
 
