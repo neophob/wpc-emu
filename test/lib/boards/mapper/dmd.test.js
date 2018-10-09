@@ -82,3 +82,7 @@ test('DmdMapper, should get address, 0x3FB9', (t) => {
   const result = DmdMapper.getAddress(0x3FB9);
   t.deepEqual(result, expectedResult);
 });
+
+test('DmdMapper, should throw when using invalid address, -1', (t) => {
+  t.throws(() => DmdMapper.getAddress(-1), 'INVALID_DMD_ADRESSRANGE_-1');
+});
