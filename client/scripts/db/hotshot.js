@@ -13,12 +13,14 @@ module.exports = {
     { id: 15, name: 'SERVE BALL LEFT' },
     { id: 16, name: 'SERVE BALL RIGHT' },
     { id: 17, name: 'SELECT GAME' },
+
     { id: 21, name: 'SLAM TILT' },
     { id: 22, name: 'COIN DOOR CLOSED' },
     { id: 23, name: 'TICKED OPTQ' },
     { id: 26, name: 'BALL IN SHOOTER' },
     { id: 27, name: 'DISPENSER LOW' },
     { id: 28, name: 'DISPENSER UNJAM' },
+    
     { id: 31, name: 'BASKET' },
     { id: 32, name: 'BASKET MTR TOP' },
     { id: 33, name: 'BASKET MTR BOT' },

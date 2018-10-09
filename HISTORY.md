@@ -1,5 +1,9 @@
 # HISTORY
 
+## 09/10/18
+- Implemented WPC-95 DMD mapping
+- Add opto switches config to game libs
+
 ## 08/10/18
 - write time checksum to RAM, current time is correct now
 

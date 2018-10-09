@@ -42,7 +42,8 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - support Fliptronics flipper
 
 ## Sound Board
-- load Sound ROM files ✓
+- load pre DCS sound ROM files ✓
+- load DCS sound ROM files 
 - Bank Switching ✓
 - Resample audio to 44.1khz
 - emulate 6809 CPU ✓
@@ -163,10 +164,24 @@ Timings are very tight, we cannot use `setTimeout`/`setInterval` to call for exa
 main loop that executes some CPU ops then check if one of the following callbacks need to be triggered:
 - each 2049 ticks call IRQ (1025us)
 - each 16667 ticks update ZeroCross flag (8.3ms)
-- each 512 ticks update display Scanline (256us)
+- each 512 ticks update display scanline (256us)
 
 ### DMD display scanline
 The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). At this rate, it takes 256 microseconds per row and a little more than 8 milliseconds per complete frame.
+
+## DMD controller
+
+WPC-89 exposes two memory regions (length 0x200 bytes) to write to the video ram:
+- `0x3800 - 0x39FE` for page 1
+- `0x3A00 - 0x3BFF` for page 2
+
+WPC-95 added four CPU accessible video ram pages:
+- `0x3000 - 0x31FF` for page 3
+- `0x3200 - 0x33FF` for page 4
+- `0x3400 - 0x35FF` for page 5
+- `0x3600 - 0x37FF` for page 6
+
+TODO: I could not find a game that uses those additional video ram pages yet!
 
 ## Security PIC (U22)
 FreeWPC documentation about this security feature:
@@ -208,6 +223,22 @@ is stored at 0x81C9/0x81CA (16 bit) for this game.
 2018-10-04T21:33:43.053Z wpcemu:boards:cpu-board mem-read e873
 2018-10-04T21:33:43.053Z wpcemu:boards:cpu-board mem-read e874
 ```
+
+## RAM positions
+
+Known RAM positions for WPC games
+
+| Offset        | Comment        |
+| ------------- | -------------- |
+| 0x1800        | Date, year hi  |
+| 0x1801        | Date, year lo  |
+| 0x1802        | Date, month    |
+| 0x1803        | Date, day of month |
+| 0x1804        | Date, days since sunday |
+| 0x1805        | Date, 0x00 ? |
+| 0x1806        | Date, 0x01 ? |
+| 0x1807        | Date, checksum hi |
+| 0x1808        | Date, checksum lo |
 
 ## Gameplay
 - (during active game) if you press and keep pressed left or right FLIPPER - a status report will be shown
