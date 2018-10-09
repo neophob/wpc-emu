@@ -154,7 +154,8 @@ module.exports = {
   ],
   skipWmcRomCheck: true,
   initialise: {
-    closedSwitches: [ 15, 16, 17 ],
+    //OPTO Switches: 23
+    closedSwitches: [ 15, 16, 17, 23 ],
     initialAction: [
       {
         delayMs: 1000,
