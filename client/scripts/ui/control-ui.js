@@ -74,7 +74,7 @@ function addGameTitles(gameList, initialGameName) {
 }
 
 function populateControlUiView(gameEntry, gameList, initialGameName) {
-  console.log(gameEntry);
+  console.log('gameEntry', gameEntry);
   addEmulatorControls();
   addGameSpecificControls(gameEntry);
   addGameTitles(gameList, initialGameName);

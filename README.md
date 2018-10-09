@@ -23,7 +23,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Watchdog (not sure if needed, no reboot in case of an error which make it easier to find bugs in the emu)
 - Bit Shifter ✓
 - Memory Protection ✓
-- Time of Day Clock ✓ - not sure, Twilight Zone's Clock time does not work
+- Time of Day Clock ✓
 - High Resolution Timer (not used, was used by alphanumeric games to do display dimming)
 - Bank Switching ✓
 - The Switch Matrix ✓
@@ -42,7 +42,8 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - support Fliptronics flipper
 
 ## Sound Board
-- load Sound ROM files ✓
+- load pre DCS sound ROM files ✓
+- load DCS sound ROM files 
 - Bank Switching ✓
 - Resample audio to 44.1khz
 - emulate 6809 CPU ✓
@@ -129,7 +130,60 @@ Operating system:
 - Total 8KB RAM, battery-backed
 - The memory storage format is Big Endian
 
-### Security PIC (U22)
+## POWER-DRIVER-BOARD
+- Williams part number: A-12697-1
+
+## SOUND-BOARD
+- Williams part number: A-12738 (aka. pre-DCS sound)
+- Mono output, Sample rate 11KHz, 25 watts power, 8 ohm
+- intelligent and have processors running their own operating system dedicated to sound tasks
+- CPU: Motorola 6809 (MC68A09EP), frequency 2MHz
+- OPM: Yamaha YM2151 OPM (FM Operator Type-M), frequency 3.579545MHz (8-voice FM sound synthesiser)
+- DAC: AD-7524 (Digital Analog converter) and YM3012
+- Harris HC-55536 CVSD (Continuously variable slope delta modulation). Note HC-55536 is pin compatible with 55516 and 55564.
+- MC6821 Peripheral Interface Adaptor (PIA)
+- ROMS: U14, U15 and U18
+
+## DMD-BOARD
+- Williams part number A-14039
+- The dot matrix display is 128 columns x 32 rows and refreshes at 122Mhz
+- The controller board has the display RAM and the serialisation logic
+- The display RAM holds 8KB. A full DMD bit plane requires 128x32 pixels, that is, 4096 bits, or 512 bytes. Thus, there is enough RAM to hold a total of 16 planes. At any time, at most two planes can be addressed by the CPU
+
+# Implementation Hints
+
+- if memory map (Systemrom) contains `0x00` at `0xffec` and `0xff` at `0xffed` then the startup check will be disabled. This reduce the boot time and works on all WPC games (not on FreeWPC games)
+- There is ONE switch in all WPC games called "always closed" (always switch 24 on all WPC games). This switch is used to detect if the switch matrix is faulty. This means if switch 24 is open, the system knows the switch matrix is faulty.
+
+## Timing
+- CPU run at 2 MHZ, this means 2'000'000 clock ticks/s -> The CPU execute 2 cycles per us.
+- CPU IRQ is called 976 times/s, that a IRQ call each 1025us
+- ZeroCross should occur 120 times per second (NTSC running at 60Hz), so each 8.3ms. (8.3 * 2000cycles/ms = 16667 ticks)
+
+Timings are very tight, we cannot use `setTimeout`/`setInterval` to call for example the IRQ. So the main idea is to run one
+main loop that executes some CPU ops then check if one of the following callbacks need to be triggered:
+- each 2049 ticks call IRQ (1025us)
+- each 16667 ticks update ZeroCross flag (8.3ms)
+- each 512 ticks update display scanline (256us)
+
+### DMD display scanline
+The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). At this rate, it takes 256 microseconds per row and a little more than 8 milliseconds per complete frame.
+
+## DMD controller
+
+WPC-89 exposes two memory regions (length 0x200 bytes) to write to the video ram:
+- `0x3800 - 0x39FE` for page 1
+- `0x3A00 - 0x3BFF` for page 2
+
+WPC-95 added four CPU accessible video ram pages:
+- `0x3000 - 0x31FF` for page 3
+- `0x3200 - 0x33FF` for page 4
+- `0x3400 - 0x35FF` for page 5
+- `0x3600 - 0x37FF` for page 6
+
+TODO: I could not find a game that uses those additional video ram pages yet!
+
+## Security PIC (U22)
 FreeWPC documentation about this security feature:
 
 ```
@@ -170,44 +224,21 @@ is stored at 0x81C9/0x81CA (16 bit) for this game.
 2018-10-04T21:33:43.053Z wpcemu:boards:cpu-board mem-read e874
 ```
 
-## POWER-DRIVER-BOARD
-- Williams part number: A-12697-1
+## RAM positions
 
-## SOUND-BOARD
-- Williams part number: A-12738 (aka. pre-DCS sound)
-- Mono output, Sample rate 11KHz, 25 watts power, 8 ohm
-- intelligent and have processors running their own operating system dedicated to sound tasks
-- CPU: Motorola 6809 (MC68A09EP), frequency 2MHz
-- OPM: Yamaha YM2151 OPM (FM Operator Type-M), frequency 3.579545MHz (8-voice FM sound synthesiser)
-- DAC: AD-7524 (Digital Analog converter) and YM3012
-- Harris HC-55536 CVSD (Continuously variable slope delta modulation). Note HC-55536 is pin compatible with 55516 and 55564.
-- MC6821 Peripheral Interface Adaptor (PIA)
-- ROMS: U14, U15 and U18
+Known RAM positions for WPC games
 
-## DMD-BOARD
-- Williams part number A-14039
-- The dot matrix display is 128 columns x 32 rows and refreshes at 122Mhz
-- The controller board has the display RAM and the serialisation logic
-- The display RAM holds 8KB. A full DMD bit plane requires 128x32 pixels, that is, 4096 bits, or 512 bytes. Thus, there is enough RAM to hold a total of 16 planes. At any time, at most two planes can be addressed by the CPU
-
-# Implementation Hints
-
-- if memory map (Systemrom) contains `0x00` at `0xffec` and `0xff` at `0xffed` then the startup check will be disabled. This reduce the boot time and works on all WPC games (not on FreeWPC games)
-- There is ONE switch in all WPC games called "always closed" (always switch 24 on all WPC games). This switch is used to detect if the switch matrix is faulty. This means if switch 24 is open, the system knows the switch matrix is faulty.
-
-## Timing
-- CPU run at 2 MHZ, this means 2'000'000 clock ticks/s -> The CPU execute 2 cycles per us.
-- CPU IRQ is called 976 times/s, that a IRQ call each 1025us
-- ZeroCross should occur 120 times per second (NTSC running at 60Hz), so each 8.3ms. (8.3 * 2000cycles/ms = 16667 ticks)
-
-Timings are very tight, we cannot use `setTimeout`/`setInterval` to call for example the IRQ. So the main idea is to run one
-main loop that executes some CPU ops then check if one of the following callbacks need to be triggered:
-- each 2049 ticks call IRQ (1025us)
-- each 16667 ticks update ZeroCross flag (8.3ms)
-- each 512 ticks update display Scanline (256us)
-
-### DMD display scanline
-The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). At this rate, it takes 256 microseconds per row and a little more than 8 milliseconds per complete frame.
+| Offset        | Comment        |
+| ------------- | -------------- |
+| 0x1800        | Date, year hi  |
+| 0x1801        | Date, year lo  |
+| 0x1802        | Date, month    |
+| 0x1803        | Date, day of month |
+| 0x1804        | Date, days since sunday |
+| 0x1805        | Date, 0x00 ? |
+| 0x1806        | Date, 0x01 ? |
+| 0x1807        | Date, checksum hi |
+| 0x1808        | Date, checksum lo |
 
 ## Gameplay
 - (during active game) if you press and keep pressed left or right FLIPPER - a status report will be shown

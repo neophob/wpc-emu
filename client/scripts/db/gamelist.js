@@ -1,6 +1,7 @@
 'use strict';
 
 import addams from './addams';
+import cv from './cv';
 import dh from './dh';
 import dw from './dw';
 import fishtales from './fishtales';
@@ -20,6 +21,7 @@ export { getAllNames, getByName };
 
 const wpcGames = [
   addams,
+  cv,
   dw,
   dh,
   fishtales,

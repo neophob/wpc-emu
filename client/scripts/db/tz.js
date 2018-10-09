@@ -80,10 +80,16 @@ module.exports = {
     { id: 'F2', name: 'R FLIPPER BUTTON' },
     { id: 'F3', name: 'L FLIPPER EOS' },
     { id: 'F4', name: 'L FLIPPER BUTTON' },
-  ],  
+  ],
   skipWmcRomCheck: true,
   initialise: {
-    closedSwitches: [ 15, 16, 17 ],
+    closedSwitches: [
+      15, 16, 17,
+      22,
+      //OPTO SWITCHES:
+      71, 72, 73, 74, 75, 76, 81, 82, 83, 84, 85, 86, 87,
+      'F2', 'F4',
+    ],
     initialAction: [
       {
         delayMs: 1000,

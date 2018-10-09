@@ -16,7 +16,7 @@ const MAGIC_STRING = [
   0x83,
   0x12,
   0x34,
-  0,0,0,0,0,0,0
+  0, 0, 0, 0, 0, 0, 0
 ];
 
 test('gameId.search should return undefined if magix byte found', (t) => {
@@ -30,7 +30,7 @@ test('gameId.search should ignore magic byte if only found once', (t) => {
 });
 
 test('gameId.search should find magic byte', (t) => {
-  const gameRom = [].concat(MAGIC_STRING).concat(MAGIC_STRING)
+  const gameRom = [].concat(MAGIC_STRING).concat(MAGIC_STRING);
   const systemRom = [0x11, 0x22];
   const result = gameId.search(gameRom, systemRom);
   t.is(result, 0x1122);
