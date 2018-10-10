@@ -23,6 +23,11 @@ Error: INVALID_WRITE_SUBSYSTEM_0xbfc2 {"offset":16322,"subsystem":"system"} 1
 ## Circus Voltare
 
 - need to open/close "COIN DOOR" switch manually to pass the ringmaster test
+- Ringmaster test fails, as a switch should be triggered after a solenoid is triggered
+
+## No Fear
+
+- cannot start game, propbably because of invalid switch state
 
 ## FREEWPC T2
 
