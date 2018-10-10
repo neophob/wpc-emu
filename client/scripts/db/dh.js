@@ -76,9 +76,8 @@ module.exports = {
   initialise: {
     closedSwitches: [
       22,
-      32, 33, 34, 35,
-      //OPTO SWITCHES
-      31, 32, 33, 34, 35, 38, 41, 42, 43, 44, 45, 46, 47,
+      //OPTO SWITCHES: 31, 32, 33, 34, 35, 38, 41, 42, 43, 44, 45, 46, 47,
+      31, 38, 41, 42, 43, 44, 45, 46, 47,
       'F2', 'F4',
     ],
     initialAction: [

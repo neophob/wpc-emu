@@ -93,8 +93,7 @@ module.exports = {
   skipWmcRomCheck: true,
   initialise: {
     closedSwitches: [
-      81, 82, 83, 84, 85, 86,
-      //OPTO SWITCHES
+      //OPTO SWITCHES: 81, 82, 83, 84, 85, 86,
       41, 42, 43, 44, 45, 47, 71, 72, 73,
       'F2', 'F4', 'F6', 'F8',
     ],
