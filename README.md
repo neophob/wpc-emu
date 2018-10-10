@@ -43,7 +43,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 
 ## Sound Board
 - load pre DCS sound ROM files ✓
-- load DCS sound ROM files 
+- load DCS sound ROM files
 - Bank Switching ✓
 - Resample audio to 44.1khz
 - emulate 6809 CPU ✓
@@ -56,12 +56,15 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Page Selection ✓
 - Scanline Handling ✓
 - Dimming / multi color display ✓
-- WPC 95 support
+- WPC 95 support ✓
 
 ## Debug UI
 - DMD output ✓
+- VideoRAM output ✓
 - Debug KPI ✓
 - Cabinet input keys work ✓
+- Switch input keys work ✓
+- Fliptronics input keys work ✓
 - Adaptive FPS ✓
 
 # Development
@@ -172,14 +175,16 @@ The controller fetches 1 byte (8 pixels) every 32 CPU cycles (16 microseconds). 
 ## DMD controller
 
 WPC-89 exposes two memory regions (length 0x200 bytes) to write to the video ram:
-- `0x3800 - 0x39FE` for page 1
-- `0x3A00 - 0x3BFF` for page 2
+- `0x3800 - 0x39FE` for bank 1
+- `0x3A00 - 0x3BFF` for bank 2
 
 WPC-95 added four CPU accessible video ram pages:
-- `0x3000 - 0x31FF` for page 3
-- `0x3200 - 0x33FF` for page 4
-- `0x3400 - 0x35FF` for page 5
-- `0x3600 - 0x37FF` for page 6
+- `0x3000 - 0x31FF` for bank 3
+- `0x3200 - 0x33FF` for bank 4
+- `0x3400 - 0x35FF` for bank 5
+- `0x3600 - 0x37FF` for bank 6
+
+Each bank can point to an individual address to one of the 16 video ram pages.
 
 TODO: I could not find a game that uses those additional video ram pages yet!
 
@@ -265,6 +270,15 @@ This very primitive schema shows where the switches are:
 ## To Test:
 - memory position of current score, player number, credits
 - serial port?
+
+## Error Messages
+
+### Invalid Switch state
+`check fuses f101 and f109, j127 and opto 12v supply`
+`check fuses f115 and f116, j112 and opto 12v supply`
+
+- check the initial switch state, possible that a switch is in the wrong state
+- NOTE: opto switches are closed in the initial state!
 
 # References
 
