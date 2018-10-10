@@ -60,8 +60,11 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 
 ## Debug UI
 - DMD output ✓
+- VideoRAM output ✓
 - Debug KPI ✓
 - Cabinet input keys work ✓
+- Switch input keys work ✓
+- Fliptronics input keys work ✓
 - Adaptive FPS ✓
 
 # Development
