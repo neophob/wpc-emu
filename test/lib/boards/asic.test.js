@@ -6,7 +6,7 @@ import CpuBoardAsic from '../../../lib/boards/asic';
 
 let clock;
 test.before(() => {
-  clock = sinon.useFakeTimers();
+  clock = sinon.useFakeTimers(12345678);
 });
 
 test.after('cleanup', () => {
@@ -156,7 +156,7 @@ test('wpc, update active lamp', (t) => {
 test('wpc, get time, should update checksum', (t) => {
   const wpc = t.context;
   const hours = wpc.read(CpuBoardAsic.OP.WPC_CLK_HOURS_DAYS);
-  t.is(hours, 1);
+  t.is(hours, 4);
   t.is(wpc.ram[0x1807], 255);
   t.is(wpc.ram[0x1808], 62);
 });
