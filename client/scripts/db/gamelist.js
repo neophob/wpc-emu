@@ -16,6 +16,7 @@ import t2Freewpc from './t2.freewpc';
 import t2 from './t2';
 import tpz from './tpz';
 import tz from './tz';
+import wpcTestrom from './wpc.testrom';
 
 export { getAllNames, getByName };
 
@@ -36,6 +37,7 @@ const wpcGames = [
   t2,
   tpz,
   tz,
+  wpcTestrom,
 ];
 
 function getAllNames() {
