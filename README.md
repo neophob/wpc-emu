@@ -277,11 +277,24 @@ This very primitive schema shows where the switches are:
 ## Error Messages
 
 ### Invalid Switch state
-`check fuses f101 and f109, j127 and opto 12v supply`
-`check fuses f115 and f116, j112 and opto 12v supply`
 
+Error message:
+- `check fuses f101 and f109, j127 and opto 12v supply`
+- `check fuses f115 and f116, j112 and opto 12v supply`
+
+Solution:
 - check the initial switch state, possible that a switch is in the wrong state
 - NOTE: opto switches are closed in the initial state!
+
+### Do not disable checksum check
+
+If the `skipWmcRomCheck` is set to false, you see this error on some machines (dh, mm):
+
+- `G11 CKSUM ERROR`
+
+Issue: ROM checksum invalid
+
+Solution:
 
 # References
 
