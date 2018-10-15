@@ -162,3 +162,10 @@ test('wpc, get time, should update checksum', (t) => {
   t.is(wpc.ram[0x1807], 255);
   t.is(wpc.ram[0x1808], 62);
 });
+
+test('wpc, write and read fliptronics', (t) => {
+  const wpc = t.context;
+  wpc.setFliptronicsInput('F4');
+  const result = wpc.read(CpuBoardAsic.OP.WPC_FLIPTRONICS_FLIPPER_PORT_A);
+  t.is(result, 0x8);
+});
