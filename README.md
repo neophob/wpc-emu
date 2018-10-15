@@ -235,6 +235,9 @@ Known RAM positions for WPC games
 
 | Offset        | Comment        |
 | ------------- | -------------- |
+| 0x0011        | Current Bank Marker, ??  |
+| 0x0012        | Bank Jump Address hi, ??  |
+| 0x0013        | Bank Jump Address lo, ??  |
 | 0x1800        | Date, year hi  |
 | 0x1801        | Date, year lo  |
 | 0x1802        | Date, month    |
