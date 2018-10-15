@@ -2,7 +2,7 @@
 
 module.exports = {
   name: 'No Fear',
-  version: 'L-8',
+  version: '2.3X',
   rom: {
     u06: 'nofe2_3x.rom',
   },
