@@ -19,7 +19,7 @@
     "xo": "^0.23.0"
   },
   "dependencies": {
-    "debug": "^3.1.0"
+    "debug": "^4.1.0"
   },
   "xo": {
     "envs": [
