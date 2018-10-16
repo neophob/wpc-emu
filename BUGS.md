@@ -106,7 +106,9 @@ sound-board.js:244 wpcemu:boards:sound-board: CPU_WRITE8_FAIL {"offset":14907,"s
 After about 100k cycles the emu crashes with this error message:
 
 ```
-CPU_WRITE8_FAIL {"offset":32767,"subsystem":"system"} -1 191
-UNHANDLED_REJECTION { msg: 'INVALID_WRITE_SUBSYSTEM_0x-1',
-  stack: 'Error: INVALID_WRITE_SUBSYSTEM_0x-1\n    at WpcAsic._write8 (/Users/michaelvogt/_code/github/wpc-emu/lib/boards/cpu-board.js:231:15)\n    at Cpu6809.PUSHW (/Users/michaelvogt/_code/github/wpc-emu/lib/boards/up/cpu6809.js:192:10)\n    at Cpu6809.step (/Users/michaelvogt/_code/github/wpc-emu/lib/boards/up/cpu6809.js:1760:14)\n    at Cpu6809.steps (/Users/michaelvogt/_code/github/wpc-emu/lib/boards/up/cpu6809.js:2406:21)\n    at WpcAsic.executeCycle (/Users/michaelvogt/_code/github/wpc-emu/lib/boards/cpu-board.js:139:36)\n    at Emulator.executeCycle (/Users/michaelvogt/_code/github/wpc-emu/lib/emulator.js:45:26)\n    at boot (/Users/michaelvogt/_code/github/wpc-emu/test/dmdripper/index.js:208:13)\n    at loadRomFilesPromise.then.then (/Users/michaelvogt/_code/github/wpc-emu/test/dmdripper/index.js:169:7)\n    at <anonymous>' }
+21:05:36.646 cpu-board.js:256 CPU_WRITE8_FAIL {"offset":32766,"subsystem":"system"} 65534 142
   ```
+
+Somehow mm writes to the registerS position. Depending on the initial value of registerS, the emu write to whatever is stored there.
+
+Best guess is that there's a bug in the CPU which triggers this issue.

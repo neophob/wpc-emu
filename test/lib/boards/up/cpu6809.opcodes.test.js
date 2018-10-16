@@ -201,3 +201,31 @@ test('oDEC, 0x0 (overflow)', (t) => {
   t.is(cpu.tickCount, 2);
   t.is(cpu.flagsToString(), 'eFhINzVc');
 });
+
+test('PUSHB should wrap around', (t) => {
+  const cpu = t.context;
+  cpu.reset();
+  cpu.PUSHB(0x23);
+  t.deepEqual(writeMemoryAddress, [{ address: 65535, value: 0x23 }]);
+});
+
+test('PUSHW should wrap around', (t) => {
+  const cpu = t.context;
+  cpu.reset();
+  cpu.PUSHW(0x1234);
+  t.deepEqual(writeMemoryAddress, [{ address: 65535, value: 0x34 }, { address: 65534, value: 0x12 }]);
+});
+
+test('PUSHBU should wrap around', (t) => {
+  const cpu = t.context;
+  cpu.reset();
+  cpu.PUSHBU(0x23);
+  t.deepEqual(writeMemoryAddress, [{ address: 65535, value: 0x23 }]);
+});
+
+test('PUSHWU should wrap around', (t) => {
+  const cpu = t.context;
+  cpu.reset();
+  cpu.PUSHWU(0x1234);
+  t.deepEqual(writeMemoryAddress, [{ address: 65535, value: 0x34 }, { address: 65534, value: 0x12 }]);
+});
