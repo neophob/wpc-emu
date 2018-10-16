@@ -21,7 +21,7 @@ test('should _bankswitchedRead, bank 0', (t) => {
   const BANK = 0;
   const cpuBoard = t.context;
   cpuBoard.gameRom[0] = 12;
-  cpuBoard.asic.romBank = BANK & cpuBoard.asic.pageMask;
+  cpuBoard.asic.write(0x3FFC, BANK);
   const result = cpuBoard._bankswitchedRead(0);
   t.is(result, 12);
 });
@@ -30,7 +30,7 @@ test('should _bankswitchedRead, bank 1', (t) => {
   const BANK = 1;
   const cpuBoard = t.context;
   cpuBoard.gameRom[PAGESIZE] = 12;
-  cpuBoard.asic.romBank = BANK & cpuBoard.asic.pageMask;
+  cpuBoard.asic.write(0x3FFC, BANK);
   const result = cpuBoard._bankswitchedRead(0);
   t.is(result, 12);
 });
@@ -39,7 +39,7 @@ test('should _bankswitchedRead, bank 5', (t) => {
   const BANK = 5;
   const cpuBoard = t.context;
   cpuBoard.gameRom[5 * PAGESIZE] = 12;
-  cpuBoard.asic.romBank = BANK & cpuBoard.asic.pageMask;
+  cpuBoard.asic.write(0x3FFC, BANK);
   const result = cpuBoard._bankswitchedRead(0);
   t.is(result, 12);
 });
@@ -48,8 +48,8 @@ test('should _bankswitchedRead, bank 6', (t) => {
   const BANK = 6;
   const cpuBoard = t.context;
   // this read wraps already
-  cpuBoard.gameRom[0] = 12;
-  cpuBoard.asic.romBank = BANK & cpuBoard.asic.pageMask;
+  cpuBoard.systemRom[0] = 12;
+  cpuBoard.asic.write(0x3FFC, BANK);
   const result = cpuBoard._bankswitchedRead(0);
   t.is(result, 12);
 });
@@ -57,8 +57,8 @@ test('should _bankswitchedRead, bank 6', (t) => {
 test('should _bankswitchedRead, bank 7', (t) => {
   const BANK = 7;
   const cpuBoard = t.context;
-  cpuBoard.gameRom[1 * PAGESIZE] = 12;
-  cpuBoard.asic.romBank = BANK & cpuBoard.asic.pageMask;
+  cpuBoard.systemRom[0] = 12;
+  cpuBoard.asic.write(0x3FFC, BANK);
   const result = cpuBoard._bankswitchedRead(0);
   t.is(result, 12);
 });
@@ -67,7 +67,7 @@ test('should _bankswitchedRead, bank 8', (t) => {
   const BANK = 8;
   const cpuBoard = t.context;
   cpuBoard.gameRom[0] = 12;
-  cpuBoard.asic.romBank = BANK & cpuBoard.asic.pageMask;
+  cpuBoard.asic.write(0x3FFC, BANK);
   const result = cpuBoard._bankswitchedRead(0);
   t.is(result, 12);
 });
@@ -75,8 +75,8 @@ test('should _bankswitchedRead, bank 8', (t) => {
 test('should _bankswitchedRead, bank 0xFF', (t) => {
   const BANK = 0xFF;
   const cpuBoard = t.context;
-  cpuBoard.gameRom[1 * PAGESIZE] = 12;
-  cpuBoard.asic.romBank = BANK & cpuBoard.asic.pageMask;
+  cpuBoard.systemRom[0] = 12;
+  cpuBoard.asic.write(0x3FFC, BANK);
   const result = cpuBoard._bankswitchedRead(0);
   t.is(result, 12);
 });
