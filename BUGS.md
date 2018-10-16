@@ -100,7 +100,6 @@ sound-board.js:244 wpcemu:boards:sound-board: CPU_WRITE8_FAIL {"offset":14907,"s
   CWAI might be broken!
 ```
 
-
 ## Medieval Madness
 
 After about 100k cycles the emu crashes with this error message:
@@ -112,3 +111,57 @@ After about 100k cycles the emu crashes with this error message:
 Somehow mm writes to the registerS position. Depending on the initial value of registerS, the emu write to whatever is stored there.
 
 Best guess is that there's a bug in the CPU which triggers this issue.
+
+# Johnny Mnemonic
+
+```
+00:05:37.283 asic.js:391 R_NOT_IMPLEMENTED 0x3fe2 0
+00:05:37.283 asic.js:391 R_NOT_IMPLEMENTED 0x3fe3 0
+00:05:37.283 asic.js:391 R_NOT_IMPLEMENTED 0x3fe4 30
+00:05:37.284 asic.js:391 R_NOT_IMPLEMENTED 0x3fe5 32
+00:05:37.285 asic.js:391 R_NOT_IMPLEMENTED 0x3fe6 62
+00:05:37.286 asic.js:391 R_NOT_IMPLEMENTED 0x3fea 28
+00:05:37.287 asic.js:391 R_NOT_IMPLEMENTED 0x3ff0 0
+00:05:37.287 asic.js:391 R_NOT_IMPLEMENTED 0x3ff1 0
+00:05:37.288 asic.js:391 R_NOT_IMPLEMENTED 0x3ff3 0
+00:05:37.289 externalIo.js:75 IO R_NOT_IMPLEMENTED 0x3fd6
+00:05:37.290 externalIo.js:75 IO R_NOT_IMPLEMENTED 0x3fd9
+00:05:37.396 cpu-board.js:256 CPU_WRITE8_FAIL {"offset":32512,"subsystem":"system"} 65280 47
+...
+00:05:37.604 cpu-board.js:256 CPU_WRITE8_FAIL {"offset":10784,"subsystem":"system"} 43552 0
+00:05:37.605 cpu-board.js:256 CPU_WRITE8_FAIL {"offset":10785,"subsystem":"system"} 43553 80
+00:05:37.606 cpu6809.js:2322 Uncaught Error: CPU_OPCODE_INVALID_PAGE2_0
+    at Cpu6809.step (cpu6809.js:2322)
+    at Cpu6809.steps (cpu6809.js:2413)
+    at WpcCpuBoard.executeCycle (cpu-board.js:159)
+    at Emulator.executeCycle (emulator.js:46)
+    at step (main.js:103)
+```
+
+```
+cpu-board.js:256 CPU_WRITE8_FAIL {"offset":32755,"subsystem":"system"} 65523 242
+cpu-board.js:256 CPU_WRITE8_FAIL {"offset":14847,"subsystem":"bank"} 31231 72
+cpu-board.js:256 CPU_WRITE8_FAIL {"offset":32767,"subsystem":"system"} 65535 255
+cpu-board.js:256 CPU_WRITE8_FAIL {"offset":32767,"subsystem":"system"} 65535 255
+cpu6809.js:474 Uncaught Error: TFREXG_ERROR
+    at Cpu6809.TFREXG (cpu6809.js:474)
+    at Cpu6809.step (cpu6809.js:1106)
+    at Cpu6809.steps (cpu6809.js:2413)
+    at WpcCpuBoard.executeCycle (cpu-board.js:159)
+    at Emulator.executeCycle (emulator.js:46)
+    at step (main.js:103)
+​```
+
+```
+CPU_WRITE8_FAIL {"offset":32745,"subsystem":"system"} 65513 126
+cpu-board.js:256 CPU_WRITE8_FAIL {"offset":32746,"subsystem":"system"} 65514 147
+cpu-board.js:256 CPU_WRITE8_FAIL {"offset":4104,"subsystem":"system"} 36872 147
+cpu6809.js:643 Uncaught Error: INVALID_ADDRESS_MODE_0x0E
+    at Cpu6809.PostByte (cpu6809.js:643)
+    at Cpu6809.step (cpu6809.js:1947)
+    at Cpu6809.steps (cpu6809.js:2413)
+    at WpcCpuBoard.executeCycle (cpu-board.js:159)
+    at Emulator.executeCycle (emulator.js:46)
+    at step (main.js:103)
+```
+Misc issues here, maybe related to the Medieval Madness issue?
