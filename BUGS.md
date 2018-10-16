@@ -165,3 +165,5 @@ cpu6809.js:643 Uncaught Error: INVALID_ADDRESS_MODE_0x0E
     at step (main.js:103)
 ```
 Misc issues here, maybe related to the Medieval Madness issue?
+
+Paging issue? read 2nd page of system rom?
