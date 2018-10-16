@@ -1,5 +1,8 @@
 # HISTORY
 
+## 16/10/18
+- really fixed bankswitched read
+
 ## 15/10/18
 - fixed issue with bankswitched read, now the WPC test ROM runs
 
