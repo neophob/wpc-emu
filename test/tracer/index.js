@@ -6,6 +6,8 @@ const fs = require('fs');
 const disasm = require('./disasm');
 
 const romU06Path = process.env.ROMFILE || path.join(__dirname, '/../../rom/HURCNL_2.ROM');
+const MAX_LOOPS = 64;
+const lastPC = [MAX_LOOPS].fill(0xFF);
 
 function startTrace() {
   const loadRomFilesPromise = Promise.all([
@@ -26,15 +28,14 @@ function startTrace() {
 
       wpcSystem.reset();
       wpcSystem.start();
-/*
-8C65: LDA   #$00
-8C67: STA   $3FF2
-8C6A: LDY   #$0006
-8C6E: CLRB
-8C6F: LDX   $FFEC
-*/
+
+      //TODO dump to a file
+
       let i = 0;
-      while (i++ < 141) {
+      const outputSlice = [];
+      let traceLoops = 0;
+
+      while (i++ < 3107) {
         wpcSystem.executeCycle(1, 1);
         const cpu = wpcSystem.cpuBoard.cpu;
         const pc = cpu.regPC;
@@ -43,11 +44,33 @@ function startTrace() {
         const i3 = cpu.memoryReadFunction(pc+2);
         const i4 = cpu.memoryReadFunction(pc+3);
         const i5 = cpu.memoryReadFunction(pc+4);
-
-        const instr = disasm.disasm(i1, i2, i3, i4, i5, pc);
-        console.log(pc.toString(16).toUpperCase() + ': ' + instr.mnemo.padEnd(6) + instr.params);
+        outputSlice.push({ pc, i1, i2, i3, i4, i5 });
       }
 
+      outputSlice.forEach((line) => {
+        const pc = line.pc;
+        let count = 0;
+        /* check for trace_loops - ripped from mame */
+        for (i = 0; i < MAX_LOOPS; i++ ) {
+          if (lastPC[i] === pc) {
+            count++;
+          }
+        }
+
+        if (count > 1) {
+          traceLoops++;
+        } else {
+          if (traceLoops) {
+            console.log('TRACELOOP', traceLoops);
+          }
+          const instr = disasm.disasm(line.i1, line.i2, line.i3, line.i4, line.i5, pc);
+
+          console.log(pc.toString(16).toUpperCase() + ': ' +
+            instr.mnemo.padEnd(6) + instr.params);
+          
+        }
+
+      });
     });
 }
 
