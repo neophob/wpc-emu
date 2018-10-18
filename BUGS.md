@@ -114,6 +114,9 @@ Best guess is that there's a bug in the CPU which triggers this issue.
 
 # Johnny Mnemonic
 
+Misc crashes:
+- @ 11MIO ops
+
 ```
 00:05:37.283 asic.js:391 R_NOT_IMPLEMENTED 0x3fe2 0
 00:05:37.283 asic.js:391 R_NOT_IMPLEMENTED 0x3fe3 0
@@ -167,3 +170,40 @@ cpu6809.js:643 Uncaught Error: INVALID_ADDRESS_MODE_0x0E
 Misc issues here, maybe related to the Medieval Madness issue?
 
 Paging issue? read 2nd page of system rom?
+
+
+# TRACE DUMP COMPARE WITH MAME
+
+Loading hurricane
+
+```
+CC=50 A=0006 B=0000 X=8193 Y=0000 S=1728 U=2E2F 9E22: ANDCC #$AF
+-CC=00 A=0006 B=0000 X=8193 Y=0000 S=1728 U=2E2F 9E24: JSR   $925D
++CC=90 A=0006 B=0000 X=8193 Y=0000 S=171C U=2E2F 90BF: LDA   #$96
+CC=98 A=0096 B=0000 X=8193 Y=0000 S=171C U=2E2F 90C1: STA   $3FFF
+```
+- WPC EMU: AND 0x50 with 0xAF -> result is 0.
+- MAME: same, but then explicit IRQ CHECK
+-> might be just a disassembler issue, as the next instruction is correct. a pending interrupt is not shown in the WPC disabembler
+
+
+```
+...
+-CC=56 A=00FF B=0000 X=6F5F Y=0000 S=1719 U=2E2F 864C: LEAS  $1,S
+-CC=56 A=00FF B=0000 X=6F5F Y=0000 S=171A U=2E2F 864E: PULS  A,B,X,Y,PC
+-CC=56 A=00FF B=0000 X=8193 Y=0000 S=1722 U=2E2F 6F5F: BCC   $6F6B
+-CC=56 A=00FF B=0000 X=8193 Y=0000 S=1722 U=2E2F 6F6B: PULS  A,PC
+-CC=56 A=0006 B=0000 X=8193 Y=0000 S=1725 U=2E2F 88EF: PSHS  CC,A
+-CC=56 A=0006 B=0000 X=8193 Y=0000 S=1723 U=2E2F 88F1: LDA   $2,S
++CC=54 A=00FF B=0000 X=6F5F Y=0000 S=1719 U=2E2F 864C: LEAS  $1,S
++CC=54 A=00FF B=0000 X=6F5F Y=0000 S=171A U=2E2F 864E: PULS  A,B,X,Y,PC
++CC=54 A=00FF B=0000 X=8193 Y=0000 S=1722 U=2E2F 6F5F: BCC   $6F6B
++CC=54 A=00FF B=0000 X=8193 Y=0000 S=1722 U=2E2F 6F6B: PULS  A,PC
++CC=54 A=0006 B=0000 X=8193 Y=0000 S=1725 U=2E2F 88EF: PSHS  A,CC
++CC=54 A=0006 B=0000 X=8193 Y=0000 S=1723 U=2E2F 88F1: LDA   $2,S
+...
+
+WPC CC: 56    0101 0110
+MAME CC: 54   0101 0100
+```
+-> Overflow flag not correct
