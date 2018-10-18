@@ -9,7 +9,7 @@ const romU06Path = process.env.ROMFILE || path.join(__dirname, '/../../rom/HURCN
 const HAS_SECURITY_FEATURE = process.env.HAS_SECURITY_FEATURE === 'true' ? 'securityPic' : '';
 const MAXSTEPS = process.env.STEPS || 0xFF000;
 
-console.log('WPC-EMU tracer', { HAS_SECURITY_FEATURE, MAXSTEPS, ROMFILE });
+console.log('WPC-EMU tracer', { HAS_SECURITY_FEATURE, MAXSTEPS, ROMFILE: romU06Path });
 
 const MAX_LOOPS = 64;
 const lastPC = [MAX_LOOPS].fill(0xFF);

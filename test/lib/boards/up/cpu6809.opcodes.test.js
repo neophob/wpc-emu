@@ -199,7 +199,43 @@ test('oDEC, 0x0 (overflow)', (t) => {
     [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
   t.is(cpu.regA, 0xFF);
   t.is(cpu.tickCount, 2);
-  t.is(cpu.flagsToString(), 'eFhINzVc');
+  t.is(cpu.flagsToString(), 'eFhINzvc');
+});
+
+test('oINC, 0x00 (no overflow)', (t) => {
+  const OP_INC = 0x4C;
+  const VALUE = 0x00;
+  const cpu = t.context;
+  // add command in reverse order
+  readMemoryAddress = [ OP_INC, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+
+  cpu.reset();
+  cpu.regA = VALUE;
+  cpu.step();
+
+  t.deepEqual(readMemoryAddressAccess,
+    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
+  t.is(cpu.regA, 0x01);
+  t.is(cpu.tickCount, 2);
+  t.is(cpu.flagsToString(), 'eFhInzvc');
+});
+
+test('oINC, 0xFF (overflow)', (t) => {
+  const OP_INC = 0x4C;
+  const VALUE = 0xFF;
+  const cpu = t.context;
+  // add command in reverse order
+  readMemoryAddress = [ OP_INC, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+
+  cpu.reset();
+  cpu.regA = VALUE;
+  cpu.step();
+
+  t.deepEqual(readMemoryAddressAccess,
+    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
+  t.is(cpu.regA, 0x00);
+  t.is(cpu.tickCount, 2);
+  t.is(cpu.flagsToString(), 'eFhInZvc');
 });
 
 test('PUSHB should wrap around', (t) => {
