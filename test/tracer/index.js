@@ -92,7 +92,7 @@ function flushTraces() {
       traceLoops++;
     } else {
       if (traceLoops) {
-        console.log('\n   (loops for ' + traceLoops + ' instructions)\n');
+        console.error('\n   (loops for ' + traceLoops + ' instructions)\n');
         traceLoops = 0;
       }
       const instr = disasm.disasm(line.i1, line.i2, line.i3, line.i4, line.i5, pc);
@@ -122,11 +122,11 @@ function printInstruction(pc, instr, line) {
   const U = 'U=' + formatRegister(line.u, 4);
   const REGS = CC + A + B + X + Y + S + U;
   if (instr.params.length > 0) {
-    console.log(REGS + pc.toString(16).toUpperCase() + ': ' +
+    console.error(REGS + pc.toString(16).toUpperCase() + ': ' +
         instr.mnemo.padEnd(6) + instr.params
     );
   } else {
-    console.log(REGS + pc.toString(16).toUpperCase() + ': ' +
+    console.error(REGS + pc.toString(16).toUpperCase() + ': ' +
         instr.mnemo
     );
   }
