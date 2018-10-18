@@ -1,0 +1,3 @@
+[submodule "test/tracer/wpc-dumps"]
+	path = test/tracer/wpc-dumps
+	url = https://github.com/neophob/wpc-dumps
