@@ -14,135 +14,171 @@ const EXPECTED_RESET_READ_OFFSET_HI = 0x202;
 const RESET_VECTOR_OFFSET_LO = 0xFFFE;
 const RESET_VECTOR_OFFSET_HI = 0xFFFF;
 
-let readMemoryAddressAccess;
-let readMemoryAddress;
-let writeMemoryAddress;
 test.beforeEach((t) => {
-  readMemoryAddressAccess = [];
-  readMemoryAddress = [];
-  writeMemoryAddress = [];
+
   const readMemoryMock = (address) => {
-    readMemoryAddressAccess.push(address);
-    return readMemoryAddress.pop();
+    t.context.readMemoryAddressAccess.push(address);
+    return t.context.readMemoryAddress.pop();
   };
   const writeMemoryMock = (address, value) => {
-    writeMemoryAddress.push({ address, value });
+    t.context.writeMemoryAddress.push({ address, value });
   };
-  const cpu = Cpu6809.getInstance(writeMemoryMock, readMemoryMock);
-  t.context = cpu;
+  const cpu = Cpu6809.getInstance(writeMemoryMock, readMemoryMock, 'UNITTEST');
+  t.context = {
+    cpu,
+    readMemoryAddressAccess: [],
+    readMemoryAddress: [],
+    writeMemoryAddress: [],
+  };
 });
 
 test('should read RESET vector on boot', (t) => {
-  const cpu = t.context;
+  const cpu = t.context.cpu;
   cpu.reset();
-  t.deepEqual(readMemoryAddressAccess,
+  t.deepEqual(t.context.readMemoryAddressAccess,
     [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI ]);
+});
+
+test('ROLA 0xFF', (t) => {
+  const OP_ROLA = 0x49;
+  const cpu = t.context.cpu;
+  runRegisterATest(t, OP_ROLA, 0xFF);
+
+  t.is(cpu.regA, 0xFE);
+  t.is(cpu.tickCount, 2);
+  t.is(cpu.flagsToString(), 'eFhINzvC');
+});
+
+test('ROLA, 0xFF - carry flag set', (t) => {
+  const OP_ROLA = 0x49;
+  const cpu = t.context.cpu;
+  runRegisterATest(t, OP_ROLA, 0xFF, (t) => {
+    const cc = t.context.cpu.regCC |= 1;
+    cpu.set('FLAGS', cc);
+  });
+
+  t.is(cpu.regA, 0xFF);
+  t.is(cpu.tickCount, 2);
+  t.is(cpu.flagsToString(), 'eFhINzvC');
+});
+
+test('RORA, 0x01 (no overflow)', (t) => {
+  const OP_RORA = 0x46;
+  const cpu = t.context.cpu;
+  runRegisterATest(t, OP_RORA, 0x01);
+
+  t.is(cpu.regA, 0x0);
+  t.is(cpu.tickCount, 2);
+  t.is(cpu.flagsToString(), 'eFhInZvC');
+});
+
+test('RORA, 0xFF - carry flag not set', (t) => {
+  const OP_RORA = 0x46;
+  const cpu = t.context.cpu;
+  runRegisterATest(t, OP_RORA, 0xFF);
+
+  t.is(cpu.regA, 0x7F);
+  t.is(cpu.tickCount, 2);
+  t.is(cpu.flagsToString(), 'eFhInzvC');
+});
+
+test('RORA, 0xFF - carry flag set', (t) => {
+  const OP_RORA = 0x46;
+  const cpu = t.context.cpu;
+  runRegisterATest(t, OP_RORA, 0xFF, (t) => {
+    const cc = t.context.cpu.regCC |= 1;
+    cpu.set('FLAGS', cc);
+  });
+
+  t.is(cpu.regA, 0xFF);
+  t.is(cpu.tickCount, 2);
+  t.is(cpu.flagsToString(), 'eFhINzvC');
 });
 
 test('ADDA / oADD', (t) => {
   const OP_ADDA = 0x8B;
   const ADD_VALUE_1 = 0xFF;
   const ADD_VALUE_2 = 0xFF;
-  const cpu = t.context;
+  const cpu = t.context.cpu;
   // add command in reverse order
-  readMemoryAddress = [ ADD_VALUE_2, OP_ADDA, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+  t.context.readMemoryAddress = [ ADD_VALUE_2, OP_ADDA, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
 
   cpu.reset();
   cpu.regA = ADD_VALUE_1;
   cpu.step();
 
-  t.deepEqual(readMemoryAddressAccess,
+  t.deepEqual(t.context.readMemoryAddressAccess,
     [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO, EXPECTED_RESET_READ_OFFSET_HI ]);
   t.is(cpu.regA, 254);
   t.is(cpu.tickCount, 2);
   t.is(cpu.flagsToString(), 'eFHINzvC');
 });
 
-test('oROL', (t) => {
-  const OP_ROL = 0x49;
-  const ADD_VALUE_1 = 0xFF;
-  const cpu = t.context;
-  // add command in reverse order
-  readMemoryAddress = [ OP_ROL, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+test('LSRA', (t) => {
+  const OP_LSRA = 0x44;
+  const cpu = t.context.cpu;
+  runRegisterATest(t, OP_LSRA, 0xFF);
 
-  cpu.reset();
-  cpu.regA = ADD_VALUE_1;
-  cpu.step();
-
-  t.deepEqual(readMemoryAddressAccess,
-    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
-  t.is(cpu.regA, 254);
-  t.is(cpu.tickCount, 2);
-  t.is(cpu.flagsToString(), 'eFhINzvC');
-});
-
-test('oROR', (t) => {
-  const OP_ROR = 0x46;
-  const ADD_VALUE_1 = 0xFF;
-  const cpu = t.context;
-  // add command in reverse order
-  readMemoryAddress = [ OP_ROR, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
-
-  cpu.reset();
-  cpu.regA = ADD_VALUE_1;
-  cpu.step();
-
-  t.deepEqual(readMemoryAddressAccess,
-    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
   t.is(cpu.regA, 0x7F);
   t.is(cpu.tickCount, 2);
   t.is(cpu.flagsToString(), 'eFhInzvC');
 });
 
-test('oASL, overflow', (t) => {
-  const OP_ASL = 0x48;
-  const ADD_VALUE_1 = 0x81;
-  const cpu = t.context;
-  // add command in reverse order
-  readMemoryAddress = [ OP_ASL, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+test('ASLA, overflow', (t) => {
+  const OP_ASLA = 0x48;
+  const cpu = t.context.cpu;
+  runRegisterATest(t, OP_ASLA, 0x81);
 
-  cpu.reset();
-  cpu.regA = ADD_VALUE_1;
-  cpu.step();
-
-  t.deepEqual(readMemoryAddressAccess,
-    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
   t.is(cpu.regA, 2);
   t.is(cpu.tickCount, 2);
   t.is(cpu.flagsToString(), 'eFhInzVC');
 });
 
-test('oASL, no overflow', (t) => {
-  const OP_ASL = 0x48;
-  const ADD_VALUE_1 = 1;
-  const cpu = t.context;
-  // add command in reverse order
-  readMemoryAddress = [ OP_ASL, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+test('ASLA, no overflow', (t) => {
+  const OP_ASLA = 0x48;
+  const cpu = t.context.cpu;
+  runRegisterATest(t, OP_ASLA, 0x01);
 
-  cpu.reset();
-  cpu.regA = ADD_VALUE_1;
-  cpu.step();
-
-  t.deepEqual(readMemoryAddressAccess,
-    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
   t.is(cpu.regA, 2);
   t.is(cpu.tickCount, 2);
   t.is(cpu.flagsToString(), 'eFhInzvc');
 });
 
+test('ASRA (0xFF)', (t) => {
+  const OP_ASRA = 0x47;
+  const cpu = t.context.cpu;
+  runRegisterATest(t, OP_ASRA, 0xFF);
+
+  t.is(cpu.regA, 0xFF);
+  t.is(cpu.tickCount, 2);
+  t.is(cpu.flagsToString(), 'eFhINzvC');
+});
+
+test('ASRA (0x7F)', (t) => {
+  const OP_ASRA = 0x47;
+  const cpu = t.context.cpu;
+  runRegisterATest(t, OP_ASRA, 0x7F);
+
+  t.is(cpu.regA, 0x3F);
+  t.is(cpu.tickCount, 2);
+  t.is(cpu.flagsToString(), 'eFhInzvC');
+});
+
+test('ASRA (0)', (t) => {
+  const OP_ASRA = 0x47;
+  const cpu = t.context.cpu;
+  runRegisterATest(t, OP_ASRA, 0);
+
+  t.is(cpu.regA, 0);
+  t.is(cpu.tickCount, 2);
+  t.is(cpu.flagsToString(), 'eFhInZvc');
+});
+
 test('oNEG, 0x1', (t) => {
   const OP_NEG = 0x40;
-  const ADD_VALUE_1 = 1;
-  const cpu = t.context;
-  // add command in reverse order
-  readMemoryAddress = [ OP_NEG, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+  const cpu = t.context.cpu;
+  runRegisterATest(t, OP_NEG, 0x01);
 
-  cpu.reset();
-  cpu.regA = ADD_VALUE_1;
-  cpu.step();
-
-  t.deepEqual(readMemoryAddressAccess,
-    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
   t.is(cpu.regA, 0xFF);
   t.is(cpu.tickCount, 2);
   t.is(cpu.flagsToString(), 'eFhINzvC');
@@ -150,35 +186,20 @@ test('oNEG, 0x1', (t) => {
 
 test('oNEG, 0xFF', (t) => {
   const OP_NEG = 0x40;
-  const ADD_VALUE_1 = 0x1;
-  const cpu = t.context;
-  // add command in reverse order
-  readMemoryAddress = [ OP_NEG, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+  const cpu = t.context.cpu;
+  runRegisterATest(t, OP_NEG, 0xFF);
 
-  cpu.reset();
-  cpu.regA = ADD_VALUE_1;
-  cpu.step();
-
-  t.deepEqual(readMemoryAddressAccess,
-    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
-  t.is(cpu.regA, 0xFF);
+  //TODO correct?
+  t.is(cpu.regA, 0x01);
   t.is(cpu.tickCount, 2);
-  t.is(cpu.flagsToString(), 'eFhINzvC');
+  t.is(cpu.flagsToString(), 'eFhInzvc');
 });
 
 test('oDEC, 0x80 (no overflow)', (t) => {
   const OP_DEC = 0x4A;
-  const ADD_VALUE_1 = 0x80;
-  const cpu = t.context;
-  // add command in reverse order
-  readMemoryAddress = [ OP_DEC, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+  const cpu = t.context.cpu;
+  runRegisterATest(t, OP_DEC, 0x80);
 
-  cpu.reset();
-  cpu.regA = ADD_VALUE_1;
-  cpu.step();
-
-  t.deepEqual(readMemoryAddressAccess,
-    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
   t.is(cpu.regA, 0x7F);
   t.is(cpu.tickCount, 2);
   t.is(cpu.flagsToString(), 'eFhInzVc');
@@ -186,17 +207,9 @@ test('oDEC, 0x80 (no overflow)', (t) => {
 
 test('oDEC, 0x0 (overflow)', (t) => {
   const OP_DEC = 0x4A;
-  const ADD_VALUE_1 = 0x0;
-  const cpu = t.context;
-  // add command in reverse order
-  readMemoryAddress = [ OP_DEC, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+  const cpu = t.context.cpu;
+  runRegisterATest(t, OP_DEC, 0x00);
 
-  cpu.reset();
-  cpu.regA = ADD_VALUE_1;
-  cpu.step();
-
-  t.deepEqual(readMemoryAddressAccess,
-    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
   t.is(cpu.regA, 0xFF);
   t.is(cpu.tickCount, 2);
   t.is(cpu.flagsToString(), 'eFhINzvc');
@@ -204,17 +217,9 @@ test('oDEC, 0x0 (overflow)', (t) => {
 
 test('oINC, 0x00 (no overflow)', (t) => {
   const OP_INC = 0x4C;
-  const VALUE = 0x00;
-  const cpu = t.context;
-  // add command in reverse order
-  readMemoryAddress = [ OP_INC, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+  const cpu = t.context.cpu;
+  runRegisterATest(t, OP_INC, 0x00);
 
-  cpu.reset();
-  cpu.regA = VALUE;
-  cpu.step();
-
-  t.deepEqual(readMemoryAddressAccess,
-    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
   t.is(cpu.regA, 0x01);
   t.is(cpu.tickCount, 2);
   t.is(cpu.flagsToString(), 'eFhInzvc');
@@ -222,46 +227,55 @@ test('oINC, 0x00 (no overflow)', (t) => {
 
 test('oINC, 0xFF (overflow)', (t) => {
   const OP_INC = 0x4C;
-  const VALUE = 0xFF;
-  const cpu = t.context;
-  // add command in reverse order
-  readMemoryAddress = [ OP_INC, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+  const cpu = t.context.cpu;
+  runRegisterATest(t, OP_INC, 0xFF);
 
-  cpu.reset();
-  cpu.regA = VALUE;
-  cpu.step();
-
-  t.deepEqual(readMemoryAddressAccess,
-    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
   t.is(cpu.regA, 0x00);
   t.is(cpu.tickCount, 2);
   t.is(cpu.flagsToString(), 'eFhInZvc');
 });
 
 test('PUSHB should wrap around', (t) => {
-  const cpu = t.context;
+  const cpu = t.context.cpu;
   cpu.reset();
   cpu.PUSHB(0x23);
-  t.deepEqual(writeMemoryAddress, [{ address: 65535, value: 0x23 }]);
+  t.deepEqual(t.context.writeMemoryAddress, [{ address: 65535, value: 0x23 }]);
 });
 
 test('PUSHW should wrap around', (t) => {
-  const cpu = t.context;
+  const cpu = t.context.cpu;
   cpu.reset();
   cpu.PUSHW(0x1234);
-  t.deepEqual(writeMemoryAddress, [{ address: 65535, value: 0x34 }, { address: 65534, value: 0x12 }]);
+  t.deepEqual(t.context.writeMemoryAddress, [{ address: 65535, value: 0x34 }, { address: 65534, value: 0x12 }]);
 });
 
 test('PUSHBU should wrap around', (t) => {
-  const cpu = t.context;
+  const cpu = t.context.cpu;
   cpu.reset();
   cpu.PUSHBU(0x23);
-  t.deepEqual(writeMemoryAddress, [{ address: 65535, value: 0x23 }]);
+  t.deepEqual(t.context.writeMemoryAddress, [{ address: 65535, value: 0x23 }]);
 });
 
 test('PUSHWU should wrap around', (t) => {
-  const cpu = t.context;
+  const cpu = t.context.cpu;
   cpu.reset();
   cpu.PUSHWU(0x1234);
-  t.deepEqual(writeMemoryAddress, [{ address: 65535, value: 0x34 }, { address: 65534, value: 0x12 }]);
+  t.deepEqual(t.context.writeMemoryAddress, [{ address: 65535, value: 0x34 }, { address: 65534, value: 0x12 }]);
 });
+
+function runRegisterATest(t, opcode, registerA, postCpuResetInitFunction) {
+  const cpu = t.context.cpu;
+
+  // add command in reverse order
+  t.context.readMemoryAddress = [ opcode, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+
+  cpu.reset();
+  if (typeof postCpuResetInitFunction === 'function') {
+    postCpuResetInitFunction(t);
+  }
+  cpu.regA = registerA;
+  cpu.step();
+
+  t.deepEqual(t.context.readMemoryAddressAccess,
+    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
+}

@@ -16,7 +16,7 @@ test.beforeEach((t) => {
   const writeMemoryMock = (address) => {
     writeMemoryAddress.push(address);
   };
-  const cpu = Cpu6809.getInstance(writeMemoryMock, readMemoryMock);
+  const cpu = Cpu6809.getInstance(writeMemoryMock, readMemoryMock, 'UNITTEST');
   cpu.reset();
   t.context = cpu;
 });
@@ -132,4 +132,3 @@ test('signed word', (t) => {
   t.is(valffff, 65279);
   t.is(valUndef, undefined);
 });
-
