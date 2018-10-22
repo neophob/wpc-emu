@@ -338,6 +338,10 @@ Solution:
 ## Custom Power Driver
 - https://www.multimorphic.com/store/circuit-boards/pd-16/
 
+## Misc
+- Bally - Electronic Pinball Games, Theory of operation, F.O. 601-2 (Note: this is for the pre DMD model)
+- John R. Bork - REVERSE ENGINEERING A MICROCOMPUTER-­BASED CONTROL UNIT
+
 # Game List
 
 Ripped from Wikipedia.
