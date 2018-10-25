@@ -73,6 +73,9 @@ function startTrace() {
           initTraceLoops();
         }
       }
+    })
+    .catch((error) => {
+      console.log('ERROR', error.message, error.stack);
     });
 }
 
@@ -122,6 +125,7 @@ function printInstruction(pc, instr, line) {
   const S = 'S=' + formatRegister(line.s, 4);
   const U = 'U=' + formatRegister(line.u, 4);
   const REGS = CC + A + B + X + Y + S + U;
+
   if (instr.params.length > 0) {
     console.error(REGS + pc.toString(16).toUpperCase() + ': ' +
         instr.mnemo.padEnd(6) + instr.params
