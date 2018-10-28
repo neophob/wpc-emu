@@ -25,7 +25,8 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Memory Protection ✓
 - Time of Day Clock ✓
 - High Resolution Timer (not used, was used by alphanumeric games to do display dimming)
-- Bank Switching ✓
+- ROM Bank Switching ✓
+- RAM Bank Switching (WPC 95)
 - The Switch Matrix ✓
 - External I/O ✓ (except sound)
 - Fliptronic Flipper ✓
