@@ -50,7 +50,7 @@ CC=54 A=0000 B=0000 X=0000 Y=0000 S=0000 U=0000 8C67: STA   $3FF2
 
 ## WPC-EMU 0.7.4 vs MAME, Hurricane (WPC-89)
 
-Both dumps files have a size of 11625969 bytes
+Both dumps files have a size of 11'625'969 bytes
 
 ```
 cat huMAME | grep "3FF" | awk '{print $10}' | sort | uniq -c
@@ -82,7 +82,7 @@ Conclusion:
 
 ## WPC-EMU 0.7.4 vs MAME, Johnny Mnemonic (WPC-S)
 
-Both dumps files have a size of 81789061 bytes
+Both dumps files have a size of 81'789'061 bytes
 
 ```
 # cat jnMAME | grep "3FF" | awk '{print $10}' | sort | uniq -c
@@ -113,4 +113,4 @@ Both dumps files have a size of 81789061 bytes
 ```
 
 Conclusion:
-- $3FF3
+- Major diffs, focus on $3FF3 and $3FF8
