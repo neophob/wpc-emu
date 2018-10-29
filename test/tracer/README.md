@@ -9,7 +9,10 @@ Useful to compare it with a MAME trace.
 I could not find a test ROM that validated the CPU for a WPC machine. So the approach
 is to dump a MAME ROM and compare that with a dump of wpc-emu to find any issues.
 
-## Options:
+## Issues
+- next OP might be wrong when an interrupt is pending, as interrupts are evaluated before the next OP is fetched - but not AFTER the OP is executed.
+
+## Env variables
 - `ROMFILE`: define rom file
 - `HAS_SECURITY_FEATURE` if set to true, security pic will be emulated
 - `STEPS`: numbers of steps to run
