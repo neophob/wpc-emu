@@ -42,3 +42,72 @@ CC=54 A=0000 B=0000 X=0000 Y=0000 S=0000 U=0000 8C67: STA   $3FF2
 - registers are current state
 - PC points to next instruction
 - OP Codes show NEXT INSTRUCTION
+
+# Statistics
+
+## WPC-EMU 0.7.4 vs MAME, Hurricane (WPC-89)
+
+Both dumps files have a size of 11625969 bytes
+
+```
+cat huMAME | grep "3FF" | awk '{print $10}' | sort | uniq -c
+  11 $3FF2
+ 142 $3FF4
+ 119 $3FF6
+   1 $3FF8
+   6 $3FFA
+   6 $3FFB
+3557 $3FFC
+1223 $3FFD
+   2 $3FFE
+1261 $3FFF
+
+cat huWPC | grep "3FF" | awk '{print $10}' | sort | uniq -c
+ 11 $3FF2
+136 $3FF4
+114 $3FF6
+  1 $3FF8
+  6 $3FFA
+  6 $3FFB
+3575 $3FFC
+1224 $3FFD
+  2 $3FFE
+1285 $3FFF
+```
+Conclusion:
+- WPC-Emu and MAME calls a pretty similar
+
+## WPC-EMU 0.7.4 vs MAME, Johnny Mnemonic (WPC-S)
+
+Both dumps files have a size of 81789061 bytes
+
+```
+# cat jnMAME | grep "3FF" | awk '{print $10}' | sort | uniq -c
+  64 $3FF2  # WPC_LEDS
+4910 $3FF3  # IRQ ACK?
+1812 $3FF4  # WPC_SHIFTADDR
+1722 $3FF6  # WPC_SHIFTBIT
+ 969 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR
+  12 $3FFA  # WPC_CLK_HOURS_DAYS
+  32 $3FFB  # WPC_CLK_MINS
+17032 $3FFC # WPC_ROM_BANK
+3024 $3FFD  # WPC_RAM_LOCK
+   4 $3FFE  # WPC_RAM_LOCKSIZE
+8780 $3FFF  # WPC_ZEROCROSS_IRQ_CLEAR
+
+# cat jnWPC  | grep "3FF" | awk '{print $10}' | sort | uniq -c
+  77 $3FF2  # WPC_LEDS
+   2 $3FF3  # IRQ ACK?                          << 2000 times less
+1126 $3FF4  # WPC_SHIFTADDR
+1056 $3FF6  # WPC_SHIFTBIT
+ 109 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR   << 9 times less
+   6 $3FFA  # WPC_CLK_HOURS_DAYS
+  34 $3FFB  # WPC_CLK_MINS
+16219 $3FFC # WPC_ROM_BANK
+1928 $3FFD  # WPC_RAM_LOCK
+   2 $3FFE  # WPC_RAM_LOCKSIZE
+10145 $3FFF # WPC_ZEROCROSS_IRQ_CLEAR
+```
+
+Conclusion:
+- $3FF3
