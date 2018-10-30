@@ -66,7 +66,7 @@ CC=54 A=0000 B=0000 X=0000 Y=0000 S=0000 U=0000 8C67: STA   $3FF2
 - `HURCNL_2_mame.dump`: 78'840'913 bytes
 
 ```
-cat HURCNL_2_wpc.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
+cat HURCNL_2_wpc.dump | grep "\$3FF" | awk '{print $10}' | sort | uniq -c
   111 $3FF2
  1911 $3FF4
  1794 $3FF6
@@ -78,7 +78,7 @@ cat HURCNL_2_wpc.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
     2 $3FFE
 14061 $3FFF
 
-cat HURCNL_2_mame.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
+cat HURCNL_2_mame.dump | grep "\$3FF" | awk '{print $10}' | sort | uniq -c
   117 $3FF2
  2002 $3FF4
  1885 $3FF6
@@ -100,7 +100,7 @@ Conclusion:
 - `tz_mame.dump`: 81'789'061 bytes
 
 ```
-cat tz_wpc.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
+cat tz_wpc.dump | grep "\$3FF" | awk '{print $10}' | sort | uniq -c
    91 $3FF2
  1493 $3FF4
  1398 $3FF6
@@ -112,7 +112,7 @@ cat tz_wpc.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
     2 $3FFE
 11880 $3FFF
 
-cat tz_mame.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
+cat tz_mame.dump | grep "\$3FF" | awk '{print $10}' | sort | uniq -c
    87 $3FF2
  1428 $3FF4
  1334 $3FF6
@@ -135,7 +135,7 @@ Conclusion:
 - `ij_mame.dump`: 92'663'822 bytes
 
 ```
-cat ij_wpc.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
+cat ij_wpc.dump | grep "\$3FF" | awk '{print $10}' | sort | uniq -c
    90 $3FF2
  1461 $3FF4  # WPC_SHIFTADDR   << 8 times less
  1366 $3FF6  # WPC_SHIFTBIT   << 8 times less
@@ -147,7 +147,7 @@ cat ij_wpc.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
     2 $3FFE
 12015 $3FFF  # WPC_ZEROCROSS_IRQ_CLEAR   << 2 times more
 
-cat ij_mame.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
+cat ij_mame.dump | grep "\$3FF" | awk '{print $10}' | sort | uniq -c
    65 $3FF2
 11512 $3FF4
 11490 $3FF6
@@ -166,34 +166,35 @@ Conclusion:
 
 ## MAME vs. WPC-EMU 0.7.4, Johnny Mnemonic (WPC-S)
 
-- Both dumps files have a size of 81'789'061 bytes
+- `john1_2r_wpc.dump`:   96'081'089 bytes
+- `john1_2r_mame.dump`: 101'099'192 bytes
 
 ```
-# cat jnMAME | grep "3FF" | awk '{print $10}' | sort | uniq -c
-   64 $3FF2  # WPC_LEDS
- 4910 $3FF3  # IRQ ACK?
- 1812 $3FF4  # WPC_SHIFTADDR
- 1722 $3FF6  # WPC_SHIFTBIT
-  969 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR
-   12 $3FFA  # WPC_CLK_HOURS_DAYS
-   32 $3FFB  # WPC_CLK_MINS
-17032 $3FFC # WPC_ROM_BANK
- 3024 $3FFD  # WPC_RAM_LOCK
-    4 $3FFE  # WPC_RAM_LOCKSIZE
- 8780 $3FFF  # WPC_ZEROCROSS_IRQ_CLEAR
+# cat john1_2r_wpc.dump | grep "\$3FF" | awk '{print $10}' | sort | uniq -c
+   92 $3FF2
+    2 $3FF3  # IRQ ACK?  << 2000 times less
+ 1412 $3FF4  # WPC_SHIFTADDR  << 2 times less
+ 1318 $3FF6  # WPC_SHIFTBIT
+  109 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR  << 10 times less
+    6 $3FFA
+   42 $3FFB
+18686 $3FFC
+ 1928 $3FFD  # WPC_RAM_LOCK  << 2 rimes more
+    2 $3FFE
+12091 $3FFF
 
-# cat jnWPC  | grep "3FF" | awk '{print $10}' | sort | uniq -c
-   77 $3FF2  # WPC_LEDS
-    2 $3FF3  # IRQ ACK?                          << 2000 times less
- 1126 $3FF4  # WPC_SHIFTADDR
- 1056 $3FF6  # WPC_SHIFTBIT
-  109 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR   << 9 times less
-    6 $3FFA  # WPC_CLK_HOURS_DAYS
-   34 $3FFB  # WPC_CLK_MINS
-16219 $3FFC # WPC_ROM_BANK
- 1928 $3FFD  # WPC_RAM_LOCK
-    2 $3FFE  # WPC_RAM_LOCKSIZE
-10145 $3FFF # WPC_ZEROCROSS_IRQ_CLEAR
+# cat tz_mame.dump | grep "\$3FF" | awk '{print $10}' | sort | uniq -c
+   78 $3FF2
+ 5965 $3FF3
+ 3338 $3FF4
+ 3248 $3FF6
+ 1175 $3FF8
+   12 $3FFA
+   39 $3FFB
+21272 $3FFC
+ 3291 $3FFD
+    4 $3FFE
+10478 $3FFF
 ```
 
 Conclusion:
