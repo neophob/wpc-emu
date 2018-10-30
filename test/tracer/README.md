@@ -27,6 +27,8 @@ Example:
 env ROMFILE=../../rom/john1_2r.rom HAS_SECURITY_FEATURE=true STEPS=4000000 node index.js 2> OUTPUTDIR/john1_2r_wpc.dump
 ```
 
+Also see `./_runbig.sh` script to autogenerate the dump files.
+
 ## Create MAME CPU trace file
 
 I use SDLMAME (http://sdlmame.lngn.net/) v0.202.
@@ -36,7 +38,7 @@ Reference: https://www.dorkbotpdx.org/blog/skinny/use_mames_debugger_to_reverse_
 Copy rom files to `roms` directory.
 
 - start mame with `./mame64 -window -c -debug hurr_l2` (starting hurricane wpc)
-- we want to dump all registers, so enter `trace hc_full.txt,0,,{tracelog "CC=%02X A=%04X B=%04X X=%04X Y=%04X S=%04X U=%04X ",cc, a, b, x, y, s, u}`
+- we want to dump all registers, so enter `trace hc_mame.dump,0,,{tracelog "CC=%02X A=%04X B=%04X X=%04X Y=%04X S=%04X U=%04X ",cc, a, b, x, y, s, u}`
 - run game (F5)
 - enter `traceflush` to flush trace file
 - enter `trace off` to disable trace
@@ -60,35 +62,108 @@ CC=54 A=0000 B=0000 X=0000 Y=0000 S=0000 U=0000 8C67: STA   $3FF2
 
 ## MAME vs. WPC-EMU 0.7.4, Hurricane (WPC-89)
 
-Both dumps files have a size of 11'625'969 bytes
+HURCNL_2_wpc.dump:  74'852'074 bytes
+HURCNL_2_mame.dump: 78'840'913 bytes
 
 ```
-cat huMAME | grep "3FF" | awk '{print $10}' | sort | uniq -c
-  11 $3FF2
- 142 $3FF4
- 119 $3FF6
-   1 $3FF8
-   6 $3FFA
-   6 $3FFB
-3557 $3FFC
-1223 $3FFD
-   2 $3FFE
-1261 $3FFF
+cat HURCNL_2_wpc.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
+  111 $3FF2
+ 1911 $3FF4
+ 1794 $3FF6
+    1 $3FF8
+    6 $3FFA
+   56 $3FFB
+11183 $3FFC
+ 1224 $3FFD
+    2 $3FFE
+14061 $3FFF
+    1 $93FF
 
-cat huWPC | grep "3FF" | awk '{print $10}' | sort | uniq -c
- 11 $3FF2
-136 $3FF4
-114 $3FF6
-  1 $3FF8
-  6 $3FFA
-  6 $3FFB
-3575 $3FFC
-1224 $3FFD
-  2 $3FFE
-1285 $3FFF
+cat HURCNL_2_mame.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
+  117 $3FF2
+ 2002 $3FF4
+ 1885 $3FF6
+    3 $3FF8
+    6 $3FFA
+   59 $3FFB
+11587 $3FFC
+ 1223 $3FFD
+    2 $3FFE
+14795 $3FFF
 ```
+
 Conclusion:
 - WPC-Emu and MAME calls a pretty similar
+
+## MAME vs. WPC-EMU 0.7.4, Twilight Zone (WPC Fliptronic)
+
+tz_wpc.dump:  85'205'983 bytes
+tz_mame.dump: 81'789'061 bytes
+
+```
+cat tz_wpc.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
+   91 $3FF2
+ 1493 $3FF4
+ 1398 $3FF6
+    1 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR
+    6 $3FFA
+   45 $3FFB
+11435 $3FFC
+ 1673 $3FFD
+    2 $3FFE
+11880 $3FFF
+
+cat tz_mame.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
+   87 $3FF2
+ 1428 $3FF4
+ 1334 $3FF6
+   37 $3FF8
+    6 $3FFA
+   43 $3FFB
+11080 $3FFC
+ 1673 $3FFD
+    2 $3FFE
+11378 $3FFF
+```
+
+Conclusion:
+- WPC-Emu and MAME calls a pretty similar, only exception is the WPC_PERIPHERAL_TIMER_FIRQ_CLEAR call
+
+
+## MAME vs. WPC-EMU 0.7.4, Indiana Jones (WPC DCS)
+
+ij_wpc.dump:  88'318'434 bytes
+ij_mame.dump: 92'663'822 bytes
+
+```
+cat ij_wpc.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
+   90 $3FF2
+ 1461 $3FF4
+ 1366 $3FF6
+    1 $3FF8
+    6 $3FFA
+   44 $3FFB
+12778 $3FFC
+ 1848 $3FFD
+    2 $3FFE
+12015 $3FFF
+
+cat ij_mame.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
+   65 $3FF2
+11512 $3FF4  # WPC_SHIFTADDR
+11490 $3FF6  # WPC_SHIFTBIT
+ 2021 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR
+    6 $3FFA
+   36 $3FFB
+14543 $3FFC
+ 1074 $3FFD
+    2 $3FFE
+ 8799 $3FFF
+```
+
+Conclusion:
+- WPC-Emu and MAME implementation differs
+
 
 ## MAME vs. WPC-EMU 0.7.4, Johnny Mnemonic (WPC-S)
 
@@ -96,29 +171,29 @@ Both dumps files have a size of 81'789'061 bytes
 
 ```
 # cat jnMAME | grep "3FF" | awk '{print $10}' | sort | uniq -c
-  64 $3FF2  # WPC_LEDS
-4910 $3FF3  # IRQ ACK?
-1812 $3FF4  # WPC_SHIFTADDR
-1722 $3FF6  # WPC_SHIFTBIT
- 969 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR
-  12 $3FFA  # WPC_CLK_HOURS_DAYS
-  32 $3FFB  # WPC_CLK_MINS
+   64 $3FF2  # WPC_LEDS
+ 4910 $3FF3  # IRQ ACK?
+ 1812 $3FF4  # WPC_SHIFTADDR
+ 1722 $3FF6  # WPC_SHIFTBIT
+  969 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR
+   12 $3FFA  # WPC_CLK_HOURS_DAYS
+   32 $3FFB  # WPC_CLK_MINS
 17032 $3FFC # WPC_ROM_BANK
-3024 $3FFD  # WPC_RAM_LOCK
-   4 $3FFE  # WPC_RAM_LOCKSIZE
-8780 $3FFF  # WPC_ZEROCROSS_IRQ_CLEAR
+ 3024 $3FFD  # WPC_RAM_LOCK
+    4 $3FFE  # WPC_RAM_LOCKSIZE
+ 8780 $3FFF  # WPC_ZEROCROSS_IRQ_CLEAR
 
 # cat jnWPC  | grep "3FF" | awk '{print $10}' | sort | uniq -c
-  77 $3FF2  # WPC_LEDS
-   2 $3FF3  # IRQ ACK?                          << 2000 times less
-1126 $3FF4  # WPC_SHIFTADDR
-1056 $3FF6  # WPC_SHIFTBIT
- 109 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR   << 9 times less
-   6 $3FFA  # WPC_CLK_HOURS_DAYS
-  34 $3FFB  # WPC_CLK_MINS
+   77 $3FF2  # WPC_LEDS
+    2 $3FF3  # IRQ ACK?                          << 2000 times less
+ 1126 $3FF4  # WPC_SHIFTADDR
+ 1056 $3FF6  # WPC_SHIFTBIT
+  109 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR   << 9 times less
+    6 $3FFA  # WPC_CLK_HOURS_DAYS
+   34 $3FFB  # WPC_CLK_MINS
 16219 $3FFC # WPC_ROM_BANK
-1928 $3FFD  # WPC_RAM_LOCK
-   2 $3FFE  # WPC_RAM_LOCKSIZE
+ 1928 $3FFD  # WPC_RAM_LOCK
+    2 $3FFE  # WPC_RAM_LOCKSIZE
 10145 $3FFF # WPC_ZEROCROSS_IRQ_CLEAR
 ```
 
