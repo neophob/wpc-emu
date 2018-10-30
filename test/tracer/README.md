@@ -62,8 +62,8 @@ CC=54 A=0000 B=0000 X=0000 Y=0000 S=0000 U=0000 8C67: STA   $3FF2
 
 ## MAME vs. WPC-EMU 0.7.4, Hurricane (WPC-89)
 
-HURCNL_2_wpc.dump:  74'852'074 bytes
-HURCNL_2_mame.dump: 78'840'913 bytes
+- `HURCNL_2_wpc.dump`:  74'852'074 bytes
+- `HURCNL_2_mame.dump`: 78'840'913 bytes
 
 ```
 cat HURCNL_2_wpc.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
@@ -77,7 +77,6 @@ cat HURCNL_2_wpc.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
  1224 $3FFD
     2 $3FFE
 14061 $3FFF
-    1 $93FF
 
 cat HURCNL_2_mame.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
   117 $3FF2
@@ -97,15 +96,15 @@ Conclusion:
 
 ## MAME vs. WPC-EMU 0.7.4, Twilight Zone (WPC Fliptronic)
 
-tz_wpc.dump:  85'205'983 bytes
-tz_mame.dump: 81'789'061 bytes
+- `tz_wpc.dump`:  85'205'983 bytes
+- `tz_mame.dump`: 81'789'061 bytes
 
 ```
 cat tz_wpc.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
    91 $3FF2
  1493 $3FF4
  1398 $3FF6
-    1 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR
+    1 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR   << 37 times less
     6 $3FFA
    45 $3FFB
 11435 $3FFC
@@ -132,27 +131,27 @@ Conclusion:
 
 ## MAME vs. WPC-EMU 0.7.4, Indiana Jones (WPC DCS)
 
-ij_wpc.dump:  88'318'434 bytes
-ij_mame.dump: 92'663'822 bytes
+- `ij_wpc.dump`:  88'318'434 bytes
+- `ij_mame.dump`: 92'663'822 bytes
 
 ```
 cat ij_wpc.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
    90 $3FF2
- 1461 $3FF4
- 1366 $3FF6
-    1 $3FF8
+ 1461 $3FF4  # WPC_SHIFTADDR   << 8 times less
+ 1366 $3FF6  # WPC_SHIFTBIT   << 8 times less
+    1 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR   << 2021 times less
     6 $3FFA
    44 $3FFB
 12778 $3FFC
  1848 $3FFD
     2 $3FFE
-12015 $3FFF
+12015 $3FFF  # WPC_ZEROCROSS_IRQ_CLEAR   << 2 times more
 
 cat ij_mame.dump | grep "3FF" | awk '{print $10}' | sort | uniq -c
    65 $3FF2
-11512 $3FF4  # WPC_SHIFTADDR
-11490 $3FF6  # WPC_SHIFTBIT
- 2021 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR
+11512 $3FF4
+11490 $3FF6
+ 2021 $3FF8
     6 $3FFA
    36 $3FFB
 14543 $3FFC
@@ -167,7 +166,7 @@ Conclusion:
 
 ## MAME vs. WPC-EMU 0.7.4, Johnny Mnemonic (WPC-S)
 
-Both dumps files have a size of 81'789'061 bytes
+- Both dumps files have a size of 81'789'061 bytes
 
 ```
 # cat jnMAME | grep "3FF" | awk '{print $10}' | sort | uniq -c
