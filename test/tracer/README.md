@@ -9,9 +9,6 @@ Useful to compare it with a MAME trace.
 I could not find a test ROM that validated the CPU for a WPC machine. So the approach
 is to dump a MAME ROM and compare that with a dump of wpc-emu to find any issues.
 
-## Issues
-- next OP might be wrong when an interrupt is pending, as interrupts are evaluated before the next OP is fetched - but not AFTER the OP is executed.
-
 ## Env variables
 - `ROMFILE`: define rom file
 - `HAS_SECURITY_FEATURE` if set to true, security pic will be emulated
@@ -67,16 +64,16 @@ CC=54 A=0000 B=0000 X=0000 Y=0000 S=0000 U=0000 8C67: STA   $3FF2
 
 ```
 cat HURCNL_2_wpc.dump | grep "\$3FF" | awk '{print $10}' | sort | uniq -c
-  111 $3FF2
- 1911 $3FF4
- 1794 $3FF6
+  110 $3FF2
+ 1890 $3FF4
+ 1773 $3FF6
     1 $3FF8
     6 $3FFA
    56 $3FFB
-11183 $3FFC
- 1224 $3FFD
+11098 $3FFC
+ 1221 $3FFD
     2 $3FFE
-14061 $3FFF
+13925 $3FFF
 
 cat HURCNL_2_mame.dump | grep "\$3FF" | awk '{print $10}' | sort | uniq -c
   117 $3FF2
@@ -101,16 +98,16 @@ Conclusion:
 
 ```
 cat tz_wpc.dump | grep "\$3FF" | awk '{print $10}' | sort | uniq -c
-   91 $3FF2
- 1493 $3FF4
- 1398 $3FF6
-    1 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR   << 37 times less
+   90 $3FF2
+ 1476 $3FF4
+ 1382 $3FF6
+   72 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR   << 2 times more
     6 $3FFA
-   45 $3FFB
-11435 $3FFC
- 1673 $3FFD
+   44 $3FFB
+11350 $3FFC
+ 1671 $3FFD
     2 $3FFE
-11880 $3FFF
+11764 $3FFF
 
 cat tz_mame.dump | grep "\$3FF" | awk '{print $10}' | sort | uniq -c
    87 $3FF2
@@ -136,16 +133,16 @@ Conclusion:
 
 ```
 cat ij_wpc.dump | grep "\$3FF" | awk '{print $10}' | sort | uniq -c
-   90 $3FF2
- 1461 $3FF4  # WPC_SHIFTADDR   << 8 times less
- 1366 $3FF6  # WPC_SHIFTBIT   << 8 times less
-    1 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR   << 2021 times less
+   89 $3FF2
+ 1448 $3FF4  # WPC_SHIFTADDR   << 8 times less
+ 1354 $3FF6  # WPC_SHIFTBIT   << 8 times less
+    4 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR   << 2021 times less
     6 $3FFA
-   44 $3FFB
-12778 $3FFC
- 1848 $3FFD
+   43 $3FFB
+12712 $3FFC
+ 1845 $3FFD
     2 $3FFE
-12015 $3FFF  # WPC_ZEROCROSS_IRQ_CLEAR   << 2 times more
+11901 $3FFF  # WPC_ZEROCROSS_IRQ_CLEAR   << 2 times more
 
 cat ij_mame.dump | grep "\$3FF" | awk '{print $10}' | sort | uniq -c
    65 $3FF2
@@ -171,19 +168,19 @@ Conclusion:
 
 ```
 # cat john1_2r_wpc.dump | grep "\$3FF" | awk '{print $10}' | sort | uniq -c
-   92 $3FF2
-    2 $3FF3  # IRQ ACK?  << 2000 times less
- 1412 $3FF4  # WPC_SHIFTADDR  << 2 times less
+   91 $3FF2
+ 5870 $3FF3
+ 1402 $3FF4  # WPC_SHIFTADDR  << 2 times less
  1318 $3FF6  # WPC_SHIFTBIT
-  109 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR  << 10 times less
+  107 $3FF8  # WPC_PERIPHERAL_TIMER_FIRQ_CLEAR  << 10 times less
     6 $3FFA
    42 $3FFB
-18686 $3FFC
- 1928 $3FFD  # WPC_RAM_LOCK  << 2 rimes more
+18532 $3FFC
+ 1925 $3FFD  # WPC_RAM_LOCK  << 2 rimes more
     2 $3FFE
-12091 $3FFF
+11975 $3FFF
 
-# cat tz_mame.dump | grep "\$3FF" | awk '{print $10}' | sort | uniq -c
+# cat john1_2r_mame.dump | grep "\$3FF" | awk '{print $10}' | sort | uniq -c
    78 $3FF2
  5965 $3FF3
  3338 $3FF4

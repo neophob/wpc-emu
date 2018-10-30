@@ -45,12 +45,14 @@ function startTrace() {
       wpcSystem.reset();
       wpcSystem.start();
 
-      //TODO dump to a file
-
       let steps = 0;
       while (steps++ < MAXSTEPS) {
         wpcSystem.executeCycle(1, 1);
         const cpu = wpcSystem.cpuBoard.cpu;
+        
+        //make sure next OP is correct
+        cpu.checkInterrupt();
+
         const pc = cpu.regPC;
         const i1 = cpu.memoryReadFunction(pc);
         const i2 = cpu.memoryReadFunction(pc+1);
