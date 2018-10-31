@@ -3,8 +3,6 @@
 STEPS=4500000
 OUTPUTDIR=./wpc-emu-dumps
 
-echo "UPDATE 2s ROM DUMPS (wpc-emu-dump)"
-
 WAIT_FOR_BG_JOBS() {
   FAIL=0
   for job in `jobs -p`
@@ -22,14 +20,34 @@ WAIT_FOR_BG_JOBS() {
 }
 
 STATS() {
+  DUMPFILE=$OUTPUTDIR/$2
   echo "## $1"
+  ls -l "$DUMPFILE" | awk '{print "   Size: " $5 " bytes"}'
   echo "---------------------"
-  cat $OUTPUTDIR/$2 | grep "\$3FF" | awk '{print $10}' | sort | uniq -c | awk '{print $1 "\t" $2}'
+  cat $DUMPFILE | grep "\$3FF" | awk '{print $10}' | sort | uniq -c | awk '{print $1 "\t" $2}'
   echo ""
 }
 
 if [ "$1" ]; then
-  echo "# OPS compare\n"
+  echo "UPDATE DUMPS STATS (wpc-emu-dump)"
+
+  echo "# OPS"
+
+  echo "- WPC_LEDS: \$3FF2"
+  echo "- WPC_RAM_BANK: \$3FF3"
+  echo "- WPC_SHIFTADDRH: \$3FF4"
+  echo "- WPC_SHIFTADDRL: \$3FF5"
+  echo "- WPC_SHIFTBIT: \$3FF6"
+  echo "- WPC_SHIFTBIT2: \$3FF7"
+  echo "- WPC_PERIPHERAL_TIMER_FIRQ_CLEAR: \$3FF8"
+  echo "- WPC_ROM_LOCK: \$3FF9"
+  echo "- WPC_CLK_HOURS_DAYS: \$3FFA"
+  echo "- WPC_CLK_MINS: \$3FFB"
+  echo "- WPC_ROM_BANK: \$3FFC"
+  echo "- WPC_RAM_LOCK: \$3FFD"
+  echo "- WPC_RAM_LOCKSIZE: \$3FFE"
+  echo "- WPC_ZEROCROSS_IRQ_CLEAR: \$3FFF"
+
   echo ""
 
   STATS "Hurricane WPC" HURCNL_2_wpc.dump
@@ -50,6 +68,8 @@ if [ "$1" ]; then
 
   exit 0
 fi
+
+echo "UPDATE ROM DUMPS (wpc-emu-dump)"
 
 echo "create WPC-EMU dump files, make sure the following roms exists in the rom directory:"
 echo "- HURCNL_2.ROM (Hurricane)"
