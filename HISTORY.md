@@ -1,5 +1,8 @@
 # HISTORY
 
+## 21/11/18
+- do not trigger irq when F_IRQMASK  is set, this fixes the johnny mnemonic crash but feels like a hack... 
+
 ## 18/10/18
 - really fixed bankswitched read (for real!)
 - added trace tool/disassembler to compare wpc-emu agains mame
