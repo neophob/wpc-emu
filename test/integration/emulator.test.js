@@ -51,12 +51,12 @@ test.serial('Smoketest, run emulator with rom ft20_32.rom', (t) => {
   }
 
   const uiState = wpcSystem.getUiState();
-  t.is(uiState.asic.dmd.scanline, 5);
+  t.is(uiState.asic.dmd.scanline, 11);
   t.is(uiState.asic.dmd.lowpage, 2);
   t.is(uiState.asic.dmd.highpage, 3);
-  t.is(uiState.asic.dmd.activepage, 0);
+  t.is(uiState.asic.dmd.activepage, 2);
   t.is(uiState.asic.wpc.activeRomBank, 24);
-  t.is(uiState.asic.wpc.diagnosticLedToggleCount, 232);
+  t.is(uiState.asic.wpc.diagnosticLedToggleCount, 230);
   console.log('ticks', uiState.ticks);
   const ticksInRange = uiState.ticks > 32900000 && uiState.ticks < 32907000;
   t.is(ticksInRange, true);
