@@ -172,6 +172,8 @@ cpu6809.js:643 Uncaught Error: INVALID_ADDRESS_MODE_0x0E
 - Paging issue? read 2nd page of system rom?
 - double the CALL_IRQ_AFTER_TICKS value "fixes the issue"
 
+CALL_IRQ_AFTER_TICKS: 1300 -> crash
+CALL_IRQ_AFTER_TICKS: 2047 -> crash
 CALL_IRQ_AFTER_TICKS: 3000 -> crash
 CALL_IRQ_AFTER_TICKS: 3200 -> ok, but error pattern is visible
 CALL_IRQ_AFTER_TICKS: 3300 -> ok
