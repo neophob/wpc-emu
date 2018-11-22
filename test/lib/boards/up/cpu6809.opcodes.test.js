@@ -189,7 +189,6 @@ test('oNEG, 0xFF', (t) => {
   const cpu = t.context.cpu;
   runRegisterATest(t, OP_NEG, 0xFF);
 
-  //TODO correct?
   t.is(cpu.regA, 0x01);
   t.is(cpu.tickCount, 2);
   t.is(cpu.flagsToString(), 'eFhInzvc');
@@ -215,6 +214,16 @@ test('oDEC, 0x0 (overflow)', (t) => {
   t.is(cpu.flagsToString(), 'eFhINzvc');
 });
 
+test('oDEC extended memory, 0x0 (overflow)', (t) => {
+  const OP_DEC = 0x7A;
+  const cpu = t.context.cpu;
+  runExtendedMemoryTest(t, OP_DEC, 0x00);
+
+  t.deepEqual(t.context.writeMemoryAddress, [{ address: 8721, value: 0xFF }]);
+  t.is(cpu.tickCount, 7);
+  t.is(cpu.flagsToString(), 'eFhINzvc');
+});
+
 test('oINC, 0x00 (no overflow)', (t) => {
   const OP_INC = 0x4C;
   const cpu = t.context.cpu;
@@ -232,6 +241,16 @@ test('oINC, 0xFF (overflow)', (t) => {
 
   t.is(cpu.regA, 0x00);
   t.is(cpu.tickCount, 2);
+  t.is(cpu.flagsToString(), 'eFhInZvc');
+});
+
+test('oINC extended memory, 0xFF (overflow)', (t) => {
+  const OP_INC = 0x7C;
+  const cpu = t.context.cpu;
+  runExtendedMemoryTest(t, OP_INC, 0xFF);
+
+  t.deepEqual(t.context.writeMemoryAddress, [{ address: 8721, value: 0x00 }]);
+  t.is(cpu.tickCount, 7);
   t.is(cpu.flagsToString(), 'eFhInZvc');
 });
 
@@ -276,6 +295,34 @@ function runRegisterATest(t, opcode, registerA, postCpuResetInitFunction) {
   cpu.regA = registerA;
   cpu.step();
 
-  t.deepEqual(t.context.readMemoryAddressAccess,
-    [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO ]);
+  t.deepEqual(t.context.readMemoryAddressAccess,[
+    RESET_VECTOR_OFFSET_LO,
+    RESET_VECTOR_OFFSET_HI,
+    EXPECTED_RESET_READ_OFFSET_LO
+  ]);
+}
+
+function runExtendedMemoryTest(t, opcode, memoryContent, postCpuResetInitFunction) {
+  const hardcodedReadOffsetLo = 0x11;
+  const hardcodedReadOffsetHi = 0x22;
+  const hardcodedReadOffset = 0x2211;
+  const cpu = t.context.cpu;
+
+  // add command in reverse order
+  t.context.readMemoryAddress = [ memoryContent, hardcodedReadOffsetLo, hardcodedReadOffsetHi, opcode, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+
+  cpu.reset();
+  if (typeof postCpuResetInitFunction === 'function') {
+    postCpuResetInitFunction(t);
+  }
+  cpu.step();
+
+  t.deepEqual(t.context.readMemoryAddressAccess, [
+    RESET_VECTOR_OFFSET_LO,
+    RESET_VECTOR_OFFSET_HI,
+    EXPECTED_RESET_READ_OFFSET_LO,
+    EXPECTED_RESET_READ_OFFSET_LO + 1,
+    EXPECTED_RESET_READ_OFFSET_LO + 2,
+    hardcodedReadOffset,
+  ]);
 }
