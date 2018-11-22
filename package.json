@@ -67,6 +67,10 @@
     "test:integration": "ava --verbose test/integration/*.test.js",
     "test:runner": "node test/headless-runner.js",
     "test:soundboard": "env DEBUG='*' node test/integration/soundboard.js",
+    "tracer:dump": "cd ./test/tracer && ./_runbig.sh",
+    "tracer:stats": "cd ./test/tracer && ./_runbig.sh stats",
+    "tracer:status": "cd ./test/tracer/wpc-emu-dumps && git status",
+    "tracer:diff": "cd ./test/tracer/wpc-emu-dumps && git diff",
     "benchmark": "node test/integration/benchmark.js > /dev/null",
     "benchmark:t2": "CYCLES=20000000 ROMFILE=./rom/t2_l8.rom node test/integration/benchmark.js > /dev/null",
     "release": "npm run build:production && cd client && npm run build:production && cd .. && cp -f ./dist/* ./docs"

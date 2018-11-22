@@ -2,6 +2,31 @@
 
 There are some known issues with the Emu, here I try to collect most of them.
 
+## Unclear implementation details
+
+### Add operation, set halfcarry bit
+
+Which implementation is correct:
+
+```
+if ((sTemp ^ ucByte1 ^ ucByte2) & 0x10)
+   regs->ucRegCC |= F_HALFCARRY;
+```
+
+```
+if (((sTemp ^ ucByte1 ^ ucByte2) & 0x10) << 1)
+  regs->ucRegCC |= F_HALFCARRY;
+```
+
+### Set overflow flag
+
+should r be converted to an 8bit value?
+```
+setV8(a, b, r) {
+  this.regCC |= ((a ^ b ^ r ^ (r >> 1)) & 0x80) >> 6;
+}
+```
+
 ## Missing EMU features
 
 - enable / disable IRQ in the ASIC emu should work - currently the IRQ is fired all the time
