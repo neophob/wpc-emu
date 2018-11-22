@@ -25,7 +25,8 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Memory Protection ✓
 - Time of Day Clock ✓
 - High Resolution Timer (not used, was used by alphanumeric games to do display dimming)
-- Bank Switching ✓
+- ROM Bank Switching ✓
+- RAM Bank Switching (WPC 95 only, not sure if needed, MAME does not implement it) 
 - The Switch Matrix ✓
 - External I/O ✓ (except sound)
 - Fliptronic Flipper ✓
@@ -337,6 +338,10 @@ Solution:
 
 ## Custom Power Driver
 - https://www.multimorphic.com/store/circuit-boards/pd-16/
+
+## Misc
+- Bally - Electronic Pinball Games, Theory of operation, F.O. 601-2 (Note: this is for the pre DMD model)
+- John R. Bork - REVERSE ENGINEERING A MICROCOMPUTER-­BASED CONTROL UNIT
 
 # Game List
 

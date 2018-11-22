@@ -9,6 +9,29 @@ test.beforeEach((t) => {
   t.context = SecurityPic.getInstance(MACHINE_SERIAL);
 });
 
+test('SecurityPic, reset', (t) => {
+  const securityPic = t.context;
+  securityPic.reset();
+  t.is(securityPic.lastByteWrite, 0xFF);
+});
+
+test('SecurityPic, invalid read after reset', (t) => {
+  const securityPic = t.context;
+  securityPic.reset();
+  const result = securityPic.read();
+  t.is(result, 0);
+});
+
+test('SecurityPic, read serial number', (t) => {
+  const WPC_PIC_RESET = 0x00;
+  const securityPic = t.context;
+  securityPic.reset();
+  securityPic.write(WPC_PIC_RESET);
+  securityPic.write(0x7F);
+  const result = securityPic.read();
+  t.is(result, 178);
+});
+
 test('SecurityPic, calculate initial serial numbers', (t) => {
   const securityPic = t.context;
   const expectedGameSerial = [
