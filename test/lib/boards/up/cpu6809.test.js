@@ -26,11 +26,18 @@ test('read initial vector', (t) => {
   t.is(readMemoryAddress[1], 0xFFFF);
 });
 
-test('oCMP 8bit', (t) => {
+test('oCMP 8bit, carry flag', (t) => {
   const cpu = t.context;
   cpu.set('flags', 0x00);
-  cpu.oCMP(0, 255);
+  cpu.oCMP(0, 0xFF);
   t.is(cpu.flagsToString(), 'efhinzvC');
+});
+
+test('oCMP 8bit, 0xFF', (t) => {
+  const cpu = t.context;
+  cpu.set('flags', 0x00);
+  cpu.oCMP(0xFF, 0);
+  t.is(cpu.flagsToString(), 'efhiNzvc');
 });
 
 test('oCMP 8bit, negative flag', (t) => {
@@ -40,10 +47,53 @@ test('oCMP 8bit, negative flag', (t) => {
   t.is(cpu.flagsToString(), 'efhiNzVC');
 });
 
+
+test('oCMP 8bit, -1', (t) => {
+  const cpu = t.context;
+  cpu.set('flags', 0x00);
+  cpu.oCMP(0, 1);
+  t.is(cpu.flagsToString(), 'efhiNzvC');
+});
+
 test('oCMP 8bit, zero flag', (t) => {
   const cpu = t.context;
   cpu.set('flags', 0x00);
   cpu.oCMP(0, 0);
+  t.is(cpu.flagsToString(), 'efhinZvc');
+});
+
+test('oCMP 16bit, carry flag', (t) => {
+  const cpu = t.context;
+  cpu.set('flags', 0x00);
+  cpu.oCMP16(0, 0xFFFF);
+  t.is(cpu.flagsToString(), 'efhinzvC');
+});
+
+test('oCMP 16bit, 0xFFFF', (t) => {
+  const cpu = t.context;
+  cpu.set('flags', 0x00);
+  cpu.oCMP16(0xFFFF, 0);
+  t.is(cpu.flagsToString(), 'efhiNzvc');
+});
+
+test('oCMP 16bit, negative flag', (t) => {
+  const cpu = t.context;
+  cpu.set('flags', 0x00);
+  cpu.oCMP16(0, 0x8000);
+  t.is(cpu.flagsToString(), 'efhiNzVC');
+});
+
+test('oCMP 16bit, -1', (t) => {
+  const cpu = t.context;
+  cpu.set('flags', 0x00);
+  cpu.oCMP16(0, 1);
+  t.is(cpu.flagsToString(), 'efhiNzvC');
+});
+
+test('oCMP 16bit, zero flag', (t) => {
+  const cpu = t.context;
+  cpu.set('flags', 0x00);
+  cpu.oCMP16(0, 0);
   t.is(cpu.flagsToString(), 'efhinZvc');
 });
 
