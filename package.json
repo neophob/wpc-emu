@@ -11,6 +11,7 @@
   "devDependencies": {
     "ava": "^0.25.0",
     "http-server": "^0.11.1",
+    "nyc": "^13.1.0",
     "remove-debug-loader": "^0.2.6",
     "sinon": "^6.3.5",
     "terser-webpack-plugin": "^1.1.0",
@@ -62,7 +63,7 @@
     "start:fileserv": "http-server ./rom --cors -p 8080",
     "debug": "node --inspect index.js",
     "xo": "xo",
-    "test": "ava --verbose test/lib/**",
+    "test": "nyc ava --verbose test/lib/**",
     "test:debug": "DEBUG='wpc*' ava --verbose test/lib/**",
     "test:integration": "ava --verbose test/integration/*.test.js",
     "test:runner": "node test/headless-runner.js",

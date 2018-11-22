@@ -8,3 +8,4 @@ npm-debug.log
 *.PP
 *.bin
 *.pdf
+.nyc_output
