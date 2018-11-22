@@ -50,6 +50,9 @@ function initialiseEmu(gameEntry) {
     })
     .then((_wpcSystem) => {
       console.log('Successfully initialised emulator');
+      const selectElementRoot = document.getElementById('wpc-release-info');
+      selectElementRoot.innerHTML = 'WPC-Emu v' + _wpcSystem.version();
+
       wpcSystem = _wpcSystem;
       // TODO IIKS we pollute globals here
       window.wpcInterface = {
