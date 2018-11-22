@@ -26,6 +26,27 @@ test('read initial vector', (t) => {
   t.is(readMemoryAddress[1], 0xFFFF);
 });
 
+test('oCMP 8bit', (t) => {
+  const cpu = t.context;
+  cpu.set('flags', 0x00);
+  cpu.oCMP(0, 255);
+  t.is(cpu.flagsToString(), 'efhinzvC');
+});
+
+test('oCMP 8bit, negative flag', (t) => {
+  const cpu = t.context;
+  cpu.set('flags', 0x00);
+  cpu.oCMP(0, 0x80);
+  t.is(cpu.flagsToString(), 'efhiNzVC');
+});
+
+test('oCMP 8bit, zero flag', (t) => {
+  const cpu = t.context;
+  cpu.set('flags', 0x00);
+  cpu.oCMP(0, 0);
+  t.is(cpu.flagsToString(), 'efhinZvc');
+});
+
 test('flags should be correct after calling irq(), init flags to 0x00', (t) => {
   const cpu = t.context;
   cpu.set('flags', 0x00);

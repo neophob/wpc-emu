@@ -4,7 +4,7 @@ There are some known issues with the Emu, here I try to collect most of them.
 
 ## Unclear implementation details
 
-### Add operation, set halfcarry bit
+### ADD operation, set halfcarry bit
 
 Which implementation is correct:
 

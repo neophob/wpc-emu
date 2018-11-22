@@ -113,7 +113,7 @@ test('ADDA / oADD', (t) => {
     [ RESET_VECTOR_OFFSET_LO, RESET_VECTOR_OFFSET_HI, EXPECTED_RESET_READ_OFFSET_LO, EXPECTED_RESET_READ_OFFSET_HI ]);
   t.is(cpu.regA, 254);
   t.is(cpu.tickCount, 2);
-  t.is(cpu.flagsToString(), 'eFHINzVC');
+  t.is(cpu.flagsToString(), 'eFHINzvC');
 });
 
 test('LSRA', (t) => {
