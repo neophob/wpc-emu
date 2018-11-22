@@ -9,3 +9,4 @@ npm-debug.log
 *.bin
 *.pdf
 .nyc_output
+coverage
