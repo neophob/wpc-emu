@@ -100,6 +100,8 @@ test('ADDA / oADD', (t) => {
   const ADD_VALUE_1 = 0xFF;
   const ADD_VALUE_2 = 0xFF;
   const cpu = t.context.cpu;
+  cpu.set('flags', 0x00);
+
   // add command in reverse order
   t.context.readMemoryAddress = [ ADD_VALUE_2, OP_ADDA, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
 

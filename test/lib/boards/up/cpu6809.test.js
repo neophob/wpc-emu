@@ -137,7 +137,7 @@ test('set overflow flag (8bit), overflow r value', (t) => {
   const cpu = t.context;
   cpu.set('flags', 0);
   cpu.setV8(1, 1, 0x180);
-  t.is(cpu.flagsToString(), 'efhinzVc');
+  t.is(cpu.flagsToString(), 'efhinzvc');
 });
 
 test('set overflow flag (16bit)', (t) => {
@@ -151,7 +151,7 @@ test('set overflow flag (16bit), overflow r value', (t) => {
   const cpu = t.context;
   cpu.set('flags', 0);
   cpu.setV16(1, 1, 0x18000);
-  t.is(cpu.flagsToString(), 'efhinzVc');
+  t.is(cpu.flagsToString(), 'efhinzvc');
 });
 
 test('signed byte', (t) => {
