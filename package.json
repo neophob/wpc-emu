@@ -1,6 +1,6 @@
 {
   "name": "wpc-emu",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "WPC pinball machine emu",
   "main": "index.js",
   "engines": {
@@ -11,15 +11,16 @@
   "devDependencies": {
     "ava": "^0.25.0",
     "http-server": "^0.11.1",
+    "nyc": "^13.1.0",
     "remove-debug-loader": "^0.2.6",
     "sinon": "^6.3.5",
     "terser-webpack-plugin": "^1.1.0",
-    "webpack": "^4.20.2",
+    "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2",
     "xo": "^0.23.0"
   },
   "dependencies": {
-    "debug": "^3.1.0"
+    "debug": "^4.1.0"
   },
   "xo": {
     "envs": [
@@ -59,14 +60,18 @@
     "build:production": "webpack --mode production",
     "build:test": "rm -f dist/* && webpack && cp assets/* dist && DEBUG=* node index.js",
     "start": "DEBUG=* node index.js",
-    "start:fileserv": "http-server ./rom --cors",
+    "start:fileserv": "http-server ./rom --cors -p 8080",
     "debug": "node --inspect index.js",
     "xo": "xo",
-    "test": "ava --verbose test/lib/**",
+    "test": "nyc ava --verbose test/lib/**",
     "test:debug": "DEBUG='wpc*' ava --verbose test/lib/**",
     "test:integration": "ava --verbose test/integration/*.test.js",
     "test:runner": "node test/headless-runner.js",
     "test:soundboard": "env DEBUG='*' node test/integration/soundboard.js",
+    "tracer:dump": "cd ./test/tracer && ./_runbig.sh",
+    "tracer:stats": "cd ./test/tracer && ./_runbig.sh stats",
+    "tracer:status": "cd ./test/tracer/wpc-emu-dumps && git status",
+    "tracer:diff": "cd ./test/tracer/wpc-emu-dumps && git diff",
     "benchmark": "node test/integration/benchmark.js > /dev/null",
     "benchmark:t2": "CYCLES=20000000 ROMFILE=./rom/t2_l8.rom node test/integration/benchmark.js > /dev/null",
     "release": "npm run build:production && cd client && npm run build:production && cd .. && cp -f ./dist/* ./docs"

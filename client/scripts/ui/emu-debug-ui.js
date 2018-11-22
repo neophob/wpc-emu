@@ -62,8 +62,7 @@ function updateCanvas(emuState, cpuState) {
   canvas.fillText('CPU TICKS: ' + emuState.ticks, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 20);
   canvas.fillText('CPU TICKS/ms: ' + emuState.opsMs, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 30);
   canvas.fillText('CPU STATE: ' + cpuState, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 40);
-  const irqMissed = emuState.missedIrqCall - emuState.missedIrqMaskCall || 0;
-  canvas.fillText('IRQ CALLS/MISSED: ' + emuState.irqCount + '/' + irqMissed,
+  canvas.fillText('IRQ CALLS/MISSED: ' + emuState.irqCount + '/' + emuState.missedIrqCall,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
   canvas.fillText('FIRQ CALLS/MISSED: ' + emuState.firqCount + '/' + emuState.missedFirqCall,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);

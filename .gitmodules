@@ -1,0 +1,3 @@
+[submodule "test/tracer/wpc-emu-dumps"]
+	path = test/tracer/wpc-emu-dumps
+	url = https://github.com/neophob/wpc-emu-dumps

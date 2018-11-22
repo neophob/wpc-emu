@@ -1,5 +1,15 @@
 # HISTORY
 
+## 21/11/18
+- fixed a couple more cpu edge cases, fixed overflow flag issue -> freewpc rom's currently wont run anymore
+
+## 21/11/18
+- do not trigger irq when F_IRQMASK  is set, this fixes the johnny mnemonic crash but feels like a hack...
+
+## 18/10/18
+- really fixed bankswitched read (for real!)
+- added trace tool/disassembler to compare wpc-emu agains mame
+
 ## 16/10/18
 - really fixed bankswitched read
 

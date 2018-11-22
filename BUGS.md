@@ -2,6 +2,31 @@
 
 There are some known issues with the Emu, here I try to collect most of them.
 
+## Unclear implementation details
+
+### ADD operation, set halfcarry bit
+
+Which implementation is correct:
+
+```
+if ((sTemp ^ ucByte1 ^ ucByte2) & 0x10)
+   regs->ucRegCC |= F_HALFCARRY;
+```
+
+```
+if (((sTemp ^ ucByte1 ^ ucByte2) & 0x10) << 1)
+  regs->ucRegCC |= F_HALFCARRY;
+```
+
+### Set overflow flag
+
+should r be converted to an 8bit value?
+```
+setV8(a, b, r) {
+  this.regCC |= ((a ^ b ^ r ^ (r >> 1)) & 0x80) >> 6;
+}
+```
+
 ## Missing EMU features
 
 - enable / disable IRQ in the ASIC emu should work - currently the IRQ is fired all the time
@@ -100,13 +125,119 @@ sound-board.js:244 wpcemu:boards:sound-board: CPU_WRITE8_FAIL {"offset":14907,"s
   CWAI might be broken!
 ```
 
-
 ## Medieval Madness
 
 After about 100k cycles the emu crashes with this error message:
 
 ```
-CPU_WRITE8_FAIL {"offset":32767,"subsystem":"system"} -1 191
-UNHANDLED_REJECTION { msg: 'INVALID_WRITE_SUBSYSTEM_0x-1',
-  stack: 'Error: INVALID_WRITE_SUBSYSTEM_0x-1\n    at WpcAsic._write8 (/Users/michaelvogt/_code/github/wpc-emu/lib/boards/cpu-board.js:231:15)\n    at Cpu6809.PUSHW (/Users/michaelvogt/_code/github/wpc-emu/lib/boards/up/cpu6809.js:192:10)\n    at Cpu6809.step (/Users/michaelvogt/_code/github/wpc-emu/lib/boards/up/cpu6809.js:1760:14)\n    at Cpu6809.steps (/Users/michaelvogt/_code/github/wpc-emu/lib/boards/up/cpu6809.js:2406:21)\n    at WpcAsic.executeCycle (/Users/michaelvogt/_code/github/wpc-emu/lib/boards/cpu-board.js:139:36)\n    at Emulator.executeCycle (/Users/michaelvogt/_code/github/wpc-emu/lib/emulator.js:45:26)\n    at boot (/Users/michaelvogt/_code/github/wpc-emu/test/dmdripper/index.js:208:13)\n    at loadRomFilesPromise.then.then (/Users/michaelvogt/_code/github/wpc-emu/test/dmdripper/index.js:169:7)\n    at <anonymous>' }
+21:05:36.646 cpu-board.js:256 CPU_WRITE8_FAIL {"offset":32766,"subsystem":"system"} 65534 142
   ```
+
+Somehow mm writes to the registerS position. Depending on the initial value of registerS, the emu write to whatever is stored there.
+
+Best guess is that there's a bug in the CPU which triggers this issue.
+
+# Johnny Mnemonic
+
+Misc crashes:
+- @ 11MIO ops
+
+```
+00:05:37.283 asic.js:391 R_NOT_IMPLEMENTED 0x3fe2 0
+00:05:37.283 asic.js:391 R_NOT_IMPLEMENTED 0x3fe3 0
+00:05:37.283 asic.js:391 R_NOT_IMPLEMENTED 0x3fe4 30
+00:05:37.284 asic.js:391 R_NOT_IMPLEMENTED 0x3fe5 32
+00:05:37.285 asic.js:391 R_NOT_IMPLEMENTED 0x3fe6 62
+00:05:37.286 asic.js:391 R_NOT_IMPLEMENTED 0x3fea 28
+00:05:37.287 asic.js:391 R_NOT_IMPLEMENTED 0x3ff0 0
+00:05:37.287 asic.js:391 R_NOT_IMPLEMENTED 0x3ff1 0
+00:05:37.288 asic.js:391 R_NOT_IMPLEMENTED 0x3ff3 0
+00:05:37.289 externalIo.js:75 IO R_NOT_IMPLEMENTED 0x3fd6
+00:05:37.290 externalIo.js:75 IO R_NOT_IMPLEMENTED 0x3fd9
+00:05:37.396 cpu-board.js:256 CPU_WRITE8_FAIL {"offset":32512,"subsystem":"system"} 65280 47
+...
+00:05:37.604 cpu-board.js:256 CPU_WRITE8_FAIL {"offset":10784,"subsystem":"system"} 43552 0
+00:05:37.605 cpu-board.js:256 CPU_WRITE8_FAIL {"offset":10785,"subsystem":"system"} 43553 80
+00:05:37.606 cpu6809.js:2322 Uncaught Error: CPU_OPCODE_INVALID_PAGE2_0
+    at Cpu6809.step (cpu6809.js:2322)
+    at Cpu6809.steps (cpu6809.js:2413)
+    at WpcCpuBoard.executeCycle (cpu-board.js:159)
+    at Emulator.executeCycle (emulator.js:46)
+    at step (main.js:103)
+```
+
+```
+cpu-board.js:256 CPU_WRITE8_FAIL {"offset":32755,"subsystem":"system"} 65523 242
+cpu-board.js:256 CPU_WRITE8_FAIL {"offset":14847,"subsystem":"bank"} 31231 72
+cpu-board.js:256 CPU_WRITE8_FAIL {"offset":32767,"subsystem":"system"} 65535 255
+cpu-board.js:256 CPU_WRITE8_FAIL {"offset":32767,"subsystem":"system"} 65535 255
+cpu6809.js:474 Uncaught Error: TFREXG_ERROR
+    at Cpu6809.TFREXG (cpu6809.js:474)
+    at Cpu6809.step (cpu6809.js:1106)
+    at Cpu6809.steps (cpu6809.js:2413)
+    at WpcCpuBoard.executeCycle (cpu-board.js:159)
+    at Emulator.executeCycle (emulator.js:46)
+    at step (main.js:103)
+​```
+
+```
+CPU_WRITE8_FAIL {"offset":32745,"subsystem":"system"} 65513 126
+cpu-board.js:256 CPU_WRITE8_FAIL {"offset":32746,"subsystem":"system"} 65514 147
+cpu-board.js:256 CPU_WRITE8_FAIL {"offset":4104,"subsystem":"system"} 36872 147
+cpu6809.js:643 Uncaught Error: INVALID_ADDRESS_MODE_0x0E
+    at Cpu6809.PostByte (cpu6809.js:643)
+    at Cpu6809.step (cpu6809.js:1947)
+    at Cpu6809.steps (cpu6809.js:2413)
+    at WpcCpuBoard.executeCycle (cpu-board.js:159)
+    at Emulator.executeCycle (emulator.js:46)
+    at step (main.js:103)
+```
+
+- Misc issues here, maybe related to the Medieval Madness issue?
+- Paging issue? read 2nd page of system rom?
+- double the CALL_IRQ_AFTER_TICKS value "fixes the issue"
+
+CALL_IRQ_AFTER_TICKS: 1300 -> crash
+CALL_IRQ_AFTER_TICKS: 2047 -> crash
+CALL_IRQ_AFTER_TICKS: 3000 -> crash
+CALL_IRQ_AFTER_TICKS: 3200 -> ok, but error pattern is visible
+CALL_IRQ_AFTER_TICKS: 3300 -> ok
+CALL_IRQ_AFTER_TICKS: 3500 -> ok
+CALL_IRQ_AFTER_TICKS: 4000 -> ok
+
+
+# TRACE DUMP COMPARE WITH MAME
+
+Loading hurricane
+
+```
+CC=50 A=0006 B=0000 X=8193 Y=0000 S=1728 U=2E2F 9E22: ANDCC #$AF
+-CC=00 A=0006 B=0000 X=8193 Y=0000 S=1728 U=2E2F 9E24: JSR   $925D
++CC=90 A=0006 B=0000 X=8193 Y=0000 S=171C U=2E2F 90BF: LDA   #$96
+CC=98 A=0096 B=0000 X=8193 Y=0000 S=171C U=2E2F 90C1: STA   $3FFF
+```
+- WPC EMU: AND 0x50 with 0xAF -> result is 0.
+- MAME: same, but then explicit IRQ CHECK
+-> might be just a disassembler issue, as the next instruction is correct. a pending interrupt is not shown in the WPC disabembler
+
+
+```
+...
+-CC=56 A=00FF B=0000 X=6F5F Y=0000 S=1719 U=2E2F 864C: LEAS  $1,S
+-CC=56 A=00FF B=0000 X=6F5F Y=0000 S=171A U=2E2F 864E: PULS  A,B,X,Y,PC
+-CC=56 A=00FF B=0000 X=8193 Y=0000 S=1722 U=2E2F 6F5F: BCC   $6F6B
+-CC=56 A=00FF B=0000 X=8193 Y=0000 S=1722 U=2E2F 6F6B: PULS  A,PC
+-CC=56 A=0006 B=0000 X=8193 Y=0000 S=1725 U=2E2F 88EF: PSHS  CC,A
+-CC=56 A=0006 B=0000 X=8193 Y=0000 S=1723 U=2E2F 88F1: LDA   $2,S
++CC=54 A=00FF B=0000 X=6F5F Y=0000 S=1719 U=2E2F 864C: LEAS  $1,S
++CC=54 A=00FF B=0000 X=6F5F Y=0000 S=171A U=2E2F 864E: PULS  A,B,X,Y,PC
++CC=54 A=00FF B=0000 X=8193 Y=0000 S=1722 U=2E2F 6F5F: BCC   $6F6B
++CC=54 A=00FF B=0000 X=8193 Y=0000 S=1722 U=2E2F 6F6B: PULS  A,PC
++CC=54 A=0006 B=0000 X=8193 Y=0000 S=1725 U=2E2F 88EF: PSHS  A,CC
++CC=54 A=0006 B=0000 X=8193 Y=0000 S=1723 U=2E2F 88F1: LDA   $2,S
+...
+
+WPC CC: 56    0101 0110
+MAME CC: 54   0101 0100
+```
+-> Overflow flag not correct
