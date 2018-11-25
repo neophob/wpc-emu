@@ -1,10 +1,7 @@
 # HISTORY
 
-## 21/11/18
-- fixed a couple more cpu edge cases, fixed overflow flag issue -> freewpc rom's currently wont run anymore
-
-## 21/11/18
-- do not trigger irq when F_IRQMASK  is set, this fixes the johnny mnemonic crash but feels like a hack...
+## 25/11/18
+- improved mobile view
 
 ## 18/10/18
 - really fixed bankswitched read (for real!)
