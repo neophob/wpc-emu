@@ -403,6 +403,10 @@ for (let offset = 0x70; offset < 0x80; offset++) {
     expectedResult: 12, expectedTicks: 3, expectedReturn: 10, expectedMemoryRead: [ 0 ]
   },
   {
+    offset: 0x85, register: 'regX', initialValue: 0xFFFF, initialRegB: 10,
+    expectedResult: 0xFFFF, expectedTicks: 1, expectedReturn: 9, expectedMemoryRead: [ 0 ]
+  },
+  {
     offset: 0x90, register: 'regX',
     expectedResult: 11, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
   },
@@ -420,9 +424,32 @@ for (let offset = 0x70; offset < 0x80; offset++) {
     expectedResult: 9, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 9, 10 ]
   },
   {
-    // check underflow
-    offset: 0x92, register: 'regX', initialValue: 0,
+    offset: 0x92, register: 'regX', initialValue: 0, comment: 'check underflow',
     expectedResult: 0xFFFF, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 0xFFFF, 0 ]
+  },
+  {
+    offset: 0x93, register: 'regX',
+    expectedResult: 8, expectedTicks: 6, expectedReturn: 0, expectedMemoryRead: [ 0, 8, 9 ]
+  },
+  {
+    offset: 0x93, register: 'regX', initialValue: 0, comment: 'check underflow',
+    expectedResult: 0xFFFE, expectedTicks: 6, expectedReturn: 0, expectedMemoryRead: [ 0, 0xFFFE, 0xFFFF ]
+  },
+  {
+    offset: 0x94, register: 'regX',
+    expectedResult: 10, expectedTicks: 3, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
+  },
+  {
+    offset: 0x94, register: 'regX', initialValue: 0xFFFF, comment: 'check overflow',
+    expectedResult: 0xFFFF, expectedTicks: 3, expectedReturn: 0, expectedMemoryRead: [ 0, 0xFFFF, 0 ]
+  },
+  {
+    offset: 0x95, register: 'regX', initialRegB: 10, comment: 'regB positive',
+    expectedResult: 10, expectedTicks: 4, expectedReturn: 0, expectedMemoryRead: [ 0, 20, 21 ]
+  },
+  {
+    offset: 0x95, register: 'regX', initialRegB: 0x80, comment: 'regB negative, underflow',
+    expectedResult: 10, expectedTicks: 4, expectedReturn: 0, expectedMemoryRead: [ 0, 0xFF8A, 0xFF8B ]
   },
 
   {
@@ -478,10 +505,13 @@ for (let offset = 0x70; offset < 0x80; offset++) {
 ].forEach((testData) => {
   const hexValue = '0x' + testData.offset.toString(16).toUpperCase();
   const initialValue = testData.initialValue !== undefined ? (' initialValue:' + testData.initialValue) : '';
-  test('postbyte complex ' + testData.register + ': ' + hexValue + initialValue, (t) => {
+  const comment = testData.comment ? ' ' + testData.comment + ',' : '';
+  const description = testData.register + ': ' + hexValue + comment + initialValue;
+  test('postbyte complex ' + description, (t) => {
     const cpu = t.context.cpu;
     t.context.readMemoryAddress = [ testData.offset ];
     cpu.set('flags', 0);
+    cpu.regB = testData.initialRegB || 0;
     cpu[testData.register] = testData.initialValue !== undefined ? testData.initialValue : 10;
     cpu.regPC = 0;
     const result = cpu.PostByte();

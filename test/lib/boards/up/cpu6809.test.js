@@ -291,3 +291,18 @@ test('WriteWord(0xFFFF, 0x1234', (t) => {
     { address: 0, value: 0x34 },
   ]);
 });
+
+test('getD', (t) => {
+  const cpu = t.context;
+  cpu.regA = 0xFF;
+  cpu.regB = 0xEE;
+  const result = cpu.getD();
+  t.is(result, 0xFFEE);
+});
+
+test('setD(0xFFEE)', (t) => {
+  const cpu = t.context;
+  cpu.setD('0xFFEE');
+  t.is(cpu.regA, 0xFF);
+  t.is(cpu.regB, 0xEE);
+});
