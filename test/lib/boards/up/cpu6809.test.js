@@ -306,3 +306,21 @@ test('setD(0xFFEE)', (t) => {
   t.is(cpu.regA, 0xFF);
   t.is(cpu.regB, 0xEE);
 });
+
+test('dpadd(), regDP = 0', (t) => {
+  const cpu = t.context;
+  cpu.regDP = 0;
+  cpu.fetch = () => 0xFF;
+  const result = cpu.dpadd();
+  t.is(result, 0xFF);
+});
+
+test('dpadd(), regDP = 0xFF', (t) => {
+  const cpu = t.context;
+  cpu.regDP = 0xFF;
+  cpu.fetch = () => 0xFF;
+  const result = cpu.dpadd();
+  t.is(result, 0xFFFF);
+});
+
+//TODO TFREXG
