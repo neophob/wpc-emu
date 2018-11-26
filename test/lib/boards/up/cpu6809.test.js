@@ -271,5 +271,5 @@ test('flagsNZ16 0', (t) => {
   const cpu = t.context;
   cpu.set('flags', 0);
   cpu.flagsNZ16(0);
-  t.is(cpu.flagsToString(), 'efhiNZvc');
+  t.is(cpu.flagsToString(), 'efhinZvc');
 });

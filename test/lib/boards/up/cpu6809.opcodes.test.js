@@ -362,3 +362,37 @@ for (let offset = 16; offset < 32; offset++) {
     ]);
   });
 }
+
+for (let offset = 0x60; offset < 0x70; offset++) {
+  test('postbyte simple S: ' + offset, (t) => {
+    const cpu = t.context.cpu;
+    t.context.readMemoryAddress = [ offset ];
+    cpu.set('flags', 0);
+    cpu.regS = 0;
+    cpu.regPC = 0;
+    const result = cpu.PostByte();
+    t.is(result, offset - 0x60);
+    t.is(cpu.flagsToString(), 'efhinzvc');
+    t.is(cpu.regS, 0);
+    t.deepEqual(t.context.readMemoryAddressAccess, [
+      0,
+    ]);
+  });
+}
+
+for (let offset = 0x70; offset < 0x80; offset++) {
+  test('postbyte simple S: ' + offset, (t) => {
+    const cpu = t.context.cpu;
+    t.context.readMemoryAddress = [ offset ];
+    cpu.set('flags', 0);
+    cpu.regS = 0;
+    cpu.regPC = 0;
+    const result = cpu.PostByte();
+    t.is(result, 0x10000 - (32 - offset) - 0x60);
+    t.is(cpu.flagsToString(), 'efhinzvc');
+    t.is(cpu.regS, 0);
+    t.deepEqual(t.context.readMemoryAddressAccess, [
+      0,
+    ]);
+  });
+}
