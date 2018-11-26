@@ -340,9 +340,8 @@ for (let offset = 0; offset < 16; offset++) {
     t.is(result, offset);
     t.is(cpu.flagsToString(), 'efhinzvc');
     t.is(cpu.regX, 0);
-    t.deepEqual(t.context.readMemoryAddressAccess, [
-      0,
-    ]);
+    t.is(cpu.tickCount, 1);
+    t.deepEqual(t.context.readMemoryAddressAccess, [ 0 ]);
   });
 }
 
@@ -357,9 +356,8 @@ for (let offset = 16; offset < 32; offset++) {
     t.is(result, 0x10000 - (32 - offset));
     t.is(cpu.flagsToString(), 'efhinzvc');
     t.is(cpu.regX, 0);
-    t.deepEqual(t.context.readMemoryAddressAccess, [
-      0,
-    ]);
+    t.is(cpu.tickCount, 1);
+    t.deepEqual(t.context.readMemoryAddressAccess, [ 0 ]);
   });
 }
 
@@ -374,9 +372,8 @@ for (let offset = 0x60; offset < 0x70; offset++) {
     t.is(result, offset - 0x60);
     t.is(cpu.flagsToString(), 'efhinzvc');
     t.is(cpu.regS, 0);
-    t.deepEqual(t.context.readMemoryAddressAccess, [
-      0,
-    ]);
+    t.is(cpu.tickCount, 1);
+    t.deepEqual(t.context.readMemoryAddressAccess, [ 0 ]);
   });
 }
 
@@ -391,8 +388,33 @@ for (let offset = 0x70; offset < 0x80; offset++) {
     t.is(result, 0x10000 - (32 - offset) - 0x60);
     t.is(cpu.flagsToString(), 'efhinzvc');
     t.is(cpu.regS, 0);
-    t.deepEqual(t.context.readMemoryAddressAccess, [
-      0,
-    ]);
+    t.is(cpu.tickCount, 1);
+    t.deepEqual(t.context.readMemoryAddressAccess, [ 0 ]);
   });
 }
+
+test('postbyte complex X 0x80: ', (t) => {
+  const cpu = t.context.cpu;
+  t.context.readMemoryAddress = [ 0x80 ];
+  cpu.set('flags', 0);
+  cpu.regX = 10;
+  cpu.regPC = 0;
+  const result = cpu.PostByte();
+  t.is(result, 10);
+  t.is(cpu.regX, 11);
+  t.is(cpu.tickCount, 2);
+  t.deepEqual(t.context.readMemoryAddressAccess, [ 0 ]);
+});
+
+test('postbyte complex X 0x90: ', (t) => {
+  const cpu = t.context.cpu;
+  t.context.readMemoryAddress = [ 0x90 ];
+  cpu.set('flags', 0);
+  cpu.regX = 10;
+  cpu.regPC = 0;
+  const result = cpu.PostByte();
+  t.is(result, 0);
+  t.is(cpu.regX, 11);
+  t.is(cpu.tickCount, 5);
+  t.deepEqual(t.context.readMemoryAddressAccess, [ 0, 10, 11 ]);
+});
