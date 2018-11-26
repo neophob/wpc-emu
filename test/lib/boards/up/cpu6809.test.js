@@ -248,15 +248,15 @@ test('signed byte', (t) => {
 
 test('signed word', (t) => {
   const cpu = t.context;
-  const val0 = cpu.signed(0);
-  const val7fff = cpu.signed(0x7FFF);
-  const val8000 = cpu.signed(0x8000);
-  const valffff = cpu.signed(0xFFFF);
-  const valUndef = cpu.signed();
+  const val0 = cpu.signed16(0);
+  const val7fff = cpu.signed16(0x7FFF);
+  const val8000 = cpu.signed16(0x8000);
+  const valffff = cpu.signed16(0xFFFF);
+  const valUndef = cpu.signed16();
   t.is(val0, 0);
-  t.is(val7fff, 0x7EFF);
-  t.is(val8000, 32512);
-  t.is(valffff, 65279);
+  t.is(val7fff, 0x7FFF);
+  t.is(val8000, -0x8000);
+  t.is(valffff, -1);
   t.is(valUndef, undefined);
 });
 
