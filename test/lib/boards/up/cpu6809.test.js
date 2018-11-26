@@ -13,8 +13,8 @@ test.beforeEach((t) => {
   const readMemoryMock = (address) => {
     readMemoryAddress.push(address);
   };
-  const writeMemoryMock = (address) => {
-    writeMemoryAddress.push(address);
+  const writeMemoryMock = (address, value) => {
+    writeMemoryAddress.push({ address, value });
   };
   const cpu = Cpu6809.getInstance(writeMemoryMock, readMemoryMock, 'UNITTEST');
   cpu.reset();
@@ -272,4 +272,22 @@ test('flagsNZ16 0', (t) => {
   cpu.set('flags', 0);
   cpu.flagsNZ16(0);
   t.is(cpu.flagsToString(), 'efhinZvc');
+});
+
+test('WriteWord(0, 0x1234', (t) => {
+  const cpu = t.context;
+  cpu.WriteWord(0, 0x1234);
+  t.deepEqual(writeMemoryAddress, [
+    { address: 0, value: 0x12 },
+    { address: 1, value: 0x34 },
+  ]);
+});
+
+test('WriteWord(0xFFFF, 0x1234', (t) => {
+  const cpu = t.context;
+  cpu.WriteWord(0xFFFF, 0x1234);
+  t.deepEqual(writeMemoryAddress, [
+    { address: 0xFFFF, value: 0x12 },
+    { address: 0, value: 0x34 },
+  ]);
 });
