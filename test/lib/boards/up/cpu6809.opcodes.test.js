@@ -328,3 +328,37 @@ function runExtendedMemoryTest(t, opcode, memoryContent, postCpuResetInitFunctio
     hardcodedReadOffset,
   ]);
 }
+
+for (let offset = 0; offset < 16; offset++) {
+  test('postbyte simple X: ' + offset, (t) => {
+    const cpu = t.context.cpu;
+    t.context.readMemoryAddress = [ offset ];
+    cpu.set('flags', 0);
+    cpu.regX = 0;
+    cpu.regPC = 0;
+    const result = cpu.PostByte();
+    t.is(result, offset);
+    t.is(cpu.flagsToString(), 'efhinzvc');
+    t.is(cpu.regX, 0);
+    t.deepEqual(t.context.readMemoryAddressAccess, [
+      0,
+    ]);
+  });
+}
+
+for (let offset = 16; offset < 32; offset++) {
+  test('postbyte simple X: ' + offset, (t) => {
+    const cpu = t.context.cpu;
+    t.context.readMemoryAddress = [ offset ];
+    cpu.set('flags', 0);
+    cpu.regX = 0;
+    cpu.regPC = 0;
+    const result = cpu.PostByte();
+    t.is(result, 0x10000 - (32 - offset));
+    t.is(cpu.flagsToString(), 'efhinzvc');
+    t.is(cpu.regX, 0);
+    t.deepEqual(t.context.readMemoryAddressAccess, [
+      0,
+    ]);
+  });
+}

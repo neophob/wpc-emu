@@ -101,6 +101,7 @@ test('flags should be correct after calling irq(), init flags to 0x00', (t) => {
   cpu.set('flags', 0x00);
   cpu.irq();
   t.is(cpu.irqPendingIRQ, true);
+  cpu.fetch = () => 0x12;
   cpu.steps();
   t.is(cpu.flagsToString(), 'EfhInzvc');
   t.is(readMemoryAddress[2], 0xFFF8);
@@ -131,6 +132,7 @@ test('flags should be correct after calling irq(), init flags to 0xef', (t) => {
   const flagClearedFirqBit = 0xFF & ~16;
   cpu.set('flags', flagClearedFirqBit);
   cpu.irq();
+  cpu.fetch = () => 0x12;
   cpu.steps();
   t.is(readMemoryAddress[2], 0xFFF8);
   t.is(readMemoryAddress[3], 0xFFF9);
@@ -141,8 +143,9 @@ test('irq() should not be called if F_IRQMASK flag is set', (t) => {
   const cpu = t.context;
   cpu.set('flags', 0xFF);
   cpu.irq();
+  cpu.fetch = () => 0x12;
   cpu.steps();
-  t.is(readMemoryAddress[2], NaN);
+  t.is(readMemoryAddress[2], undefined);
   t.is(readMemoryAddress[3], undefined);
 });
 
@@ -150,6 +153,7 @@ test('flags should be correct after calling nmi()', (t) => {
   const cpu = t.context;
   cpu.set('flags', 0x00);
   cpu.nmi();
+  cpu.fetch = () => 0x12;
   cpu.steps();
   t.is(cpu.flagsToString(), 'EFhInzvc');
   t.is(readMemoryAddress[2], 0xFFFC);
@@ -161,6 +165,7 @@ test('flags should be correct after calling firq(), init flags to 0x00', (t) => 
   cpu.set('flags', 0x00);
   cpu.firq();
   t.is(cpu.irqPendingFIRQ, true);
+  cpu.fetch = () => 0x12;
   cpu.steps();
   t.is(cpu.flagsToString(), 'eFhInzvc');
   t.is(readMemoryAddress[2], 0xFFF6);
@@ -172,6 +177,7 @@ test('flags should be correct after calling firq(), init flags to 0xbf', (t) => 
   const flagClearedFirqBit = 0xFF & ~64;
   cpu.set('flags', flagClearedFirqBit);
   cpu.firq();
+  cpu.fetch = () => 0x12;
   cpu.steps();
   t.is(readMemoryAddress[2], 0xFFF6);
   t.is(readMemoryAddress[3], 0xFFF7);
@@ -182,8 +188,9 @@ test('firq() should not be called if F_FIRQMASK flag is set', (t) => {
   const cpu = t.context;
   cpu.set('flags', 0xFF);
   cpu.firq();
+  cpu.fetch = () => 0x12;
   cpu.steps();
-  t.is(readMemoryAddress[2], NaN);
+  t.is(readMemoryAddress[2], undefined);
   t.is(readMemoryAddress[3], undefined);
 });
 
@@ -191,8 +198,9 @@ test('oNEG() should set CARRY flag correctly', (t) => {
   const cpu = t.context;
   cpu.set('flags', 0xFF);
   cpu.firq();
+  cpu.fetch = () => 0x12;
   cpu.steps();
-  t.is(readMemoryAddress[2], NaN);
+  t.is(readMemoryAddress[2], undefined);
   t.is(readMemoryAddress[3], undefined);
 });
 
