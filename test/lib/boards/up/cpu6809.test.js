@@ -47,7 +47,6 @@ test('oCMP 8bit, negative flag', (t) => {
   t.is(cpu.flagsToString(), 'efhiNzVC');
 });
 
-
 test('oCMP 8bit, -1', (t) => {
   const cpu = t.context;
   cpu.set('flags', 0x00);
