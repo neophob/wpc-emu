@@ -259,3 +259,17 @@ test('signed word', (t) => {
   t.is(valffff, 65279);
   t.is(valUndef, undefined);
 });
+
+test('flagsNZ16 0xFFFF', (t) => {
+  const cpu = t.context;
+  cpu.set('flags', 0);
+  cpu.flagsNZ16(0xFFFF);
+  t.is(cpu.flagsToString(), 'efhiNzvc');
+});
+
+test('flagsNZ16 0', (t) => {
+  const cpu = t.context;
+  cpu.set('flags', 0);
+  cpu.flagsNZ16(0);
+  t.is(cpu.flagsToString(), 'efhiNZvc');
+});
