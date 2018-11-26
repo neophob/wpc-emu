@@ -1,5 +1,11 @@
 # HISTORY
 
+## 26/11/18
+- fixed PostByte overflow
+- fixed fix a couple of invalid flags (SEX, LDX direct, STX direct, STD direct, LDU direct, STD extended)
+- fixed ReadWord overflow
+- NOTE: existing issues (freewpc tests & jm crash still not fixed)
+
 ## 25/11/18
 - improved mobile view
 

@@ -394,41 +394,100 @@ for (let offset = 0x70; offset < 0x80; offset++) {
 }
 
 [
-  { offset: 0x80, register: 'regX' },
-  { offset: 0xa0, register: 'regY' },
-  { offset: 0xc0, register: 'regU' },
-  { offset: 0xe0, register: 'regS' },
-].forEach((testData) => {
-  test('postbyte complex ' + testData.register + ': ' + testData.offset, (t) => {
-    const cpu = t.context.cpu;
-    t.context.readMemoryAddress = [ testData.offset ];
-    cpu.set('flags', 0);
-    cpu[testData.register] = 10;
-    cpu.regPC = 0;
-    const result = cpu.PostByte();
-    t.is(result, 10);
-    t.is(cpu[testData.register], 11);
-    t.is(cpu.tickCount, 2);
-    t.deepEqual(t.context.readMemoryAddressAccess, [ 0 ]);
-  });
-});
+  {
+    offset: 0x80, register: 'regX',
+    expectedResult: 11, expectedTicks: 2, expectedReturn: 10, expectedMemoryRead: [ 0 ]
+  },
+  {
+    offset: 0x81, register: 'regX',
+    expectedResult: 12, expectedTicks: 3, expectedReturn: 10, expectedMemoryRead: [ 0 ]
+  },
+  {
+    offset: 0x90, register: 'regX',
+    expectedResult: 11, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
+  },
+  {
+    offset: 0x91, register: 'regX',
+    expectedResult: 12, expectedTicks: 6, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
+  },
+  {
+    // check overflow
+    offset: 0x91, register: 'regX', initialValue: 0xFFFF,
+    expectedResult: 1, expectedTicks: 6, expectedReturn: 0, expectedMemoryRead: [ 0, 0xFFFF, 0 ]
+  },
+  {
+    offset: 0x92, register: 'regX',
+    expectedResult: 9, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 9, 10 ]
+  },
+  {
+    // check underflow
+    offset: 0x92, register: 'regX', initialValue: 0,
+    expectedResult: 0xFFFF, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 0xFFFF, 0 ]
+  },
 
-[
-  { offset: 0x90, register: 'regX' },
-  { offset: 0xb0, register: 'regY' },
-  { offset: 0xd0, register: 'regU' },
-  { offset: 0xf0, register: 'regS' },
+  {
+    offset: 0xA0, register: 'regY',
+    expectedResult: 11, expectedTicks: 2, expectedReturn: 10, expectedMemoryRead: [ 0 ]
+  },
+  {
+    offset: 0xA1, register: 'regY',
+    expectedResult: 12, expectedTicks: 3, expectedReturn: 10, expectedMemoryRead: [ 0 ]
+  },
+  {
+    offset: 0xB0, register: 'regY',
+    expectedResult: 11, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
+  },
+  {
+    offset: 0xB1, register: 'regY',
+    expectedResult: 12, expectedTicks: 6, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
+  },
+
+  {
+    offset: 0xC0, register: 'regU',
+    expectedResult: 11, expectedTicks: 2, expectedReturn: 10, expectedMemoryRead: [ 0 ]
+  },
+  {
+    offset: 0xC1, register: 'regU',
+    expectedResult: 12, expectedTicks: 3, expectedReturn: 10, expectedMemoryRead: [ 0 ]
+  },
+  {
+    offset: 0xD0, register: 'regU',
+    expectedResult: 11, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
+  },
+  {
+    offset: 0xD1, register: 'regU',
+    expectedResult: 12, expectedTicks: 6, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
+  },
+
+  {
+    offset: 0xE0, register: 'regS',
+    expectedResult: 11, expectedTicks: 2, expectedReturn: 10, expectedMemoryRead: [ 0 ]
+  },
+  {
+    offset: 0xE1, register: 'regS',
+    expectedResult: 12, expectedTicks: 3, expectedReturn: 10, expectedMemoryRead: [ 0 ]
+  },
+  {
+    offset: 0xF0, register: 'regS',
+    expectedResult: 11, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
+  },
+  {
+    offset: 0xF1, register: 'regS',
+    expectedResult: 12, expectedTicks: 6, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
+  },
 ].forEach((testData) => {
-  test('postbyte complex ' + testData.register + ': ' + testData.offset, (t) => {
+  const hexValue = '0x' + testData.offset.toString(16).toUpperCase();
+  const initialValue = testData.initialValue !== undefined ? (' initialValue:' + testData.initialValue) : '';
+  test('postbyte complex ' + testData.register + ': ' + hexValue + initialValue, (t) => {
     const cpu = t.context.cpu;
     t.context.readMemoryAddress = [ testData.offset ];
     cpu.set('flags', 0);
-    cpu[testData.register] = 10;
+    cpu[testData.register] = testData.initialValue !== undefined ? testData.initialValue : 10;
     cpu.regPC = 0;
     const result = cpu.PostByte();
-    t.is(result, 0);
-    t.is(cpu[testData.register], 11);
-    t.is(cpu.tickCount, 5);
-    t.deepEqual(t.context.readMemoryAddressAccess, [ 0, 10, 11 ]);
+    t.is(result, testData.expectedReturn);
+    t.is(cpu[testData.register], testData.expectedResult);
+    t.is(cpu.tickCount, testData.expectedTicks);
+    t.deepEqual(t.context.readMemoryAddressAccess, testData.expectedMemoryRead);
   });
 });
