@@ -393,28 +393,42 @@ for (let offset = 0x70; offset < 0x80; offset++) {
   });
 }
 
-test('postbyte complex X 0x80: ', (t) => {
-  const cpu = t.context.cpu;
-  t.context.readMemoryAddress = [ 0x80 ];
-  cpu.set('flags', 0);
-  cpu.regX = 10;
-  cpu.regPC = 0;
-  const result = cpu.PostByte();
-  t.is(result, 10);
-  t.is(cpu.regX, 11);
-  t.is(cpu.tickCount, 2);
-  t.deepEqual(t.context.readMemoryAddressAccess, [ 0 ]);
+[
+  { offset: 0x80, register: 'regX' },
+  { offset: 0xa0, register: 'regY' },
+  { offset: 0xc0, register: 'regU' },
+  { offset: 0xe0, register: 'regS' },
+].forEach((testData) => {
+  test('postbyte complex ' + testData.register + ': ' + testData.offset, (t) => {
+    const cpu = t.context.cpu;
+    t.context.readMemoryAddress = [ testData.offset ];
+    cpu.set('flags', 0);
+    cpu[testData.register] = 10;
+    cpu.regPC = 0;
+    const result = cpu.PostByte();
+    t.is(result, 10);
+    t.is(cpu[testData.register], 11);
+    t.is(cpu.tickCount, 2);
+    t.deepEqual(t.context.readMemoryAddressAccess, [ 0 ]);
+  });
 });
 
-test('postbyte complex X 0x90: ', (t) => {
-  const cpu = t.context.cpu;
-  t.context.readMemoryAddress = [ 0x90 ];
-  cpu.set('flags', 0);
-  cpu.regX = 10;
-  cpu.regPC = 0;
-  const result = cpu.PostByte();
-  t.is(result, 0);
-  t.is(cpu.regX, 11);
-  t.is(cpu.tickCount, 5);
-  t.deepEqual(t.context.readMemoryAddressAccess, [ 0, 10, 11 ]);
+[
+  { offset: 0x90, register: 'regX' },
+  { offset: 0xb0, register: 'regY' },
+  { offset: 0xd0, register: 'regU' },
+  { offset: 0xf0, register: 'regS' },
+].forEach((testData) => {
+  test('postbyte complex ' + testData.register + ': ' + testData.offset, (t) => {
+    const cpu = t.context.cpu;
+    t.context.readMemoryAddress = [ testData.offset ];
+    cpu.set('flags', 0);
+    cpu[testData.register] = 10;
+    cpu.regPC = 0;
+    const result = cpu.PostByte();
+    t.is(result, 0);
+    t.is(cpu[testData.register], 11);
+    t.is(cpu.tickCount, 5);
+    t.deepEqual(t.context.readMemoryAddressAccess, [ 0, 10, 11 ]);
+  });
 });
