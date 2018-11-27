@@ -267,7 +267,7 @@ test('flagsNZ16 0xFFFF', (t) => {
   t.is(cpu.flagsToString(), 'efhiNzvc');
 });
 
-test('flagsNZ16 0', (t) => {
+test('flagsNZ16 0x0000', (t) => {
   const cpu = t.context;
   cpu.set('flags', 0);
   cpu.flagsNZ16(0);

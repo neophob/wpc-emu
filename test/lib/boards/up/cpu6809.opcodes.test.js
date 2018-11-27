@@ -411,8 +411,12 @@ for (let offset = 0x70; offset < 0x80; offset++) {
     expectedResult: 10, expectedTicks: 1, expectedReturn: 0, expectedMemoryRead: [ 0, 1 ]
   },
   {
-    offset: 0x88, register: 'regX', initialValue: 0xFFFF,
-    expectedResult: 0xFFFF, expectedTicks: 1, expectedReturn: 0, expectedMemoryRead: [ 0, 1 ]
+    offset: 0x88, register: 'regX', initialValue: 100,
+    expectedResult: 100, expectedTicks: 1, expectedReturn: 0, expectedMemoryRead: [ 0, 1 ]
+  },
+  {
+    offset: 0x89, register: 'regX',
+    expectedResult: 10, expectedTicks: 4, expectedReturn: 0, expectedMemoryRead: [ 0, 1, 2 ]
   },
   {
     offset: 0x8B, register: 'regX',
@@ -426,6 +430,15 @@ for (let offset = 0x70; offset < 0x80; offset++) {
     offset: 0x8C, register: 'regX',
     expectedResult: 10, expectedTicks: 1, expectedReturn: 0, expectedMemoryRead: [ 0, 1 ]
   },
+  {
+    offset: 0x8D, register: 'regX',
+    expectedResult: 10, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 1, 2 ]
+  },
+  {
+    offset: 0x8F, register: 'regX',
+    expectedResult: 10, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 1, 2 ]
+  },
+
   {
     offset: 0x90, register: 'regX',
     expectedResult: 11, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
