@@ -363,4 +363,17 @@ test('oNEG(0xFF)', (t) => {
   t.is(cpu.flagsToString(), 'efhinzvc');
 });
 
+test('setPBR(0, 0xFFFF)', (t) => {
+  const cpu = t.context;
+  cpu.setPBR(0, 0xFFFF);
+  t.is(cpu.regA, 0xFF);
+  t.is(cpu.regB, 0xFF);
+});
+
+test('setPBR(0x8, 0xFFFF)', (t) => {
+  const cpu = t.context;
+  cpu.setPBR(0x8, 0xFFFF);
+  t.is(cpu.regA, 0xFF);
+});
+
 //TODO TFREXG
