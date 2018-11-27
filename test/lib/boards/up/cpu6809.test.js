@@ -323,4 +323,44 @@ test('dpadd(), regDP = 0xFF', (t) => {
   t.is(result, 0xFFFF);
 });
 
+test('oNEG(0)', (t) => {
+  const cpu = t.context;
+  cpu.set('flags', 0);
+  const result = cpu.oNEG(0);
+  t.is(result, 0);
+  t.is(cpu.flagsToString(), 'efhinZvc');
+});
+
+test('oNEG(1)', (t) => {
+  const cpu = t.context;
+  cpu.set('flags', 0);
+  const result = cpu.oNEG(1);
+  t.is(result, 0xFF);
+  t.is(cpu.flagsToString(), 'efhiNzvC');
+});
+
+test('oNEG(0x7F)', (t) => {
+  const cpu = t.context;
+  cpu.set('flags', 0);
+  const result = cpu.oNEG(0x7f);
+  t.is(result, 0x81);
+  t.is(cpu.flagsToString(), 'efhiNzvC');
+});
+
+test('oNEG(0x80)', (t) => {
+  const cpu = t.context;
+  cpu.set('flags', 0);
+  const result = cpu.oNEG(0x80);
+  t.is(result, 0x80);
+  t.is(cpu.flagsToString(), 'efhiNzVC');
+});
+
+test('oNEG(0xFF)', (t) => {
+  const cpu = t.context;
+  cpu.set('flags', 0);
+  const result = cpu.oNEG(0xFF);
+  t.is(result, 1);
+  t.is(cpu.flagsToString(), 'efhinzvc');
+});
+
 //TODO TFREXG
