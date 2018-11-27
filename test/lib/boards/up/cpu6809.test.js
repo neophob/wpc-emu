@@ -376,4 +376,26 @@ test('setPBR(0x8, 0xFFFF)', (t) => {
   t.is(cpu.regA, 0xFF);
 });
 
+test('getPBR(0x0) - D', (t) => {
+  const cpu = t.context;
+  cpu.regA = 0x44;
+  cpu.regB = 0x99;
+  const result = cpu.getPBR(0x0);
+  t.is(result, 0x4499);
+});
+
+test('getPBR(0x5) - PC', (t) => {
+  const cpu = t.context;
+  cpu.regPC = 0x1234;
+  const result = cpu.getPBR(0x5);
+  t.is(result, 0x1234);
+});
+
+test('getPBR(0xA) - CC', (t) => {
+  const cpu = t.context;
+  cpu.regCC = 0xFF;
+  const result = cpu.getPBR(0xA);
+  t.is(result, 0xFF);
+});
+
 //TODO TFREXG
