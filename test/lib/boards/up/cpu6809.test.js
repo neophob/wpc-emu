@@ -411,4 +411,38 @@ test('getPostByteRegister(0xA) - CC', (t) => {
   t.is(result, 0xFF);
 });
 
-//TODO TFREXG
+test('TFREXG - transfer X -> Y', (t) => {
+  const cpu = t.context;
+  cpu.regX = 0xFFFF;
+  cpu.regY = 0x7F;
+  cpu.TFREXG(0x12, false);
+  t.is(cpu.regX, 0xFFFF);
+  t.is(cpu.regY, 0xFFFF);
+});
+
+test('TFREXG - exchange U <-> S', (t) => {
+  const cpu = t.context;
+  cpu.regU = 0xFFFF;
+  cpu.regS = 0x7F;
+  cpu.TFREXG(0x34, true);
+  t.is(cpu.regU, 0x7F);
+  t.is(cpu.regS, 0xFFFF);
+});
+
+test('TFREXG - transfer A -> CC', (t) => {
+  const cpu = t.context;
+  cpu.regA = 0xFF;
+  cpu.regCC = 0x7F;
+  cpu.TFREXG(0x8A, false);
+  t.is(cpu.regA, 0xFF);
+  t.is(cpu.regCC, 0xFF);
+});
+
+test('TFREXG - exchange b <-> DP', (t) => {
+  const cpu = t.context;
+  cpu.regB = 0xFF;
+  cpu.regDP = 0x7F;
+  cpu.TFREXG(0x9B, true);
+  t.is(cpu.regB, 0x7F);
+  t.is(cpu.regDP, 0xFF);
+});
