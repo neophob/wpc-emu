@@ -554,3 +554,29 @@ for (let offset = 0x70; offset < 0x80; offset++) {
     t.deepEqual(t.context.readMemoryAddressAccess, testData.expectedMemoryRead);
   });
 });
+
+test('postbyte complex 0x8C', (t) => {
+  const cpu = t.context.cpu;
+  t.context.readMemoryAddress = [ 0x55, 0x8C ];
+  cpu.set('flags', 0);
+  cpu.regPC = 0x1000;
+  const result = cpu.PostByte();
+  t.is(result, 0x1057);
+  t.is(cpu.flagsToString(), 'efhinzvc');
+  t.is(cpu.regPC, 0x1002);
+  t.is(cpu.tickCount, 1);
+  t.deepEqual(t.context.readMemoryAddressAccess, [ 0x1000, 0x1001 ]);
+});
+
+test('postbyte complex 0x8D', (t) => {
+  const cpu = t.context.cpu;
+  t.context.readMemoryAddress = [ 0x99, 0x55, 0x8D ];
+  cpu.set('flags', 0);
+  cpu.regPC = 0x1000;
+  const result = cpu.PostByte();
+  t.is(result, 0x659C);
+  t.is(cpu.flagsToString(), 'efhinzvc');
+  t.is(cpu.regPC, 0x1003);
+  t.is(cpu.tickCount, 5);
+  t.deepEqual(t.context.readMemoryAddressAccess, [ 0x1000, 0x1001, 0x1002 ]);
+});
