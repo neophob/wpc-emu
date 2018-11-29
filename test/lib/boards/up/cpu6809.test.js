@@ -376,38 +376,38 @@ test('oNEG(0xFF)', (t) => {
   t.is(cpu.flagsToString(), 'efhinzvc');
 });
 
-test('setPBR(0, 0xFFFF)', (t) => {
+test('setPostByteRegister(0, 0xFFFF)', (t) => {
   const cpu = t.context;
-  cpu.setPBR(0, 0xFFFF);
+  cpu.setPostByteRegister(0, 0xFFFF);
   t.is(cpu.regA, 0xFF);
   t.is(cpu.regB, 0xFF);
 });
 
-test('setPBR(0x8, 0xFFFF)', (t) => {
+test('setPostByteRegister(0x8, 0xFFFF)', (t) => {
   const cpu = t.context;
-  cpu.setPBR(0x8, 0xFFFF);
+  cpu.setPostByteRegister(0x8, 0xFFFF);
   t.is(cpu.regA, 0xFF);
 });
 
-test('getPBR(0x0) - D', (t) => {
+test('getPostByteRegister(0x0) - D', (t) => {
   const cpu = t.context;
   cpu.regA = 0x44;
   cpu.regB = 0x99;
-  const result = cpu.getPBR(0x0);
+  const result = cpu.getPostByteRegister(0x0);
   t.is(result, 0x4499);
 });
 
-test('getPBR(0x5) - PC', (t) => {
+test('getPostByteRegister(0x5) - PC', (t) => {
   const cpu = t.context;
   cpu.regPC = 0x1234;
-  const result = cpu.getPBR(0x5);
+  const result = cpu.getPostByteRegister(0x5);
   t.is(result, 0x1234);
 });
 
-test('getPBR(0xA) - CC', (t) => {
+test('getPostByteRegister(0xA) - CC', (t) => {
   const cpu = t.context;
   cpu.regCC = 0xFF;
-  const result = cpu.getPBR(0xA);
+  const result = cpu.getPostByteRegister(0xA);
   t.is(result, 0xFF);
 });
 
