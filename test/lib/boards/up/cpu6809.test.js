@@ -232,7 +232,20 @@ test('set overflow flag (16bit), overflow r value', (t) => {
   t.is(cpu.flagsToString(), 'efhinzvc');
 });
 
-test('signed byte', (t) => {
+test('signed 5bit', (t) => {
+  const cpu = t.context;
+  const val0 = cpu.signed5bit(0);
+  const valF = cpu.signed5bit(0xF);
+  const val10 = cpu.signed5bit(0x10);
+  const val1F = cpu.signed5bit(0x1F);
+  const valUndef = cpu.signed5bit();
+  t.is(val0, 0);
+  t.is(valF, 15);
+  t.is(val10, -16);
+  t.is(val1F, -1);
+  t.is(valUndef, undefined);
+});
+test('signed 8bit', (t) => {
   const cpu = t.context;
   const val0 = cpu.signed(0);
   const val7f = cpu.signed(0x7F);
@@ -246,7 +259,7 @@ test('signed byte', (t) => {
   t.is(valUndef, undefined);
 });
 
-test('signed word', (t) => {
+test('signed 16bit', (t) => {
   const cpu = t.context;
   const val0 = cpu.signed16(0);
   const val7fff = cpu.signed16(0x7FFF);
@@ -254,8 +267,8 @@ test('signed word', (t) => {
   const valffff = cpu.signed16(0xFFFF);
   const valUndef = cpu.signed16();
   t.is(val0, 0);
-  t.is(val7fff, 0x7FFF);
-  t.is(val8000, -0x8000);
+  t.is(val7fff, 32767);
+  t.is(val8000, -32768);
   t.is(valffff, -1);
   t.is(valUndef, undefined);
 });
