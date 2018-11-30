@@ -245,6 +245,7 @@ test('signed 5bit', (t) => {
   t.is(val1F, -1);
   t.is(valUndef, undefined);
 });
+
 test('signed 8bit', (t) => {
   const cpu = t.context;
   const val0 = cpu.signed(0);
@@ -355,7 +356,7 @@ test('oNEG(1)', (t) => {
 test('oNEG(0x7F)', (t) => {
   const cpu = t.context;
   cpu.set('flags', 0);
-  const result = cpu.oNEG(0x7f);
+  const result = cpu.oNEG(0x7F);
   t.is(result, 0x81);
   t.is(cpu.flagsToString(), 'efhiNzvC');
 });

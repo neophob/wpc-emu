@@ -3,6 +3,8 @@
 ## 30/11/18
 - added missing cycle counts when branch is taken for page 1 calls
 - LBSR(0x17) and LBRA(0x16) op, don't sign read word
+- fixed invalid .set register case for regPC
+- improved cpu test coverage, added DSL tests for CPU opcodes
 - NOTE: existing issues (freewpc tests & jm crash still not fixed)
 
 ## 26/11/18

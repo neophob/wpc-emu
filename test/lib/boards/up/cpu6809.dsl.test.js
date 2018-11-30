@@ -293,21 +293,21 @@ Source: Description Of The Motorola 6809 Instruction Set by Paul D. Burgin
 */
 `
 +------------+-------------+--------------+-------+-------+-------+
-| 1021  4129 | LBRN        | RELATIVE     | 5(6)  |   4   | ----- |
+| 1021  4129 | LBRN        | RELATIVE     |   5   |   4   | ----- |
 | 1022  4130 | LBHI        | RELATIVE     |   6   |   4   | ----- |
-| 1023  4131 | LBLS        | RELATIVE     | 5(6)  |   4   | ----- |
+| 1023  4131 | LBLS        | RELATIVE     |   5   |   4   | ----- |
 | 1024  4132 | LBHS/LBCC   | RELATIVE     |   6   |   4   | ----- |
-| 1025  4133 | LBLO/LBCS   | RELATIVE     | 5(6)  |   4   | ----- |
+| 1025  4133 | LBLO/LBCS   | RELATIVE     |   5   |   4   | ----- |
 | 1026  4134 | LBNE        | RELATIVE     |   6   |   4   | ----- |
-| 1027  4135 | LBEQ        | RELATIVE     | 5(6)  |   4   | ----- |
+| 1027  4135 | LBEQ        | RELATIVE     |   5   |   4   | ----- |
 | 1028  4136 | LBVC        | RELATIVE     |   6   |   4   | ----- |
-| 1029  4137 | LBVS        | RELATIVE     | 5(6)  |   4   | ----- |
+| 1029  4137 | LBVS        | RELATIVE     |   5   |   4   | ----- |
 | 102A  4138 | LBPL        | RELATIVE     |   6   |   4   | ----- |
-| 102B  4139 | LBMI        | RELATIVE     | 5(6)  |   4   | ----- |
+| 102B  4139 | LBMI        | RELATIVE     |   5   |   4   | ----- |
 | 102C  4140 | LBGE        | RELATIVE     |   6   |   4   | ----- |
-| 102D  4141 | LBLT        | RELATIVE     | 5(6)  |   4   | ----- |
+| 102D  4141 | LBLT        | RELATIVE     |   5   |   4   | ----- |
 | 102E  4142 | LBGT        | RELATIVE     |   6   |   4   | ----- |
-| 102F  4143 | LBLE        | RELATIVE     | 5(6)  |   4   | ----- |
+| 102F  4143 | LBLE        | RELATIVE     |   5   |   4   | ----- |
 | 103F  4159 | SWI2        | INHERENT     |  20   |   2   | ----- |
 | 1083  4227 | CMPD        | IMMEDIATE    |   5   |   4   | -aaaa |
 | 108C  4236 | CMPY        | IMMEDIATE    |   5   |   4   | -aaaa |
@@ -371,10 +371,10 @@ const FLAG_UNAFFECTED = '-';
 //HNZVC
 const EXPECTED_FLAG_MAP = [
   32, //F_HALFCARRY
-  8,  //F_NEGATIVE
-  4,  //F_ZERO
-  2,  //F_OVERFLOW
-  1,   //F_CARRY
+  8, //F_NEGATIVE
+  4, //F_ZERO
+  2, //F_OVERFLOW
+  1, //F_CARRY
 ];
 
 test.beforeEach((t) => {
@@ -403,7 +403,7 @@ function flagCheckTest(t, testData) {
   for (var x = 0; x < testData.flags.length; x++) {
     const flag = testData.flags[x];
     const mask = EXPECTED_FLAG_MAP[x];
-    switch(flag) {
+    switch (flag) {
       case FLAG_CLEAR:
         t.is((cpu.regCC & mask), 0);
         break;
@@ -423,17 +423,25 @@ function flagCheckTest(t, testData) {
 marshall(PAGE0_OPS)
   .forEach((testData) => {
 
-    test('PAGE0 CYCLECOUNT: 0x' + testData.desc + ': ' + testData.cycles, (t) => {
+    function runCyclecountTest(t, testData, flags) {
       // add command in reverse order
       t.context.readMemoryAddress = [
         0, 0, 0, 0, 0, 0, 0, 0,
         testData.op, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI
       ];
       const cpu = t.context.cpu;
-      cpu.set('flags', 0x00);
+      cpu.set('flags', flags);
       cpu.reset();
       cpu.step();
       t.is(testData.cycles, cpu.tickCount);
+    }
+
+    test('PAGE0 CYCLECOUNT (flags 0x00): 0x' + testData.desc + ': ' + testData.cycles, (t) => {
+      runCyclecountTest(t, testData, 0x00);
+    });
+
+    test('PAGE0 CYCLECOUNT (flags 0xFF): 0x' + testData.desc + ': ' + testData.cycles, (t) => {
+      runCyclecountTest(t, testData, 0xFF);
     });
 
     test('PAGE0 FLAGCHECK: 0x' + testData.desc + ': ' + testData.flags, (t) => {
@@ -453,7 +461,7 @@ marshall(PAGE0_OPS)
 marshall(PAGE1_OPS)
   .forEach((testData) => {
 
-    test('PAGE1 CYCLECOUNT: 0x' + testData.desc + ': ' + testData.cycles, (t) => {
+    function runCyclecountTest(t, testData, flags, expectedTickCount) {
       const OP_0X10_OPCODE_CYCLE = 1;
       // add command in reverse order
       t.context.readMemoryAddress = [
@@ -461,10 +469,25 @@ marshall(PAGE1_OPS)
         testData.op & 0xFF, (testData.op >>> 8) & 0xFF, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI
       ];
       const cpu = t.context.cpu;
-      cpu.set('flags', 0x00);
+      cpu.set('flags', flags);
       cpu.reset();
       cpu.step();
-      t.is(testData.cycles, cpu.tickCount - OP_0X10_OPCODE_CYCLE);
+      t.is(expectedTickCount, cpu.tickCount - OP_0X10_OPCODE_CYCLE);
+    }
+
+    test('PAGE1 CYCLECOUNT (flags 0x00): 0x' + testData.desc + ': ' + testData.cycles, (t) => {
+      runCyclecountTest(t, testData, 0x00, testData.cycles);
+    });
+
+    test('PAGE1 CYCLECOUNT (flags 0xFF): 0x' + testData.desc + ': ' + testData.cycles, (t) => {
+      const expectedTickCount = testData.op > 0x1021 && testData.op < 0x103F ?
+        (testData.cycles === 5) ? 6 : 5 :
+        testData.cycles;
+      if ([0x102C, 0x102D].includes(testData.op)) {
+        runCyclecountTest(t, testData, 0xF7, expectedTickCount);
+      } else {
+        runCyclecountTest(t, testData, 0xFF, expectedTickCount);
+      }
     });
 
     test('PAGE1 FLAGCHECK: 0x' + testData.desc + ': ' + testData.flags, (t) => {
@@ -480,18 +503,25 @@ marshall(PAGE1_OPS)
 marshall(PAGE2_OPS)
   .forEach((testData) => {
 
-    test('PAGE2 CYCLECOUNT: 0x' + testData.desc + ': ' + testData.cycles, (t) => {
+    function runCyclecountTest(t, testData, flags) {
       const OP_0X11_OPCODE_CYCLE = 1;
-      // add command in reverse order
       t.context.readMemoryAddress = [
         0, 0, 0, 0, 0, 0, 0, 0,
         testData.op & 0xFF, (testData.op >>> 8) & 0xFF, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI
       ];
       const cpu = t.context.cpu;
-      cpu.set('flags', 0x00);
+      cpu.set('flags', flags);
       cpu.reset();
       cpu.step();
       t.is(testData.cycles, cpu.tickCount - OP_0X11_OPCODE_CYCLE);
+    }
+
+    test('PAGE2 CYCLECOUNT (flags 0x00): 0x' + testData.desc + ': ' + testData.cycles, (t) => {
+      runCyclecountTest(t, testData, 0x00);
+    });
+
+    test('PAGE2 CYCLECOUNT (flags 0xFF): 0x' + testData.desc + ': ' + testData.cycles, (t) => {
+      runCyclecountTest(t, testData, 0xFF);
     });
 
     test('PAGE2 FLAGCHECK: 0x' + testData.desc + ': ' + testData.flags, (t) => {
