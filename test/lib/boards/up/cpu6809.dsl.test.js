@@ -7,7 +7,6 @@ import Cpu6809 from '../../../../lib/boards/up/cpu6809';
 
 const RESET_VECTOR_VALUE_LO = 0x01;
 const RESET_VECTOR_VALUE_HI = 0x02;
-
 const ADDRESSMODE_TO_IGNORE = ['ILLEGAL', 'VARIANT'];
 
 const PAGE0_OPS =
@@ -47,7 +46,8 @@ Source: Description Of The Motorola 6809 Instruction Set by Paul D. Burgin
 | 1A    0026 | ORCC        | IMMEDIATE    |   3   |   2   | ddddd |
 | 1B    0027 | ILLEGAL     | ILLEGAL      |   1   |   1   | uuuuu |
 | 1C    0028 | ANDCC       | IMMEDIATE    |   3   |   2   | ddddd |
-| 1D    0029 | SEX         | INHERENT     |   2   |   1   | -aa0- |
+//NOTE: fixed overflow flag, not touched!
+| 1D    0029 | SEX         | INHERENT     |   2   |   1   | -aa-- |
 | 1E    0030 | EXG         | INHERENT     |   8   |   2   | ccccc |
 | 1F    0031 | TFR         | INHERENT     |   7   |   2   | ccccc |
 
@@ -83,7 +83,7 @@ Source: Description Of The Motorola 6809 Instruction Set by Paul D. Burgin
 | 3B    0059 | RTI         | INHERENT     |   6   |   1   | ----- |
 | 3C    0060 | CWAI        | INHERENT     |  21   |   2   | ddddd |
 | 3D    0061 | MUL         | INHERENT     |  11   |   1   | --a-a |
-// RESET IS EXCLUDED
+//NOTE: RESET IS EXCLUDED
 | 3E    0062 | RESET*      | ILLEGAL      |   1   |   1   | ***** |
 | 3F    0063 | SWI         | INHERENT     |  19   |   1   | ----- |
 | 40    0064 | NEGA        | INHERENT     |   2   |   1   | uaaaa |
@@ -150,7 +150,7 @@ Source: Description Of The Motorola 6809 Instruction Set by Paul D. Burgin
 | 7B    0123 | ILLEGAL     | ILLEGAL      |   1   |   1   | uuuuu |
 | 7C    0124 | INC         | EXTENDED     |   7   |   3   | -aaa- |
 | 7D    0125 | TST         | EXTENDED     |   7   |   3   | -aa0- |
-// FIXED CYCLE COUNT TO 4
+//NOTE: FIXED CYCLE COUNT TO 4
 | 7E    0126 | JMP         | EXTENDED     |   4   |   3   | ----- |
 | 7F    0127 | CLR         | EXTENDED     |   7   |   3   | -0100 |
 
@@ -334,7 +334,6 @@ Source: Description Of The Motorola 6809 Instruction Set by Paul D. Burgin
 +------------+-------------+--------------+-------+-------+-------+
 `;
 
-
 const PAGE2_OPS =
 /*
 Source: Description Of The Motorola 6809 Instruction Set by Paul D. Burgin
@@ -365,6 +364,19 @@ Source: Description Of The Motorola 6809 Instruction Set by Paul D. Burgin
     n Unaffected by LSL, undefined by ASL (according to Motorola)!
 */
 
+const FLAG_CLEAR = '0';
+const FLAG_SET = '1';
+const FLAG_UNAFFECTED = '-';
+
+//HNZVC
+const EXPECTED_FLAG_MAP = [
+  32, //F_HALFCARRY
+  8,  //F_NEGATIVE
+  4,  //F_ZERO
+  2,  //F_OVERFLOW
+  1,   //F_CARRY
+];
+
 test.beforeEach((t) => {
   const readMemoryMock = (address) => {
     t.context.readMemoryAddressAccess.push(address);
@@ -382,8 +394,35 @@ test.beforeEach((t) => {
   };
 });
 
+function flagCheckTest(t, testData) {
+  const cpu = t.context.cpu;
+  cpu.set('flags', 0xFF);
+  cpu.reset();
+  cpu.step();
+
+  for (var x = 0; x < testData.flags.length; x++) {
+    const flag = testData.flags[x];
+    const mask = EXPECTED_FLAG_MAP[x];
+    switch(flag) {
+      case FLAG_CLEAR:
+        t.is((cpu.regCC & mask), 0);
+        break;
+      case FLAG_SET:
+        t.true((cpu.regCC & mask) > 0);
+        break;
+      case FLAG_UNAFFECTED:
+        const unaffectedFlag = cpu.regCC & mask;
+        t.true(unaffectedFlag > 0, 'offset: ' + x + ', ' + unaffectedFlag + ', mask: ' + mask);
+        break;
+      default:
+        t.pass();
+    }
+  }
+}
+
 marshall(PAGE0_OPS)
   .forEach((testData) => {
+
     test('PAGE0 CYCLECOUNT: 0x' + testData.desc + ': ' + testData.cycles, (t) => {
       // add command in reverse order
       t.context.readMemoryAddress = [
@@ -396,10 +435,24 @@ marshall(PAGE0_OPS)
       cpu.step();
       t.is(testData.cycles, cpu.tickCount);
     });
+
+    test('PAGE0 FLAGCHECK: 0x' + testData.desc + ': ' + testData.flags, (t) => {
+      // add command in reverse order
+      t.context.readMemoryAddress = [
+        0, 0, 0, 0, 0, 0, 0, 0,
+        testData.op, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI
+      ];
+      if (testData.op === 0x3B) {
+        //RTI does a pullb
+        t.context.readMemoryAddress[7] = 0xFF;
+      }
+      flagCheckTest(t, testData);
+    });
   });
 
 marshall(PAGE1_OPS)
   .forEach((testData) => {
+
     test('PAGE1 CYCLECOUNT: 0x' + testData.desc + ': ' + testData.cycles, (t) => {
       const OP_0X10_OPCODE_CYCLE = 1;
       // add command in reverse order
@@ -413,10 +466,20 @@ marshall(PAGE1_OPS)
       cpu.step();
       t.is(testData.cycles, cpu.tickCount - OP_0X10_OPCODE_CYCLE);
     });
+
+    test('PAGE1 FLAGCHECK: 0x' + testData.desc + ': ' + testData.flags, (t) => {
+      // add command in reverse order
+      t.context.readMemoryAddress = [
+        0, 0, 0, 0, 0, 0, 0, 0,
+        testData.op & 0xFF, (testData.op >>> 8) & 0xFF, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI
+      ];
+      flagCheckTest(t, testData);
+    });
   });
 
 marshall(PAGE2_OPS)
   .forEach((testData) => {
+
     test('PAGE2 CYCLECOUNT: 0x' + testData.desc + ': ' + testData.cycles, (t) => {
       const OP_0X11_OPCODE_CYCLE = 1;
       // add command in reverse order
@@ -430,6 +493,16 @@ marshall(PAGE2_OPS)
       cpu.step();
       t.is(testData.cycles, cpu.tickCount - OP_0X11_OPCODE_CYCLE);
     });
+
+    test('PAGE2 FLAGCHECK: 0x' + testData.desc + ': ' + testData.flags, (t) => {
+      // add command in reverse order
+      t.context.readMemoryAddress = [
+        0, 0, 0, 0, 0, 0, 0, 0,
+        testData.op & 0xFF, (testData.op >>> 8) & 0xFF, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI
+      ];
+      flagCheckTest(t, testData);
+    });
+
   });
 
 function marshall(instructions) {
@@ -444,6 +517,7 @@ function marshall(instructions) {
         instruction: junks[2].trim(),
         addressMode: junks[3].trim(),
         cycles: parseInt(junks[4], 10) + parseInt(junks[7] || '0', 10),
+        flags: junks[6].trim(),
         desc: (junks[1] + junks[2] + junks[3]).trim(),
       };
     })
