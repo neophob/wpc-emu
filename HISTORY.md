@@ -1,10 +1,14 @@
 # HISTORY
 
+## 30/11/18
+- added missing cycle counts when branch is taken for page 1 calls
+- LBSR(0x17) and LBRA(0x16) op, don't sign read word
+- NOTE: existing issues (freewpc tests & jm crash still not fixed)
+
 ## 26/11/18
 - fixed PostByte overflow
 - fixed fix a couple of invalid flags (SEX, LDX direct, STX direct, STD direct, LDU direct, STD extended)
 - fixed WriteWord and ReadWord overflow
-- NOTE: existing issues (freewpc tests & jm crash still not fixed)
 
 ## 25/11/18
 - improved mobile view
