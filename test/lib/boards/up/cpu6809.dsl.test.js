@@ -8,35 +8,15 @@ import Cpu6809 from '../../../../lib/boards/up/cpu6809';
 const RESET_VECTOR_VALUE_LO = 0x01;
 const RESET_VECTOR_VALUE_HI = 0x02;
 
-const EXPECTED_RESET_READ_OFFSET_LO = 0x201;
-const EXPECTED_RESET_READ_OFFSET_HI = 0x202;
-
-const RESET_VECTOR_OFFSET_LO = 0xFFFE;
-const RESET_VECTOR_OFFSET_HI = 0xFFFF;
-
-test.beforeEach((t) => {
-  const readMemoryMock = (address) => {
-    t.context.readMemoryAddressAccess.push(address);
-    return t.context.readMemoryAddress.pop();
-  };
-  const writeMemoryMock = (address, value) => {
-    t.context.writeMemoryAddress.push({ address, value });
-  };
-  const cpu = Cpu6809.getInstance(writeMemoryMock, readMemoryMock, 'UNITTEST');
-  t.context = {
-    cpu,
-    readMemoryAddressAccess: [],
-    readMemoryAddress: [],
-    writeMemoryAddress: [],
-  };
-});
-
 const ADDRESSMODE_TO_IGNORE = ['ILLEGAL', 'VARIANT'];
+
+const PAGE0_OPS =
 /*
+Source: Description Of The Motorola 6809 Instruction Set by Paul D. Burgin
 | Opcode     |             | Addressing   |               |       |
 | Hex   Dec  | Instruction | Mode         | Cycles  Bytes | HNZVC | Additional cycles
 */
-const PAGE0_OPS = `
+`
 +------------+-------------+--------------+-------+-------+-------+
 | 00    0000 | NEG         | DIRECT       |   6   |   2   | uaaaa |
 | 01    0001 | ILLEGAL     | ILLEGAL      |   1   |   1   | uuuuu |
@@ -305,16 +285,150 @@ const PAGE0_OPS = `
 +------------+-------------+--------------+-------+-------+-------+
 `;
 
+const PAGE1_OPS =
+/*
+Source: Description Of The Motorola 6809 Instruction Set by Paul D. Burgin
+| Opcode     |             | Addressing   |               |       |
+| Hex   Dec  | Instruction | Mode         | Cycles  Bytes | HNZVC | Additional cycles
+*/
+`
++------------+-------------+--------------+-------+-------+-------+
+| 1021  4129 | LBRN        | RELATIVE     | 5(6)  |   4   | ----- |
+| 1022  4130 | LBHI        | RELATIVE     |   6   |   4   | ----- |
+| 1023  4131 | LBLS        | RELATIVE     | 5(6)  |   4   | ----- |
+| 1024  4132 | LBHS/LBCC   | RELATIVE     |   6   |   4   | ----- |
+| 1025  4133 | LBLO/LBCS   | RELATIVE     | 5(6)  |   4   | ----- |
+| 1026  4134 | LBNE        | RELATIVE     |   6   |   4   | ----- |
+| 1027  4135 | LBEQ        | RELATIVE     | 5(6)  |   4   | ----- |
+| 1028  4136 | LBVC        | RELATIVE     |   6   |   4   | ----- |
+| 1029  4137 | LBVS        | RELATIVE     | 5(6)  |   4   | ----- |
+| 102A  4138 | LBPL        | RELATIVE     |   6   |   4   | ----- |
+| 102B  4139 | LBMI        | RELATIVE     | 5(6)  |   4   | ----- |
+| 102C  4140 | LBGE        | RELATIVE     |   6   |   4   | ----- |
+| 102D  4141 | LBLT        | RELATIVE     | 5(6)  |   4   | ----- |
+| 102E  4142 | LBGT        | RELATIVE     |   6   |   4   | ----- |
+| 102F  4143 | LBLE        | RELATIVE     | 5(6)  |   4   | ----- |
+| 103F  4159 | SWI2        | INHERENT     |  20   |   2   | ----- |
+| 1083  4227 | CMPD        | IMMEDIATE    |   5   |   4   | -aaaa |
+| 108C  4236 | CMPY        | IMMEDIATE    |   5   |   4   | -aaaa |
+| 108E  4238 | LDY         | IMMEDIATE    |   4   |   4   | -aa0- |
+| 1093  4243 | CMPD        | DIRECT       |   7   |   3   | -aaaa |
+| 109C  4252 | CMPY        | DIRECT       |   7   |   3   | -aaaa |
+| 109E  4254 | LDY         | DIRECT       |   6   |   3   | -aa0- |
+| 109F  4255 | STY         | DIRECT       |   6   |   3   | -aa0- |
+| 10A3  4259 | CMPD        | INDEXED      |   7   |   3   | -aaaa | 1
+| 10AC  4268 | CMPY        | INDEXED      |   7   |   3   | -aaaa | 1
+| 10AE  4270 | LDY         | INDEXED      |   6   |   3   | -aa0- | 1
+| 10AF  4271 | STY         | INDEXED      |   6   |   3   | -aa0- | 1
+| 10B3  4275 | CMPD        | EXTENDED     |   8   |   4   | -aaaa |
+| 10BC  4284 | CMPY        | EXTENDED     |   8   |   4   | -aaaa |
+| 10BE  4286 | LDY         | EXTENDED     |   7   |   4   | -aa0- |
+| 10BF  4287 | STY         | EXTENDED     |   7   |   4   | -aa0- |
+| 10CE  4302 | LDS         | IMMEDIATE    |   4   |   4   | -aa0- |
+| 10DE  4318 | LDS         | DIRECT       |   6   |   3   | -aa0- |
+| 10DF  4319 | STS         | DIRECT       |   6   |   3   | -aa0- |
+| 10EE  4334 | LDS         | INDEXED      |   6   |   3   | -aa0- | 1
+| 10EF  4335 | STS         | INDEXED      |   6   |   3   | -aa0- | 1
+| 10FE  4350 | LDS         | EXTENDED     |   7   |   4   | -aa0- |
+| 10FF  4351 | STS         | EXTENDED     |   7   |   4   | -aa0- |
++------------+-------------+--------------+-------+-------+-------+
+`;
+
+
+const PAGE2_OPS =
+/*
+Source: Description Of The Motorola 6809 Instruction Set by Paul D. Burgin
+| Opcode     |             | Addressing   |               |       |
+| Hex   Dec  | Instruction | Mode         | Cycles  Bytes | HNZVC | Additional cycles
+*/
+`
++------------+-------------+--------------+-------+-------+-------+
+| 113F  4415 | SWI3        | INHERENT     |  20   |   2   | ----- |
+| 1183  4438 | CMPU        | IMMEDIATE    |   5   |   4   | -aaaa |
+| 118C  4492 | CMPS        | IMMEDIATE    |   5   |   4   | -aaaa |
+| 1193  4499 | CMPU        | DIRECT       |   7   |   3   | -aaaa |
+| 119C  4508 | CMPS        | DIRECT       |   7   |   3   | -aaaa |
+| 11A3  4515 | CMPU        | INDEXED      |   7   |   3   | -aaaa | 1
+| 11AC  4524 | CMPS        | INDEXED      |   7   |   3   | -aaaa | 1
+| 11B3  4531 | CMPU        | EXTENDED     |   8   |   4   | -aaaa |
+| 11BC  4540 | CMPS        | EXTENDED     |   8   |   4   | -aaaa |
++------------+-------------+--------------+-------+-------+-------+
+`;
+
+/*
+    a Affected.
+    - Unaffected.
+    u Undefined.
+    d Changed directly.
+    s Contains the carry from a shift operation.
+    c Affected only if CC register selected.
+    n Unaffected by LSL, undefined by ASL (according to Motorola)!
+*/
+
+test.beforeEach((t) => {
+  const readMemoryMock = (address) => {
+    t.context.readMemoryAddressAccess.push(address);
+    return t.context.readMemoryAddress.pop();
+  };
+  const writeMemoryMock = (address, value) => {
+    t.context.writeMemoryAddress.push({ address, value });
+  };
+  const cpu = Cpu6809.getInstance(writeMemoryMock, readMemoryMock, 'UNITTEST');
+  t.context = {
+    cpu,
+    readMemoryAddressAccess: [],
+    readMemoryAddress: [],
+    writeMemoryAddress: [],
+  };
+});
+
 marshall(PAGE0_OPS)
   .forEach((testData) => {
-    test('CYCLECOUNT: 0x' + testData.desc, (t) => {
+    test('PAGE0 CYCLECOUNT: 0x' + testData.desc + ': ' + testData.cycles, (t) => {
       // add command in reverse order
-      t.context.readMemoryAddress = [ testData.op, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI ];
+      t.context.readMemoryAddress = [
+        0, 0, 0, 0, 0, 0, 0, 0,
+        testData.op, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI
+      ];
       const cpu = t.context.cpu;
       cpu.set('flags', 0x00);
       cpu.reset();
       cpu.step();
-      t.is(cpu.tickCount, testData.cycles);
+      t.is(testData.cycles, cpu.tickCount);
+    });
+  });
+
+marshall(PAGE1_OPS)
+  .forEach((testData) => {
+    test('PAGE1 CYCLECOUNT: 0x' + testData.desc + ': ' + testData.cycles, (t) => {
+      const OP_0X10_OPCODE_CYCLE = 1;
+      // add command in reverse order
+      t.context.readMemoryAddress = [
+        0, 0, 0, 0, 0, 0, 0, 0,
+        testData.op & 0xFF, (testData.op >>> 8) & 0xFF, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI
+      ];
+      const cpu = t.context.cpu;
+      cpu.set('flags', 0x00);
+      cpu.reset();
+      cpu.step();
+      t.is(testData.cycles, cpu.tickCount - OP_0X10_OPCODE_CYCLE);
+    });
+  });
+
+marshall(PAGE2_OPS)
+  .forEach((testData) => {
+    test('PAGE2 CYCLECOUNT: 0x' + testData.desc + ': ' + testData.cycles, (t) => {
+      const OP_0X11_OPCODE_CYCLE = 1;
+      // add command in reverse order
+      t.context.readMemoryAddress = [
+        0, 0, 0, 0, 0, 0, 0, 0,
+        testData.op & 0xFF, (testData.op >>> 8) & 0xFF, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI
+      ];
+      const cpu = t.context.cpu;
+      cpu.set('flags', 0x00);
+      cpu.reset();
+      cpu.step();
+      t.is(testData.cycles, cpu.tickCount - OP_0X11_OPCODE_CYCLE);
     });
   });
 
