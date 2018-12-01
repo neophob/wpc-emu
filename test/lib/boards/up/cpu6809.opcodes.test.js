@@ -328,3 +328,255 @@ function runExtendedMemoryTest(t, opcode, memoryContent, postCpuResetInitFunctio
     hardcodedReadOffset,
   ]);
 }
+
+for (let offset = 0; offset < 16; offset++) {
+  test('postbyte simple X: ' + offset, (t) => {
+    const cpu = t.context.cpu;
+    t.context.readMemoryAddress = [ offset ];
+    cpu.set('flags', 0);
+    cpu.regX = 0;
+    cpu.regPC = 0;
+    const result = cpu.PostByte();
+    t.is(result, offset);
+    t.is(cpu.flagsToString(), 'efhinzvc');
+    t.is(cpu.regX, 0);
+    t.is(cpu.tickCount, 1);
+    t.deepEqual(t.context.readMemoryAddressAccess, [ 0 ]);
+  });
+}
+
+for (let offset = 16; offset < 32; offset++) {
+  test('postbyte simple X: ' + offset, (t) => {
+    const cpu = t.context.cpu;
+    t.context.readMemoryAddress = [ offset ];
+    cpu.set('flags', 0);
+    cpu.regX = 0;
+    cpu.regPC = 0;
+    const result = cpu.PostByte();
+    t.is(result, 0x10000 - (32 - offset));
+    t.is(cpu.flagsToString(), 'efhinzvc');
+    t.is(cpu.regX, 0);
+    t.is(cpu.tickCount, 1);
+    t.deepEqual(t.context.readMemoryAddressAccess, [ 0 ]);
+  });
+}
+
+for (let offset = 0x60; offset < 0x70; offset++) {
+  test('postbyte simple S: ' + offset, (t) => {
+    const cpu = t.context.cpu;
+    t.context.readMemoryAddress = [ offset ];
+    cpu.set('flags', 0);
+    cpu.regS = 0;
+    cpu.regPC = 0;
+    const result = cpu.PostByte();
+    t.is(result, offset - 0x60);
+    t.is(cpu.flagsToString(), 'efhinzvc');
+    t.is(cpu.regS, 0);
+    t.is(cpu.tickCount, 1);
+    t.deepEqual(t.context.readMemoryAddressAccess, [ 0 ]);
+  });
+}
+
+for (let offset = 0x70; offset < 0x80; offset++) {
+  test('postbyte simple S: ' + offset, (t) => {
+    const cpu = t.context.cpu;
+    t.context.readMemoryAddress = [ offset ];
+    cpu.set('flags', 0);
+    cpu.regS = 0;
+    cpu.regPC = 0;
+    const result = cpu.PostByte();
+    t.is(result, 0x10000 - (32 - offset) - 0x60);
+    t.is(cpu.flagsToString(), 'efhinzvc');
+    t.is(cpu.regS, 0);
+    t.is(cpu.tickCount, 1);
+    t.deepEqual(t.context.readMemoryAddressAccess, [ 0 ]);
+  });
+}
+
+[
+  {
+    offset: 0x80, register: 'regX',
+    expectedResult: 11, expectedTicks: 2, expectedReturn: 10, expectedMemoryRead: [ 0 ]
+  },
+  {
+    offset: 0x81, register: 'regX',
+    expectedResult: 12, expectedTicks: 3, expectedReturn: 10, expectedMemoryRead: [ 0 ]
+  },
+  {
+    offset: 0x85, register: 'regX', initialValue: 0xFFFF, initialRegB: 10,
+    expectedResult: 0xFFFF, expectedTicks: 1, expectedReturn: 9, expectedMemoryRead: [ 0 ]
+  },
+  {
+    offset: 0x88, register: 'regX',
+    expectedResult: 10, expectedTicks: 1, expectedReturn: 0, expectedMemoryRead: [ 0, 1 ]
+  },
+  {
+    offset: 0x88, register: 'regX', initialValue: 100,
+    expectedResult: 100, expectedTicks: 1, expectedReturn: 0, expectedMemoryRead: [ 0, 1 ]
+  },
+  {
+    offset: 0x89, register: 'regX',
+    expectedResult: 10, expectedTicks: 4, expectedReturn: 0, expectedMemoryRead: [ 0, 1, 2 ]
+  },
+  {
+    offset: 0x8B, register: 'regX',
+    expectedResult: 10, expectedTicks: 4, expectedReturn: 10, expectedMemoryRead: [ 0 ]
+  },
+  {
+    offset: 0x8B, register: 'regX', initialRegB: 5,
+    expectedResult: 10, expectedTicks: 4, expectedReturn: 15, expectedMemoryRead: [ 0 ]
+  },
+  {
+    offset: 0x8C, register: 'regX',
+    expectedResult: 10, expectedTicks: 1, expectedReturn: 0, expectedMemoryRead: [ 0, 1 ]
+  },
+  {
+    offset: 0x8D, register: 'regX',
+    expectedResult: 10, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 1, 2 ]
+  },
+  {
+    offset: 0x8F, register: 'regX',
+    expectedResult: 10, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 1, 2 ]
+  },
+
+  {
+    offset: 0x90, register: 'regX',
+    expectedResult: 11, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
+  },
+  {
+    offset: 0x91, register: 'regX',
+    expectedResult: 12, expectedTicks: 6, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
+  },
+  {
+    // check overflow
+    offset: 0x91, register: 'regX', initialValue: 0xFFFF,
+    expectedResult: 1, expectedTicks: 6, expectedReturn: 0, expectedMemoryRead: [ 0, 0xFFFF, 0 ]
+  },
+  {
+    offset: 0x92, register: 'regX',
+    expectedResult: 9, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 9, 10 ]
+  },
+  {
+    offset: 0x92, register: 'regX', initialValue: 0, comment: 'check underflow',
+    expectedResult: 0xFFFF, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 0xFFFF, 0 ]
+  },
+  {
+    offset: 0x93, register: 'regX',
+    expectedResult: 8, expectedTicks: 6, expectedReturn: 0, expectedMemoryRead: [ 0, 8, 9 ]
+  },
+  {
+    offset: 0x93, register: 'regX', initialValue: 0, comment: 'check underflow',
+    expectedResult: 0xFFFE, expectedTicks: 6, expectedReturn: 0, expectedMemoryRead: [ 0, 0xFFFE, 0xFFFF ]
+  },
+  {
+    offset: 0x94, register: 'regX',
+    expectedResult: 10, expectedTicks: 3, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
+  },
+  {
+    offset: 0x94, register: 'regX', initialValue: 0xFFFF, comment: 'check overflow',
+    expectedResult: 0xFFFF, expectedTicks: 3, expectedReturn: 0, expectedMemoryRead: [ 0, 0xFFFF, 0 ]
+  },
+  {
+    offset: 0x95, register: 'regX', initialRegB: 10, comment: 'regB positive',
+    expectedResult: 10, expectedTicks: 4, expectedReturn: 0, expectedMemoryRead: [ 0, 20, 21 ]
+  },
+  {
+    offset: 0x95, register: 'regX', initialRegB: 0x80, comment: 'regB negative, underflow',
+    expectedResult: 10, expectedTicks: 4, expectedReturn: 0, expectedMemoryRead: [ 0, 0xFF8A, 0xFF8B ]
+  },
+
+  {
+    offset: 0xA0, register: 'regY',
+    expectedResult: 11, expectedTicks: 2, expectedReturn: 10, expectedMemoryRead: [ 0 ]
+  },
+  {
+    offset: 0xA1, register: 'regY',
+    expectedResult: 12, expectedTicks: 3, expectedReturn: 10, expectedMemoryRead: [ 0 ]
+  },
+  {
+    offset: 0xB0, register: 'regY',
+    expectedResult: 11, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
+  },
+  {
+    offset: 0xB1, register: 'regY',
+    expectedResult: 12, expectedTicks: 6, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
+  },
+
+  {
+    offset: 0xC0, register: 'regU',
+    expectedResult: 11, expectedTicks: 2, expectedReturn: 10, expectedMemoryRead: [ 0 ]
+  },
+  {
+    offset: 0xC1, register: 'regU',
+    expectedResult: 12, expectedTicks: 3, expectedReturn: 10, expectedMemoryRead: [ 0 ]
+  },
+  {
+    offset: 0xD0, register: 'regU',
+    expectedResult: 11, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
+  },
+  {
+    offset: 0xD1, register: 'regU',
+    expectedResult: 12, expectedTicks: 6, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
+  },
+
+  {
+    offset: 0xE0, register: 'regS',
+    expectedResult: 11, expectedTicks: 2, expectedReturn: 10, expectedMemoryRead: [ 0 ]
+  },
+  {
+    offset: 0xE1, register: 'regS',
+    expectedResult: 12, expectedTicks: 3, expectedReturn: 10, expectedMemoryRead: [ 0 ]
+  },
+  {
+    offset: 0xF0, register: 'regS',
+    expectedResult: 11, expectedTicks: 5, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
+  },
+  {
+    offset: 0xF1, register: 'regS',
+    expectedResult: 12, expectedTicks: 6, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
+  },
+].forEach((testData) => {
+  const hexValue = '0x' + testData.offset.toString(16).toUpperCase();
+  const initialValue = testData.initialValue !== undefined ? (' initialValue:' + testData.initialValue) : '';
+  const comment = testData.comment ? ' ' + testData.comment + ',' : '';
+  const description = testData.register + ': ' + hexValue + comment + initialValue;
+  test('postbyte complex ' + description, (t) => {
+    const cpu = t.context.cpu;
+    t.context.readMemoryAddress = [ testData.offset ];
+    cpu.set('flags', 0);
+    cpu.regB = testData.initialRegB || 0;
+    cpu[testData.register] = testData.initialValue !== undefined ? testData.initialValue : 10;
+    cpu.regPC = 0;
+    const result = cpu.PostByte();
+    t.is(result, testData.expectedReturn);
+    t.is(cpu[testData.register], testData.expectedResult);
+    t.is(cpu.tickCount, testData.expectedTicks);
+    t.deepEqual(t.context.readMemoryAddressAccess, testData.expectedMemoryRead);
+  });
+});
+
+test('postbyte complex 0x8C', (t) => {
+  const cpu = t.context.cpu;
+  t.context.readMemoryAddress = [ 0x55, 0x8C ];
+  cpu.set('flags', 0);
+  cpu.regPC = 0x1000;
+  const result = cpu.PostByte();
+  t.is(result, 0x1057);
+  t.is(cpu.flagsToString(), 'efhinzvc');
+  t.is(cpu.regPC, 0x1002);
+  t.is(cpu.tickCount, 1);
+  t.deepEqual(t.context.readMemoryAddressAccess, [ 0x1000, 0x1001 ]);
+});
+
+test('postbyte complex 0x8D', (t) => {
+  const cpu = t.context.cpu;
+  t.context.readMemoryAddress = [ 0x99, 0x55, 0x8D ];
+  cpu.set('flags', 0);
+  cpu.regPC = 0x1000;
+  const result = cpu.PostByte();
+  t.is(result, 0x659C);
+  t.is(cpu.flagsToString(), 'efhinzvc');
+  t.is(cpu.regPC, 0x1003);
+  t.is(cpu.tickCount, 5);
+  t.deepEqual(t.context.readMemoryAddressAccess, [ 0x1000, 0x1001, 0x1002 ]);
+});

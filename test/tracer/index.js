@@ -1,10 +1,10 @@
 'use strict';
 
-const Emulator = require('../../lib/emulator');
 const path = require('path');
 const fs = require('fs');
-const disasm = require('./disasm');
 const sinon = require('sinon');
+const Emulator = require('../../lib/emulator');
+const disasm = require('./disasm');
 
 const romU06Path = process.env.ROMFILE || path.join(__dirname, '/../../rom/HURCNL_2.ROM');
 const HAS_SECURITY_FEATURE = process.env.HAS_SECURITY_FEATURE === 'true' ? 'securityPic' : '';
@@ -49,16 +49,16 @@ function startTrace() {
       while (steps++ < MAXSTEPS) {
         wpcSystem.executeCycle(1, 1);
         const cpu = wpcSystem.cpuBoard.cpu;
-        
+
         //make sure next OP is correct
         cpu.checkInterrupt();
 
         const pc = cpu.regPC;
         const i1 = cpu.memoryReadFunction(pc);
-        const i2 = cpu.memoryReadFunction(pc+1);
-        const i3 = cpu.memoryReadFunction(pc+2);
-        const i4 = cpu.memoryReadFunction(pc+3);
-        const i5 = cpu.memoryReadFunction(pc+4);
+        const i2 = cpu.memoryReadFunction(pc + 1);
+        const i3 = cpu.memoryReadFunction(pc + 2);
+        const i4 = cpu.memoryReadFunction(pc + 3);
+        const i5 = cpu.memoryReadFunction(pc + 4);
         outputSlice.push({
           pc,
           i1, i2, i3, i4, i5,
@@ -89,7 +89,7 @@ function flushTraces() {
     const pc = line.pc;
     let count = 0;
     /* check for trace_loops - ripped from mame */
-    for (let i = 0; i < MAX_LOOPS; i++ ) {
+    for (let i = 0; i < MAX_LOOPS; i++) {
       if (lastPC[i] === pc) {
         count++;
       }
@@ -105,7 +105,7 @@ function flushTraces() {
       const instr = disasm.disasm(line.i1, line.i2, line.i3, line.i4, line.i5, pc);
       printInstruction(pc, instr, line);
 
-      for (let i = 1; i < MAX_LOOPS; i++ ) {
+      for (let i = 1; i < MAX_LOOPS; i++) {
         lastPC[i - 1] = lastPC[i];
       }
       lastPC[MAX_LOOPS - 1] = pc;

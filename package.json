@@ -64,6 +64,7 @@
     "debug": "node --inspect index.js",
     "xo": "xo",
     "test": "nyc ava --verbose test/lib/**",
+    "test:coverage": "nyc report --reporter=html",
     "test:debug": "DEBUG='wpc*' ava --verbose test/lib/**",
     "test:integration": "ava --verbose test/integration/*.test.js",
     "test:runner": "node test/headless-runner.js",
