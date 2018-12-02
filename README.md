@@ -67,6 +67,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Switch input keys work ✓
 - Fliptronics input keys work ✓
 - Adaptive FPS ✓
+- Debug interface ✗ (Step, Breakpoint, disassembler)
 
 # Development
 
@@ -249,7 +250,7 @@ Known RAM positions for WPC games
 | 0x1807        | Date, checksum hi |
 | 0x1808        | Date, checksum lo |
 
-Note: The initial memory check writes from offset 0x0000 - 0x1730, so stored NVRAM data might be stored above 0x1730.
+Note: The initial memory check writes from offset `0x0000 - 0x1730`, so stored NVRAM data might be stored above `0x1730`.
 
 ## Boot sequence:
 
