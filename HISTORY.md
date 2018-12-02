@@ -1,5 +1,8 @@
 # HISTORY
 
+## 2/12/18
+- use memory patcher to skip boot check - make that setting persistent across resets
+
 ## 30/11/18
 - added missing cycle counts when branch is taken for page 1 calls
 - LBSR(0x17) and LBRA(0x16) op, don't sign read word
