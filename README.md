@@ -235,22 +235,25 @@ is stored at 0x81C9/0x81CA (16 bit) for this game.
 
 Known RAM positions for WPC games
 
-| Offset        | Comment        |
-| ------------- | -------------- |
-| 0x0011        | Current Bank Marker, ??  |
-| 0x0012        | Bank Jump Address hi, ??  |
-| 0x0013        | Bank Jump Address lo, ??  |
-| 0x1800        | Date, year hi  |
-| 0x1801        | Date, year lo  |
-| 0x1802        | Date, month    |
-| 0x1803        | Date, day of month |
-| 0x1804        | Date, days since sunday |
-| 0x1805        | Date, 0x00 ? |
-| 0x1806        | Date, 0x01 ? |
-| 0x1807        | Date, checksum hi |
-| 0x1808        | Date, checksum lo |
+| Offset          | Comment        |
+| --------------- | -------------- |
+| 0x0011          | Current Bank Marker, ??  |
+| 0x0012          | Bank Jump Address hi, ??  |
+| 0x0013          | Bank Jump Address lo, ??  |
+| 0x1800          | Date, Year hi  |
+| 0x1801          | Date, Year lo  |
+| 0x1802          | Date, Month (1-12) |
+| 0x1803          | Date, Day of month (1-31) |
+| 0x1804          | Date, Days or week (0-6, 0=Sunday) |
+| 0x1805          | Date, Hour (0-23) |
+| 0x1806          | Date, Minute (0-59) |
+| 0x1807          | Date, Checksum hi |
+| 0x1808          | Date, Checksum lo |
+| 0x1809 - 0x2000 | Game specific settings (HSTD, timestamps, adjustments, audits, language, volume, custom message) |
 
-Note: The initial memory check writes from offset `0x0000 - 0x1730`, so stored NVRAM data might be stored above `0x1730`.
+Note:
+- The initial memory check writes from offset `0x0000 - 0x1730`, so stored NVRAM data might be stored above `0x1730`.
+- see - https://github.com/tomlogic/pinmame-nvram-maps for NVRAM dumps of WPC games
 
 ## Boot sequence:
 
@@ -524,6 +527,7 @@ Solution:
 - Attraction Mode: the time when no game is running and the lamps are blinking to attract people
 - Drain: The common term used to refer to the area beneath the flippers. If the ball rolls into the drain area via an outlane or between the flippers, it will be lost. Also refers to the act of losing a ball in this manner.
 - Plunger: The object used to launch a ball onto the playfield
+- HSTD: High Score to Date
 
 ## WPC
 
