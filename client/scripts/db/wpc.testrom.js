@@ -25,5 +25,5 @@ module.exports = {
     { id: 28, name: 'SWITCH 28' },
 
   ],
-  skipWmcRomCheck: true,
+  skipWmcRomCheck: false,
 };
