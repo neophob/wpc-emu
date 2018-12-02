@@ -18,15 +18,15 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - emulate 6809 CPU ✓
 
 ## CPU/ASIC Board
-- Blanking (not sure if needed)
+- Blanking ✗ (not sure if needed)
 - Diagnostics LED ✓
-- Watchdog (not sure if needed, no reboot in case of an error which make it easier to find bugs in the emu)
+- Watchdog ✗ (needed for proper bootup sequence)
 - Bit Shifter ✓
 - Memory Protection ✓
 - Time of Day Clock ✓
-- High Resolution Timer (not used, was used by alphanumeric games to do display dimming)
+- High Resolution Timer ✗ (not used, was used by alphanumeric games to do display dimming)
 - ROM Bank Switching ✓
-- RAM Bank Switching (WPC 95 only, not sure if needed, MAME does not implement it) 
+- RAM Bank Switching ✗ (WPC 95 only, not sure if needed, MAME does not implement it)
 - The Switch Matrix ✓
 - External I/O ✓ (except sound)
 - Fliptronic Flipper ✓
@@ -40,17 +40,17 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Solenoid Circuits ✓ (fade out timing missing)
 - General Illumination Circuits (Triac) ✓ (fade out timing missing)
 - Zero Cross Circuit ✓
-- support Fliptronics flipper
+- support Fliptronics flipper ½
 
 ## Sound Board
 - load pre DCS sound ROM files ✓
-- load DCS sound ROM files
+- load DCS sound ROM files ✗
 - Bank Switching ✓
-- Resample audio to 44.1khz
+- Resample audio to 44.1khz ½
 - emulate 6809 CPU ✓
-- emulate YM2151 FM Generator
-- emulate HC-55536 CVSD (speech synth)
-- emulate MC6821 PIA
+- emulate YM2151 FM Generator ½
+- emulate HC-55536 CVSD ✗ (speech synth)
+- emulate MC6821 PIA ✓
 - emulate DAC ✓
 
 ## Dot Matrix Controller Board
@@ -248,6 +248,226 @@ Known RAM positions for WPC games
 | 0x1806        | Date, 0x01 ? |
 | 0x1807        | Date, checksum hi |
 | 0x1808        | Date, checksum lo |
+
+Note: The initial memory check writes from offset 0x0000 - 0x1730, so stored NVRAM data might be stored above 0x1730.
+
+## Boot sequence:
+
+I found an analyse of the boot up sequence here: https://gist.github.com/74hc595/fda8b274179fea633f5333d52513e1f7. Here's the annotated code:
+
+```
+; bootup sequence from a Williams WPC pinball machine ROM
+; (Getaway version L-2)
+; Last 32K of ROM image in 0x8000-0xFFFF
+; Banked ROM in 0x4000-0x7FFF
+; RAM is 0x0000-0x1FFF
+; Special ASIC registers are 0x3Fxx (e.g. 3FF2 controls LED D20)
+; Reset vector is 0x8C9A
+
+dasm09: M6809/H6309/OS9 disassembler V0.1 2000 Arto Salmi
+; org $8C9A
+RESET:
+8C9A: 1A 50          ORCC #$50      ;disable interrupts (FIRQ & IRQ)
+8C9C: 86 00          LDA #$00
+8C9E: B7 3F F2       STA $3FF2      ;diagnostic LED off
+8CA1: 10 8E 00 06    LDY #$0006
+8CA5: 5F             CLRB
+8CA6: BE FF EC       LDX $FFEC      ;read 2-byte checksum "correction" from ROM
+8CA9: 8C 00 FF       CMPX #$00FF    ;if it's 0x00FF, skip ROM/RAM checks
+8CAC: 10 27 01 03    LBEQ PASSED ;$8DB3
+8CB0: CE 00 3F       LDU #$003F
+8CB3: CC 00 00       LDD #$0000
+8CB6: 1E 03          EXG D,U        ;U=0x0000, D=0x003F.
+
+; Compute checksum of all ROM banks and verify
+L1:
+8CB8: 1F 98          TFR B,A        ;bank loop start
+8CBA: 43             COMA
+8CBB: 85 07          BITA #$07
+8CBD: 26 0A          BNE $8CC9
+8CBF: 43             COMA
+8CC0: 4A             DECA
+8CC1: B7 3F FC       STA $3FFC      ;store A to bank switch register (WPC_ROM_BANK)
+8CC4: B1 40 00       CMPA $4000     ;compare A with lowest byte in bank (0x20, 0x21, ...)
+8CC7: 26 3E          BNE $8D07      ;stop if comparison fails
+8CC9: F7 3F FC       STB $3FFC      ;store B to bank switch register (WPC_ROM_BANK)
+8CCC: 1E 03          EXG D,U        ;bring checksum back to D
+8CCE: B7 3F DD       STA $3FDD      ;sound board something? (WPC_SOUND_CONTROL_STATUS)
+8CD1: 8E 40 00       LDX #$4000     ;initialize X pointer to start of bank
+L2:
+8CD4: EB 84          ADDB ,X        ;Add 8 bytes to checksum in D
+8CD6: 89 00          ADCA #$00
+8CD8: EB 01          ADDB 1,X
+8CDA: 89 00          ADCA #$00
+8CDC: EB 02          ADDB 2,X
+8CDE: 89 00          ADCA #$00
+8CE0: EB 03          ADDB 3,X
+8CE2: 89 00          ADCA #$00
+8CE4: EB 04          ADDB 4,X
+8CE6: 89 00          ADCA #$00
+8CE8: EB 05          ADDB 5,X
+8CEA: 89 00          ADCA #$00
+8CEC: EB 06          ADDB 6,X
+8CEE: 89 00          ADCA #$00
+8CF0: EB 07          ADDB 7,X
+8CF2: 89 00          ADCA #$00
+8CF4: 1E 20          EXG Y,D
+8CF6: F7 3F FF       STB $3FFF      ;pet the watchdog
+8CF9: 1E 20          EXG Y,D
+8CFB: 30 08          LEAX 8,X       ;advance X 8 bytes
+8CFD: 8C 80 00       CMPX #$8000    ;are we at the end of the bank?
+8D00: 25 D2          BCS L2;$8CD4   ;if not, check more bytes
+8D02: 1E 03          EXG D,U
+8D04: 5A             DECB           ;next bank
+8D05: 20 B1          BRA L1 ;$8CB8
+
+8D07: 1E 03          EXG D,U        ;bring checksum to D
+8D09: B3 FF EE       SUBD $FFEE     ;compare with stored value at 0xFFEE-0xFFEF
+8D0C: 27 02          BEQ $8D10
+8D0E: C6 01          LDB #$01       ;if checksum compare fails, set B=1
+8D10: 1F 02          TFR D,Y        ;low byte of Y is now 0x01 if ROM test failed
+
+; Verify working RAM (leaves adjustments/audits alone)
+; Writes 0x55 to 0x0000-0x172F, then verifies,
+; then writes 0xAA to 0x0000-0x172F and verifies again
+8D12: C6 06          LDB #$06
+8D14: 86 B4          LDA #$B4
+8D16: B7 3F FD       STA $3FFD      ;unlock protected memory with magic value 0xB4 (WPC_RAM_LOCK)
+8D19: 86 01          LDA #$01
+8D1B: B7 3F FE       STA $3FFE      ;something something memory protection (WPC_RAM_LOCKSIZE)
+8D1E: B7 3F FD       STA $3FFD      ;write WPC_RAM_LOCK
+8D21: 86 55          LDA #$55       ;initialize A with 0x55
+
+8D23: 8E 00 00       LDX #$0000     ;initialize X pointer to start of RAM
+L3:
+8D26: A7 84          STA ,X         ;store 0x55 in 4 bytes
+8D28: A7 01          STA 1,X
+8D2A: A7 02          STA 2,X
+8D2C: A7 03          STA 3,X
+8D2E: F7 3F FF       STB $3FFF      ;pet watchdog WPC_ZEROCROSS_IRQ_CLEAR
+8D31: 30 04          LEAX 4,X       ;advance X by 4 bytes
+8D33: 8C 17 30       CMPX #$1730    ;stop at 0x1730 (start of persistent values?)
+8D36: 25 EE          BCS L3 ;$8D26
+
+8D38: 8E 00 00       LDX #$0000     ;reset X to start of RAM
+L4:
+8D3B: A1 84          CMPA ,X        ;compare 4 bytes with 0x55
+8D3D: 26 21          BNE $8D60      ;if any mismatch, bail
+8D3F: A1 01          CMPA 1,X
+8D41: 26 1D          BNE $8D60
+8D43: A1 02          CMPA 2,X
+8D45: 26 19          BNE $8D60
+8D47: A1 03          CMPA 3,X
+8D49: 26 15          BNE $8D60
+8D4B: F7 3F FF       STB $3FFF      ;pet watchdog (WPC_ZEROCROSS_IRQ_CLEAR)
+8D4E: 30 04          LEAX 4,X       ;advance X by 4 bytes
+8D50: 8C 17 30       CMPX #$1730    ;stop at 0x1730
+8D53: 25 E6          BCS L4 ;$8D3B
+
+8D55: 81 55          CMPA #$55      ;after testing with 0x55,
+8D57: 26 03          BNE $8D5C
+8D59: 43             COMA           ;test again with 0xAA
+8D5A: 20 C7          BRA $8D23
+
+8D5C: 1F 20          TFR Y,D        ;bring test results in Y back to D
+8D5E: 20 04          BRA $8D64
+; ram test fail
+8D60: 1F 20          TFR Y,D        ;bring test results in Y back to D
+8D62: CA 02          ORB #$02       ;or with 0x02 if RAM test failed
+8D64: 5D             TSTB           ;if nothing has failed so far,
+8D65: 27 4C          BEQ PASSED ;$8DB3  ;test has finished
+8D67: 1F 03          TFR D,U        ;stash D in U
+
+; something has failed, blink diagnostic LED
+8D69: 86 80          LDA #$80       ;LED on
+8D6B: B7 3F F2       STA $3FF2
+8D6E: B7 3F DD       STA $3FDD      ;sound board something? (WPC_SOUND_CONTROL_STATUS)
+8D71: 8E FF FF       LDX #$FFFF     ;initialize delay counter
+8D74: 86 06          LDA #$06
+DELAY1:
+8D76: B7 3F FF       STA $3FFF      ;pet watchdog (WPC_ZEROCROSS_IRQ_CLEAR)
+8D79: 30 01          LEAX 1,X       ;waste some cycles
+8D7B: 30 1F          LEAX -1,X
+8D7D: 30 1F          LEAX -1,X
+8D7F: 26 F5          BNE DELAY1 ;$8D76
+8D81: 86 00          LDA #$00       ;LED off
+8D83: B7 3F F2       STA $3FF2      ;WPC_LEDS
+8D86: 8E FF FF       LDX #$FFFF     ;initialize delay counter
+8D89: 86 06          LDA #$06
+DELAY2:
+8D8B: B7 3F FF       STA $3FFF      ;pet watchdog (WPC_ZEROCROSS_IRQ_CLEAR)
+8D8E: 30 01          LEAX 1,X       ;waste some cycles
+8D90: 30 1F          LEAX -1,X
+8D92: 30 1F          LEAX -1,X
+8D94: 26 F5          BNE DELAY2 ;$8D8B
+
+8D96: 54             LSRB           ;shift out a bit from B
+8D97: 24 D0          BCC $8D69      ;if C=0 then ROM was good, blink again
+; pause
+8D99: C6 04          LDB #$04
+8D9B: 86 06          LDA #$06
+DELAY3:
+8D9D: 8E C0 00       LDX #$C000     ;delay loop
+DELAY4:
+8DA0: B7 3F FF       STA $3FFF      ;pet watchdog (WPC_ZEROCROSS_IRQ_CLEAR)
+8DA3: B7 3F DD       STA $3FDD      ;sound board something? (WPC_SOUND_CONTROL_STATUS)
+8DA6: 30 1F          LEAX -1,X
+8DA8: 26 F6          BNE DELAY4     ;$8DA0
+8DAA: 5A             DECB
+8DAB: 26 F0          BNE DELAY3     ;$8D9D
+8DAD: 1F 30          TFR U,D
+8DAF: C5 02          BITB #$02      ;if bit 1 set in test result byte...
+8DB1: 26 FE          BNE $8DB1      ;loop forever, watchdog will reset machine
+
+; ROM and RAM tests have passed
+; System should boot correctly if we get here
+PASSED:
+8DB3: 1A 50          ORCC #$50      ;disable interrupts (FIRQ & IRQ)
+8DB5: 10 CE 04 00    LDS #$0400     ;initialize stack pointer
+8DB9: BD 92 F5       JSR $92F5
+8DBC: F7 17 4D       STB $174D
+8DBF: 7F 17 48       CLR $1748
+8DC2: 7F 17 A3       CLR $17A3
+8DC5: 7F 17 4A       CLR $174A
+8DC8: 7F 17 4B       CLR $174B
+8DCB: 7F 17 4C       CLR $174C
+8DCE: 20 0E          BRA $8DDE
+8DD0: 1A 50          ORCC #$50      ;disable interrupts (FIRQ & IRQ)
+8DD2: 86 01          LDA #$01
+8DD4: B7 17 4C       STA $174C
+8DD7: 10 CE 04 00    LDS #$0400
+8DDB: BD 92 F5       JSR $92F5
+8DDE: 10 CE 17 2A    LDS #$172A
+8DE2: 4F             CLRA
+8DE3: 1F 8B          TFR A,DP
+8DE5: 8E 00 00       LDX #$0000
+
+; loop.. delay?
+8DE8: 6F 80          CLR ,X+
+8DEA: 86 06          LDA #$06
+8DEC: B7 3F FF       STA $3FFF      ;write to WPC_ZEROCROSS_IRQ_CLEAR
+8DEF: 8C 17 30       CMPX #$1730
+8DF2: 25 F4          BCS $8DE8
+
+8DF4: BD 91 C0       JSR $91C0
+8DF7: BD 9E E5       JSR $9EE5
+8DFA: BE 17 48       LDX $1748      ;check against memory position 0x1748
+8DFD: 8C 1A BC       CMPX #$1ABC    
+8E00: 27 1B          BEQ $8E1D
+8E02: B6 17 4C       LDA $174C
+8E05: 27 08          BEQ $8E0F
+8E07: 7F 17 4A       CLR $174A
+8E0A: 7F 17 4B       CLR $174B
+8E0D: 20 1C          BRA $8E2B
+8E0F: BD 89 04       JSR $8904
+8E12: 59             ROLB
+8E13: 3E             RESET
+8E14: 39             RTS
+8E15: BD 89 04       JSR $8904
+8E18: 55             Invalid
+```
+I guess there is one error, the comment `loop forever, watchdog will reset machine`:
+- it's not the watchdog that will reset the machine but an interrupt call
 
 ## Gameplay
 - (during active game) if you press and keep pressed left or right FLIPPER - a status report will be shown
