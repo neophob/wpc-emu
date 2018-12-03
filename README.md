@@ -20,12 +20,12 @@
   * [Build Release](#build-release)
 - [Future ideas](#future-ideas)
 - [Hardware - WPS Dot Matrix Machine](#hardware---wps-dot-matrix-machine)
-  * [Overview:](#overview-)
-  * [CPU BOARD](#cpu-board)
-    + [MEMORY](#memory)
-  * [POWER-DRIVER-BOARD](#power-driver-board)
-  * [SOUND-BOARD](#sound-board)
-  * [DMD-BOARD](#dmd-board)
+  * [Overview](#overview)
+  * [CPU board](#cpu-board)
+    + [Memory](#memory)
+  * [Power driver board](#power-driver-board)
+  * [Sound board](#sound-board)
+  * [DMD board](#dmd-board)
 - [Implementation Hints](#implementation-hints)
   * [Timing](#timing)
     + [DMD display scanline](#dmd-display-scanline)
@@ -34,7 +34,7 @@
   * [RAM positions](#ram-positions)
   * [Boot sequence:](#boot-sequence-)
   * [Gameplay](#gameplay)
-  * [To Test:](#to-test-)
+  * [To Test](#to-test)
   * [Error Messages](#error-messages)
     + [Invalid Switch state](#invalid-switch-state)
     + [Do not disable checksum check](#do-not-disable-checksum-check)
@@ -54,7 +54,7 @@
   * [WPC (DCS)](#wpc--dcs-)
   * [WPC-S (Security)](#wpc-s--security-)
   * [WPC-95](#wpc-95)
-  
+
 ## Goal
 
 - Emulate the Williams Pinball machine WPC-89 (6/91 - 10/91)
@@ -167,7 +167,7 @@ To build a new release
 
 # Hardware - WPS Dot Matrix Machine
 
-## Overview:
+## Overview
 
 ```
 
@@ -201,7 +201,7 @@ Operating system:
 - APPLE OS (created by Williams, not related to the company Apple, but "Advanced Pinball Programming Logic Executive")
 - Part of the game ROM, last 32kb of the game ROM
 
-## CPU BOARD
+## CPU board
 - Williams part number A-12742
 - Main CPU: Motorola 6809 (68B09E) at 2 MHz, 8-bit/16-bit CPU and between 128KB and 1MB of EPROM for the game program
 - Custom ASIC chip by Williams, mainly a huge mapper
@@ -209,14 +209,14 @@ Operating system:
 - Can address 8KB RAM, 8KB Hardware, 16KB Bank switched Game ROM, 32KB System ROM
 - Game ROM name: U6
 
-### MEMORY
+### Memory
 - Total 8KB RAM, battery-backed
 - The memory storage format is Big Endian
 
-## POWER-DRIVER-BOARD
+## Power driver board
 - Williams part number: A-12697-1
 
-## SOUND-BOARD
+## Sound board
 - Williams part number: A-12738 (aka. pre-DCS sound)
 - Mono output, Sample rate 11KHz, 25 watts power, 8 ohm
 - intelligent and have processors running their own operating system dedicated to sound tasks
@@ -227,7 +227,7 @@ Operating system:
 - MC6821 Peripheral Interface Adaptor (PIA)
 - ROMS: U14, U15 and U18
 
-## DMD-BOARD
+## DMD board
 - Williams part number A-14039
 - The dot matrix display is 128 columns x 32 rows and refreshes at 122Mhz
 - The controller board has the display RAM and the serialisation logic
@@ -573,7 +573,7 @@ This very primitive schema shows where the switches are:
 
 ```
 
-## To Test:
+## To Test
 - memory position of current score, player number, credits
 - serial port?
 
