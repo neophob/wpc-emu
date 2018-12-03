@@ -2,12 +2,64 @@
 
 [![Build Status](https://travis-ci.org/neophob/wpc-emu.svg?branch=master)](https://travis-ci.org/neophob/wpc-emu)
 
-# Goal
+- [WPC (Dot Matrix) Emulator](#wpc--dot-matrix--emulator)
+  * [Goal](#goal)
+- [Implementation Status](#implementation-status)
+  * [Basic](#basic)
+  * [CPU/ASIC Board](#cpu-asic-board)
+  * [Power Driver Board](#power-driver-board)
+  * [Sound Board](#sound-board)
+  * [Dot Matrix Controller Board](#dot-matrix-controller-board)
+  * [Debug UI](#debug-ui)
+- [Development](#development)
+  * [Serve ROM's from localhost](#serve-rom-s-from-localhost)
+  * [Run Watch](#run-watch)
+  * [Tests](#tests)
+  * [Benchmark](#benchmark)
+  * [Tracer / Dumps](#tracer---dumps)
+  * [Build Release](#build-release)
+- [Future ideas](#future-ideas)
+- [Hardware - WPS Dot Matrix Machine](#hardware---wps-dot-matrix-machine)
+  * [Overview:](#overview-)
+  * [CPU BOARD](#cpu-board)
+    + [MEMORY](#memory)
+  * [POWER-DRIVER-BOARD](#power-driver-board)
+  * [SOUND-BOARD](#sound-board)
+  * [DMD-BOARD](#dmd-board)
+- [Implementation Hints](#implementation-hints)
+  * [Timing](#timing)
+    + [DMD display scanline](#dmd-display-scanline)
+  * [DMD controller](#dmd-controller)
+  * [Security PIC (U22)](#security-pic--u22-)
+  * [RAM positions](#ram-positions)
+  * [Boot sequence:](#boot-sequence-)
+  * [Gameplay](#gameplay)
+  * [To Test:](#to-test-)
+  * [Error Messages](#error-messages)
+    + [Invalid Switch state](#invalid-switch-state)
+    + [Do not disable checksum check](#do-not-disable-checksum-check)
+- [References](#references)
+  * [Terms](#terms)
+  * [WPC](#wpc)
+  * [DMD](#dmd)
+  * [CPU](#cpu)
+  * [Sound Chip](#sound-chip)
+  * [ROM](#rom)
+  * [Custom Power Driver](#custom-power-driver)
+  * [Misc](#misc)
+- [Game List](#game-list)
+  * [WPC (Alphanumeric)](#wpc--alphanumeric-)
+  * [WPC (Dot Matrix)](#wpc--dot-matrix-)
+  * [WPC (Fliptronics)](#wpc--fliptronics-)
+  * [WPC (DCS)](#wpc--dcs-)
+  * [WPC-S (Security)](#wpc-s--security-)
+  * [WPC-95](#wpc-95)
+  
+## Goal
 
 - Emulate the Williams Pinball machine WPC-89 (6/91 - 10/91)
 - 2nd generation Williams WPC hardware called "WPC Dot Matrix" aka WPC DMD
 - Emulate game "Hurricane" - also "Gilligan's Island", "Terminator2" and "Party Zone"
-- It should be pretty easy to run "WPC Fliptronic" too
 
 # Implementation Status
 
