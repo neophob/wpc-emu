@@ -237,7 +237,7 @@ Operating system:
 
 # Implementation Hints
 
-- if memory map (Systemrom) contains `0x00` at `0xffec` and `0xff` at `0xffed` then the startup check will be disabled. This reduce the boot time and works on all WPC games (not on FreeWPC games)
+- if memory map (Systemrom) contains `0x00` at `0xFFEC` and `0xFF` at `0xFFED` then the startup check will be disabled. This reduce the boot time and works on all WPC games (not on FreeWPC games)
 - There is ONE switch in all WPC games called "always closed" (always switch 24 on all WPC games). This switch is used to detect if the switch matrix is faulty. This means if switch 24 is open, the system knows the switch matrix is faulty.
 
 ## Timing
@@ -329,7 +329,7 @@ Known RAM positions for WPC games
 | 0x1806          | Date, Minute (0-59) |
 | 0x1807          | Date, Checksum hi |
 | 0x1808          | Date, Checksum lo |
-| 0x1809 - 0x2000 | Game specific settings (HSTD, timestamps, adjustments, audits, language, volume, custom message) |
+| 0x1809-0x2000   | Game specific settings (HSTD, timestamps, adjustments, audits, language, volume, custom message...) |
 
 Note:
 - The initial memory check writes from offset `0x0000 - 0x1730`, so stored NVRAM data might be stored above `0x1730`.
