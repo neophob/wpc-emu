@@ -32,7 +32,7 @@
   * [DMD controller](#dmd-controller)
   * [Security PIC (U22)](#security-pic--u22-)
   * [RAM positions](#ram-positions)
-  * [Boot sequence:](#boot-sequence-)
+  * [Boot sequence](#boot-sequence-)
   * [Gameplay](#gameplay)
   * [To Test](#to-test)
   * [Error Messages](#error-messages)
@@ -333,7 +333,7 @@ Note:
 - The initial memory check writes from offset `0x0000 - 0x1730`, so stored NVRAM data might be stored above `0x1730`.
 - see - https://github.com/tomlogic/pinmame-nvram-maps for NVRAM dumps of WPC games
 
-## Boot sequence:
+## Boot sequence
 
 I found an analyse of the boot up sequence here: https://gist.github.com/74hc595/fda8b274179fea633f5333d52513e1f7. Here's the annotated code:
 
