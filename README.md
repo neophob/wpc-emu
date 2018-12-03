@@ -9,7 +9,7 @@
   * [CPU/ASIC Board](#cpu-asic-board)
   * [Power Driver Board](#power-driver-board)
   * [Sound Board](#sound-board)
-  * [Dot Matrix Controller Board](#dot-matrix-controller-board)
+  * [Dot Matrix Display/DMD Controller Board](#dot-matrix-display-dmd-controller-board)
   * [Debug UI](#debug-ui)
 - [Development](#development)
   * [Serve ROM's from localhost](#serve-rom-s-from-localhost)
@@ -32,7 +32,7 @@
   * [DMD controller](#dmd-controller)
   * [Security PIC (U22)](#security-pic--u22-)
   * [RAM positions](#ram-positions)
-  * [Boot sequence](#boot-sequence-)
+  * [Boot sequence](#boot-sequence)
   * [Gameplay](#gameplay)
   * [To Test](#to-test)
   * [Error Messages](#error-messages)
@@ -105,7 +105,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - emulate MC6821 PIA ✓
 - emulate DAC ✓
 
-## Dot Matrix Controller Board
+## Dot Matrix Display/DMD Controller Board
 - Page Selection ✓
 - Scanline Handling ✓
 - Dimming / multi color display ✓
@@ -152,12 +152,12 @@ against older implementations. It also contains MAME dumps to compare the curren
 - Run `npm run tracer:stats` to compare WPC-EMU agains MAME implementation
 
 ## Build Release
-To build a new release
+To build a new release:
 - Build release branch
 - Bump `package.json` version files
 - Run `build:production` in the root directory and the `client` directory
 - output is available in the `./dist` directory
-- Make unit tests and integration tests still work
+- Make sure unit tests and integration tests still pass
 - Run tracer dumps to compare against older implementations
 - merge release branch
 
