@@ -67,6 +67,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 
 ## Basic
 - read Game ROM file ✓
+- read Sound ROM file ✓
 - emulate 6809 CPU ✓
 
 ## CPU/ASIC Board
@@ -81,7 +82,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - RAM Bank Switching ✗ (WPC 95 only, not sure if needed, MAME does not implement it)
 - The Switch Matrix ✓
 - External I/O ✓ (except sound)
-- Fliptronic Flipper ✓
+- Fliptronics Flipper ✓
 - Interrupt Reset ✓
 - Interrupt IRQ ✓
 - Interrupt FIRQ ✓ (incl. source - not sure if needed)
@@ -110,6 +111,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Scanline Handling ✓
 - Dimming / multi color display ✓
 - WPC 95 support ✓
+- ColorDMD support ✗
 
 ## Debug UI
 - DMD output ✓
