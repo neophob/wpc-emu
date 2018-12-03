@@ -72,16 +72,42 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 # Development
 
 ## Serve ROM's from localhost
-- create the `./rom` directory and copy your ROM files inside this directory
+You can run a local fileserver to serve the needed WPC ROM files.
+- create the `./rom` directory and copy your ROM files (program and audio) inside this directory
 - Run `npm run start:fileserv` to start local file serve
-- check out the "Run Watch" chapter
 
 ## Run Watch
+Use the watch functions to automatically compile changes in the client and server directories.
 - Run `npm run watch` in the root directory and the `client` directory
+- Run `open dist/index.html` to run WPC-EMU
+
+## Tests
+- Run `npm run test` to run library unit tests
+- Run `npm run test:integration` to run the integration test
+- Run `npm run test` in the client directory to run client unit tests
+
+## Benchmark
+To verify the current implementaion is not slower than an older version you can run the integrated benchmark.
+Make sure to run the benchmarks using the same node versions.
+- Run `npm run benchmark` to run the small benchmark (1s on the emulator), this target uses the included FreeWPC T2 ROM
+- Run `npm run benchmark:t2` to run the longer benchmark, you need to have the T2 rom in the roms directory
+
+## Tracer / Dumps
+The `wpc-emu-dumps` directory contains game dump files and can be used to compare the current implementation
+against older implementations. It also contains MAME dumps to compare the current WPC-EMU implementation against other emus.
+- Run `npm run tracer:dump` to dump game state to disk
+- Run `npm run tracer:status` or `npm run tracer:diff` to compare current implementation against an older implementation
+- Run `npm run tracer:stats` to compare WPC-EMU agains MAME implementation
 
 ## Build Release
+To build a new release
+- Build release branch
+- Bump `package.json` version files
 - Run `build:production` in the root directory and the `client` directory
 - output is available in the `./dist` directory
+- Make unit tests and integration tests still work
+- Run tracer dumps to compare against older implementations
+- merge release branch
 
 # Future ideas
 - Hook it up to a Virtual Pinball / Pinball frontend
