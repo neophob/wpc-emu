@@ -21,10 +21,9 @@ A Teensy 3.5 - mainly because of the number of IO pins.
 Total needed: 37
 
 ## Unknown
-- can we fetch the uptime of the pinball machine to sync the cycle count? (aka stays in sync)
-- should the emu able to write to the pinball machine (switch input? reset?)
-- how should the physical interface looks like? opto interface?
-- connect the switches to the pinbal electronics should be easy
+- can the hardware write to the pinball machine (switch input? reset?)
+- how should the physical interface looks like? Opto-isolator?
+- connect the switches to the pinball electronics should be easy, using Y connector?
 
 ## Firmware
 Firmware sends data to the emulator (serial):
@@ -32,16 +31,19 @@ Firmware sends data to the emulator (serial):
 - input switch matrix state (16bit)
 - coin door state (8bit)
 - fliptronic state (8bit)
+- power state (1bit)
+
+Total: 9 bytes
 
 ### Firmware functions
 
 ### Reset sense
-As soon as a reset signal is detected, reset Zerocross counter
+As soon as a reset signal is detected, reset uptime counter
 TODO: how is a reset signal defined? Hi? Lo? Duration?
 
 ### Reset trigger
 As soon as we want to use the hardware, the simulator and the pinball machine need to sync.
-The simplest solution is to reset the pinball machine
+The simplest solution is to reset the pinball machine.
 
 ### Uptime counter
 A Zerocross is triggered 60 times per second. -> 3600 per minute, 216'000 per hour
@@ -54,10 +56,10 @@ Track state of the coin door in one byte
 Track state of the fliptronics state in one byte
 
 ## Input switches
-Keep the state of the 8 by 8 matrix in memory, know
+Keep the state of the 8 by 8 matrix in memory. Use the Active Row counter to select next row
 
 ## State sender
-Interval task that sends its state 20 - 60 times per second to the simulator.
+Interval task that sends its state 15/30/60 times per second to the simulator.
 A second version might send the data only if there were state changes
 
 ## Trigger
