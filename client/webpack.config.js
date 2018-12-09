@@ -23,7 +23,12 @@ module.exports = () => {
       }),
       new GenerateSW({
         clientsClaim: true,
-        skipWaiting: true
+        skipWaiting: true,
+        runtimeCaching: [{
+          urlPattern: /\//,
+          handler: 'networkFirst',
+          
+        }]
       })
     ],
     optimization: {
