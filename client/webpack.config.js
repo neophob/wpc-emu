@@ -4,10 +4,14 @@ const webpack = require('webpack');
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { InjectManifest } = require('workbox-webpack-plugin');
 
 module.exports = () => {
   return {
-    entry: './scripts/main.js',
+    entry: {
+      './scripts/main.js': './scripts/main.js',
+      './scripts/serviceWorker.js': './scripts/serviceWorker.js',
+    },
     plugins: [
       new webpack.DefinePlugin({
         FETCHURL: process.env.SERVEURL ?
@@ -17,6 +21,9 @@ module.exports = () => {
       new HtmlWebpackPlugin({
         template: 'index.html',
         minify: true
+      }),
+      new InjectManifest({
+        swSrc: './scripts/serviceWorker.js',
       })
     ],
     optimization: {
