@@ -1,4 +1,4 @@
-'use strict';
+  'use strict';
 
 const webpack = require('webpack');
 const path = require('path');
@@ -9,8 +9,8 @@ const { InjectManifest } = require('workbox-webpack-plugin');
 module.exports = () => {
   return {
     entry: {
-      './scripts/main.js': './scripts/main.js',
-      './scripts/serviceWorker.js': './scripts/serviceWorker.js',
+      'wpc-client': './scripts/main.js',
+      serviceWorker: './scripts/serviceWorker.js',
     },
     plugins: [
       new webpack.DefinePlugin({
@@ -46,7 +46,7 @@ module.exports = () => {
       })]
     },
     output: {
-      filename: 'wpc-client.js',
+      filename: '[name].js',
       path: path.resolve(__dirname, '../dist')
     },
     module: {

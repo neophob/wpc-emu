@@ -60,7 +60,7 @@
     "build:production": "webpack --mode production",
     "build:test": "rm -f dist/* && webpack && cp assets/* dist && DEBUG=* node index.js",
     "start": "DEBUG=* node index.js",
-    "start:fileserv": "http-server ./rom --cors -p 8080",
+    "start:fileserv": "http-server ./rom -S -C assets/localhost-cert/server.crt -K assets/localhost-cert/server.key --cors -p 8080",
     "debug": "node --inspect index.js",
     "xo": "xo",
     "test": "nyc ava --verbose test/lib/**",

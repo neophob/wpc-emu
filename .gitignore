@@ -10,3 +10,7 @@ npm-debug.log
 *.pdf
 .nyc_output
 coverage
+rootCA.*
+server.csr
+server.key
+server.crt
