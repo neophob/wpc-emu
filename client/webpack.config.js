@@ -4,13 +4,12 @@ const webpack = require('webpack');
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { InjectManifest } = require('workbox-webpack-plugin');
+const { GenerateSW } = require('workbox-webpack-plugin');
 
 module.exports = () => {
   return {
     entry: {
       'wpc-client': './scripts/main.js',
-      serviceWorker: './scripts/serviceWorker.js',
     },
     plugins: [
       new webpack.DefinePlugin({
@@ -22,8 +21,9 @@ module.exports = () => {
         template: 'index.html',
         minify: true
       }),
-      new InjectManifest({
-        swSrc: './scripts/serviceWorker.js',
+      new GenerateSW({
+        clientsClaim: true,
+        skipWaiting: true
       })
     ],
     optimization: {
