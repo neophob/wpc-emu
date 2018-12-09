@@ -6,8 +6,8 @@ const Emulator = require('../lib/emulator');
 
 const romU06Path = process.env.ROMFILE || path.join(__dirname, '/../rom/t2_l8.rom');
 const closedSwitchRaw = process.env.CLOSEDSW || '15,16,17';
-const switchesEnabled = closedSwitchRaw.split(',').map((n)=>parseInt(n));
-const switchBlacklist = closedSwitchRaw.split(',').map((n)=>parseInt(n));
+const switchesEnabled = closedSwitchRaw.split(',').map((n) => parseInt(n, 10));
+const switchBlacklist = closedSwitchRaw.split(',').map((n) => parseInt(n, 10));
 switchBlacklist.push(21);
 console.log('GAME', romU06Path);
 console.log('switchesEnabled',switchesEnabled);
@@ -51,16 +51,16 @@ function bootEmu() {
       let x = 0;
       while (1) {
         x++;
-        if (x%200 === 50) {
+        if (x % 200 === 50) {
           const status = wpcSystem.getUiState();
           console.log('# STATUS', { ticks: status.ticks, opsMs: status.opsMs });
         }
 
-        const cycles = HALF_SECOND_TICKS + HALF_SECOND_TICKS * parseInt(10 * Math.random());
+        const cycles = HALF_SECOND_TICKS + HALF_SECOND_TICKS * parseInt(10 * Math.random(), 10);
         wpcSystem.executeCycle(cycles, CPU_STEPS);
 
-        for (let i=0; i<2; i++) {
-          let input = parseInt(11+(Math.random()*77), 10);
+        for (let i = 0; i < 2; i++) {
+          let input = parseInt(11 + (Math.random() * 77), 10);
           if (switchBlacklist.includes(input)) {
             input = 13;
           }
@@ -69,8 +69,6 @@ function bootEmu() {
           wpcSystem.setInput(input);
         }
       }
-
-      console.log('BYE');
     });
 }
 
@@ -89,7 +87,7 @@ function boot(wpcSystem) {
   wpcSystem.executeCycle(HALF_SECOND_TICKS, CPU_STEPS);
 
   wpcSystem.setCabinetInput(16);
-  wpcSystem.executeCycle(HALF_SECOND_TICKS*4, CPU_STEPS);
+  wpcSystem.executeCycle(HALF_SECOND_TICKS * 4, CPU_STEPS);
 
   wpcSystem.setInput(13);
   wpcSystem.executeCycle(2 * HALF_SECOND_TICKS, CPU_STEPS);
