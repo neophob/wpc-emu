@@ -1,16 +1,16 @@
 {
   "name": "wpc-emu-frontend",
-  "version": "0.7.9",
+  "version": "0.8.0",
   "description": "WPC pinball machine emu frontend",
   "main": "index.js",
   "engines": {
     "node": ">=10.0.0"
   },
   "scripts": {
-    "build": "SERVEURL=http://127.0.0.1:8080/ webpack --mode development",
+    "build": "SERVEURL=https://localhost:8080/rom/ webpack --mode development",
     "build:production": "webpack --mode production",
     "test": "ava --verbose test/**",
-    "watch": "SERVEURL=http://127.0.0.1:8080/ webpack --mode development --watch",
+    "watch": "SERVEURL=https://localhost:8080/rom/ webpack --mode development --watch",
     "xo": "xo"
   },
   "author": "Michael Vogt",
@@ -25,10 +25,11 @@
     "raw-loader": "^0.5.1",
     "style-loader": "^0.23.1",
     "terser-webpack-plugin": "^1.1.0",
-    "webpack": "^4.25.1",
+    "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.9",
+    "webpack-pwa-manifest": "^4.0.0",
     "whatwg-fetch": "^2.0.4",
+    "workbox-webpack-plugin": "^3.6.3",
     "xo": "^0.23.0"
   },
   "babel": {

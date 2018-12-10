@@ -1,6 +1,6 @@
 {
   "name": "wpc-emu",
-  "version": "0.7.9",
+  "version": "0.8.0",
   "description": "WPC pinball machine emu",
   "main": "index.js",
   "engines": {
@@ -10,12 +10,13 @@
   "license": "ISC",
   "devDependencies": {
     "ava": "^0.25.0",
+    "copy-webpack-plugin": "^4.6.0",
     "http-server": "^0.11.1",
     "nyc": "^13.1.0",
     "remove-debug-loader": "^0.2.6",
     "sinon": "^6.3.5",
     "terser-webpack-plugin": "^1.1.0",
-    "webpack": "^4.25.1",
+    "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
     "xo": "^0.23.0"
   },
@@ -60,7 +61,7 @@
     "build:production": "webpack --mode production",
     "build:test": "rm -f dist/* && webpack && cp assets/* dist && DEBUG=* node index.js",
     "start": "DEBUG=* node index.js",
-    "start:fileserv": "http-server ./rom --cors -p 8080",
+    "start:fileserv": "http-server ./dist -S -C assets/localhost-cert/server.crt -K assets/localhost-cert/server.key --cors -p 8080 || echo '\n\nERROR. Did you created and install the local dev certificates? Heres the content:' && cat assets/localhost-cert/README.md",
     "debug": "node --inspect index.js",
     "xo": "xo",
     "test": "nyc ava --verbose test/lib/**",
@@ -75,6 +76,6 @@
     "tracer:diff": "cd ./test/tracer/wpc-emu-dumps && git diff",
     "benchmark": "node test/integration/benchmark.js > /dev/null",
     "benchmark:t2": "CYCLES=20000000 ROMFILE=./rom/t2_l8.rom node test/integration/benchmark.js > /dev/null",
-    "release": "npm run build:production && cd client && npm run build:production && cd .. && cp -f ./dist/* ./docs"
+    "release": "npm run build:production && cd client && npm run build:production && cd .. && cp -f dist/* docs || true"
   }
 }
