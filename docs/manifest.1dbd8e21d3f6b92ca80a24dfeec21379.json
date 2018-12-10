@@ -1,11 +1,6 @@
 {
   "icons": [
     {
-      "src": "icon_1024x1024.6bde97b612ee8dfa0d7f84001a074acc.png",
-      "sizes": "1024x1024",
-      "type": "image/png"
-    },
-    {
       "src": "icon_512x512.900559d7904272ca9fe999308906b6c9.png",
       "sizes": "512x512",
       "type": "image/png"
