@@ -6,6 +6,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { GenerateSW } = require('workbox-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 const S3_BUCKET = 'https://s3-eu-west-1.amazonaws.com/foo-temp/';
 
@@ -24,6 +25,7 @@ module.exports = () => {
         template: 'index.html',
         minify: true
       }),
+      new FaviconsWebpackPlugin(path.resolve('../assets/logo.png')),
       new GenerateSW({
         clientsClaim: true,
         skipWaiting: true,
@@ -67,7 +69,7 @@ module.exports = () => {
         icons: [
           {
             src: path.resolve('../assets/logo.png'),
-            sizes: [96, 128, 192, 256, 384, 512, 1024],
+            sizes: [96, 128, 192, 256, 384, 512],
           },
         ]
       })
