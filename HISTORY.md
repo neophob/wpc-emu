@@ -1,5 +1,8 @@
 # HISTORY
 
+## 10/12/18
+- web application is now a PWA, caches assets
+
 ## 2/12/18
 - use memory patcher to skip boot check - make that setting persistent across resets
 
