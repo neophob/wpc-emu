@@ -87,7 +87,7 @@ module.exports = () => {
       })]
     },
     output: {
-      filename: '[name].js',
+      filename: 'wpc-client.js',
       path: path.resolve(__dirname, '../dist')
     },
     module: {
