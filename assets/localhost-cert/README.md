@@ -1,8 +1,8 @@
-# Localhost SSL
+# Build Localhost SSL
 
-source https://medium.freecodecamp.org/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec
+Source https://medium.freecodecamp.org/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec
 
-Build Certificates:
+## How to build certificates
 - `openssl genrsa -des3 -out rootCA.key 2048`
 - `openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 1024 -out rootCA.pem`
 - Your system need to trust `rootCA.pem`

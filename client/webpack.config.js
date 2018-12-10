@@ -5,6 +5,7 @@ const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { GenerateSW } = require('workbox-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 
 module.exports = () => {
   return {
@@ -24,11 +25,46 @@ module.exports = () => {
       new GenerateSW({
         clientsClaim: true,
         skipWaiting: true,
-        runtimeCaching: [{
-          urlPattern: /\//,
-          handler: 'networkFirst',
-          
-        }]
+        runtimeCaching: [
+          {
+            // cache assets and reuse them
+            urlPattern: /.*\/rom\/.*|.*\/foo-temp\/.*/,
+            handler: 'cacheFirst',
+            options: {
+              cacheName: 'assets',
+              expiration: {
+                maxEntries: 16,
+                maxAgeSeconds: 3600 * 24 * 30,
+              },
+            }
+          },
+          {
+            // cache everything else
+            urlPattern: /\//,
+            handler: 'networkFirst',
+            options: {
+              cacheName: 'wildcard',
+              expiration: {
+                maxEntries: 16,
+                maxAgeSeconds: 3600 * 24,
+              },
+            }
+          },
+        ]
+      }),
+      new WebpackPwaManifest({
+        name: 'WPC-emu',
+        short_name: 'WPC-Emu',
+        description: 'Williams Pinball Emulator',
+        background_color: '#000000',
+        orientation: 'landscape',
+        crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
+        icons: [
+          {
+            src: path.resolve('../assets/logo.png'),
+            sizes: [96, 128, 192, 256, 384, 512] // multiple sizes
+          },
+        ]
       })
     ],
     optimization: {
