@@ -61,6 +61,8 @@ module.exports = () => {
         background_color: '#000000',
         orientation: 'landscape',
         crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
+        inject: true,
+        ios: true,
         icons: [
           {
             src: path.resolve('../assets/logo.png'),
