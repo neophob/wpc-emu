@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.82ab20b4a862923df3a1e788d8b506f2.js"
+  "precache-manifest.70b2f822595a9d5ec1f0c3a3a17fb190.js"
 );
 
 workbox.skipWaiting();
@@ -30,4 +30,4 @@ workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 workbox.routing.registerRoute(/.*\/rom\/.*|.*\/foo-temp\/.*/, workbox.strategies.cacheFirst({ "cacheName":"assets", plugins: [new workbox.expiration.Plugin({"maxEntries":16,"maxAgeSeconds":2592000,"purgeOnQuotaError":false})] }), 'GET');
-workbox.routing.registerRoute(/\//, workbox.strategies.networkFirst({ "cacheName":"wildcard", plugins: [new workbox.expiration.Plugin({"maxEntries":16,"maxAgeSeconds":86400,"purgeOnQuotaError":false})] }), 'GET');
+workbox.routing.registerRoute(/\//, workbox.strategies.networkFirst({ "cacheName":"application", plugins: [new workbox.expiration.Plugin({"maxEntries":16,"maxAgeSeconds":86400,"purgeOnQuotaError":false})] }), 'GET');
