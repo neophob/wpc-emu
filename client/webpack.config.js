@@ -45,7 +45,7 @@ module.exports = () => {
             urlPattern: /\//,
             handler: 'networkFirst',
             options: {
-              cacheName: 'wildcard',
+              cacheName: 'application',
               expiration: {
                 maxEntries: 16,
                 maxAgeSeconds: 3600 * 24,
