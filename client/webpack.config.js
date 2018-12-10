@@ -59,14 +59,15 @@ module.exports = () => {
         short_name: 'WPC-Emu',
         description: 'Williams Pinball Emulator',
         background_color: '#000000',
+        theme_color: '#000000',
         orientation: 'landscape',
-        crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
+        display: 'standalone',
         inject: true,
         ios: true,
         icons: [
           {
             src: path.resolve('../assets/logo.png'),
-            sizes: [96, 128, 192, 256, 384, 512] // multiple sizes
+            sizes: [96, 128, 192, 256, 384, 512, 1024],
           },
         ]
       })
