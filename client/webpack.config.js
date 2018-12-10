@@ -7,6 +7,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { GenerateSW } = require('workbox-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 
+const S3_BUCKET = 'https://s3-eu-west-1.amazonaws.com/foo-temp/';
+
 module.exports = () => {
   return {
     entry: {
@@ -16,7 +18,7 @@ module.exports = () => {
       new webpack.DefinePlugin({
         FETCHURL: process.env.SERVEURL ?
           JSON.stringify(process.env.SERVEURL) :
-          JSON.stringify('https://s3-eu-west-1.amazonaws.com/foo-temp/')
+          JSON.stringify(S3_BUCKET)
       }),
       new HtmlWebpackPlugin({
         template: 'index.html',
