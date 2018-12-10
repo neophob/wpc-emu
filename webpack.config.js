@@ -2,6 +2,7 @@
 
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = () => {
   return {
@@ -37,7 +38,11 @@ module.exports = () => {
           loader: 'remove-debug-loader'
         }]
       }]
-    }
-
+    },
+    plugins: [
+      new CopyWebpackPlugin([
+        { from: 'rom', to: 'rom' }
+      ], { ignore: [ '.DS_Store', '*.pdf' ] })
+    ],
   };
 };
