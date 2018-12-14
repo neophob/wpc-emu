@@ -36,18 +36,10 @@ function registerNotification(characteristic, notificationCallback) {
 
 function discoverConnectSubscribe(serviceUuid, serviceName, characteristicUuid, disconnectCallback, notificationCallback) {
   return requestDevice(serviceUuid, serviceName)
-    .then((device) => {
-      return connectDevice(device, disconnectCallback);
-    })
-    .then((server) => {
-      return getPrimaryService(server, serviceUuid);
-    })
-    .then((service) => {
-      return getCharacteristic(service, characteristicUuid);
-    })
-    .then((characteristic) => {
-      return registerNotification(characteristic, notificationCallback);
-    })
+    .then((device) => connectDevice(device, disconnectCallback))
+    .then((server) => getPrimaryService(server, serviceUuid))
+    .then((service) => getCharacteristic(service, characteristicUuid))
+    .then((characteristic) => registerNotification(characteristic, notificationCallback));
 }
 
 const serviceUuid = '4fafc201-1fb5-459e-8fcc-c5c9c331914b';
