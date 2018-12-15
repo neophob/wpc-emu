@@ -50,6 +50,7 @@ let messageCount = 0;
 
 function disconnectCallback(data) {
   console.log('> Bluetooth Device disconnected', data);
+  //TODO handle reconnection
 }
 
 function notificationCallback(event) {
