@@ -6,7 +6,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { GenerateSW } = require('workbox-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const S3_BUCKET = 'https://s3-eu-west-1.amazonaws.com/foo-temp/';
 
@@ -38,7 +38,7 @@ module.exports = () => {
               cacheName: 'assets',
               expiration: {
                 maxEntries: 16,
-                maxAgeSeconds: 3600 * 24 * 30,
+                maxAgeSeconds: 3600 * 24 * 60,
               },
             }
           },
@@ -50,7 +50,7 @@ module.exports = () => {
               cacheName: 'application',
               expiration: {
                 maxEntries: 16,
-                maxAgeSeconds: 3600 * 24,
+                maxAgeSeconds: 3600 * 24 * 7,
               },
             }
           },

@@ -13,7 +13,8 @@ import * as emuDebugUi from './ui/emu-debug-ui';
 
 const TICKS = 2000000;
 const DESIRED_FPS = 58;
-const TICKS_PER_STEP = parseInt(TICKS / DESIRED_FPS, 10);
+const TICKS_PER_CALL = parseInt(TICKS / DESIRED_FPS, 10);
+const TICKS_PER_STEP = 16;
 const INITIAL_GAME = 'Hurricane';
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -103,7 +104,7 @@ initEmuWithGameName(INITIAL_GAME);
 
 //called at 60hz -> 16.6ms
 function step() {
-  wpcSystem.executeCycle(TICKS_PER_STEP, 16);
+  wpcSystem.executeCycle(TICKS_PER_CALL, TICKS_PER_STEP);
   const emuState = wpcSystem.getUiState();
   const cpuState = intervalId ? 'running' : 'paused';
   emuDebugUi.updateCanvas(emuState, cpuState);
