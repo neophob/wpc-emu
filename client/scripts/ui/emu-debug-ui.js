@@ -49,12 +49,12 @@ colorLut.set('WHITE', 'rgba(255,255,255,');
 colorLut.set('GREEN', 'rgba(0,255,0,');
 colorLut.set('BLACK', 'rgba(0,0,0,0)');
 
-function updateCanvas(emuState, cpuState) {
+function updateCanvas(emuState, cpuState, bleMessageCount) {
   if (!emuState) {
     return;
   }
   canvas.fillStyle = '#000';
-  canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 245, 165);
+  canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 245, 175);
   canvas.fillRect(LEFT_X_OFFSET, YPOS_DMD_DATA, 150, 40);
 
   canvas.fillStyle = COLOR_DMD[2];
@@ -83,6 +83,9 @@ function updateCanvas(emuState, cpuState) {
   canvas.fillText('SND NMI CALLS: ' + emuState.asic.sound.nmiCount,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 150);
   canvas.fillText('SND VOLUME: ' + emuState.asic.sound.volume, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 160);
+  if (bleMessageCount) {
+    canvas.fillText('BLE MESSAGES: ' + bleMessageCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 170);
+  }
 
   canvas.fillText('DMD LOW PAGE: ' + emuState.asic.dmd.lowpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
   canvas.fillText('DMD HIGH PAGE: ' + emuState.asic.dmd.highpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);

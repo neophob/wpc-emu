@@ -24,6 +24,7 @@ const soundInstance = AudioOutput(AudioContext);
 var wpcSystem;
 var intervalId;
 var lastZeroContCounter = 0;
+var bleMessageCount = 0;
 
 function dacCallback(value) {
   soundInstance.writeAudioData(value);
@@ -38,14 +39,16 @@ function pairing() {
     if (lastZeroContCounter === 0) {
       cancelAnimationFrame(intervalId);
       lastZeroContCounter = data.zeroCrossCounter;
+      console.log('Switch to BLE MODE')
+      //TODO check for time drift
     } else {
+      bleMessageCount++;
       const deltaCrossCounter = data.zeroCrossCounter - lastZeroContCounter;
       const deltaTicks = parseInt(deltaCrossCounter * (2000000 / 60), 10);
       lastZeroContCounter = data.zeroCrossCounter;
-      console.log('delta', deltaTicks);
       wpcSystem.executeCycle(deltaTicks, TICKS_PER_STEP);
       const emuState = wpcSystem.getUiState();
-      emuDebugUi.updateCanvas(emuState, 'running');
+      emuDebugUi.updateCanvas(emuState, 'running BLE SYNC', bleMessageCount);
     }
   })
     .catch((error) => {

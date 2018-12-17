@@ -3,6 +3,9 @@
 export { pairBluetooth };
 import { parseMessage } from './parser';
 
+//TODO handle reconnect
+//TODO expose reset function
+
 let messageCount = 0;
 let callback;
 
@@ -74,5 +77,8 @@ function notificationCallback(event) {
 
   messageCount++;
   const parsedMessage = parseMessage(value);
+
+  //TODO include only changed state - eg if fliptronic switches did not change, do not include its state!
+
   callback(null, parsedMessage);
 }
