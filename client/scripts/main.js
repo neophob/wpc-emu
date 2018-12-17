@@ -40,9 +40,12 @@ function pairing() {
       cancelAnimationFrame(intervalId);
       lastZeroContCounter = data.zeroCrossCounter;
       console.log('Switch to BLE MODE')
-      //TODO check for time drift
+      //TODO check for time drift, reset pinball & emu if drift is too big
     } else {
       bleMessageCount++;
+
+      //TODO process keys
+
       const deltaCrossCounter = data.zeroCrossCounter - lastZeroContCounter;
       const deltaTicks = parseInt(deltaCrossCounter * (2000000 / 60), 10);
       lastZeroContCounter = data.zeroCrossCounter;
