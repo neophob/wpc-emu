@@ -7,6 +7,7 @@ import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher';
 import { initialiseEmulator } from './lib/emulator';
 import { initialiseActions } from './lib/initialise';
 import { AudioOutput } from './lib/sound';
+import { pairBluetooth } from './bluetooth/index';
 import * as gamelist from './db/gamelist';
 import { populateControlUiView } from './ui/control-ui';
 import * as emuDebugUi from './ui/emu-debug-ui';
@@ -60,7 +61,8 @@ function initialiseEmu(gameEntry) {
         wpcSystem,
         pauseEmu,
         resumeEmu,
-        romSelection
+        romSelection,
+        pairBluetooth,
       };
       wpcSystem.registerAudioConsumer(dacCallback);
       wpcSystem.start();
