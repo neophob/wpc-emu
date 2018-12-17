@@ -147,6 +147,8 @@ Make sure to run the benchmarks using the same node versions.
 - Run `npm run benchmark` to run the small benchmark (1s on the emulator), this target uses the included FreeWPC T2 ROM
 - Run `npm run benchmark:t2` to run the longer benchmark, you need to have the T2 rom in the roms directory
 
+Sidenote: Also using deoptigate (https://github.com/thlorenz/deoptigate) shows where the code is unoptimised. 
+
 ## Tracer / Dumps
 The `wpc-emu-dumps` directory contains game dump files and can be used to compare the current implementation
 against older implementations. It also contains MAME dumps to compare the current WPC-EMU implementation against other emus.

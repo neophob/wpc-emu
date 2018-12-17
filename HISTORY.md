@@ -1,5 +1,8 @@
 # HISTORY
 
+## 16/12/18
+- optimise emulator, needs 10-20% less cpu power
+
 ## 10/12/18
 - web application is now a PWA, caches assets
 

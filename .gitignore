@@ -14,4 +14,4 @@ rootCA.*
 server.csr
 server.key
 server.crt
-rom
+./rom
