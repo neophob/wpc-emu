@@ -23,6 +23,7 @@ const soundInstance = AudioOutput(AudioContext);
 
 var wpcSystem;
 var intervalId;
+var lastZeroContCounter = 0;
 
 function dacCallback(value) {
   soundInstance.writeAudioData(value);
@@ -34,10 +35,21 @@ function pairing() {
       console.log('error', error);
       return;
     }
-    console.log('DATA', data);
+    if (lastZeroContCounter === 0) {
+      cancelAnimationFrame(intervalId);
+      lastZeroContCounter = data.zeroCrossCounter;
+    } else {
+      const deltaCrossCounter = data.zeroCrossCounter - lastZeroContCounter;
+      const deltaTicks = parseInt(deltaCrossCounter * (2000000 / 60), 10);
+      lastZeroContCounter = data.zeroCrossCounter;
+      console.log('delta', deltaTicks);
+      wpcSystem.executeCycle(deltaTicks, TICKS_PER_STEP);
+      const emuState = wpcSystem.getUiState();
+      emuDebugUi.updateCanvas(emuState, 'running');
+    }
   })
     .catch((error) => {
-      console.error('BT Pairing failed', error.message);
+      console.error('BT Pairing failed:', error.message);
     });
 }
 
@@ -109,8 +121,8 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('service-worker.js').then(registration => {
       console.log('SW registered: ', registration);
-    }).catch(registrationError => {
-      console.log('SW registration failed: ', registrationError);
+    }).catch((registrationError) => {
+      console.error('SW registration failed: ', registrationError);
     });
   });
 }
