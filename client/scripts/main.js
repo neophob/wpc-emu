@@ -28,6 +28,19 @@ function dacCallback(value) {
   soundInstance.writeAudioData(value);
 }
 
+function pairing() {
+  pairBluetooth((error, data) => {
+    if (error) {
+      console.log('error', error);
+      return;
+    }
+    console.log('DATA', data);
+  })
+    .catch((error) => {
+      console.error('BT Pairing failed', error.message);
+    });
+}
+
 function initialiseEmu(gameEntry) {
   const u06Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06);
   const u14Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u14).catch(() => {});
@@ -62,7 +75,7 @@ function initialiseEmu(gameEntry) {
         pauseEmu,
         resumeEmu,
         romSelection,
-        pairBluetooth,
+        pairBluetooth: pairing,
       };
       wpcSystem.registerAudioConsumer(dacCallback);
       wpcSystem.start();

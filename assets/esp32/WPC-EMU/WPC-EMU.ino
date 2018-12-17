@@ -6,6 +6,7 @@
 BLEServer* pServer = NULL;
 BLECharacteristic* pCharacteristicPowerstate = NULL;
 BLECharacteristic* pCharacteristicWpcState = NULL;
+volatile uint32_t fakeTimer = 0;
 
 bool deviceConnected = false;
 bool oldDeviceConnected = false;
@@ -103,6 +104,8 @@ void setup() {
   // Start advertising
   pServer->getAdvertising()->start();
   Serial.println("Waiting a client connection to notify...");
+
+  initTimer();
 }
 
 void initState() {
@@ -122,7 +125,7 @@ void initState() {
 }
 
 void updateZerocross() {
-  stateZerocross++;
+  stateZerocross = fakeTimer;
   statePayload[NOTIFY_MSG_OFFSET_ZEROCROSS + 0] = (stateZerocross >> 24) & 0xFF;
   statePayload[NOTIFY_MSG_OFFSET_ZEROCROSS + 1] = (stateZerocross >> 16) & 0xFF;
   statePayload[NOTIFY_MSG_OFFSET_ZEROCROSS + 2] = (stateZerocross >> 8) & 0xFF;
