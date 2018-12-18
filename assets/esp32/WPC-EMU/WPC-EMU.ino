@@ -1,3 +1,7 @@
+// tested using a "ESP32 Dev Module" / "ESP32-DevKitC"
+// see https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/boards_manager.md
+// v1.0.1-rc2
+
 #include <BLEDevice.h>
 #include <BLEServer.h>
 #include <BLEUtils.h>
