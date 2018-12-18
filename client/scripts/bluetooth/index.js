@@ -4,7 +4,6 @@ export { pairBluetooth };
 import { build as bluetoothConnection } from './connection';
 import { parseMessage } from './parser';
 
-//TODO handle reconnect
 //TODO expose reset function
 
 const WPCEMU_SERIVCE_UUID = '4fafc201-1fb5-459e-8fcc-c5c9c331914b';
@@ -15,7 +14,15 @@ const WPCEMU_CHARACTERISTIC_POWERSTATE_UUID = '82ee4ff0-b0e3-4088-85e3-bdaa212e4
 let messageCount = 0;
 let bluetoothDevice = bluetoothConnection(WPCEMU_SERIVCE_UUID, WPCEMU_SERIVCE_NAME);
 
-function pairBluetooth(_callback) {
+function pairBluetooth(callback) {
+  return bluetoothDevice.readCharacteristic(WPCEMU_CHARACTERISTIC_POWERSTATE_UUID)
+    .then((powerstate) => {
+      console.log('powerstate', powerstate);
+      return subscribeToNotifications(callback);
+    });
+}
+
+function subscribeToNotifications(_callback) {
   const powerstatePromise = bluetoothDevice.subscribeToCharacteristic(WPCEMU_CHARACTERISTIC_POWERSTATE_UUID, (event) => {
     const value = event.target.value;
     console.log('POWERSTATE CHANGED', value);

@@ -40,6 +40,7 @@ class BluetoothConnection {
     console.log('BT DISCONNECT');
     this.bluetoothDevice = null;
     this.bluetoothService = null;
+    //TODO handle reconnect
   }
 
   _connectToService() {
@@ -50,7 +51,7 @@ class BluetoothConnection {
         return bluetoothDevice.gatt.connect();
       })
       .then((server) => server.getPrimaryService(this.serviceUuid))
-      .then((service) => this.bluetoothServer = service);
+      .then((service) => this.bluetoothService = service);
   }
 
   _getBluetoothService() {
@@ -73,6 +74,20 @@ class BluetoothConnection {
       .then((subscription) => {
         console.log('> Notifications started', subscription);
         characteristic.addEventListener('characteristicvaluechanged', callback);
+      });
+  }
+
+  // return a promise that eventually resolve to a uint8 value of the characteristic
+  readCharacteristic(characteristicUuid) {
+    return this._getBluetoothService()
+      .then((service) => {
+        return service.getCharacteristic(characteristicUuid);
+      })
+      .then((characteristic) => {
+        return characteristic.readValue();
+      })
+      .then((value) => {
+        return value.getUint8(0);
       });
   }
 
