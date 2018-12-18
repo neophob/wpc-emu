@@ -1,84 +1,32 @@
 'use strict';
 
 export { pairBluetooth };
+import { build as bluetoothConnection } from './connection';
 import { parseMessage } from './parser';
 
 //TODO handle reconnect
 //TODO expose reset function
 
+const WPCEMU_SERIVCE_UUID = '4fafc201-1fb5-459e-8fcc-c5c9c331914b';
+const WPCEMU_SERIVCE_NAME = 'WPC-EMU';
+const WPCEMU_CHARACTERISTIC_WPCSTATE_UUID = 'beb5483e-36e1-4688-b7f5-ea07361b26a8';
+const WPCEMU_CHARACTERISTIC_POWERSTATE_UUID = '82ee4ff0-b0e3-4088-85e3-bdaa212e4fa3';
+
 let messageCount = 0;
-let callback;
+let bluetoothDevice = bluetoothConnection(WPCEMU_SERIVCE_UUID, WPCEMU_SERIVCE_NAME);
 
 function pairBluetooth(_callback) {
-  callback = _callback;
-  const bluetoothState = {
-    serviceUuid: '4fafc201-1fb5-459e-8fcc-c5c9c331914b',
-    characteristicUuid: 'beb5483e-36e1-4688-b7f5-ea07361b26a8',
-    serviceName: 'WPC-EMU',
-  };
-  return discoverConnectSubscribe(
-    bluetoothState,
-    disconnectCallback,
-    notificationCallback
-  );
-}
+  const powerstatePromise = bluetoothDevice.subscribeToCharacteristic(WPCEMU_CHARACTERISTIC_POWERSTATE_UUID, (event) => {
+    const value = event.target.value;
+    console.log('POWERSTATE CHANGED', value);
+  });
 
-function requestDevice(serviceUuid, serviceName) {
-  const bluetoothFilter = {
-    filters: [
-      { services: [ serviceUuid ] },
-      { name: serviceName },
-    ]
-  };
-  console.log('Requesting Bluetooth Device...');
-  return navigator.bluetooth.requestDevice(bluetoothFilter);
-}
+  const statePromise = bluetoothDevice.subscribeToCharacteristic(WPCEMU_CHARACTERISTIC_WPCSTATE_UUID, (event) => {
+    const value = event.target.value;
+    const parsedMessage = parseMessage(value);
+    messageCount++;
+    _callback(null, parsedMessage);
+  });
 
-function connectDevice(bluetoothDevice, disconnectCallback) {
-  console.log('Connecting to GATT Server...');
-  bluetoothDevice.addEventListener('gattserverdisconnected', disconnectCallback);
-  return bluetoothDevice.gatt.connect();
-}
-
-function getPrimaryService(server, serviceUuid) {
-  console.log('Getting Service...');
-  return server.getPrimaryService(serviceUuid);
-}
-
-function getCharacteristic(service, characteristicUuid) {
-  console.log('Getting Characteristic...');
-  return service.getCharacteristic(characteristicUuid);
-}
-
-function registerNotification(characteristic, notificationCallback) {
-  return characteristic.startNotifications()
-    .then(_ => {
-      console.log('> Notifications started', _);
-      characteristic.addEventListener('characteristicvaluechanged', notificationCallback);
-    });
-}
-
-function discoverConnectSubscribe(bluetoothState, disconnectCallback, notificationCallback) {
-  const { serviceUuid, serviceName, characteristicUuid } = bluetoothState;
-
-  return requestDevice(serviceUuid, serviceName)
-    .then((device) => connectDevice(device, disconnectCallback))
-    .then((server) => getPrimaryService(server, serviceUuid))
-    .then((service) => getCharacteristic(service, characteristicUuid))
-    .then((characteristic) => registerNotification(characteristic, notificationCallback));
-}
-
-function disconnectCallback(data) {
-  callback(data);
-}
-
-function notificationCallback(event) {
-  const value = event.target.value;
-
-  messageCount++;
-  const parsedMessage = parseMessage(value);
-
-  //TODO include only changed state - eg if fliptronic switches did not change, do not include its state!
-
-  callback(null, parsedMessage);
+  return Promise.all([ powerstatePromise, statePromise ]);
 }
