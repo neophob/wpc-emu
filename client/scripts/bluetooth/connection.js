@@ -91,4 +91,13 @@ class BluetoothConnection {
       });
   }
 
+  writeCharacteristic(characteristicUuid, value) {
+    return this._getBluetoothService()
+      .then((service) => {
+        return service.getCharacteristic(characteristicUuid);
+      })
+      .then((characteristic) => {
+        return characteristic.writeValue(value);
+      });
+  }
 }

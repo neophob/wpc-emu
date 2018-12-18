@@ -1,6 +1,6 @@
 'use strict';
 
-export { pairBluetooth };
+export { pairBluetooth, resetPinballMachine };
 import { build as bluetoothConnection } from './connection';
 import { parseMessage } from './parser';
 
@@ -10,6 +10,7 @@ const WPCEMU_SERIVCE_UUID = '4fafc201-1fb5-459e-8fcc-c5c9c331914b';
 const WPCEMU_SERIVCE_NAME = 'WPC-EMU';
 const WPCEMU_CHARACTERISTIC_WPCSTATE_UUID = 'beb5483e-36e1-4688-b7f5-ea07361b26a8';
 const WPCEMU_CHARACTERISTIC_POWERSTATE_UUID = '82ee4ff0-b0e3-4088-85e3-bdaa212e4fa3';
+const WPCEMU_CHARACTERISTIC_RESET_UUID = '26ac8e88-7b63-4e88-8ca2-045c76345b5f';
 
 let messageCount = 0;
 let bluetoothDevice = bluetoothConnection(WPCEMU_SERIVCE_UUID, WPCEMU_SERIVCE_NAME);
@@ -20,6 +21,10 @@ function pairBluetooth(callback) {
       console.log('powerstate', powerstate);
       return subscribeToNotifications(callback);
     });
+}
+
+function resetPinballMachine() {
+  return bluetoothDevice.writeCharacteristic(WPCEMU_CHARACTERISTIC_RESET_UUID, Uint8Array.of(123));
 }
 
 function subscribeToNotifications(_callback) {

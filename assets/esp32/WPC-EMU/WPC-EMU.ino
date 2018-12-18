@@ -6,6 +6,7 @@
 BLEServer* pServer = NULL;
 BLECharacteristic* pCharacteristicPowerstate = NULL;
 BLECharacteristic* pCharacteristicWpcState = NULL;
+BLECharacteristic* pCharacteristicWpcReset = NULL;
 volatile uint32_t fakeTimer = 0;
 
 bool deviceConnected = false;
@@ -18,6 +19,7 @@ uint32_t stateZerocross = 0;
 // Characteristics are defined attribute types that contain a single logical value. 
 #define CHARACTERISTIC_WPCSTATE_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
 #define CHARACTERISTIC_POWERSTATE_UUID "82ee4ff0-b0e3-4088-85e3-bdaa212e4fa3"
+#define CHARACTERISTIC_RESET_UUID "26ac8e88-7b63-4e88-8ca2-045c76345b5f"
 
 #define NOTIFY_MSG_OFFSET_ZEROCROSS 0
 #define NOTIFY_MSG_SIZE_ZEROCROSS 4
@@ -45,7 +47,7 @@ Firmware sends data to the emulator (serial):
 GPIO06 through GPIO11 are reserved for the FLASH
  */
 
-class MyServerCallbacks: public BLEServerCallbacks {
+class BleConnectionCallback: public BLEServerCallbacks {
     void onConnect(BLEServer* pServer) {
       deviceConnected = true;
       Serial.println("connected");
@@ -54,6 +56,17 @@ class MyServerCallbacks: public BLEServerCallbacks {
     void onDisconnect(BLEServer* pServer) {
       deviceConnected = false;
       Serial.println("disconnected");
+    }
+};
+
+class BleResetCallback: public BLECharacteristicCallbacks {
+    void onWrite(BLECharacteristic *pCharacteristic) {
+      Serial.println("TODO RESET PINBALL MACHINE");
+      std::string value = pCharacteristic->getValue();
+      if (value.length() > 0) {
+        for (int i = 0; i < value.length(); i++)
+          Serial.print(value[i]);
+      }
     }
 };
 
@@ -69,7 +82,7 @@ void setup() {
 
   // Create the BLE Server
   pServer = BLEDevice::createServer();
-  pServer->setCallbacks(new MyServerCallbacks());
+  pServer->setCallbacks(new BleConnectionCallback());
 
   // Create the BLE Service
   BLEService *pService = pServer->createService(SERVICE_UUID);
@@ -87,16 +100,23 @@ void setup() {
                       BLECharacteristic::PROPERTY_NOTIFY
                     );
 
+  pCharacteristicWpcReset = pService->createCharacteristic(
+                      CHARACTERISTIC_RESET_UUID,
+                      BLECharacteristic::PROPERTY_WRITE
+                    );
+
   // https://www.bluetooth.com/specifications/gatt/viewer?attributeXmlFile=org.bluetooth.descriptor.gatt.client_characteristic_configuration.xml
   // Create a BLE Descriptor
   pCharacteristicPowerstate->addDescriptor(new BLE2902());
   pCharacteristicWpcState->addDescriptor(new BLE2902());
+  pCharacteristicWpcReset->addDescriptor(new BLE2902());
 
 
   // initialise state
   initState();
   pCharacteristicPowerstate->setValue(&statePowerstate, 1);
   pCharacteristicWpcState->setValue(statePayload, MESSAGE_SIZE);
+  pCharacteristicWpcReset->setCallbacks(new BleResetCallback());
   
   // Start the service
   pService->start();
