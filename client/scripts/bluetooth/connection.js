@@ -6,15 +6,21 @@ function build(serviceUuid, serviceName) {
   return new BluetoothConnection(serviceUuid, serviceName);
 }
 
+const EVENT_GATTSERVER_DISCONNECTED = 'gattserverdisconnected';
+const EVENT_VALUE_CHANGED = 'characteristicvaluechanged';
+
 class BluetoothConnection {
 
   constructor(serviceUuid, serviceName) {
     this.serviceUuid = serviceUuid;
     this.serviceName = serviceName;
+    this.bluetoothDevice = null;
+    this.bluetoothService = null;
+    this.subscribedCharacteristics = [];
   }
 
   /*
-   * Pair with a bluetooth device
+   * Pair with a bluetooth device, this must be initiated by an user action!
    * @returns a promise
    */
   _pair() {
@@ -26,7 +32,11 @@ class BluetoothConnection {
     };
     console.log('Requesting Bluetooth Device...');
     return navigator.bluetooth.requestDevice(bluetoothFilter)
-      .then((bluetoothDevice) => this.bluetoothDevice = bluetoothDevice);
+      .then((bluetoothDevice) => {
+        this.bluetoothDevice = bluetoothDevice;
+        this.bluetoothDevice.addEventListener(EVENT_GATTSERVER_DISCONNECTED, this._disconnectEvent.bind(this));
+        return this.bluetoothDevice;
+      });
   }
 
   _getBluetoothDevice() {
@@ -36,22 +46,34 @@ class BluetoothConnection {
     return this._pair();
   }
 
-  _disconnectEvent() {
-    console.log('BT DISCONNECT');
-    this.bluetoothDevice = null;
-    this.bluetoothService = null;
-    //TODO handle reconnect
+  _disconnectEvent(event = {}) {
+    console.log('Bluetooth disconnected', {
+      target: event.target
+    });
+    this.bluetoothService = undefined;
+    this._connectToService()
+      .then(() => {
+        const subscriptionPromises = this.subscribedCharacteristics
+          .map((entry) => this.subscribeToCharacteristic(entry.characteristicUuid, entry.callback, false));
+        return Promise.all(subscriptionPromises);
+      })
+      .catch((error) => {
+        console.error('RECONNECT FAILED:', error.message);
+      });
   }
 
   _connectToService() {
     return this._getBluetoothDevice()
       .then((bluetoothDevice) => {
         console.log('Connecting to GATT Server...');
-        bluetoothDevice.addEventListener('gattserverdisconnected', this._disconnectEvent);
         return bluetoothDevice.gatt.connect();
       })
       .then((server) => server.getPrimaryService(this.serviceUuid))
-      .then((service) => this.bluetoothService = service);
+      .then((service) => {
+        console.log('connected');
+        this.bluetoothService = service;
+        return this.bluetoothService;
+      });
   }
 
   _getBluetoothService() {
@@ -61,7 +83,7 @@ class BluetoothConnection {
     return this._connectToService();
   }
 
-  subscribeToCharacteristic(characteristicUuid, callback) {
+  subscribeToCharacteristic(characteristicUuid, callback, addListener = true) {
     let characteristic;
     return this._getBluetoothService()
       .then((service) => {
@@ -71,9 +93,12 @@ class BluetoothConnection {
         characteristic = _characteristic;
         return characteristic.startNotifications();
       })
-      .then((subscription) => {
-        console.log('> Notifications started', subscription);
-        characteristic.addEventListener('characteristicvaluechanged', callback);
+      .then((subscription = {}) => {
+        console.log('> Notifications started', subscription.uuid);
+        characteristic.addEventListener(EVENT_VALUE_CHANGED, callback);
+        if (addListener) {
+          this.subscribedCharacteristics.push({ characteristicUuid, callback });
+        }
       });
   }
 

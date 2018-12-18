@@ -26,6 +26,7 @@
     <button class="button-black button-outline button-small black" onclick="wpcInterface.pauseEmu();">Pause</button>
     <button class="button-black button-outline button-small black" onclick="wpcInterface.resumeEmu();">Resume</button>
     <button class="button-black button-outline button-small black" onclick="wpcInterface.pairBluetooth();">Pair BT</button>
+    <button class="button-black button-outline button-small black" onclick="wpcInterface.restartBluetoothController();">Reset BT</button>
   </div>
 </div>
 

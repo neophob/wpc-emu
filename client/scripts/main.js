@@ -7,7 +7,7 @@ import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher';
 import { initialiseEmulator } from './lib/emulator';
 import { initialiseActions } from './lib/initialise';
 import { AudioOutput } from './lib/sound';
-import { pairBluetooth } from './bluetooth/index';
+import { pairBluetooth, restartBluetoothController } from './bluetooth/index';
 import * as gamelist from './db/gamelist';
 import { populateControlUiView } from './ui/control-ui';
 import * as emuDebugUi from './ui/emu-debug-ui';
@@ -39,7 +39,7 @@ function pairing() {
     if (lastZeroContCounter === 0) {
       cancelAnimationFrame(intervalId);
       lastZeroContCounter = data.zeroCrossCounter;
-      console.log('Switch to BLE MODE')
+      console.log('Switch to BLE MODE');
       //TODO check for time drift, reset pinball & emu if drift is too big
     } else {
       bleMessageCount++;
@@ -94,6 +94,7 @@ function initialiseEmu(gameEntry) {
         resumeEmu,
         romSelection,
         pairBluetooth: pairing,
+        restartBluetoothController,
       };
       wpcSystem.registerAudioConsumer(dacCallback);
       wpcSystem.start();

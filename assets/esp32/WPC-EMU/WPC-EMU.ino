@@ -21,6 +21,10 @@ uint32_t stateZerocross = 0;
 #define CHARACTERISTIC_POWERSTATE_UUID "82ee4ff0-b0e3-4088-85e3-bdaa212e4fa3"
 #define CHARACTERISTIC_RESET_UUID "26ac8e88-7b63-4e88-8ca2-045c76345b5f"
 
+#define WPCEMU_PAYLOAD_REBOOT_CONTROLLER 42
+#define WPCEMU_PAYLOAD_REBOOT_PINBALLMACHINE 1
+
+
 #define NOTIFY_MSG_OFFSET_ZEROCROSS 0
 #define NOTIFY_MSG_SIZE_ZEROCROSS 4
 #define NOTIFY_MSG_OFFSET_INPUT_SWITCH 4
@@ -61,12 +65,14 @@ class BleConnectionCallback: public BLEServerCallbacks {
 
 class BleResetCallback: public BLECharacteristicCallbacks {
     void onWrite(BLECharacteristic *pCharacteristic) {
-      Serial.println("TODO RESET PINBALL MACHINE");
       std::string value = pCharacteristic->getValue();
-      if (value.length() > 0) {
-        for (int i = 0; i < value.length(); i++)
-          Serial.print(value[i]);
-      }
+      if (value[0] == WPCEMU_PAYLOAD_REBOOT_PINBALLMACHINE) {
+        Serial.println("TODO RESET PINBALL MACHINE");
+      } else
+      if (value[0] == WPCEMU_PAYLOAD_REBOOT_CONTROLLER) {
+        Serial.println("REBOOT!");
+        ESP.restart();
+      }      
     }
 };
 
