@@ -44,14 +44,30 @@ function pairing() {
     } else {
       bleMessageCount++;
 
-      //TODO process keys
-
-      const deltaCrossCounter = data.zeroCrossCounter - lastZeroContCounter;
-      const deltaTicks = parseInt(deltaCrossCounter * (2000000 / 60), 10);
-      lastZeroContCounter = data.zeroCrossCounter;
-      wpcSystem.executeCycle(deltaTicks, TICKS_PER_STEP);
-      const emuState = wpcSystem.getUiState();
-      emuDebugUi.updateCanvas(emuState, 'running BLE SYNC', bleMessageCount);
+      if (data.inputSwitchStateLo) {
+        wpcSystem.setDirectInput(1, (data.inputSwitchStateLo >> 24) & 0xFF);
+        wpcSystem.setDirectInput(2, (data.inputSwitchStateLo >> 16) & 0xFF);
+        wpcSystem.setDirectInput(3, (data.inputSwitchStateLo >> 8) & 0xFF);
+        wpcSystem.setDirectInput(4, data.inputSwitchStateLo & 0xFF);
+      }
+      if (data.inputSwitchStateHi) {
+        wpcSystem.setDirectInput(5, (data.inputSwitchStateHi >> 24) & 0xFF);
+        wpcSystem.setDirectInput(6, (data.inputSwitchStateHi >> 16) & 0xFF);
+        wpcSystem.setDirectInput(7, (data.inputSwitchStateHi >> 8) & 0xFF);
+        wpcSystem.setDirectInput(8, data.inputSwitchStateHi & 0xFF);
+      }
+      if (data.coinDoorState) {
+        //console.log('coindoor',data.coinDoorState);
+        //wpcSystem.setDirectInput(0, data.coinDoorState);
+      }
+      if (data.zeroCrossCounter) {
+        const deltaCrossCounter = data.zeroCrossCounter - lastZeroContCounter;
+        const deltaTicks = parseInt(deltaCrossCounter * (2000000 / 60), 10);
+        lastZeroContCounter = data.zeroCrossCounter;
+        wpcSystem.executeCycle(deltaTicks, TICKS_PER_STEP);
+        const emuState = wpcSystem.getUiState();
+        emuDebugUi.updateCanvas(emuState, 'running BLE SYNC', bleMessageCount);
+      }
     }
   })
     .catch((error) => {

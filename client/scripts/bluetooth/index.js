@@ -16,6 +16,7 @@ const WPCEMU_PAYLOAD_REBOOT_PINBALLMACHINE = 1;
 let bluetoothDevice = bluetoothConnection(WPCEMU_SERIVCE_UUID, WPCEMU_SERIVCE_NAME);
 let messageCount = 0;
 let callback;
+let lastState = {};
 
 function pairBluetooth(_callback) {
   callback = _callback;
@@ -44,9 +45,9 @@ function subscribeToNotifications() {
 
   const statePromise = bluetoothDevice.subscribeToCharacteristic(WPCEMU_CHARACTERISTIC_WPCSTATE_UUID, (event) => {
     const value = event.target.value;
-    const parsedMessage = parseMessage(value);
+    lastState = parseMessage(value, lastState);
     messageCount++;
-    callback(null, parsedMessage);
+    callback(null, lastState);
   });
 
   return Promise.all([ powerstatePromise, statePromise ]);
