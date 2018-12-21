@@ -57,6 +57,7 @@ void setup() {
   Serial.printf("%08X\n",(uint32_t)chipid);//print Low 4bytes.
 
   initBluetooth();
+  initGpio();
   initTimer();
 }
 

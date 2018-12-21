@@ -8,12 +8,18 @@ Hardware interface to an existing Pinball machine - so we mirror whats happening
 ## Needed Connections to pinball HW
 
 Needed:
-- RO Active Column select - used to switch to the next input switch column: 8
-- RO Switch input matrix 8 inputs (8x8 Matrix): 8
+
+GPIO Extender connected (slow):
 - RW Coin Door input: 3 (coins & service menu)
 - RW Fliptronics input: 8
-- RO Zerocross counter: 1
+
+Direct connected (fast):
 - RW Reset Sense? did Pinball Machine just reset: 1
+- RO Zerocross counter: 1
+- RO Active Column select - used to switch to the next input switch column: 8
+- RO Switch input matrix 8 inputs (8x8 Matrix): 8
+
+
 
 Unknown / nice to have:
 - RO VCC Sense: is the Pinball Machine running: 1 (if no zerocross counts happens, machine is off)
@@ -33,6 +39,12 @@ Important criteria:
 - 30 GPIO Pins
 - Arduino IDE support (easy to use)
 - BLE support
+
+## GPIO Extender
+- MCP23017 - I2C, 1700 kBits/s, 16-bit input/output port expander with interrupt output
+- MCP23018 - I2C, 3400 kBits/s, 16-bit remote bidirectional I/O port
+- MCP23009 - I2C, 3400 kBits/s, 8-bit remote bidirectional I/O port
+- PCA9698 - 40-bit Fm+ I2C-bus advanced I/O port
 
 ### Hardware Option: Teensy
 Points: 2 - need add BLE module
