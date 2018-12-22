@@ -70,14 +70,14 @@ void loop() {
     }
     // disconnecting
     if (!deviceConnected && oldDeviceConnected) {
-        Serial.printf("BT Disconnected");
+        Serial.printf("BT Disconnected\n");
         delay(500); // give the bluetooth stack the chance to get things ready
         RestartBluetoothAdvertising();
         oldDeviceConnected = deviceConnected;
     }
     // connecting
     if (deviceConnected && !oldDeviceConnected) {
-        Serial.printf("BT Connecting");
+        Serial.printf("BT Connecting\n");
         // do stuff here on connecting
         oldDeviceConnected = deviceConnected;
     }

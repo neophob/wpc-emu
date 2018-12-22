@@ -93,18 +93,18 @@ void initBluetooth() {
 
   // Start advertising
   pServer->getAdvertising()->start();
-  Serial.println("Waiting a client connection to notify...");
+  Serial.println("Waiting a client connection to notify...\n");
 }
 
 void RestartBluetoothAdvertising() {
   pServer->startAdvertising(); // restart advertising
-  Serial.println("start advertising");  
+  Serial.println("start advertising\n");  
 }
 
 void loopBluetooth() {
   updateZerocross();
   if (fakeTimer % 40 == 0) {
-    Serial.println("updateSwitchInput");  
+    Serial.println("updateSwitchInput\n");  
     updateSwitchInput();
     updateCabinetInput();
   }
