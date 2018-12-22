@@ -53,8 +53,8 @@ Firmware sends data to the emulator (serial):
 void setup() {
   Serial.begin(115200);
   uint64_t chipid=ESP.getEfuseMac();//The chip ID is essentially its MAC address(length: 6 bytes).
-  Serial.printf("ESP32 Chip ID = %04X",(uint16_t)(chipid>>32));//print High 2 bytes
-  Serial.printf("%08X\n",(uint32_t)chipid);//print Low 4bytes.
+  Serial.printf("ESP32 Chip ID = %04X", (uint16_t)(chipid>>32));//print High 2 bytes
+  Serial.printf("%08X\n", (uint32_t)chipid);//print Low 4bytes.
 
   initBluetooth();
   initGpio();
@@ -64,17 +64,20 @@ void setup() {
 void loop() {
     // notify changed value
     if (deviceConnected) {
-        updateBluetooth();
+        loopGPIO();
+        loopBluetooth();
         delay(30/2); // bluetooth stack will go into congestion, if too many packets are sent
     }
     // disconnecting
     if (!deviceConnected && oldDeviceConnected) {
+        Serial.printf("BT Disconnected");
         delay(500); // give the bluetooth stack the chance to get things ready
         RestartBluetoothAdvertising();
         oldDeviceConnected = deviceConnected;
     }
     // connecting
     if (deviceConnected && !oldDeviceConnected) {
+        Serial.printf("BT Connecting");
         // do stuff here on connecting
         oldDeviceConnected = deviceConnected;
     }

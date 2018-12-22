@@ -101,7 +101,7 @@ void RestartBluetoothAdvertising() {
   Serial.println("start advertising");  
 }
 
-void updateBluetooth() {
+void loopBluetooth() {
   updateZerocross();
   if (fakeTimer % 40 == 0) {
     Serial.println("updateSwitchInput");  

@@ -6,20 +6,19 @@ There are 34 distinct GPIOs available on the ESP32. They are identified as:
 • GPIO_NUM_32 – GPIO_NUM_39
 The ones that are omitted are 20, 24, 28, 29, 30 and 31.
 
-Note that GPIO_NUM_34 – GPIO_NUM_39 are input mode only. You can not use these pins
-for signal output. 
+Note that GPIO_NUM_34 – GPIO_NUM_39 are input mode only. You can not use these pins for signal output. 
 
 Also, pins 6 (SD_CLK), 7 (SD_DATA0), 8 (SD_DATA1), 9 (SD_DATA2), 10 (SD_DATA3), 11 (SD_CMD) 16 (CS) and 17(Q) are used to interact
 with the SPI flash chip … you can not use those for other purposes.
 
-GPIO 21 + 22 I2C
+When using pSRAM, Strapping pins are GPIO0, GPIO2 and GPIO12. 
+TX and RX (as used for flash) are GPIO1 and GPIO3.
 
-When using pSRAM, Strapping pins are GPIO0, GPIO2 and GPIO12. TX and RX (as used for flash) are GPIO1 and GPIO3.
-
-see https://github.com/maniacbug/Arduino/blob/master/libraries/MCP23018/MCP23018.h
+TODO:
+ - measure zerocross signal
+ - measure reset signal
 
  */
-
 #define GPIO_RO_ZEROCROSS 39
 
 #define GPIO_RO_ACTIVE_COLUMN_1 38
@@ -40,7 +39,8 @@ see https://github.com/maniacbug/Arduino/blob/master/libraries/MCP23018/MCP23018
 #define GPIO_RO_SWITCH_INPUT_7 18
 #define GPIO_RO_SWITCH_INPUT_8 15
 
-#define GPIO_RO_RESET_SENSE 14
+// Regular we attach an interrupt to this pin, however we can reconfigure this pin as output at runtime to send out a reset impulse
+#define GPIO_RW_RESET_SENSE 14
 
 //TODO?
 //RESET WRITE?
@@ -52,29 +52,69 @@ see https://github.com/maniacbug/Arduino/blob/master/libraries/MCP23018/MCP23018
 #define GPIO_RESERVED_I2C_1 21
 #define GPIO_RESERVED_I2C_2 22
 
+portMUX_TYPE muxReset = portMUX_INITIALIZER_UNLOCKED;
+volatile uint32_t resetInterruptCounter = 0;
+
+void IRAM_ATTR handleResetInterrupt() {
+    portENTER_CRITICAL_ISR(&muxReset);
+    resetInterruptCounter++;
+    portEXIT_CRITICAL_ISR(&muxReset);
+}
+
+portMUX_TYPE muxZeroconf = portMUX_INITIALIZER_UNLOCKED;
+volatile uint32_t zeroconfInterruptCounter = 0;
+
+void IRAM_ATTR handleZerocrossInterrupt() {
+    portENTER_CRITICAL_ISR(&muxZeroconf);
+    zeroconfInterruptCounter++;
+    portEXIT_CRITICAL_ISR(&muxZeroconf);
+}
+
+// NOTE: use INPUT_PULLUP instead INPUT: when no signal is applied, it will be at a voltage level 
+//       of VCC instead of floating, avoiding the detection of non existing external interrupts.
+
 void initGpio() {
-    pinMode(GPIO_RO_ZEROCROSS, INPUT);
-    
-    pinMode(GPIO_RO_ACTIVE_COLUMN_1, INPUT);
-    pinMode(GPIO_RO_ACTIVE_COLUMN_2, INPUT);
-    pinMode(GPIO_RO_ACTIVE_COLUMN_3, INPUT);
-    pinMode(GPIO_RO_ACTIVE_COLUMN_4, INPUT);
-    pinMode(GPIO_RO_ACTIVE_COLUMN_5, INPUT);
-    pinMode(GPIO_RO_ACTIVE_COLUMN_6, INPUT);
-    pinMode(GPIO_RO_ACTIVE_COLUMN_7, INPUT);
-    pinMode(GPIO_RO_ACTIVE_COLUMN_8, INPUT);
-    
-    pinMode(GPIO_RO_SWITCH_INPUT_1, INPUT);
-    pinMode(GPIO_RO_SWITCH_INPUT_2, INPUT);
-    pinMode(GPIO_RO_SWITCH_INPUT_3, INPUT);
-    pinMode(GPIO_RO_SWITCH_INPUT_4, INPUT);
-    pinMode(GPIO_RO_SWITCH_INPUT_5, INPUT);
-    pinMode(GPIO_RO_SWITCH_INPUT_6, INPUT);
-    pinMode(GPIO_RO_SWITCH_INPUT_7, INPUT);
-    pinMode(GPIO_RO_SWITCH_INPUT_8, INPUT);
+    pinMode(GPIO_RO_ZEROCROSS, INPUT_PULLUP);
+    attachInterrupt(digitalPinToInterrupt(GPIO_RO_ZEROCROSS), handleZerocrossInterrupt, FALLING);
 
-    pinMode(GPIO_RO_RESET_SENSE, INPUT);
+    pinMode(GPIO_RO_ACTIVE_COLUMN_1, INPUT_PULLUP);
+    pinMode(GPIO_RO_ACTIVE_COLUMN_2, INPUT_PULLUP);
+    pinMode(GPIO_RO_ACTIVE_COLUMN_3, INPUT_PULLUP);
+    pinMode(GPIO_RO_ACTIVE_COLUMN_4, INPUT_PULLUP);
+    pinMode(GPIO_RO_ACTIVE_COLUMN_5, INPUT_PULLUP);
+    pinMode(GPIO_RO_ACTIVE_COLUMN_6, INPUT_PULLUP);
+    pinMode(GPIO_RO_ACTIVE_COLUMN_7, INPUT_PULLUP);
+    pinMode(GPIO_RO_ACTIVE_COLUMN_8, INPUT_PULLUP);
+    
+    pinMode(GPIO_RO_SWITCH_INPUT_1, INPUT_PULLUP);
+    pinMode(GPIO_RO_SWITCH_INPUT_2, INPUT_PULLUP);
+    pinMode(GPIO_RO_SWITCH_INPUT_3, INPUT_PULLUP);
+    pinMode(GPIO_RO_SWITCH_INPUT_4, INPUT_PULLUP);
+    pinMode(GPIO_RO_SWITCH_INPUT_5, INPUT_PULLUP);
+    pinMode(GPIO_RO_SWITCH_INPUT_6, INPUT_PULLUP);
+    pinMode(GPIO_RO_SWITCH_INPUT_7, INPUT_PULLUP);
+    pinMode(GPIO_RO_SWITCH_INPUT_8, INPUT_PULLUP);
 
+    initialiseResetInput();
     //- RW Coin Door input: 3 (coins & service menu)
     //- RW Fliptronics input: 8
+}
+
+void initialiseResetInput() {
+    pinMode(GPIO_RW_RESET_SENSE, INPUT_PULLUP);
+    attachInterrupt(digitalPinToInterrupt(GPIO_RW_RESET_SENSE), handleResetInterrupt, FALLING);
+}
+
+void resetPinballMachine() {
+    detachInterrupt(digitalPinToInterrupt(GPIO_RW_RESET_SENSE));
+    pinMode(GPIO_RW_RESET_SENSE, OUTPUT);
+    // TODO set pin high/low and delay some ms
+    initialiseResetInput();
+}
+
+void loopGPIO() {
+  if (resetInterruptCounter > 0) {
+    Serial.printf("RESET INTERRUPT DETECTED: %lu", (unsigned long)resetInterruptCounter);
+    // TODO: reset zeroconf counter... more?
+  }
 }
