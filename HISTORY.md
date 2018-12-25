@@ -1,5 +1,8 @@
 # HISTORY
 
+## 25/12/18
+- add CONGO
+
 ## 16/12/18
 - optimise emulator, needs 10-20% less cpu power
 
