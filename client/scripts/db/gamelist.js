@@ -15,6 +15,8 @@ import indianajones from './indianajones';
 import jm from './jm';
 import mm from './mm';
 import nofear from './nofear';
+import sc from './sc';
+import sttng from './sttng';
 import t2Freewpc from './t2.freewpc';
 import t2 from './t2';
 import tom from './tom';
@@ -40,6 +42,8 @@ const wpcGames = [
   jm,
   mm,
   nofear,
+  sc,
+  sttng,
   t2Freewpc,
   t2,
   tom,
