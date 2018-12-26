@@ -17,6 +17,7 @@ import mm from './mm';
 import nofear from './nofear';
 import t2Freewpc from './t2.freewpc';
 import t2 from './t2';
+import tom from './tom';
 import tpz from './tpz';
 import tz from './tz';
 import wpcTestrom from './wpc.testrom';
@@ -41,6 +42,7 @@ const wpcGames = [
   nofear,
   t2Freewpc,
   t2,
+  tom,
   tpz,
   tz,
   wpcTestrom,
