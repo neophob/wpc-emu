@@ -6,6 +6,7 @@ import cv from './cv';
 import dh from './dh';
 import dw from './dw';
 import fishtales from './fishtales';
+import flintstones from './flintstones';
 import gilligan from './gilligan';
 import highspeed2 from './highspeed2';
 import hotshot from './hotshot';
@@ -29,6 +30,7 @@ const wpcGames = [
   dw,
   dh,
   fishtales,
+  flintstones,
   gilligan,
   highspeed2,
   hotshot,
