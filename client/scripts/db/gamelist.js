@@ -23,6 +23,7 @@ import tom from './tom';
 import tpz from './tpz';
 import tz from './tz';
 import wpcTestrom from './wpc.testrom';
+import ww from './ww';
 
 export { getAllNames, getByName };
 
@@ -50,6 +51,7 @@ const wpcGames = [
   tpz,
   tz,
   wpcTestrom,
+  ww,
 ];
 
 function getAllNames() {
