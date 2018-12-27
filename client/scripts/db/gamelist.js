@@ -1,6 +1,7 @@
 'use strict';
 
 import addams from './addams';
+import afm from './afm';
 import congo from './congo';
 import cv from './cv';
 import dh from './dh';
@@ -13,6 +14,7 @@ import hotshot from './hotshot';
 import hurricane from './hurricane';
 import indianajones from './indianajones';
 import jm from './jm';
+import mb from './mb';
 import mm from './mm';
 import nofear from './nofear';
 import sc from './sc';
@@ -20,6 +22,7 @@ import sttng from './sttng';
 import t2Freewpc from './t2.freewpc';
 import t2 from './t2';
 import tom from './tom';
+import totan from './totan';
 import tpz from './tpz';
 import tz from './tz';
 import wpcTestrom from './wpc.testrom';
@@ -29,6 +32,7 @@ export { getAllNames, getByName };
 
 const wpcGames = [
   addams,
+  afm,
   cv,
   congo,
   dw,
@@ -41,6 +45,7 @@ const wpcGames = [
   hurricane,
   indianajones,
   jm,
+  mb,
   mm,
   nofear,
   sc,
@@ -48,6 +53,7 @@ const wpcGames = [
   t2Freewpc,
   t2,
   tom,
+  totan,
   tpz,
   tz,
   wpcTestrom,
