@@ -76,9 +76,6 @@ module.exports = {
     { id: 'F6', name: 'UR FLIPPER BUT' },
   ],
   skipWmcRomCheck: true,
-  features: [
-    'securityPic',
-  ],
   initialise: {
     closedSwitches: [
       22,
