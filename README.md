@@ -686,7 +686,7 @@ The Addams Family was the only game produced with the Fliptronics I board, which
 
 ## WPC (DCS)
 - Indiana Jones: The Pinball Adventure 🚀 - August 1993
-- Judge Dredd - September 1993
+- Judge Dredd 🚀 - September 1993
 - Star Trek: The Next Generation 🚀 - November 1993
 - Popeye Saves the Earth - February 1994
 - Demolition Man 🚀 - February 1994

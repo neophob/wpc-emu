@@ -18,6 +18,7 @@ import highspeed2 from './highspeed2';
 import hotshot from './hotshot';
 import hurricane from './hurricane';
 import indianajones from './indianajones';
+import jd from './jd';
 import jm from './jm';
 import mb from './mb';
 import mm from './mm';
@@ -45,6 +46,7 @@ const wpcGames = [
   cftbl,
   cv,
   congo,
+  jd,
   dh,
   dm,
   dw,
