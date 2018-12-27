@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/neophob/wpc-emu.svg?branch=master)](https://travis-ci.org/neophob/wpc-emu)
 
-- [WPC (Dot Matrix) Emulator](#wpc--dot-matrix--emulator)
+- [WPC (Dot Matrix) Emulator](#wpc-dot-matrix-emulator)
   * [Goal](#goal)
 - [Implementation Status](#implementation-status)
   * [Basic](#basic)
@@ -30,7 +30,7 @@
   * [Timing](#timing)
     + [DMD display scanline](#dmd-display-scanline)
   * [DMD controller](#dmd-controller)
-  * [Security PIC (U22)](#security-pic--u22-)
+  * [Security PIC (U22)](#security-pic-u22)
   * [RAM positions](#ram-positions)
   * [Boot sequence](#boot-sequence)
   * [Gameplay](#gameplay)
@@ -48,11 +48,11 @@
   * [Custom Power Driver](#custom-power-driver)
   * [Misc](#misc)
 - [Game List](#game-list)
-  * [WPC (Alphanumeric)](#wpc--alphanumeric-)
-  * [WPC (Dot Matrix)](#wpc--dot-matrix-)
-  * [WPC (Fliptronics)](#wpc--fliptronics-)
-  * [WPC (DCS)](#wpc--dcs-)
-  * [WPC-S (Security)](#wpc-s--security-)
+  * [WPC (Alphanumeric)](#wpc-alphanumeric)
+  * [WPC (Dot Matrix)](#wpc-dot-matrix)
+  * [WPC (Fliptronics)](#wpc-fliptronics)
+  * [WPC (DCS)](#wpc-dcs)
+  * [WPC-S (Security)](#wpc-s-security)
   * [WPC-95](#wpc-95)
 
 ## Goal
@@ -147,7 +147,7 @@ Make sure to run the benchmarks using the same node versions.
 - Run `npm run benchmark` to run the small benchmark (1s on the emulator), this target uses the included FreeWPC T2 ROM
 - Run `npm run benchmark:t2` to run the longer benchmark, you need to have the T2 rom in the roms directory
 
-Sidenote: Also using deoptigate (https://github.com/thlorenz/deoptigate) shows where the code is unoptimised. 
+Sidenote: Also using deoptigate (https://github.com/thlorenz/deoptigate) shows where the code is unoptimised.
 
 ## Tracer / Dumps
 The `wpc-emu-dumps` directory contains game dump files and can be used to compare the current implementation
@@ -539,7 +539,7 @@ PASSED:
 8DF4: BD 91 C0       JSR $91C0
 8DF7: BD 9E E5       JSR $9EE5
 8DFA: BE 17 48       LDX $1748      ;check against memory position 0x1748
-8DFD: 8C 1A BC       CMPX #$1ABC    
+8DFD: 8C 1A BC       CMPX #$1ABC
 8E00: 27 1B          BEQ $8E1D
 8E02: B6 17 4C       LDA $174C
 8E05: 27 08          BEQ $8E0F
