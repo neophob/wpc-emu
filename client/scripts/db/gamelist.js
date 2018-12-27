@@ -9,6 +9,7 @@ import cc from './cc';
 import cftbl from './cftbl';
 import cv from './cv';
 import dh from './dh';
+import dm from './dm';
 import dw from './dw';
 import fishtales from './fishtales';
 import flintstones from './flintstones';
@@ -44,8 +45,9 @@ const wpcGames = [
   cftbl,
   cv,
   congo,
-  dw,
   dh,
+  dm,
+  dw,
   fishtales,
   flintstones,
   gilligan,

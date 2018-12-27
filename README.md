@@ -666,7 +666,7 @@ Some Dr. Dude machines were also made using this WPC generation, although most w
 - Gilligan's Island 🚀 - May 1991
 - Terminator 2: Judgment Day 🚀 - July 1991
 - Hurricane 🚀 - August 1991
-- The Party Zone - August 1991
+- The Party Zone 🚀 - August 1991
 
 Terminator 2: Judgment Day was the first to be designed with a dot matrix display, but was released after Gilligan's Island, due to Terminator 2 having a longer development time than Gilligan's Island. This generation WPC hardware was also used in some of Williams / Midway's redemption games (SlugFest!, Hot Shot Basketball) as well as in the first Shuffle Alley Game Strike Master Shuffle Alley - 1991.
 
@@ -689,7 +689,7 @@ The Addams Family was the only game produced with the Fliptronics I board, which
 - Judge Dredd - September 1993
 - Star Trek: The Next Generation 🚀 - November 1993
 - Popeye Saves the Earth - February 1994
-- Demolition Man - February 1994
+- Demolition Man 🚀 - February 1994
 
 Twilight Zone was designed to be the first pinball machine to use the new DCS system, but due to delays of the new hardware design it was decided to release it on the old hardware (using downsampled sound effects) instead. The redemption game Addams Family Values also used the DCS Sound System.
 
