@@ -4,6 +4,7 @@ import addams from './addams';
 import afm from './afm';
 import congo from './congo';
 import cc from './cc';
+import cftbl from './cftbl';
 import cv from './cv';
 import dh from './dh';
 import dw from './dw';
@@ -36,6 +37,7 @@ const wpcGames = [
   addams,
   afm,
   cc,
+  cftbl,
   cv,
   congo,
   dw,
