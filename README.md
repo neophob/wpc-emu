@@ -688,7 +688,7 @@ The Addams Family was the only game produced with the Fliptronics I board, which
 - Indiana Jones: The Pinball Adventure 🚀 - August 1993
 - Judge Dredd 🚀 - September 1993
 - Star Trek: The Next Generation 🚀 - November 1993
-- Popeye Saves the Earth - February 1994
+- Popeye Saves the Earth 🚀 - February 1994
 - Demolition Man 🚀 - February 1994
 
 Twilight Zone was designed to be the first pinball machine to use the new DCS system, but due to delays of the new hardware design it was decided to release it on the old hardware (using downsampled sound effects) instead. The redemption game Addams Family Values also used the DCS Sound System.

@@ -24,6 +24,7 @@ import mb from './mb';
 import mm from './mm';
 import nofear from './nofear';
 import ngg from './ngg';
+import pste from './pste';
 import sc from './sc';
 import sttng from './sttng';
 import t2Freewpc from './t2.freewpc';
@@ -62,6 +63,7 @@ const wpcGames = [
   mm,
   ngg,
   nofear,
+  pste,
   sc,
   sttng,
   t2Freewpc,
