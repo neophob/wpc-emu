@@ -1,7 +1,7 @@
 # HISTORY
 
 ## 27/12/18
-- add new games "Creature from the Black Lagoon", "No Good Gofers", "Cactus Canyon", "Attack from Mars", "Star Trek: The Next Generation", "Monster Bash", "Tales of the Arabian Nights", "Scared Stiff" and "White Water"
+- add new games "Bram Stoker's Dracula", "Creature from the Black Lagoon", "No Good Gofers", "Cactus Canyon", "Attack from Mars", "Star Trek: The Next Generation", "Monster Bash", "Tales of the Arabian Nights", "Scared Stiff" and "White Water"
 - Top 10 Solid State Pinballs (IPDB.org) are supported now
 - do not reset Sound board if no sound board is loaded
 
