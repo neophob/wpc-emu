@@ -675,7 +675,7 @@ Terminator 2: Judgment Day was the first to be designed with a dot matrix displa
 - The Addams Family - March 1992
 - Black Rose - July 1992
 - Fish Tales 🚀 - October 1992
-- Doctor Who - October 1992
+- Doctor Who 🚀 - October 1992
 - Creature from the Black Lagoon - December 1992
 - White Water 🚀 - January 1993
 - Bram Stoker's Dracula - March 1993
