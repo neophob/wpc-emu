@@ -724,6 +724,6 @@ In this final revision of the WPC hardware, the dot matrix controller and the DC
 - No Good Gofers - December 1997
 - The Champion Pub - April 1998
 - Monster Bash 🚀 - July 1998
-- Cactus Canyon - October 1998
+- Cactus Canyon 🚀 - October 1998
 
 This generation WPC hardware was also used in the Midway redemption game Ticket Tac Toe, March 1996 and the Shuffle Alley game League Champ Shuffle Alley, 1996.

@@ -41,7 +41,7 @@ Randomly Hurricane crashes with this error:
 Error: INVALID_WRITE_SUBSYSTEM_0xbfc2 {"offset":16322,"subsystem":"system"} 1
 ```
 
-- Crash with the hurrican pinball - jackpot ("the wheel"), end of 2x, 3x or 5x bonus
+- Crash with the hurricane pinball - jackpot ("the wheel"), end of 2x, 3x or 5x bonus
 - DMD is messes up after the bonus selection
 - Guess its related to timing
 
@@ -52,7 +52,7 @@ Error: INVALID_WRITE_SUBSYSTEM_0xbfc2 {"offset":16322,"subsystem":"system"} 1
 
 ## No Fear
 
-- cannot start game, propbably because of invalid switch state
+- cannot start game, probably because of invalid switch state
 
 ## FREEWPC T2
 
@@ -81,7 +81,7 @@ sound-board.js:244 wpcemu:boards:sound-board: CPU_WRITE8_FAIL {"offset":14907,"s
         at Cpu6809.steps (cpu6809.js:2378)
         at WpcAsic.executeCycle (cpu-board.js:141)
         at Emulator.executeCycle (emulator.js:45)
-        at step (main.js:103)    
+        at step (main.js:103)
 
         case 0xaf: //STX indexed
           addr = this.PostByte();
@@ -99,7 +99,7 @@ sound-board.js:244 wpcemu:boards:sound-board: CPU_WRITE8_FAIL {"offset":14907,"s
         at Cpu6809.steps (cpu6809.js:2379)
         at WpcAsic.executeCycle (cpu-board.js:141)
         at Emulator.executeCycle (emulator.js:45)
-        at step (main.js:103)        
+        at step (main.js:103)
 
         case 0xed: //STD indexed
           addr = this.PostByte();
@@ -120,12 +120,12 @@ sound-board.js:244 wpcemu:boards:sound-board: CPU_WRITE8_FAIL {"offset":14907,"s
   00:04:43.904 cpu-board-asic.js:342 R_NOT_IMPLEMENTED 0x3fe0 0
   00:04:43.905 sound-board.js:278 SND_W_NOT_IMPLEMENTED 0x3fdf 128
   00:04:43.906 cpu-board-asic.js:342 R_NOT_IMPLEMENTED 0x3ff0 0
-  00:04:43.906 cpu-board-asic.js:263 W_NOT_IMPLEMENTED 0x3ff0 2          
+  00:04:43.906 cpu-board-asic.js:263 W_NOT_IMPLEMENTED 0x3ff0 2
 
   CWAI might be broken!
 ```
 
-## Medieval Madness
+## WPC95 (Medieval Madness / Attack From Mars / Circus Voltaire ...)
 
 After about 100k cycles the emu crashes with this error message:
 

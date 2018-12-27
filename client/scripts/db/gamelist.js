@@ -3,6 +3,7 @@
 import addams from './addams';
 import afm from './afm';
 import congo from './congo';
+import cc from './cc';
 import cv from './cv';
 import dh from './dh';
 import dw from './dw';
@@ -33,6 +34,7 @@ export { getAllNames, getByName };
 const wpcGames = [
   addams,
   afm,
+  cc,
   cv,
   congo,
   dw,
