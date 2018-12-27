@@ -1,7 +1,15 @@
 # HISTORY
 
+## 27/12/18
+- add new games "Attack from Mars", "Star Trek: The Next Generation", "Monster Bash", "Tales of the Arabian Nights", "Scared Stiff" and "White Water"
+- Top 10 Solid State Pinballs (IPDB.org) are supported now
+- do not reset Sound board if no sound board is loaded
+
+## 26/12/18
+- add new game "The Flintstones"
+
 ## 25/12/18
-- add CONGO
+- add new game "CONGO"
 
 ## 16/12/18
 - optimise emulator, needs 10-20% less cpu power

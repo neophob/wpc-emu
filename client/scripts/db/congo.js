@@ -28,7 +28,7 @@ module.exports = {
     { id: 33, name: 'TROUGH BALL 2' },
     { id: 34, name: 'TROUGH BALL 3' },
     { id: 35, name: 'TROUGH BALL 4' },
-    { id: 36, name: 'COLCANO STACK' },
+    { id: 36, name: 'VOLCANO STACK' },
     { id: 37, name: 'MYSTERY EJECT' },
     { id: 38, name: 'RIGHT EJECT' },
 
