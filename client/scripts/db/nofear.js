@@ -10,7 +10,7 @@ module.exports = {
     { id: 11, name: 'BALL LAUNCH' },
     { id: 13, name: 'START BUTTON' },
     { id: 14, name: 'PLUMB BOB TILT' },
-    { id: 15, name: 'SHOTTER LANE' },
+    { id: 15, name: 'SHOOTER LANE' },
     { id: 16, name: 'SPINNER' },
     { id: 17, name: 'RIGHT OUTLANE' },
     { id: 18, name: 'RIGHT RETURN' },
