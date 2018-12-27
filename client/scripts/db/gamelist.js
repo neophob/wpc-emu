@@ -2,6 +2,7 @@
 
 import addams from './addams';
 import afm from './afm';
+import br from './br';
 import bsd from './bsd';
 import congo from './congo';
 import cc from './cc';
@@ -37,6 +38,7 @@ export { getAllNames, getByName };
 const wpcGames = [
   addams,
   afm,
+  br,
   bsd,
   cc,
   cftbl,
