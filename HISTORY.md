@@ -37,7 +37,7 @@
 
 ## 18/10/18
 - really fixed bankswitched read (for real!)
-- added trace tool/disassembler to compare wpc-emu agains mame
+- added trace tool/disassembler to compare wpc-emu against mame
 
 ## 16/10/18
 - really fixed bankswitched read
