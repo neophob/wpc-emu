@@ -663,14 +663,15 @@ Ripped from Wikipedia, entires with a 🚀 are included in the online version
 Some Dr. Dude machines were also made using this WPC generation, although most were made using the later System 11 board.
 
 ## WPC (Dot Matrix)
-- SlugFest! - March 1991
+- SlugFest! (redemption game) - March 1991
 - Gilligan's Island 🚀 - May 1991
 - Terminator 2: Judgment Day 🚀 - July 1991
 - Hurricane 🚀 - August 1991
 - The Party Zone 🚀 - August 1991
-- Hot Shot Basketball 🚀 - October 1994
+- Hot Shot Basketball (redemption game) 🚀 - October 1994
+- Strike Master Shuffle Alley (redemption game) - 1991
 
-Terminator 2: Judgment Day was the first to be designed with a dot matrix display, but was released after Gilligan's Island, due to Terminator 2 having a longer development time than Gilligan's Island. This generation WPC hardware was also used in some of Williams / Midway's redemption games (SlugFest!, Hot Shot Basketball) as well as in the first Shuffle Alley Game Strike Master Shuffle Alley - 1991.
+Terminator 2: Judgment Day was the first to be designed with a dot matrix display, but was released after Gilligan's Island, due to Terminator 2 having a longer development time than Gilligan's Island.
 
 ## WPC (Fliptronics)
 - The Getaway: High Speed II 🚀 - February 1992
@@ -690,10 +691,11 @@ The Addams Family was the only game produced with the Fliptronics I board, which
 - Indiana Jones: The Pinball Adventure 🚀 - August 1993
 - Judge Dredd 🚀 - September 1993
 - Star Trek: The Next Generation 🚀 - November 1993
+- Addams Family Values (redemption game) 🚀 - January 1994
 - Popeye Saves the Earth 🚀 - February 1994
 - Demolition Man 🚀 - February 1994
 
-Twilight Zone was designed to be the first pinball machine to use the new DCS system, but due to delays of the new hardware design it was decided to release it on the old hardware (using downsampled sound effects) instead. The redemption game Addams Family Values also used the DCS Sound System.
+Twilight Zone was designed to be the first pinball machine to use the new DCS system, but due to delays of the new hardware design it was decided to release it on the old hardware (using downsampled sound effects) instead.
 
 ## WPC-S (Security)
 Starting with World Cup Soccer, a security programmable integrated circuit (PIC) chip was added to the CPU board in all WPC-S games at location U22. This PIC chip was game specific making it so CPU boards could not be swapped between different models without changing the security PIC chip.
@@ -717,7 +719,8 @@ In this final revision of the WPC hardware, the dot matrix controller and the DC
 
 - Congo 🚀 - November 1995
 - Attack from Mars 🚀 - December 1995
-- Ticket Tac Toe - March 1996
+- Ticket Tac Toe (redemption game) - March 1996
+- League Champ Shuffle Alley (redemption game) - March 1996
 - Safecracker - March 1996
 - Tales of the Arabian Nights 🚀 - May 1996
 - Scared Stiff 🚀 - September 1996
@@ -729,5 +732,3 @@ In this final revision of the WPC hardware, the dot matrix controller and the DC
 - The Champion Pub - April 1998
 - Monster Bash 🚀 - July 1998
 - Cactus Canyon 🚀 - October 1998
-
-This generation WPC hardware was also used in the Midway redemption game Ticket Tac Toe, March 1996 and the Shuffle Alley game League Champ Shuffle Alley, 1996.

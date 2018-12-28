@@ -1,5 +1,6 @@
 'use strict';
 
+import addamsFamilyValues from './afv';
 import attackFromMars from './afm';
 import blackRose from './br';
 import bramStokersDracula from './bsd';
@@ -39,6 +40,7 @@ import wpcTestrom from './wpc.testrom';
 export { getAllNames, getByName };
 
 const wpcGames = [
+  addamsFamilyValues,
   attackFromMars,
   blackRose,
   bramStokersDracula,
