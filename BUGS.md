@@ -50,9 +50,13 @@ Error: INVALID_WRITE_SUBSYSTEM_0xbfc2 {"offset":16322,"subsystem":"system"} 1
 - need to open/close "COIN DOOR" switch manually to pass the ringmaster test
 - Ringmaster test fails, as a switch should be triggered after a solenoid is triggered
 
-## No Fear
+## No Fear / STTNG
 
 - cannot start game, probably because of invalid switch state
+
+## Adams Family Values
+
+- cannot start game, probably because of the invalid switch settings
 
 ## FREEWPC T2
 
