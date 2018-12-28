@@ -41,6 +41,7 @@ import theFlintstones from './flintstones';
 import thePartyZone from './tpz';
 import twilightZone from './tz';
 import whiteWater from './ww';
+import worldCupSoccer from './wcs';
 import wpcTestrom from './wpc.testrom';
 
 export { getAllNames, getByName };
@@ -87,6 +88,7 @@ const wpcGames = [
   ticketTacToe,
   twilightZone,
   whiteWater,
+  worldCupSoccer,
   wpcTestrom,
 ];
 
