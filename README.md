@@ -721,7 +721,7 @@ In this final revision of the WPC hardware, the dot matrix controller and the DC
 - Attack from Mars 🚀 - December 1995
 - Ticket Tac Toe (redemption game) 🚀 - March 1996
 - League Champ Shuffle Alley (redemption game) - March 1996
-- Safecracker - March 1996
+- Safecracker 🚀 - March 1996
 - Tales of the Arabian Nights 🚀 - May 1996
 - Scared Stiff 🚀 - September 1996
 - Junk Yard - December 1996

@@ -24,6 +24,7 @@ import medievalMadness from './mm';
 import noFear from './nofear';
 import noGoodGofers from './ngg';
 import popeyeSavesTheEarth from './pste';
+import safeCracker from './sc';
 import scaredStiff from './ss';
 import slugFest from './sf';
 import starTrekTheNextGeneration from './sttng';
@@ -66,6 +67,7 @@ const wpcGames = [
   noGoodGofers,
   noFear,
   popeyeSavesTheEarth,
+  safeCracker,
   scaredStiff,
   slugFest,
   starTrekTheNextGeneration,
