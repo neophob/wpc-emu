@@ -58,7 +58,7 @@ module.exports = {
     { id: 67, name: 'RIGHT RAMP ENTER' },
     { id: 68, name: 'RIGHT RAMP EXIT' },
 
-    { id: 71, name: '(A)MY)' },
+    { id: 71, name: '(A)MY' },
     { id: 72, name: 'A(M)Y' },
     { id: 73, name: 'AM(Y)' },
     { id: 74, name: '(C)ONGO' },

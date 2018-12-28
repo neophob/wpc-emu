@@ -18,6 +18,7 @@ import hotShotBasketball from './hotshot';
 import hurricane from './hurricane';
 import indianaJonesThePinballAdventure from './indianajones';
 import judgeDredd from './jd';
+import junkYard from './jy';
 import johnnyMnemonic from './jm';
 import monsterBash from './mb';
 import medievalMadness from './mm';
@@ -63,6 +64,7 @@ const wpcGames = [
   hurricane,
   indianaJonesThePinballAdventure,
   judgeDredd,
+  junkYard,
   johnnyMnemonic,
   monsterBash,
   medievalMadness,
