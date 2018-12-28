@@ -34,6 +34,7 @@ import terminator2 from './t2';
 import ticketTacToe from './ttt';
 import theatreOfMagic from './tom';
 import theAddamsFamilySpecial from './addams';
+import theChampionPub from './tcp';
 import theFlintstones from './flintstones';
 import thePartyZone from './tpz';
 import twilightZone from './tz';
@@ -76,6 +77,7 @@ const wpcGames = [
   terminator2,
   theatreOfMagic,
   theAddamsFamilySpecial,
+  theChampionPub,
   theFlintstones,
   thePartyZone,
   ticketTacToe,

@@ -729,6 +729,6 @@ In this final revision of the WPC hardware, the dot matrix controller and the DC
 - Medieval Madness 🚀 - June 1997
 - Cirqus Voltaire 🚀 - October 1997
 - No Good Gofers 🚀 - December 1997
-- The Champion Pub - April 1998
+- The Champion Pub 🚀 - April 1998
 - Monster Bash 🚀 - July 1998
 - Cactus Canyon 🚀 - October 1998
