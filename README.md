@@ -663,7 +663,7 @@ Ripped from Wikipedia, entires with a 🚀 are included in the online version
 Some Dr. Dude machines were also made using this WPC generation, although most were made using the later System 11 board.
 
 ## WPC (Dot Matrix)
-- SlugFest! (redemption game) - March 1991
+- SlugFest! (redemption game) 🚀 - March 1991
 - Gilligan's Island 🚀 - May 1991
 - Terminator 2: Judgment Day 🚀 - July 1991
 - Hurricane 🚀 - August 1991

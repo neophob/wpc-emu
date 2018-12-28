@@ -25,6 +25,7 @@ import noFear from './nofear';
 import noGoodGofers from './ngg';
 import popeyeSavesTheEarth from './pste';
 import scaredStiff from './ss';
+import slugFest from './sf';
 import starTrekTheNextGeneration from './sttng';
 import talesOfTheArabianNights from './totan';
 import terminator2Freewpc from './t2.freewpc';
@@ -65,6 +66,7 @@ const wpcGames = [
   noFear,
   popeyeSavesTheEarth,
   scaredStiff,
+  slugFest,
   starTrekTheNextGeneration,
   talesOfTheArabianNights,
   terminator2Freewpc,
