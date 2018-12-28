@@ -725,7 +725,7 @@ In this final revision of the WPC hardware, the dot matrix controller and the DC
 - Tales of the Arabian Nights 🚀 - May 1996
 - Scared Stiff 🚀 - September 1996
 - Junk Yard - December 1996
-- NBA Fastbreak - March 1997
+- NBA Fastbreak 🚀 - March 1997
 - Medieval Madness 🚀 - June 1997
 - Cirqus Voltaire 🚀 - October 1997
 - No Good Gofers 🚀 - December 1997

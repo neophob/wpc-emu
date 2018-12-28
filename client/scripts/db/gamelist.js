@@ -21,6 +21,7 @@ import judgeDredd from './jd';
 import johnnyMnemonic from './jm';
 import monsterBash from './mb';
 import medievalMadness from './mm';
+import nbaFastbreak from './nba';
 import noFear from './nofear';
 import noGoodGofers from './ngg';
 import popeyeSavesTheEarth from './pste';
@@ -65,6 +66,7 @@ const wpcGames = [
   johnnyMnemonic,
   monsterBash,
   medievalMadness,
+  nbaFastbreak,
   noGoodGofers,
   noFear,
   popeyeSavesTheEarth,
