@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'WPC-95: World Cup Soccer',
+  name: 'WPC-S: World Cup Soccer',
   version: 'LX-2',
   rom: {
     u06: 'WCUP_LX2.ROM',
