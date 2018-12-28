@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Scared Stiff',
+  name: 'WPC-95: Scared Stiff',
   version: '1.5',
   rom: {
     u06: 'SS_G11.1_5',

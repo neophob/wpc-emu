@@ -663,10 +663,12 @@ Ripped from Wikipedia, entires with a 🚀 are included in the online version
 Some Dr. Dude machines were also made using this WPC generation, although most were made using the later System 11 board.
 
 ## WPC (Dot Matrix)
+- SlugFest! - March 1991
 - Gilligan's Island 🚀 - May 1991
 - Terminator 2: Judgment Day 🚀 - July 1991
 - Hurricane 🚀 - August 1991
 - The Party Zone 🚀 - August 1991
+- Hot Shot Basketball 🚀 - October 1994
 
 Terminator 2: Judgment Day was the first to be designed with a dot matrix display, but was released after Gilligan's Island, due to Terminator 2 having a longer development time than Gilligan's Island. This generation WPC hardware was also used in some of Williams / Midway's redemption games (SlugFest!, Hot Shot Basketball) as well as in the first Shuffle Alley Game Strike Master Shuffle Alley - 1991.
 
@@ -697,6 +699,7 @@ Twilight Zone was designed to be the first pinball machine to use the new DCS sy
 Starting with World Cup Soccer, a security programmable integrated circuit (PIC) chip was added to the CPU board in all WPC-S games at location U22. This PIC chip was game specific making it so CPU boards could not be swapped between different models without changing the security PIC chip.
 
 - World Cup Soccer - February 1994
+- The Pinball Circus - June 1994
 - The Flintstones 🚀 - July 1994
 - Corvette - August 1994
 - Red & Ted's Road Show - October 1994
@@ -714,6 +717,7 @@ In this final revision of the WPC hardware, the dot matrix controller and the DC
 
 - Congo 🚀 - November 1995
 - Attack from Mars 🚀 - December 1995
+- Ticket Tac Toe - March 1996
 - Safecracker - March 1996
 - Tales of the Arabian Nights 🚀 - May 1996
 - Scared Stiff 🚀 - September 1996

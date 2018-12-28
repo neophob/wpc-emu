@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'The Addams Family Special',
+  name: 'WPC-Fliptronics: The Addams Family Special',
   version: 'LA-3',
   rom: {
     u06: 'U6-LA3.ROM',

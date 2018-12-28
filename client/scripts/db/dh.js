@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Dirty Harry',
+  name: 'WPC-S: Dirty Harry',
   version: 'LX-2',
   rom: {
     u06: 'harr_lx2.rom',

@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Hurricane',
+  name: 'WPC-DMD: Hurricane',
   version: 'L-2',
   rom: {
     u06: 'hurcnl_2.rom',
@@ -18,7 +18,7 @@ module.exports = {
     { id: 16, name: 'TROUGH 1' },
     { id: 17, name: 'TROUGH 2' },
     { id: 18, name: 'TROUGH 3' },
-    
+
     { id: 21, name: 'SLAM TILT' },
     { id: 22, name: 'COIN DOOR CLOSED' },
     { id: 23, name: 'TICKED OPTQ' },
@@ -26,7 +26,7 @@ module.exports = {
     { id: 26, name: 'RIGHT RETURN' },
     { id: 27, name: 'RIGHT OUTLANE' },
     { id: 28, name: 'BALL SHOOTER' },
-    
+
     { id: 31, name: 'FERRIS WHEEL' },
     { id: 33, name: 'L DROP 1' },
     { id: 34, name: 'L DROP 2' },
@@ -34,19 +34,19 @@ module.exports = {
     { id: 36, name: 'LEFT SLING' },
     { id: 37, name: 'LEFT RETURN' },
     { id: 38, name: 'LEFT OUTLANE' },
-    
+
     { id: 42, name: 'RIGHT STANDUP 1' },
     { id: 43, name: 'RIGHT STANDUP 2' },
     { id: 44, name: 'RIGHT STANDUP 3' },
     { id: 45, name: 'RIGHT STANDUP 4' },
-    
+
     { id: 51, name: 'LEFT JET' },
     { id: 52, name: 'RIGHT JET' },
     { id: 53, name: 'BOTTOM JET' },
     { id: 55, name: 'DUNK THE DUMMY' },
     { id: 56, name: 'LEFT JUGGLER' },
     { id: 57, name: 'RIGHT JUGGLER' },
-    
+
     { id: 61, name: 'HURRICANE ENTRY' },
     { id: 62, name: 'HURRICANE EXIT' },
     { id: 63, name: 'COMET ENTRY' },
@@ -158,7 +158,7 @@ module.exports = {
       { id: 27, x: 116, y: 151, },
       { id: 28, x: 9, y: 241, },
     ],
-  },    
+  },
   skipWmcRomCheck: true,
   initialise: {
     closedSwitches: [ 16, 17, 18, 22 ],

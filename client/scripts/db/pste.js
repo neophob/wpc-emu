@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Popeye Saves the Earth',
+  name: 'WPC-DCS: Popeye Saves the Earth',
   version: 'LX-5',
   rom: {
     u06: 'peye_lx5.rom',

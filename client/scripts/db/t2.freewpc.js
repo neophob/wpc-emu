@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'FreeWPC T2',
+  name: 'WPC-DMD: Terminator 2 (FreeWPC)',
   version: '1.00',
   rom: {
     u06: 'ft20_32.rom',

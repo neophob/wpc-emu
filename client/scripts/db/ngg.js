@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'No Good Gofers',
+  name: 'WPC-95: No Good Gofers',
   version: '1.3',
   rom: {
     u06: 'go_g11.1_3',

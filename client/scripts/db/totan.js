@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Tales of the Arabian Nights',
+  name: 'WPC-95: Tales of the Arabian Nights',
   version: '1.4',
   rom: {
     u06: 'an_g11.1_4',

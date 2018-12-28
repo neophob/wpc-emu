@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Fish Tales',
+  name: 'WPC-Fliptronics: Fish Tales',
   version: 'P-4',
   rom: {
     u06: 'ft_p4.u6',

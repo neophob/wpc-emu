@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'White Water',
+  name: 'WPC-Fliptronics: White Water',
   version: 'L-5',
   rom: {
     u06: 'wwatr_l5.rom',

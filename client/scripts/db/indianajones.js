@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Indiana Jones: The Pinball Adventure',
+  name: 'WPC-DCS: Indiana Jones, The Pinball Adventure',
   version: 'L-7',
   rom: {
     u06: 'ijone_l7.rom',

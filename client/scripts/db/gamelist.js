@@ -1,79 +1,79 @@
 'use strict';
 
-import addams from './addams';
-import afm from './afm';
-import br from './br';
-import bsd from './bsd';
+import attackFromMars from './afm';
+import blackRose from './br';
+import bramStokersDracula from './bsd';
+import cactusCanyon from './cc';
+import cirqusVoltaire from './cv';
 import congo from './congo';
-import cc from './cc';
-import cftbl from './cftbl';
-import cv from './cv';
-import dh from './dh';
-import dm from './dm';
-import dw from './dw';
-import fishtales from './fishtales';
-import flintstones from './flintstones';
-import gilligan from './gilligan';
-import highspeed2 from './highspeed2';
-import hotshot from './hotshot';
+import creatureFromTheBlackLagoon from './cftbl';
+import demolitionMan from './dm';
+import dirtyHarry from './dh';
+import drWho from './dw';
+import fishTales from './fishtales';
+import gilligansIsland from './gilligan';
+import highSpeed2TheGetaway from './highspeed2';
+import hotShotBasketball from './hotshot';
 import hurricane from './hurricane';
-import indianajones from './indianajones';
-import jd from './jd';
-import jm from './jm';
-import mb from './mb';
-import mm from './mm';
-import nofear from './nofear';
-import ngg from './ngg';
-import pste from './pste';
-import sc from './sc';
-import sttng from './sttng';
-import t2Freewpc from './t2.freewpc';
-import t2 from './t2';
-import tom from './tom';
-import totan from './totan';
-import tpz from './tpz';
-import tz from './tz';
+import indianaJonesThePinballAdventure from './indianajones';
+import judgeDredd from './jd';
+import johnnyMnemonic from './jm';
+import monsterBash from './mb';
+import medievalMadness from './mm';
+import noFear from './nofear';
+import noGoodGofers from './ngg';
+import popeyeSavesTheEarth from './pste';
+import scaredStiff from './ss';
+import starTrekTheNextGeneration from './sttng';
+import talesOfTheArabianNights from './totan';
+import terminator2Freewpc from './t2.freewpc';
+import terminator2 from './t2';
+import theatreOfMagic from './tom';
+import theAddamsFamilySpecial from './addams';
+import theFlintstones from './flintstones';
+import thePartyZone from './tpz';
+import twilightZone from './tz';
+import whiteWater from './ww';
 import wpcTestrom from './wpc.testrom';
-import ww from './ww';
 
 export { getAllNames, getByName };
 
 const wpcGames = [
-  addams,
-  afm,
-  br,
-  bsd,
-  cc,
-  cftbl,
-  cv,
+  attackFromMars,
+  blackRose,
+  bramStokersDracula,
+  cactusCanyon,
+  cirqusVoltaire,
   congo,
-  jd,
-  dh,
-  dm,
-  dw,
-  fishtales,
-  flintstones,
-  gilligan,
-  highspeed2,
-  hotshot,
+  creatureFromTheBlackLagoon,
+  demolitionMan,
+  dirtyHarry,
+  drWho,
+  fishTales,
+  gilligansIsland,
+  highSpeed2TheGetaway,
+  hotShotBasketball,
   hurricane,
-  indianajones,
-  jm,
-  mb,
-  mm,
-  ngg,
-  nofear,
-  pste,
-  sc,
-  sttng,
-  t2Freewpc,
-  t2,
-  tom,
-  totan,
-  tpz,
-  tz,
+  indianaJonesThePinballAdventure,
+  judgeDredd,
+  johnnyMnemonic,
+  monsterBash,
+  medievalMadness,
+  noGoodGofers,
+  noFear,
+  popeyeSavesTheEarth,
+  scaredStiff,
+  starTrekTheNextGeneration,
+  talesOfTheArabianNights,
+  terminator2Freewpc,
+  terminator2,
+  theatreOfMagic,
+  theAddamsFamilySpecial,
+  theFlintstones,
+  thePartyZone,
+  twilightZone,
+  whiteWater,
   wpcTestrom,
-  ww,
 ];
 
 function getAllNames() {
@@ -81,7 +81,8 @@ function getAllNames() {
     .filter((entry) => {
       return entry.rom && entry.rom.u06;
     })
-    .map((entry) => entry.name);
+    .map((entry) => entry.name)
+    .sort();
 }
 
 function getByName(name) {

@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Demolition Man',
+  name: 'WPC-DCS: Demolition Man',
   version: 'LX-4',
   rom: {
     u06: 'dman_lx4.rom',

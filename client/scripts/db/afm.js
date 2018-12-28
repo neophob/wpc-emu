@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Attack from Mars',
+  name: 'WPC-95: Attack from Mars',
   version: '1.13b',
   rom: {
     u06: 'afm_113b.bin',

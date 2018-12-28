@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Theatre of Magic',
+  name: 'WPC-S: Theatre of Magic',
   version: '1.3X',
   rom: {
     u06: 'tom1_3x.rom',

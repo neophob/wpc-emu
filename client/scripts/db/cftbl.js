@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Creature from the Black Lagoon',
+  name: 'WPC-Fliptronics: Creature from the Black Lagoon',
   version: 'L-4',
   rom: {
     u06: 'creat_l4.rom',

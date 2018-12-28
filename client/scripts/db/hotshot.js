@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Hot Shot Basketball',
+  name: 'WPC-DMD: Hot Shot Basketball',
   version: 'P-8',
   rom: {
     u06: 'hshot_p8.u6',
@@ -20,7 +20,7 @@ module.exports = {
     { id: 26, name: 'BALL IN SHOOTER' },
     { id: 27, name: 'DISPENSER LOW' },
     { id: 28, name: 'DISPENSER UNJAM' },
-    
+
     { id: 31, name: 'BASKET' },
     { id: 32, name: 'BASKET MTR TOP' },
     { id: 33, name: 'BASKET MTR BOT' },

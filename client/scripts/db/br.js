@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Black Rose',
+  name: 'WPC-Fliptronics: Black Rose',
   version: 'L-3',
   rom: {
     u06: 'u6-l3.rom',

@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Twilight Zone',
+  name: 'WPC-Fliptronics: Twilight Zone',
   version: 'H-8',
   rom: {
     u06: 'tz_h8.u6',
@@ -74,7 +74,7 @@ module.exports = {
     { id: 76, name: 'MINI PF EXIT' },
     { id: 77, name: 'MID LEFT 5 MIL' },
     { id: 78, name: 'U LEFT 5 MIL' },
-    
+
     { id: 81, name: 'RIGHT MAGNET' },
     { id: 83, name: 'LEFT MAGNET' },
     { id: 84, name: 'LOCK CENTER' },

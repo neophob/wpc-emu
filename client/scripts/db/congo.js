@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Congo',
+  name: 'WPC-95: Congo',
   version: '2.1',
   rom: {
     u06: 'cg_g11.2_1',

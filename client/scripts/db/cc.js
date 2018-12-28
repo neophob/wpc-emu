@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Cactus Canyon',
+  name: 'WPC-95: Cactus Canyon',
   version: '1.3',
   rom: {
     u06: 'cc_g11.1_3',

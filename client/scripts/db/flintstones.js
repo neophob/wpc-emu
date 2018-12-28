@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'The Flintstones',
+  name: 'WPC-S: The Flintstones',
   version: 'LX-5',
   rom: {
     u06: 'flin_lx5.rom',

@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Judge Dredd',
+  name: 'WPC-DCS: Judge Dredd',
   version: 'L-7',
   rom: {
     u06: 'jdrd_l7.rom',

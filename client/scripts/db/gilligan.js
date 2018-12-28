@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Gilligan\'s Island',
+  name: 'WPC-DMD: Gilligan\'s Island',
   version: 'L-9',
   rom: {
     u06: 'gilli_l9.rom',
@@ -69,7 +69,7 @@ module.exports = {
     { id: 76, name: 'WHEEL LOCK' },
     { id: 77, name: 'WHEEL OPTO' },
     { id: 78, name: 'SHOOTER' },
-    
+
     { id: 83, name: 'TOP LEFT LOOP' },
     { id: 84, name: 'TOP RIGHT LOOP' },
   ],

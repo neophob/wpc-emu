@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Bram Stoker\'s Dracula',
+  name: 'WPC-Fliptronics: Bram Stoker\'s Dracula',
   version: 'L-1',
   rom: {
     u06: 'dracu_l1.rom',

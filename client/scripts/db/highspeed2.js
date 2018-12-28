@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'High Speed II: The Getaway',
+  name: 'WPC-Fliptronics: High Speed II, The Getaway',
   version: 'P-C',
   rom: {
     u06: 'u6-p-c.rom',
