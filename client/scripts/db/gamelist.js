@@ -30,6 +30,7 @@ import starTrekTheNextGeneration from './sttng';
 import talesOfTheArabianNights from './totan';
 import terminator2Freewpc from './t2.freewpc';
 import terminator2 from './t2';
+import ticketTacToe from './ttt';
 import theatreOfMagic from './tom';
 import theAddamsFamilySpecial from './addams';
 import theFlintstones from './flintstones';
@@ -75,6 +76,7 @@ const wpcGames = [
   theAddamsFamilySpecial,
   theFlintstones,
   thePartyZone,
+  ticketTacToe,
   twilightZone,
   whiteWater,
   wpcTestrom,

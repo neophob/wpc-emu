@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'WPC-DCS: Addams Family Values',
+  name: 'WPC-DCS: Addams Family Values (Redemption game)',
   version: 'L-4',
   rom: {
     u06: 'afv_u6.l4',

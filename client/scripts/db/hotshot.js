@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'WPC-DMD: Hot Shot Basketball',
+  name: 'WPC-DMD: Hot Shot Basketball (Redemption game)',
   version: 'P-8',
   rom: {
     u06: 'hshot_p8.u6',

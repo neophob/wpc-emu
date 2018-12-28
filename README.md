@@ -719,7 +719,7 @@ In this final revision of the WPC hardware, the dot matrix controller and the DC
 
 - Congo 🚀 - November 1995
 - Attack from Mars 🚀 - December 1995
-- Ticket Tac Toe (redemption game) - March 1996
+- Ticket Tac Toe (redemption game) 🚀 - March 1996
 - League Champ Shuffle Alley (redemption game) - March 1996
 - Safecracker - March 1996
 - Tales of the Arabian Nights 🚀 - May 1996

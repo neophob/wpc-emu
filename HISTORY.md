@@ -1,7 +1,7 @@
 # HISTORY
 
 ## 28/12/18
-- add new game "SlugFest", "Addams Family Values"
+- add new game "Ticket Tac Toe", "SlugFest", "Addams Family Values"
 
 ## 27/12/18
 - add new games "Popeye Saves the Earth", "Judge Dredd", "Demolition Man", "Black Rose", "Bram Stoker's Dracula", "Creature from the Black Lagoon", "No Good Gofers", "Cactus Canyon", "Attack from Mars", "Star Trek: The Next Generation", "Monster Bash", "Tales of the Arabian Nights", "Scared Stiff" and "White Water"

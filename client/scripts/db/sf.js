@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'WPC-DMD: SlugFest',
+  name: 'WPC-DMD: SlugFest (Redemption game)',
   version: 'L-1',
   rom: {
     u06: 'sf_u6.l1',
