@@ -712,7 +712,7 @@ Starting with World Cup Soccer, a security programmable integrated circuit (PIC)
 - Indianapolis 500 - June 1995
 - Johnny Mnemonic 🚀 - August 1995
 - Jack·Bot - October 1995
-- WHO Dunnit - September 1995
+- WHO Dunnit 🚀 - September 1995
 
 ## WPC-95
 In this final revision of the WPC hardware, the dot matrix controller and the DCS sound boards are combined into a single A/V board, while the Power/Driver and the Fliptronics boards are combined into a single Power/Driver board, bringing the board count down to three boards. It also includes the same game-specific security PIC introduced in the WPC-Security system.
