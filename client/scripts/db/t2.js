@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Terminator 2',
+  name: 'WPC-DMD: Terminator 2',
   version: 'L-8',
   rom: {
     u06: 't2_l8.rom',
@@ -108,7 +108,7 @@ module.exports = {
     { id: 16, name: 'TROUGH CENTER' },
     { id: 17, name: 'TROUGH RIGHT' },
     { id: 18, name: 'OUTHOLE' },
-    
+
     { id: 21, name: 'SLAM TILT' },
     { id: 22, name: 'COIN DOOR CLOSED' },
     { id: 23, name: 'TICKED OPTQ' },

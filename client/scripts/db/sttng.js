@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Star Trek: The Next Generation',
+  name: 'WPC-DCS: Star Trek, The Next Generation',
   version: 'P-5',
   rom: {
     u06: 'sttng_p5.u6',

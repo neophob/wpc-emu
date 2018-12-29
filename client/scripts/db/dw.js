@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Dr. Who',
+  name: 'WPC-Fliptronics: Dr. Who',
   version: 'L-1',
   rom: {
     u06: 'drwho_l2.rom',

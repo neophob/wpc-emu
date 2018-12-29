@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'No Fear',
+  name: 'WPC-S: No Fear',
   version: '2.3X',
   rom: {
     u06: 'nofe2_3x.rom',
@@ -10,7 +10,7 @@ module.exports = {
     { id: 11, name: 'BALL LAUNCH' },
     { id: 13, name: 'START BUTTON' },
     { id: 14, name: 'PLUMB BOB TILT' },
-    { id: 15, name: 'SHOTTER LANE' },
+    { id: 15, name: 'SHOOTER LANE' },
     { id: 16, name: 'SPINNER' },
     { id: 17, name: 'RIGHT OUTLANE' },
     { id: 18, name: 'RIGHT RETURN' },
@@ -74,7 +74,7 @@ module.exports = {
     closedSwitches: [
       22,
       //OPTO SWITCHES 31, 32, 33, 34, 35, 37, 38, 41, 42, 46, 47, 48,
-      31, 37, 38, 41, 42, 46, 47, 48,
+      31, 37, 38, 41, 42, 47,
       'F2', 'F4', 'F6', 'F8',
     ],
     initialAction: [

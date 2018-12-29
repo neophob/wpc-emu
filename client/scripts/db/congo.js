@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Congo',
+  name: 'WPC-95: Congo',
   version: '2.1',
   rom: {
     u06: 'cg_g11.2_1',
@@ -58,7 +58,7 @@ module.exports = {
     { id: 67, name: 'RIGHT RAMP ENTER' },
     { id: 68, name: 'RIGHT RAMP EXIT' },
 
-    { id: 71, name: '(A)MY)' },
+    { id: 71, name: '(A)MY' },
     { id: 72, name: 'A(M)Y' },
     { id: 73, name: 'AM(Y)' },
     { id: 74, name: '(C)ONGO' },

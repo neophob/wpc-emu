@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'WPC Testrom',
+  name: 'WPC-DMD: WPC Test Fixture ',
   version: 'L-3',
   rom: {
     u06: 'u6_l3.rom',

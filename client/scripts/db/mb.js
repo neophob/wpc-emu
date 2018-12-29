@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Monster Bash',
+  name: 'WPC-95: Monster Bash',
   version: '1.06b',
   rom: {
     u06: 'mb_106b.bin',

@@ -1,7 +1,13 @@
 # HISTORY
 
+## 29/12/18
+- add new game "The Shadow", "Jack·Bot", "Indianapolis 500", "Corvette" and "Red & Ted's Road Show"
+
+## 28/12/18
+- add new game "World Cup Soccer", "Junk Yard", "NBA Fastbreak", "The Champion Pub", "Safe Cracker", "Ticket Tac Toe", "SlugFest", "Addams Family Values" and "WHO Dunnit"
+
 ## 27/12/18
-- add new games "Attack from Mars", "Star Trek: The Next Generation", "Monster Bash", "Tales of the Arabian Nights", "Scared Stiff" and "White Water"
+- add new games "Popeye Saves the Earth", "Judge Dredd", "Demolition Man", "Black Rose", "Bram Stoker's Dracula", "Creature from the Black Lagoon", "No Good Gofers", "Cactus Canyon", "Attack from Mars", "Star Trek: The Next Generation", "Monster Bash", "Tales of the Arabian Nights", "Scared Stiff" and "White Water"
 - Top 10 Solid State Pinballs (IPDB.org) are supported now
 - do not reset Sound board if no sound board is loaded
 
@@ -37,7 +43,7 @@
 
 ## 18/10/18
 - really fixed bankswitched read (for real!)
-- added trace tool/disassembler to compare wpc-emu agains mame
+- added trace tool/disassembler to compare wpc-emu against mame
 
 ## 16/10/18
 - really fixed bankswitched read

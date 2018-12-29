@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Medieval Madness',
+  name: 'WPC-95: Medieval Madness',
   version: 'L-8',
   rom: {
     u06: 'mm_109b.bin',

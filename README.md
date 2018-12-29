@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/neophob/wpc-emu.svg?branch=master)](https://travis-ci.org/neophob/wpc-emu)
 
-- [WPC (Dot Matrix) Emulator](#wpc--dot-matrix--emulator)
+- [WPC (Dot Matrix) Emulator](#wpc-dot-matrix-emulator)
   * [Goal](#goal)
 - [Implementation Status](#implementation-status)
   * [Basic](#basic)
@@ -30,7 +30,7 @@
   * [Timing](#timing)
     + [DMD display scanline](#dmd-display-scanline)
   * [DMD controller](#dmd-controller)
-  * [Security PIC (U22)](#security-pic--u22-)
+  * [Security PIC (U22)](#security-pic-u22)
   * [RAM positions](#ram-positions)
   * [Boot sequence](#boot-sequence)
   * [Gameplay](#gameplay)
@@ -48,11 +48,11 @@
   * [Custom Power Driver](#custom-power-driver)
   * [Misc](#misc)
 - [Game List](#game-list)
-  * [WPC (Alphanumeric)](#wpc--alphanumeric-)
-  * [WPC (Dot Matrix)](#wpc--dot-matrix-)
-  * [WPC (Fliptronics)](#wpc--fliptronics-)
-  * [WPC (DCS)](#wpc--dcs-)
-  * [WPC-S (Security)](#wpc-s--security-)
+  * [WPC (Alphanumeric)](#wpc-alphanumeric)
+  * [WPC (Dot Matrix)](#wpc-dot-matrix)
+  * [WPC (Fliptronics)](#wpc-fliptronics)
+  * [WPC (DCS)](#wpc-dcs)
+  * [WPC-S (Security)](#wpc-s-security)
   * [WPC-95](#wpc-95)
 
 ## Goal
@@ -147,7 +147,7 @@ Make sure to run the benchmarks using the same node versions.
 - Run `npm run benchmark` to run the small benchmark (1s on the emulator), this target uses the included FreeWPC T2 ROM
 - Run `npm run benchmark:t2` to run the longer benchmark, you need to have the T2 rom in the roms directory
 
-Sidenote: Also using deoptigate (https://github.com/thlorenz/deoptigate) shows where the code is unoptimised. 
+Sidenote: Also using deoptigate (https://github.com/thlorenz/deoptigate) shows where the code is unoptimised.
 
 ## Tracer / Dumps
 The `wpc-emu-dumps` directory contains game dump files and can be used to compare the current implementation
@@ -539,7 +539,7 @@ PASSED:
 8DF4: BD 91 C0       JSR $91C0
 8DF7: BD 9E E5       JSR $9EE5
 8DFA: BE 17 48       LDX $1748      ;check against memory position 0x1748
-8DFD: 8C 1A BC       CMPX #$1ABC    
+8DFD: 8C 1A BC       CMPX #$1ABC
 8E00: 27 1B          BEQ $8E1D
 8E02: B6 17 4C       LDA $174C
 8E05: 27 08          BEQ $8E0F
@@ -653,7 +653,7 @@ Solution:
 
 # Game List
 
-Ripped from Wikipedia.
+Ripped from Wikipedia, entires with a 🚀 are included in the online version
 
 ## WPC (Alphanumeric)
 - FunHouse - September 1990
@@ -663,67 +663,72 @@ Ripped from Wikipedia.
 Some Dr. Dude machines were also made using this WPC generation, although most were made using the later System 11 board.
 
 ## WPC (Dot Matrix)
-- Gilligan's Island - May 1991
-- Terminator 2: Judgment Day - July 1991
-- Hurricane - August 1991
-- The Party Zone - August 1991
+- SlugFest! (redemption game) 🚀 - March 1991
+- Gilligan's Island 🚀 - May 1991
+- Terminator 2: Judgment Day 🚀 - July 1991
+- Hurricane 🚀 - August 1991
+- The Party Zone 🚀 - August 1991
+- Hot Shot Basketball (redemption game) 🚀 - October 1994
+- Strike Master Shuffle Alley (redemption game) - 1991
 
-Terminator 2: Judgment Day was the first to be designed with a dot matrix display, but was released after Gilligan's Island, due to Terminator 2 having a longer development time than Gilligan's Island. This generation WPC hardware was also used in some of Williams / Midway's redemption games (SlugFest!, Hot Shot Basketball) as well as in the first Shuffle Alley Game Strike Master Shuffle Alley - 1991.
+Terminator 2: Judgment Day was the first to be designed with a dot matrix display, but was released after Gilligan's Island, due to Terminator 2 having a longer development time than Gilligan's Island.
 
 ## WPC (Fliptronics)
-- The Getaway: High Speed II - February 1992
+- The Getaway: High Speed II 🚀 - February 1992
 - The Addams Family - March 1992
-- Black Rose - July 1992
-- Fish Tales - October 1992
-- Doctor Who - October 1992
-- Creature from the Black Lagoon - December 1992
-- White Water - January 1993
-- Bram Stoker's Dracula - March 1993
-- Twilight Zone - March 1993
-- The Addams Family Special Collectors Edition - October 1994
+- Black Rose 🚀 - July 1992
+- Fish Tales 🚀 - October 1992
+- Doctor Who 🚀 - October 1992
+- Creature from the Black Lagoon 🚀 - December 1992
+- White Water 🚀 - January 1993
+- Bram Stoker's Dracula 🚀 - March 1993
+- Twilight Zone 🚀 - March 1993
+- The Addams Family Special Collectors Edition 🚀 - October 1994
 
 The Addams Family was the only game produced with the Fliptronics I board, which is compatible with Fliptronics II boards, which added a bridge rectifier for the flipper voltage.
 
 ## WPC (DCS)
-- Indiana Jones: The Pinball Adventure - August 1993
-- Judge Dredd - September 1993
-- Star Trek: The Next Generation - November 1993
-- Popeye Saves the Earth - February 1994
-- Demolition Man - February 1994
+- Indiana Jones: The Pinball Adventure 🚀 - August 1993
+- Judge Dredd 🚀 - September 1993
+- Star Trek: The Next Generation 🚀 - November 1993
+- Addams Family Values (redemption game) 🚀 - January 1994
+- Popeye Saves the Earth 🚀 - February 1994
+- Demolition Man 🚀 - February 1994
 
-Twilight Zone was designed to be the first pinball machine to use the new DCS system, but due to delays of the new hardware design it was decided to release it on the old hardware (using downsampled sound effects) instead. The redemption game Addams Family Values also used the DCS Sound System.
+Twilight Zone was designed to be the first pinball machine to use the new DCS system, but due to delays of the new hardware design it was decided to release it on the old hardware (using downsampled sound effects) instead.
 
 ## WPC-S (Security)
 Starting with World Cup Soccer, a security programmable integrated circuit (PIC) chip was added to the CPU board in all WPC-S games at location U22. This PIC chip was game specific making it so CPU boards could not be swapped between different models without changing the security PIC chip.
 
-- World Cup Soccer - February 1994
-- The Flintstones - July 1994
-- Corvette - August 1994
-- Red & Ted's Road Show - October 1994
-- The Shadow - November 1994
-- Dirty Harry - March 1995
-- Theatre of Magic - March 1995
-- No Fear: Dangerous Sports - May 1995
-- Indianapolis 500 - June 1995
-- Johnny Mnemonic - August 1995
-- Jack·Bot - October 1995
-- WHO Dunnit - September 1995
+- World Cup Soccer 🚀 - February 1994
+- The Pinball Circus - June 1994
+- The Flintstones 🚀 - July 1994
+- Corvette 🚀 - August 1994
+- Red & Ted's Road Show 🚀 - October 1994
+- The Shadow 🚀 - November 1994
+- Dirty Harry 🚀 - March 1995
+- Theatre of Magic 🚀 - March 1995
+- No Fear: Dangerous Sports 🚀 - May 1995
+- Indianapolis 500 🚀 - June 1995
+- Johnny Mnemonic 🚀 - August 1995
+- Jack·Bot 🚀 - October 1995
+- WHO Dunnit 🚀 - September 1995
 
 ## WPC-95
 In this final revision of the WPC hardware, the dot matrix controller and the DCS sound boards are combined into a single A/V board, while the Power/Driver and the Fliptronics boards are combined into a single Power/Driver board, bringing the board count down to three boards. It also includes the same game-specific security PIC introduced in the WPC-Security system.
 
-- Congo - November 1995
-- Attack from Mars - December 1995
-- Safecracker - March 1996
-- Tales of the Arabian Nights - May 1996
-- Scared Stiff - September 1996
-- Junk Yard - December 1996
-- NBA Fastbreak - March 1997
-- Medieval Madness - June 1997
-- Cirqus Voltaire - October 1997
-- No Good Gofers - December 1997
-- The Champion Pub - April 1998
-- Monster Bash - July 1998
-- Cactus Canyon - October 1998
-
-This generation WPC hardware was also used in the Midway redemption game Ticket Tac Toe, March 1996 and the Shuffle Alley game League Champ Shuffle Alley, 1996.
+- Congo 🚀 - November 1995
+- Attack from Mars 🚀 - December 1995
+- Ticket Tac Toe (redemption game) 🚀 - March 1996
+- League Champ Shuffle Alley (redemption game) - March 1996
+- Safecracker 🚀 - March 1996
+- Tales of the Arabian Nights 🚀 - May 1996
+- Scared Stiff 🚀 - September 1996
+- Junk Yard 🚀 - December 1996
+- NBA Fastbreak 🚀 - March 1997
+- Medieval Madness 🚀 - June 1997
+- Cirqus Voltaire 🚀 - October 1997
+- No Good Gofers 🚀 - December 1997
+- The Champion Pub 🚀 - April 1998
+- Monster Bash 🚀 - July 1998
+- Cactus Canyon 🚀 - October 1998

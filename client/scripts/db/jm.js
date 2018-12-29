@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Johnny Mnemonic',
+  name: 'WPC-S: Johnny Mnemonic',
   version: '1.2R',
   rom: {
     u06: 'john1_2r.rom',

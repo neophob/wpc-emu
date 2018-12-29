@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Cirqus Voltaire',
+  name: 'WPC-95: Cirqus Voltaire',
   version: '1.3',
   rom: {
     u06: 'CV_G11.1_3',
