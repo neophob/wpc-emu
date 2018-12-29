@@ -29,6 +29,7 @@ import nbaFastbreak from './nba';
 import noFear from './nofear';
 import noGoodGofers from './ngg';
 import popeyeSavesTheEarth from './pste';
+import redTedsRoadShow from './rtrs';
 import safeCracker from './sc';
 import scaredStiff from './ss';
 import slugFest from './sf';
@@ -81,6 +82,7 @@ const wpcGames = [
   noGoodGofers,
   noFear,
   popeyeSavesTheEarth,
+  redTedsRoadShow,
   safeCracker,
   scaredStiff,
   slugFest,

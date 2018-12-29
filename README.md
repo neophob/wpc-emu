@@ -704,7 +704,7 @@ Starting with World Cup Soccer, a security programmable integrated circuit (PIC)
 - The Pinball Circus - June 1994
 - The Flintstones 🚀 - July 1994
 - Corvette 🚀 - August 1994
-- Red & Ted's Road Show - October 1994
+- Red & Ted's Road Show 🚀 - October 1994
 - The Shadow 🚀 - November 1994
 - Dirty Harry 🚀 - March 1995
 - Theatre of Magic 🚀 - March 1995
