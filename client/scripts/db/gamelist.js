@@ -42,6 +42,7 @@ import theAddamsFamilySpecial from './addams';
 import theChampionPub from './tcp';
 import theFlintstones from './flintstones';
 import thePartyZone from './tpz';
+import theShadow from './ts';
 import twilightZone from './tz';
 import whiteWater from './ww';
 import whoDunnit from './wd';
@@ -92,6 +93,7 @@ const wpcGames = [
   theChampionPub,
   theFlintstones,
   thePartyZone,
+  theShadow,
   ticketTacToe,
   twilightZone,
   whiteWater,

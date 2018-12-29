@@ -1,7 +1,7 @@
 # HISTORY
 
 ## 29/12/18
-- add new game "Jack·Bot", "Indianapolis 500", "Corvette",
+- add new game "The Shadow", "Jack·Bot", "Indianapolis 500", "Corvette",
 
 ## 28/12/18
 - add new game "World Cup Soccer", "Junk Yard", "NBA Fastbreak", "The Champion Pub", "Safe Cracker", "Ticket Tac Toe", "SlugFest", "Addams Family Values" and "WHO Dunnit"
