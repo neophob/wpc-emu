@@ -7,6 +7,7 @@ import bramStokersDracula from './bsd';
 import cactusCanyon from './cc';
 import cirqusVoltaire from './cv';
 import congo from './congo';
+import corvette from './corv';
 import creatureFromTheBlackLagoon from './cftbl';
 import demolitionMan from './dm';
 import dirtyHarry from './dh';
@@ -57,6 +58,7 @@ const wpcGames = [
   cactusCanyon,
   cirqusVoltaire,
   congo,
+  corvette,
   creatureFromTheBlackLagoon,
   demolitionMan,
   dirtyHarry,
