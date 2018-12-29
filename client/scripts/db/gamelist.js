@@ -16,6 +16,7 @@ import gilligansIsland from './gilligan';
 import highSpeed2TheGetaway from './highspeed2';
 import hotShotBasketball from './hotshot';
 import hurricane from './hurricane';
+import indianapolis500 from './i500';
 import indianaJonesThePinballAdventure from './indianajones';
 import jackBot from './jb';
 import judgeDredd from './jd';
@@ -65,6 +66,7 @@ const wpcGames = [
   highSpeed2TheGetaway,
   hotShotBasketball,
   hurricane,
+  indianapolis500,
   indianaJonesThePinballAdventure,
   jackBot,
   judgeDredd,
