@@ -711,7 +711,7 @@ Starting with World Cup Soccer, a security programmable integrated circuit (PIC)
 - No Fear: Dangerous Sports 🚀 - May 1995
 - Indianapolis 500 - June 1995
 - Johnny Mnemonic 🚀 - August 1995
-- Jack·Bot - October 1995
+- Jack·Bot 🚀 - October 1995
 - WHO Dunnit 🚀 - September 1995
 
 ## WPC-95
