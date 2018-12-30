@@ -101,10 +101,16 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Bank Switching ✓
 - Resample audio to 44.1khz ½
 - emulate 6809 CPU ✓
+- emulate DAC ✓
+
+### Pre DCS (A-12738)
 - emulate YM2151 FM Generator ½
 - emulate HC-55536 CVSD ✗ (speech synth)
 - emulate MC6821 PIA ✓
-- emulate DAC ✓
+
+### DCS (A-16917)
+- emulate Analog Devices ADSP2105
+
 
 ## Dot Matrix Display/DMD Controller Board
 - Page Selection ✓
@@ -172,13 +178,14 @@ To build a new release:
 
 # Hardware - WPS Dot Matrix Machine
 
-## Overview
+## Overview WPC-89
 
 ```
 
     +-----------------------+   +-------------------------+
     |                       |   |                         |
     |  CPU BOARD / A-12742  |   |  SOUND BOARD / A-12738  |
+    |                       |   |           (DCS A-16917) |
     |  -------------------  |   |  ---------------------  |
     |                       |   |                         |
     |  - MC 6809 CPU@2MHz   |   |  - MC 6809 CPU@2MHz     |
