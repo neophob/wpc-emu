@@ -96,26 +96,26 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - support Fliptronics flipper ½
 
 ## Sound Board
-- load pre DCS sound ROM files ✓
-- load DCS sound ROM files ✗
 - Bank Switching ✓
 - Resample audio to 44.1khz ½
 - emulate 6809 CPU ✓
-- emulate DAC ✓
+- emulate DAC ½
 
 ### Pre DCS (A-12738)
 - 17 Games use this board
+- load pre DCS sound ROM files ✓
 - emulate YM2151 FM Generator ½
 - emulate HC-55536 CVSD ✗ (speech synth)
 - emulate MC6821 PIA ✓
 
 ### DCS (A-16917)
 - 19 Games use this board
-- emulate Analog Devices ADSP2105
+- load DCS sound ROM files ✗
+- emulate Analog Devices ADSP2105, clocked at 10 MHz, DMA-driven DAC, outputting in mono ✗
 
-### DCS 2 (A-20516 and A-20145-2)
+### DCS-95 (A-20516 and A-20145-2)
 - 15 Games use this board
-- WPC95 includes a combined AV Board, not sure about changes compared to A-20516
+- compared to A-20516, this board allows for 16MB of data instead of 8MB to be addressed ✗
 
 ## Dot Matrix Display/DMD Controller Board
 - Page Selection ✓
@@ -233,7 +233,7 @@ Operating system:
 ## Power driver board
 - Williams part number: A-12697-1
 
-## Sound board
+## Sound board (pre DCS)
 - Williams part number: A-12738 (aka. pre-DCS sound)
 - Mono output, Sample rate 11KHz, 25 watts power, 8 ohm
 - intelligent and have processors running their own operating system dedicated to sound tasks
@@ -651,6 +651,7 @@ Solution:
 - http://www.cx5m.net/fmunit.htm
 - https://github.com/apollolux/ym2413-js/blob/master/ym2413.js
 - https://github.com/vgm/node-vgmplay/blob/master/res/js/vgm/ym2151.js (WPC-EMU use this)
+- https://en.wikipedia.org/wiki/Digital_Compression_System
 
 ## ROM
 - http://www.ipdb.org/
