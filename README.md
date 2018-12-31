@@ -104,13 +104,18 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - emulate DAC ✓
 
 ### Pre DCS (A-12738)
+- 17 Games use this board
 - emulate YM2151 FM Generator ½
 - emulate HC-55536 CVSD ✗ (speech synth)
 - emulate MC6821 PIA ✓
 
 ### DCS (A-16917)
+- 19 Games use this board
 - emulate Analog Devices ADSP2105
 
+### DCS 2 (A-20516 and A-20145-2)
+- 15 Games use this board
+- WPC95 includes a combined AV Board, not sure about changes compared to A-20516
 
 ## Dot Matrix Display/DMD Controller Board
 - Page Selection ✓
