@@ -17,6 +17,9 @@ const TICKS_PER_CALL = parseInt(TICKS / DESIRED_FPS, 10);
 const TICKS_PER_STEP = 16;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
 
+const RAM_STATE_1 = 'ramState1';
+const RAM_SIZE = 1024 * 8;
+
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const soundInstance = AudioOutput(AudioContext);
 
@@ -60,7 +63,9 @@ function initialiseEmu(gameEntry) {
         wpcSystem,
         pauseEmu,
         resumeEmu,
-        romSelection
+        romSelection,
+        saveState,
+        loadState,
       };
       wpcSystem.registerAudioConsumer(dacCallback);
       wpcSystem.start();
@@ -72,6 +77,24 @@ function initialiseEmu(gameEntry) {
       console.error('FAILED to load ROM:', error.message);
       console.log(error.stack);
     });
+}
+
+function saveState() {
+  // system ram is 8kb
+  const ram = Array.from(wpcSystem.cpuBoard.ram.subarray(0, RAM_SIZE));
+  localStorage.setItem(RAM_STATE_1, JSON.stringify(ram));
+  console.log('RAM STATE SAVED');
+}
+
+function loadState() {
+  const ramState = localStorage.getItem(RAM_STATE_1);
+  if (ramState) {
+    const ram = new Uint8Array(JSON.parse(ramState));
+    wpcSystem.cpuBoard.ram.set(ram, 0);
+    console.log('RAM STATE LOADED',);
+  } else {
+    console.log('NO RAM STATE FOUND');
+  }
 }
 
 function romSelection(romName) {
