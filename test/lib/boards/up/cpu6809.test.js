@@ -3,13 +3,9 @@
 import test from 'ava';
 import Cpu6809 from '../../../../lib/boards/up/cpu6809';
 
-/*jshint bitwise: false*/
-
-let readMemoryAddress;
-let writeMemoryAddress;
 test.beforeEach((t) => {
-  readMemoryAddress = [];
-  writeMemoryAddress = [];
+  const readMemoryAddress = [];
+  const writeMemoryAddress = [];
   const readMemoryMock = (address) => {
     readMemoryAddress.push(address);
   };
@@ -19,11 +15,13 @@ test.beforeEach((t) => {
   const cpu = Cpu6809.getInstance(writeMemoryMock, readMemoryMock, 'UNITTEST');
   cpu.reset();
   t.context = cpu;
+  t.context.readMemoryAddress = readMemoryAddress;
+  t.context.writeMemoryAddress = writeMemoryAddress;
 });
 
 test('read initial vector', (t) => {
-  t.is(readMemoryAddress[0], 0xFFFE);
-  t.is(readMemoryAddress[1], 0xFFFF);
+  t.is(t.context.readMemoryAddress[0], 0xFFFE);
+  t.is(t.context.readMemoryAddress[1], 0xFFFF);
 });
 
 test('oCMP 8bit, carry flag', (t) => {
@@ -104,8 +102,8 @@ test('flags should be correct after calling irq(), init flags to 0x00', (t) => {
   cpu.fetch = () => 0x12;
   cpu.steps();
   t.is(cpu.flagsToString(), 'EfhInzvc');
-  t.is(readMemoryAddress[2], 0xFFF8);
-  t.is(readMemoryAddress[3], 0xFFF9);
+  t.is(t.context.readMemoryAddress[2], 0xFFF8);
+  t.is(t.context.readMemoryAddress[3], 0xFFF9);
   t.is(cpu.irqPendingIRQ, false);
 });
 
@@ -134,8 +132,8 @@ test('flags should be correct after calling irq(), init flags to 0xef', (t) => {
   cpu.irq();
   cpu.fetch = () => 0x12;
   cpu.steps();
-  t.is(readMemoryAddress[2], 0xFFF8);
-  t.is(readMemoryAddress[3], 0xFFF9);
+  t.is(t.context.readMemoryAddress[2], 0xFFF8);
+  t.is(t.context.readMemoryAddress[3], 0xFFF9);
   t.is(cpu.flagsToString(), 'EFHINZVC');
 });
 
@@ -145,8 +143,8 @@ test('irq() should not be called if F_IRQMASK flag is set', (t) => {
   cpu.irq();
   cpu.fetch = () => 0x12;
   cpu.steps();
-  t.is(readMemoryAddress[2], undefined);
-  t.is(readMemoryAddress[3], undefined);
+  t.is(t.context.readMemoryAddress[2], undefined);
+  t.is(t.context.readMemoryAddress[3], undefined);
 });
 
 test('flags should be correct after calling nmi()', (t) => {
@@ -156,8 +154,8 @@ test('flags should be correct after calling nmi()', (t) => {
   cpu.fetch = () => 0x12;
   cpu.steps();
   t.is(cpu.flagsToString(), 'EFhInzvc');
-  t.is(readMemoryAddress[2], 0xFFFC);
-  t.is(readMemoryAddress[3], 0xFFFD);
+  t.is(t.context.readMemoryAddress[2], 0xFFFC);
+  t.is(t.context.readMemoryAddress[3], 0xFFFD);
 });
 
 test('flags should be correct after calling firq(), init flags to 0x00', (t) => {
@@ -168,8 +166,8 @@ test('flags should be correct after calling firq(), init flags to 0x00', (t) => 
   cpu.fetch = () => 0x12;
   cpu.steps();
   t.is(cpu.flagsToString(), 'eFhInzvc');
-  t.is(readMemoryAddress[2], 0xFFF6);
-  t.is(readMemoryAddress[3], 0xFFF7);
+  t.is(t.context.readMemoryAddress[2], 0xFFF6);
+  t.is(t.context.readMemoryAddress[3], 0xFFF7);
 });
 
 test('flags should be correct after calling firq(), init flags to 0xbf', (t) => {
@@ -179,8 +177,8 @@ test('flags should be correct after calling firq(), init flags to 0xbf', (t) => 
   cpu.firq();
   cpu.fetch = () => 0x12;
   cpu.steps();
-  t.is(readMemoryAddress[2], 0xFFF6);
-  t.is(readMemoryAddress[3], 0xFFF7);
+  t.is(t.context.readMemoryAddress[2], 0xFFF6);
+  t.is(t.context.readMemoryAddress[3], 0xFFF7);
   t.is(cpu.flagsToString(), 'eFHINZVC');
 });
 
@@ -190,8 +188,8 @@ test('firq() should not be called if F_FIRQMASK flag is set', (t) => {
   cpu.firq();
   cpu.fetch = () => 0x12;
   cpu.steps();
-  t.is(readMemoryAddress[2], undefined);
-  t.is(readMemoryAddress[3], undefined);
+  t.is(t.context.readMemoryAddress[2], undefined);
+  t.is(t.context.readMemoryAddress[3], undefined);
 });
 
 test('oNEG() should set CARRY flag correctly', (t) => {
@@ -200,8 +198,8 @@ test('oNEG() should set CARRY flag correctly', (t) => {
   cpu.firq();
   cpu.fetch = () => 0x12;
   cpu.steps();
-  t.is(readMemoryAddress[2], undefined);
-  t.is(readMemoryAddress[3], undefined);
+  t.is(t.context.readMemoryAddress[2], undefined);
+  t.is(t.context.readMemoryAddress[3], undefined);
 });
 
 test('set overflow flag (8bit)', (t) => {
@@ -291,7 +289,7 @@ test('flagsNZ16 0x0000', (t) => {
 test('WriteWord(0, 0x1234', (t) => {
   const cpu = t.context;
   cpu.WriteWord(0, 0x1234);
-  t.deepEqual(writeMemoryAddress, [
+  t.deepEqual(t.context.writeMemoryAddress, [
     { address: 0, value: 0x12 },
     { address: 1, value: 0x34 },
   ]);
@@ -300,7 +298,7 @@ test('WriteWord(0, 0x1234', (t) => {
 test('WriteWord(0xFFFF, 0x1234', (t) => {
   const cpu = t.context;
   cpu.WriteWord(0xFFFF, 0x1234);
-  t.deepEqual(writeMemoryAddress, [
+  t.deepEqual(t.context.writeMemoryAddress, [
     { address: 0xFFFF, value: 0x12 },
     { address: 0, value: 0x34 },
   ]);
