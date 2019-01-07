@@ -24,7 +24,6 @@
 - [Hardware - WPS Dot Matrix Machine](#hardware---wps-dot-matrix-machine)
   - [Overview WPC-89](#overview-wpc-89)
   - [CPU board](#cpu-board)
-    - [Memory](#memory)
   - [Power driver board](#power-driver-board)
   - [Sound board (pre DCS)](#sound-board-pre-dcs)
   - [DMD board](#dmd-board)
@@ -220,14 +219,11 @@ Operating system:
 ## CPU board
 - Williams part number A-12742
 - Main CPU: Motorola 6809 (68B09E) at 2 MHz, 8-bit/16-bit CPU and between 128KB and 1MB of EPROM for the game program
+- Total 8KB RAM, battery-backed, format is Big Endian
 - Custom ASIC chip by Williams, mainly a huge mapper
 - Its memory address space is 64 KiB (linear $0000 to $FFFF, 16Bit address)
 - Can address 8KB RAM, 8KB Hardware, 16KB Bank switched Game ROM, 32KB System ROM
 - Game ROM name: U6
-
-### Memory
-- Total 8KB RAM, battery-backed
-- The memory storage format is Big Endian
 
 ## Power driver board
 - Williams part number: A-12697-1
