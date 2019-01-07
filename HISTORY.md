@@ -1,5 +1,8 @@
 # HISTORY
 
+## 7/1/19
+- fixed invalid switch state for "High Speed II"
+
 ## 29/12/18
 - add new game "The Shadow", "Jack·Bot", "Indianapolis 500", "Corvette" and "Red & Ted's Road Show"
 
