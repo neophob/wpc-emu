@@ -3,57 +3,60 @@
 [![Build Status](https://travis-ci.org/neophob/wpc-emu.svg?branch=master)](https://travis-ci.org/neophob/wpc-emu)
 
 - [WPC (Dot Matrix) Emulator](#wpc-dot-matrix-emulator)
-  * [Goal](#goal)
+  - [Goal](#goal)
 - [Implementation Status](#implementation-status)
-  * [Basic](#basic)
-  * [CPU/ASIC Board](#cpu-asic-board)
-  * [Power Driver Board](#power-driver-board)
-  * [Sound Board](#sound-board)
-  * [Dot Matrix Display/DMD Controller Board](#dot-matrix-display-dmd-controller-board)
-  * [Debug UI](#debug-ui)
+  - [Basic](#basic)
+  - [CPU/ASIC Board](#cpuasic-board)
+  - [Power Driver Board](#power-driver-board)
+  - [Sound Board](#sound-board)
+    - [Pre DCS (A-12738)](#pre-dcs-a-12738)
+    - [DCS (A-16917)](#dcs-a-16917)
+    - [DCS-95 (A-20516 and A-20145-2)](#dcs-95-a-20516-and-a-20145-2)
+  - [Dot Matrix Display/DMD Controller Board](#dot-matrix-displaydmd-controller-board)
+  - [Debug UI](#debug-ui)
 - [Development](#development)
-  * [Serve ROM's from localhost](#serve-rom-s-from-localhost)
-  * [Run Watch](#run-watch)
-  * [Tests](#tests)
-  * [Benchmark](#benchmark)
-  * [Tracer / Dumps](#tracer---dumps)
-  * [Build Release](#build-release)
-- [Future ideas](#future-ideas)
+  - [Serve ROM's from localhost](#serve-roms-from-localhost)
+  - [Run Watch](#run-watch)
+  - [Tests](#tests)
+  - [Benchmark](#benchmark)
+  - [Tracer / Dumps](#tracer--dumps)
+  - [Build Release](#build-release)
 - [Hardware - WPS Dot Matrix Machine](#hardware---wps-dot-matrix-machine)
-  * [Overview](#overview)
-  * [CPU board](#cpu-board)
-    + [Memory](#memory)
-  * [Power driver board](#power-driver-board)
-  * [Sound board](#sound-board)
-  * [DMD board](#dmd-board)
+  - [Overview WPC-89](#overview-wpc-89)
+  - [CPU board](#cpu-board)
+    - [Memory](#memory)
+  - [Power driver board](#power-driver-board)
+  - [Sound board (pre DCS)](#sound-board-pre-dcs)
+  - [DMD board](#dmd-board)
 - [Implementation Hints](#implementation-hints)
-  * [Timing](#timing)
-    + [DMD display scanline](#dmd-display-scanline)
-  * [DMD controller](#dmd-controller)
-  * [Security PIC (U22)](#security-pic-u22)
-  * [RAM positions](#ram-positions)
-  * [Boot sequence](#boot-sequence)
-  * [Gameplay](#gameplay)
-  * [To Test](#to-test)
-  * [Error Messages](#error-messages)
-    + [Invalid Switch state](#invalid-switch-state)
-    + [Do not disable checksum check](#do-not-disable-checksum-check)
+  - [Timing](#timing)
+    - [DMD display scanline](#dmd-display-scanline)
+  - [DMD controller](#dmd-controller)
+  - [Security PIC (U22)](#security-pic-u22)
+  - [RAM positions](#ram-positions)
+  - [Boot sequence](#boot-sequence)
+  - [Gameplay](#gameplay)
+  - [To Test](#to-test)
+  - [Error Messages](#error-messages)
+    - [Invalid Switch state](#invalid-switch-state)
+    - [Do not disable checksum check](#do-not-disable-checksum-check)
 - [References](#references)
-  * [Terms](#terms)
-  * [WPC](#wpc)
-  * [DMD](#dmd)
-  * [CPU](#cpu)
-  * [Sound Chip](#sound-chip)
-  * [ROM](#rom)
-  * [Custom Power Driver](#custom-power-driver)
-  * [Misc](#misc)
+  - [Terms](#terms)
+  - [ROM Revision / Software Version Information](#rom-revision--software-version-information)
+  - [WPC](#wpc)
+  - [DMD](#dmd)
+  - [CPU](#cpu)
+  - [Sound Chip](#sound-chip)
+  - [ROM](#rom)
+  - [Custom Power Driver](#custom-power-driver)
+  - [Misc](#misc)
 - [Game List](#game-list)
-  * [WPC (Alphanumeric)](#wpc-alphanumeric)
-  * [WPC (Dot Matrix)](#wpc-dot-matrix)
-  * [WPC (Fliptronics)](#wpc-fliptronics)
-  * [WPC (DCS)](#wpc-dcs)
-  * [WPC-S (Security)](#wpc-s-security)
-  * [WPC-95](#wpc-95)
+  - [WPC (Alphanumeric)](#wpc-alphanumeric)
+  - [WPC (Dot Matrix)](#wpc-dot-matrix)
+  - [WPC (Fliptronics)](#wpc-fliptronics)
+  - [WPC (DCS)](#wpc-dcs)
+  - [WPC-S (Security)](#wpc-s-security)
+  - [WPC-95](#wpc-95)
 
 ## Goal
 
@@ -176,10 +179,6 @@ To build a new release:
 - Make sure unit tests and integration tests still pass
 - Run tracer dumps to compare against older implementations
 - merge release branch
-
-# Future ideas
-- Hook it up to a Virtual Pinball / Pinball frontend
-- Hook it up to a broken Pinball machine, replace whole electronics with a RPI
 
 # Hardware - WPS Dot Matrix Machine
 
@@ -623,6 +622,27 @@ Solution:
 - Drain: The common term used to refer to the area beneath the flippers. If the ball rolls into the drain area via an outlane or between the flippers, it will be lost. Also refers to the act of losing a ball in this manner.
 - Plunger: The object used to launch a ball onto the playfield
 - HSTD: High Score to Date
+
+## ROM Revision / Software Version Information
+
+Source: http://www.planetarypinball.com/mm5/Williams/tech/sys11roms.html
+
+System 11 games have the software revision identified with either an "L" or "P" followed by a revision number, such as L-1 or P-1. The "L" signifies a production ("Level") release, while the "P" signifies a Prototype version of software. Sometimes contained within the revision label is a version identifier, such as LX-1 or LA-1. The possible version identifiers are the described below.
+
+Not all versions exist for all games.
+
+* No suffix: Unrestricted. This version supports all text languages, can be priced for any country, and contains the custom pricing editor.
+* A: USA and Canada (domestic). This version does not contain the custom pricing editor, and does USA and Canada pricing modes only.
+* X: Export. This version contains the custom pricing editor, as well as the built-in pricing presets for all countries.
+* R: Regular. This version does all pricing modes, as well as the custom pricing editor, but does not contain French text.
+* F: France. This version is the same as the R version, with the addition of French text.
+* B: Belgium/Switzerland. This version contains French text, does not have the custom pricing editor, and does Belgium, Switzerland, and Canada pricing modes only.
+* G: Germany. This version contains support for special German functionality, such as German speech.
+
+More, unofficial suffix:
+* F: usually "Family" or "Family-Friendly" - but in the case of Party Zone, the F is to specify "Fliptronic Flipper Board" rather than the standard code.
+* H: Home
+* LD: LED anti ghosting versions
 
 ## WPC
 
