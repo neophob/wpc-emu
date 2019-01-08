@@ -2,6 +2,72 @@
 
 Run `npm run benchmark` to run the CPU benchmark.
 
+## WPC-EMU v0.8.10
+
+- used `deoptigate` (https://github.com/thlorenz/deoptigate - `deoptigate test/integration/benchmark.js`) to analyse unoptimised code
+
+### Node v8.11.2
+
+```
+BENCHMARK START, ROM: /Users/michaelvogt/_code/github/wpc-emu/rom.freewpc/ft20_32.rom
+Ticks to execute: 2000000 => CPU REALTIME: 1000ms (CPU HZ: 2000000)
+  tickSteps	durationMs	missed IRQ	missed FIRQ	ticksExecuted
+  1		372		975		0		2000006
+  2		133		975		0		2000006
+  4		116		975		0		2000006
+  5		121		975		0		2000006
+  8		123		975		0		2000006
+  10		116		975		0		2000006
+  12		119		975		0		2000011
+  16		115		975		0		2000011
+  32		115		975		0		2000029
+  64		112		975		0		2000043
+  256		115		975		0		2000174
+  390		110		975		0		2000207
+  393		120		975		0		2000138
+  512		114		975		0		2000418
+  1024		114		975		0		2000930
+  2048		111		975		0		2001113
+  4096		111		488		0		2004026
+  8192		115		244		0		2007680
+  16384		115		122		0		2015481
+  32768		116		61		0		2031779
+  65536		116		30		0		2031695
+```
+
+#### MacBook Pro
+
+### Node v10.1.0
+
+#### MacBook Pro
+
+```
+BENCHMARK START, ROM: /Users/michaelvogt/_code/github/wpc-emu/rom.freewpc/ft20_32.rom
+Ticks to execute: 2000000 => CPU REALTIME: 1000ms (CPU HZ: 2000000)
+  tickSteps	durationMs	missed IRQ	missed FIRQ	ticksExecuted
+  1		276		975		0		2000006
+  2		220		975		0		2000006
+  4		118		975		0		2000006
+  5		125		975		0		2000006
+  8		114		975		0		2000006
+  10		110		975		0		2000006
+  12		111		975		0		2000011
+  16		110		975		0		2000011
+  32		108		975		0		2000029
+  64		107		975		0		2000043
+  256		108		975		0		2000174
+  390		113		975		0		2000207
+  393		112		975		0		2000138
+  512		107		975		0		2000418
+  1024		107		975		0		2000930
+  2048		107		975		0		2001113
+  4096		106		488		0		2004026
+  8192		109		244		0		2007680
+  16384		106		122		0		2015481
+  32768		111		61		0		2031779
+  65536		113		30		0		2031695
+```
+
 ## WPC-EMU v0.6.0
 
 - Converted cpu6809 code to a class - needed to have multiple instances of the CPU. This increased the duration to execute 2 million instructions.

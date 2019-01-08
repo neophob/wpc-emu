@@ -21,28 +21,28 @@ test.beforeEach((t) => {
 test('should get ui data', (t) => {
   const cpuBoard = t.context;
   cpuBoard.reset();
-  const result = cpuBoard.getUiState();
-  t.is(result.ticks, 0);
-  t.is(result.missedIrqCall, 0);
-  t.is(result.missedFirqCall, 0);
-  t.is(result.irqCount, 0);
-  t.is(result.firqCount, 0);
-  t.is(result.nmiCount, 0);
+  const result = cpuBoard.getState();
+  t.is(result.cpuState.tickCount, 0);
+  t.is(result.cpuState.missedIRQ, 0);
+  t.is(result.cpuState.missedFIRQ, 0);
+  t.is(result.cpuState.irqCount, 0);
+  t.is(result.cpuState.firqCount, 0);
+  t.is(result.cpuState.nmiCount, 0);
   t.is(result.protectedMemoryWriteAttempts, 0);
 });
 
 test('should start cpu board', (t) => {
   const cpuBoard = t.context;
   cpuBoard.start();
-  const result = cpuBoard.getUiState();
-  t.is(result.ticks, 0);
+  const result = cpuBoard.getState();
+  t.is(result.cpuState.tickCount, 0);
 });
 
 test('should change cabinet input', (t) => {
   const cpuBoard = t.context;
   cpuBoard.start();
   cpuBoard.setCabinetInput(1);
-  const state = cpuBoard.getUiState();
+  const state = cpuBoard.getState();
   const result = state.asic.wpc.inputState;
   t.is(result[0], 1);
 });
@@ -52,7 +52,7 @@ test('should change switch input', (t) => {
   cpuBoard.start();
   cpuBoard.setInput(11);
   cpuBoard.setInput(13);
-  const state = cpuBoard.getUiState();
+  const state = cpuBoard.getState();
   const result = state.asic.wpc.inputState;
   t.is(result[1], 5);
 });
@@ -61,7 +61,7 @@ test('should change fliptronice input', (t) => {
   const cpuBoard = t.context;
   cpuBoard.start();
   cpuBoard.setFliptronicsInput('F1');
-  const state = cpuBoard.getUiState();
+  const state = cpuBoard.getState();
   const result = state.asic.wpc.inputState;
   t.is(result[9], 1);
 });

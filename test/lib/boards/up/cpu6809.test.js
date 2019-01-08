@@ -445,3 +445,12 @@ test('TFREXG - exchange b <-> DP', (t) => {
   t.is(cpu.regB, 0x7F);
   t.is(cpu.regDP, 0xFF);
 });
+
+test('get and set state', (t) => {
+  const cpu = t.context;
+  cpu.regA = 0x44;
+  const state = cpu.getState();
+  cpu.regA = 0;
+  cpu.setState(state);
+  t.is(cpu.regA, 0x44);
+});

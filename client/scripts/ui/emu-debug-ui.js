@@ -49,7 +49,7 @@ colorLut.set('WHITE', 'rgba(255,255,255,');
 colorLut.set('GREEN', 'rgba(0,255,0,');
 colorLut.set('BLACK', 'rgba(0,0,0,0)');
 
-function updateCanvas(emuState, cpuState) {
+function updateCanvas(emuState, cpuRunningState) {
   if (!emuState) {
     return;
   }
@@ -59,14 +59,14 @@ function updateCanvas(emuState, cpuState) {
 
   canvas.fillStyle = COLOR_DMD[2];
   canvas.fillText('ROM: ' + emuState.romFileName, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 10);
-  canvas.fillText('CPU TICKS: ' + emuState.ticks, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 20);
+  canvas.fillText('CPU TICKS: ' + emuState.cpuState.tickCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 20);
   canvas.fillText('CPU TICKS/ms: ' + emuState.opsMs, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 30);
-  canvas.fillText('CPU STATE: ' + cpuState, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 40);
-  canvas.fillText('IRQ CALLS/MISSED: ' + emuState.irqCount + '/' + emuState.missedIrqCall,
+  canvas.fillText('CPU STATE: ' + cpuRunningState, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 40);
+  canvas.fillText('IRQ CALLS/MISSED: ' + emuState.cpuState.irqCount + '/' + emuState.cpuState.missedIRQ,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
-  canvas.fillText('FIRQ CALLS/MISSED: ' + emuState.firqCount + '/' + emuState.missedFirqCall,
+  canvas.fillText('FIRQ CALLS/MISSED: ' + emuState.cpuState.firqCount + '/' + emuState.cpuState.missedFIRQ,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
-  canvas.fillText('NMI CALLS: ' + emuState.nmiCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 70);
+  canvas.fillText('NMI CALLS: ' + emuState.cpuState.nmiCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 70);
 
   const diagnosticLed = emuState.asic.wpc.diagnosticLed ? 1 : 0;
   const activePage = emuState.asic.dmd.activepage;
@@ -75,12 +75,12 @@ function updateCanvas(emuState, cpuState) {
   canvas.fillText('ACTIVE ROM BANK: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 100);
   canvas.fillText('WRITE TO LOCKED MEM: ' + emuState.protectedMemoryWriteAttempts, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 110);
 
-  canvas.fillText('SND CPU TICK: ' + emuState.asic.sound.ticks, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 120);
-  canvas.fillText('SND IRQ CALLS/MISSED: ' + emuState.asic.sound.irqCount + '/' + emuState.asic.sound.missedIrqCall,
+  canvas.fillText('SND CPU TICK: ' + emuState.asic.sound.cpuState.tickCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 120);
+  canvas.fillText('SND IRQ CALLS/MISSED: ' + emuState.asic.sound.cpuState.irqCount + '/' + emuState.asic.sound.cpuState.missedIRQ,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 130);
-  canvas.fillText('SND FIRQ CALLS/MISSED: ' + emuState.asic.sound.firqCount + '/' + emuState.asic.sound.missedFirqCall,
+  canvas.fillText('SND FIRQ CALLS/MISSED: ' + emuState.asic.sound.cpuState.firqCount + '/' + emuState.asic.sound.cpuState.missedFIRQ,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 140);
-  canvas.fillText('SND NMI CALLS: ' + emuState.asic.sound.nmiCount,
+  canvas.fillText('SND NMI CALLS: ' + emuState.asic.sound.cpuState.nmiCount,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 150);
   canvas.fillText('SND VOLUME: ' + emuState.asic.sound.volume, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 160);
 

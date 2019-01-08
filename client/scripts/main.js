@@ -6,6 +6,7 @@ import '../styles/client.css';
 import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher';
 import { initialiseEmulator } from './lib/emulator';
 import { initialiseActions } from './lib/initialise';
+import { loadRam, saveRam, } from './lib/ramState';
 import { AudioOutput } from './lib/sound';
 import * as gamelist from './db/gamelist';
 import { populateControlUiView } from './ui/control-ui';
@@ -60,7 +61,9 @@ function initialiseEmu(gameEntry) {
         wpcSystem,
         pauseEmu,
         resumeEmu,
-        romSelection
+        romSelection,
+        saveState,
+        loadState,
       };
       wpcSystem.registerAudioConsumer(dacCallback);
       wpcSystem.start();
@@ -72,6 +75,18 @@ function initialiseEmu(gameEntry) {
       console.error('FAILED to load ROM:', error.message);
       console.log(error.stack);
     });
+}
+
+function saveState() {
+  pauseEmu();
+  saveRam(wpcSystem);
+  resumeEmu();
+}
+
+function loadState() {
+  pauseEmu();
+  loadRam(wpcSystem);
+  resumeEmu();
 }
 
 function romSelection(romName) {
@@ -106,8 +121,8 @@ initEmuWithGameName(INITIAL_GAME);
 function step() {
   wpcSystem.executeCycle(TICKS_PER_CALL, TICKS_PER_STEP);
   const emuState = wpcSystem.getUiState();
-  const cpuState = intervalId ? 'running' : 'paused';
-  emuDebugUi.updateCanvas(emuState, cpuState);
+  const cpuRunningState = intervalId ? 'running' : 'paused';
+  emuDebugUi.updateCanvas(emuState, cpuRunningState);
   intervalId = requestAnimationFrame(step);
 }
 
