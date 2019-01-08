@@ -173,8 +173,8 @@ against older implementations. It also contains MAME dumps to compare the curren
 To build a new release:
 - Build release branch
 - Bump `package.json` version files
-- Run `build:production` in the root directory and the `client` directory
-- output is available in the `./dist` directory
+- Run `npm run build:production` in the root directory
+- output is available in the `./dist` directory, final assets for github upload in the `./docs` directory
 - Make sure unit tests and integration tests still pass
 - Run tracer dumps to compare against older implementations
 - merge release branch
