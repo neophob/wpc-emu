@@ -6,6 +6,7 @@
     <button class="button-black button-small black" id="wpc-release-info">WPC-EMU v0.X.Y</button>
     <button class="button-black button-outline button-small black" onclick="location.href='https://github.com/neophob/wpc-emu'">GITHUB</button>
     <button class="button-black button-outline button-small black" onclick="location.href='https://twitter.com/neophob'">TWITTER</button>
+    <button class="button-black button-outline button-small black" onclick="wpcInterface.wpcSystem.toggleMidnightMadnessMode();">MIDNIGHT MADNESS!</button>
   </div>
 </div>
 
