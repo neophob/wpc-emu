@@ -3,15 +3,11 @@
 // loads and store the state of a specific game
 export { loadRam, saveRam };
 
-const RAM_SIZE = 1024 * 8;
-
 function convertObjectUint8ArrayToRegularArray(object) {
   for (let [key, value] of Object.entries(object)) {
-    const type = typeof value;
-
     if (value instanceof Uint8Array) {
       object[key] = Array.from(value);
-    } else if (type === 'object') {
+    } else if (typeof value === 'object') {
       convertObjectUint8ArrayToRegularArray(value);
     }
   }

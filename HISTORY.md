@@ -1,7 +1,7 @@
 # HISTORY
 
 ## 8/1/19
-- added option to save and load memory state of a game
+- added option to save and load the emulator state (cpu ram, video ram, lamp, switches, solenoids, gi, cpu) of a game
 
 ## 7/1/19
 - fixed invalid switch state for "High Speed II"
