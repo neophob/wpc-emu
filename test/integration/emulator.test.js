@@ -57,8 +57,8 @@ test.serial('Smoketest, run emulator with rom ft20_32.rom', (t) => {
   t.is(uiState.asic.dmd.activepage, 2);
   t.is(uiState.asic.wpc.activeRomBank, 24);
   t.is(uiState.asic.wpc.diagnosticLedToggleCount, 232);
-  console.log('ticks', uiState.ticks);
-  const ticksInRange = uiState.ticks > 32900000 && uiState.ticks < 33000000;
+  console.log('ticks', uiState.cpuState.tickCount);
+  const ticksInRange = uiState.cpuState.tickCount > 32900000 && uiState.cpuState.tickCount < 33000000;
   t.is(ticksInRange, true);
 
   wpcSystem.executeCycle();
