@@ -3,57 +3,59 @@
 [![Build Status](https://travis-ci.org/neophob/wpc-emu.svg?branch=master)](https://travis-ci.org/neophob/wpc-emu)
 
 - [WPC (Dot Matrix) Emulator](#wpc-dot-matrix-emulator)
-  * [Goal](#goal)
+  - [Goal](#goal)
 - [Implementation Status](#implementation-status)
-  * [Basic](#basic)
-  * [CPU/ASIC Board](#cpu-asic-board)
-  * [Power Driver Board](#power-driver-board)
-  * [Sound Board](#sound-board)
-  * [Dot Matrix Display/DMD Controller Board](#dot-matrix-display-dmd-controller-board)
-  * [Debug UI](#debug-ui)
+  - [Basic](#basic)
+  - [CPU/ASIC Board](#cpuasic-board)
+  - [Power Driver Board](#power-driver-board)
+  - [Sound Board](#sound-board)
+    - [Pre DCS (A-12738)](#pre-dcs-a-12738)
+    - [DCS (A-16917)](#dcs-a-16917)
+    - [DCS-95 (A-20516 and A-20145-2)](#dcs-95-a-20516-and-a-20145-2)
+  - [Dot Matrix Display/DMD Controller Board](#dot-matrix-displaydmd-controller-board)
+  - [Debug UI](#debug-ui)
 - [Development](#development)
-  * [Serve ROM's from localhost](#serve-rom-s-from-localhost)
-  * [Run Watch](#run-watch)
-  * [Tests](#tests)
-  * [Benchmark](#benchmark)
-  * [Tracer / Dumps](#tracer---dumps)
-  * [Build Release](#build-release)
-- [Future ideas](#future-ideas)
+  - [Serve ROM's from localhost](#serve-roms-from-localhost)
+  - [Run Watch](#run-watch)
+  - [Tests](#tests)
+  - [Benchmark](#benchmark)
+  - [Tracer / Dumps](#tracer--dumps)
+  - [Build Release](#build-release)
 - [Hardware - WPS Dot Matrix Machine](#hardware---wps-dot-matrix-machine)
-  * [Overview](#overview)
-  * [CPU board](#cpu-board)
-    + [Memory](#memory)
-  * [Power driver board](#power-driver-board)
-  * [Sound board](#sound-board)
-  * [DMD board](#dmd-board)
+  - [Overview WPC-89](#overview-wpc-89)
+  - [CPU board](#cpu-board)
+  - [Power driver board](#power-driver-board)
+  - [Sound board (pre DCS)](#sound-board-pre-dcs)
+  - [DMD board](#dmd-board)
 - [Implementation Hints](#implementation-hints)
-  * [Timing](#timing)
-    + [DMD display scanline](#dmd-display-scanline)
-  * [DMD controller](#dmd-controller)
-  * [Security PIC (U22)](#security-pic-u22)
-  * [RAM positions](#ram-positions)
-  * [Boot sequence](#boot-sequence)
-  * [Gameplay](#gameplay)
-  * [To Test](#to-test)
-  * [Error Messages](#error-messages)
-    + [Invalid Switch state](#invalid-switch-state)
-    + [Do not disable checksum check](#do-not-disable-checksum-check)
+  - [Timing](#timing)
+    - [DMD display scanline](#dmd-display-scanline)
+  - [DMD controller](#dmd-controller)
+  - [Security PIC (U22)](#security-pic-u22)
+  - [RAM positions](#ram-positions)
+  - [Boot sequence](#boot-sequence)
+  - [Gameplay](#gameplay)
+  - [To Test](#to-test)
+  - [Error Messages](#error-messages)
+    - [Invalid Switch state](#invalid-switch-state)
+    - [Do not disable checksum check](#do-not-disable-checksum-check)
 - [References](#references)
-  * [Terms](#terms)
-  * [WPC](#wpc)
-  * [DMD](#dmd)
-  * [CPU](#cpu)
-  * [Sound Chip](#sound-chip)
-  * [ROM](#rom)
-  * [Custom Power Driver](#custom-power-driver)
-  * [Misc](#misc)
+  - [Terms](#terms)
+  - [ROM Revision / Software Version Information](#rom-revision--software-version-information)
+  - [WPC](#wpc)
+  - [DMD](#dmd)
+  - [CPU](#cpu)
+  - [Sound Chip](#sound-chip)
+  - [ROM](#rom)
+  - [Custom Power Driver](#custom-power-driver)
+  - [Misc](#misc)
 - [Game List](#game-list)
-  * [WPC (Alphanumeric)](#wpc-alphanumeric)
-  * [WPC (Dot Matrix)](#wpc-dot-matrix)
-  * [WPC (Fliptronics)](#wpc-fliptronics)
-  * [WPC (DCS)](#wpc-dcs)
-  * [WPC-S (Security)](#wpc-s-security)
-  * [WPC-95](#wpc-95)
+  - [WPC (Alphanumeric)](#wpc-alphanumeric)
+  - [WPC (Dot Matrix)](#wpc-dot-matrix)
+  - [WPC (Fliptronics)](#wpc-fliptronics)
+  - [WPC (DCS)](#wpc-dcs)
+  - [WPC-S (Security)](#wpc-s-security)
+  - [WPC-95](#wpc-95)
 
 ## Goal
 
@@ -96,15 +98,26 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - support Fliptronics flipper ½
 
 ## Sound Board
-- load pre DCS sound ROM files ✓
-- load DCS sound ROM files ✗
 - Bank Switching ✓
 - Resample audio to 44.1khz ½
 - emulate 6809 CPU ✓
+- emulate DAC ½
+
+### Pre DCS (A-12738)
+- 17 Games use this board
+- load pre DCS sound ROM files ✓
 - emulate YM2151 FM Generator ½
 - emulate HC-55536 CVSD ✗ (speech synth)
 - emulate MC6821 PIA ✓
-- emulate DAC ✓
+
+### DCS (A-16917)
+- 19 Games use this board
+- load DCS sound ROM files ✗
+- emulate Analog Devices ADSP2105, clocked at 10 MHz, DMA-driven DAC, outputting in mono ✗
+
+### DCS-95 (A-20516 and A-20145-2)
+- 15 Games use this board
+- compared to A-20516, this board allows for 16MB of data instead of 8MB to be addressed ✗
 
 ## Dot Matrix Display/DMD Controller Board
 - Page Selection ✓
@@ -160,25 +173,22 @@ against older implementations. It also contains MAME dumps to compare the curren
 To build a new release:
 - Build release branch
 - Bump `package.json` version files
-- Run `build:production` in the root directory and the `client` directory
-- output is available in the `./dist` directory
+- Run `npm run build:production` in the root directory
+- output is available in the `./dist` directory, final assets for github upload in the `./docs` directory
 - Make sure unit tests and integration tests still pass
 - Run tracer dumps to compare against older implementations
 - merge release branch
 
-# Future ideas
-- Hook it up to a Virtual Pinball / Pinball frontend
-- Hook it up to a broken Pinball machine, replace whole electronics with a RPI
-
 # Hardware - WPS Dot Matrix Machine
 
-## Overview
+## Overview WPC-89
 
 ```
 
     +-----------------------+   +-------------------------+
     |                       |   |                         |
     |  CPU BOARD / A-12742  |   |  SOUND BOARD / A-12738  |
+    |                       |   |           (DCS A-16917) |
     |  -------------------  |   |  ---------------------  |
     |                       |   |                         |
     |  - MC 6809 CPU@2MHz   |   |  - MC 6809 CPU@2MHz     |
@@ -209,19 +219,16 @@ Operating system:
 ## CPU board
 - Williams part number A-12742
 - Main CPU: Motorola 6809 (68B09E) at 2 MHz, 8-bit/16-bit CPU and between 128KB and 1MB of EPROM for the game program
+- Total 8KB RAM, battery-backed, format is Big Endian
 - Custom ASIC chip by Williams, mainly a huge mapper
 - Its memory address space is 64 KiB (linear $0000 to $FFFF, 16Bit address)
 - Can address 8KB RAM, 8KB Hardware, 16KB Bank switched Game ROM, 32KB System ROM
 - Game ROM name: U6
 
-### Memory
-- Total 8KB RAM, battery-backed
-- The memory storage format is Big Endian
-
 ## Power driver board
 - Williams part number: A-12697-1
 
-## Sound board
+## Sound board (pre DCS)
 - Williams part number: A-12738 (aka. pre-DCS sound)
 - Mono output, Sample rate 11KHz, 25 watts power, 8 ohm
 - intelligent and have processors running their own operating system dedicated to sound tasks
@@ -612,6 +619,27 @@ Solution:
 - Plunger: The object used to launch a ball onto the playfield
 - HSTD: High Score to Date
 
+## ROM Revision / Software Version Information
+
+Source: http://www.planetarypinball.com/mm5/Williams/tech/sys11roms.html
+
+System 11 games have the software revision identified with either an "L" or "P" followed by a revision number, such as L-1 or P-1. The "L" signifies a production ("Level") release, while the "P" signifies a Prototype version of software. Sometimes contained within the revision label is a version identifier, such as LX-1 or LA-1. The possible version identifiers are the described below.
+
+Not all versions exist for all games.
+
+* No suffix: Unrestricted. This version supports all text languages, can be priced for any country, and contains the custom pricing editor.
+* A: USA and Canada (domestic). This version does not contain the custom pricing editor, and does USA and Canada pricing modes only.
+* X: Export. This version contains the custom pricing editor, as well as the built-in pricing presets for all countries.
+* R: Regular. This version does all pricing modes, as well as the custom pricing editor, but does not contain French text.
+* F: France. This version is the same as the R version, with the addition of French text.
+* B: Belgium/Switzerland. This version contains French text, does not have the custom pricing editor, and does Belgium, Switzerland, and Canada pricing modes only.
+* G: Germany. This version contains support for special German functionality, such as German speech.
+
+More, unofficial suffix:
+* F: usually "Family" or "Family-Friendly" - but in the case of Party Zone, the F is to specify "Fliptronic Flipper Board" rather than the standard code.
+* H: Home
+* LD: LED anti ghosting versions
+
 ## WPC
 
 - http://bcd.github.io/freewpc/The-WPC-Hardware.html
@@ -639,6 +667,7 @@ Solution:
 - http://www.cx5m.net/fmunit.htm
 - https://github.com/apollolux/ym2413-js/blob/master/ym2413.js
 - https://github.com/vgm/node-vgmplay/blob/master/res/js/vgm/ym2151.js (WPC-EMU use this)
+- https://en.wikipedia.org/wiki/Digital_Compression_System
 
 ## ROM
 - http://www.ipdb.org/

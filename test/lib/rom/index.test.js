@@ -25,9 +25,9 @@ test('romParser should parse roms', (t) => {
   return romParser
     .parse(romData)
     .then((result) => {
-      t.is(result.concatinatedSoundRom[0x000000], 44);
-      t.is(result.concatinatedSoundRom[0x080000], 33);
-      t.is(result.concatinatedSoundRom[0x100000], 22);
+      t.is(result.concatenatedSoundRom[0x000000], 44);
+      t.is(result.concatenatedSoundRom[0x080000], 33);
+      t.is(result.concatenatedSoundRom[0x100000], 22);
       t.is(result.gameRom[0x000000], 11);
       t.is(result.fileName, 'Unknown');
       t.is(result.romSizeMBit, 2);

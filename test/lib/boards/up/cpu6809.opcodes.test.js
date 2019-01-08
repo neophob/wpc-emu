@@ -535,12 +535,13 @@ for (let offset = 0x70; offset < 0x80; offset++) {
     offset: 0xF1, register: 'regS',
     expectedResult: 12, expectedTicks: 6, expectedReturn: 0, expectedMemoryRead: [ 0, 10, 11 ]
   },
-].forEach((testData) => {
+].forEach((testData, index) => {
   const hexValue = '0x' + testData.offset.toString(16).toUpperCase();
   const initialValue = testData.initialValue !== undefined ? (' initialValue:' + testData.initialValue) : '';
   const comment = testData.comment ? ' ' + testData.comment + ',' : '';
   const description = testData.register + ': ' + hexValue + comment + initialValue;
-  test('postbyte complex ' + description, (t) => {
+
+  test('test: ' + index + ', postbyte complex ' + description, (t) => {
     const cpu = t.context.cpu;
     t.context.readMemoryAddress = [ testData.offset ];
     cpu.set('flags', 0);

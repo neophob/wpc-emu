@@ -1,6 +1,6 @@
 {
   "name": "wpc-emu",
-  "version": "0.8.9",
+  "version": "0.8.10",
   "description": "WPC pinball machine emu",
   "main": "index.js",
   "engines": {
@@ -9,19 +9,19 @@
   "author": "Michael Vogt",
   "license": "ISC",
   "devDependencies": {
-    "ava": "^0.25.0",
+    "ava": "^1.0.1",
     "copy-webpack-plugin": "^4.6.0",
     "http-server": "^0.11.1",
     "nyc": "^13.1.0",
     "remove-debug-loader": "^0.2.6",
-    "sinon": "^6.3.5",
-    "terser-webpack-plugin": "^1.1.0",
-    "webpack": "^4.27.1",
-    "webpack-cli": "^3.1.2",
+    "sinon": "^7.2.2",
+    "terser-webpack-plugin": "^1.2.1",
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.2.1",
     "xo": "^0.23.0"
   },
   "dependencies": {
-    "debug": "^4.1.0"
+    "debug": "^4.1.1"
   },
   "xo": {
     "envs": [
