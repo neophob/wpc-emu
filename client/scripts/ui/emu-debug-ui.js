@@ -54,8 +54,8 @@ function updateCanvas(emuState, cpuRunningState) {
     return;
   }
   canvas.fillStyle = '#000';
-  canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 245, 165);
-  canvas.fillRect(LEFT_X_OFFSET, YPOS_DMD_DATA, 150, 40);
+  canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 245, 175);
+  canvas.fillRect(LEFT_X_OFFSET, YPOS_DMD_DATA, 170, 40);
 
   canvas.fillStyle = COLOR_DMD[2];
   canvas.fillText('ROM: ' + emuState.romFileName, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 10);
@@ -69,7 +69,6 @@ function updateCanvas(emuState, cpuRunningState) {
   canvas.fillText('NMI CALLS: ' + emuState.cpuState.nmiCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 70);
 
   const diagnosticLed = emuState.asic.wpc.diagnosticLed ? 1 : 0;
-  const activePage = emuState.asic.dmd.activepage;
   canvas.fillText('DIAGLED STATE: ' + diagnosticLed, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 80);
   canvas.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 90);
   canvas.fillText('ACTIVE ROM BANK: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 100);
@@ -83,10 +82,10 @@ function updateCanvas(emuState, cpuRunningState) {
   canvas.fillText('SND NMI CALLS: ' + emuState.asic.sound.cpuState.nmiCount,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 150);
   canvas.fillText('SND VOLUME: ' + emuState.asic.sound.volume, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 160);
+  canvas.fillText('TIME: ' + emuState.asic.wpc.time, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 170);
 
-  canvas.fillText('DMD LOW PAGE: ' + emuState.asic.dmd.lowpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
-  canvas.fillText('DMD HIGH PAGE: ' + emuState.asic.dmd.highpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
-  canvas.fillText('DMD ACTIVE PAGE: ' + activePage, LEFT_X_OFFSET, YPOS_DMD_DATA + 30);
+  canvas.fillText('DMD PAGE MAP: ' + emuState.asic.dmd.dmdPageMapping, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
+  canvas.fillText('DMD ACTIVE PAGE: ' + emuState.asic.dmd.activepage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
 
   if (emuState.asic.sound.ram) {
     drawMemRegion(emuState.asic.sound.ram, LEFT_X_OFFSET + 125, YPOS_MEM_DATA, 120);

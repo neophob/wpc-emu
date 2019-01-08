@@ -655,6 +655,16 @@ Only these games have it:
 
 On some games (like Congo) it can be enabled/disabled in its settings, 'Special mode' has to be on.
 
+Then when you are playing and the pinball machines internal clock reaches midnight, the game stops (it's like the power has been cut) and after a few seconds says 'midnight madness' on the display (on most games there's also a special sound indication).
+For one minute you get a multiball.. some games display additional graphics on the display when targets are hit.
+
+Midnight Madness was the idea of Dwight Sullivan, who had a dream of seeing every game in an arcade light up with this mode at the exact same time. That also meant asking other programmers to put the MM routine into their games. Some did and some didn't.
+
+When you start a game on Junk Yard right before the clock reaches midnight, the devil will say 'interesting' at the start of the game, instead of the regular 'Crazy Bob' opening scene.
+
+Note Theatre of Magic does not have this Midnight Madness special mode. Midnight Madness is the name of a regular mode in the game that can be started on every game played..
+
+
 ## WPC
 
 - http://bcd.github.io/freewpc/The-WPC-Hardware.html
