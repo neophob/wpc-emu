@@ -4,6 +4,8 @@ Run `npm run benchmark` to run the CPU benchmark.
 
 ## WPC-EMU v0.8.10
 
+- used `deoptigate` (https://github.com/thlorenz/deoptigate - `deoptigate test/integration/benchmark.js`) to analyse unoptimised code
+
 ### Node v8.11.2
 
 ```
