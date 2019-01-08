@@ -42,6 +42,7 @@
 - [References](#references)
   - [Terms](#terms)
   - [ROM Revision / Software Version Information](#rom-revision--software-version-information)
+  - [Midnight Madness Mode](#midnight-madness-mode)
   - [WPC](#wpc)
   - [DMD](#dmd)
   - [CPU](#cpu)
@@ -620,7 +621,6 @@ Solution:
 - HSTD: High Score to Date
 
 ## ROM Revision / Software Version Information
-
 Source: http://www.planetarypinball.com/mm5/Williams/tech/sys11roms.html
 
 System 11 games have the software revision identified with either an "L" or "P" followed by a revision number, such as L-1 or P-1. The "L" signifies a production ("Level") release, while the "P" signifies a Prototype version of software. Sometimes contained within the revision label is a version identifier, such as LX-1 or LA-1. The possible version identifiers are the described below.
@@ -639,6 +639,21 @@ More, unofficial suffix:
 * F: usually "Family" or "Family-Friendly" - but in the case of Party Zone, the F is to specify "Fliptronic Flipper Board" rather than the standard code.
 * H: Home
 * LD: LED anti ghosting versions
+
+## Midnight Madness Mode
+Source: http://www.flippers.be/basics/101_midnight_madness.html
+
+Midnight Madness is a special mode that's only available on a few Williams pinball machines. The name reveals what it is: a special mode that only starts when the game is played at midnight..
+
+Only these games have it:
+- Congo
+- Dirty Harry
+- Johnny Mnemonic
+- Junk Yard
+- NBA Fastbreak
+- Who Dunnit
+
+On some games (like Congo) it can be enabled/disabled in its settings, 'Special mode' has to be on.
 
 ## WPC
 
