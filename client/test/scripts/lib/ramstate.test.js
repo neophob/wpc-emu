@@ -3,37 +3,77 @@
 import test from 'ava';
 import { loadRam, saveRam } from '../../../scripts/lib/ramstate';
 
-test('initialiseActions, should return resolved promise', (t) => {
-  return initialiseActions()
-    .then((value) => {
-      t.is(value, undefined);
-    });
+test.beforeEach((t) => {
+  function storageMock() {
+    var storage = {};
+
+    return {
+      setItem: function(key, value) {
+        storage[key] = value || '';
+      },
+      getItem: function(key) {
+        return key in storage ? storage[key] : null;
+      },
+    };
+  }
+
+  const localStorage = storageMock();
+  global.window = {
+    localStorage,
+  }
+
+  let state;
+
+  const mockWpcSystem = {
+    cpuBoard: {
+      romFileName: 'mockedName',
+      getState: () => {
+        return {
+          foo: 'bar',
+          nested: {
+            data: 123,
+            moreNested: {
+              thats: 'deep',
+            }
+          },
+          convertMe: Uint8Array.from([1,2,3]),
+        }
+      },
+      setState: (_state) => { state = _state},
+    }
+  };
+
+  t.context = {
+    localStorage: global.window.localStorage,
+    mockWpcSystem,
+    spySetState: () => {
+      return state;
+    },
+  };
 });
 
-test('initialiseActions, should init closedSwitches', (t) => {
-  const mockWpcSystem = t.context.mockWpcSystem;
-  const initObject = {
-    closedSwitches: [ 16, 17, 18 ],
-  };
-  return initialiseActions(initObject, mockWpcSystem)
-    .then(() => {
-      t.deepEqual(t.context.data.inputData, initObject.closedSwitches);
-    });
+test('loadRam, should ignore non existent ram state', (t) => {
+  const loadedEntry = loadRam(t.context.mockWpcSystem);
+  t.is(loadedEntry, false);
 });
 
-test('initialiseActions, should init initialAction', (t) => {
-  const mockWpcSystem = t.context.mockWpcSystem;
-  const initObject = {
-    initialAction: [
-      {
-        delayMs: 1000,
-        source: 'cabinetInput',
-        value: 16
-      }
-    ],
-  };
-  return initialiseActions(initObject, mockWpcSystem)
-    .then(() => {
-      t.deepEqual(t.context.data.inputDataCabinet, [16]);
-    });
+test('saveRam, should ignore non existent ram state', (t) => {
+  saveRam(t.context.mockWpcSystem);
+  const result = t.context.localStorage.getItem('mockedName');
+  t.deepEqual(result, '{"foo":"bar","nested":{"data":123,"moreNested":{"thats":"deep"}},"convertMe":[1,2,3]}');
+});
+
+test('saveRam/loadRam, should populate wpc system with new data', (t) => {
+  saveRam(t.context.mockWpcSystem);
+  const loadedEntry = loadRam(t.context.mockWpcSystem);
+  const result = t.context.spySetState();
+  t.is(loadedEntry, true);
+  t.deepEqual(result, {
+    foo: 'bar',
+    nested: {
+      data: 123,
+      moreNested: { thats: 'deep' }
+    },
+    convertMe: [ 1, 2, 3 ]
+  });
 });
