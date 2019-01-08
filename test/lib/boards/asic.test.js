@@ -149,7 +149,7 @@ test('wpc, update active lamp', (t) => {
   const wpc = t.context;
   wpc.write(CpuBoardAsic.OP.WPC_LAMP_ROW_OUTPUT, 0x4);
   wpc.write(CpuBoardAsic.OP.WPC_LAMP_COL_STROBE, 0x4);
-  const result = wpc.getUiState().lampState;
+  const result = wpc.getState().lampState;
   t.is(result[18], 0x80);
 });
 

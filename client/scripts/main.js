@@ -6,6 +6,7 @@ import '../styles/client.css';
 import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher';
 import { initialiseEmulator } from './lib/emulator';
 import { initialiseActions } from './lib/initialise';
+import { loadRam, saveRam, } from './lib/ramState';
 import { AudioOutput } from './lib/sound';
 import * as gamelist from './db/gamelist';
 import { populateControlUiView } from './ui/control-ui';
@@ -16,9 +17,6 @@ const DESIRED_FPS = 58;
 const TICKS_PER_CALL = parseInt(TICKS / DESIRED_FPS, 10);
 const TICKS_PER_STEP = 16;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
-
-const RAM_STATE_1 = 'ramState1';
-const RAM_SIZE = 1024 * 8;
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const soundInstance = AudioOutput(AudioContext);
@@ -80,21 +78,15 @@ function initialiseEmu(gameEntry) {
 }
 
 function saveState() {
-  // system ram is 8kb
-  const ram = Array.from(wpcSystem.cpuBoard.ram.subarray(0, RAM_SIZE));
-  localStorage.setItem(RAM_STATE_1, JSON.stringify(ram));
-  console.log('RAM STATE SAVED');
+  pauseEmu();
+  saveRam(wpcSystem);
+  resumeEmu();
 }
 
 function loadState() {
-  const ramState = localStorage.getItem(RAM_STATE_1);
-  if (ramState) {
-    const ram = new Uint8Array(JSON.parse(ramState));
-    wpcSystem.cpuBoard.ram.set(ram, 0);
-    console.log('RAM STATE LOADED',);
-  } else {
-    console.log('NO RAM STATE FOUND');
-  }
+  pauseEmu();
+  loadRam(wpcSystem);
+  resumeEmu();
 }
 
 function romSelection(romName) {
@@ -129,8 +121,8 @@ initEmuWithGameName(INITIAL_GAME);
 function step() {
   wpcSystem.executeCycle(TICKS_PER_CALL, TICKS_PER_STEP);
   const emuState = wpcSystem.getUiState();
-  const cpuState = intervalId ? 'running' : 'paused';
-  emuDebugUi.updateCanvas(emuState, cpuState);
+  const cpuRunningState = intervalId ? 'running' : 'paused';
+  emuDebugUi.updateCanvas(emuState, cpuRunningState);
   intervalId = requestAnimationFrame(step);
 }
 

@@ -25,8 +25,8 @@
     <button class="button-black button-small black" onclick="console.log('reset...'); wpcInterface.wpcSystem.reset();">RESET</button>
     <button class="button-black button-outline button-small black" onclick="wpcInterface.pauseEmu();">Pause</button>
     <button class="button-black button-outline button-small black" onclick="wpcInterface.resumeEmu();">Resume</button>
-    <button class="button-black button-outline button-small black" onclick="wpcInterface.saveState();">Save State</button>
     <button class="button-black button-outline button-small black" onclick="wpcInterface.loadState();">Load State</button>
+    <button class="button-black button-outline button-small black" onclick="wpcInterface.saveState();">Save State</button>
   </div>
 </div>
 
