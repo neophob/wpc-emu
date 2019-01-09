@@ -36,9 +36,11 @@ test('Emulator toggle input', (t) => {
   return Emulator.initVMwithRom({
     u06: new Uint8Array(262144),
   }).then((emulator) => {
-    emulator.setCabinetInput(11);
+    emulator.setCabinetInput(4);
     emulator.setInput(11);
-    emulator.setFliptronicsInput(11);
+    emulator.setFliptronicsInput('F3');
+    const inputState = Array.from(emulator.getUiState().asic.wpc.inputState);
+    t.deepEqual(inputState, [ 4, 1, 8, 0, 0, 0, 0, 0, 0, 4 ]);
   });
 });
 
