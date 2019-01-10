@@ -68,24 +68,25 @@ function updateCanvas(emuState, cpuRunningState) {
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
   canvas.fillText('NMI CALLS: ' + emuState.cpuState.nmiCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 70);
 
-  const diagnosticLed = emuState.asic.wpc.diagnosticLed ? 1 : 0;
-  canvas.fillText('DIAGLED STATE: ' + diagnosticLed, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 80);
-  canvas.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 90);
-  canvas.fillText('ACTIVE ROM BANK: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 100);
-  canvas.fillText('WRITE TO LOCKED MEM: ' + emuState.protectedMemoryWriteAttempts, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 110);
+  canvas.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, LEFT_X_OFFSET + 10, YPOS_GENERIC_DATA + 80);
+  canvas.fillText('ACTIVE ROM BANK: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 90);
+  canvas.fillText('WRITE TO LOCKED MEM: ' + emuState.protectedMemoryWriteAttempts, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 100);
 
-  canvas.fillText('SND CPU TICK: ' + emuState.asic.sound.cpuState.tickCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 120);
+  canvas.fillText('SND CPU TICK: ' + emuState.asic.sound.cpuState.tickCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 110);
   canvas.fillText('SND IRQ CALLS/MISSED: ' + emuState.asic.sound.cpuState.irqCount + '/' + emuState.asic.sound.cpuState.missedIRQ,
-    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 130);
+    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 120);
   canvas.fillText('SND FIRQ CALLS/MISSED: ' + emuState.asic.sound.cpuState.firqCount + '/' + emuState.asic.sound.cpuState.missedFIRQ,
-    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 140);
+    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 130);
   canvas.fillText('SND NMI CALLS: ' + emuState.asic.sound.cpuState.nmiCount,
-    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 150);
-  canvas.fillText('SND VOLUME: ' + emuState.asic.sound.volume, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 160);
-  canvas.fillText('TIME: ' + emuState.asic.wpc.time, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 170);
+    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 140);
+  canvas.fillText('SND VOLUME: ' + emuState.asic.sound.volume, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 150);
+  canvas.fillText('TIME: ' + emuState.asic.wpc.time, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 160);
 
   canvas.fillText('DMD PAGE MAP: ' + emuState.asic.dmd.dmdPageMapping, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
   canvas.fillText('DMD ACTIVE PAGE: ' + emuState.asic.dmd.activepage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
+
+  canvas.fillStyle = emuState.asic.wpc.diagnosticLed ? 'rgba(255,0,0)' : 'rgba(96,0,0)';
+  canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA + 72, 8, 8);
 
   if (emuState.asic.sound.ram) {
     drawMemRegion(emuState.asic.sound.ram, LEFT_X_OFFSET + 125, YPOS_MEM_DATA, 120);
