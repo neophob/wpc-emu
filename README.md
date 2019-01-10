@@ -44,6 +44,7 @@
   - [ROM Revision / Software Version Information](#rom-revision--software-version-information)
   - [Midnight Madness Mode](#midnight-madness-mode)
   - [WPC](#wpc)
+  - [Pinball 2000](#pinball-2000)
   - [DMD](#dmd)
   - [CPU](#cpu)
   - [Sound Chip](#sound-chip)
@@ -677,6 +678,9 @@ Note Theatre of Magic does not have this Midnight Madness special mode. Midnight
 - https://github.com/tanseydavid/WPCResources
 - https://github.com/tomlogic/pinmame-nvram-maps
 
+## Pinball 2000
+- https://github.com/boilerbots/PB2K
+
 ## DMD
 - http://webpages.charter.net/coinopcauldron/dotarticle.html
 
@@ -755,7 +759,7 @@ Twilight Zone was designed to be the first pinball machine to use the new DCS sy
 Starting with World Cup Soccer, a security programmable integrated circuit (PIC) chip was added to the CPU board in all WPC-S games at location U22. This PIC chip was game specific making it so CPU boards could not be swapped between different models without changing the security PIC chip.
 
 - World Cup Soccer 🚀 - February 1994
-- The Pinball Circus - June 1994
+- The Pinball Circus (very rare, only 2 pins exists) - June 1994
 - The Flintstones 🚀 - July 1994
 - Corvette 🚀 - August 1994
 - Red & Ted's Road Show 🚀 - October 1994
