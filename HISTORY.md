@@ -1,7 +1,8 @@
 # HISTORY
 
 ## 10/1/19
-- fix Fliptronics Flipper keys, return value need to be inverted
+- WPC-Fliptronics: fix Fliptronics Flipper keys, return value need to be inverted
+- WPC95: fix Fliptronics Flipper keys, return value need to be inverted
 
 ## 8/1/19
 - added option to save and load the emulator state (cpu ram, video ram, lamp, switches, solenoids, gi, cpu) of a game
