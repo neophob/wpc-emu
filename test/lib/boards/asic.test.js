@@ -167,5 +167,5 @@ test('wpc, write and read fliptronics', (t) => {
   const wpc = t.context;
   wpc.setFliptronicsInput('F4');
   const result = wpc.read(CpuBoardAsic.OP.WPC_FLIPTRONICS_FLIPPER_PORT_A);
-  t.is(result, 0x8);
+  t.is(result, 247);
 });

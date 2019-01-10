@@ -27,14 +27,14 @@ test('InputSwitchMatrix, getCabinetKey', (t) => {
 
 test('InputSwitchMatrix, setFliptronicsInput invalid', (t) => {
   const inputSwitchMatrix = t.context;
-  t.is(inputSwitchMatrix.getFliptronicsKeys(), 0);
+  t.is(inputSwitchMatrix.getFliptronicsKeys(), 255);
 });
 
-test('InputSwitchMatrix, getFliptronicsKeys', (t) => {
+test('InputSwitchMatrix, getFliptronicsKeys - return inverted value', (t) => {
   const inputSwitchMatrix = t.context;
   inputSwitchMatrix.setFliptronicsInput('F0');
   inputSwitchMatrix.setFliptronicsInput('F6');
-  t.is(inputSwitchMatrix.getFliptronicsKeys(), 32);
+  t.is(inputSwitchMatrix.getFliptronicsKeys(), 223);
 });
 
 test('InputSwitchMatrix, getRow', (t) => {
