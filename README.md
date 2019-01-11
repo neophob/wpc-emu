@@ -97,7 +97,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Solenoid Circuits ✓ (fade out timing missing)
 - General Illumination Circuits (Triac) ✓ (fade out timing missing)
 - Zero Cross Circuit ✓
-- support Fliptronics flipper ½
+- support Fliptronics flipper ✓
 
 ## Sound Board
 - Bank Switching ✓

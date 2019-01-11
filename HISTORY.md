@@ -1,5 +1,8 @@
 # HISTORY
 
+## 11/1/19
+- implement fliptronics solenoid handling
+
 ## 10/1/19
 - WPC-Fliptronics: fix Fliptronics Flipper keys, return value need to be inverted
 - WPC95: fix Fliptronics Flipper keys, return value need to be inverted
