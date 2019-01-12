@@ -169,3 +169,19 @@ test('wpc, write and read fliptronics', (t) => {
   const result = wpc.read(CpuBoardAsic.OP.WPC_FLIPTRONICS_FLIPPER_PORT_A);
   t.is(result, 247);
 });
+
+test('wpc, ignore empty setState', (t) => {
+  const wpc = t.context;
+  const result = wpc.setState();
+  t.is(result, false);
+});
+
+test('wpc, getState / setState', (t) => {
+  const wpc = t.context;
+  wpc.romBank = 11;
+  const state = wpc.getState();
+  console.log(state);
+  wpc.romBank = 2;
+  wpc.setState(state);
+  t.is(wpc.romBank, 11);
+});

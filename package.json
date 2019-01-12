@@ -66,7 +66,7 @@
     "xo": "xo",
     "test": "nyc ava --verbose test/lib/**",
     "test:coverage": "nyc report --reporter=html",
-    "test:debug": "DEBUG='wpc*' ava --verbose test/lib/**",
+    "test:debug": "DEBUG='wpc*' ava --fail-fast --verbose test/lib/**",
     "test:integration": "ava --verbose test/integration/*.test.js",
     "test:runner": "node test/headless-runner.js",
     "test:soundboard": "env DEBUG='*' node test/integration/soundboard.js",
