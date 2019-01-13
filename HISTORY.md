@@ -1,7 +1,7 @@
 # HISTORY
 
 ## 13/1/19
-- implement keyboard mapping: service keys ("7"-"0"), save and load state ("s", "l"), play and resume ("p", "r")
+- implement keyboard mapping: cabinet service keys ("7", "8", "9", "0"), save and load state ("s", "l"), play and resume ("p", "r")
 
 ## 11/1/19
 - implement fliptronics solenoid handling
