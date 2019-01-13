@@ -99,7 +99,7 @@ function toggleDmdDump() {
     element.textContent = 'DMD DUMP';
     dmdDump = null;
   } else {
-    element.textContent = 'DMD DUMP RUNNING';
+    element.textContent = 'DUMPING ...';
     dmdDump = initDmdExport();
   }
 }
