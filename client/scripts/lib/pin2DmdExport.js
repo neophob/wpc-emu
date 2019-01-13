@@ -42,7 +42,6 @@ function initialise() {
 }
 
 function save(uint8Array, filename = 'pin2dmd.raw') {
-  console.log('save', uint8Array)
   const blob = new Blob(
     [ uint8Array.buffer ],
     { type: 'text/plain;charset=utf-8' },
