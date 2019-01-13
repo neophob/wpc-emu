@@ -7,6 +7,7 @@ import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher';
 import { initialiseEmulator } from './lib/emulator';
 import { initialiseActions } from './lib/initialise';
 import { loadRam, saveRam, } from './lib/ramState';
+import { initialise as initDmdExport, save as saveFile } from './lib/pin2DmdExport';
 import { AudioOutput } from './lib/sound';
 import * as gamelist from './db/gamelist';
 import { populateControlUiView } from './ui/control-ui';
@@ -23,6 +24,7 @@ const soundInstance = AudioOutput(AudioContext);
 
 var wpcSystem;
 var intervalId;
+var dmdDump;
 
 function dacCallback(value) {
   soundInstance.writeAudioData(value);
@@ -64,6 +66,7 @@ function initialiseEmu(gameEntry) {
         romSelection,
         saveState,
         loadState,
+        toggleDmdDump
       };
       wpcSystem.registerAudioConsumer(dacCallback);
       wpcSystem.start();
@@ -89,6 +92,18 @@ function loadState() {
   resumeEmu();
 }
 
+function toggleDmdDump() {
+  const element = document.getElementById('dmd-dump-text');
+  if (dmdDump) {
+    saveFile(dmdDump.buildExportFile());
+    element.textContent = 'DMD DUMP';
+    dmdDump = null;
+  } else {
+    element.textContent = 'DMD DUMP RUNNING';
+    dmdDump = initDmdExport();
+  }
+}
+
 function romSelection(romName) {
   initEmuWithGameName(romName);
 }
@@ -103,20 +118,6 @@ function initEmuWithGameName(name) {
     });
 }
 
-if ('serviceWorker' in navigator) {
-  // Use the window load event to keep the page load performant
-  // NOTE: works only via SSL!
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('service-worker.js').then(registration => {
-      console.log('SW registered: ', registration);
-    }).catch(registrationError => {
-      console.log('SW registration failed: ', registrationError);
-    });
-  });
-}
-
-initEmuWithGameName(INITIAL_GAME);
-
 //called at 60hz -> 16.6ms
 function step() {
   wpcSystem.executeCycle(TICKS_PER_CALL, TICKS_PER_STEP);
@@ -124,6 +125,15 @@ function step() {
   const cpuRunningState = intervalId ? 'running' : 'paused';
   emuDebugUi.updateCanvas(emuState, cpuRunningState);
   intervalId = requestAnimationFrame(step);
+
+  if (dmdDump) {
+    dmdDump.addFrames(emuState.asic.dmd.videoOutputBuffer, emuState.cpuState.tickCount);
+
+    if (dmdDump.getCapturedFrames() > 1000) {
+      saveFile(dmdDump.buildExportFile());
+      dmdDump = null;
+    }
+  }
 }
 
 function resumeEmu() {
@@ -141,34 +151,63 @@ function pauseEmu() {
   emuDebugUi.updateCanvas(wpcSystem.getUiState(), 'paused');
 }
 
-window.addEventListener('keydown', (e) => {
-  console.log('check', e.keyCode);
-  switch (e.keyCode) {
-    case 80: //P
-      return pauseEmu();
+function registerKeyboardListener() {
+  console.log(
+    '## KEYBOARD MAPPING:\n' +
+    '  "P": pause\n' +
+    '  "R": resume\n' +
+    '  "S": save\n' +
+    '  "L": load\n' +
+    '  "7": Escape\n' +
+    '  "8": -\n' +
+    '  "9": +\n' +
+    '  "0": Enter'
+  );
 
-    case 82: //R
-      return resumeEmu();
+  window.addEventListener('keydown', (e) => {
+    switch (e.keyCode) {
+      case 80: //P
+        return pauseEmu();
 
-    case 83: //S
-      return saveState();
+      case 82: //R
+        return resumeEmu();
 
-    case 76: //L
-      return loadState();
+      case 83: //S
+        return saveState();
 
-    case 55: //7
-      return wpcSystem.setCabinetInput(16);
+      case 76: //L
+        return loadState();
 
-    case 56: //8
-      return wpcSystem.setCabinetInput(32);
+      case 55: //7
+        return wpcSystem.setCabinetInput(16);
 
-    case 57: //9
-      return wpcSystem.setCabinetInput(64);
+      case 56: //8
+        return wpcSystem.setCabinetInput(32);
 
-    case 48: //0
-      return wpcSystem.setCabinetInput(128);
+      case 57: //9
+        return wpcSystem.setCabinetInput(64);
 
-    default:
+      case 48: //0
+        return wpcSystem.setCabinetInput(128);
 
-  };
-}, false);
+      default:
+
+    };
+  }, false);
+
+}
+
+if ('serviceWorker' in navigator) {
+  // Use the window load event to keep the page load performant
+  // NOTE: works only via SSL!
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js').then(registration => {
+      console.log('SW registered: ', registration);
+    }).catch(registrationError => {
+      console.log('SW registration failed: ', registrationError);
+    });
+  });
+}
+
+initEmuWithGameName(INITIAL_GAME);
+registerKeyboardListener();
