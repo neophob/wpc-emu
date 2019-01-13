@@ -9,7 +9,7 @@
   "scripts": {
     "build": "SERVEURL=https://localhost:8080/rom/ webpack --mode development",
     "build:production": "webpack --mode production",
-    "test": "nyc ava --verbose test/**",
+    "test": "nyc ava --fail-fast --verbose test/**",
     "watch": "SERVEURL=https://localhost:8080/rom/ webpack --mode development --watch",
     "xo": "xo"
   },
@@ -71,5 +71,8 @@
       "prefer-destructuring": 0,
       "no-use-extend-native/no-use-extend-native": 0
     }
+  },
+  "dependencies": {
+    "file-saver": "^2.0.0"
   }
 }

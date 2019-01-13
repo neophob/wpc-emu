@@ -7,6 +7,7 @@ import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher';
 import { initialiseEmulator } from './lib/emulator';
 import { initialiseActions } from './lib/initialise';
 import { loadRam, saveRam, } from './lib/ramState';
+import { initialise as initDmdExport, save as saveFile } from './lib/pin2DmdExport';
 import { AudioOutput } from './lib/sound';
 import * as gamelist from './db/gamelist';
 import { populateControlUiView } from './ui/control-ui';
@@ -23,6 +24,7 @@ const soundInstance = AudioOutput(AudioContext);
 
 var wpcSystem;
 var intervalId;
+var dmdDump = initDmdExport();
 
 function dacCallback(value) {
   soundInstance.writeAudioData(value);
@@ -124,6 +126,15 @@ function step() {
   const cpuRunningState = intervalId ? 'running' : 'paused';
   emuDebugUi.updateCanvas(emuState, cpuRunningState);
   intervalId = requestAnimationFrame(step);
+
+  if (dmdDump) {
+    dmdDump.addFrames(emuState.asic.dmd.videoOutputBuffer);
+
+    if (dmdDump.getCapturedFrames() > 1000) {
+      saveFile(dmdDump.buildExportFile());
+      dmdDump = null;
+    }
+  }
 }
 
 function resumeEmu() {
