@@ -151,3 +151,35 @@ function pauseEmu() {
   intervalId = false;
   emuDebugUi.updateCanvas(wpcSystem.getUiState(), 'paused');
 }
+
+window.addEventListener('keydown', (e) => {
+  console.log('check', e.keyCode);
+  switch (e.keyCode) {
+    case 80: //P
+      return pauseEmu();
+
+    case 82: //R
+      return resumeEmu();
+
+    case 83: //S
+      return saveState();
+
+    case 76: //L
+      return loadState();
+
+    case 55: //7
+      return wpcSystem.setCabinetInput(16);
+
+    case 56: //8
+      return wpcSystem.setCabinetInput(32);
+
+    case 57: //9
+      return wpcSystem.setCabinetInput(64);
+
+    case 48: //0
+      return wpcSystem.setCabinetInput(128);
+
+    default:
+
+  };
+}, false);
