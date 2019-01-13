@@ -143,7 +143,8 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 ## Serve ROM's from localhost
 You can run a local fileserver to serve the needed WPC ROM files.
 - create the `./rom` directory and copy your ROM files (program and audio) inside this directory
-- You need to create and install a local certificate (needed to support https), read the file `assets/localhost-cert/README.md`
+- You need to create and install a local certificate (needed to support https), read the file `assets/localhost-cert/README.md` or run `openssl req -x509 -newkey rsa:4096 -keyout server.key -out server.crt -days 3650 -nodes` inside the `assets/localhost-cert` dir.
+- To install dependencies run `npm install` in root and `client` directory
 - Run `npm run start:fileserv` to start local file serve
 
 ## Run Watch
