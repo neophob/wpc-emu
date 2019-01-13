@@ -41,13 +41,13 @@ function initialise() {
   return new DmdGrabber();
 }
 
-function save(uint8Array) {
+function save(uint8Array, filename = 'pin2dmd.raw') {
   console.log('save', uint8Array)
   const blob = new Blob(
     [ uint8Array.buffer ],
     { type: 'text/plain;charset=utf-8' },
   );
-  FileSaver.saveAs(blob, "pin2dmd.raw");
+  FileSaver.saveAs(blob, filename);
 }
 
 class DmdGrabber {

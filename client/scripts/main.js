@@ -24,7 +24,7 @@ const soundInstance = AudioOutput(AudioContext);
 
 var wpcSystem;
 var intervalId;
-var dmdDump = initDmdExport();
+var dmdDump;
 
 function dacCallback(value) {
   soundInstance.writeAudioData(value);
@@ -130,7 +130,7 @@ function step() {
   if (dmdDump) {
     dmdDump.addFrames(emuState.asic.dmd.videoOutputBuffer);
 
-    if (dmdDump.getCapturedFrames() > 1000) {
+    if (dmdDump.getCapturedFrames() > 2000) {
       saveFile(dmdDump.buildExportFile());
       dmdDump = null;
     }
@@ -178,6 +178,16 @@ window.addEventListener('keydown', (e) => {
 
     case 48: //0
       return wpcSystem.setCabinetInput(128);
+
+    case 68: //d
+      if (dmdDump) {
+        saveFile(dmdDump.buildExportFile());
+        dmdDump = null;
+      } else {
+        console.log('start dump');
+        dmdDump = initDmdExport();
+      }
+      break;
 
     default:
 
