@@ -4,27 +4,27 @@ import * as FileSaver from 'file-saver';
 export { initialise, save };
 
 /**
- * used to dump RAW DMD frames, use the PIN2DMD format. Format
- * HEADER
- * 4 byte uptimeInMs + 1536 bytes video frames (3 * unshaded ram content)
+ * used to dump RAW DMD frames, use the PIN2DMD format. Format description
+ * - HEADER, see description below
+ * - FRAMES, each frame consists of a 4 byte uptimeInMs counter and 1536 bytes video frames (3 * unshaded video ram content)
  */
 
 const TICKS_PER_MS = 2000;
 
 const HEADER = [
-  // RAW
+  // RAW as ascii
   82, 65, 87,
 
-  // VERSION
+  // VERSION 1
   0, 1,
 
-  // DMD WIDTH
+  // DMD WIDTH in pixels
   128,
 
-  // DMD HEIGHT
+  // DMD HEIGHT in pixels
   32,
 
-  // FRAMES PER IMAGE
+  // FRAMES PER IMAGE, always 3 for WPC devices
   3,
 ];
 
@@ -48,7 +48,7 @@ class DmdGrabber {
   }
 
   _ticksToTimestamp(ticks) {
-    const msSinceStart = Math.floor(ticks / TICKS_PER_MS);
+    const msSinceStart = Math.round(ticks / TICKS_PER_MS);
     return [
       msSinceStart & 0xFF,
       (msSinceStart >> 8) & 0xFF,

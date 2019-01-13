@@ -66,6 +66,7 @@ function initialiseEmu(gameEntry) {
         romSelection,
         saveState,
         loadState,
+        toggleDmdDump
       };
       wpcSystem.registerAudioConsumer(dacCallback);
       wpcSystem.start();
@@ -91,6 +92,18 @@ function loadState() {
   resumeEmu();
 }
 
+function toggleDmdDump() {
+  const element = document.getElementById('dmd-dump-text');
+  if (dmdDump) {
+    saveFile(dmdDump.buildExportFile());
+    element.textContent = 'DMD DUMP';
+    dmdDump = null;
+  } else {
+    element.textContent = 'DMD DUMP RUNNING';
+    dmdDump = initDmdExport();
+  }
+}
+
 function romSelection(romName) {
   initEmuWithGameName(romName);
 }
@@ -104,20 +117,6 @@ function initEmuWithGameName(name) {
       return initialiseActions(gameEntry.initialise, wpcSystem);
     });
 }
-
-if ('serviceWorker' in navigator) {
-  // Use the window load event to keep the page load performant
-  // NOTE: works only via SSL!
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('service-worker.js').then(registration => {
-      console.log('SW registered: ', registration);
-    }).catch(registrationError => {
-      console.log('SW registration failed: ', registrationError);
-    });
-  });
-}
-
-initEmuWithGameName(INITIAL_GAME);
 
 //called at 60hz -> 16.6ms
 function step() {
@@ -152,44 +151,63 @@ function pauseEmu() {
   emuDebugUi.updateCanvas(wpcSystem.getUiState(), 'paused');
 }
 
-window.addEventListener('keydown', (e) => {
-  console.log('check', e.keyCode);
-  switch (e.keyCode) {
-    case 80: //P
-      return pauseEmu();
+function registerKeyboardListener() {
+  console.log(
+    '## KEYBOARD MAPPING:\n' +
+    '  "P": pause\n' +
+    '  "R": resume\n' +
+    '  "S": save\n' +
+    '  "L": load\n' +
+    '  "7": Escape\n' +
+    '  "8": -\n' +
+    '  "9": +\n' +
+    '  "0": Enter'
+  );
 
-    case 82: //R
-      return resumeEmu();
+  window.addEventListener('keydown', (e) => {
+    switch (e.keyCode) {
+      case 80: //P
+        return pauseEmu();
 
-    case 83: //S
-      return saveState();
+      case 82: //R
+        return resumeEmu();
 
-    case 76: //L
-      return loadState();
+      case 83: //S
+        return saveState();
 
-    case 55: //7
-      return wpcSystem.setCabinetInput(16);
+      case 76: //L
+        return loadState();
 
-    case 56: //8
-      return wpcSystem.setCabinetInput(32);
+      case 55: //7
+        return wpcSystem.setCabinetInput(16);
 
-    case 57: //9
-      return wpcSystem.setCabinetInput(64);
+      case 56: //8
+        return wpcSystem.setCabinetInput(32);
 
-    case 48: //0
-      return wpcSystem.setCabinetInput(128);
+      case 57: //9
+        return wpcSystem.setCabinetInput(64);
 
-    case 68: //d
-      if (dmdDump) {
-        saveFile(dmdDump.buildExportFile());
-        dmdDump = null;
-      } else {
-        console.log('start dump');
-        dmdDump = initDmdExport();
-      }
-      break;
+      case 48: //0
+        return wpcSystem.setCabinetInput(128);
 
-    default:
+      default:
 
-  };
-}, false);
+    };
+  }, false);
+
+}
+
+if ('serviceWorker' in navigator) {
+  // Use the window load event to keep the page load performant
+  // NOTE: works only via SSL!
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js').then(registration => {
+      console.log('SW registered: ', registration);
+    }).catch(registrationError => {
+      console.log('SW registration failed: ', registrationError);
+    });
+  });
+}
+
+initEmuWithGameName(INITIAL_GAME);
+registerKeyboardListener();
