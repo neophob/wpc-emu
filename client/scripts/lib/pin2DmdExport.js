@@ -4,14 +4,12 @@ import * as FileSaver from 'file-saver';
 export { initialise, save };
 
 /**
- * used to dump RAW DMD frames, use the PIN2DMD format
+ * used to dump RAW DMD frames, use the PIN2DMD format. Format
+ * HEADER
+ * 4 byte uptimeInMs + 1536 bytes video frames (3 * unshaded ram content)
  */
 
-/*
-Die Daten für jedes Frame sind dann so aufgebaut
-4byte SysTick als DWORD
-und bei WPC 1536byte Daten.
-*/
+const TICKS_PER_MS = 2000;
 
 const HEADER = [
   // RAW
@@ -30,13 +28,6 @@ const HEADER = [
   3,
 ];
 
-/*
-- ja das Display addiert die 3 frames die von der Maschine kommen einfach auf und ordnet diese dann Farb bzw Helligkeitswerten zu.
-- systick ist ein Timecode in ms. Hier wird die Zeit zwischen den Änderungen fortlaufend gezählt. Passt also auch zu Deiner Implementierung. Für Dich müsste das hier gehen
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now
-- das mit dem Payload stimmt genau. Die Bytes sind LSB.
-*/
-
 function initialise() {
   return new DmdGrabber();
 }
@@ -53,26 +44,25 @@ class DmdGrabber {
 
   constructor() {
     this.frames = [ HEADER ];
-    this.startTimeMs = Date.now();
     this.lastVideoOutputBuffer = [];
   }
 
-  _getTimestampSinceLastFrameAs4Bytes() {
-    const msSinceLastFrame = Date.now() - this.startTimeMs;
+  _ticksToTimestamp(ticks) {
+    const msSinceStart = Math.floor(ticks / TICKS_PER_MS);
     return [
-      msSinceLastFrame & 0xFF,
-      (msSinceLastFrame >> 8) & 0xFF,
-      (msSinceLastFrame >> 16) & 0xFF,
-      (msSinceLastFrame >> 24) & 0xFF,
+      msSinceStart & 0xFF,
+      (msSinceStart >> 8) & 0xFF,
+      (msSinceStart >> 16) & 0xFF,
+      (msSinceStart >> 24) & 0xFF,
     ];
   }
 
-  addFrames(videoOutputBuffer) {
+  addFrames(videoOutputBuffer, ticks) {
     if (arraysEqual(this.lastVideoOutputBuffer, videoOutputBuffer)) {
       return;
     }
+    const timeSinceLastFrameMs = this._ticksToTimestamp(ticks);
     this.lastVideoOutputBuffer = videoOutputBuffer;
-    const timeSinceLastFrameMs = this._getTimestampSinceLastFrameAs4Bytes();
     this.frames.push(
       timeSinceLastFrameMs.concat(Array.from(videoOutputBuffer))
     );
@@ -90,7 +80,6 @@ class DmdGrabber {
 function flatten(arr) {
   return Array.prototype.concat(...arr);
 }
-
 
 function arraysEqual(a, b) {
   if (a === b) {

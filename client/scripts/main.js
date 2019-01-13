@@ -128,9 +128,9 @@ function step() {
   intervalId = requestAnimationFrame(step);
 
   if (dmdDump) {
-    dmdDump.addFrames(emuState.asic.dmd.videoOutputBuffer);
+    dmdDump.addFrames(emuState.asic.dmd.videoOutputBuffer, emuState.cpuState.tickCount);
 
-    if (dmdDump.getCapturedFrames() > 2000) {
+    if (dmdDump.getCapturedFrames() > 1000) {
       saveFile(dmdDump.buildExportFile());
       dmdDump = null;
     }
