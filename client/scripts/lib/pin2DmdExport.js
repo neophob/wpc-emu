@@ -54,13 +54,24 @@ class DmdGrabber {
 
   constructor() {
     this.frames = [ HEADER ];
+    this.startTimeMs = Date.now();
   }
 
-  addFrames(videoOutputBuffer, timestamp = Date.now()) {
+  _getTimestampSinceLastFrameAs4Bytes() {
+    const msSinceLastFrame = Date.now() - this.startTimeMs;
+    return [
+      msSinceLastFrame & 0xFF,
+      (msSinceLastFrame >> 8) & 0xFF,
+      (msSinceLastFrame >> 16) & 0xFF,
+      (msSinceLastFrame >> 24) & 0xFF,
+    ];
+  }
+
+  addFrames(videoOutputBuffer) {
+    const timeSinceLastFrameMs = this._getTimestampSinceLastFrameAs4Bytes();
     this.frames.push(
-      getSystickAs4Bytes(timestamp).concat(Array.from(videoOutputBuffer))
+      timeSinceLastFrameMs.concat(Array.from(videoOutputBuffer))
     );
-    console.log('-->',this.frames);
   }
 
   getCapturedFrames() {
@@ -70,15 +81,6 @@ class DmdGrabber {
   buildExportFile() {
     return new Uint8Array(flatten(this.frames));
   }
-}
-
-function getSystickAs4Bytes(timestamp = 0) {
-  return [
-    timestamp & 0xFF,
-    (timestamp >> 8) & 0xFF,
-    (timestamp >> 16) & 0xFF,
-    (timestamp >> 32) & 0xFF,
-  ];
 }
 
 function flatten(arr) {
