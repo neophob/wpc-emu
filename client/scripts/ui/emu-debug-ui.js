@@ -85,7 +85,7 @@ function updateCanvas(emuState, cpuRunningState) {
   canvas.fillText('DMD PAGE MAP: ' + emuState.asic.dmd.dmdPageMapping, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
   canvas.fillText('DMD ACTIVE PAGE: ' + emuState.asic.dmd.activepage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
 
-  canvas.fillStyle = emuState.asic.wpc.diagnosticLed ? 'rgba(255,0,0)' : 'rgba(96,0,0)';
+  canvas.fillStyle = emuState.asic.wpc.diagnosticLed ? COLOR_DMD[3] : COLOR_DMD[0];
   canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA + 72, 8, 8);
 
   if (emuState.asic.sound.ram) {
