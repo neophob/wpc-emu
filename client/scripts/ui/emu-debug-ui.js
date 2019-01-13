@@ -1,10 +1,7 @@
 'use strict';
 
 import { replaceNode } from './htmlselector';
-
-export { initialise, updateCanvas };
-
-/*jshint bitwise: false*/
+export { initialise, updateCanvas, fetchPlayfieldData, errorFeedback };
 
 // HINT enable debug in the browser by entering "localStorage.debug = '*'" in the browser
 
@@ -303,6 +300,8 @@ function initCanvas() {
   canvas.fillText('DMD PAGE RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
   canvas.fillText('WPC CPU RAM:', LEFT_X_OFFSET, YPOS_MEM_DATA - 10);
   canvas.fillText('SOUND CPU RAM:', LEFT_X_OFFSET + 125, YPOS_MEM_DATA - 10);
+
+  drawDmdShaded([], LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
 }
 
 function initialise(gameEntry) {
@@ -322,6 +321,10 @@ function initialise(gameEntry) {
   canvasOverlay = canvasOverlayElement.getContext('2d', { alpha: true });
   replaceNode('canvasOverlayNode', canvasOverlayElement);
 
+  initCanvas();
+}
+
+function fetchPlayfieldData(gameEntry) {
   // preload data
   playfieldData = gameEntry.playfield;
   playfieldImage = null;
@@ -332,6 +335,11 @@ function initialise(gameEntry) {
     };
     playfieldImage.src = FETCHURL + playfieldData.image;
   }
+}
 
-  initCanvas();
+function errorFeedback(error) {
+  canvas.fillStyle = COLOR_DMD[3];
+  const x = LEFT_X_OFFSET + 10;
+  canvas.fillText('ERROR! Failed to load ROM!', x, YPOS_DMD_MAIN_VIEW + 15);
+  canvas.fillText('Details: ' + error.message, x, YPOS_DMD_MAIN_VIEW + 30);
 }

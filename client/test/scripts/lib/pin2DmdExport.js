@@ -1,7 +1,10 @@
 'use strict';
 
 import test from 'ava';
-import { initialise } from '../../../scripts/lib/pin2DmdExport';
+import { initialise, save } from '../../../scripts/lib/pin2DmdExport';
+import browserEnv from 'browser-env';
+
+browserEnv();
 
 test.beforeEach((t) => {
   t.context = initialise()
@@ -24,3 +27,12 @@ test('pin2DmdExport, getCapturedFrames (empty)', (t) => {
   t.is(result, 0);
 });
 
+test('pin2DmdExport, do not export undefined frames', (t) => {
+  const result = save();
+  t.is(result, false);
+});
+
+test('pin2DmdExport, do not export empty frames', (t) => {
+  const result = save(t.context.buildExportFile());
+  t.is(result, false);
+});

@@ -31,6 +31,11 @@ function dacCallback(value) {
 }
 
 function initialiseEmu(gameEntry) {
+  emuDebugUi.initialise(gameEntry);
+  window.wpcInterface = {
+    romSelection,
+  };
+
   const u06Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06);
   const u14Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u14).catch(() => {});
   const u15Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u15).catch(() => {});
@@ -43,7 +48,7 @@ function initialiseEmu(gameEntry) {
       u18Promise,
     ])
     .then((romFiles) => {
-      console.log('Successully loaded ROM');
+      console.log('Successully loaded ROM',romFiles);
       const romData = {
         u06: romFiles[0],
         u14: romFiles[1],
@@ -72,11 +77,12 @@ function initialiseEmu(gameEntry) {
       wpcSystem.start();
       soundInstance.setMixStereoFunction(wpcSystem.mixStereo);
       console.log('Successully started EMU v' + wpcSystem.version());
-      return emuDebugUi.initialise(gameEntry);
+      return emuDebugUi.fetchPlayfieldData(gameEntry);
     })
     .catch((error) => {
       console.error('FAILED to load ROM:', error.message);
-      console.log(error.stack);
+      emuDebugUi.errorFeedback(error);
+      throw error;
     });
 }
 
@@ -120,6 +126,9 @@ function initEmuWithGameName(name) {
 
 //called at 60hz -> 16.6ms
 function step() {
+  if (!wpcSystem) {
+    return;
+  }
   wpcSystem.executeCycle(TICKS_PER_CALL, TICKS_PER_STEP);
   const emuState = wpcSystem.getUiState();
   const cpuRunningState = intervalId ? 'running' : 'paused';

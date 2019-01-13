@@ -33,6 +33,13 @@ function initialise() {
 }
 
 function save(uint8Array, filename = 'pin2dmd.raw') {
+  if (!uint8Array || uint8Array.length <= HEADER.length) {
+    console.info('no frames found, abort');
+    return false;
+  }
+
+  console.log('tadaa',uint8Array)
+
   const blob = new Blob(
     [ uint8Array.buffer ],
     { type: 'text/plain;charset=utf-8' },
