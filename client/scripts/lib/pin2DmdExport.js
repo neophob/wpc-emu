@@ -54,6 +54,7 @@ class DmdGrabber {
   constructor() {
     this.frames = [ HEADER ];
     this.startTimeMs = Date.now();
+    this.lastVideoOutputBuffer = [];
   }
 
   _getTimestampSinceLastFrameAs4Bytes() {
@@ -67,6 +68,10 @@ class DmdGrabber {
   }
 
   addFrames(videoOutputBuffer) {
+    if (arraysEqual(this.lastVideoOutputBuffer, videoOutputBuffer)) {
+      return;
+    }
+    this.lastVideoOutputBuffer = videoOutputBuffer;
     const timeSinceLastFrameMs = this._getTimestampSinceLastFrameAs4Bytes();
     this.frames.push(
       timeSinceLastFrameMs.concat(Array.from(videoOutputBuffer))
@@ -84,4 +89,20 @@ class DmdGrabber {
 
 function flatten(arr) {
   return Array.prototype.concat(...arr);
+}
+
+
+function arraysEqual(a, b) {
+  if (a === b) {
+    return true;
+  }
+  if (a === null || b === null || a.length !== b.length) {
+    return false;
+  }
+  for (let i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) {
+      return false;
+    }
+  }
+  return true;
 }
