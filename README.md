@@ -32,7 +32,7 @@
     - [DMD display scanline](#dmd-display-scanline)
   - [DMD controller](#dmd-controller)
   - [Security PIC (U22)](#security-pic-u22)
-  - [RAM positions](#ram-positions)
+  - [RAM / NVRAM positions](#ram--nvram-positions)
   - [Boot sequence](#boot-sequence)
   - [Gameplay](#gameplay)
   - [To Test](#to-test)
@@ -324,25 +324,27 @@ is stored at 0x81C9/0x81CA (16 bit) for this game.
 2018-10-04T21:33:43.053Z wpcemu:boards:cpu-board mem-read e874
 ```
 
-## RAM positions
+## RAM / NVRAM positions
 
-Known RAM positions for WPC games
+Known RAM positions for WPC games.
 
 | Offset          | Comment        |
 | --------------- | -------------- |
 | 0x0011          | Current Bank Marker, ??  |
 | 0x0012          | Bank Jump Address hi, ??  |
 | 0x0013          | Bank Jump Address lo, ??  |
+| 0x16A1          | NVRAM starts |
 | 0x1800          | Date, Year hi  |
 | 0x1801          | Date, Year lo  |
 | 0x1802          | Date, Month (1-12) |
 | 0x1803          | Date, Day of month (1-31) |
 | 0x1804          | Date, Days or week (0-6, 0=Sunday) |
 | 0x1805          | Date, Hour (0-23) |
-| 0x1806          | Date, Minute (0-59) |
-| 0x1807          | Date, Checksum hi |
-| 0x1808          | Date, Checksum lo |
+| 0x1806          | Date, isValid (1) or isInvalid(0)  |
+| 0x1807          | Date, Checksum hi (time) |
+| 0x1808          | Date, Checksum lo (date) |
 | 0x1809-0x2000   | Game specific settings (HSTD, timestamps, adjustments, audits, language, volume, custom message...) |
+| 0x2FFF          | NVRAM ends |
 
 Note:
 - The initial memory check writes from offset `0x0000 - 0x1730`, so stored NVRAM data might be stored above `0x1730`.

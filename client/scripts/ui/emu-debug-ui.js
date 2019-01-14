@@ -1,7 +1,7 @@
 'use strict';
 
 import { replaceNode } from './htmlselector';
-export { initialise, updateCanvas, fetchPlayfieldData, errorFeedback };
+export { initialise, updateCanvas, populateInitialCanvas, errorFeedback };
 
 // HINT enable debug in the browser by entering "localStorage.debug = '*'" in the browser
 
@@ -321,10 +321,12 @@ function initialise(gameEntry) {
   canvasOverlay = canvasOverlayElement.getContext('2d', { alpha: true });
   replaceNode('canvasOverlayNode', canvasOverlayElement);
 
-  initCanvas();
+  drawDmdShaded([], LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
 }
 
-function fetchPlayfieldData(gameEntry) {
+function populateInitialCanvas(gameEntry) {
+  initCanvas();
+
   // preload data
   playfieldData = gameEntry.playfield;
   playfieldImage = null;
@@ -340,6 +342,11 @@ function fetchPlayfieldData(gameEntry) {
 function errorFeedback(error) {
   canvas.fillStyle = COLOR_DMD[3];
   const x = LEFT_X_OFFSET + 10;
-  canvas.fillText('ERROR! Failed to load ROM!', x, YPOS_DMD_MAIN_VIEW + 15);
-  canvas.fillText('Details: ' + error.message, x, YPOS_DMD_MAIN_VIEW + 30);
+  const y = YPOS_DMD_MAIN_VIEW + 30;
+  canvas.font = '25px Monaco';
+
+  canvas.fillText('ERROR! Failed to load ROM!', x, y);
+  canvas.fillText('Details: ' + error.message, x, y + 30);
+
+  canvas.font = '10px Monaco';
 }
