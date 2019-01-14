@@ -4,7 +4,7 @@ module.exports = {
   name: 'WPC-S: Johnny Mnemonic (Broken!)',
   version: '1.2 R',
   rom: {
-    u06: 'JOHN1_2R.rom',
+    u06: 'john1_2r.rom',
   },
   switchMapping: [
     //TODO
