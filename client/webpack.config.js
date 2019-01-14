@@ -37,7 +37,7 @@ module.exports = () => {
             options: {
               cacheName: 'assets',
               expiration: {
-                maxEntries: 16,
+                maxEntries: 32,
                 maxAgeSeconds: 3600 * 24 * 60,
               },
             }

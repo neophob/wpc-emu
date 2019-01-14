@@ -71,7 +71,9 @@ Promise.all([ u14Promise, u15Promise, u18Promise ])
     const concatenatedSoundRom = getConcatenatedSoundRoms(romObject);
     const initObject = {
       interruptCallback: {
-        firq: () => { console.log('FAKE FIRQ')},
+        firq: () => {
+          console.log('FAKE FIRQ');
+        },
       },
       romObject: {
         soundSystemRom: u18.subarray(u18.length - 0x4000, u18.length),

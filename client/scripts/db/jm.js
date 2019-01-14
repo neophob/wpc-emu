@@ -1,10 +1,10 @@
 'use strict';
 
 module.exports = {
-  name: 'WPC-S: Johnny Mnemonic (Broken!)',
+  name: 'WPC-S: Johnny Mnemonic (Broken)',
   version: '1.2 R',
   rom: {
-    u06: 'JOHN1_2R.rom',
+    u06: 'john1_2r.rom',
   },
   switchMapping: [
     //TODO
@@ -87,10 +87,11 @@ module.exports = {
   ],
   initialise: {
     closedSwitches: [
+      12,
       22,
       //OPTO SWITCHES: 31, 32, 33, 34, 35, 36, 74, 75, 76, 77
-      31, 32, 33, 34, 35, 36, 74, 75, 76, 77,
-      'F2', 'F4', 'F5', 'F6', 'F8',
+      31, 36, 76,
+      'F2', 'F4', 'F6', 'F8',
     ],
     initialAction: [
       {
