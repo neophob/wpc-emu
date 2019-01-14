@@ -1,7 +1,7 @@
 'use strict';
 
 import { replaceNode } from './htmlselector';
-export { initialise, updateCanvas, populateInitialCanvas, errorFeedback };
+export { initialise, updateCanvas, populateInitialCanvas, errorFeedback, loadFeedback };
 
 // HINT enable debug in the browser by entering "localStorage.debug = '*'" in the browser
 
@@ -340,6 +340,8 @@ function populateInitialCanvas(gameEntry) {
 }
 
 function errorFeedback(error) {
+  initCanvas();
+
   canvas.fillStyle = COLOR_DMD[3];
   const x = LEFT_X_OFFSET + 10;
   const y = YPOS_DMD_MAIN_VIEW + 30;
@@ -347,6 +349,19 @@ function errorFeedback(error) {
 
   canvas.fillText('ERROR! Failed to load ROM!', x, y);
   canvas.fillText('Details: ' + error.message, x, y + 30);
+
+  canvas.font = '10px Monaco';
+}
+
+function loadFeedback(romName) {
+  initCanvas();
+
+  canvas.fillStyle = COLOR_DMD[3];
+  const x = LEFT_X_OFFSET + 10;
+  const y = YPOS_DMD_MAIN_VIEW + 30;
+  canvas.font = '25px Monaco';
+
+  canvas.fillText('Load ROM ' + romName, x, y);
 
   canvas.font = '10px Monaco';
 }

@@ -87,7 +87,6 @@ module.exports = {
   ],
   initialise: {
     closedSwitches: [
-      //NOTE: if the hand mechanic switches are wrong, the game crashes. looks like a rom bug
       12,
       22,
       //OPTO SWITCHES: 31, 32, 33, 34, 35, 36, 74, 75, 76, 77
