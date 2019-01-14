@@ -4,7 +4,7 @@ import * as FileSaver from 'file-saver';
 export { initialise, save };
 
 /**
- * used to dump RAW DMD frames, use the PIN2DMD format. Format description
+ * used to dump RAW DMD frames, use the PIN2DMD format. Format description (aka VPinMameRawRenderer)
  * - HEADER, see description below
  * - FRAMES, each frame consists of a 4 byte uptimeInMs counter and 1536 bytes video frames (3 * unshaded video ram content)
  */
@@ -33,6 +33,11 @@ function initialise() {
 }
 
 function save(uint8Array, filename = 'pin2dmd.raw') {
+  if (!uint8Array || uint8Array.length <= HEADER.length) {
+    console.info('no frames found, abort');
+    return false;
+  }
+
   const blob = new Blob(
     [ uint8Array.buffer ],
     { type: 'text/plain;charset=utf-8' },

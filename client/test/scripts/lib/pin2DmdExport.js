@@ -1,7 +1,10 @@
 'use strict';
 
 import test from 'ava';
-import { initialise } from '../../../scripts/lib/pin2DmdExport';
+import { initialise, save } from '../../../scripts/lib/pin2DmdExport';
+import browserEnv from 'browser-env';
+
+browserEnv();
 
 test.beforeEach((t) => {
   t.context = initialise()
@@ -19,8 +22,25 @@ test('pin2DmdExport, should build export file', (t) => {
   t.is(frameCount, 1);
 });
 
+test('pin2DmdExport, should not add duplicate frames', (t) => {
+  t.context.addFrames([51, 52, 53], 1547335816154);
+  t.context.addFrames([51, 52, 53], 1547335816155);
+  const frameCount = t.context.getCapturedFrames();
+
+  t.is(frameCount, 1);
+});
+
 test('pin2DmdExport, getCapturedFrames (empty)', (t) => {
   const result = t.context.getCapturedFrames();
   t.is(result, 0);
 });
 
+test('pin2DmdExport, do not export undefined frames', (t) => {
+  const result = save();
+  t.is(result, false);
+});
+
+test('pin2DmdExport, do not export empty frames', (t) => {
+  const result = save(t.context.buildExportFile());
+  t.is(result, false);
+});

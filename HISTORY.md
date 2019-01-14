@@ -1,8 +1,11 @@
 # HISTORY
 
+## 14/1/19
+- improve error handling when ROM cannot be loaded. Closes GitHub Issue #27 "Prevent crash if the the default rom is missing"
+
 ## 13/1/19
 - implement keyboard mapping: cabinet service keys ("7", "8", "9", "0"), save and load state ("s", "l"), play and resume ("p", "r")
-- option to dump DMD frames, can be imported for example in PIN2DMD to colorise DMD animations
+- option to export DMD frames (VPinMameRawRenderer), can be imported for example in PIN2DMD to colorize DMD animations
 
 ## 11/1/19
 - implement fliptronics solenoid handling
