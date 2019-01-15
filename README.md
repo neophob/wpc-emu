@@ -623,6 +623,7 @@ Solution:
 - Drain: The common term used to refer to the area beneath the flippers. If the ball rolls into the drain area via an outlane or between the flippers, it will be lost. Also refers to the act of losing a ball in this manner.
 - Plunger: The object used to launch a ball onto the playfield
 - HSTD: High Score to Date
+- HUO: Home use only
 
 ## ROM Revision / Software Version Information
 Source: http://www.planetarypinball.com/mm5/Williams/tech/sys11roms.html
