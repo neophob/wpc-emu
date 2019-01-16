@@ -3,6 +3,7 @@
 ## 16/1/19
 - add game "Strike Master Shuffle Alley"
 - add game "League Champ Shuffle Alley"
+- add game "Twilight Zone (FreeWPC), Broken"
 - add keyboard mapping "1" - "4"
 
 ## 14/1/19

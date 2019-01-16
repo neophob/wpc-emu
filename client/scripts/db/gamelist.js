@@ -47,6 +47,7 @@ import theFlintstones from './flintstones';
 import thePartyZone from './tpz';
 import theShadow from './ts';
 import twilightZone from './tz';
+import twilightZoneFreewpc from './tz.freewpc';
 import whiteWater from './ww';
 import whoDunnit from './wd';
 import worldCupSoccer from './wcs';
@@ -102,6 +103,7 @@ const wpcGames = [
   theShadow,
   ticketTacToe,
   twilightZone,
+  twilightZoneFreewpc,
   whiteWater,
   whoDunnit,
   worldCupSoccer,
