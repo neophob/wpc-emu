@@ -1,5 +1,8 @@
 # HISTORY
 
+## 16/1/19
+- add game "Strike Master Shuffle Alley"
+
 ## 14/1/19
 - improve error handling when ROM cannot be loaded. Closes GitHub Issue #27 "Prevent crash if the the default rom is missing"
 

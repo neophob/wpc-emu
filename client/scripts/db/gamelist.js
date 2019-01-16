@@ -34,6 +34,7 @@ import safeCracker from './sc';
 import scaredStiff from './ss';
 import slugFest from './sf';
 import starTrekTheNextGeneration from './sttng';
+import strikeMaster from './sm';
 import talesOfTheArabianNights from './totan';
 import terminator2Freewpc from './t2.freewpc';
 import terminator2 from './t2';
@@ -87,6 +88,7 @@ const wpcGames = [
   scaredStiff,
   slugFest,
   starTrekTheNextGeneration,
+  strikeMaster,
   talesOfTheArabianNights,
   terminator2Freewpc,
   terminator2,

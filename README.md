@@ -731,7 +731,7 @@ Some Dr. Dude machines were also made using this WPC generation, although most w
 - Hurricane 🚀 - August 1991
 - The Party Zone 🚀 - August 1991
 - Hot Shot Basketball (redemption game) 🚀 - October 1994
-- Strike Master Shuffle Alley (redemption game) - 1991
+- Strike Master Shuffle Alley (redemption game) 🚀 - 1991
 
 Terminator 2: Judgment Day was the first to be designed with a dot matrix display, but was released after Gilligan's Island, due to Terminator 2 having a longer development time than Gilligan's Island.
 
