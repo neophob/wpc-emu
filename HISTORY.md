@@ -1,5 +1,13 @@
 # HISTORY
 
+## 16/1/19
+- add game "Strike Master Shuffle Alley"
+- add game "League Champ Shuffle Alley"
+- add game "Twilight Zone (FreeWPC), Broken"
+- add game "Attack from Mars (FreeWPC), Broken"
+- add game "White Water "Bigfoot" (FreeWPC)"
+- add keyboard mapping "1" - "4"
+
 ## 14/1/19
 - improve error handling when ROM cannot be loaded. Closes GitHub Issue #27 "Prevent crash if the the default rom is missing"
 

@@ -623,6 +623,7 @@ Solution:
 - Drain: The common term used to refer to the area beneath the flippers. If the ball rolls into the drain area via an outlane or between the flippers, it will be lost. Also refers to the act of losing a ball in this manner.
 - Plunger: The object used to launch a ball onto the playfield
 - HSTD: High Score to Date
+- HUO: Home use only
 
 ## ROM Revision / Software Version Information
 Source: http://www.planetarypinball.com/mm5/Williams/tech/sys11roms.html
@@ -730,7 +731,7 @@ Some Dr. Dude machines were also made using this WPC generation, although most w
 - Hurricane 🚀 - August 1991
 - The Party Zone 🚀 - August 1991
 - Hot Shot Basketball (redemption game) 🚀 - October 1994
-- Strike Master Shuffle Alley (redemption game) - 1991
+- Strike Master Shuffle Alley (redemption game) 🚀 - 1991
 
 Terminator 2: Judgment Day was the first to be designed with a dot matrix display, but was released after Gilligan's Island, due to Terminator 2 having a longer development time than Gilligan's Island.
 
@@ -781,7 +782,7 @@ In this final revision of the WPC hardware, the dot matrix controller and the DC
 - Congo 🚀 - November 1995
 - Attack from Mars 🚀 - December 1995
 - Ticket Tac Toe (redemption game) 🚀 - March 1996
-- League Champ Shuffle Alley (redemption game) - March 1996
+- League Champ Shuffle Alley (redemption game) 🚀 - March 1996
 - Safecracker 🚀 - March 1996
 - Tales of the Arabian Nights 🚀 - May 1996
 - Scared Stiff 🚀 - September 1996

@@ -168,6 +168,10 @@ function pauseEmu() {
 function registerKeyboardListener() {
   console.log(
     '## KEYBOARD MAPPING:\n' +
+    '  "1": Coin#1\n' +
+    '  "2": Coin#2\n' +
+    '  "3": Coin#3\n' +
+    '  "4": Coin#4\n' +
     '  "P": pause\n' +
     '  "R": resume\n' +
     '  "S": save\n' +
@@ -180,6 +184,18 @@ function registerKeyboardListener() {
 
   window.addEventListener('keydown', (e) => {
     switch (e.keyCode) {
+      case 49: //1
+        return wpcSystem.setCabinetInput(1);
+
+      case 50: //2
+        return wpcSystem.setCabinetInput(2);
+
+      case 51: //3
+        return wpcSystem.setCabinetInput(4);
+
+      case 52: //4
+        return wpcSystem.setCabinetInput(8);
+
       case 80: //P
         return pauseEmu();
 

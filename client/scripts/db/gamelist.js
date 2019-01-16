@@ -2,6 +2,7 @@
 
 import addamsFamilyValues from './afv';
 import attackFromMars from './afm';
+import attackFromMarsFreewpc from './afm.freewpc';
 import blackRose from './br';
 import bramStokersDracula from './bsd';
 import cactusCanyon from './cc';
@@ -23,6 +24,7 @@ import jackBot from './jb';
 import judgeDredd from './jd';
 import junkYard from './jy';
 import johnnyMnemonic from './jm';
+import leagueChamp from './lc';
 import monsterBash from './mb';
 import medievalMadness from './mm';
 import nbaFastbreak from './nba';
@@ -34,6 +36,7 @@ import safeCracker from './sc';
 import scaredStiff from './ss';
 import slugFest from './sf';
 import starTrekTheNextGeneration from './sttng';
+import strikeMaster from './sm';
 import talesOfTheArabianNights from './totan';
 import terminator2Freewpc from './t2.freewpc';
 import terminator2 from './t2';
@@ -45,7 +48,9 @@ import theFlintstones from './flintstones';
 import thePartyZone from './tpz';
 import theShadow from './ts';
 import twilightZone from './tz';
+import twilightZoneFreewpc from './tz.freewpc';
 import whiteWater from './ww';
+import whiteWaterFreewpc from './ww.freewpc';
 import whoDunnit from './wd';
 import worldCupSoccer from './wcs';
 import wpcTestrom from './wpc.testrom';
@@ -55,6 +60,7 @@ export { getAllNames, getByName };
 const wpcGames = [
   addamsFamilyValues,
   attackFromMars,
+  attackFromMarsFreewpc,
   blackRose,
   bramStokersDracula,
   cactusCanyon,
@@ -76,6 +82,7 @@ const wpcGames = [
   judgeDredd,
   junkYard,
   johnnyMnemonic,
+  leagueChamp,
   monsterBash,
   medievalMadness,
   nbaFastbreak,
@@ -87,6 +94,7 @@ const wpcGames = [
   scaredStiff,
   slugFest,
   starTrekTheNextGeneration,
+  strikeMaster,
   talesOfTheArabianNights,
   terminator2Freewpc,
   terminator2,
@@ -98,7 +106,9 @@ const wpcGames = [
   theShadow,
   ticketTacToe,
   twilightZone,
+  twilightZoneFreewpc,
   whiteWater,
+  whiteWaterFreewpc,
   whoDunnit,
   worldCupSoccer,
   wpcTestrom,
