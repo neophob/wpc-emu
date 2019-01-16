@@ -23,6 +23,7 @@ import jackBot from './jb';
 import judgeDredd from './jd';
 import junkYard from './jy';
 import johnnyMnemonic from './jm';
+import leagueChamp from './lc';
 import monsterBash from './mb';
 import medievalMadness from './mm';
 import nbaFastbreak from './nba';
@@ -77,6 +78,7 @@ const wpcGames = [
   judgeDredd,
   junkYard,
   johnnyMnemonic,
+  leagueChamp,
   monsterBash,
   medievalMadness,
   nbaFastbreak,

@@ -1,10 +1,10 @@
 'use strict';
 
 module.exports = {
-  name: 'WPC-DMD: Strike Master Shuffle Alley (Redemption game)',
-  version: 'L-4',
+  name: 'WPC-95: League Champ Shuffle Alley (Redemption game)',
+  version: '1.1',
   rom: {
-    u06: 'STRIK_L4.ROM',
+    u06: 'LCHMP1_1.ROM',
   },
   switchMapping: [
     { id: 13, name: 'START BUTTON' },
@@ -51,6 +51,10 @@ module.exports = {
     { id: 68, name: 'PIN SWITCH I' },
   ],
   skipWmcRomCheck: true,
+  features: [
+    // NOTE: this WPC-95 device does NOT include a Security Pic!
+    // 'securityPic',
+  ],
   initialise: {
     closedSwitches: [
       22,
