@@ -49,6 +49,7 @@ import theShadow from './ts';
 import twilightZone from './tz';
 import twilightZoneFreewpc from './tz.freewpc';
 import whiteWater from './ww';
+import whiteWaterFreewpc from './ww.freewpc';
 import whoDunnit from './wd';
 import worldCupSoccer from './wcs';
 import wpcTestrom from './wpc.testrom';
@@ -105,6 +106,7 @@ const wpcGames = [
   twilightZone,
   twilightZoneFreewpc,
   whiteWater,
+  whiteWaterFreewpc,
   whoDunnit,
   worldCupSoccer,
   wpcTestrom,
