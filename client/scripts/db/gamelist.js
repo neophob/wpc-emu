@@ -11,6 +11,7 @@ import congo from './congo';
 import corvette from './corv';
 import creatureFromTheBlackLagoon from './cftbl';
 import demolitionMan from './dm';
+import demolitionManFreewpc from './dm.freewpc';
 import dirtyHarry from './dh';
 import drWho from './dw';
 import fishTales from './fishtales';
@@ -69,6 +70,7 @@ const wpcGames = [
   corvette,
   creatureFromTheBlackLagoon,
   demolitionMan,
+  demolitionManFreewpc,
   dirtyHarry,
   drWho,
   fishTales,
