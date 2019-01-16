@@ -2,6 +2,7 @@
 
 import addamsFamilyValues from './afv';
 import attackFromMars from './afm';
+import attackFromMarsFreewpc from './afm.freewpc';
 import blackRose from './br';
 import bramStokersDracula from './bsd';
 import cactusCanyon from './cc';
@@ -59,6 +60,7 @@ export { getAllNames, getByName };
 const wpcGames = [
   addamsFamilyValues,
   attackFromMars,
+  attackFromMarsFreewpc,
   blackRose,
   bramStokersDracula,
   cactusCanyon,
