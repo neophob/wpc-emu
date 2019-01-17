@@ -102,13 +102,15 @@ function loadState() {
 }
 
 function toggleDmdDump() {
+  const element = document.getElementById('dmd-dump-text');
   if (dmdDump) {
     saveFile(dmdDump.buildExportFile(), 'wpc-emu-dump.raw');
-    const element = document.getElementById('dmd-dump-text');
     element.textContent = 'DMD DUMP';
+    element.classList.remove('blinkText');
     dmdDump = null;
   } else {
     dmdDump = initDmdExport();
+    element.classList.add('blinkText');
   }
 }
 

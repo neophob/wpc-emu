@@ -75,6 +75,10 @@ module.exports = {
     { id: 'F3', name: 'L FLIPPER EOS' },
     { id: 'F4', name: 'L FLIPPER BUTTON' },
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-tom.jpg',
+  },
   skipWmcRomCheck: true,
   features: [
     'securityPic',

@@ -26,3 +26,13 @@ body {
   line-height: 2.5rem;
   padding: 0 1.2rem;
 }
+
+.blinkText {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}

@@ -88,6 +88,10 @@ module.exports = {
     { id: 'F7', name: 'SPINNER' },
     { id: 'F8', name: 'UL FLIPPER BUT' },
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-sttng.jpg',
+  },
   skipWmcRomCheck: true,
   initialise: {
     closedSwitches: [

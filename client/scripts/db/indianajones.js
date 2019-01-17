@@ -90,6 +90,10 @@ module.exports = {
     { id: 'F7', name: 'DROP ADVEN(T)URE' },
     { id: 'F8', name: 'LEFT RAMP MADE' },
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-ij.jpg',
+  },
   skipWmcRomCheck: true,
   initialise: {
     closedSwitches: [

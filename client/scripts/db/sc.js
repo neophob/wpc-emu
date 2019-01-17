@@ -83,6 +83,10 @@ module.exports = {
     { id: 'F6', name: 'UR FLIPPER BUT' },
     { id: 'F8', name: 'TOKEN COIN SLOT' },
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-sc.jpg',
+  },
   skipWmcRomCheck: true,
   features: [
     'securityPic',

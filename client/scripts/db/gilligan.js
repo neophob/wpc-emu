@@ -73,6 +73,10 @@ module.exports = {
     { id: 83, name: 'TOP LEFT LOOP' },
     { id: 84, name: 'TOP RIGHT LOOP' },
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-gilligan.jpg',
+  },
   skipWmcRomCheck: true,
   initialise: {
     closedSwitches: [ 16, 17 ],

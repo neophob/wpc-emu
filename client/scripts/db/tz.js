@@ -9,10 +9,6 @@ module.exports = {
     u15: 'Bally_1993_Twilight_Zone_TZ_Sound_P3_U15.rom',
     u18: 'Bally_1993_Twilight_Zone_TZ_Sound_P3_U18.rom',
   },
-  playfield: {
-    //size must be 200x400, lamp positions according to image
-    image: 'playfield-tz.jpg',
-  },
   switchMapping: [
     { id: 11, name: 'RIGHT INLANE' },
     { id: 12, name: 'RIGHT OUTLANE' },
@@ -88,6 +84,10 @@ module.exports = {
     { id: 'F3', name: 'L FLIPPER EOS' },
     { id: 'F4', name: 'L FLIPPER BUTTON' },
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-tz.jpg',
+  },
   skipWmcRomCheck: true,
   initialise: {
     closedSwitches: [
