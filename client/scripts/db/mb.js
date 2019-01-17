@@ -83,6 +83,10 @@ module.exports = {
     { id: 'F7', name: 'CENTER SPINNER' },
     { id: 'F8', name: 'UL FLIPPER BUT' },
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-mb.jpg',
+  },
   skipWmcRomCheck: true,
   features: [
     'securityPic',
