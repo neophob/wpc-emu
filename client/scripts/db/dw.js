@@ -83,6 +83,10 @@ module.exports = {
     { id: 'F7', name: 'UL FLIPPER EOS' },
     { id: 'F8', name: 'UL FLIPPER BUT' },
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-dw.jpg',
+  },
   skipWmcRomCheck: true,
   initialise: {
     closedSwitches: [
