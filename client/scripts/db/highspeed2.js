@@ -7,10 +7,6 @@ module.exports = {
     u06: 'u6-p-c.rom',
     u18: 'u18-sp1.rom',
   },
-  playfield: {
-    //size must be 200x400, lamp positions according to image
-    image: 'playfield-getaway.jpg',
-  },
   switchMapping: [
     { id: 11, name: 'RIGHT FLIPPER' },
     { id: 12, name: 'LEFT FLIPPER' },
@@ -85,6 +81,10 @@ module.exports = {
     { id: 'F5', name: 'UR FLIPPER EOS' },
     { id: 'F6', name: 'UR FLIPPER BUT' },
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-getaway.jpg',
+  },
   skipWmcRomCheck: true,
   initialise: {
     closedSwitches: [
