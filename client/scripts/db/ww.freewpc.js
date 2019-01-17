@@ -2,7 +2,7 @@
 
 module.exports = {
   name: 'WPC-Fliptronics: White Water "Bigfoot" (FreeWPC)',
-  version: 'L-5',
+  version: '0.1',
   rom: {
     u06: 'wwatr_l5.freewpc.rom',
   },

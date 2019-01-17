@@ -1,11 +1,17 @@
 # HISTORY
 
+## 17/1/19
+- DMD Ripping: show how many DMD frames has been ripped
+- DMD Ripping: increased maximal ripped DMD Frames from 1000 to 8000
+- DMD Ripping: once 8000 frames has been reached, download dump and continue ripping
+
 ## 16/1/19
 - add game "Strike Master Shuffle Alley"
 - add game "League Champ Shuffle Alley"
 - add game "Twilight Zone (FreeWPC), Broken"
 - add game "Attack from Mars (FreeWPC), Broken"
 - add game "White Water "Bigfoot" (FreeWPC)"
+- add game "Demolition Man "Demolition Time" (FreeWPC)"
 - add keyboard mapping "1" - "4"
 
 ## 14/1/19
