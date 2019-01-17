@@ -75,6 +75,10 @@ module.exports = {
     { id: 'F4', name: 'L FLIPPER BUTTON' },
     { id: 'F6', name: 'UR FLIPPER BUT' },
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-ww.jpg',
+  },
   skipWmcRomCheck: true,
   initialise: {
     closedSwitches: [
