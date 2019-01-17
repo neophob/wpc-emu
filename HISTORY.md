@@ -3,6 +3,7 @@
 ## 17/1/19
 - DMD Ripping: show how many DMD frames has been ripped
 - DMD Ripping: increased maximal ripped DMD Frames from 1000 to 8000
+- DMD Ripping: once 8000 frames has been reached, download dump and continue ripping
 
 ## 16/1/19
 - add game "Strike Master Shuffle Alley"

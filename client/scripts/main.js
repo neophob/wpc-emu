@@ -103,7 +103,7 @@ function loadState() {
 
 function toggleDmdDump() {
   if (dmdDump) {
-    saveFile(dmdDump.buildExportFile());
+    saveFile(dmdDump.buildExportFile(), 'wpc-emu-dump.raw');
     const element = document.getElementById('dmd-dump-text');
     element.textContent = 'DMD DUMP';
     dmdDump = null;
@@ -140,14 +140,16 @@ function step() {
 
   if (dmdDump) {
     dmdDump.addFrames(emuState.asic.dmd.videoOutputBuffer, emuState.cpuState.tickCount);
-    const element = document.getElementById('dmd-dump-text');
-    const capturedFrames = dmdDump.getCapturedFrames();
-    element.textContent = 'DUMPING: ' + capturedFrames;
 
+    const capturedFrames = dmdDump.getCapturedFrames();
     if (capturedFrames > MAXIMAL_DMD_FRAMES_TO_RIP) {
-      saveFile(dmdDump.buildExportFile());
-      dmdDump = null;
+      const filename = 'wpc-emu-dump-' + Date.now() + '.raw';
+      saveFile(dmdDump.buildExportFile(), filename);
+      dmdDump = initDmdExport();
     }
+
+    const element = document.getElementById('dmd-dump-text');
+    element.textContent = 'DUMPING: ' + dmdDump.getCapturedFrames();
   }
 }
 
