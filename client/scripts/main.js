@@ -13,6 +13,7 @@ import * as gamelist from './db/gamelist';
 import { populateControlUiView } from './ui/control-ui';
 import * as emuDebugUi from './ui/emu-debug-ui';
 
+const MAXIMAL_DMD_FRAMES_TO_RIP = 8000;
 const TICKS = 2000000;
 const DESIRED_FPS = 58;
 const TICKS_PER_CALL = parseInt(TICKS / DESIRED_FPS, 10);
@@ -101,13 +102,12 @@ function loadState() {
 }
 
 function toggleDmdDump() {
-  const element = document.getElementById('dmd-dump-text');
   if (dmdDump) {
     saveFile(dmdDump.buildExportFile());
+    const element = document.getElementById('dmd-dump-text');
     element.textContent = 'DMD DUMP';
     dmdDump = null;
   } else {
-    element.textContent = 'DUMPING ...';
     dmdDump = initDmdExport();
   }
 }
@@ -140,8 +140,11 @@ function step() {
 
   if (dmdDump) {
     dmdDump.addFrames(emuState.asic.dmd.videoOutputBuffer, emuState.cpuState.tickCount);
+    const element = document.getElementById('dmd-dump-text');
+    const capturedFrames = dmdDump.getCapturedFrames();
+    element.textContent = 'DUMPING: ' + capturedFrames;
 
-    if (dmdDump.getCapturedFrames() > 1000) {
+    if (capturedFrames > MAXIMAL_DMD_FRAMES_TO_RIP) {
       saveFile(dmdDump.buildExportFile());
       dmdDump = null;
     }
