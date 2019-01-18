@@ -98,27 +98,31 @@ test('flags should be correct after calling irq(), init flags to 0x00', (t) => {
   const cpu = t.context;
   cpu.set('flags', 0x00);
   cpu.irq();
+  t.is(cpu.irqPendingIRQ, true);
   cpu.fetch = () => 0x12;
   cpu.steps();
   t.is(cpu.flagsToString(), 'EfhInzvc');
   t.is(t.context.readMemoryAddress[2], 0xFFF8);
   t.is(t.context.readMemoryAddress[3], 0xFFF9);
+  t.is(cpu.irqPendingIRQ, false);
 });
 
-test('clear irq mask should clear F_IRQMASK', (t) => {
+test('clear irq mask should set pending irq to false', (t) => {
   const cpu = t.context;
   cpu.set('flags', 0x00);
   cpu.irq();
   cpu.clearIrqMasking();
-  t.is(cpu.flagsToString(), 'Efhinzvc');
+  t.is(cpu.flagsToString(), 'efhinzvc');
+  t.is(cpu.irqPendingIRQ, false);
 });
 
-test('clear firq mask should clear F_FIRQMASK', (t) => {
+test('clear firq mask should set pending irq to false', (t) => {
   const cpu = t.context;
   cpu.set('flags', 0x00);
   cpu.firq();
   cpu.clearFirqMasking();
-  t.is(cpu.flagsToString(), 'efhInzvc');
+  t.is(cpu.flagsToString(), 'efhinzvc');
+  t.is(cpu.irqPendingFIRQ, false);
 });
 
 test('flags should be correct after calling irq(), init flags to 0xef', (t) => {
@@ -158,6 +162,7 @@ test('flags should be correct after calling firq(), init flags to 0x00', (t) => 
   const cpu = t.context;
   cpu.set('flags', 0x00);
   cpu.firq();
+  t.is(cpu.irqPendingFIRQ, true);
   cpu.fetch = () => 0x12;
   cpu.steps();
   t.is(cpu.flagsToString(), 'eFhInzvc');

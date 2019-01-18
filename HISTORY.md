@@ -2,8 +2,6 @@
 
 ## 18/1/19
 - STTNG, FT, HS2: use production ROM
-- do not queue CPU interrupts, this fixed JM
-- fix bug in DMD controller, currently FIRQ is called too often, but no visible issue (and was called too often in the past too)
 
 ## 17/1/19
 - DMD Ripping: show how many DMD frames has been ripped
