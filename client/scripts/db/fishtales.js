@@ -2,9 +2,9 @@
 
 module.exports = {
   name: 'WPC-Fliptronics: Fish Tales',
-  version: 'P-4',
+  version: 'L-5',
   rom: {
-    u06: 'ft_p4.u6',
+    u06: 'FSHTL_5.ROM',
     u14: 't2_u14.l3',
     u15: 't2_u15.l3',
     u18: 't2_u18.l3',

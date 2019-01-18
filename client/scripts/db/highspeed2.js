@@ -2,9 +2,9 @@
 
 module.exports = {
   name: 'WPC-Fliptronics: High Speed II, The Getaway',
-  version: 'P-C',
+  version: 'L-5',
   rom: {
-    u06: 'u6-p-c.rom',
+    u06: 'GETAW_L5.ROM',
     u18: 'u18-sp1.rom',
   },
   switchMapping: [

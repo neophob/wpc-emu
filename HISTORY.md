@@ -1,5 +1,9 @@
 # HISTORY
 
+## 18/1/19
+- STTNG, FT, HS2: use production ROM
+- AFM: add lamp configuration
+
 ## 17/1/19
 - DMD Ripping: show how many DMD frames has been ripped
 - DMD Ripping: increased maximal ripped DMD frames from 1000 to 8000
