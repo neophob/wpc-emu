@@ -23,7 +23,7 @@ test('dmd, should write to hardwareRam', (t) => {
 test('dmd, should read to WPC_DMD_SCANLINE', (t) => {
   const dmd = t.context;
   const result = dmd.read(0x3FBD);
-  t.is(result, 0x80);
+  t.is(result, 0x0);
 });
 
 test('dmd, should map WPC_DMD_LOW_PAGE', (t) => {

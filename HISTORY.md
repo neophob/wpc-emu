@@ -3,6 +3,7 @@
 ## 18/1/19
 - STTNG, FT, HS2: use production ROM
 - AFM: add lamp configuration
+- Client allow step by step processing when PAUSE the emulator multiple times
 
 ## 17/1/19
 - DMD Ripping: show how many DMD frames has been ripped
