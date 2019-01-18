@@ -2,9 +2,9 @@
 
 module.exports = {
   name: 'WPC-DCS: Star Trek, The Next Generation',
-  version: 'P-5',
+  version: 'LX-7',
   rom: {
-    u06: 'sttng_p5.u6',
+    u06: 'TREK_LX7.ROM',
   },
   switchMapping: [
     { id: 11, name: 'BUY IN BUTTON' },

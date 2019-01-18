@@ -146,7 +146,6 @@ module.exports = {
       [{ x: 180, y: 390, color: 'RED' }],
       [{ x: 0, y: 0, color: 'BLACK' }],
       [{ x: 10, y: 390, color: 'RED' }],
-
     ],
   },
   skipWmcRomCheck: true,
