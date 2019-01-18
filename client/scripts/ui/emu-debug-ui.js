@@ -1,10 +1,7 @@
 'use strict';
 
 import { replaceNode } from './htmlselector';
-
-export { initialise, updateCanvas };
-
-/*jshint bitwise: false*/
+export { initialise, updateCanvas, populateInitialCanvas, errorFeedback, loadFeedback };
 
 // HINT enable debug in the browser by entering "localStorage.debug = '*'" in the browser
 
@@ -15,7 +12,7 @@ const CANVAS_HEIGHT = 560;
 const YPOS_DMD_MAIN_VIEW = 15;
 const YPOS_GENERIC_DATA = 225;
 const YPOS_DMD_DATA = 415;
-const YPOS_MEM_DATA = YPOS_DMD_DATA + 65;
+const YPOS_MEM_DATA = YPOS_DMD_DATA + 67;
 
 const LEFT_X_OFFSET = 15;
 const MIDDLE_X_OFFSET = 250 + LEFT_X_OFFSET;
@@ -49,47 +46,47 @@ colorLut.set('WHITE', 'rgba(255,255,255,');
 colorLut.set('GREEN', 'rgba(0,255,0,');
 colorLut.set('BLACK', 'rgba(0,0,0,0)');
 
-function updateCanvas(emuState, cpuState, bleMessageCount) {
+function updateCanvas(emuState, cpuRunningState, bleMessageCount) {
   if (!emuState) {
     return;
   }
   canvas.fillStyle = '#000';
   canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 245, 175);
-  canvas.fillRect(LEFT_X_OFFSET, YPOS_DMD_DATA, 150, 40);
+  canvas.fillRect(LEFT_X_OFFSET, YPOS_DMD_DATA, 170, 40);
 
   canvas.fillStyle = COLOR_DMD[2];
   canvas.fillText('ROM: ' + emuState.romFileName, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 10);
-  canvas.fillText('CPU TICKS: ' + emuState.ticks, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 20);
+  canvas.fillText('CPU TICKS: ' + emuState.cpuState.tickCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 20);
   canvas.fillText('CPU TICKS/ms: ' + emuState.opsMs, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 30);
-  canvas.fillText('CPU STATE: ' + cpuState, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 40);
-  canvas.fillText('IRQ CALLS/MISSED: ' + emuState.irqCount + '/' + emuState.missedIrqCall,
+  canvas.fillText('CPU STATE: ' + cpuRunningState, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 40);
+  canvas.fillText('IRQ CALLS/MISSED: ' + emuState.cpuState.irqCount + '/' + emuState.cpuState.missedIRQ,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
-  canvas.fillText('FIRQ CALLS/MISSED: ' + emuState.firqCount + '/' + emuState.missedFirqCall,
+  canvas.fillText('FIRQ CALLS/MISSED: ' + emuState.cpuState.firqCount + '/' + emuState.cpuState.missedFIRQ,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
-  canvas.fillText('NMI CALLS: ' + emuState.nmiCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 70);
+  canvas.fillText('NMI CALLS: ' + emuState.cpuState.nmiCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 70);
 
-  const diagnosticLed = emuState.asic.wpc.diagnosticLed ? 1 : 0;
-  const activePage = emuState.asic.dmd.activepage;
-  canvas.fillText('DIAGLED STATE: ' + diagnosticLed, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 80);
-  canvas.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 90);
-  canvas.fillText('ACTIVE ROM BANK: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 100);
-  canvas.fillText('WRITE TO LOCKED MEM: ' + emuState.protectedMemoryWriteAttempts, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 110);
+  canvas.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, LEFT_X_OFFSET + 10, YPOS_GENERIC_DATA + 80);
+  canvas.fillText('ACTIVE ROM BANK: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 90);
+  canvas.fillText('WRITE TO LOCKED MEM: ' + emuState.protectedMemoryWriteAttempts, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 100);
 
-  canvas.fillText('SND CPU TICK: ' + emuState.asic.sound.ticks, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 120);
-  canvas.fillText('SND IRQ CALLS/MISSED: ' + emuState.asic.sound.irqCount + '/' + emuState.asic.sound.missedIrqCall,
+  canvas.fillText('SND CPU TICK: ' + emuState.asic.sound.cpuState.tickCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 110);
+  canvas.fillText('SND IRQ CALLS/MISSED: ' + emuState.asic.sound.cpuState.irqCount + '/' + emuState.asic.sound.cpuState.missedIRQ,
+    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 120);
+  canvas.fillText('SND FIRQ CALLS/MISSED: ' + emuState.asic.sound.cpuState.firqCount + '/' + emuState.asic.sound.cpuState.missedFIRQ,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 130);
-  canvas.fillText('SND FIRQ CALLS/MISSED: ' + emuState.asic.sound.firqCount + '/' + emuState.asic.sound.missedFirqCall,
+  canvas.fillText('SND NMI CALLS: ' + emuState.asic.sound.cpuState.nmiCount,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 140);
-  canvas.fillText('SND NMI CALLS: ' + emuState.asic.sound.nmiCount,
-    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 150);
-  canvas.fillText('SND VOLUME: ' + emuState.asic.sound.volume, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 160);
+  canvas.fillText('SND VOLUME: ' + emuState.asic.sound.volume, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 150);
+  canvas.fillText('TIME: ' + emuState.asic.wpc.time, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 160);
   if (bleMessageCount) {
     canvas.fillText('BLE MESSAGES: ' + bleMessageCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 170);
   }
+    
+  canvas.fillText('DMD PAGE MAP: ' + emuState.asic.dmd.dmdPageMapping, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
+  canvas.fillText('DMD ACTIVE PAGE: ' + emuState.asic.dmd.activepage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
 
-  canvas.fillText('DMD LOW PAGE: ' + emuState.asic.dmd.lowpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
-  canvas.fillText('DMD HIGH PAGE: ' + emuState.asic.dmd.highpage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
-  canvas.fillText('DMD ACTIVE PAGE: ' + activePage, LEFT_X_OFFSET, YPOS_DMD_DATA + 30);
+  canvas.fillStyle = emuState.asic.wpc.diagnosticLed ? COLOR_DMD[3] : COLOR_DMD[0];
+  canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA + 72, 8, 8);
 
   if (emuState.asic.sound.ram) {
     drawMemRegion(emuState.asic.sound.ram, LEFT_X_OFFSET + 125, YPOS_MEM_DATA, 120);
@@ -306,6 +303,8 @@ function initCanvas() {
   canvas.fillText('DMD PAGE RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
   canvas.fillText('WPC CPU RAM:', LEFT_X_OFFSET, YPOS_MEM_DATA - 10);
   canvas.fillText('SOUND CPU RAM:', LEFT_X_OFFSET + 125, YPOS_MEM_DATA - 10);
+
+  drawDmdShaded([], LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
 }
 
 function initialise(gameEntry) {
@@ -325,6 +324,12 @@ function initialise(gameEntry) {
   canvasOverlay = canvasOverlayElement.getContext('2d', { alpha: true });
   replaceNode('canvasOverlayNode', canvasOverlayElement);
 
+  drawDmdShaded([], LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
+}
+
+function populateInitialCanvas(gameEntry) {
+  initCanvas();
+
   // preload data
   playfieldData = gameEntry.playfield;
   playfieldImage = null;
@@ -335,6 +340,31 @@ function initialise(gameEntry) {
     };
     playfieldImage.src = FETCHURL + playfieldData.image;
   }
+}
 
+function errorFeedback(error) {
   initCanvas();
+
+  canvas.fillStyle = COLOR_DMD[3];
+  const x = LEFT_X_OFFSET + 10;
+  const y = YPOS_DMD_MAIN_VIEW + 30;
+  canvas.font = '25px Monaco';
+
+  canvas.fillText('ERROR! Failed to load ROM!', x, y);
+  canvas.fillText('Details: ' + error.message, x, y + 30);
+
+  canvas.font = '10px Monaco';
+}
+
+function loadFeedback(romName) {
+  initCanvas();
+
+  canvas.fillStyle = COLOR_DMD[3];
+  const x = LEFT_X_OFFSET + 10;
+  const y = YPOS_DMD_MAIN_VIEW + 30;
+  canvas.font = '25px Monaco';
+
+  canvas.fillText('Load ROM ' + romName, x, y);
+
+  canvas.font = '10px Monaco';
 }

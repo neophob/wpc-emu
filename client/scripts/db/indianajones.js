@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Indiana Jones: The Pinball Adventure',
+  name: 'WPC-DCS: Indiana Jones, The Pinball Adventure',
   version: 'L-7',
   rom: {
     u06: 'ijone_l7.rom',
@@ -90,6 +90,10 @@ module.exports = {
     { id: 'F7', name: 'DROP ADVEN(T)URE' },
     { id: 'F8', name: 'LEFT RAMP MADE' },
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-ij.jpg',
+  },
   skipWmcRomCheck: true,
   initialise: {
     closedSwitches: [

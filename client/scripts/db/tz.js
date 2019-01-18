@@ -1,17 +1,13 @@
 'use strict';
 
 module.exports = {
-  name: 'Twilight Zone',
+  name: 'WPC-Fliptronics: Twilight Zone',
   version: 'H-8',
   rom: {
     u06: 'tz_h8.u6',
     u14: 'Bally_1993_Twilight_Zone_TZ_Sound_P3_U14.rom',
     u15: 'Bally_1993_Twilight_Zone_TZ_Sound_P3_U15.rom',
     u18: 'Bally_1993_Twilight_Zone_TZ_Sound_P3_U18.rom',
-  },
-  playfield: {
-    //size must be 200x400, lamp positions according to image
-    image: 'playfield-tz.jpg',
   },
   switchMapping: [
     { id: 11, name: 'RIGHT INLANE' },
@@ -74,7 +70,7 @@ module.exports = {
     { id: 76, name: 'MINI PF EXIT' },
     { id: 77, name: 'MID LEFT 5 MIL' },
     { id: 78, name: 'U LEFT 5 MIL' },
-    
+
     { id: 81, name: 'RIGHT MAGNET' },
     { id: 83, name: 'LEFT MAGNET' },
     { id: 84, name: 'LOCK CENTER' },
@@ -88,6 +84,10 @@ module.exports = {
     { id: 'F3', name: 'L FLIPPER EOS' },
     { id: 'F4', name: 'L FLIPPER BUTTON' },
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-tz.jpg',
+  },
   skipWmcRomCheck: true,
   initialise: {
     closedSwitches: [

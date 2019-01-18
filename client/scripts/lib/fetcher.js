@@ -5,7 +5,7 @@ export { downloadFileFromUrlAsUInt8Array };
 
 function downloadFileFromUrlAsUInt8Array(filename) {
   if (!filename) {
-    return Promise.resolve();
+    return Promise.reject(new Error('NO_FILENAME_DEFINED'));
   }
   return fetch(FETCHURL + filename)
     .then((response) => {

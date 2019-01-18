@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'The Party Zone',
+  name: 'WPC-DMD: The Party Zone',
   version: 'L-2',
   rom: {
     u06: 'PZ_U6.L2',
@@ -64,7 +64,7 @@ module.exports = {
     { id: 76, name: 'TROUGH 1' },
     { id: 77, name: 'TROUGH 2' },
     { id: 78, name: 'TROUGH 3' },
-    
+
     { id: 81, name: 'WAY' },
     { id: 82, name: 'OUT' },
     { id: 83, name: 'OF' },

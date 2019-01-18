@@ -2,58 +2,62 @@
 
 [![Build Status](https://travis-ci.org/neophob/wpc-emu.svg?branch=master)](https://travis-ci.org/neophob/wpc-emu)
 
-- [WPC (Dot Matrix) Emulator](#wpc--dot-matrix--emulator)
-  * [Goal](#goal)
+- [WPC (Dot Matrix) Emulator](#wpc-dot-matrix-emulator)
+  - [Goal](#goal)
 - [Implementation Status](#implementation-status)
-  * [Basic](#basic)
-  * [CPU/ASIC Board](#cpu-asic-board)
-  * [Power Driver Board](#power-driver-board)
-  * [Sound Board](#sound-board)
-  * [Dot Matrix Display/DMD Controller Board](#dot-matrix-display-dmd-controller-board)
-  * [Debug UI](#debug-ui)
+  - [Basic](#basic)
+  - [CPU/ASIC Board](#cpuasic-board)
+  - [Power Driver Board](#power-driver-board)
+  - [Sound Board](#sound-board)
+    - [Pre DCS (A-12738)](#pre-dcs-a-12738)
+    - [DCS (A-16917)](#dcs-a-16917)
+    - [DCS-95 (A-20516 and A-20145-2)](#dcs-95-a-20516-and-a-20145-2)
+  - [Dot Matrix Display/DMD Controller Board](#dot-matrix-displaydmd-controller-board)
+  - [Debug UI](#debug-ui)
 - [Development](#development)
-  * [Serve ROM's from localhost](#serve-rom-s-from-localhost)
-  * [Run Watch](#run-watch)
-  * [Tests](#tests)
-  * [Benchmark](#benchmark)
-  * [Tracer / Dumps](#tracer---dumps)
-  * [Build Release](#build-release)
-- [Future ideas](#future-ideas)
+  - [Serve ROM's from localhost](#serve-roms-from-localhost)
+  - [Run Watch](#run-watch)
+  - [Tests](#tests)
+  - [Benchmark](#benchmark)
+  - [Tracer / Dumps](#tracer--dumps)
+  - [Build Release](#build-release)
 - [Hardware - WPS Dot Matrix Machine](#hardware---wps-dot-matrix-machine)
-  * [Overview](#overview)
-  * [CPU board](#cpu-board)
-    + [Memory](#memory)
-  * [Power driver board](#power-driver-board)
-  * [Sound board](#sound-board)
-  * [DMD board](#dmd-board)
+  - [Overview WPC-89](#overview-wpc-89)
+  - [CPU board](#cpu-board)
+  - [Power driver board](#power-driver-board)
+  - [Sound board (pre DCS)](#sound-board-pre-dcs)
+  - [DMD board](#dmd-board)
 - [Implementation Hints](#implementation-hints)
-  * [Timing](#timing)
-    + [DMD display scanline](#dmd-display-scanline)
-  * [DMD controller](#dmd-controller)
-  * [Security PIC (U22)](#security-pic--u22-)
-  * [RAM positions](#ram-positions)
-  * [Boot sequence](#boot-sequence)
-  * [Gameplay](#gameplay)
-  * [To Test](#to-test)
-  * [Error Messages](#error-messages)
-    + [Invalid Switch state](#invalid-switch-state)
-    + [Do not disable checksum check](#do-not-disable-checksum-check)
+  - [Timing](#timing)
+    - [DMD display scanline](#dmd-display-scanline)
+  - [DMD controller](#dmd-controller)
+  - [Security PIC (U22)](#security-pic-u22)
+  - [RAM / NVRAM positions](#ram--nvram-positions)
+  - [Boot sequence](#boot-sequence)
+  - [Gameplay](#gameplay)
+  - [To Test](#to-test)
+  - [Error Messages](#error-messages)
+    - [Invalid Switch state](#invalid-switch-state)
+    - [Do not disable checksum check](#do-not-disable-checksum-check)
 - [References](#references)
-  * [Terms](#terms)
-  * [WPC](#wpc)
-  * [DMD](#dmd)
-  * [CPU](#cpu)
-  * [Sound Chip](#sound-chip)
-  * [ROM](#rom)
-  * [Custom Power Driver](#custom-power-driver)
-  * [Misc](#misc)
+  - [Terms](#terms)
+  - [ROM Revision / Software Version Information](#rom-revision--software-version-information)
+  - [Midnight Madness Mode](#midnight-madness-mode)
+  - [WPC](#wpc)
+  - [Pinball 2000](#pinball-2000)
+  - [DMD](#dmd)
+  - [CPU](#cpu)
+  - [Sound Chip](#sound-chip)
+  - [ROM](#rom)
+  - [Custom Power Driver](#custom-power-driver)
+  - [Misc](#misc)
 - [Game List](#game-list)
-  * [WPC (Alphanumeric)](#wpc--alphanumeric-)
-  * [WPC (Dot Matrix)](#wpc--dot-matrix-)
-  * [WPC (Fliptronics)](#wpc--fliptronics-)
-  * [WPC (DCS)](#wpc--dcs-)
-  * [WPC-S (Security)](#wpc-s--security-)
-  * [WPC-95](#wpc-95)
+  - [WPC (Alphanumeric)](#wpc-alphanumeric)
+  - [WPC (Dot Matrix)](#wpc-dot-matrix)
+  - [WPC (Fliptronics)](#wpc-fliptronics)
+  - [WPC (DCS)](#wpc-dcs)
+  - [WPC-S (Security)](#wpc-s-security)
+  - [WPC-95](#wpc-95)
 
 ## Goal
 
@@ -93,18 +97,29 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - Solenoid Circuits ✓ (fade out timing missing)
 - General Illumination Circuits (Triac) ✓ (fade out timing missing)
 - Zero Cross Circuit ✓
-- support Fliptronics flipper ½
+- support Fliptronics flipper ✓
 
 ## Sound Board
-- load pre DCS sound ROM files ✓
-- load DCS sound ROM files ✗
 - Bank Switching ✓
 - Resample audio to 44.1khz ½
 - emulate 6809 CPU ✓
+- emulate DAC ½
+
+### Pre DCS (A-12738)
+- 17 Games use this board
+- load pre DCS sound ROM files ✓
 - emulate YM2151 FM Generator ½
 - emulate HC-55536 CVSD ✗ (speech synth)
 - emulate MC6821 PIA ✓
-- emulate DAC ✓
+
+### DCS (A-16917)
+- 19 Games use this board
+- load DCS sound ROM files ✗
+- emulate Analog Devices ADSP2105, clocked at 10 MHz, DMA-driven DAC, outputting in mono ✗
+
+### DCS-95 (A-20516 and A-20145-2)
+- 15 Games use this board
+- compared to A-20516, this board allows for 16MB of data instead of 8MB to be addressed ✗
 
 ## Dot Matrix Display/DMD Controller Board
 - Page Selection ✓
@@ -128,7 +143,8 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 ## Serve ROM's from localhost
 You can run a local fileserver to serve the needed WPC ROM files.
 - create the `./rom` directory and copy your ROM files (program and audio) inside this directory
-- You need to create and install a local certificate (needed to support https), read the file `assets/localhost-cert/README.md`
+- You need to create and install a local certificate (needed to support https), read the file `assets/localhost-cert/README.md` or run `openssl req -x509 -newkey rsa:4096 -keyout server.key -out server.crt -days 3650 -nodes` inside the `assets/localhost-cert` dir.
+- To install dependencies run `npm install` in root and `client` directory
 - Run `npm run start:fileserv` to start local file serve
 
 ## Run Watch
@@ -147,7 +163,7 @@ Make sure to run the benchmarks using the same node versions.
 - Run `npm run benchmark` to run the small benchmark (1s on the emulator), this target uses the included FreeWPC T2 ROM
 - Run `npm run benchmark:t2` to run the longer benchmark, you need to have the T2 rom in the roms directory
 
-Sidenote: Also using deoptigate (https://github.com/thlorenz/deoptigate) shows where the code is unoptimised. 
+Sidenote: Also using deoptigate (https://github.com/thlorenz/deoptigate) shows where the code is unoptimised.
 
 ## Tracer / Dumps
 The `wpc-emu-dumps` directory contains game dump files and can be used to compare the current implementation
@@ -160,25 +176,22 @@ against older implementations. It also contains MAME dumps to compare the curren
 To build a new release:
 - Build release branch
 - Bump `package.json` version files
-- Run `build:production` in the root directory and the `client` directory
-- output is available in the `./dist` directory
+- Run `npm run build:production` in the root directory
+- output is available in the `./dist` directory, final assets for github upload in the `./docs` directory
 - Make sure unit tests and integration tests still pass
 - Run tracer dumps to compare against older implementations
 - merge release branch
 
-# Future ideas
-- Hook it up to a Virtual Pinball / Pinball frontend
-- Hook it up to a broken Pinball machine, replace whole electronics with a RPI
-
 # Hardware - WPS Dot Matrix Machine
 
-## Overview
+## Overview WPC-89
 
 ```
 
     +-----------------------+   +-------------------------+
     |                       |   |                         |
     |  CPU BOARD / A-12742  |   |  SOUND BOARD / A-12738  |
+    |                       |   |           (DCS A-16917) |
     |  -------------------  |   |  ---------------------  |
     |                       |   |                         |
     |  - MC 6809 CPU@2MHz   |   |  - MC 6809 CPU@2MHz     |
@@ -209,19 +222,16 @@ Operating system:
 ## CPU board
 - Williams part number A-12742
 - Main CPU: Motorola 6809 (68B09E) at 2 MHz, 8-bit/16-bit CPU and between 128KB and 1MB of EPROM for the game program
+- Total 8KB RAM, battery-backed, format is Big Endian
 - Custom ASIC chip by Williams, mainly a huge mapper
 - Its memory address space is 64 KiB (linear $0000 to $FFFF, 16Bit address)
 - Can address 8KB RAM, 8KB Hardware, 16KB Bank switched Game ROM, 32KB System ROM
 - Game ROM name: U6
 
-### Memory
-- Total 8KB RAM, battery-backed
-- The memory storage format is Big Endian
-
 ## Power driver board
 - Williams part number: A-12697-1
 
-## Sound board
+## Sound board (pre DCS)
 - Williams part number: A-12738 (aka. pre-DCS sound)
 - Mono output, Sample rate 11KHz, 25 watts power, 8 ohm
 - intelligent and have processors running their own operating system dedicated to sound tasks
@@ -314,25 +324,27 @@ is stored at 0x81C9/0x81CA (16 bit) for this game.
 2018-10-04T21:33:43.053Z wpcemu:boards:cpu-board mem-read e874
 ```
 
-## RAM positions
+## RAM / NVRAM positions
 
-Known RAM positions for WPC games
+Known RAM positions for WPC games.
 
 | Offset          | Comment        |
 | --------------- | -------------- |
 | 0x0011          | Current Bank Marker, ??  |
 | 0x0012          | Bank Jump Address hi, ??  |
 | 0x0013          | Bank Jump Address lo, ??  |
+| 0x16A1          | NVRAM starts |
 | 0x1800          | Date, Year hi  |
 | 0x1801          | Date, Year lo  |
 | 0x1802          | Date, Month (1-12) |
 | 0x1803          | Date, Day of month (1-31) |
 | 0x1804          | Date, Days or week (0-6, 0=Sunday) |
 | 0x1805          | Date, Hour (0-23) |
-| 0x1806          | Date, Minute (0-59) |
-| 0x1807          | Date, Checksum hi |
-| 0x1808          | Date, Checksum lo |
+| 0x1806          | Date, isValid (1) or isInvalid(0)  |
+| 0x1807          | Date, Checksum hi (time) |
+| 0x1808          | Date, Checksum lo (date) |
 | 0x1809-0x2000   | Game specific settings (HSTD, timestamps, adjustments, audits, language, volume, custom message...) |
+| 0x2FFF          | NVRAM ends |
 
 Note:
 - The initial memory check writes from offset `0x0000 - 0x1730`, so stored NVRAM data might be stored above `0x1730`.
@@ -539,7 +551,7 @@ PASSED:
 8DF4: BD 91 C0       JSR $91C0
 8DF7: BD 9E E5       JSR $9EE5
 8DFA: BE 17 48       LDX $1748      ;check against memory position 0x1748
-8DFD: 8C 1A BC       CMPX #$1ABC    
+8DFD: 8C 1A BC       CMPX #$1ABC
 8E00: 27 1B          BEQ $8E1D
 8E02: B6 17 4C       LDA $174C
 8E05: 27 08          BEQ $8E0F
@@ -611,6 +623,52 @@ Solution:
 - Drain: The common term used to refer to the area beneath the flippers. If the ball rolls into the drain area via an outlane or between the flippers, it will be lost. Also refers to the act of losing a ball in this manner.
 - Plunger: The object used to launch a ball onto the playfield
 - HSTD: High Score to Date
+- HUO: Home use only
+
+## ROM Revision / Software Version Information
+Source: http://www.planetarypinball.com/mm5/Williams/tech/sys11roms.html
+
+System 11 games have the software revision identified with either an "L" or "P" followed by a revision number, such as L-1 or P-1. The "L" signifies a production ("Level") release, while the "P" signifies a Prototype version of software. Sometimes contained within the revision label is a version identifier, such as LX-1 or LA-1. The possible version identifiers are the described below.
+
+Not all versions exist for all games.
+
+* No suffix: Unrestricted. This version supports all text languages, can be priced for any country, and contains the custom pricing editor.
+* A: USA and Canada (domestic). This version does not contain the custom pricing editor, and does USA and Canada pricing modes only.
+* X: Export. This version contains the custom pricing editor, as well as the built-in pricing presets for all countries.
+* R: Regular. This version does all pricing modes, as well as the custom pricing editor, but does not contain French text.
+* F: France. This version is the same as the R version, with the addition of French text.
+* B: Belgium/Switzerland. This version contains French text, does not have the custom pricing editor, and does Belgium, Switzerland, and Canada pricing modes only.
+* G: Germany. This version contains support for special German functionality, such as German speech.
+
+More, unofficial suffix:
+* F: usually "Family" or "Family-Friendly" - but in the case of Party Zone, the F is to specify "Fliptronic Flipper Board" rather than the standard code.
+* H: Home
+* LD: LED anti ghosting versions
+
+## Midnight Madness Mode
+Source: http://www.flippers.be/basics/101_midnight_madness.html
+
+Midnight Madness is a special mode that's only available on a few Williams pinball machines. The name reveals what it is: a special mode that only starts when the game is played at midnight..
+
+Only these games have it:
+- Congo
+- Dirty Harry
+- Johnny Mnemonic
+- Junk Yard
+- NBA Fastbreak
+- Who Dunnit
+
+On some games (like Congo) it can be enabled/disabled in its settings, 'Special mode' has to be on.
+
+Then when you are playing and the pinball machines internal clock reaches midnight, the game stops (it's like the power has been cut) and after a few seconds says 'midnight madness' on the display (on most games there's also a special sound indication).
+For one minute you get a multiball.. some games display additional graphics on the display when targets are hit.
+
+Midnight Madness was the idea of Dwight Sullivan, who had a dream of seeing every game in an arcade light up with this mode at the exact same time. That also meant asking other programmers to put the MM routine into their games. Some did and some didn't.
+
+When you start a game on Junk Yard right before the clock reaches midnight, the devil will say 'interesting' at the start of the game, instead of the regular 'Crazy Bob' opening scene.
+
+Note Theatre of Magic does not have this Midnight Madness special mode. Midnight Madness is the name of a regular mode in the game that can be started on every game played..
+
 
 ## WPC
 
@@ -623,6 +681,9 @@ Solution:
 - http://arcarc.xmission.com/Pinball/PDF%20Pinball%20Manuals%20and%20Schematics/
 - https://github.com/tanseydavid/WPCResources
 - https://github.com/tomlogic/pinmame-nvram-maps
+
+## Pinball 2000
+- https://github.com/boilerbots/PB2K
 
 ## DMD
 - http://webpages.charter.net/coinopcauldron/dotarticle.html
@@ -639,6 +700,7 @@ Solution:
 - http://www.cx5m.net/fmunit.htm
 - https://github.com/apollolux/ym2413-js/blob/master/ym2413.js
 - https://github.com/vgm/node-vgmplay/blob/master/res/js/vgm/ym2151.js (WPC-EMU use this)
+- https://en.wikipedia.org/wiki/Digital_Compression_System
 
 ## ROM
 - http://www.ipdb.org/
@@ -653,7 +715,7 @@ Solution:
 
 # Game List
 
-Ripped from Wikipedia.
+Ripped from Wikipedia, entires with a 🚀 are included in the online version
 
 ## WPC (Alphanumeric)
 - FunHouse - September 1990
@@ -663,67 +725,72 @@ Ripped from Wikipedia.
 Some Dr. Dude machines were also made using this WPC generation, although most were made using the later System 11 board.
 
 ## WPC (Dot Matrix)
-- Gilligan's Island - May 1991
-- Terminator 2: Judgment Day - July 1991
-- Hurricane - August 1991
-- The Party Zone - August 1991
+- SlugFest! (redemption game) 🚀 - March 1991
+- Gilligan's Island 🚀 - May 1991
+- Terminator 2: Judgment Day 🚀 - July 1991
+- Hurricane 🚀 - August 1991
+- The Party Zone 🚀 - August 1991
+- Hot Shot Basketball (redemption game) 🚀 - October 1994
+- Strike Master Shuffle Alley (redemption game) 🚀 - 1991
 
-Terminator 2: Judgment Day was the first to be designed with a dot matrix display, but was released after Gilligan's Island, due to Terminator 2 having a longer development time than Gilligan's Island. This generation WPC hardware was also used in some of Williams / Midway's redemption games (SlugFest!, Hot Shot Basketball) as well as in the first Shuffle Alley Game Strike Master Shuffle Alley - 1991.
+Terminator 2: Judgment Day was the first to be designed with a dot matrix display, but was released after Gilligan's Island, due to Terminator 2 having a longer development time than Gilligan's Island.
 
 ## WPC (Fliptronics)
-- The Getaway: High Speed II - February 1992
+- The Getaway: High Speed II 🚀 - February 1992
 - The Addams Family - March 1992
-- Black Rose - July 1992
-- Fish Tales - October 1992
-- Doctor Who - October 1992
-- Creature from the Black Lagoon - December 1992
-- White Water - January 1993
-- Bram Stoker's Dracula - March 1993
-- Twilight Zone - March 1993
-- The Addams Family Special Collectors Edition - October 1994
+- Black Rose 🚀 - July 1992
+- Fish Tales 🚀 - October 1992
+- Doctor Who 🚀 - October 1992
+- Creature from the Black Lagoon 🚀 - December 1992
+- White Water 🚀 - January 1993
+- Bram Stoker's Dracula 🚀 - March 1993
+- Twilight Zone 🚀 - March 1993
+- The Addams Family Special Collectors Edition 🚀 - October 1994
 
 The Addams Family was the only game produced with the Fliptronics I board, which is compatible with Fliptronics II boards, which added a bridge rectifier for the flipper voltage.
 
 ## WPC (DCS)
-- Indiana Jones: The Pinball Adventure - August 1993
-- Judge Dredd - September 1993
-- Star Trek: The Next Generation - November 1993
-- Popeye Saves the Earth - February 1994
-- Demolition Man - February 1994
+- Indiana Jones: The Pinball Adventure 🚀 - August 1993
+- Judge Dredd 🚀 - September 1993
+- Star Trek: The Next Generation 🚀 - November 1993
+- Addams Family Values (redemption game) 🚀 - January 1994
+- Popeye Saves the Earth 🚀 - February 1994
+- Demolition Man 🚀 - February 1994
 
-Twilight Zone was designed to be the first pinball machine to use the new DCS system, but due to delays of the new hardware design it was decided to release it on the old hardware (using downsampled sound effects) instead. The redemption game Addams Family Values also used the DCS Sound System.
+Twilight Zone was designed to be the first pinball machine to use the new DCS system, but due to delays of the new hardware design it was decided to release it on the old hardware (using downsampled sound effects) instead.
 
 ## WPC-S (Security)
 Starting with World Cup Soccer, a security programmable integrated circuit (PIC) chip was added to the CPU board in all WPC-S games at location U22. This PIC chip was game specific making it so CPU boards could not be swapped between different models without changing the security PIC chip.
 
-- World Cup Soccer - February 1994
-- The Flintstones - July 1994
-- Corvette - August 1994
-- Red & Ted's Road Show - October 1994
-- The Shadow - November 1994
-- Dirty Harry - March 1995
-- Theatre of Magic - March 1995
-- No Fear: Dangerous Sports - May 1995
-- Indianapolis 500 - June 1995
-- Johnny Mnemonic - August 1995
-- Jack·Bot - October 1995
-- WHO Dunnit - September 1995
+- World Cup Soccer 🚀 - February 1994
+- The Pinball Circus (very rare, only 2 pins exists) - June 1994
+- The Flintstones 🚀 - July 1994
+- Corvette 🚀 - August 1994
+- Red & Ted's Road Show 🚀 - October 1994
+- The Shadow 🚀 - November 1994
+- Dirty Harry 🚀 - March 1995
+- Theatre of Magic 🚀 - March 1995
+- No Fear: Dangerous Sports 🚀 - May 1995
+- Indianapolis 500 🚀 - June 1995
+- Johnny Mnemonic 🚀 - August 1995
+- Jack·Bot 🚀 - October 1995
+- WHO Dunnit 🚀 - September 1995
 
 ## WPC-95
 In this final revision of the WPC hardware, the dot matrix controller and the DCS sound boards are combined into a single A/V board, while the Power/Driver and the Fliptronics boards are combined into a single Power/Driver board, bringing the board count down to three boards. It also includes the same game-specific security PIC introduced in the WPC-Security system.
 
-- Congo - November 1995
-- Attack from Mars - December 1995
-- Safecracker - March 1996
-- Tales of the Arabian Nights - May 1996
-- Scared Stiff - September 1996
-- Junk Yard - December 1996
-- NBA Fastbreak - March 1997
-- Medieval Madness - June 1997
-- Cirqus Voltaire - October 1997
-- No Good Gofers - December 1997
-- The Champion Pub - April 1998
-- Monster Bash - July 1998
-- Cactus Canyon - October 1998
-
-This generation WPC hardware was also used in the Midway redemption game Ticket Tac Toe, March 1996 and the Shuffle Alley game League Champ Shuffle Alley, 1996.
+- Congo 🚀 - November 1995
+- Attack from Mars 🚀 - December 1995
+- Ticket Tac Toe (redemption game) 🚀 - March 1996
+- League Champ Shuffle Alley (redemption game) 🚀 - March 1996
+- Safecracker 🚀 - March 1996
+- Tales of the Arabian Nights 🚀 - May 1996
+- Scared Stiff 🚀 - September 1996
+- Junk Yard 🚀 - December 1996
+- NBA Fastbreak 🚀 - March 1997
+- Medieval Madness 🚀 - June 1997
+- Cirqus Voltaire 🚀 - October 1997
+- No Good Gofers 🚀 - December 1997
+- The Champion Pub 🚀 - April 1998
+- Monster Bash 🚀 - July 1998
+- Cactus Canyon 🚀 - October 1998

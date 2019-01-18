@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Medieval Madness',
+  name: 'WPC-95: Medieval Madness',
   version: 'L-8',
   rom: {
     u06: 'mm_109b.bin',
@@ -71,13 +71,17 @@ module.exports = {
     { id: 'F6', name: 'UR FLIPPER BUT' },
     { id: 'F8', name: 'UL FLIPPER BUT' },
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-mm.jpg',
+  },
   skipWmcRomCheck: true,
   features: [
     'securityPic',
   ],
   initialise: {
     closedSwitches: [
-      22,
+      22, 56,
       //OPTO SWITCHES: 31, 32, 33, 34, 35, 36, 37, 41,
       31, 36, 37, 41,
       'F2', 'F4', 'F6', 'F8',

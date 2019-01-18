@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'Dirty Harry',
+  name: 'WPC-S: Dirty Harry',
   version: 'LX-2',
   rom: {
     u06: 'harr_lx2.rom',
@@ -11,7 +11,7 @@ module.exports = {
     { id: 11, name: 'GUN HANDLE TRIGGER' },
     { id: 13, name: 'START BUTTON' },
     { id: 14, name: 'PLUMB BOB TILT' },
-    { id: 15, name: 'SHOTTER LANE' },
+    { id: 15, name: 'SHOOTER LANE' },
     { id: 16, name: 'RIGHT OUTLANE' },
     { id: 17, name: 'RIGHT INLANE' },
     { id: 18, name: 'STANDUP 8' },
@@ -69,6 +69,10 @@ module.exports = {
     { id: 'F3', name: 'L FLIPPER EOS' },
     { id: 'F4', name: 'L FLIPPER BUTTON' },
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-dh.jpg',
+  },
   skipWmcRomCheck: true,
   features: [
     'securityPic',

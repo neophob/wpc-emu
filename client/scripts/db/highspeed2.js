@@ -1,15 +1,11 @@
 'use strict';
 
 module.exports = {
-  name: 'High Speed II: The Getaway',
-  version: 'P-C',
+  name: 'WPC-Fliptronics: High Speed II, The Getaway',
+  version: 'L-5',
   rom: {
-    u06: 'u6-p-c.rom',
+    u06: 'GETAW_L5.ROM',
     u18: 'u18-sp1.rom',
-  },
-  playfield: {
-    //size must be 200x400, lamp positions according to image
-    image: 'playfield-getaway.jpg',
   },
   switchMapping: [
     { id: 11, name: 'RIGHT FLIPPER' },
@@ -85,13 +81,17 @@ module.exports = {
     { id: 'F5', name: 'UR FLIPPER EOS' },
     { id: 'F6', name: 'UR FLIPPER BUT' },
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-getaway.jpg',
+  },
   skipWmcRomCheck: true,
   initialise: {
     closedSwitches: [
       22,
       55, 56, 57, 58,
       //OPTO SWITCH
-      81, 82, 83,
+      81, 82, 83, 84, 85,
       'F2', 'F4', 'F6', 'F8',
     ],
     initialAction: [

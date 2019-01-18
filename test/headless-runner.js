@@ -9,6 +9,7 @@ const closedSwitchRaw = process.env.CLOSEDSW || '15,16,17';
 const switchesEnabled = closedSwitchRaw.split(',').map((n) => parseInt(n, 10));
 const switchBlacklist = closedSwitchRaw.split(',').map((n) => parseInt(n, 10));
 switchBlacklist.push(21);
+
 console.log('GAME', romU06Path);
 console.log('switchesEnabled',switchesEnabled);
 console.log('switchBlacklist',switchBlacklist);
@@ -41,7 +42,7 @@ function bootEmu() {
         fileName: 'foo',
         skipWmcRomCheck: true,
         switchesEnabled,
-        features: ['securityPic'],
+        //features: ['securityPic'],
       });
     })
     .then((wpcSystem) => {

@@ -1,5 +1,63 @@
 # HISTORY
 
+## 18/1/19
+- STTNG, FT, HS2: use production ROM
+- AFM: add lamp configuration
+- Client allow step by step processing when PAUSE the emulator multiple times
+
+## 17/1/19
+- DMD Ripping: show how many DMD frames has been ripped
+- DMD Ripping: increased maximal ripped DMD frames from 1000 to 8000
+- DMD Ripping: once 8000 frames has been reached, download dump and continue ripping
+- Add more playfield images
+
+## 16/1/19
+- add game "Strike Master Shuffle Alley"
+- add game "League Champ Shuffle Alley"
+- add game "Twilight Zone (FreeWPC), Broken"
+- add game "Attack from Mars (FreeWPC), Broken"
+- add game "White Water "Bigfoot" (FreeWPC)"
+- add game "Demolition Man "Demolition Time" (FreeWPC)"
+- add keyboard mapping "1" - "4"
+
+## 14/1/19
+- improve error handling when ROM cannot be loaded. Closes GitHub Issue #27 "Prevent crash if the the default rom is missing"
+
+## 13/1/19
+- implement keyboard mapping: cabinet service keys ("7", "8", "9", "0"), save and load state ("s", "l"), play and resume ("p", "r")
+- option to export DMD frames (VPinMameRawRenderer), can be imported for example in PIN2DMD to colorize DMD animations
+
+## 11/1/19
+- implement fliptronics solenoid handling
+
+## 10/1/19
+- WPC-Fliptronics: fix Fliptronics Flipper keys, return value need to be inverted
+- WPC95: fix Fliptronics Flipper keys, return value need to be inverted
+
+## 8/1/19
+- added option to save and load the emulator state (cpu ram, video ram, lamp, switches, solenoids, gi, cpu) of a game
+- added option to enable "Midnight Madness Mode", see README.md for more details
+
+## 7/1/19
+- fixed invalid switch state for "High Speed II"
+
+## 29/12/18
+- add new game "The Shadow", "Jack·Bot", "Indianapolis 500", "Corvette" and "Red & Ted's Road Show"
+
+## 28/12/18
+- add new game "World Cup Soccer", "Junk Yard", "NBA Fastbreak", "The Champion Pub", "Safe Cracker", "Ticket Tac Toe", "SlugFest", "Addams Family Values" and "WHO Dunnit"
+
+## 27/12/18
+- add new games "Popeye Saves the Earth", "Judge Dredd", "Demolition Man", "Black Rose", "Bram Stoker's Dracula", "Creature from the Black Lagoon", "No Good Gofers", "Cactus Canyon", "Attack from Mars", "Star Trek: The Next Generation", "Monster Bash", "Tales of the Arabian Nights", "Scared Stiff" and "White Water"
+- Top 10 Solid State Pinballs (IPDB.org) are supported now
+- do not reset Sound board if no sound board is loaded
+
+## 26/12/18
+- add new game "The Flintstones"
+
+## 25/12/18
+- add new game "CONGO"
+
 ## 16/12/18
 - optimise emulator, needs 10-20% less cpu power
 
@@ -26,7 +84,7 @@
 
 ## 18/10/18
 - really fixed bankswitched read (for real!)
-- added trace tool/disassembler to compare wpc-emu agains mame
+- added trace tool/disassembler to compare wpc-emu against mame
 
 ## 16/10/18
 - really fixed bankswitched read

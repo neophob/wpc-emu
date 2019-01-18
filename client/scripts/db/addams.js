@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'The Addams Family Special',
+  name: 'WPC-Fliptronics: The Addams Family Special',
   version: 'LA-3',
   rom: {
     u06: 'U6-LA3.ROM',
@@ -84,6 +84,10 @@ module.exports = {
     { id: 'F7', name: 'UL FLIPPER EOS' },
     { id: 'F8', name: 'UL FLIPPER BUT' },
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-addams.jpg',
+  },
   skipWmcRomCheck: true,
   initialise: {
     closedSwitches: [

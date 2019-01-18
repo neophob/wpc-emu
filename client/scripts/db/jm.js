@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = {
-  name: 'Johnny Mnemonic',
-  version: '1.2R',
+  name: 'WPC-S: Johnny Mnemonic (Broken)',
+  version: '1.2 R',
   rom: {
     u06: 'john1_2r.rom',
   },
@@ -79,17 +79,22 @@ module.exports = {
     { id: 'F6', name: 'UR FLIPPER BUT' },
     { id: 'F7', name: 'UL FLIPPER EOS' },
     { id: 'F8', name: 'UL FLIPPER BUT' },
-
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-jm.jpg',
+  },
   skipWmcRomCheck: true,
   features: [
     'securityPic',
   ],
   initialise: {
     closedSwitches: [
+      12,
       22,
       //OPTO SWITCHES: 31, 32, 33, 34, 35, 36, 74, 75, 76, 77
-      31, 32, 33, 34, 35, 36, 74, 75, 76, 77, 'F2', 'F4', 'F5', 'F6', 'F8',
+      31, 36, 76,
+      'F2', 'F4', 'F6', 'F8',
     ],
     initialAction: [
       {
