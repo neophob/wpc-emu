@@ -624,6 +624,7 @@ Solution:
 - Plunger: The object used to launch a ball onto the playfield
 - HSTD: High Score to Date
 - HUO: Home use only
+- NOS: New Original Stock
 
 ## ROM Revision / Software Version Information
 Source: http://www.planetarypinball.com/mm5/Williams/tech/sys11roms.html
