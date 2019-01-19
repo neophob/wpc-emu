@@ -1,7 +1,7 @@
 # HISTORY
 
 ## 19/1/19
-- CPU: do not queue interrupts
+- CPU: do not queue interrupts, fixed JM
 - DMD: Change flipping DMD Screens, use same function like vpinmame
 - MM: add lamp configuration
 
