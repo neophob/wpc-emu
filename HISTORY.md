@@ -1,5 +1,9 @@
 # HISTORY
 
+## 19/1/19
+- CPU: do not queue interrupts
+- DMD: Change flipping DMD Screens, use same function like vpinmame
+
 ## 18/1/19
 - STTNG, FT, HS2: use production ROM
 - AFM: add lamp configuration
