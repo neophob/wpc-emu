@@ -165,11 +165,17 @@ function resumeEmu() {
 
 function pauseEmu() {
   console.log('stop emu');
-  cancelAnimationFrame(intervalId);
-  intervalId = false;
   if (wpcSystem) {
     emuDebugUi.updateCanvas(wpcSystem.getUiState(), 'paused');
   }
+
+  if (!intervalId) {
+    // allows step by step
+    step();
+  }
+
+  cancelAnimationFrame(intervalId);
+  intervalId = false;
 }
 
 function registerKeyboardListener() {

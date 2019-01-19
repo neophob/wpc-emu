@@ -1,8 +1,13 @@
 # HISTORY
 
+## 19/1/19
+- CPU: do not queue interrupts
+- DMD: Change flipping DMD Screens, use same function like vpinmame
+
 ## 18/1/19
 - STTNG, FT, HS2: use production ROM
 - AFM: add lamp configuration
+- Client allow step by step processing when PAUSE the emulator multiple times
 
 ## 17/1/19
 - DMD Ripping: show how many DMD frames has been ripped
