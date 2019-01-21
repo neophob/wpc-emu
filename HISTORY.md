@@ -4,6 +4,7 @@
 - more keymapping, start game with key "5"
 - make sure all games start with closed cablinet key
 - fixed more games where the initial switch state was invalid
+- get rid of the YM2151 chip, was not working anyway
 
 ## 19/1/19
 - CPU: do not queue interrupts, fixed JM
