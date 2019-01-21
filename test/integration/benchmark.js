@@ -50,7 +50,7 @@ function benchmarkWithCycleCount(tickSteps) {
       const ticksExecuted = wpcSystem.executeCycle(CYCLE_COUNT, tickSteps);
       const durationMs = Date.now() - tsStart;
       const status = wpcSystem.getUiState();
-      console.error(`  ${tickSteps}\t\t${durationMs}\t\t${status.cpuState.missedIRQ}\t\t${status.cpuState.missedFIRQ}\t\t${status.cpuState.tickCount}`);
+      console.error(`  ${tickSteps}\t\t${durationMs}\t\t${status.cpuState.missedIRQ}\t\t${status.cpuState.missedFIRQ}\t\t${ticksExecuted}`);
     });
 }
 
