@@ -185,6 +185,7 @@ function registerKeyboardListener() {
     '  "2": Coin#2\n' +
     '  "3": Coin#3\n' +
     '  "4": Coin#4\n' +
+    '  "5": Start\n' +
     '  "P": pause\n' +
     '  "R": resume\n' +
     '  "S": save\n' +
@@ -208,6 +209,9 @@ function registerKeyboardListener() {
 
       case 52: //4
         return wpcSystem.setCabinetInput(8);
+
+      case 53: //5
+        return wpcSystem.setInput(13);
 
       case 80: //P
         return pauseEmu();
