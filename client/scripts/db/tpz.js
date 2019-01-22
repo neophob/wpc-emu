@@ -73,7 +73,13 @@ module.exports = {
   ],
   skipWmcRomCheck: true,
   initialise: {
-    closedSwitches: [ 76, 77, 78 ],
+    closedSwitches: [
+      22,
+      // OPTO SWITCHES: 51, 52, 53
+      // TODO: HEAD does not work
+      52, 53,
+      76, 77, 78
+    ],
     initialAction: [
       {
         delayMs: 1000,
