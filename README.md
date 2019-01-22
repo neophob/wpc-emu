@@ -699,8 +699,9 @@ Note Theatre of Magic does not have this Midnight Madness special mode. Midnight
 - https://github.com/kode54/Game_Music_Emu/blob/master/gme/
 - http://www.cx5m.net/fmunit.htm
 - https://github.com/apollolux/ym2413-js/blob/master/ym2413.js
-- https://github.com/vgm/node-vgmplay/blob/master/res/js/vgm/ym2151.js (WPC-EMU use this)
+- https://github.com/vgm/node-vgmplay/blob/master/res/js/vgm/ym2151.js
 - https://en.wikipedia.org/wiki/Digital_Compression_System
+- http://rbelmont.mameworld.info/?page_id=223 (M1 sounds for aracde machine)
 
 ## ROM
 - http://www.ipdb.org/
