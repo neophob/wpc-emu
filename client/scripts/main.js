@@ -26,10 +26,6 @@ var wpcSystem;
 var intervalId;
 var dmdDump;
 
-function playAudioIdCallback(value) {
-  soundInstance.playbackId(value);
-}
-
 function initialiseEmu(gameEntry) {
   emuDebugUi.initialise(gameEntry);
   window.wpcInterface = {
@@ -75,7 +71,7 @@ function initialiseEmu(gameEntry) {
         loadState,
         toggleDmdDump
       };
-      wpcSystem.registerAudioConsumer(playAudioIdCallback);
+      wpcSystem.registerAudioConsumer(soundInstance.playbackId);
       wpcSystem.start();
       console.log('Successfully started EMU v' + wpcSystem.version());
       return emuDebugUi.populateInitialCanvas(gameEntry);
