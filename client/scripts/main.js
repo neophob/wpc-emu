@@ -20,15 +20,14 @@ const TICKS_PER_CALL = parseInt(TICKS / DESIRED_FPS, 10);
 const TICKS_PER_STEP = 16;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
 
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-const soundInstance = AudioOutput(AudioContext);
+const soundInstance = AudioOutput();
 
 var wpcSystem;
 var intervalId;
 var dmdDump;
 
-function dacCallback(value) {
-  soundInstance.writeAudioData(value);
+function playAudioIdCallback(value) {
+  soundInstance.playbackId(value);
 }
 
 function initialiseEmu(gameEntry) {
@@ -76,9 +75,8 @@ function initialiseEmu(gameEntry) {
         loadState,
         toggleDmdDump
       };
-      wpcSystem.registerAudioConsumer(dacCallback);
+      wpcSystem.registerAudioConsumer(playAudioIdCallback);
       wpcSystem.start();
-      soundInstance.setMixStereoFunction(wpcSystem.mixStereo);
       console.log('Successfully started EMU v' + wpcSystem.version());
       return emuDebugUi.populateInitialCanvas(gameEntry);
     })

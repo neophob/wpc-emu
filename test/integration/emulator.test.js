@@ -44,6 +44,10 @@ test.beforeEach((t) => {
 
 test.serial('Smoketest, run emulator with rom ft20_32.rom', (t) => {
   const wpcSystem = t.context;
+  const soundPlayback = [];
+  wpcSystem.registerAudioConsumer((id) => {
+    soundPlayback.push(id);
+  });
   wpcSystem.start();
 
   for (let i = 0; i < 0xFFFF; i++) {
@@ -59,6 +63,7 @@ test.serial('Smoketest, run emulator with rom ft20_32.rom', (t) => {
   console.log('ticks', uiState.cpuState.tickCount);
   const ticksInRange = uiState.cpuState.tickCount > 3300000 && uiState.cpuState.tickCount < 34000000;
   t.is(ticksInRange, true);
+  t.deepEqual(soundPlayback, [ 5, 121, 8, 247, 0, 5, 121, 8, 247 ]);
 
   wpcSystem.executeCycle();
   wpcSystem.getUiState();
