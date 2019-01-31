@@ -46,11 +46,14 @@
       "unicorn/import-index": 0,
       "new-cap": 0,
       "prefer-destructuring": 0,
-      "no-use-extend-native/no-use-extend-native": 0
+      "no-use-extend-native/no-use-extend-native": 0,
+      "padding-line-between-statements": 0,
+      "array-element-newline": 0
     },
     "ignores": [
       "client",
       "docs",
+      "test/tracer/disasm.js",
       "lib/boards/up/ym2151.js",
       "lib/boards/up/mc6809.js"
     ]

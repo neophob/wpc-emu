@@ -1,6 +1,7 @@
 'use strict';
 
 import 'whatwg-fetch';
+
 export { downloadFileFromUrlAsUInt8Array };
 
 function downloadFileFromUrlAsUInt8Array(filename) {

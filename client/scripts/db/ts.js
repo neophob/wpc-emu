@@ -85,7 +85,7 @@ module.exports = {
     { id: 'F5', name: 'UR FLIPPER EOS' },
     { id: 'F6', name: 'UR FLIPPER BUT' },
   ],
-    playfield: {
+  playfield: {
     //size must be 200x400, lamp positions according to image
     image: 'playfield-ts.jpg',
   },

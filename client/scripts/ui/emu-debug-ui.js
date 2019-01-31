@@ -1,6 +1,7 @@
 'use strict';
 
 import { replaceNode } from './htmlselector';
+
 export { initialise, updateCanvas, populateInitialCanvas, errorFeedback, loadFeedback };
 
 // HINT enable debug in the browser by entering "localStorage.debug = '*'" in the browser
@@ -332,7 +333,7 @@ function populateInitialCanvas(gameEntry) {
   playfieldImage = null;
   if (playfieldData) {
     playfieldImage = new Image();
-    playfieldImage.onload = function() {
+    playfieldImage.onload = function () {
       canvas.drawImage(playfieldImage, 800, YPOS_DMD_MAIN_VIEW);
     };
     playfieldImage.src = FETCHURL + playfieldData.image;

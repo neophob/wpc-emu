@@ -1,13 +1,13 @@
 'use strict';
 
 import test from 'ava';
-import { initialise, save } from '../../../scripts/lib/pin2DmdExport';
 import browserEnv from 'browser-env';
+import { initialise, save } from '../../../scripts/lib/pin2DmdExport';
 
 browserEnv();
 
 test.beforeEach((t) => {
-  t.context = initialise()
+  t.context = initialise();
 });
 
 test('pin2DmdExport, should build export file', (t) => {

@@ -110,7 +110,7 @@ module.exports = {
 
       [{ x: 56, y: 167, color: 'GREEN' }],
       [{ x: 55, y: 150, color: 'GREEN' }],
-      [{ x: 56, y: 133, color: 'WHITE' }],  //MYSTERY
+      [{ x: 56, y: 133, color: 'WHITE' }], //MYSTERY
       [{ x: 62, y: 110, color: 'YELLOW' }], //JACKPOT
       [{ x: 90, y: 371, color: 'ORANGE' }], //#55, PLAY IT AGAIN
       [{ x: 31, y: 165, color: 'WHITE' }],

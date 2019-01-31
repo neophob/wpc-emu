@@ -1,7 +1,7 @@
-  'use strict';
+'use strict';
 
-const webpack = require('webpack');
 const path = require('path');
+const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { GenerateSW } = require('workbox-webpack-plugin');
