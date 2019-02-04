@@ -3,57 +3,49 @@
 import test from 'ava';
 import SoundBoard from '../../../lib/boards/sound-board';
 
+const WPC_SOUND_DATA = 0x3FDC;
+
 test.beforeEach((t) => {
   const initObject = {
-    interruptCallback: {},
-    romObject: {
-      concatinatedSoundRom: new Uint8Array(0x80000 * 3).fill(0xFF),
-      soundSystemRom: new Uint8Array(0x4000).fill(0xFF),
+    interruptCallback: {
+      firq: () => {},
     },
   };
-  t.context = SoundBoard.getInstance(initObject);
+  const playbackArray = [];
+  const instance = SoundBoard.getInstance(initObject);
+  instance.reset();
+
+  instance.registerSoundBoardPlayIdCallback((id) => {
+    console.log('CALLBACK!',id)
+    playbackArray.push(id);
+  })
+  t.context = {
+    instance,
+    playbackArray,
+  };
 });
 
-test('should getBankRomOffset 124', (t) => {
-  const soundBoard = t.context;
-  const result = soundBoard._getBankRomOffset(124);
-  t.is(result, 0x60000);
+test('should validate callback function', (t) => {
+  const soundBoard = t.context.instance;
+  const result = soundBoard.registerSoundBoardPlayIdCallback(2);
+  t.is(result, false);
 });
 
-test('should getBankRomOffset 220', (t) => {
-  const soundBoard = t.context;
-  const result = soundBoard._getBankRomOffset(220);
-  t.is(result, 0x160000);
+test('should ignore zero bytes after reset', (t) => {
+  const soundBoard = t.context.instance;
+  soundBoard.writeInterface(WPC_SOUND_DATA, 0);
+  soundBoard.writeInterface(WPC_SOUND_DATA, 0xEE);
+  soundBoard.writeInterface(WPC_SOUND_DATA, 0x22);
+  t.deepEqual(soundBoard.resetZeroByteHandled, true);
+  t.deepEqual(t.context.playbackArray, [ 0xEE22 ]);
 });
 
-test('should getBankRomOffset 221', (t) => {
-  const soundBoard = t.context;
-  const result = soundBoard._getBankRomOffset(221);
-  t.is(result, 0x168000);
+test('should handle multiple writes', (t) => {
+  const soundBoard = t.context.instance;
+  soundBoard.writeInterface(WPC_SOUND_DATA, 0);
+  soundBoard.writeInterface(WPC_SOUND_DATA, 0xEE);
+  soundBoard.writeInterface(WPC_SOUND_DATA, 0x22);
+  soundBoard.writeInterface(WPC_SOUND_DATA, 0x00);
+  soundBoard.writeInterface(WPC_SOUND_DATA, 0x01);
+  t.deepEqual(t.context.playbackArray, [ 0xEE22, 0x1 ]);
 });
-
-test('should getBankRomOffset 222', (t) => {
-  const soundBoard = t.context;
-  const result = soundBoard._getBankRomOffset(222);
-  t.is(result, 0x170000);
-});
-
-test('should getBankRomOffset 223', (t) => {
-  const soundBoard = t.context;
-  const result = soundBoard._getBankRomOffset(223);
-  t.is(result, 0x178000);
-});
-
-/*
-test('should getBankRomOffset 223', (t) => {
-  const soundBoard = t.context;
-  for (let i=0; i<256; i++) {
-    try {
-      const result = soundBoard._getBankRomOffset(i);
-      console.log('>>',i,':',result,'->',result/32768);
-    } catch(error) {
-      console.log('>>',i,':',error.message);
-    }
-  }
-});
-*/

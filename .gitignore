@@ -15,3 +15,5 @@ server.csr
 server.key
 server.crt
 ./rom
+assets/soundripper/tmp
+assets/soundripper/output.*
