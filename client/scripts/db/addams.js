@@ -5,8 +5,6 @@ module.exports = {
   version: 'LA-3',
   rom: {
     u06: 'U6-LA3.ROM',
-    u15: 'AG_U15_S.L1',
-    u18: 'AG_U18_S.L1',
   },
   switchMapping: [
     { id: 11, name: 'BUY IN' },
@@ -89,6 +87,9 @@ module.exports = {
     image: 'playfield-addams.jpg',
   },
   skipWmcRomCheck: true,
+  features: [
+    'wpcFliptronics',
+  ],
   initialise: {
     closedSwitches: [
       15, 16, 17,

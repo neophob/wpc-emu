@@ -114,6 +114,7 @@ function romSelection(romName) {
 }
 
 function initEmuWithGameName(name) {
+  soundInstance.stop();
   const gameEntry = gamelist.getByName(name);
   populateControlUiView(gameEntry, gamelist, name);
   return initialiseEmu(gameEntry)
@@ -163,6 +164,7 @@ function pauseEmu() {
     emuDebugUi.updateCanvas(wpcSystem.getUiState(), 'paused');
   }
 
+  soundInstance.stop();
   if (!intervalId) {
     // allows step by step
     step();

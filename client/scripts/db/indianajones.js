@@ -95,6 +95,9 @@ module.exports = {
     image: 'playfield-ij.jpg',
   },
   skipWmcRomCheck: true,
+  features: [
+    'wpcDcs',
+  ],
   initialise: {
     closedSwitches: [
       22,

@@ -26,4 +26,7 @@ module.exports = {
 
   ],
   skipWmcRomCheck: false,
+  features: [
+    'wpcDmd',
+  ],
 };

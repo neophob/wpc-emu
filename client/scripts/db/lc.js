@@ -54,6 +54,7 @@ module.exports = {
   features: [
     // NOTE: this WPC-95 device does NOT include a Security Pic!
     // 'securityPic',
+    'wpc95',
   ],
   initialise: {
     closedSwitches: [

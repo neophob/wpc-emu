@@ -93,6 +93,9 @@ module.exports = {
     image: 'playfield-sttng.jpg',
   },
   skipWmcRomCheck: true,
+  features: [
+    'wpcDcs',
+  ],
   initialise: {
     closedSwitches: [
       22,

@@ -5,9 +5,6 @@ module.exports = {
   version: 'L-2',
   rom: {
     u06: 'hurcnl_2.rom',
-    u14: 'U14.PP',
-    u15: 'U15.PP',
-    u18: 'U18.PP',
   },
   switchMapping: [
     { id: 11, name: 'RIGHT FLIPPER' },
@@ -160,6 +157,9 @@ module.exports = {
     ],
   },
   skipWmcRomCheck: true,
+  features: [
+    'wpcDmd',
+  ],
   initialise: {
     closedSwitches: [ 16, 17, 18, 22 ],
     initialAction: [
