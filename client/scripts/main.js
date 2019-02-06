@@ -35,23 +35,14 @@ function initialiseEmu(gameEntry) {
   emuDebugUi.loadFeedback(gameEntry.name);
 
   const u06Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06);
-  const u14Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u14).catch(() => {});
-  const u15Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u15).catch(() => {});
-  const u18Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u18).catch(() => {});
 
   return Promise.all([
       u06Promise,
-      u14Promise,
-      u15Promise,
-      u18Promise,
     ])
     .then((romFiles) => {
-      console.log('Successfully loaded ROM',romFiles);
+      console.log('Successfully loaded ROM', romFiles);
       const romData = {
         u06: romFiles[0],
-        u14: romFiles[1],
-        u15: romFiles[2],
-        u18: romFiles[3],
       };
       return initialiseEmulator(romData, gameEntry);
     })
