@@ -10,14 +10,17 @@ test.beforeEach((t) => {
     interruptCallback: {
       firq: () => {},
     },
+    romObject: {
+      preDcsSoundboard: true
+    },
   };
   const playbackArray = [];
   const instance = SoundBoard.getInstance(initObject);
   instance.reset();
 
-  instance.registerSoundBoardPlayIdCallback((id) => {
-    console.log('CALLBACK!',id)
-    playbackArray.push(id);
+  instance.registerSoundBoardCallback((msg) => {
+    console.log('CALLBACK!', msg)
+    playbackArray.push(msg);
   })
   t.context = {
     instance,
@@ -27,25 +30,22 @@ test.beforeEach((t) => {
 
 test('should validate callback function', (t) => {
   const soundBoard = t.context.instance;
-  const result = soundBoard.registerSoundBoardPlayIdCallback(2);
+  const result = soundBoard.registerSoundBoardCallback(2);
   t.is(result, false);
-});
-
-test('should ignore zero bytes after reset', (t) => {
-  const soundBoard = t.context.instance;
-  soundBoard.writeInterface(WPC_SOUND_DATA, 0);
-  soundBoard.writeInterface(WPC_SOUND_DATA, 0xEE);
-  soundBoard.writeInterface(WPC_SOUND_DATA, 0x22);
-  t.deepEqual(soundBoard.resetZeroByteHandled, true);
-  t.deepEqual(t.context.playbackArray, [ 0xEE22 ]);
 });
 
 test('should handle multiple writes', (t) => {
   const soundBoard = t.context.instance;
   soundBoard.writeInterface(WPC_SOUND_DATA, 0);
+  soundBoard.writeInterface(WPC_SOUND_DATA, 0);
   soundBoard.writeInterface(WPC_SOUND_DATA, 0xEE);
   soundBoard.writeInterface(WPC_SOUND_DATA, 0x22);
   soundBoard.writeInterface(WPC_SOUND_DATA, 0x00);
   soundBoard.writeInterface(WPC_SOUND_DATA, 0x01);
-  t.deepEqual(t.context.playbackArray, [ 0xEE22, 0x1 ]);
+  console.log('t.context.playbackArray',t.context.playbackArray)
+  t.deepEqual(t.context.playbackArray, [
+    { command: 'PLAYSAMPLE', id: 0x0 },
+    { command: 'PLAYSAMPLE', id: 0xEE22 },
+    { command: 'PLAYSAMPLE', id: 0x1 },
+  ]);
 });

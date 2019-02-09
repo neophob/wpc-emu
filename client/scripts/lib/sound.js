@@ -1,37 +1,84 @@
 'use strict';
 
-import { Howl } from 'howler';
+import { Howl, Howler } from 'howler';
 
 export { AudioOutput };
 
-function AudioOutput() {
-  return new Sound();
+function AudioOutput(sprite) {
+  return new Sound(sprite);
 }
 
-const MAXIMAL_SAMPLE_ID	= 0xFFF;
+const STOP_ALL_SOUNDS_ID = 0;
 
 class Sound {
 
-  constructor() {
+  constructor(sprite = []) {
+    this.sprite = sprite;
     //TODO pass audio sample
-/*    this.sound = new Howl({
-      src: ['']
-    });*/
+    this.sound = new Howl({
+      src: [
+        // TODO add bong sound
+        'sound/result.mp3',
+      ],
+      sprite,
+      onplayerror: (error) => {
+        console.log('SOUND PLAYER ERROR', error.message);
+      },
+      onloaderror: (error) => {
+        console.log('SOUND LOAD ERROR', error.message);
+      },
+      onload: () => {
+        console.log('SOUND LOADED');
+      },
+    });
+    this.activePlayId = [];
   }
 
-  playbackId(value) {
-    console.log('playbackId', value);
+  callback(message = {}) {
+
+    switch (message.command) {
+      case 'PLAYSAMPLE': {
+        const id = message.id;
+        const key = 'snd' + id;
+        if (!this.sprite[key]) {
+          return console.log('SOUND ENTRY NOT FOUND', id);
+        }
+        console.log('playbackId', id);
+        this.activePlayId[0] = this.sound.play(key);
+        break;
+      }
+      case 'MAINVOLUME':
+        const volume = (message.value / 31);
+        this.setVolume(volume);
+        break;
+
+      case 'STOPSOUND':
+        this.sound.stop();
+        break;
+
+      case 'CHANNELOFF':
+        console.log('CHANNELOFF_NOT_IMPLEMENTED YET', message.channel);
+        break;
+
+      default:
+        console.log('NOT_IMPLEMENTED YET', message.command);
+        break;
+
+    }
+
+  }
+
+  playBootSound() {
+    //TODO
   }
 
   setVolume(floatVolume) {
-    if (this.noAudio) {
-      return;
-    }
-    // TODO set volume
+    console.log('SET MAINVOLUME', floatVolume);
+    Howler.volume(floatVolume);
   }
 
   stop() {
-    //audioSourceNode.disconnect()">
+    this.sound.pause();
   }
 
 }
