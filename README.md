@@ -102,17 +102,18 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - support Fliptronics flipper ✓
 
 ## Sound Board
-- Bank Switching ✓
-- Resample audio to 44.1khz ½
-- emulate 6809 CPU ✓
-- emulate DAC ½
+- Bank Switching ✗ (Not needed, sound generation exposed to client)
+- Resample audio to 44.1khz ✗ (Not needed, sound generation exposed to client)
+- emulate 6809 CPU ✗ (Not needed, sound generation exposed to client)
+- emulate DAC ✗ (Not needed, sound generation exposed to client)
+- simulate sound board and forward each event (play sample, volume..) to the client ✓
 
 ### Pre DCS (A-12738)
 - 17 Games use this board
-- load pre DCS sound ROM files ✓
-- emulate YM2151 FM Generator ½
+- load pre DCS sound ROM files ✗
+- emulate YM2151 FM Generator ✗
 - emulate HC-55536 CVSD ✗ (speech synth)
-- emulate MC6821 PIA ✓
+- emulate MC6821 PIA ✗
 
 ### DCS (A-16917)
 - 19 Games use this board
@@ -133,7 +134,7 @@ As there are 3 different sound boards are available, the implementation would ta
 There are different audio types available:
 - voice
 - jingle
-- sinle
+- single
 - sfx
 - music, a looped sample
 
@@ -141,7 +142,7 @@ I *assume* there can be only one active sound per audio type.
 
 There are also some sound effects that contain two samples, not sure yet if the play sequentially ot alternated.
 
-**TODO** are the DCS and pre DCS sound boards interface different? 8bit for pre dcs, 16bit afterwards?
+The DCS and pre DCS sound boards interface is different, preDCS use 8 and 16bit commands while the DCS sound board uses 16bit commands.
 
 #### Build Sound File
 
@@ -153,19 +154,19 @@ Once you ripped all samples, they need to be combined into one file using audios
 
 Example output for Fish Tales Sound files:
 ```
-# audiosprite  -e mp3,webm,ogg -f howler -v $(find . -name '*.wav' -exec echo {} +)
+# audiosprite -e mp3,webm,ogg -f howler -v $(find . -name '*.wav' -exec echo {} +)
    9,2K  1 Feb 13:04 output.json
     41M  1 Feb 13:11 output.mp3
     34M  1 Feb 13:12 output.ogg
     35M  1 Feb 13:11 output.webm
 
-# audiosprite  -e "webm,mp3,ogg" -f howler -b 128 $(find . -name '*.wav' -exec echo {} +)
+# audiosprite -e "webm,mp3,ogg" -f howler -b 128 $(find . -name '*.wav' -exec echo {} +)
    9,2K  1 Feb 13:04 output.json
     43M  1 Feb 13:14 output.mp3
     36M  1 Feb 13:14 output.ogg
     37M  1 Feb 13:13 output.webm
 
-# audiosprite  -e mp3,webm,ogg -f howler -v 5 $(find . -name '*.wav' -exec echo {} +)
+# audiosprite -e mp3,webm,ogg -f howler -v 5 $(find . -name '*.wav' -exec echo {} +)
    9,2K  1 Feb 13:04 output.json
     22M  1 Feb 13:11 output.mp3
     36M  1 Feb 13:12 output.ogg
