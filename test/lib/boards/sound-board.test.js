@@ -86,3 +86,12 @@ test('should handle multiple writes', (t) => {
     { command: 'PLAYSAMPLE', id: 1 }
   ]);
 });
+
+test('preDcs: set Volume', (t) => {
+  const soundBoard = t.context.instance;
+  soundBoard.writeInterface(WPC_SOUND_DATA, 0x79);
+  soundBoard.writeInterface(WPC_SOUND_DATA, 0x0B);
+  soundBoard.writeInterface(WPC_SOUND_DATA, 0xF4);
+  t.is(soundBoard.soundSerialInterface.volume, 11);
+});
+

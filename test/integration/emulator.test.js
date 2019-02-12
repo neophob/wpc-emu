@@ -55,7 +55,7 @@ test.serial('Smoketest, run emulator with rom ft20_32.rom', (t) => {
   }
 
   const uiState = wpcSystem.getUiState();
-  t.is(uiState.asic.dmd.scanline, 15);
+  t.is(uiState.asic.dmd.scanline, 19);
   t.deepEqual(uiState.asic.dmd.dmdPageMapping, [ 2, 3, 0, 0, 0, 0 ]);
   t.is(uiState.asic.dmd.activepage, 2);
   t.is(uiState.asic.wpc.activeRomBank, 24);
@@ -64,7 +64,13 @@ test.serial('Smoketest, run emulator with rom ft20_32.rom', (t) => {
   const ticksInRange = uiState.cpuState.tickCount > 3300000 && uiState.cpuState.tickCount < 34000000;
   t.is(ticksInRange, true);
   console.log('soundPlayback',soundPlayback);
-  t.deepEqual(soundPlayback, [ 0, 0, 2295, 121, 2295 ]);
+  t.deepEqual(soundPlayback, [
+    { command: 'STOPSOUND' },
+    { command: 'STOPSOUND' },
+    { command: 'PLAYSAMPLE', id: 30984 },
+    { command: 'PLAYSAMPLE', id: 63232 },
+    { command: 'PLAYSAMPLE', id: 30984 },
+  ]);
 });
 
 test.serial('steps(100) should execute at least 100 steps', (t) => {
