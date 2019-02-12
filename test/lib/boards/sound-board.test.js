@@ -3,27 +3,45 @@
 import test from 'ava';
 import SoundBoard from '../../../lib/boards/sound-board';
 
-const WPC_SOUND_DATA = 0x3FDC;
+const WPC_SOUND_DATA = SoundBoard.OP.WPC_SOUND_DATA;
+const WPC_SOUND_CONTROL_STATUS = SoundBoard.OP.WPC_SOUND_CONTROL_STATUS;
 
 test.beforeEach((t) => {
-  const initObject = {
+  const initObjectPreDcs = {
     interruptCallback: {
       firq: () => {},
     },
     romObject: {
-      preDcsSoundboard: true
+      preDcsSoundboard: true,
     },
   };
   const playbackArray = [];
-  const instance = SoundBoard.getInstance(initObject);
-  instance.reset();
 
-  instance.registerSoundBoardCallback((msg) => {
+  const instancePreDcs = SoundBoard.getInstance(initObjectPreDcs);
+  instancePreDcs.reset();
+  instancePreDcs.registerSoundBoardCallback((msg) => {
     console.log('CALLBACK!', msg)
     playbackArray.push(msg);
-  })
+  });
+
+  const initObjectDcs = {
+    interruptCallback: {
+      firq: () => {},
+    },
+    romObject: {
+      preDcsSoundboard: false,
+    },
+  };
+  const instanceDcs = SoundBoard.getInstance(initObjectDcs);
+  instanceDcs.reset();
+  instanceDcs.registerSoundBoardCallback((msg) => {
+    console.log('CALLBACK!', msg)
+    playbackArray.push(msg);
+  });
+
   t.context = {
-    instance,
+    instance: instancePreDcs,
+    instanceDcs,
     playbackArray,
   };
 });
@@ -34,6 +52,20 @@ test('should validate callback function', (t) => {
   t.is(result, false);
 });
 
+test('should read control status, no data available', (t) => {
+  const soundBoard = t.context.instanceDcs;
+  const result = soundBoard.readInterface(WPC_SOUND_CONTROL_STATUS);
+  t.is(result, 0);
+});
+
+test('should read control status, data is available', (t) => {
+  const soundBoard = t.context.instanceDcs;
+  soundBoard.writeInterface(WPC_SOUND_DATA, 0x03);
+  soundBoard.writeInterface(WPC_SOUND_DATA, 0xD3);
+  const result = soundBoard.readInterface(WPC_SOUND_CONTROL_STATUS);
+  t.is(result, 0x80);
+});
+
 test('should handle multiple writes', (t) => {
   const soundBoard = t.context.instance;
   soundBoard.writeInterface(WPC_SOUND_DATA, 0);
@@ -42,10 +74,15 @@ test('should handle multiple writes', (t) => {
   soundBoard.writeInterface(WPC_SOUND_DATA, 0x22);
   soundBoard.writeInterface(WPC_SOUND_DATA, 0x00);
   soundBoard.writeInterface(WPC_SOUND_DATA, 0x01);
-  console.log('t.context.playbackArray',t.context.playbackArray)
+  const result = soundBoard.readInterface(WPC_SOUND_CONTROL_STATUS);
+
+  t.is(result, 0);
   t.deepEqual(t.context.playbackArray, [
-    { command: 'PLAYSAMPLE', id: 0x0 },
-    { command: 'PLAYSAMPLE', id: 0xEE22 },
-    { command: 'PLAYSAMPLE', id: 0x1 },
+    { command: 'PLAYSAMPLE', id: 0 },
+    { command: 'PLAYSAMPLE', id: 0 },
+    { command: 'PLAYSAMPLE', id: 0xEE },
+    { command: 'PLAYSAMPLE', id: 0x22 },
+    { command: 'PLAYSAMPLE', id: 0 },
+    { command: 'PLAYSAMPLE', id: 1 }
   ]);
 });
