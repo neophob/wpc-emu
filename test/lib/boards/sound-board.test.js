@@ -40,14 +40,14 @@ test.beforeEach((t) => {
   });
 
   t.context = {
-    instance: instancePreDcs,
+    instancePreDcs,
     instanceDcs,
     playbackArray,
   };
 });
 
 test('should validate callback function', (t) => {
-  const soundBoard = t.context.instance;
+  const soundBoard = t.context.instancePreDcs;
   const result = soundBoard.registerSoundBoardCallback(2);
   t.is(result, false);
 });
@@ -67,7 +67,7 @@ test('should read control status, data is available', (t) => {
 });
 
 test('should handle multiple writes', (t) => {
-  const soundBoard = t.context.instance;
+  const soundBoard = t.context.instancePreDcs;
   soundBoard.writeInterface(WPC_SOUND_DATA, 0);
   soundBoard.writeInterface(WPC_SOUND_DATA, 0);
   soundBoard.writeInterface(WPC_SOUND_DATA, 0xEE);
@@ -88,10 +88,23 @@ test('should handle multiple writes', (t) => {
 });
 
 test('preDcs: set Volume', (t) => {
-  const soundBoard = t.context.instance;
+  const soundBoard = t.context.instancePreDcs;
   soundBoard.writeInterface(WPC_SOUND_DATA, 0x79);
   soundBoard.writeInterface(WPC_SOUND_DATA, 0x0B);
   soundBoard.writeInterface(WPC_SOUND_DATA, 0xF4);
-  t.is(soundBoard.soundSerialInterface.volume, 11);
+  t.deepEqual(t.context.playbackArray, [
+    { command: 'MAINVOLUME', value: 11 },
+  ]);
+});
+
+test('Dcs: set Volume', (t) => {
+  const soundBoard = t.context.instanceDcs;
+  soundBoard.writeInterface(WPC_SOUND_DATA, 0x55);
+  soundBoard.writeInterface(WPC_SOUND_DATA, 0xAA);
+  soundBoard.writeInterface(WPC_SOUND_DATA, 0xB7);
+  soundBoard.writeInterface(WPC_SOUND_DATA, 0x48);
+  t.deepEqual(t.context.playbackArray, [
+    { command: 'MAINVOLUME', value: 22 },
+  ]);
 });
 
