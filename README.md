@@ -142,7 +142,7 @@ I *assume* there can be only one active sound per audio type.
 
 There are also some sound effects that contain two samples, not sure yet if the play sequentially ot alternated.
 
-The DCS and pre DCS sound boards interface is different, preDCS use 8 and 16bit commands while the DCS sound board uses 16bit commands.
+The DCS and pre DCS sound boards interface is different, preDCS use 8 and 16bit commands while the DCS sound board uses 16bit commands. Also the WPC95 board seems to read the control register of the sound board to check if there's data available to read.
 
 #### Build Sound File
 
