@@ -108,7 +108,7 @@ function extractDmdFrames(status) {
       .createHash('md5')
       .update(lowerHalfFrame)
       .digest('hex');
-/*    const checksum2 = crypto
+      /*const checksum2 = crypto
       .createHash('md5')
       .update(upperHalfFrame)
       .digest('hex');*/
