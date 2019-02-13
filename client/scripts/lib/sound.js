@@ -17,15 +17,16 @@ class Sound {
     //TODO pass audio sample
     this.sound = new Howl({
       src: [
+        '',
         // TODO add bong sound
-        'sound/result.mp3',
+       // 'sound/result.mp3',
       ],
       sprite,
       onplayerror: (error) => {
         console.log('SOUND PLAYER ERROR', error.message);
       },
       onloaderror: (error) => {
-        console.log('SOUND LOAD ERROR', error.message);
+        //console.log('SOUND LOAD ERROR', error.message);
       },
       onload: () => {
         console.log('SOUND LOADED');
@@ -35,13 +36,12 @@ class Sound {
   }
 
   callback(message = {}) {
-
     switch (message.command) {
       case 'PLAYSAMPLE': {
         const id = message.id;
         const key = 'snd' + id;
         if (!this.sprite[key]) {
-          return console.log('SOUND ENTRY NOT FOUND', id);
+          return console.log('SAMPLE ID NOT FOUND', id);
         }
         console.log('playbackId', id);
         this.activePlayId[0] = this.sound.play(key);

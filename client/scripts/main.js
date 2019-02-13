@@ -40,7 +40,7 @@ function initialiseEmu(gameEntry) {
       u06Promise,
     ])
     .then((romFiles) => {
-      console.log('Successfully loaded ROM', romFiles);
+      console.log('Successfully loaded ROM', romFiles[0].length);
       const romData = {
         u06: romFiles[0],
       };
@@ -62,7 +62,7 @@ function initialiseEmu(gameEntry) {
         loadState,
         toggleDmdDump
       };
-      wpcSystem.registerAudioConsumer((id) => soundInstance.playbackId(id) );
+      wpcSystem.registerAudioConsumer((message) => soundInstance.callback(message) );
       wpcSystem.start();
       console.log('Successfully started EMU v' + wpcSystem.version());
       return emuDebugUi.populateInitialCanvas(gameEntry);
