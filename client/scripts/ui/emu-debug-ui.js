@@ -75,17 +75,13 @@ function updateCanvas(emuState, cpuRunningState) {
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 120);
   canvas.fillText('SND WRITE (DATA/CTL): ' + emuState.asic.sound.writeDataBytes + '/' + emuState.asic.sound.writeControlBytes,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 130);
-  canvas.fillText('TIME: ' + emuState.asic.wpc.time, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 140);
+  canvas.fillText('EMU TIME: ' + emuState.asic.wpc.time, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 140);
 
   canvas.fillText('DMD PAGE MAP: ' + emuState.asic.dmd.dmdPageMapping, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
   canvas.fillText('DMD ACTIVE PAGE: ' + emuState.asic.dmd.activepage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
 
   canvas.fillStyle = emuState.asic.wpc.diagnosticLed ? COLOR_DMD[3] : COLOR_DMD[0];
   canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA + 72, 8, 8);
-
-  if (emuState.asic.sound.ram) {
-    drawMemRegion(emuState.asic.sound.ram, LEFT_X_OFFSET + 125, YPOS_MEM_DATA, 120);
-  }
 
   if (emuState.asic.dmd.dmdShadedBuffer) {
     drawDmdShaded(emuState.asic.dmd.dmdShadedBuffer, LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
@@ -297,7 +293,6 @@ function initCanvas() {
   canvas.fillText('SWITCH IN MATRIX', RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 10);
   canvas.fillText('DMD PAGE RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
   canvas.fillText('WPC CPU RAM:', LEFT_X_OFFSET, YPOS_MEM_DATA - 10);
-  canvas.fillText('SOUND CPU RAM:', LEFT_X_OFFSET + 125, YPOS_MEM_DATA - 10);
 
   drawDmdShaded([], LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
 }

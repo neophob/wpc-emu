@@ -1,5 +1,11 @@
 # HISTORY
 
+## 13/2/19
+- cleanup UI
+- make sure client works without any active audio file
+
+![13.02.19](assets/13.02.19.png?raw=true)
+
 ## 8/2/19
 - remove sound cpu, improve sound interface and forware calls to client
 - do not load sound rom's anymore, a audio sample file will be needed
