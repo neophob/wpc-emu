@@ -29,9 +29,15 @@ function benchmarkWithCycleCount(tickSteps) {
 
   const loadRomFilesPromise = Promise.all([
     loadFile(romU06Path),
-    loadFile(romU14Path).catch((error) => { debug(error.message); }),
-    loadFile(romU15Path).catch((error) => { debug(error.message); }),
-    loadFile(romU18Path).catch((error) => { debug(error.message); }),
+    loadFile(romU14Path).catch((error) => {
+      debug(error.message);
+    }),
+    loadFile(romU15Path).catch((error) => {
+      debug(error.message);
+    }),
+    loadFile(romU18Path).catch((error) => {
+      debug(error.message);
+    }),
   ]);
 
   return loadRomFilesPromise
