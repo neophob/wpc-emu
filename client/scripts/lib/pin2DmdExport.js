@@ -1,6 +1,7 @@
 'use strict';
 
 import * as FileSaver from 'file-saver';
+
 export { initialise, save };
 
 /**

@@ -5,9 +5,6 @@ module.exports = {
   version: 'L-5',
   rom: {
     u06: 'FSHTL_5.ROM',
-    u14: 't2_u14.l3',
-    u15: 't2_u15.l3',
-    u18: 't2_u18.l3',
   },
   switchMapping: [
     { id: 13, name: 'CREDIT BUTTON' },
@@ -151,6 +148,9 @@ module.exports = {
     ],
   },
   skipWmcRomCheck: true,
+  features: [
+    'wpcFliptronics',
+  ],
   initialise: {
     closedSwitches: [
       15, 16, 17, 18,

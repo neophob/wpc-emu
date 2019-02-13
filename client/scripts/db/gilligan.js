@@ -5,9 +5,6 @@ module.exports = {
   version: 'L-9',
   rom: {
     u06: 'gilli_l9.rom',
-    u14: 'gi_u14.l2',
-    u15: 'gi_u15.l2',
-    u18: 'gi_u18.l2',
   },
   switchMapping: [
     { id: 11, name: 'RIGHT FLIPPER' },
@@ -78,6 +75,9 @@ module.exports = {
     image: 'playfield-gilligan.jpg',
   },
   skipWmcRomCheck: true,
+  features: [
+    'wpcDmd',
+  ],
   initialise: {
     closedSwitches: [
       16, 17, 22,

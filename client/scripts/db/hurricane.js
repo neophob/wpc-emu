@@ -5,9 +5,6 @@ module.exports = {
   version: 'L-2',
   rom: {
     u06: 'hurcnl_2.rom',
-    u14: 'U14.PP',
-    u15: 'U15.PP',
-    u18: 'U18.PP',
   },
   switchMapping: [
     { id: 11, name: 'RIGHT FLIPPER' },
@@ -110,7 +107,7 @@ module.exports = {
 
       [{ x: 56, y: 167, color: 'GREEN' }],
       [{ x: 55, y: 150, color: 'GREEN' }],
-      [{ x: 56, y: 133, color: 'WHITE' }],  //MYSTERY
+      [{ x: 56, y: 133, color: 'WHITE' }], //MYSTERY
       [{ x: 62, y: 110, color: 'YELLOW' }], //JACKPOT
       [{ x: 90, y: 371, color: 'ORANGE' }], //#55, PLAY IT AGAIN
       [{ x: 31, y: 165, color: 'WHITE' }],
@@ -160,6 +157,9 @@ module.exports = {
     ],
   },
   skipWmcRomCheck: true,
+  features: [
+    'wpcDmd',
+  ],
   initialise: {
     closedSwitches: [ 16, 17, 18, 22 ],
     initialAction: [

@@ -1,5 +1,12 @@
 # HISTORY
 
+## 8/2/19
+- remove sound cpu, improve sound interface and forware calls to client
+- do not load sound rom's anymore, a audio sample file will be needed
+- global volume is know known and exposed to the client, works for preDCS and DCS boards
+- use howle to play audio samples
+- expose board in each client db entry, needed for the sound board implementation
+
 ## 21/1/19
 - more keymapping, start game with key "5"
 - make sure all games start with closed cablinet key

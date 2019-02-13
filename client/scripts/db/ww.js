@@ -80,6 +80,9 @@ module.exports = {
     image: 'playfield-ww.jpg',
   },
   skipWmcRomCheck: true,
+  features: [
+    'wpcFliptronics',
+  ],
   initialise: {
     closedSwitches: [
       22,

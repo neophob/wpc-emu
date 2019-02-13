@@ -83,6 +83,9 @@ module.exports = {
     image: 'playfield-jd.jpg',
   },
   skipWmcRomCheck: true,
+  features: [
+    'wpcDcs',
+  ],
   initialise: {
     closedSwitches: [
       //OPTO SWITCHES: 54, 55, 56, 57, 58, 61, 62, 63, 64, 66, 67, 71, 72, 73, 74, 75, 76, 77, 81, 82, 83, 84, 85, 86, 87
