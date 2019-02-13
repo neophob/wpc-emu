@@ -79,6 +79,9 @@ module.exports = {
     image: 'playfield-bsd.jpg',
   },
   skipWmcRomCheck: true,
+  features: [
+    'wpcFliptronics',
+  ],
   initialise: {
     closedSwitches: [
       22,

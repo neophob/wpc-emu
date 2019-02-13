@@ -92,6 +92,7 @@ module.exports = {
   skipWmcRomCheck: true,
   features: [
     'securityPic',
+    'wpcSecure',
   ],
   initialise: {
     closedSwitches: [

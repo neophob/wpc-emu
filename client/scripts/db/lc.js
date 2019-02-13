@@ -53,7 +53,9 @@ module.exports = {
   skipWmcRomCheck: true,
   features: [
     // NOTE: this WPC-95 device does NOT include a Security Pic!
+    // TODO: looks like this board has NO DCS Sound chip - is this the correct rom?
     // 'securityPic',
+    'wpc95',
   ],
   initialise: {
     closedSwitches: [

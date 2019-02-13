@@ -20,16 +20,11 @@ const TICKS_PER_CALL = parseInt(TICKS / DESIRED_FPS, 10);
 const TICKS_PER_STEP = 16;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
 
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-const soundInstance = AudioOutput(AudioContext);
+const soundInstance = AudioOutput();
 
 var wpcSystem;
 var intervalId;
 var dmdDump;
-
-function dacCallback(value) {
-  soundInstance.writeAudioData(value);
-}
 
 function initialiseEmu(gameEntry) {
   emuDebugUi.initialise(gameEntry);
@@ -40,23 +35,14 @@ function initialiseEmu(gameEntry) {
   emuDebugUi.loadFeedback(gameEntry.name);
 
   const u06Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06);
-  const u14Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u14).catch(() => {});
-  const u15Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u15).catch(() => {});
-  const u18Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u18).catch(() => {});
 
   return Promise.all([
       u06Promise,
-      u14Promise,
-      u15Promise,
-      u18Promise,
     ])
     .then((romFiles) => {
-      console.log('Successfully loaded ROM',romFiles);
+      console.log('Successfully loaded ROM', romFiles);
       const romData = {
         u06: romFiles[0],
-        u14: romFiles[1],
-        u15: romFiles[2],
-        u18: romFiles[3],
       };
       return initialiseEmulator(romData, gameEntry);
     })
@@ -76,9 +62,8 @@ function initialiseEmu(gameEntry) {
         loadState,
         toggleDmdDump
       };
-      wpcSystem.registerAudioConsumer(dacCallback);
+      wpcSystem.registerAudioConsumer((id) => soundInstance.playbackId(id) );
       wpcSystem.start();
-      soundInstance.setMixStereoFunction(wpcSystem.mixStereo);
       console.log('Successfully started EMU v' + wpcSystem.version());
       return emuDebugUi.populateInitialCanvas(gameEntry);
     })
@@ -120,6 +105,7 @@ function romSelection(romName) {
 }
 
 function initEmuWithGameName(name) {
+  soundInstance.stop();
   const gameEntry = gamelist.getByName(name);
   populateControlUiView(gameEntry, gamelist, name);
   return initialiseEmu(gameEntry)
@@ -169,6 +155,7 @@ function pauseEmu() {
     emuDebugUi.updateCanvas(wpcSystem.getUiState(), 'paused');
   }
 
+  soundInstance.stop();
   if (!intervalId) {
     // allows step by step
     step();

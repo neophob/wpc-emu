@@ -51,6 +51,9 @@ module.exports = {
     { id: 68, name: 'PIN SWITCH I' },
   ],
   skipWmcRomCheck: true,
+  features: [
+    'wpcDmd',
+  ],
   initialise: {
     closedSwitches: [
       22,

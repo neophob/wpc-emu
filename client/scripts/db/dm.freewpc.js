@@ -88,6 +88,9 @@ module.exports = {
     image: 'playfield-dm.jpg',
   },
   skipWmcRomCheck: false,
+  features: [
+    'wpcDcs',
+  ],
   initialise: {
     closedSwitches: [
       22,

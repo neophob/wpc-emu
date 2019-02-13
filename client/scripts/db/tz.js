@@ -5,9 +5,6 @@ module.exports = {
   version: 'H-8',
   rom: {
     u06: 'tz_h8.u6',
-    u14: 'Bally_1993_Twilight_Zone_TZ_Sound_P3_U14.rom',
-    u15: 'Bally_1993_Twilight_Zone_TZ_Sound_P3_U15.rom',
-    u18: 'Bally_1993_Twilight_Zone_TZ_Sound_P3_U18.rom',
   },
   switchMapping: [
     { id: 11, name: 'RIGHT INLANE' },
@@ -89,6 +86,9 @@ module.exports = {
     image: 'playfield-tz.jpg',
   },
   skipWmcRomCheck: true,
+  features: [
+    'wpcFliptronics',
+  ],
   initialise: {
     closedSwitches: [
       15, 16, 17,
