@@ -20,7 +20,7 @@ test.beforeEach((t) => {
   const instancePreDcs = SoundBoard.getInstance(initObjectPreDcs);
   instancePreDcs.reset();
   instancePreDcs.registerSoundBoardCallback((msg) => {
-    console.log('CALLBACK!', msg)
+    console.log('CALLBACK!', msg);
     playbackArray.push(msg);
   });
 
@@ -35,7 +35,7 @@ test.beforeEach((t) => {
   const instanceDcs = SoundBoard.getInstance(initObjectDcs);
   instanceDcs.reset();
   instanceDcs.registerSoundBoardCallback((msg) => {
-    console.log('CALLBACK!', msg)
+    console.log('CALLBACK!', msg);
     playbackArray.push(msg);
   });
 

@@ -410,10 +410,11 @@ function flagCheckTest(t, testData) {
       case FLAG_SET:
         t.true((cpu.regCC & mask) > 0);
         break;
-      case FLAG_UNAFFECTED:
+      case FLAG_UNAFFECTED: {
         const unaffectedFlag = cpu.regCC & mask;
         t.true(unaffectedFlag > 0, 'offset: ' + x + ', ' + unaffectedFlag + ', mask: ' + mask);
         break;
+      }
       default:
         t.pass();
     }
