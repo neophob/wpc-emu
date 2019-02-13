@@ -87,7 +87,7 @@ test('should handle multiple writes', (t) => {
   ]);
 });
 
-test('preDcs: set Volume', (t) => {
+test('preDcs: set volume', (t) => {
   const soundBoard = t.context.instancePreDcs;
   soundBoard.writeInterface(WPC_SOUND_DATA, 0x79);
   soundBoard.writeInterface(WPC_SOUND_DATA, 0x0B);
@@ -97,7 +97,7 @@ test('preDcs: set Volume', (t) => {
   ]);
 });
 
-test('Dcs: set Volume', (t) => {
+test('Dcs: set volume', (t) => {
   const soundBoard = t.context.instanceDcs;
   soundBoard.writeInterface(WPC_SOUND_DATA, 0x55);
   soundBoard.writeInterface(WPC_SOUND_DATA, 0xAA);
@@ -108,3 +108,17 @@ test('Dcs: set Volume', (t) => {
   ]);
 });
 
+test('set and get state', (t) => {
+  const soundBoard = t.context.instanceDcs;
+  const state = {
+    volume: 44,
+    readDataBytes: 55,
+    writeDataBytes: 66,
+    readControlBytes: 77,
+    writeControlBytes: 88,
+  };
+
+  soundBoard.setState(state);
+  const actualState = soundBoard.getState();
+  t.deepEqual(actualState, state);
+});

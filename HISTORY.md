@@ -3,6 +3,7 @@
 ## 13/2/19
 - cleanup UI
 - make sure client works without any active audio file
+- save and load sound board state
 
 ![13.02.19](assets/13.02.19.png?raw=true)
 
