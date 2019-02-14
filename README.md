@@ -345,7 +345,11 @@ I *assume* there can be only one active sound per audio type.
 
 There are also some sound effects that contain two samples, not sure yet if the play sequentially ot alternated.
 
-The DCS and pre DCS sound boards interface is different, preDCS use 8 and 16bit commands while the DCS sound board uses 16bit commands. Also the WPC95 board seems to read the control register of the sound board to check if there's data available to read.
+| Model | Channels | Interface | Read control register |
+| ----- | -------- | --------- | --------------------- |
+| DMD   | ??       | 8 bit     | false                 |
+| DCS   | 4        | 16 bit    | false                 |
+| WPC95 | 6        | 16 bit    | true                  |
 
 ### Build Sound File
 
@@ -756,6 +760,9 @@ Note Theatre of Magic does not have this Midnight Madness special mode. Midnight
 - https://github.com/vgm/node-vgmplay/blob/master/res/js/vgm/ym2151.js
 - https://en.wikipedia.org/wiki/Digital_Compression_System
 - http://rbelmont.mameworld.info/?page_id=223 (M1 sounds for arcade machine)
+- https://github.com/bartgrantham/fpemu (Emulation of the sound board from Williams Firepower pinball machine)
+- http://www.planetarypinball.com/mm5/Williams/archives/willy3.htm (DCS)
+- http://www.planetarypinball.com/mm5/Williams/archives/willy9.htm (preDCS)
 
 ## ROM
 - http://www.ipdb.org/
