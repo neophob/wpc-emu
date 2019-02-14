@@ -5,9 +5,6 @@ module.exports = {
   version: 'L-1',
   rom: {
     u06: 'sf_u6.l1',
-    u14: 'sf_u14.l1',
-    u15: 'sf_u15.l1',
-    u18: 'sf_u18.l1',
   },
   switchMapping: [
     { id: 21, name: 'SLAM TILT' },
@@ -47,10 +44,15 @@ module.exports = {
     { id: 63, name: 'R BLEACHER' },
   ],
   skipWmcRomCheck: true,
+  features: [
+    'wpcDmd',
+  ],
   initialise: {
     closedSwitches: [
       22,
+      // OPTO SWITCHES: 54, 55,
       54, 55,
+      61, 62, 63,
     ],
     initialAction: [
       {

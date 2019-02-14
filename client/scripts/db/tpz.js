@@ -5,9 +5,6 @@ module.exports = {
   version: 'L-2',
   rom: {
     u06: 'PZ_U6.L2',
-    u14: 'pz_u14.l1',
-    u15: 'pz_u15.l1',
-    u18: 'pz_u18.l1',
   },
   switchMapping: [
     { id: 11, name: 'RIGHT FLIPPER' },
@@ -72,8 +69,17 @@ module.exports = {
     { id: 85, name: '2ND COTTAGE SW' },
   ],
   skipWmcRomCheck: true,
+  features: [
+    'wpcDmd',
+  ],
   initialise: {
-    closedSwitches: [ 76, 77, 78 ],
+    closedSwitches: [
+      22,
+      // OPTO SWITCHES: 51, 52, 53
+      // TODO: HEAD does not work
+      52, 53,
+      76, 77, 78
+    ],
     initialAction: [
       {
         delayMs: 1000,

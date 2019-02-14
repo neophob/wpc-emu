@@ -21,18 +21,13 @@ const TICKS_PER_CALL = parseInt(TICKS / DESIRED_FPS, 10);
 const TICKS_PER_STEP = 16;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
 
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-const soundInstance = AudioOutput(AudioContext);
+const soundInstance = AudioOutput();
 
 var wpcSystem;
 var intervalId;
 var lastZeroContCounter = 0;
 var bleMessageCount = 0;
 var dmdDump;
-
-function dacCallback(value) {
-  soundInstance.writeAudioData(value);
-}
 
 function pairing() {
   pairBluetooth((error, data) => {
@@ -74,9 +69,9 @@ function pairing() {
       }
     }
   })
-    .catch((error) => {
-      console.error('BT Pairing failed:', error.message);
-    });
+  .catch((error) => {
+    console.error('BT Pairing failed:', error.message);
+  });
 }
 
 function initialiseEmu(gameEntry) {
@@ -88,23 +83,14 @@ function initialiseEmu(gameEntry) {
   emuDebugUi.loadFeedback(gameEntry.name);
 
   const u06Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06);
-  const u14Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u14).catch(() => {});
-  const u15Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u15).catch(() => {});
-  const u18Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u18).catch(() => {});
 
   return Promise.all([
       u06Promise,
-      u14Promise,
-      u15Promise,
-      u18Promise,
     ])
     .then((romFiles) => {
-      console.log('Successfully loaded ROM', romFiles);
+      console.log('Successfully loaded ROM', romFiles[0].length);
       const romData = {
         u06: romFiles[0],
-        u14: romFiles[1],
-        u15: romFiles[2],
-        u18: romFiles[3],
       };
       return initialiseEmulator(romData, gameEntry);
     })
@@ -126,9 +112,8 @@ function initialiseEmu(gameEntry) {
         pairBluetooth: pairing,
         restartBluetoothController,
       };
-      wpcSystem.registerAudioConsumer(dacCallback);
+      wpcSystem.registerAudioConsumer((message) => soundInstance.callback(message) );
       wpcSystem.start();
-      soundInstance.setMixStereoFunction(wpcSystem.mixStereo);
       console.log('Successfully started EMU v' + wpcSystem.version());
       return emuDebugUi.populateInitialCanvas(gameEntry);
     })
@@ -170,6 +155,7 @@ function romSelection(romName) {
 }
 
 function initEmuWithGameName(name) {
+  soundInstance.stop();
   const gameEntry = gamelist.getByName(name);
   populateControlUiView(gameEntry, gamelist, name);
   return initialiseEmu(gameEntry)
@@ -219,6 +205,7 @@ function pauseEmu() {
     emuDebugUi.updateCanvas(wpcSystem.getUiState(), 'paused');
   }
 
+  soundInstance.stop();
   if (!intervalId) {
     // allows step by step
     step();
@@ -235,6 +222,7 @@ function registerKeyboardListener() {
     '  "2": Coin#2\n' +
     '  "3": Coin#3\n' +
     '  "4": Coin#4\n' +
+    '  "5": Start\n' +
     '  "P": pause\n' +
     '  "R": resume\n' +
     '  "S": save\n' +
@@ -258,6 +246,9 @@ function registerKeyboardListener() {
 
       case 52: //4
         return wpcSystem.setCabinetInput(8);
+
+      case 53: //5
+        return wpcSystem.setInput(13);
 
       case 80: //P
         return pauseEmu();
@@ -285,7 +276,7 @@ function registerKeyboardListener() {
 
       default:
 
-    };
+    }
   }, false);
 
 }
@@ -295,9 +286,9 @@ if ('serviceWorker' in navigator) {
   // NOTE: works only via SSL!
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('service-worker.js').then(registration => {
-      console.log('SW registered: ', registration);
+      console.log('SW registered:', registration);
     }).catch(registrationError => {
-      console.log('SW registration failed: ', registrationError);
+      console.log('SW registration failed:', registrationError);
     });
   });
 }

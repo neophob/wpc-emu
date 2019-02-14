@@ -5,9 +5,6 @@ module.exports = {
   version: 'L-8',
   rom: {
     u06: 't2_l8.rom',
-    u14: 't2_u14.l3',
-    u15: 't2_u15.l3',
-    u18: 't2_u18.l3',
   },
   playfield: {
     //size must be 200x400, lamp positions according to image
@@ -159,9 +156,15 @@ module.exports = {
     { id: 78, name: 'SHOOTER' },
   ],
   skipWmcRomCheck: true,
+  features: [
+    'wpcDmd',
+  ],
   initialise: {
-    //OPTO Switches: 23
-    closedSwitches: [ 15, 16, 17, 23 ],
+    closedSwitches: [
+      15, 16, 17, 22,
+      //OPTO Switches: 23
+      23,
+    ],
     initialAction: [
       {
         delayMs: 1000,

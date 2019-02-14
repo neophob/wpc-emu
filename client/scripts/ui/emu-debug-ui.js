@@ -1,6 +1,7 @@
 'use strict';
 
 import { replaceNode } from './htmlselector';
+
 export { initialise, updateCanvas, populateInitialCanvas, errorFeedback, loadFeedback };
 
 // HINT enable debug in the browser by entering "localStorage.debug = '*'" in the browser
@@ -69,28 +70,20 @@ function updateCanvas(emuState, cpuRunningState, bleMessageCount) {
   canvas.fillText('ACTIVE ROM BANK: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 90);
   canvas.fillText('WRITE TO LOCKED MEM: ' + emuState.protectedMemoryWriteAttempts, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 100);
 
-  canvas.fillText('SND CPU TICK: ' + emuState.asic.sound.cpuState.tickCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 110);
-  canvas.fillText('SND IRQ CALLS/MISSED: ' + emuState.asic.sound.cpuState.irqCount + '/' + emuState.asic.sound.cpuState.missedIRQ,
+  canvas.fillText('SND VOLUME: ' + emuState.asic.sound.volume, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 110);
+  canvas.fillText('SND READ (DATA/CTL): ' + emuState.asic.sound.readDataBytes + '/' + emuState.asic.sound.readControlBytes,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 120);
-  canvas.fillText('SND FIRQ CALLS/MISSED: ' + emuState.asic.sound.cpuState.firqCount + '/' + emuState.asic.sound.cpuState.missedFIRQ,
+  canvas.fillText('SND WRITE (DATA/CTL): ' + emuState.asic.sound.writeDataBytes + '/' + emuState.asic.sound.writeControlBytes,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 130);
-  canvas.fillText('SND NMI CALLS: ' + emuState.asic.sound.cpuState.nmiCount,
-    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 140);
-  canvas.fillText('SND VOLUME: ' + emuState.asic.sound.volume, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 150);
-  canvas.fillText('TIME: ' + emuState.asic.wpc.time, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 160);
+  canvas.fillText('EMU TIME: ' + emuState.asic.wpc.time, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 140);
   if (bleMessageCount) {
-    canvas.fillText('BLE MESSAGES: ' + bleMessageCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 170);
+    canvas.fillText('BLE MESSAGES: ' + bleMessageCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 150);
   }
-    
   canvas.fillText('DMD PAGE MAP: ' + emuState.asic.dmd.dmdPageMapping, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
   canvas.fillText('DMD ACTIVE PAGE: ' + emuState.asic.dmd.activepage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
 
   canvas.fillStyle = emuState.asic.wpc.diagnosticLed ? COLOR_DMD[3] : COLOR_DMD[0];
   canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA + 72, 8, 8);
-
-  if (emuState.asic.sound.ram) {
-    drawMemRegion(emuState.asic.sound.ram, LEFT_X_OFFSET + 125, YPOS_MEM_DATA, 120);
-  }
 
   if (emuState.asic.dmd.dmdShadedBuffer) {
     drawDmdShaded(emuState.asic.dmd.dmdShadedBuffer, LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
@@ -302,7 +295,6 @@ function initCanvas() {
   canvas.fillText('SWITCH IN MATRIX', RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 10);
   canvas.fillText('DMD PAGE RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
   canvas.fillText('WPC CPU RAM:', LEFT_X_OFFSET, YPOS_MEM_DATA - 10);
-  canvas.fillText('SOUND CPU RAM:', LEFT_X_OFFSET + 125, YPOS_MEM_DATA - 10);
 
   drawDmdShaded([], LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
 }
@@ -335,7 +327,7 @@ function populateInitialCanvas(gameEntry) {
   playfieldImage = null;
   if (playfieldData) {
     playfieldImage = new Image();
-    playfieldImage.onload = function() {
+    playfieldImage.onload = function () {
       canvas.drawImage(playfieldImage, 800, YPOS_DMD_MAIN_VIEW);
     };
     playfieldImage.src = FETCHURL + playfieldData.image;

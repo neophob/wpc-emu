@@ -8,10 +8,10 @@ test.beforeEach((t) => {
     var storage = {};
 
     return {
-      setItem: function(key, value) {
+      setItem: (key, value) => {
         storage[key] = value || '';
       },
-      getItem: function(key) {
+      getItem: (key) => {
         return key in storage ? storage[key] : null;
       },
     };
@@ -20,7 +20,7 @@ test.beforeEach((t) => {
   const localStorage = storageMock();
   global.window = {
     localStorage,
-  }
+  };
 
   let state;
 
@@ -37,9 +37,11 @@ test.beforeEach((t) => {
             }
           },
           convertMe: Uint8Array.from([1,2,3]),
-        }
+        };
       },
-      setState: (_state) => { state = _state},
+      setState: (_state) => {
+        state = _state;
+      },
     }
   };
 

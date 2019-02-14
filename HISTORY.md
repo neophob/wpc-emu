@@ -1,5 +1,31 @@
 # HISTORY
 
+## 13/2/19
+- cleanup UI
+- make sure client works without any active audio file
+- save and load sound board state
+- get rid of the unused CPU core
+
+![13.02.19](assets/13.02.19.png?raw=true)
+
+## 8/2/19
+- remove sound cpu, improve sound interface and forward calls to client
+- do not load sound rom's anymore, a audio sample file will be needed
+- global volume is know known and exposed to the client, works for preDCS and DCS boards
+- use howler to play audio samples
+- expose board in each client db entry, needed for the sound board implementation
+
+## 21/1/19
+- more keymapping, start game with key "5"
+- make sure all games start with closed cabinet key
+- fixed more games where the initial switch state was invalid
+- get rid of the YM2151 chip, was not working anyway
+
+## 19/1/19
+- CPU: do not queue interrupts, fixed JM
+- DMD: Change flipping DMD Screens, use same function like vpinmame
+- MM: add lamp configuration
+
 ## 18/1/19
 - STTNG, FT, HS2: use production ROM
 - AFM: add lamp configuration

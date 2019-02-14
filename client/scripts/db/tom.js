@@ -82,10 +82,12 @@ module.exports = {
   skipWmcRomCheck: true,
   features: [
     'securityPic',
+    'wpcSecure',
   ],
   initialise: {
-    //OPTO SWITCHES: 31, 32, 33, 34, 35, 36, 55, 56, 57, 58
     closedSwitches: [
+      22,
+      //OPTO SWITCHES: 31, 32, 33, 34, 35, 36, 55, 56, 57, 58
       36, 55, 56, 57, 58,
       'F2', 'F4',
     ],

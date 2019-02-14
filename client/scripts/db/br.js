@@ -69,6 +69,9 @@ module.exports = {
     { id: 'F6', name: 'UR FLIPPER BUT' },
   ],
   skipWmcRomCheck: true,
+  features: [
+    'wpcFliptronics',
+  ],
   initialise: {
     closedSwitches: [
       22,

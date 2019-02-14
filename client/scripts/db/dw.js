@@ -5,9 +5,6 @@ module.exports = {
   version: 'L-1',
   rom: {
     u06: 'drwho_l2.rom',
-    u14: 'dw_u14.l1',
-    u15: 'dw_u15.l1',
-    u18: 'dw_u18.l1',
   },
   switchMapping: [
     { id: 13, name: 'START BUTTON' },
@@ -88,6 +85,9 @@ module.exports = {
     image: 'playfield-dw.jpg',
   },
   skipWmcRomCheck: true,
+  features: [
+    'wpcFliptronics',
+  ],
   initialise: {
     closedSwitches: [
       22, 25, 26, 27,

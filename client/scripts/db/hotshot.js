@@ -5,8 +5,6 @@ module.exports = {
   version: 'P-8',
   rom: {
     u06: 'hshot_p8.u6',
-    u14: 'hshot_l1.u14',
-    u18: 'hshot_l1.u18',
   },
   switchMapping: [
     { id: 13, name: 'START BUTTON' },
@@ -26,7 +24,13 @@ module.exports = {
     { id: 33, name: 'BASKET MTR BOT' },
   ],
   skipWmcRomCheck: true,
+  features: [
+    'wpcDmd',
+  ],
   initialise: {
+    closedSwitches: [
+      22
+    ],
     initialAction: [
       {
         delayMs: 1000,

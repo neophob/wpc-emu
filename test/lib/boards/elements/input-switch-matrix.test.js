@@ -45,12 +45,12 @@ test('InputSwitchMatrix, getRow', (t) => {
 
 test('InputSwitchMatrix, ignore invalid key setInputKey', (t) => {
   const inputSwitchMatrix = t.context;
-  const result = inputSwitchMatrix.setInputKey(10);
+  inputSwitchMatrix.setInputKey(10);
   t.is(inputSwitchMatrix.switchState[1], 0);
 });
 
 test('InputSwitchMatrix, valid setInputKey', (t) => {
   const inputSwitchMatrix = t.context;
-  const result = inputSwitchMatrix.setInputKey(25);
+  inputSwitchMatrix.setInputKey(25);
   t.is(inputSwitchMatrix.switchState[2], 24);
 });
