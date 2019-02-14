@@ -3,6 +3,8 @@
 ## 13/2/19
 - cleanup UI
 - make sure client works without any active audio file
+- save and load sound board state
+- get rid of the unused CPU core
 
 ![13.02.19](assets/13.02.19.png?raw=true)
 

@@ -18,8 +18,8 @@ function copyFileToTemp(file) {
 
 const samples = [];
 
-function searchDirectory(startPath, filter){
-  if (!fs.existsSync(startPath)){
+function searchDirectory(startPath, filter) {
+  if (!fs.existsSync(startPath)) {
     console.error('Invalid directory', startPath);
     process.exit(1);
   }
@@ -29,7 +29,7 @@ function searchDirectory(startPath, filter){
     const filename = path.join(startPath, file);
     const stat = fs.lstatSync(filename);
     //TODO symlink handling
-    if (stat.isDirectory()){
+    if (stat.isDirectory()) {
       searchDirectory(filename, filter);
     } else if (filename.indexOf(filter) >= 0) {
       const file = copyFileToTemp(filename);
@@ -39,7 +39,7 @@ function searchDirectory(startPath, filter){
 }
 
 if (!process.argv[2]) {
-  return console.error('MISSING MUSIC_SOURCE_DIRECTORY_PATH');
+  throw new Error('MISSING MUSIC_SOURCE_DIRECTORY_PATH');
 }
 
 searchDirectory(process.argv[2], '.wav');
@@ -58,8 +58,8 @@ const opts = {
 
 audiosprite(samples, opts, (err, obj) => {
   if (err) {
-    return console.error(err)
+    return console.error(err);
   }
 
-  console.log(JSON.stringify(obj, null, 2))
+  console.log(JSON.stringify(obj, null, 2));
 });
