@@ -6,12 +6,12 @@ There are 34 distinct GPIOs available on the ESP32. They are identified as:
 • GPIO_NUM_32 – GPIO_NUM_39
 The ones that are omitted are 20, 24, 28, 29, 30 and 31.
 
-Note that GPIO_NUM_34 – GPIO_NUM_39 are input mode only. You can not use these pins for signal output. 
+Note that GPIO_NUM_34 – GPIO_NUM_39 are input mode only. You can not use these pins for signal output.
 
 Also, pins 6 (SD_CLK), 7 (SD_DATA0), 8 (SD_DATA1), 9 (SD_DATA2), 10 (SD_DATA3), 11 (SD_CMD) 16 (CS) and 17(Q) are used to interact
 with the SPI flash chip … you can not use those for other purposes.
 
-When using pSRAM, Strapping pins are GPIO0, GPIO2 and GPIO12. 
+When using pSRAM, Strapping pins are GPIO0, GPIO2 and GPIO12.
 TX and RX (as used for flash) are GPIO1 and GPIO3.
 
 TODO:
@@ -124,7 +124,7 @@ void IRAM_ATTR column8Interrupt() {
 }
 
 
-// NOTE: use INPUT_PULLUP instead INPUT: when no signal is applied, it will be at a voltage level 
+// NOTE: use INPUT_PULLUP instead INPUT: when no signal is applied, it will be at a voltage level
 //       of VCC instead of floating, avoiding the detection of non existing external interrupts.
 
 void initGpio() {
@@ -135,7 +135,7 @@ void initGpio() {
     //TODO
     // - keep data in memory to build up a 8x8 matrix
     // - validate that active colum switches timing match the esp timing or if we need in interrupt
-    
+
     pinMode(GPIO_RO_ACTIVE_COLUMN_1, INPUT_PULLDOWN);
     attachInterrupt(digitalPinToInterrupt(GPIO_RO_ACTIVE_COLUMN_1), column1Interrupt, RISING);
 
@@ -159,7 +159,7 @@ void initGpio() {
 
     pinMode(GPIO_RO_ACTIVE_COLUMN_8, INPUT_PULLDOWN);
     attachInterrupt(digitalPinToInterrupt(GPIO_RO_ACTIVE_COLUMN_8), column8Interrupt, RISING);
-    
+
     pinMode(GPIO_RO_SWITCH_INPUT_1, INPUT_PULLDOWN);
     pinMode(GPIO_RO_SWITCH_INPUT_2, INPUT_PULLDOWN);
     pinMode(GPIO_RO_SWITCH_INPUT_3, INPUT_PULLDOWN);
@@ -195,7 +195,7 @@ void loopGPIO() {
   }
 
   // reading 2 x 8 pins takes 4us on the devboard
-  
+
   unsigned long now = micros();
 /*  bitWrite(activeColumn, 0, digitalRead(GPIO_RO_ACTIVE_COLUMN_1));
   bitWrite(activeColumn, 1, digitalRead(GPIO_RO_ACTIVE_COLUMN_2));
@@ -216,7 +216,7 @@ void loopGPIO() {
   bitWrite(switchInput, 6, digitalRead(GPIO_RO_SWITCH_INPUT_7));
   bitWrite(switchInput, 7, digitalRead(GPIO_RO_SWITCH_INPUT_8));
   switchState[ switchColumn ] = switchInput;
-  
+
   unsigned long now2 = micros();
-  Serial.printf("switchColumn: %d, switchInput: %d, duration: %lu us\n", switchColumn, switchInput, (unsigned long)now2-now);  
+  Serial.printf("switchColumn: %d, switchInput: %d, duration: %lu us\n", switchColumn, switchInput, (unsigned long)now2-now);
 }
