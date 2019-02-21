@@ -89,11 +89,11 @@ As soon as we want to use the hardware, the simulator and the pinball machine ne
 The simplest solution is to reset the pinball machine.
 
 ### Uptime counter (32b)
-US: A Zerocross is triggered 60 times per second. -> 3600 per minute, 216'000 per hour
--> (4294967295/216000) = we can track 19884 hours of uptime aka more than 828 days.
+US: A Zerocross is triggered 120 times per second. -> 7200 per minute, 432'000 per hour
+-> (4294967295/432000) = we can track 9942 hours of uptime aka more than 414 days.
 
-EU: A Zerocross is triggered 50 times per second. -> 3000 per minute, 180'000 per hour
--> (4294967295/180000) = we can track 23860 hours of uptime aka more than 994 days.
+EU: A Zerocross is triggered 100 times per second. -> 6000 per minute, 360'000 per hour
+-> (4294967295/360000) = we can track 11930 hours of uptime aka more than 497 days.
 
 ### Coin Door input
 Track state of the coin door in one byte
