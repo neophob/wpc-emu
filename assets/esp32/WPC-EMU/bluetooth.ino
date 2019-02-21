@@ -142,6 +142,7 @@ void updateZerocross(uint32_t stateZerocross) {
 }
 
 void updateCabinetInput() {
+  // TODO implement
   statePayload[NOTIFY_MSG_OFFSET_COINDOOR] = 0;//esp_random() & 0xFF;
 }
 

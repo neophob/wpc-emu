@@ -36,12 +36,6 @@ Connections:
 
 ## Zerocross
 
-Source: CPU Board (A-12742-50005)
-Connections:
-- ASIC Pin 71
-
-OR
-
 Source: Power driver Board (A-12697-1)
 Connections:
 - TP4
@@ -57,7 +51,8 @@ Connections:
 
 ### Conclusion
 
-- When disconnect the ESP Pinball crash - this is because the reset line. configure as PullUP?
+- When disconnect the ESP Pinball crash - this is because the reset line. -> configure pins as INPUT instead INPUT_PULLxxx
+- Reset Pinball works
 - Zerocross count works:
 
 ```
@@ -68,3 +63,6 @@ Connections:
 18:34:56.091 -> switchColumn: 2, switchInput: 0, zeroconfInterruptCounter 7707, duration: 2 us
 18:34:56.091 -> switchColumn: 2, switchInput: 0, zeroconfInterruptCounter 7709, duration: 2 us
 ```
+
+Next steps: if EMU connects real pinball
+- synchronize Zerocross count (reset EMU, make sure RAM Check is executed) then fast forward

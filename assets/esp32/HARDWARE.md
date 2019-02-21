@@ -81,12 +81,12 @@ Total: 15 bytes
 ### Firmware functions
 
 ### Reset sense
-As soon as a reset signal is detected, reset uptime counter
+As soon as a reset signal is detected, reset Zeroconf counter
 TODO: how is a reset signal defined? Hi? Lo? Duration?
 
 ### Reset trigger
-As soon as we want to use the hardware, the simulator and the pinball machine need to sync.
-The simplest solution is to reset the pinball machine.
+It is possible to reset the pinball machine using the reset trigger.
+TODO: add a resistor to protect the ESP32.
 
 ### Uptime counter (32b)
 US: A Zerocross is triggered 120 times per second. -> 7200 per minute, 432'000 per hour

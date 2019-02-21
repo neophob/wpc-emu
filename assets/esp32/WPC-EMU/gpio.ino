@@ -16,9 +16,9 @@ TX and RX (as used for flash) are GPIO1 and GPIO3.
 
 
 pinMode:
-- INPUT: Pins configured this way are said to be in a high-impedance state. Input pins make extremely small demands on the 
+- INPUT: Pins configured this way are said to be in a high-impedance state. Input pins make extremely small demands on the
          circuit that they are sampling, equivalent to a series resistor of 100 megohm in front of the pin.
-- INPUT_PULLUP: There are 20K pullup resistors built into the Atmega chip that can be accessed from software. These built-in 
+- INPUT_PULLUP: There are 20K pullup resistors built into the Atmega chip that can be accessed from software. These built-in
                 pullup resistors are accessed by setting the pinMode() as INPUT_PULLUP.
 
 TODO: validate those values for the ESP32!
@@ -192,7 +192,7 @@ void initialiseResetInput() {
 void resetPinballMachine() {
     detachInterrupt(digitalPinToInterrupt(GPIO_RW_RESET_SENSE));
     pinMode(GPIO_RW_RESET_SENSE, OUTPUT);
-    // TODO set pin high/low and delay some ms
+    // TODO set pin high/low and delay some ms - weird it works also that way!
     initialiseResetInput();
 }
 
