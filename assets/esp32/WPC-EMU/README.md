@@ -33,10 +33,6 @@ Connections:
 Source: CPU Board (A-12742-50005)
 Connections:
 - D25, left of CPU6809
-- C1
-- J202, Pin 31
-- R57 (SOUND BOARD)
-- R49 (SOUND BOARD)
 
 ## Zerocross
 

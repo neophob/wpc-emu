@@ -28,13 +28,15 @@ function pairBluetooth(_callback) {
 }
 
 function resetPinballMachine() {
-  return bluetoothDevice.writeCharacteristic(WPCEMU_CHARACTERISTIC_RESET_UUID, Uint8Array.of(WPCEMU_PAYLOAD_REBOOT_PINBALLMACHINE));
+  console.log('reset pinball machine');
+  return bluetoothDevice.writeCharacteristic(WPCEMU_CHARACTERISTIC_RESET_UUID, Uint8Array.of(WPCEMU_PAYLOAD_REBOOT_PINBALLMACHINE))
+    .catch((error) => console.error('RESTART PINBALL MACHINE FAILED:', error.message));
 }
 
 function restartBluetoothController() {
   console.log('reset bluetooth controller');
   return bluetoothDevice.writeCharacteristic(WPCEMU_CHARACTERISTIC_RESET_UUID, Uint8Array.of(WPCEMU_PAYLOAD_REBOOT_CONTROLLER))
-    .catch((error) => console.error('RESTART FAILED:', error.message));
+    .catch((error) => console.error('RESTART CONTROLLER FAILED:', error.message));
 }
 
 function subscribeToNotifications() {

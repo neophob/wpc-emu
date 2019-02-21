@@ -1,4 +1,4 @@
-#define MINIMAL_ZEROCROSS_DIFF 4
+#define MINIMAL_ZEROCROSS_DIFF 160
 
 BLEServer* pServer = NULL;
 BLECharacteristic* pCharacteristicPowerstate = NULL;
@@ -22,11 +22,13 @@ class BleConnectionCallback: public BLEServerCallbacks {
 class BleResetCallback: public BLECharacteristicCallbacks {
     void onWrite(BLECharacteristic *pCharacteristic) {
       std::string value = pCharacteristic->getValue();
+
       if (value[0] == WPCEMU_PAYLOAD_REBOOT_PINBALLMACHINE) {
-        Serial.println("TODO RESET PINBALL MACHINE");
+        Serial.println("RESET PINBALL MACHINE");
+        resetPinballMachine();
       } else
       if (value[0] == WPCEMU_PAYLOAD_REBOOT_CONTROLLER) {
-        Serial.println("REBOOT!");
+        Serial.println("REBOOT CONTROLLER!");
         ESP.restart();
       }      
     }
@@ -108,38 +110,35 @@ void RestartBluetoothAdvertising() {
   Serial.println("start advertising");  
 }
 
-void sendWpcStateViaBLT() {
-  pCharacteristicWpcState->setValue(statePayload, MESSAGE_SIZE);        
-  pCharacteristicWpcState->notify();
-}
-
 void loopBluetooth() {
-  uint32_t currentZerocross = updateZerocross();
-  Serial.printf("currentZerocross %lu, lastZerocross: %lu\n", currentZerocross, lastZerocross);
+  noInterrupts();
+  uint32_t currentZerocross = zeroconfInterruptCounter;
+  interrupts();
 
   if ((currentZerocross - lastZerocross) < MINIMAL_ZEROCROSS_DIFF) {
     // do not send update if time diff is too small!
     return;
   }
   
+  updateZerocross(currentZerocross);
   if (fakeTimer % 40 == 0) {
     Serial.println("updateSwitchInput");  
     //updateRandomSwitchInput();
     updateCabinetInput();
   }
   lastZerocross = currentZerocross;
-  sendWpcStateViaBLT();
+  Serial.printf("SEND: %lu\n", currentZerocross);
+  // send WPC state using BLT
+  pCharacteristicWpcState->setValue(statePayload, MESSAGE_SIZE);        
+  pCharacteristicWpcState->notify();
+  delay(10);
 }
 
-uint32_t updateZerocross() {
-  noInterrupts();
-  uint32_t stateZerocross = zeroconfInterruptCounter;
-  interrupts();
+void updateZerocross(uint32_t stateZerocross) {
   statePayload[NOTIFY_MSG_OFFSET_ZEROCROSS + 0] = (stateZerocross >> 24) & 0xFF;
   statePayload[NOTIFY_MSG_OFFSET_ZEROCROSS + 1] = (stateZerocross >> 16) & 0xFF;
   statePayload[NOTIFY_MSG_OFFSET_ZEROCROSS + 2] = (stateZerocross >> 8) & 0xFF;
   statePayload[NOTIFY_MSG_OFFSET_ZEROCROSS + 3] = stateZerocross & 0xFF;
-  return stateZerocross;
 }
 
 void updateCabinetInput() {

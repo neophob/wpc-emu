@@ -30,6 +30,7 @@
     <button class="button-black button-outline button-small black" onclick="wpcInterface.saveState();">Save State</button>
     <button class="button-black button-outline button-small black" onclick="wpcInterface.pairBluetooth();">Pair BT</button>
     <button class="button-black button-outline button-small black" onclick="wpcInterface.restartBluetoothController();">Reset BT</button>
+    <button class="button-black button-outline button-small black" onclick="wpcInterface.resetPinballMachine();">Reset Pinball Machine</button>
   </div>
 </div>
 

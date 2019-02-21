@@ -9,7 +9,7 @@ import { initialiseActions } from './lib/initialise';
 import { loadRam, saveRam, } from './lib/ramState';
 import { initialise as initDmdExport, save as saveFile } from './lib/pin2DmdExport';
 import { AudioOutput } from './lib/sound';
-import { pairBluetooth, restartBluetoothController } from './bluetooth/index';
+import { pairBluetooth, restartBluetoothController, resetPinballMachine } from './bluetooth/index';
 import * as gamelist from './db/gamelist';
 import { populateControlUiView } from './ui/control-ui';
 import * as emuDebugUi from './ui/emu-debug-ui';
@@ -36,10 +36,12 @@ function pairing() {
       console.log('error', error);
       return;
     }
-    if (lastZeroContCounter === 0) {
+
+    if (intervalId) {
       cancelAnimationFrame(intervalId);
+      intervalId = false;
       lastZeroContCounter = data.zeroCrossCounter;
-      console.log('Switch to BLE MODE');
+      console.log('Switch to BLE MODE', data);
       //TODO check for time drift, reset pinball & emu if drift is too big
     } else {
       bleMessageCount++;
@@ -60,7 +62,7 @@ function pairing() {
         //console.log('coindoor',data.coinDoorState);
         //wpcSystem.setDirectInput(0, data.coinDoorState);
       }
-      if (data.zeroCrossCounter) {
+      if (data.zeroCrossCounter > 0) {
         const deltaCrossCounter = data.zeroCrossCounter - lastZeroContCounter;
         const deltaTicks = parseInt(deltaCrossCounter * (TICKS_PER_SECOND / FREQUENCY_HZ), 10);
         lastZeroContCounter = data.zeroCrossCounter;
@@ -112,6 +114,7 @@ function initialiseEmu(gameEntry) {
         toggleDmdDump,
         pairBluetooth: pairing,
         restartBluetoothController,
+        resetPinballMachine,
       };
       wpcSystem.registerAudioConsumer((message) => soundInstance.callback(message) );
       wpcSystem.start();

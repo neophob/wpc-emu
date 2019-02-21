@@ -14,6 +14,15 @@ with the SPI flash chip … you can not use those for other purposes.
 When using pSRAM, Strapping pins are GPIO0, GPIO2 and GPIO12.
 TX and RX (as used for flash) are GPIO1 and GPIO3.
 
+
+pinMode:
+- INPUT: Pins configured this way are said to be in a high-impedance state. Input pins make extremely small demands on the 
+         circuit that they are sampling, equivalent to a series resistor of 100 megohm in front of the pin.
+- INPUT_PULLUP: There are 20K pullup resistors built into the Atmega chip that can be accessed from software. These built-in 
+                pullup resistors are accessed by setting the pinMode() as INPUT_PULLUP.
+
+TODO: validate those values for the ESP32!
+
 TODO:
  - measure zerocross signal
  - measure reset signal
@@ -128,50 +137,47 @@ void IRAM_ATTR column8Interrupt() {
 }
 
 
-// NOTE: use INPUT_PULLUP instead INPUT: when no signal is applied, it will be at a voltage level
-//       of VCC instead of floating, avoiding the detection of non existing external interrupts.
-
 void initGpio() {
-    pinMode(GPIO_RO_ZEROCROSS, INPUT_PULLUP);
-    attachInterrupt(digitalPinToInterrupt(GPIO_RO_ZEROCROSS), handleZerocrossInterrupt, FALLING);
+    pinMode(GPIO_RO_ZEROCROSS, INPUT);
+    attachInterrupt(digitalPinToInterrupt(GPIO_RO_ZEROCROSS), handleZerocrossInterrupt, RISING);
 
 
     //TODO
     // - keep data in memory to build up a 8x8 matrix
     // - validate that active colum switches timing match the esp timing or if we need in interrupt
 
-    pinMode(GPIO_RO_ACTIVE_COLUMN_1, INPUT_PULLDOWN);
+    pinMode(GPIO_RO_ACTIVE_COLUMN_1, INPUT);
     attachInterrupt(digitalPinToInterrupt(GPIO_RO_ACTIVE_COLUMN_1), column1Interrupt, RISING);
 
-    pinMode(GPIO_RO_ACTIVE_COLUMN_2, INPUT_PULLDOWN);
+    pinMode(GPIO_RO_ACTIVE_COLUMN_2, INPUT);
     attachInterrupt(digitalPinToInterrupt(GPIO_RO_ACTIVE_COLUMN_2), column2Interrupt, RISING);
 
-    pinMode(GPIO_RO_ACTIVE_COLUMN_3, INPUT_PULLDOWN);
+    pinMode(GPIO_RO_ACTIVE_COLUMN_3, INPUT);
     attachInterrupt(digitalPinToInterrupt(GPIO_RO_ACTIVE_COLUMN_3), column3Interrupt, RISING);
 
-    pinMode(GPIO_RO_ACTIVE_COLUMN_4, INPUT_PULLDOWN);
+    pinMode(GPIO_RO_ACTIVE_COLUMN_4, INPUT);
     attachInterrupt(digitalPinToInterrupt(GPIO_RO_ACTIVE_COLUMN_4), column4Interrupt, RISING);
 
-    pinMode(GPIO_RO_ACTIVE_COLUMN_5, INPUT_PULLDOWN);
+    pinMode(GPIO_RO_ACTIVE_COLUMN_5, INPUT);
     attachInterrupt(digitalPinToInterrupt(GPIO_RO_ACTIVE_COLUMN_5), column5Interrupt, RISING);
 
-    pinMode(GPIO_RO_ACTIVE_COLUMN_6, INPUT_PULLDOWN);
+    pinMode(GPIO_RO_ACTIVE_COLUMN_6, INPUT);
     attachInterrupt(digitalPinToInterrupt(GPIO_RO_ACTIVE_COLUMN_6), column6Interrupt, RISING);
 
-    pinMode(GPIO_RO_ACTIVE_COLUMN_7, INPUT_PULLDOWN);
+    pinMode(GPIO_RO_ACTIVE_COLUMN_7, INPUT);
     attachInterrupt(digitalPinToInterrupt(GPIO_RO_ACTIVE_COLUMN_7), column7Interrupt, RISING);
 
-    pinMode(GPIO_RO_ACTIVE_COLUMN_8, INPUT_PULLDOWN);
+    pinMode(GPIO_RO_ACTIVE_COLUMN_8, INPUT);
     attachInterrupt(digitalPinToInterrupt(GPIO_RO_ACTIVE_COLUMN_8), column8Interrupt, RISING);
 
-    pinMode(GPIO_RO_SWITCH_INPUT_1, INPUT_PULLDOWN);
-    pinMode(GPIO_RO_SWITCH_INPUT_2, INPUT_PULLDOWN);
-    pinMode(GPIO_RO_SWITCH_INPUT_3, INPUT_PULLDOWN);
-    pinMode(GPIO_RO_SWITCH_INPUT_4, INPUT_PULLDOWN);
-    pinMode(GPIO_RO_SWITCH_INPUT_5, INPUT_PULLDOWN);
-    pinMode(GPIO_RO_SWITCH_INPUT_6, INPUT_PULLDOWN);
-    pinMode(GPIO_RO_SWITCH_INPUT_7, INPUT_PULLDOWN);
-    pinMode(GPIO_RO_SWITCH_INPUT_8, INPUT_PULLDOWN);
+    pinMode(GPIO_RO_SWITCH_INPUT_1, INPUT);
+    pinMode(GPIO_RO_SWITCH_INPUT_2, INPUT);
+    pinMode(GPIO_RO_SWITCH_INPUT_3, INPUT);
+    pinMode(GPIO_RO_SWITCH_INPUT_4, INPUT);
+    pinMode(GPIO_RO_SWITCH_INPUT_5, INPUT);
+    pinMode(GPIO_RO_SWITCH_INPUT_6, INPUT);
+    pinMode(GPIO_RO_SWITCH_INPUT_7, INPUT);
+    pinMode(GPIO_RO_SWITCH_INPUT_8, INPUT);
 
     initialiseResetInput();
     //- RW Coin Door input: 3 (coins & service menu)
@@ -179,8 +185,8 @@ void initGpio() {
 }
 
 void initialiseResetInput() {
-    pinMode(GPIO_RW_RESET_SENSE, INPUT_PULLDOWN);
-    attachInterrupt(digitalPinToInterrupt(GPIO_RW_RESET_SENSE), handleResetInterrupt, FALLING);
+    pinMode(GPIO_RW_RESET_SENSE, INPUT);
+    attachInterrupt(digitalPinToInterrupt(GPIO_RW_RESET_SENSE), handleResetInterrupt, RISING);
 }
 
 void resetPinballMachine() {
@@ -196,6 +202,7 @@ void loopGPIO() {
   if (resetInterruptCounter > 0) {
     Serial.printf("RESET INTERRUPT DETECTED: %lu\n", (unsigned long)resetInterruptCounter);
     zeroconfInterruptCounter = 0;
+    resetInterruptCounter = 0;
   }
 
 #ifdef DEBUG

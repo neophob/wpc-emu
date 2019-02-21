@@ -70,7 +70,7 @@ class BluetoothConnection {
       })
       .then((server) => server.getPrimaryService(this.serviceUuid))
       .then((service) => {
-        console.log('connected');
+        console.log('Bluetooth connected');
         this.bluetoothService = service;
         return this.bluetoothService;
       });
