@@ -1,8 +1,11 @@
+#define MINIMAL_ZEROCROSS_DIFF 4
 
 BLEServer* pServer = NULL;
 BLECharacteristic* pCharacteristicPowerstate = NULL;
 BLECharacteristic* pCharacteristicWpcState = NULL;
 BLECharacteristic* pCharacteristicWpcReset = NULL;
+
+uint32_t lastZerocross = 0;
 
 class BleConnectionCallback: public BLEServerCallbacks {
     void onConnect(BLEServer* pServer) {
@@ -30,11 +33,15 @@ class BleResetCallback: public BLECharacteristicCallbacks {
 };
 
 void initState() {
+  statePayload[NOTIFY_MSG_OFFSET_ZEROCROSS + 0] = 0;
+  statePayload[NOTIFY_MSG_OFFSET_ZEROCROSS + 1] = 0;
+  statePayload[NOTIFY_MSG_OFFSET_ZEROCROSS + 2] = 0;
+  statePayload[NOTIFY_MSG_OFFSET_ZEROCROSS + 3] = 0;
+  
   statePayload[NOTIFY_MSG_OFFSET_INPUT_SWITCH + 0] = 0;
   statePayload[NOTIFY_MSG_OFFSET_INPUT_SWITCH + 1] = 0;
   statePayload[NOTIFY_MSG_OFFSET_INPUT_SWITCH + 2] = 0;
   statePayload[NOTIFY_MSG_OFFSET_INPUT_SWITCH + 3] = 0;
-
   statePayload[NOTIFY_MSG_OFFSET_INPUT_SWITCH + 4] = 0;
   statePayload[NOTIFY_MSG_OFFSET_INPUT_SWITCH + 5] = 0;
   statePayload[NOTIFY_MSG_OFFSET_INPUT_SWITCH + 6] = 0;
@@ -93,38 +100,53 @@ void initBluetooth() {
 
   // Start advertising
   pServer->getAdvertising()->start();
-  Serial.println("Waiting a client connection to notify...\n");
+  Serial.println("Waiting a client connection to notify...");
 }
 
 void RestartBluetoothAdvertising() {
   pServer->startAdvertising(); // restart advertising
-  Serial.println("start advertising\n");  
+  Serial.println("start advertising");  
 }
 
-void loopBluetooth() {
-  updateZerocross();
-  if (fakeTimer % 40 == 0) {
-    Serial.println("updateSwitchInput\n");  
-    updateSwitchInput();
-    updateCabinetInput();
-  }
+void sendWpcStateViaBLT() {
   pCharacteristicWpcState->setValue(statePayload, MESSAGE_SIZE);        
   pCharacteristicWpcState->notify();
 }
 
-void updateZerocross() {
-  uint32_t stateZerocross = fakeTimer;
+void loopBluetooth() {
+  uint32_t currentZerocross = updateZerocross();
+  Serial.printf("currentZerocross %lu, lastZerocross: %lu\n", currentZerocross, lastZerocross);
+
+  if ((currentZerocross - lastZerocross) < MINIMAL_ZEROCROSS_DIFF) {
+    // do not send update if time diff is too small!
+    return;
+  }
+  
+  if (fakeTimer % 40 == 0) {
+    Serial.println("updateSwitchInput");  
+    //updateRandomSwitchInput();
+    updateCabinetInput();
+  }
+  lastZerocross = currentZerocross;
+  sendWpcStateViaBLT();
+}
+
+uint32_t updateZerocross() {
+  noInterrupts();
+  uint32_t stateZerocross = zeroconfInterruptCounter;
+  interrupts();
   statePayload[NOTIFY_MSG_OFFSET_ZEROCROSS + 0] = (stateZerocross >> 24) & 0xFF;
   statePayload[NOTIFY_MSG_OFFSET_ZEROCROSS + 1] = (stateZerocross >> 16) & 0xFF;
   statePayload[NOTIFY_MSG_OFFSET_ZEROCROSS + 2] = (stateZerocross >> 8) & 0xFF;
   statePayload[NOTIFY_MSG_OFFSET_ZEROCROSS + 3] = stateZerocross & 0xFF;
+  return stateZerocross;
 }
 
 void updateCabinetInput() {
-  statePayload[NOTIFY_MSG_OFFSET_COINDOOR] = esp_random() & 0xFF;
+  statePayload[NOTIFY_MSG_OFFSET_COINDOOR] = 0;//esp_random() & 0xFF;
 }
 
-void updateSwitchInput() {
+void updateRandomSwitchInput() {
   uint32_t randomSwitch = esp_random();
   statePayload[NOTIFY_MSG_OFFSET_INPUT_SWITCH + 0] = (randomSwitch >> 24) & 0xFF;
   statePayload[NOTIFY_MSG_OFFSET_INPUT_SWITCH + 1] = (randomSwitch >> 16) & 0xFF;

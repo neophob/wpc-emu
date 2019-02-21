@@ -1,6 +1,6 @@
 // tested using a "ESP32 Dev Module" / "ESP32-DevKitC"
 // see https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/boards_manager.md
-// v1.0.1-rc2
+// v1.0.1
 
 #include <BLEDevice.h>
 #include <BLEServer.h>
@@ -36,19 +36,18 @@ uint8_t statePowerstate = 1;
 #define MESSAGE_SIZE NOTIFY_MSG_SIZE_ZEROCROSS + NOTIFY_MSG_SIZE_INPUT_SWITCH + NOTIFY_MSG_SIZE_COINDOOR + NOTIFY_MSG_SIZE_FLIPTRONIC
 
 uint8_t statePayload[MESSAGE_SIZE] = {};
+volatile uint32_t zeroconfInterruptCounter = 0;
 
 /*
 
 Firmware sends data to the emulator (serial):
 - zerocross counter (32bit)
 - input switch matrix state (64bit)
-- coin door state (8bit)
-- fliptronic state (8bit)
-- power state (1bit)
+- coin door state (8bit) NOT YET
+- fliptronic state (8bit) NOT YET - not sure what to do...
+- power state (1bit) NOT YET - remove it because zerocross can be used for that?
 
 */
-
-
 
 void setup() {
   Serial.begin(115200);
@@ -66,7 +65,7 @@ void loop() {
     if (deviceConnected) {
         loopGPIO();
         loopBluetooth();
-        delay(30/2); // bluetooth stack will go into congestion, if too many packets are sent
+        delay(30); // bluetooth stack will go into congestion, if too many packets are sent
     }
     // disconnecting
     if (!deviceConnected && oldDeviceConnected) {

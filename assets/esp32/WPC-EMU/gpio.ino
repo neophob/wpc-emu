@@ -19,6 +19,10 @@ TODO:
  - measure reset signal
 
  */
+
+//#define DEBUG
+
+//NOTE: LABEL ON ESP32 DEV BOARD IS "VN"
 #define GPIO_RO_ZEROCROSS 39
 
 // NOTE: GPIO 34-39 have no internal configurable pullup/down
@@ -64,7 +68,7 @@ void IRAM_ATTR handleResetInterrupt() {
 }
 
 portMUX_TYPE muxZeroconf = portMUX_INITIALIZER_UNLOCKED;
-volatile uint32_t zeroconfInterruptCounter = 0;
+
 portMUX_TYPE muxSwitchColumn = portMUX_INITIALIZER_UNLOCKED;
 volatile uint32_t switchColumn = 0;
 
@@ -128,7 +132,7 @@ void IRAM_ATTR column8Interrupt() {
 //       of VCC instead of floating, avoiding the detection of non existing external interrupts.
 
 void initGpio() {
-    pinMode(GPIO_RO_ZEROCROSS, INPUT_PULLDOWN);
+    pinMode(GPIO_RO_ZEROCROSS, INPUT_PULLUP);
     attachInterrupt(digitalPinToInterrupt(GPIO_RO_ZEROCROSS), handleZerocrossInterrupt, FALLING);
 
 
@@ -191,12 +195,14 @@ uint8_t switchState[8] = { 0,0,0,0,0,0,0,0 };
 void loopGPIO() {
   if (resetInterruptCounter > 0) {
     Serial.printf("RESET INTERRUPT DETECTED: %lu\n", (unsigned long)resetInterruptCounter);
-    // TODO: reset zeroconf counter... more?
+    zeroconfInterruptCounter = 0;
   }
 
-  // reading 2 x 8 pins takes 4us on the devboard
-
+#ifdef DEBUG
   unsigned long now = micros();
+#endif
+
+  // reading 2 x 8 pins takes 4us on the devboard
 /*  bitWrite(activeColumn, 0, digitalRead(GPIO_RO_ACTIVE_COLUMN_1));
   bitWrite(activeColumn, 1, digitalRead(GPIO_RO_ACTIVE_COLUMN_2));
   bitWrite(activeColumn, 2, digitalRead(GPIO_RO_ACTIVE_COLUMN_3));
@@ -217,6 +223,8 @@ void loopGPIO() {
   bitWrite(switchInput, 7, digitalRead(GPIO_RO_SWITCH_INPUT_8));
   switchState[ switchColumn ] = switchInput;
 
+#ifdef DEBUG
   unsigned long now2 = micros();
-  Serial.printf("switchColumn: %d, switchInput: %d, duration: %lu us\n", switchColumn, switchInput, (unsigned long)now2-now);
+  Serial.printf("switchColumn: %d, switchInput: %d, zeroconfInterruptCounter %lu, duration: %lu us\n", switchColumn, switchInput, zeroconfInterruptCounter, (unsigned long)now2-now);
+#endif
 }

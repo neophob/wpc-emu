@@ -52,8 +52,23 @@ Connections:
 
 # Plan
 
-## Step 1:
+## Step 1
 
 - connect GND
+- connect Reset
 - connect Zerocross
-- validate zerocross signal can be read
+- validate Zerocross signal can be read
+
+### Conclusion
+
+- When disconnect the ESP Pinball crash - this is because the reset line. configure as PullUP?
+- Zerocross count works:
+
+```
+18:34:56.018 -> switchColumn: 2, switchInput: 0, zeroconfInterruptCounter 7701, duration: 2 us
+18:34:56.055 -> switchColumn: 2, switchInput: 0, zeroconfInterruptCounter 7703, duration: 2 us
+18:34:56.055 -> switchColumn: 2, switchInput: 0, zeroconfInterruptCounter 7704, duration: 2 us
+18:34:56.091 -> switchColumn: 2, switchInput: 0, zeroconfInterruptCounter 7706, duration: 2 us
+18:34:56.091 -> switchColumn: 2, switchInput: 0, zeroconfInterruptCounter 7707, duration: 2 us
+18:34:56.091 -> switchColumn: 2, switchInput: 0, zeroconfInterruptCounter 7709, duration: 2 us
+```

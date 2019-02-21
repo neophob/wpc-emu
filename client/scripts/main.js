@@ -15,11 +15,12 @@ import { populateControlUiView } from './ui/control-ui';
 import * as emuDebugUi from './ui/emu-debug-ui';
 
 const MAXIMAL_DMD_FRAMES_TO_RIP = 8000;
-const TICKS = 2000000;
+const TICKS_PER_SECOND = 2000000;
 const DESIRED_FPS = 58;
-const TICKS_PER_CALL = parseInt(TICKS / DESIRED_FPS, 10);
+const TICKS_PER_CALL = parseInt(TICKS_PER_SECOND / DESIRED_FPS, 10);
 const TICKS_PER_STEP = 16;
-const INITIAL_GAME = 'WPC-DMD: Hurricane';
+const INITIAL_GAME = 'WPC-Fliptronics: Fish Tales';
+const FREQUENCY_HZ = 50;
 
 const soundInstance = AudioOutput();
 
@@ -61,7 +62,7 @@ function pairing() {
       }
       if (data.zeroCrossCounter) {
         const deltaCrossCounter = data.zeroCrossCounter - lastZeroContCounter;
-        const deltaTicks = parseInt(deltaCrossCounter * (2000000 / 60), 10);
+        const deltaTicks = parseInt(deltaCrossCounter * (TICKS_PER_SECOND / FREQUENCY_HZ), 10);
         lastZeroContCounter = data.zeroCrossCounter;
         wpcSystem.executeCycle(deltaTicks, TICKS_PER_STEP);
         const emuState = wpcSystem.getUiState();
