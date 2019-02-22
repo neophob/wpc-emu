@@ -129,3 +129,86 @@ Questions:
 - https://medium.com/@urish/start-building-with-web-bluetooth-and-progressive-web-apps-6534835959a6
 - http://sabertooth-io.github.io/
 - https://medium.com/@1oginov/how-to-make-a-web-app-for-your-own-bluetooth-low-energy-device-arduino-2af8d16fdbe8
+
+# Protoboard
+
++---------------------------------------------------+
+|    9          1    9          1                   |
+|   +------------+  +------------+    +------+      |
+|   | 9PIN OUT A |  | 9PIN OUT B |    |ZC/RST|      |
+|   +------------+  +------------+    +------+      |
+|     |               |                             |
+|   +------------+  +------------+                  |
+|   | 9PIN IN A  |  | 9PIN IN B  |                  |
+|   +------------+  +------------+                  |
+|                                                   |
+|                                                   |
+|               +-------------+            +---+    |
+|               |             |            |VCC|    |
+|               |             |            |GND|    |
+|               |             |            +---+    |
+|               |             |                     |
+|               |    ESP32    |                     |
+|               |             |                     |
+|               |             |                     |
+|               |             |                     |
+|               |             |                     |
+|               |             |                     |
+|               |             |                     |
+|               |             |                     |
+|               |             |                     |
+|               +-------------+                     |
+|                                                   |
+|                                                   |
++---------------------------------------------------+
+
+TODO: Wire remaining ports
+
+## Matrix Connection
+- Loop 2x 9 Pin 2.54mm connectors (solid tab connector)
+- "9PIN IN" are male connectors
+- "9PIN OUT" are female connectors
+- "9PIN IN" and "9PIN OUT" are connected
+- "9PIN OUT A" connects to CPU Board J206
+- "9PIN OUT B" connects to CPU Board J209
+
+### 9PIN IN A Connections (J206 - COLUMN)
+Put serial resistor (1kOhm?) in front
+
+- pin 1 -> ESP32 GPIO 22
+- pin 2 -> ESP32 GPIO 12
+- pin 3 -> ESP32 GPIO 36
+- pin 4 -> ESP32 GPIO 35
+- pin 5 -> ESP32 GPIO 34
+- pin 6 -> ESP32 GPIO 33
+- pin 7 -> ESP32 GPIO 32
+- pin 8 -> n/c
+- pin 9 -> ESP32 GPIO 27
+
+### 9PIN IN B Connections (J209)
+Put serial resistor (1kOhm?) in front
+
+- pin 1 -> ESP32 GPIO 26
+- pin 2 -> ESP32 GPIO 25
+- pin 3 -> ESP32 GPIO 23
+- pin 4 -> ESP32 GPIO 13
+- pin 5 -> ESP32 GPIO 5
+- pin 6 -> n/c
+- pin 7 -> ESP32 GPIO 19
+- pin 8 -> ESP32 GPIO 18
+- pin 9 -> ESP32 GPIO 15
+
+## PSU Connectors
+- VCC/GND is a female connector
+- GND connects to ESP32 GND
+- VCC (5V) connects to ESP32 5V
+
+## State Connectors
+- ZC/RST (Zerocross/Reset) is a female connector
+- ZC connects to ESP32 GPI 39
+- RST connects to ESP32 GPIO 14
+
+## ESP32 Connectors
+- Connection to "Espressif ESP32 ESP32-DEVKITC"
+- 2.54mm Pinheaders, 2x 19, mount male connectors
+- don't forget to mirror to interface!

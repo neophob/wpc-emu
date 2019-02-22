@@ -36,8 +36,8 @@ TODO:
 
 // NOTE: GPIO 34-39 have no internal configurable pullup/down
 
-#define GPIO_RO_ACTIVE_COLUMN_1 38
-#define GPIO_RO_ACTIVE_COLUMN_2 37
+#define GPIO_RO_ACTIVE_COLUMN_1 22
+#define GPIO_RO_ACTIVE_COLUMN_2 12
 #define GPIO_RO_ACTIVE_COLUMN_3 36
 #define GPIO_RO_ACTIVE_COLUMN_4 35
 #define GPIO_RO_ACTIVE_COLUMN_5 34
@@ -45,27 +45,24 @@ TODO:
 #define GPIO_RO_ACTIVE_COLUMN_7 32
 #define GPIO_RO_ACTIVE_COLUMN_8 27
 
-#define GPIO_RO_SWITCH_INPUT_1 26
-#define GPIO_RO_SWITCH_INPUT_2 25
-#define GPIO_RO_SWITCH_INPUT_3 23
-#define GPIO_RO_SWITCH_INPUT_4 13
-#define GPIO_RO_SWITCH_INPUT_5 5
-#define GPIO_RO_SWITCH_INPUT_6 19
-#define GPIO_RO_SWITCH_INPUT_7 18
-#define GPIO_RO_SWITCH_INPUT_8 15
+#define GPIO_RO_ROW_INPUT_1 26
+#define GPIO_RO_ROW_INPUT_2 25
+#define GPIO_RO_ROW_INPUT_3 23
+#define GPIO_RO_ROW_INPUT_4 13
+#define GPIO_RO_ROW_INPUT_5 5
+#define GPIO_RO_ROW_INPUT_6 19
+#define GPIO_RO_ROW_INPUT_7 18
+#define GPIO_RO_ROW_INPUT_8 15
 
 // Regular we attach an interrupt to this pin, however we can reconfigure this pin as output at runtime to send out a reset impulse
 #define GPIO_RW_RESET_SENSE 14
 
-//TODO?
-//RESET WRITE?
-
-#define GPIO_RESERVED_1 4
-#define GPIO_RESERVED_2 12
+#define GPIO_RESERVED_1 0
+#define GPIO_RESERVED_2 4
 #define GPIO_RESERVED_3 2
-#define GPIO_RESERVED_4 0
-#define GPIO_RESERVED_I2C_1 21
-#define GPIO_RESERVED_I2C_2 22
+#define GPIO_RESERVED_4 21
+
+//TEST GPIO: 16 17 1 3
 
 portMUX_TYPE muxReset = portMUX_INITIALIZER_UNLOCKED;
 volatile uint32_t resetInterruptCounter = 0;
@@ -170,14 +167,14 @@ void initGpio() {
     pinMode(GPIO_RO_ACTIVE_COLUMN_8, INPUT);
     attachInterrupt(digitalPinToInterrupt(GPIO_RO_ACTIVE_COLUMN_8), column8Interrupt, RISING);
 
-    pinMode(GPIO_RO_SWITCH_INPUT_1, INPUT);
-    pinMode(GPIO_RO_SWITCH_INPUT_2, INPUT);
-    pinMode(GPIO_RO_SWITCH_INPUT_3, INPUT);
-    pinMode(GPIO_RO_SWITCH_INPUT_4, INPUT);
-    pinMode(GPIO_RO_SWITCH_INPUT_5, INPUT);
-    pinMode(GPIO_RO_SWITCH_INPUT_6, INPUT);
-    pinMode(GPIO_RO_SWITCH_INPUT_7, INPUT);
-    pinMode(GPIO_RO_SWITCH_INPUT_8, INPUT);
+    pinMode(GPIO_RO_ROW_INPUT_1, INPUT);
+    pinMode(GPIO_RO_ROW_INPUT_2, INPUT);
+    pinMode(GPIO_RO_ROW_INPUT_3, INPUT);
+    pinMode(GPIO_RO_ROW_INPUT_4, INPUT);
+    pinMode(GPIO_RO_ROW_INPUT_5, INPUT);
+    pinMode(GPIO_RO_ROW_INPUT_6, INPUT);
+    pinMode(GPIO_RO_ROW_INPUT_7, INPUT);
+    pinMode(GPIO_RO_ROW_INPUT_8, INPUT);
 
     initialiseResetInput();
     //- RW Coin Door input: 3 (coins & service menu)
@@ -220,14 +217,14 @@ void loopGPIO() {
   bitWrite(activeColumn, 7, digitalRead(GPIO_RO_ACTIVE_COLUMN_8));*/
 
   uint8_t switchInput = 0;
-  bitWrite(switchInput, 0, digitalRead(GPIO_RO_SWITCH_INPUT_1));
-  bitWrite(switchInput, 1, digitalRead(GPIO_RO_SWITCH_INPUT_2));
-  bitWrite(switchInput, 2, digitalRead(GPIO_RO_SWITCH_INPUT_3));
-  bitWrite(switchInput, 3, digitalRead(GPIO_RO_SWITCH_INPUT_4));
-  bitWrite(switchInput, 4, digitalRead(GPIO_RO_SWITCH_INPUT_5));
-  bitWrite(switchInput, 5, digitalRead(GPIO_RO_SWITCH_INPUT_6));
-  bitWrite(switchInput, 6, digitalRead(GPIO_RO_SWITCH_INPUT_7));
-  bitWrite(switchInput, 7, digitalRead(GPIO_RO_SWITCH_INPUT_8));
+  bitWrite(switchInput, 0, digitalRead(GPIO_RO_ROW_INPUT_1));
+  bitWrite(switchInput, 1, digitalRead(GPIO_RO_ROW_INPUT_2));
+  bitWrite(switchInput, 2, digitalRead(GPIO_RO_ROW_INPUT_3));
+  bitWrite(switchInput, 3, digitalRead(GPIO_RO_ROW_INPUT_4));
+  bitWrite(switchInput, 4, digitalRead(GPIO_RO_ROW_INPUT_5));
+  bitWrite(switchInput, 5, digitalRead(GPIO_RO_ROW_INPUT_6));
+  bitWrite(switchInput, 6, digitalRead(GPIO_RO_ROW_INPUT_7));
+  bitWrite(switchInput, 7, digitalRead(GPIO_RO_ROW_INPUT_8));
   switchState[ switchColumn ] = switchInput;
 
 #ifdef DEBUG
