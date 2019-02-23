@@ -155,6 +155,7 @@ module.exports = {
     closedSwitches: [
       15, 16, 17, 18,
       22,
+      37, 38,
       'F2', 'F4',
     ],
     initialAction: [
