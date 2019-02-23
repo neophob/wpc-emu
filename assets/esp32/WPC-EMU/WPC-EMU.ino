@@ -7,6 +7,8 @@
 #include <BLEUtils.h>
 #include <BLE2902.h>
 
+#define FAKE_PINBALL_ENABLED true
+
 volatile uint32_t fakeTimer = 0;
 
 bool deviceConnected = false;

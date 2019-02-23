@@ -1,11 +1,16 @@
-#define MINIMAL_ZEROCROSS_DIFF 160
+#define MINIMAL_ZEROCROSS_TICK_DIFF 160
+#define ZEROCROSS_TICKS_PER_SECOND 100
 
 BLEServer* pServer = NULL;
 BLECharacteristic* pCharacteristicPowerstate = NULL;
 BLECharacteristic* pCharacteristicWpcState = NULL;
 BLECharacteristic* pCharacteristicWpcReset = NULL;
 
+#ifdef FAKE_PINBALL_ENABLED
+uint32_t lastZerocross = ZEROCROSS_TICKS_PER_SECOND * 120;
+#elif
 uint32_t lastZerocross = 0;
+#endif
 
 class BleConnectionCallback: public BLEServerCallbacks {
     void onConnect(BLEServer* pServer) {
@@ -112,26 +117,30 @@ void RestartBluetoothAdvertising() {
 
 void loopBluetooth() {
   noInterrupts();
+#ifdef FAKE_PINBALL_ENABLED
+  uint32_t currentZerocross = lastZerocross + fakeTimer;
+#elif
   uint32_t currentZerocross = zeroconfInterruptCounter;
+#endif
   interrupts();
 
-  if ((currentZerocross - lastZerocross) < MINIMAL_ZEROCROSS_DIFF) {
+  if ((currentZerocross - lastZerocross) < MINIMAL_ZEROCROSS_TICK_DIFF) {
     // do not send update if time diff is too small!
     return;
   }
   
   updateZerocross(currentZerocross);
-  if (fakeTimer % 40 == 0) {
-    Serial.println("updateSwitchInput");  
+/*  if (fakeTimer % 40 == 0) {
+    Serial.println("updateSwitchInput"); 
     //updateRandomSwitchInput();
     updateCabinetInput();
-  }
+  }*/
   lastZerocross = currentZerocross;
   Serial.printf("SEND: %lu\n", currentZerocross);
   // send WPC state using BLT
   pCharacteristicWpcState->setValue(statePayload, MESSAGE_SIZE);        
   pCharacteristicWpcState->notify();
-  delay(10);
+  delay(100);
 }
 
 void updateZerocross(uint32_t stateZerocross) {

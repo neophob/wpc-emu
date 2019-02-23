@@ -42,7 +42,8 @@ function pairing() {
       intervalId = false;
       lastZeroContCounter = data.zeroCrossCounter;
       console.log('Switch to BLE MODE', data);
-      //TODO check for time drift, reset pinball & emu if drift is too big
+      //TODO make sure the wpc skip ram check is deactivated here!
+      wpcSystem.reset();
     } else {
       bleMessageCount++;
 
@@ -63,16 +64,13 @@ function pairing() {
         //wpcSystem.setDirectInput(0, data.coinDoorState);
       }
       if (data.zeroCrossCounter > 0) {
-        const deltaCrossCounter = data.zeroCrossCounter - lastZeroContCounter;
-        const deltaTicks = parseInt(deltaCrossCounter * (TICKS_PER_SECOND / FREQUENCY_HZ), 10);
-        lastZeroContCounter = data.zeroCrossCounter;
-        wpcSystem.executeCycle(deltaTicks, TICKS_PER_STEP);
+        const zeroCrossToTicks = parseInt(data.zeroCrossCounter * TICKS_PER_SECOND / (FREQUENCY_HZ * 2), 10);
+        wpcSystem.executeToCycle(zeroCrossToTicks);
         const emuState = wpcSystem.getUiState();
         emuDebugUi.updateCanvas(emuState, 'running BLE SYNC', bleMessageCount);
       }
     }
-  })
-  .catch((error) => {
+  }).catch((error) => {
     console.error('BT Pairing failed:', error.message);
   });
 }
