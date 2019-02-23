@@ -2,6 +2,7 @@
 
 import { build as bluetoothConnection } from './connection';
 import { parseMessage } from './parser';
+
 export { pairBluetooth, resetPinballMachine, restartBluetoothController };
 
 const WPCEMU_SERIVCE_UUID = '4fafc201-1fb5-459e-8fcc-c5c9c331914b';
@@ -13,7 +14,7 @@ const WPCEMU_CHARACTERISTIC_RESET_UUID = '26ac8e88-7b63-4e88-8ca2-045c76345b5f';
 const WPCEMU_PAYLOAD_REBOOT_CONTROLLER = 42;
 const WPCEMU_PAYLOAD_REBOOT_PINBALLMACHINE = 1;
 
-let bluetoothDevice = bluetoothConnection(WPCEMU_SERIVCE_UUID, WPCEMU_SERIVCE_NAME);
+const bluetoothDevice = bluetoothConnection(WPCEMU_SERIVCE_UUID, WPCEMU_SERIVCE_NAME);
 let messageCount = 0;
 let callback;
 let lastState = {};
