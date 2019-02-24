@@ -1,6 +1,6 @@
 {
   "name": "wpc-emu-frontend",
-  "version": "0.10.3",
+  "version": "0.10.4",
   "description": "WPC pinball machine emu frontend",
   "main": "index.js",
   "engines": {
@@ -16,9 +16,9 @@
   "author": "Michael Vogt",
   "license": "ISC",
   "devDependencies": {
+    "@babel/register": "^7.0.0",
     "ava": "^0.25.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-register": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "browser-env": "^3.2.5",
     "css-loader": "^2.1.0",
     "favicons-webpack-plugin": "0.0.9",
@@ -38,7 +38,7 @@
   },
   "babel": {
     "presets": [
-      "es2015"
+      "env"
     ]
   },
   "ava": {
