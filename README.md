@@ -145,15 +145,15 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 
 ## Serve ROM's from localhost
 You can run a local fileserver to serve the needed WPC ROM files.
-- create the `./dist/rom` directory and copy your ROM files (program and audio) inside this directory
-- You need to create and install a local certificate (needed to support https), read the file `assets/localhost-cert/README.md` or run `openssl req -x509 -newkey rsa:4096 -keyout server.key -out server.crt -days 3650 -nodes` inside the `assets/localhost-cert` dir.
-- To install dependencies run `npm install` in root and `client` directory
-- Run `npm run start:fileserv` to start local file serve
+- create the `./rom` directory and copy your ROM files (program and audio) to this directory
+- You need to create and install a local certificate (needed to support https), read the file `assets/localhost-cert/README.md`
+- To install dependencies run `npm install` in root and `./client` directory
+- Run `npm run start:fileserv` to start local file serve (in a separate window)
 
 ## Run Watch
 Use the watch functions to automatically compile changes in the client and server directories.
-- Run `npm run watch` in the root directory and the `client` directory
-- Run `open dist/index.html` to run WPC-EMU
+- Run `npm run watch` in the root directory and the `./client` directory
+- Open `https://127.0.0.1:8080/index.html` to run WPC-EMU
 
 ## Tests
 - Run `npm run test` to run library unit tests
@@ -177,12 +177,12 @@ against older implementations. It also contains MAME dumps to compare the curren
 
 ## Build Release
 To build a new release:
-- Build release branch
-- Bump `package.json` version files
-- Run `npm run build:production` in the root directory
-- output is available in the `./dist` directory, final assets for github upload in the `./docs` directory
+- Build release branch (git flow)
+- Bump `package.json` version in the root directory and the `./client` directory
+- Run `npm run release` in the root directory
+- output is available in the `./dist` directory, final assets for github is in the `./docs` directory
 - Make sure unit tests and integration tests still pass
-- Run tracer dumps to compare against older implementations
+- Optional: Run tracer dumps to compare against older implementations
 - merge release branch
 
 # Hardware - WPS Dot Matrix Machine
@@ -409,7 +409,7 @@ Note:
 
 ## Boot sequence
 
-I found an analyse of the boot up sequence here: https://gist.github.com/74hc595/fda8b274179fea633f5333d52513e1f7. Here's the annotated code:
+I found an analysis of the boot up sequence here: https://gist.github.com/74hc595/fda8b274179fea633f5333d52513e1f7. Here's the annotated code:
 
 ```
 ; bootup sequence from a Williams WPC pinball machine ROM
