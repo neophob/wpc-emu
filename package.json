@@ -9,7 +9,7 @@
   "author": "Michael Vogt",
   "license": "ISC",
   "devDependencies": {
-    "ava": "^1.0.1",
+    "ava": "^1.2.1",
     "copy-webpack-plugin": "^5.0.0",
     "http-server": "^0.11.1",
     "nyc": "^13.2.0",
