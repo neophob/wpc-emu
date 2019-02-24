@@ -2,6 +2,37 @@
 
 Run `npm run benchmark` to run the CPU benchmark.
 
+## WPC-EMU v0.10.4
+
+#### MacBook Air, Mid 2012
+
+```
+BENCHMARK START, ROM: /Users/michu/_code/github/wpc-emu/rom.freewpc/ft20_32.rom
+Ticks to execute: 2000000 => CPU REALTIME: 1000ms (CPU HZ: 2000000)
+  tickSteps	durationMs	missed IRQ	missed FIRQ	ticksExecuted
+  1		423		976		854		2000006
+  2		177		976		854		2000006
+  4		130		976		854		2000006
+  5		137		976		854		2000006
+  8		125		976		854		2000006
+  10		126		976		854		2000006
+  12		130		976		854		2000011
+  16		123		976		854		2000011
+  32		121		976		854		2000029
+  64		129		976		854		2000043
+  256		127		976		854		2000174
+  390		116		976		854		2000207
+  393		120		976		854		2000138
+  512		116		976		852		2000418
+  1024		121		976		427		2000930
+  2048		131		976		214		2001113
+  4096		124		489		107		2004026
+  8192		133		245		54		2007680
+  16384		141		123		27		2015481
+  32768		122		62		14		2031779
+  65536		122		31		7		2031695
+```
+
 ## WPC-EMU v0.8.10
 
 - used `deoptigate` (https://github.com/thlorenz/deoptigate - `deoptigate test/integration/benchmark.js`) to analyse unoptimised code

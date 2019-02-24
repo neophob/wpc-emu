@@ -62,7 +62,6 @@
     "build": "webpack --mode development",
     "watch": "webpack --mode development --watch",
     "build:production": "webpack --mode production",
-    "build:test": "rm -f dist/* && webpack && cp assets/* dist && DEBUG=* node index.js",
     "start": "DEBUG=* node index.js",
     "start:fileserv": "http-server ./dist -S -C assets/localhost-cert/server.crt -K assets/localhost-cert/server.key --cors -p 8080 || echo '\n\nERROR. Did you created and install the local dev certificates? Heres the content:' && cat assets/localhost-cert/README.md",
     "debug": "node --inspect index.js",
