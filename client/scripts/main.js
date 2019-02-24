@@ -44,6 +44,8 @@ function pairing() {
       console.log('Switch to BLE MODE', data);
       //TODO make sure the wpc skip ram check is deactivated here!
       wpcSystem.reset();
+      const emuState = wpcSystem.getUiState();
+      emuDebugUi.updateCanvas(emuState, 'running BLE SYNC', bleMessageCount);
     } else {
       bleMessageCount++;
 
