@@ -145,7 +145,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 
 ## Serve ROM's from localhost
 You can run a local fileserver to serve the needed WPC ROM files.
-- create the `./dist/rom` directory and copy your ROM files (program and audio) inside this directory
+- create the `./rom` directory and copy your ROM files (program and audio) to this directory
 - You need to create and install a local certificate (needed to support https), read the file `assets/localhost-cert/README.md`
 - To install dependencies run `npm install` in root and `./client` directory
 - Run `npm run start:fileserv` to start local file serve (in a separate window)
@@ -409,7 +409,7 @@ Note:
 
 ## Boot sequence
 
-I found an analyse of the boot up sequence here: https://gist.github.com/74hc595/fda8b274179fea633f5333d52513e1f7. Here's the annotated code:
+I found an analysis of the boot up sequence here: https://gist.github.com/74hc595/fda8b274179fea633f5333d52513e1f7. Here's the annotated code:
 
 ```
 ; bootup sequence from a Williams WPC pinball machine ROM
