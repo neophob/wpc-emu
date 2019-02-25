@@ -45,7 +45,7 @@ function pairing() {
       //TODO make sure the wpc skip ram check is deactivated here!
       wpcSystem.reset();
       const emuState = wpcSystem.getUiState();
-      emuDebugUi.updateCanvas(emuState, 'running BLE SYNC', bleMessageCount);
+      emuDebugUi.updateCanvas(emuState, 'running BLE SYNC', 0);
     } else {
       bleMessageCount++;
 
@@ -66,8 +66,11 @@ function pairing() {
         //wpcSystem.setDirectInput(0, data.coinDoorState);
       }
       if (data.zeroCrossCounter > 0) {
+        //TODO this calc is WRONG! also implement MAX Check in backend
         const zeroCrossToTicks = parseInt(data.zeroCrossCounter * TICKS_PER_SECOND / (FREQUENCY_HZ * 2), 10);
-        wpcSystem.executeToCycle(zeroCrossToTicks);
+      //  wpcSystem.executeToCycle(zeroCrossToTicks);
+        console.log('data.zeroCrossCounter',data.zeroCrossCounter, zeroCrossToTicks)
+        wpcSystem.executeCycle(TICKS_PER_CALL, TICKS_PER_STEP);
         const emuState = wpcSystem.getUiState();
         emuDebugUi.updateCanvas(emuState, 'running BLE SYNC', bleMessageCount);
       }

@@ -124,10 +124,12 @@ void loopBluetooth() {
 #endif
   interrupts();
 
+#ifndef FAKE_PINBALL_ENABLED
   if ((currentZerocross - lastZerocross) < MINIMAL_ZEROCROSS_TICK_DIFF) {
     // do not send update if time diff is too small!
     return;
   }
+#endif
   
   updateZerocross(currentZerocross);
 /*  if (fakeTimer % 40 == 0) {
@@ -136,7 +138,7 @@ void loopBluetooth() {
     updateCabinetInput();
   }*/
   lastZerocross = currentZerocross;
-  Serial.printf("SEND: %lu\n", currentZerocross);
+  Serial.printf("SEND: %lu %lu\n", currentZerocross, fakeTimer);
   // send WPC state using BLT
   pCharacteristicWpcState->setValue(statePayload, MESSAGE_SIZE);        
   pCharacteristicWpcState->notify();
