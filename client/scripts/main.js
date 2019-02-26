@@ -13,14 +13,7 @@ import { pairBluetooth, restartBluetoothController, resetPinballMachine } from '
 import * as gamelist from './db/gamelist';
 import { populateControlUiView } from './ui/control-ui';
 import * as emuDebugUi from './ui/emu-debug-ui';
-
-const MAXIMAL_DMD_FRAMES_TO_RIP = 8000;
-const TICKS_PER_SECOND = 2000000;
-const DESIRED_FPS = 58;
-const TICKS_PER_CALL = parseInt(TICKS_PER_SECOND / DESIRED_FPS, 10);
-const TICKS_PER_STEP = 16;
-const INITIAL_GAME = 'WPC-Fliptronics: Fish Tales';
-const FREQUENCY_HZ = 50;
+import * as CONSTANT from './constants';
 
 const soundInstance = AudioOutput();
 
@@ -67,10 +60,9 @@ function pairing() {
       }
       if (data.zeroCrossCounter > 0) {
         //TODO this calc is WRONG! also implement MAX Check in backend
-        const zeroCrossToTicks = parseInt(data.zeroCrossCounter * TICKS_PER_SECOND / (FREQUENCY_HZ * 2), 10);
       //  wpcSystem.executeToCycle(zeroCrossToTicks);
-        console.log('data.zeroCrossCounter',data.zeroCrossCounter, zeroCrossToTicks)
-        wpcSystem.executeCycle(TICKS_PER_CALL, TICKS_PER_STEP);
+        console.log('data.zeroCrossCounter',data.zeroCrossCounter)
+        wpcSystem.executeCycle(CONSTANT.TICKS_PER_CALL, CONSTANT.TICKS_PER_STEP);
         const emuState = wpcSystem.getUiState();
         emuDebugUi.updateCanvas(emuState, 'running BLE SYNC', bleMessageCount);
       }
@@ -177,7 +169,7 @@ function step() {
   if (!wpcSystem) {
     return;
   }
-  wpcSystem.executeCycle(TICKS_PER_CALL, TICKS_PER_STEP);
+  wpcSystem.executeCycle(CONSTANT.TICKS_PER_CALL, CONSTANT.TICKS_PER_STEP);
   const emuState = wpcSystem.getUiState();
   const cpuRunningState = intervalId ? 'running' : 'paused';
   emuDebugUi.updateCanvas(emuState, cpuRunningState);
@@ -187,7 +179,7 @@ function step() {
     dmdDump.addFrames(emuState.asic.dmd.videoOutputBuffer, emuState.cpuState.tickCount);
 
     const capturedFrames = dmdDump.getCapturedFrames();
-    if (capturedFrames > MAXIMAL_DMD_FRAMES_TO_RIP) {
+    if (capturedFrames > CONSTANT.MAXIMAL_DMD_FRAMES_TO_RIP) {
       const filename = 'wpc-emu-dump-' + Date.now() + '.raw';
       saveFile(dmdDump.buildExportFile(), filename);
       dmdDump = initDmdExport();
@@ -300,5 +292,5 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-initEmuWithGameName(INITIAL_GAME);
+initEmuWithGameName(CONSTANT.INITIAL_GAME);
 registerKeyboardListener();
