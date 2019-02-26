@@ -6,11 +6,7 @@ BLECharacteristic* pCharacteristicPowerstate = NULL;
 BLECharacteristic* pCharacteristicWpcState = NULL;
 BLECharacteristic* pCharacteristicWpcReset = NULL;
 
-#ifdef FAKE_PINBALL_ENABLED
-uint32_t lastZerocross = ZEROCROSS_TICKS_PER_SECOND * 120;
-#elif
 uint32_t lastZerocross = 0;
-#endif
 
 class BleConnectionCallback: public BLEServerCallbacks {
     void onConnect(BLEServer* pServer) {

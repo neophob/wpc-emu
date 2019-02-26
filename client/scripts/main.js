@@ -59,9 +59,9 @@ function pairing() {
         //wpcSystem.setDirectInput(0, data.coinDoorState);
       }
       if (data.zeroCrossCounter > 0) {
-        //TODO this calc is WRONG! also implement MAX Check in backend
+        const zeroCrossToTicks = data.zeroCrossCounter * CONSTANT.ZEROCROSS_TO_TICKS_MULTIPLIER;
+        console.log('data.zeroCrossCounter', data.zeroCrossCounter, zeroCrossToTicks / CONSTANT.TICKS_PER_SECOND);
       //  wpcSystem.executeToCycle(zeroCrossToTicks);
-        console.log('data.zeroCrossCounter',data.zeroCrossCounter)
         wpcSystem.executeCycle(CONSTANT.TICKS_PER_CALL, CONSTANT.TICKS_PER_STEP);
         const emuState = wpcSystem.getUiState();
         emuDebugUi.updateCanvas(emuState, 'running BLE SYNC', bleMessageCount);
