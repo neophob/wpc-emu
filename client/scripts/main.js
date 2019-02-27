@@ -60,10 +60,13 @@ function pairing() {
       }
       if (data.zeroCrossCounter > 0) {
         const zeroCrossToTicks = data.zeroCrossCounter * CONSTANT.ZEROCROSS_TO_TICKS_MULTIPLIER;
-        console.log('data.zeroCrossCounter', data.zeroCrossCounter, zeroCrossToTicks / CONSTANT.TICKS_PER_SECOND);
-        wpcSystem.executeToCycle(zeroCrossToTicks);
+        const pinballUptimeS = zeroCrossToTicks / CONSTANT.TICKS_PER_SECOND
+        const executedTicks = wpcSystem.executeToCycle(zeroCrossToTicks);
+        if (executedTicks === 0) {
+          console.log('TODO RESET PINBALL MACHINE!');
+        }
         const emuState = wpcSystem.getUiState();
-        emuDebugUi.updateCanvas(emuState, 'running BLE SYNC', bleMessageCount);
+        emuDebugUi.updateCanvas(emuState, 'running BLE SYNC', { bleMessageCount, pinballUptimeS });
       }
     }
   }).catch((error) => {

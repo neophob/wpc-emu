@@ -6,8 +6,6 @@ BLECharacteristic* pCharacteristicPowerstate = NULL;
 BLECharacteristic* pCharacteristicWpcState = NULL;
 BLECharacteristic* pCharacteristicWpcReset = NULL;
 
-uint32_t lastZerocross = 0;
-
 class BleConnectionCallback: public BLEServerCallbacks {
     void onConnect(BLEServer* pServer) {
       deviceConnected = true;
@@ -119,22 +117,19 @@ void loopBluetooth() {
   uint32_t currentZerocross = zeroconfInterruptCounter;
 #endif
   interrupts();
-
-#ifndef FAKE_PINBALL_ENABLED
-  if ((currentZerocross - lastZerocross) < MINIMAL_ZEROCROSS_TICK_DIFF) {
-    // do not send update if time diff is too small!
-    return;
-  }
-#endif
   
   updateZerocross(currentZerocross);
+#ifdef FAKE_PINBALL_ENABLED
 /*  if (fakeTimer % 40 == 0) {
     Serial.println("updateSwitchInput"); 
     //updateRandomSwitchInput();
     updateCabinetInput();
   }*/
-  lastZerocross = currentZerocross;
-  Serial.printf("SEND: %lu %lu\n", currentZerocross, fakeTimer);
+#endif
+
+#ifdef DEBUG
+  Serial.printf("BT ZC: %lu\n", currentZerocross);
+#endif
   // send WPC state using BLT
   pCharacteristicWpcState->setValue(statePayload, MESSAGE_SIZE);        
   pCharacteristicWpcState->notify();

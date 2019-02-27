@@ -29,8 +29,6 @@ TODO:
 
  */
 
-//#define DEBUG
-
 //NOTE: LABEL ON ESP32 DEV BOARD IS "VN"
 #define GPIO_RO_ZEROCROSS 39
 

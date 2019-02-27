@@ -8,6 +8,7 @@
 #include <BLE2902.h>
 
 #define FAKE_PINBALL_ENABLED true
+#define DEBUG
 
 bool deviceConnected = false;
 bool oldDeviceConnected = false;
