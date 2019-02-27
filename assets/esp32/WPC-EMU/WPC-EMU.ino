@@ -9,8 +9,6 @@
 
 #define FAKE_PINBALL_ENABLED true
 
-volatile uint32_t fakeTimer = 0;
-
 bool deviceConnected = false;
 bool oldDeviceConnected = false;
 uint8_t statePowerstate = 1;
@@ -39,6 +37,7 @@ uint8_t statePowerstate = 1;
 
 uint8_t statePayload[MESSAGE_SIZE] = {};
 volatile uint32_t zeroconfInterruptCounter = 0;
+volatile uint32_t fakeTimer = 0;
 
 /*
 

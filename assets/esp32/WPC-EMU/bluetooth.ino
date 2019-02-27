@@ -114,7 +114,7 @@ void RestartBluetoothAdvertising() {
 void loopBluetooth() {
   noInterrupts();
 #ifdef FAKE_PINBALL_ENABLED
-  uint32_t currentZerocross = lastZerocross + fakeTimer;
+  uint32_t currentZerocross = fakeTimer;
 #elif
   uint32_t currentZerocross = zeroconfInterruptCounter;
 #endif

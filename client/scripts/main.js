@@ -61,8 +61,7 @@ function pairing() {
       if (data.zeroCrossCounter > 0) {
         const zeroCrossToTicks = data.zeroCrossCounter * CONSTANT.ZEROCROSS_TO_TICKS_MULTIPLIER;
         console.log('data.zeroCrossCounter', data.zeroCrossCounter, zeroCrossToTicks / CONSTANT.TICKS_PER_SECOND);
-      //  wpcSystem.executeToCycle(zeroCrossToTicks);
-        wpcSystem.executeCycle(CONSTANT.TICKS_PER_CALL, CONSTANT.TICKS_PER_STEP);
+        wpcSystem.executeToCycle(zeroCrossToTicks);
         const emuState = wpcSystem.getUiState();
         emuDebugUi.updateCanvas(emuState, 'running BLE SYNC', bleMessageCount);
       }
