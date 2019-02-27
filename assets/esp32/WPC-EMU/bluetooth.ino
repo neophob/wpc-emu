@@ -138,7 +138,6 @@ void loopBluetooth() {
   // send WPC state using BLT
   pCharacteristicWpcState->setValue(statePayload, MESSAGE_SIZE);        
   pCharacteristicWpcState->notify();
-  delay(100);
 }
 
 void updateZerocross(uint32_t stateZerocross) {

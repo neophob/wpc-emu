@@ -141,11 +141,17 @@ test('should _bankswitchedRead, bank 0xFF (systemrom)', (t) => {
 test('should executeToCycle 100', (t) => {
   const cpuBoard = t.context;
   const result = cpuBoard.executeToCycle(100);
-  t.is(result, 108);
+  t.is(result, 516);
 });
 
 test('should ignore invalid values when run executeToCycle', (t) => {
   const cpuBoard = t.context;
   const result = cpuBoard.executeToCycle(-10);
+  t.is(result, 0);
+});
+
+test('should ignore too large values when run executeToCycle', (t) => {
+  const cpuBoard = t.context;
+  const result = cpuBoard.executeToCycle(2000000000);
   t.is(result, 0);
 });
