@@ -29,35 +29,58 @@ TODO:
 
  */
 
-//NOTE: LABEL ON ESP32 DEV BOARD IS "VN"
+//GPIO39, SVN
 #define GPIO_RO_ZEROCROSS 39
 
 // NOTE: GPIO 34-39 have no internal configurable pullup/down
 
+//Connected to J206, Pin 8 not connected
+//GPIO22, IO22
 #define GPIO_RO_ACTIVE_COLUMN_1 22
+//GPIO12, IO12
 #define GPIO_RO_ACTIVE_COLUMN_2 12
+//GPIO36, SVP
 #define GPIO_RO_ACTIVE_COLUMN_3 36
+//GPIO35, IO35
 #define GPIO_RO_ACTIVE_COLUMN_4 35
+//GPIO34, IO34
 #define GPIO_RO_ACTIVE_COLUMN_5 34
+//GPIO33, IO33
 #define GPIO_RO_ACTIVE_COLUMN_6 33
+//GPIO32, IO32
 #define GPIO_RO_ACTIVE_COLUMN_7 32
+//GPIO27, IO27
 #define GPIO_RO_ACTIVE_COLUMN_8 27
 
+//Connected to J209, Pin 6 not connected
+//GPIO26, IO26
 #define GPIO_RO_ROW_INPUT_1 26
+//GPIO25, IO25
 #define GPIO_RO_ROW_INPUT_2 25
+//GPIO23, IO23
 #define GPIO_RO_ROW_INPUT_3 23
+//GPIO13, IO13
 #define GPIO_RO_ROW_INPUT_4 13
+//GPIO5, IO5
 #define GPIO_RO_ROW_INPUT_5 5
+//GPIO19, IO19
 #define GPIO_RO_ROW_INPUT_6 19
+//GPIO18, IO18
 #define GPIO_RO_ROW_INPUT_7 18
+//GPIO15, IO15
 #define GPIO_RO_ROW_INPUT_8 15
 
 // Regular we attach an interrupt to this pin, however we can reconfigure this pin as output at runtime to send out a reset impulse
+// GPIO14, IO14
 #define GPIO_RW_RESET_SENSE 14
 
+//GPIO0, IO0
 #define GPIO_RESERVED_1 0
+//GPIO4, IO4
 #define GPIO_RESERVED_2 4
+//GPIO2, IO2
 #define GPIO_RESERVED_3 2
+//GPIO21, IO21
 #define GPIO_RESERVED_4 21
 
 //TEST GPIO: 16 17 1 3
