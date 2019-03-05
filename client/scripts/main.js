@@ -10,7 +10,7 @@ import { loadRam, saveRam, } from './lib/ramState';
 import { initialise as initDmdExport, save as saveFile } from './lib/pin2DmdExport';
 import { AudioOutput } from './lib/sound';
 import * as gamelist from './db/gamelist';
-import { populateControlUiView } from './ui/control-ui';
+import { populateControlUiView, updateUiSwitchState } from './ui/control-ui';
 import * as emuDebugUi from './ui/emu-debug-ui';
 
 const MAXIMAL_DMD_FRAMES_TO_RIP = 8000;
@@ -124,6 +124,10 @@ function step() {
   const emuState = wpcSystem.getUiState();
   const cpuRunningState = intervalId ? 'running' : 'paused';
   emuDebugUi.updateCanvas(emuState, cpuRunningState);
+  if (emuState.asic.wpc.inputState) {
+    updateUiSwitchState(emuState.asic.wpc.inputState);
+  }
+
   intervalId = requestAnimationFrame(step);
 
   if (dmdDump) {
