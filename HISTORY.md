@@ -1,5 +1,8 @@
 # HISTORY
 
+## 5/3/19
+- reflect switch state in UI
+
 ## 13/2/19
 - cleanup UI
 - make sure client works without any active audio file

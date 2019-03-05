@@ -66,6 +66,14 @@ test('should change fliptronice input', (t) => {
   t.is(result[9], 1);
 });
 
+test('should enable toggleMidnightMadnessMode', (t) => {
+  const cpuBoard = t.context;
+  cpuBoard.toggleMidnightMadnessMode();
+  const state = cpuBoard.getState();
+  const result = state.asic.wpc.time;
+  t.regex(result, /MM!$/);
+});
+
 test('should _bankswitchedRead, bank 0', (t) => {
   const BANK = 0;
   const cpuBoard = t.context;

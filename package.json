@@ -1,6 +1,6 @@
 {
   "name": "wpc-emu",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "description": "WPC pinball machine emu",
   "main": "index.js",
   "engines": {
@@ -9,10 +9,10 @@
   "author": "Michael Vogt",
   "license": "ISC",
   "devDependencies": {
-    "ava": "^1.0.1",
+    "ava": "^1.2.1",
     "copy-webpack-plugin": "^5.0.0",
     "http-server": "^0.11.1",
-    "nyc": "^13.2.0",
+    "nyc": "^13.3.0",
     "remove-debug-loader": "^0.2.6",
     "sinon": "^7.2.3",
     "terser-webpack-plugin": "^1.2.2",
@@ -62,9 +62,9 @@
     "build": "webpack --mode development",
     "watch": "webpack --mode development --watch",
     "build:production": "webpack --mode production",
-    "build:test": "rm -f dist/* && webpack && cp assets/* dist && DEBUG=* node index.js",
     "start": "DEBUG=* node index.js",
-    "start:fileserv": "http-server ./dist -S -C assets/localhost-cert/server.crt -K assets/localhost-cert/server.key --cors -p 8080 || echo '\n\nERROR. Did you created and install the local dev certificates? Heres the content:' && cat assets/localhost-cert/README.md",
+    "start:fileserv": "cp -fr ./rom ./dist && npm run start:webserver",
+    "start:webserver": "http-server ./dist -S -C assets/localhost-cert/server.crt -K assets/localhost-cert/server.key --cors -p 8080 || echo '\n\nERROR. Did you created and install the local dev certificates? Heres the content:' && cat assets/localhost-cert/README.md",
     "debug": "node --inspect index.js",
     "xo": "xo",
     "test": "nyc ava --verbose test/lib/**",

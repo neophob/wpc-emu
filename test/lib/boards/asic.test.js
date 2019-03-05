@@ -180,7 +180,6 @@ test('wpc, getState / setState', (t) => {
   const wpc = t.context;
   wpc.romBank = 11;
   const state = wpc.getState();
-  console.log(state);
   wpc.romBank = 2;
   wpc.setState(state);
   t.is(wpc.romBank, 11);
