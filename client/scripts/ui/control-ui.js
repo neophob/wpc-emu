@@ -3,9 +3,44 @@
 import viewTpl from './main.view.tpl';
 import { replaceNode } from './htmlselector';
 
-export { populateControlUiView };
+export { populateControlUiView, updateUiSwitchState };
 
 let selectedIndex = -1;
+
+const BIT_ARRAY = [1, 2, 4, 8, 16, 32, 64, 128];
+
+const PINBALL_SWITCH_BUTTONS_ELEMENT = 'pinball-specific-switch-input';
+
+function populateControlUiView(gameEntry, gameList, initialGameName) {
+  console.log('gameEntry', gameEntry);
+  addEmulatorControls();
+  addGameSpecificControls(gameEntry);
+  addGameTitles(gameList, initialGameName);
+}
+
+function updateUiSwitchState(packedSwitchInput) {
+  const dataUnpacked = [];
+  // row 0 are system button, row 9 is fliptronics
+  for (let i = 1; i < 9; i++) {
+    for (let j = 0; j < 8; j++) {
+      const entry = packedSwitchInput[i] & BIT_ARRAY[j];
+      dataUnpacked.push(entry > 0 ? true : false);
+    }
+  }
+  const elements = document.getElementById(PINBALL_SWITCH_BUTTONS_ELEMENT);
+  elements.childNodes.forEach((childNode) => {
+    const rawId = parseInt(childNode.id.substring(PINBALL_SWITCH_BUTTONS_ELEMENT.length), 10);
+    const normalizedKeyValue = rawId - 1;
+    const row = parseInt(normalizedKeyValue / 10, 10) - 1;
+    const column = parseInt(normalizedKeyValue % 10, 10);
+    const id = row * 8 + column;
+    if (dataUnpacked[id]) {
+      childNode.className = 'button-black button-small black';
+    } else {
+      childNode.className = 'button-black button-outline button-small black';
+    }
+  });
+}
 
 function addEmulatorControls() {
   const div = document.createElement('div');
@@ -16,15 +51,16 @@ function addEmulatorControls() {
 function addGameSpecificControls(gameEntry) {
   //switch input
   if (Array.isArray(gameEntry.switchMapping)) {
-    const element = document.getElementById('pinball-specific-switch-input');
+    const element = document.getElementById(PINBALL_SWITCH_BUTTONS_ELEMENT);
     gameEntry.switchMapping.forEach((mapping) => {
       const child = document.createElement('button');
       child.textContent = mapping.name;
+      child.id = PINBALL_SWITCH_BUTTONS_ELEMENT + mapping.id;
       child.className = 'button-black button-outline button-small black';
       child.addEventListener('click', () => {
         window.wpcInterface.wpcSystem.setInput(mapping.id);
       });
-      element.appendChild(child);
+      element.append(child);
     });
   }
 
@@ -71,11 +107,4 @@ function addGameTitles(gameList, initialGameName) {
     selectElementRoot.removeChild(selectElementRoot.firstChild);
   }
   selectElementRoot.appendChild(selectElement);
-}
-
-function populateControlUiView(gameEntry, gameList, initialGameName) {
-  console.log('gameEntry', gameEntry);
-  addEmulatorControls();
-  addGameSpecificControls(gameEntry);
-  addGameTitles(gameList, initialGameName);
 }
