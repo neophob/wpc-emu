@@ -2,6 +2,7 @@
 
 import viewTpl from './main.view.tpl';
 import { replaceNode } from './htmlselector';
+import { logicalIdToArrayOffset } from './switch-offset';
 
 export { populateControlUiView, updateUiSwitchState };
 
@@ -30,10 +31,7 @@ function updateUiSwitchState(packedSwitchInput) {
   const elements = document.getElementById(PINBALL_SWITCH_BUTTONS_ELEMENT);
   elements.childNodes.forEach((childNode) => {
     const rawId = parseInt(childNode.id.substring(PINBALL_SWITCH_BUTTONS_ELEMENT.length), 10);
-    const normalizedKeyValue = rawId - 1;
-    const row = parseInt(normalizedKeyValue / 10, 10) - 1;
-    const column = parseInt(normalizedKeyValue % 10, 10);
-    const id = row * 8 + column;
+    const id = logicalIdToArrayOffset(rawId);
     if (dataUnpacked[id]) {
       childNode.className = 'button-black button-small black';
     } else {
