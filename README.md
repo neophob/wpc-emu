@@ -45,6 +45,8 @@
   - [Terms](#terms)
   - [ROM Revision / Software Version Information](#rom-revision--software-version-information)
   - [Midnight Madness Mode](#midnight-madness-mode)
+  - [Rip DMD Animation](#rip-dmd-animation)
+    - [Tutorial](#tutorial)
   - [WPC](#wpc)
   - [Pinball 2000](#pinball-2000)
   - [DMD](#dmd)
@@ -726,6 +728,47 @@ Midnight Madness was the idea of Dwight Sullivan, who had a dream of seeing ever
 When you start a game on Junk Yard right before the clock reaches midnight, the devil will say 'interesting' at the start of the game, instead of the regular 'Crazy Bob' opening scene.
 
 Note Theatre of Magic does not have this Midnight Madness special mode. Midnight Madness is the name of a regular mode in the game that can be started on every game played..
+
+## Rip DMD Animation
+
+To drive ColorDMD displays, DMD animations needs to colorized. The source of those animations are existing monochrome animations.
+
+Slippifishi of http://vpuniverse.com was kind enough to write a tutorial how to rip DMD animations.
+
+### Tutorial
+
+First, I think this tool is most useful for concentrated and specific dumps - you need to know what you want to dump before you come here. Running through the whole game and capturing everything is certainly possible, but I have found especially useful in getting all related scenes in one hit (I think there is also an 8000 frame limit to the dumps, which is a lot, but not enough to capture the whole game in one sitting).
+
+For example, in demo man there are 5 stand up targets on the playfield. As you hit these it gives a "standup millions award" each hit, you cycle through them 4 times, up to a total of 20. When trying to catch these through normal VPinball gameplay, they were often inconsistent in length (some would have 12 frames, some would have 13), and they would often get interrupted by some other animation - I spent **ages** hunting for the 14 million standup because every time I hit it, something else would get in the way and spoil the dump. In the end I managed to capture most of them, but they were split up over several dump files, and not in any logical order. I didn't mind trying to play for all the animations, but when you have a 200MB txt dump file and you just want 13 frames from somewhere roughly in the middle, it can be painfully slow and time wasting. Then came WPC-EMU and changed my approach!
+
+I have been using it as follows...
+
+1. First load up the desired ROM in the drop down in the top left.
+
+   The page will reload, and all of the switches associated to the selected table will be shown on screen; there will be switches for the ball launch, credits, tilt, outlanes, slings, standups, etc, and also any special toys associated with the table. This is where knowing the table is important as you will have to manually activate these switches in order to get the game to the point you want to dump.
+
+1. Insert coin(s) and hit the start button to begin a game
+
+   Note that (all of?) the switches act like toggles, so one click turns the switch on, the next click turns it off. The recent change to the UI means the button will now also reflect the on/off state, but you can also see the "SWITCH IN MATRIX" which also shows a secondary visual representation of all the switches. Honestly, I approach this step as if I am playing a game of pinball - start by inserting coin(s), then I press start, then I launch the ball, then the ball hits this switch, then that switch etc - "be the ball". I also taught myself to always toggle switches twice - always leave the switches in their default state otherwise when you want to click it again later you may have to click it twice!
+
+1. Prepare to dump
+
+   Hit the necessary switches to get the game to the right state. Using Flintstones as a different example, when I was trying to capture the different strike/spare animations for the bowling game, you must first hit the left or right ramp; so you toggle that switch and notice that the DMD displays the animation associated to that switch (an animation of fred running). From my gameplay testing, I know that if I hit the left, centre or right bowling target (any 1 of 3 separate switches) within a second or two of that left ramp switch then I will get the animation I want.
+
+1. Begin to dump
+
+   Before I invoke the animation, I need to begin the dump. Click the DMD dump button in the top right of the browser - the dump is now capturing.
+
+1. Fire the animation(s)
+
+   Anything that fires while the DMD dump is enabled will be stored in the dump. Hit the switch(es) and watch the animation. When I was doing demo man I literally hit the 5 stand up targets one after the other, 4 times in a row. Just like that I had all 20 different animations, in a single dump, less than 1000 frames; and they were all in sequence, right after each other in the dump, it made finding them in the editor a breeze.
+
+1. Save the dump
+
+  Click the DMD Dump button again; you will be prompted to saw the raw file. You can now load the raw file into PIN2DMD Editor and use it like a normal dump.
+
+  Arguably you can achieve the same thing through VPX and dragging the ball around, or even by doing a dump using the real table and manually hitting the switches. But having it in browser does remove a lot of the set up necessary and make it much closer to hand :) The temptation I am finding is to do a majority of my scene cutting via way of very controlled dumps!
+
 
 
 ## WPC
