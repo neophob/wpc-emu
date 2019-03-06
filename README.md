@@ -41,9 +41,8 @@
   - [Error Messages](#error-messages)
     - [Invalid Switch state](#invalid-switch-state)
     - [Do not disable checksum check](#do-not-disable-checksum-check)
-- [References](#references)
-  - [Terms](#terms)
-  - [ROM Revision / Software Version Information](#rom-revision--software-version-information)
+- [WPC-EMU Manual](#wpc-emu-manual)
+  - [Keyboard Shortcuts](#keyboard-shortcuts)
   - [Midnight Madness Mode](#midnight-madness-mode)
   - [Rip DMD Animation](#rip-dmd-animation)
     - [Intro](#intro)
@@ -53,6 +52,9 @@
     - [Begin to dump](#begin-to-dump)
     - [Fire the animation(s)](#fire-the-animations)
     - [Save the dump](#save-the-dump)
+- [References](#references)
+  - [Terms](#terms)
+  - [ROM Revision / Software Version Information](#rom-revision--software-version-information)
   - [WPC](#wpc)
   - [Pinball 2000](#pinball-2000)
   - [DMD](#dmd)
@@ -681,35 +683,25 @@ Issue: ROM checksum invalid
 
 Solution:
 
-# References
+# WPC-EMU Manual
 
-## Terms
-- Attraction Mode: the time when no game is running and the lamps are blinking to attract people
-- Drain: The common term used to refer to the area beneath the flippers. If the ball rolls into the drain area via an outlane or between the flippers, it will be lost. Also refers to the act of losing a ball in this manner.
-- Plunger: The object used to launch a ball onto the playfield
-- HSTD: High Score to Date
-- EOS (Switch): end-of-stroke
-- HUO: Home use only
+## Keyboard Shortcuts
 
-## ROM Revision / Software Version Information
-Source: http://www.planetarypinball.com/mm5/Williams/tech/sys11roms.html
-
-System 11 games have the software revision identified with either an "L" or "P" followed by a revision number, such as L-1 or P-1. The "L" signifies a production ("Level") release, while the "P" signifies a Prototype version of software. Sometimes contained within the revision label is a version identifier, such as LX-1 or LA-1. The possible version identifiers are the described below.
-
-Not all versions exist for all games.
-
-* No suffix: Unrestricted. This version supports all text languages, can be priced for any country, and contains the custom pricing editor.
-* A: USA and Canada (domestic). This version does not contain the custom pricing editor, and does USA and Canada pricing modes only.
-* X: Export. This version contains the custom pricing editor, as well as the built-in pricing presets for all countries.
-* R: Regular. This version does all pricing modes, as well as the custom pricing editor, but does not contain French text.
-* F: France. This version is the same as the R version, with the addition of French text.
-* B: Belgium/Switzerland. This version contains French text, does not have the custom pricing editor, and does Belgium, Switzerland, and Canada pricing modes only.
-* G: Germany. This version contains support for special German functionality, such as German speech.
-
-More, unofficial suffix:
-* F: usually "Family" or "Family-Friendly" - but in the case of Party Zone, the F is to specify "Fliptronic Flipper Board" rather than the standard code.
-* H: Home
-* LD: LED anti ghosting versions
+| Key | Function                   |
+| --- | -------------------------- |
+| 1   | Coin#1                     |
+| 2   | Coin#2                     |
+| 3   | Coin#3                     |
+| 4   | Coin#4                     |
+| 5   | Start Game                 |
+| P   | Pause Game                 |
+| R   | Resume Game / Step by Step |
+| L   | Load Game state            |
+| S   | Pause Game state           |
+| 7   | Escape                     |
+| 8   | -                          |
+| 9   | +                          |
+| 0   | Enter                      |
 
 ## Midnight Madness Mode
 Source: http://www.flippers.be/basics/101_midnight_madness.html
@@ -743,11 +735,11 @@ Slippifishi of http://vpuniverse.com was kind enough to write a tutorial how he 
 
 ### Intro
 
-As for how I've been using this, well I will use Demo Man and Flintstones as examples...
+As for how I've been using this, well I will use "Demolition Man" and "The Flintstones" as examples...
 
 First, I think this tool is most useful for concentrated and specific dumps - you need to know what you want to dump before you come here. Running through the whole game and capturing everything is certainly possible, but I have found especially useful in getting all related scenes in one hit (I think there is also an 8000 frame limit to the dumps, which is a lot, but not enough to capture the whole game in one sitting).
 
-For example, in demo man there are 5 stand up targets on the playfield. As you hit these it gives a "standup millions award" each hit, you cycle through them 4 times, up to a total of 20. When trying to catch these through normal VPinball gameplay, they were often inconsistent in length (some would have 12 frames, some would have 13), and they would often get interrupted by some other animation - I spent **ages** hunting for the 14 million standup because every time I hit it, something else would get in the way and spoil the dump. In the end I managed to capture most of them, but they were split up over several dump files, and not in any logical order. I didn't mind trying to play for all the animations, but when you have a 200MB txt dump file and you just want 13 frames from somewhere roughly in the middle, it can be painfully slow and time wasting. Then came WPC-EMU and changed my approach!
+For example, in "Demolition Man" there are 5 stand up targets on the playfield. As you hit these it gives a "standup millions award" each hit, you cycle through them 4 times, up to a total of 20. When trying to catch these through normal VPinball gameplay, they were often inconsistent in length (some would have 12 frames, some would have 13), and they would often get interrupted by some other animation - I spent **ages** hunting for the 14 million standup because every time I hit it, something else would get in the way and spoil the dump. In the end I managed to capture most of them, but they were split up over several dump files, and not in any logical order. I didn't mind trying to play for all the animations, but when you have a 200MB txt dump file and you just want 13 frames from somewhere roughly in the middle, it can be painfully slow and time wasting. Then came WPC-EMU and changed my approach!
 
 I have been using it as follows...
 
@@ -761,7 +753,7 @@ Note that (all of?) the switches act like toggles, so one click turns the switch
 
 ### Prepare to dump
 
-Hit the necessary switches to get the game to the right state. Using Flintstones as a different example, when I was trying to capture the different strike/spare animations for the bowling game, you must first hit the left or right ramp; so you toggle that switch and notice that the DMD displays the animation associated to that switch (an animation of fred running). From my gameplay testing, I know that if I hit the left, centre or right bowling target (any 1 of 3 separate switches) within a second or two of that left ramp switch then I will get the animation I want.
+Hit the necessary switches to get the game to the right state. Using "The Flintstones" as a different example, when I was trying to capture the different strike/spare animations for the bowling game, you must first hit the left or right ramp; so you toggle that switch and notice that the DMD displays the animation associated to that switch (an animation of fred running). From my gameplay testing, I know that if I hit the left, centre or right bowling target (any 1 of 3 separate switches) within a second or two of that left ramp switch then I will get the animation I want.
 
 ### Begin to dump
 
@@ -769,7 +761,7 @@ Before I invoke the animation, I need to begin the dump. Click the DMD dump butt
 
 ### Fire the animation(s)
 
-Anything that fires while the DMD dump is enabled will be stored in the dump. Hit the switch(es) and watch the animation. When I was doing demo man I literally hit the 5 stand up targets one after the other, 4 times in a row. Just like that I had all 20 different animations, in a single dump, less than 1000 frames; and they were all in sequence, right after each other in the dump, it made finding them in the editor a breeze.
+Anything that fires while the DMD dump is enabled will be stored in the dump. Hit the switch(es) and watch the animation. When I was doing "Demolition Man" I literally hit the 5 stand up targets one after the other, 4 times in a row. Just like that I had all 20 different animations, in a single dump, less than 1000 frames; and they were all in sequence, right after each other in the dump, it made finding them in the editor a breeze.
 
 ### Save the dump
 
@@ -778,7 +770,35 @@ You can now load the raw file into PIN2DMD Editor (https://pin2dmd.com/) and use
 
 Arguably you can achieve the same thing through VPX and dragging the ball around, or even by doing a dump using the real table and manually hitting the switches. But having it in browser does remove a lot of the set up necessary and make it much closer to hand :) The temptation I am finding is to do a majority of my scene cutting via way of very controlled dumps!
 
+# References
 
+## Terms
+- Attraction Mode: the time when no game is running and the lamps are blinking to attract people
+- Drain: The common term used to refer to the area beneath the flippers. If the ball rolls into the drain area via an outlane or between the flippers, it will be lost. Also refers to the act of losing a ball in this manner.
+- Plunger: The object used to launch a ball onto the playfield
+- HSTD: High Score to Date
+- EOS (Switch): end-of-stroke
+- HUO: Home use only
+
+## ROM Revision / Software Version Information
+Source: http://www.planetarypinball.com/mm5/Williams/tech/sys11roms.html
+
+System 11 games have the software revision identified with either an "L" or "P" followed by a revision number, such as L-1 or P-1. The "L" signifies a production ("Level") release, while the "P" signifies a Prototype version of software. Sometimes contained within the revision label is a version identifier, such as LX-1 or LA-1. The possible version identifiers are the described below.
+
+Not all versions exist for all games.
+
+* No suffix: Unrestricted. This version supports all text languages, can be priced for any country, and contains the custom pricing editor.
+* A: USA and Canada (domestic). This version does not contain the custom pricing editor, and does USA and Canada pricing modes only.
+* X: Export. This version contains the custom pricing editor, as well as the built-in pricing presets for all countries.
+* R: Regular. This version does all pricing modes, as well as the custom pricing editor, but does not contain French text.
+* F: France. This version is the same as the R version, with the addition of French text.
+* B: Belgium/Switzerland. This version contains French text, does not have the custom pricing editor, and does Belgium, Switzerland, and Canada pricing modes only.
+* G: Germany. This version contains support for special German functionality, such as German speech.
+
+More, unofficial suffix:
+* F: usually "Family" or "Family-Friendly" - but in the case of Party Zone, the F is to specify "Fliptronic Flipper Board" rather than the standard code.
+* H: Home
+* LD: LED anti ghosting versions
 
 ## WPC
 
