@@ -1,5 +1,8 @@
 # HISTORY
 
+## 6/3/19
+- add WPC-S testrom, WPC-95 testrom
+
 ## 5/3/19
 - reflect switch state in UI
 

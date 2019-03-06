@@ -55,6 +55,8 @@ import whiteWaterFreewpc from './ww.freewpc';
 import whoDunnit from './wd';
 import worldCupSoccer from './wcs';
 import wpcTestrom from './wpc.testrom';
+import wpc95Testrom from './wpc95.testrom';
+import wpcSTestrom from './wpcs.testrom';
 
 export { getAllNames, getByName };
 
@@ -114,6 +116,8 @@ const wpcGames = [
   whoDunnit,
   worldCupSoccer,
   wpcTestrom,
+  wpc95Testrom,
+  wpcSTestrom,
 ];
 
 function getAllNames() {
