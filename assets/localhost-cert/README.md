@@ -9,3 +9,4 @@ Source https://medium.freecodecamp.org/how-to-get-https-working-on-your-local-de
 - Your system need to trust `rootCA.pem`
 - `openssl req -new -sha256 -nodes -out server.csr -newkey rsa:2048 -keyout server.key -config <( cat server.csr.cnf )`
 - `openssl x509 -req -in server.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out server.crt -days 3650 -sha256`
+- if you use Google Chrome, see chrome://flags/#allow-insecure-localhost
