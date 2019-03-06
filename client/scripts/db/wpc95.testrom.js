@@ -28,6 +28,7 @@ module.exports = {
   skipWmcRomCheck: false,
   features: [
     'securityPic',
+    'wpcSecure',
   ],
 
 };
