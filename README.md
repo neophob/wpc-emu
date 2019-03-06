@@ -704,6 +704,7 @@ Solution:
 | 0   | Enter                      |
 
 ## Midnight Madness Mode
+
 Source: http://www.flippers.be/basics/101_midnight_madness.html
 
 Midnight Madness is a special mode that's only available on a few Williams pinball machines. The name reveals what it is: a special mode that only starts when the game is played at midnight..
@@ -731,13 +732,13 @@ Note Theatre of Magic does not have this Midnight Madness special mode. Midnight
 
 To drive ColorDMD displays, DMD animations needs to be colorized. The source of those animations are existing monochrome animations.
 
-Slippifishi of http://vpuniverse.com was kind enough to write a tutorial how he rip DMD animations.
+Slippifishi of http://vpuniverse.com was kind enough to write a tutorial how he rip DMD animations :tada:.
 
 ### Intro
 
 As for how I've been using this, well I will use "Demolition Man" and "The Flintstones" as examples...
 
-First, I think this tool is most useful for concentrated and specific dumps - you need to know what you want to dump before you come here. Running through the whole game and capturing everything is certainly possible, but I have found especially useful in getting all related scenes in one hit (I think there is also an 8000 frame limit to the dumps, which is a lot, but not enough to capture the whole game in one sitting).
+First, I think this tool is most useful for concentrated and specific dumps - you need to know what you want to dump before you come here. Running through the whole game and capturing everything is certainly possible, but I have found especially useful in getting all related scenes in one hit.
 
 For example, in "Demolition Man" there are 5 stand up targets on the playfield. As you hit these it gives a "standup millions award" each hit, you cycle through them 4 times, up to a total of 20. When trying to catch these through normal VPinball gameplay, they were often inconsistent in length (some would have 12 frames, some would have 13), and they would often get interrupted by some other animation - I spent **ages** hunting for the 14 million standup because every time I hit it, something else would get in the way and spoil the dump. In the end I managed to capture most of them, but they were split up over several dump files, and not in any logical order. I didn't mind trying to play for all the animations, but when you have a 200MB txt dump file and you just want 13 frames from somewhere roughly in the middle, it can be painfully slow and time wasting. Then came WPC-EMU and changed my approach!
 
