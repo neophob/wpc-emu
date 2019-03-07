@@ -5,12 +5,9 @@ const debug = require('debug')('wpcemu:index');
 const Emulator = require('./lib/emulator');
 
 const romGamePath = process.argv[2] || 'rom/HURCNL_2.ROM';
-const romU14Path = process.argv[3] || 'rom/U14.PP';
-const romU15Path = process.argv[4] || 'rom/U15.PP';
-const romU18Path = process.argv[5] || 'rom/U18.PP';
 
 if (!romGamePath) {
-  console.error('Parameter [GAME_ROM_PATH] [U14_ROM_PATH] [U15_ROM_PATH] [U18_ROM_PATH]');
+  console.error('Parameter [GAME_ROM_PATH]');
   throw new Error('MISSING_PARAMETER');
 }
 
@@ -48,20 +45,10 @@ function runWpsMainloop(wpcSystem) {
   }, 0);
 }
 
-const loadRomFilesPromise = Promise.all([
-  loadFile(romGamePath),
-  loadFile(romU14Path),
-  loadFile(romU15Path),
-  loadFile(romU18Path),
-]);
-
-loadRomFilesPromise
-  .then((romFiles) => {
+loadFile(romGamePath)
+  .then((u06Rom) => {
     const romData = {
-      u06: romFiles[0],
-      u14: romFiles[1],
-      u15: romFiles[2],
-      u18: romFiles[3],
+      u06: u06Rom,
     };
     return Emulator.initVMwithRom(romData, { fileName: romGamePath });
   })
