@@ -34,15 +34,11 @@ function initialiseEmu(gameEntry) {
 
   emuDebugUi.loadFeedback(gameEntry.name);
 
-  const u06Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06);
-
-  return Promise.all([
-      u06Promise,
-    ])
-    .then((romFiles) => {
-      console.log('Successfully loaded ROM', romFiles[0].length);
+  return downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06)
+    .then((u06Rom) => {
+      console.log('Successfully loaded ROM', u06Rom.length);
       const romData = {
-        u06: romFiles[0],
+        u06: u06Rom,
       };
       return initialiseEmulator(romData, gameEntry);
     })
@@ -70,7 +66,6 @@ function initialiseEmu(gameEntry) {
     .catch((error) => {
       console.error('FAILED to load ROM:', error.message);
       emuDebugUi.errorFeedback(error);
-      throw error;
     });
 }
 
@@ -247,5 +242,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-initEmuWithGameName(INITIAL_GAME);
+initEmuWithGameName(INITIAL_GAME)
+  .catch((error) => console.error);
+
 registerKeyboardListener();
