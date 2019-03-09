@@ -1,10 +1,10 @@
 'use strict';
 
 module.exports = {
-  name: 'WPC-DMD: WPC Test Fixture ',
-  version: 'L-3',
+  name: 'WPC-S: WPC Test Fixture ',
+  version: '1.2',
   rom: {
-    u06: 'u6_l3.rom',
+    u06: 'u6_12.rom',
   },
   switchMapping: [
     { id: 11, name: 'RIGHT FLIPPER' },
@@ -77,9 +77,11 @@ module.exports = {
     { id: 86, name: 'SWITCH 86' },
     { id: 87, name: 'SWITCH 87' },
     { id: 88, name: 'SWITCH 88' },
+
   ],
   skipWmcRomCheck: false,
   features: [
-    'wpcDmd',
+    'securityPic',
   ],
+
 };
