@@ -4,29 +4,29 @@ import { Howl, Howler } from 'howler';
 
 export { AudioOutput };
 
-function AudioOutput(sprite) {
-  return new Sound(sprite);
+function AudioOutput(audioData) {
+  return new Sound(audioData);
 }
 
 const STOP_ALL_SOUNDS_ID = 0;
+const NO_SOUND = {
+  urls: [''],
+  sprite: {},
+}
 
 class Sound {
 
-  constructor(sprite = []) {
-    this.sprite = sprite;
-    //TODO pass audio sample
+  constructor(audioData = NO_SOUND) {
+    this.audioData = audioData.sprite;
     this.sound = new Howl({
-      src: [
-        '',
-        // TODO add bong sound
-       // 'sound/result.mp3',
-      ],
-      sprite,
+      // TODO add bong sound
+      src: audioData.urls,
+      sprite: audioData.sprite,
       onplayerror: (error) => {
         console.log('SOUND PLAYER ERROR', error.message);
       },
       onloaderror: (error) => {
-        //console.log('SOUND LOAD ERROR', error.message);
+//        console.log('SOUND LOAD ERROR', error);
       },
       onload: () => {
         console.log('SOUND LOADED');
@@ -40,11 +40,16 @@ class Sound {
       case 'PLAYSAMPLE': {
         const id = message.id;
         const key = 'snd' + id;
-        if (!this.sprite[key]) {
+        if (!this.audioData[key]) {
           return console.log('SAMPLE ID NOT FOUND', id);
         }
-        console.log('playbackId', id);
-        this.activePlayId[0] = this.sound.play(key);
+        console.log('PLAY SAMPLE ID', id);
+
+        const isBackgroundMusic = (id > 1 && id < 23) || (id > 48 && id < 53);
+        const slot = isBackgroundMusic ? 1 : 0;
+        this.sound.stop(this.activePlayId[slot]);
+        this.activePlayId[slot] = this.sound.play(key);
+        console.log('this.activePlayId',slot,this.activePlayId[slot],isBackgroundMusic);
         break;
       }
       case 'MAINVOLUME':

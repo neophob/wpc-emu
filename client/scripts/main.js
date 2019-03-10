@@ -20,9 +20,8 @@ const TICKS_PER_CALL = parseInt(TICKS / DESIRED_FPS, 10);
 const TICKS_PER_STEP = 16;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
 
-const soundInstance = AudioOutput();
-
 var wpcSystem;
+var soundInstance;
 var intervalId;
 var dmdDump;
 
@@ -47,6 +46,7 @@ function initialiseEmu(gameEntry) {
       const selectElementRoot = document.getElementById('wpc-release-info');
       selectElementRoot.innerHTML = 'WPC-Emu v' + _wpcSystem.version();
 
+      soundInstance = AudioOutput(gameEntry.audio);
       wpcSystem = _wpcSystem;
       // TODO IIKS we pollute globals here
       window.wpcInterface = {
@@ -58,6 +58,7 @@ function initialiseEmu(gameEntry) {
         loadState,
         toggleDmdDump
       };
+      //TODO proper init audio
       wpcSystem.registerAudioConsumer((message) => soundInstance.callback(message) );
       wpcSystem.start();
       console.log('Successfully started EMU v' + wpcSystem.version());
@@ -100,7 +101,9 @@ function romSelection(romName) {
 }
 
 function initEmuWithGameName(name) {
-  soundInstance.stop();
+  if (soundInstance) {
+  //  soundInstance.stop();
+  }
   const gameEntry = gamelist.getByName(name);
   populateControlUiView(gameEntry, gamelist, name);
   return initialiseEmu(gameEntry)
@@ -154,7 +157,14 @@ function pauseEmu() {
     emuDebugUi.updateCanvas(wpcSystem.getUiState(), 'paused');
   }
 
-  soundInstance.stop();
+  if (soundInstance) {
+    try {
+//      soundInstance.stop();
+    } catch(err) {
+
+    }
+  }
+
   if (!intervalId) {
     // allows step by step
     step();
