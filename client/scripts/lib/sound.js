@@ -9,6 +9,7 @@ function AudioOutput(audioData) {
 }
 
 const STOP_ALL_SOUNDS_ID = 0;
+const BONG_SOUND = [ 'sound/bong.mp3' ];
 const NO_SOUND = {
   urls: [''],
   sprite: {},
@@ -18,6 +19,11 @@ class Sound {
 
   constructor(audioData = NO_SOUND) {
     this.audioData = audioData.sprite;
+    this.activePlayId = [];
+    this.bong = new Howl({
+      src: BONG_SOUND,
+    });
+
     this.sound = new Howl({
       // TODO add bong sound
       src: audioData.urls,
@@ -26,13 +32,12 @@ class Sound {
         console.log('SOUND PLAYER ERROR', error.message);
       },
       onloaderror: (error) => {
-//        console.log('SOUND LOAD ERROR', error);
+        //console.log('SOUND LOAD ERROR', error);
       },
       onload: () => {
         console.log('SOUND LOADED');
       },
     });
-    this.activePlayId = [];
   }
 
   callback(message = {}) {
@@ -74,7 +79,8 @@ class Sound {
   }
 
   playBootSound() {
-    //TODO
+    console.log('playbootsound');
+    this.bong.play();
   }
 
   setVolume(floatVolume) {

@@ -64,6 +64,9 @@ function initialiseEmu(gameEntry) {
       console.log('Successfully started EMU v' + wpcSystem.version());
       return emuDebugUi.populateInitialCanvas(gameEntry);
     })
+    .then(() => {
+      soundInstance.playBootSound();
+    })
     .catch((error) => {
       console.error('FAILED to load ROM:', error.message);
       emuDebugUi.errorFeedback(error);
