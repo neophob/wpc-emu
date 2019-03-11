@@ -1,7 +1,7 @@
 'use strict';
 
 import { Howl, Howler } from 'howler';
-
+import { SoundPlayer } from './sound-player';
 export { AudioOutput };
 
 function AudioOutput(audioData) {
@@ -13,18 +13,19 @@ const BONG_SOUND = [ 'sound/bong.mp3' ];
 const NO_SOUND = {
   urls: [''],
   sprite: {},
+  category: {},
 }
 
 class Sound {
 
   constructor(audioData = NO_SOUND) {
     this.audioData = audioData.sprite;
-    this.activePlayId = [];
+
     this.bong = new Howl({
       src: BONG_SOUND,
     });
 
-    this.sound = new Howl({
+    const audioSpritePlayer = new Howl({
       // TODO add bong sound
       src: audioData.urls,
       sprite: audioData.sprite,
@@ -38,6 +39,9 @@ class Sound {
         console.log('SOUND LOADED');
       },
     });
+
+    console.log('XXXX',audioData.category);
+    this.player = new SoundPlayer(audioSpritePlayer, audioData.category);
   }
 
   callback(message = {}) {
@@ -49,12 +53,7 @@ class Sound {
           return console.log('SAMPLE ID NOT FOUND', id);
         }
         console.log('PLAY SAMPLE ID', id);
-
-        const isBackgroundMusic = (id > 1 && id < 23) || (id > 48 && id < 53);
-        const slot = isBackgroundMusic ? 1 : 0;
-        this.sound.stop(this.activePlayId[slot]);
-        this.activePlayId[slot] = this.sound.play(key);
-        console.log('this.activePlayId',slot,this.activePlayId[slot],isBackgroundMusic);
+        this.player.playId(id, key);
         break;
       }
       case 'MAINVOLUME':
@@ -63,7 +62,7 @@ class Sound {
         break;
 
       case 'STOPSOUND':
-        this.sound.stop();
+        this.player.stopAll();
         break;
 
       case 'CHANNELOFF':
@@ -89,7 +88,7 @@ class Sound {
   }
 
   stop() {
-    this.sound.pause();
+    this.player.pause();
   }
 
 }
