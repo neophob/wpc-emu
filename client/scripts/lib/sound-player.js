@@ -9,10 +9,17 @@ const CATEGORY_SINGLE = 'single';
 const CATEGORY_JINGLE = 'jingle';
 const CATEGORY_SOUNDFX = 'soundfx';
 const CATEGORY_VOICE = 'voice';
+const PLAY_ONLY_ONE_SAMPLE = [ CATEGORY_BACKGROUND, CATEGORY_SINGLE, CATEGORY_VOICE ];
 
 function SoundPlayer(audioData) {
   return new SoundCategory(audioData);
 }
+
+// TODO repeat background music
+
+// SAMPLE ID NOT FOUND 32
+// SAMPLE ID NOT FOUND 96
+// SAMPLE ID NOT FOUND 126
 
 class SoundCategory {
 
@@ -47,19 +54,19 @@ class SoundCategory {
 
   _getCategory(id) {
     if (this.category[CATEGORY_BACKGROUND].includes(id)) {
-      return 1;
+      return CATEGORY_BACKGROUND;
     }
     if (this.category[CATEGORY_SINGLE].includes(id)) {
-      return 2;
+      return CATEGORY_SINGLE;
     }
     if (this.category[CATEGORY_JINGLE].includes(id)) {
-      return 3;
+      return CATEGORY_JINGLE;
     }
     if (this.category[CATEGORY_SOUNDFX].includes(id)) {
-      return 4;
+      return CATEGORY_SOUNDFX;
     }
     if (this.category[CATEGORY_VOICE].includes(id)) {
-      return 5;
+      return CATEGORY_VOICE;
     }
   }
 
@@ -71,7 +78,9 @@ class SoundCategory {
     const category = this._getCategory(id);
     console.log('playId', {id, key});
     console.log('category', category, this.activePlayId[category]);
-    if (this.activePlayId[category] !== undefined) {
+
+    const stopPreviousSound = PLAY_ONLY_ONE_SAMPLE.includes(category);
+    if (stopPreviousSound && this.activePlayId[category] !== undefined) {
       console.log('stop previous song', );
       this.audioSpritePlayer.stop(this.activePlayId[category]);
     }
