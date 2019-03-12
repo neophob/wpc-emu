@@ -51,6 +51,7 @@ function initialiseEmu(gameEntry) {
       // TODO IIKS we pollute globals here
       window.wpcInterface = {
         wpcSystem,
+        resetEmu,
         pauseEmu,
         resumeEmu,
         romSelection,
@@ -105,7 +106,7 @@ function romSelection(romName) {
 
 function initEmuWithGameName(name) {
   if (soundInstance) {
-  //  soundInstance.stop();
+    soundInstance.stop();
   }
   const gameEntry = gamelist.getByName(name);
   populateControlUiView(gameEntry, gamelist, name);
@@ -162,7 +163,7 @@ function pauseEmu() {
 
   if (soundInstance) {
     try {
-//      soundInstance.stop();
+      soundInstance.stop();
     } catch(err) {
 
     }
@@ -175,6 +176,14 @@ function pauseEmu() {
 
   cancelAnimationFrame(intervalId);
   intervalId = false;
+}
+
+function resetEmu() {
+  if (!wpcSystem) {
+    return;
+  }
+  wpcSystem.reset();
+  soundInstance.playBootSound();
 }
 
 function registerKeyboardListener() {

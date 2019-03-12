@@ -380,6 +380,8 @@ Example output for Fish Tales Sound files:
 
 ```
 
+TODO document to use the `assets/soundripper` tool
+
 ## RAM / NVRAM positions
 
 Known RAM positions for WPC games.
