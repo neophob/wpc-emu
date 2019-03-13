@@ -2,6 +2,7 @@
 
 ## 13/3/19
 - reflect fliptronics switch state in UI
+- bring back the BOING boot sound
 
 ## 6/3/19
 - add WPC-S testrom, WPC-95 testrom
