@@ -370,19 +370,8 @@ To rip sound samples of a ROM, use M1 (http://rbelmont.mameworld.info/?page_id=2
 Once you ripped all samples, they need to be combined into one file using audiosprite (https://github.com/tonistiigi/audiosprite).
 
 Example output for Fish Tales Sound files:
+
 ```
-# audiosprite -e mp3,webm,ogg -f howler -v $(find . -name '*.wav' -exec echo {} +)
-   9,2K  1 Feb 13:04 output.json
-    41M  1 Feb 13:11 output.mp3
-    34M  1 Feb 13:12 output.ogg
-    35M  1 Feb 13:11 output.webm
-
-# audiosprite -e "webm,mp3,ogg" -f howler -b 128 $(find . -name '*.wav' -exec echo {} +)
-   9,2K  1 Feb 13:04 output.json
-    43M  1 Feb 13:14 output.mp3
-    36M  1 Feb 13:14 output.ogg
-    37M  1 Feb 13:13 output.webm
-
 # audiosprite -e mp3,webm,ogg -f howler -v 5 $(find . -name '*.wav' -exec echo {} +)
    9,2K  1 Feb 13:04 output.json
     22M  1 Feb 13:11 output.mp3
@@ -390,6 +379,8 @@ Example output for Fish Tales Sound files:
     35M  1 Feb 13:11 output.webm
 
 ```
+
+TODO document to use the `assets/soundripper` tool
 
 ## RAM / NVRAM positions
 

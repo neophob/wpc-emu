@@ -165,5 +165,5 @@ module.exports = {
         value: 16
       }
     ],
-  }
+  },
 };

@@ -9,8 +9,8 @@ export { populateControlUiView, updateUiSwitchState };
 let selectedIndex = -1;
 
 const BIT_ARRAY = [1, 2, 4, 8, 16, 32, 64, 128];
-
 const PINBALL_SWITCH_BUTTONS_ELEMENT = 'pinball-specific-switch-input';
+const PINBALL_FLIPTRONICS_ELEMENT = 'pinball-specific-fliptronics-input';
 
 function populateControlUiView(gameEntry, gameList, initialGameName) {
   console.log('gameEntry', gameEntry);
@@ -19,25 +19,47 @@ function populateControlUiView(gameEntry, gameList, initialGameName) {
   addGameTitles(gameList, initialGameName);
 }
 
-function updateUiSwitchState(packedSwitchInput) {
-  const dataUnpacked = [];
-  // row 0 are system button, row 9 is fliptronics
-  for (let i = 1; i < 9; i++) {
-    for (let j = 0; j < 8; j++) {
-      const entry = packedSwitchInput[i] & BIT_ARRAY[j];
-      dataUnpacked.push(entry > 0 ? true : false);
-    }
+function _updateFliptronicsState(fliptronicsElements, packedSwitchInput) {
+  const fliptronicsSwitchState = [];
+  for (let j = 0; j < 8; j++) {
+    const entry = packedSwitchInput[9] & BIT_ARRAY[j];
+    fliptronicsSwitchState.push(entry > 0 ? true : false);
   }
-  const elements = document.getElementById(PINBALL_SWITCH_BUTTONS_ELEMENT);
-  elements.childNodes.forEach((childNode) => {
-    const rawId = parseInt(childNode.id.substring(PINBALL_SWITCH_BUTTONS_ELEMENT.length), 10);
-    const id = logicalIdToArrayOffset(rawId);
-    if (dataUnpacked[id]) {
+
+  fliptronicsElements.childNodes.forEach((childNode) => {
+    const id = parseInt(childNode.id.substring(PINBALL_FLIPTRONICS_ELEMENT.length + 1), 10) - 1;
+    if (fliptronicsSwitchState[id]) {
       childNode.className = 'button-black button-small black';
     } else {
       childNode.className = 'button-black button-outline button-small black';
     }
   });
+}
+
+function updateUiSwitchState(packedSwitchInput) {
+  const matrixSwitchState = [];
+  // row 0 are system button, row 9 is fliptronics
+  for (let i = 1; i < 9; i++) {
+    for (let j = 0; j < 8; j++) {
+      const entry = packedSwitchInput[i] & BIT_ARRAY[j];
+      matrixSwitchState.push(entry > 0 ? true : false);
+    }
+  }
+  const switchElements = document.getElementById(PINBALL_SWITCH_BUTTONS_ELEMENT);
+  switchElements.childNodes.forEach((childNode) => {
+    const rawId = parseInt(childNode.id.substring(PINBALL_SWITCH_BUTTONS_ELEMENT.length), 10);
+    const id = logicalIdToArrayOffset(rawId);
+    if (matrixSwitchState[id]) {
+      childNode.className = 'button-black button-small black';
+    } else {
+      childNode.className = 'button-black button-outline button-small black';
+    }
+  });
+
+  const fliptronicsElements = document.getElementById(PINBALL_FLIPTRONICS_ELEMENT);
+  if (fliptronicsElements && packedSwitchInput[9] !== undefined) {
+    _updateFliptronicsState(fliptronicsElements, packedSwitchInput);
+  }
 }
 
 function addEmulatorControls() {
@@ -64,10 +86,11 @@ function addGameSpecificControls(gameEntry) {
 
   //fliptronics input
   if (Array.isArray(gameEntry.fliptronicsMapping)) {
-    const element = document.getElementById('pinball-specific-fliptronics-input');
+    const element = document.getElementById(PINBALL_FLIPTRONICS_ELEMENT);
     gameEntry.fliptronicsMapping.forEach((mapping) => {
       const child = document.createElement('button');
       child.textContent = mapping.name;
+      child.id = PINBALL_FLIPTRONICS_ELEMENT + mapping.id;
       child.className = 'button-black button-outline button-small black';
       child.addEventListener('click', () => {
         window.wpcInterface.wpcSystem.setFliptronicsInput(mapping.id);

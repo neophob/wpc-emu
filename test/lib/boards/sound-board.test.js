@@ -78,11 +78,11 @@ test('should handle multiple writes', (t) => {
 
   t.is(result, 0);
   t.deepEqual(t.context.playbackArray, [
-    { command: 'PLAYSAMPLE', id: 0 },
-    { command: 'PLAYSAMPLE', id: 0 },
+    { command: 'STOPSOUND' },
+    { command: 'STOPSOUND' },
     { command: 'PLAYSAMPLE', id: 0xEE },
     { command: 'PLAYSAMPLE', id: 0x22 },
-    { command: 'PLAYSAMPLE', id: 0 },
+    { command: 'STOPSOUND' },
     { command: 'PLAYSAMPLE', id: 1 }
   ]);
 });
