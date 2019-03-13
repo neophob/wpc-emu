@@ -162,11 +162,7 @@ function pauseEmu() {
   }
 
   if (soundInstance) {
-    try {
-      soundInstance.stop();
-    } catch(err) {
-
-    }
+    soundInstance.stop();
   }
 
   if (!intervalId) {
