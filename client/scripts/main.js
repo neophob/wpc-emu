@@ -20,9 +20,8 @@ const TICKS_PER_CALL = parseInt(TICKS / DESIRED_FPS, 10);
 const TICKS_PER_STEP = 16;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
 
-const soundInstance = AudioOutput();
-
 var wpcSystem;
+var soundInstance;
 var intervalId;
 var dmdDump;
 
@@ -47,10 +46,12 @@ function initialiseEmu(gameEntry) {
       const selectElementRoot = document.getElementById('wpc-release-info');
       selectElementRoot.innerHTML = 'WPC-Emu v' + _wpcSystem.version();
 
+      soundInstance = AudioOutput(gameEntry.audio);
       wpcSystem = _wpcSystem;
       // TODO IIKS we pollute globals here
       window.wpcInterface = {
         wpcSystem,
+        resetEmu,
         pauseEmu,
         resumeEmu,
         romSelection,
@@ -58,10 +59,14 @@ function initialiseEmu(gameEntry) {
         loadState,
         toggleDmdDump
       };
+      //TODO proper init audio
       wpcSystem.registerAudioConsumer((message) => soundInstance.callback(message) );
       wpcSystem.start();
       console.log('Successfully started EMU v' + wpcSystem.version());
       return emuDebugUi.populateInitialCanvas(gameEntry);
+    })
+    .then(() => {
+      soundInstance.playBootSound();
     })
     .catch((error) => {
       console.error('FAILED to load ROM:', error.message);
@@ -100,7 +105,9 @@ function romSelection(romName) {
 }
 
 function initEmuWithGameName(name) {
-  soundInstance.stop();
+  if (soundInstance) {
+    soundInstance.stop();
+  }
   const gameEntry = gamelist.getByName(name);
   populateControlUiView(gameEntry, gamelist, name);
   return initialiseEmu(gameEntry)
@@ -154,7 +161,10 @@ function pauseEmu() {
     emuDebugUi.updateCanvas(wpcSystem.getUiState(), 'paused');
   }
 
-  soundInstance.stop();
+  if (soundInstance) {
+    soundInstance.stop();
+  }
+
   if (!intervalId) {
     // allows step by step
     step();
@@ -162,6 +172,14 @@ function pauseEmu() {
 
   cancelAnimationFrame(intervalId);
   intervalId = false;
+}
+
+function resetEmu() {
+  if (!wpcSystem) {
+    return;
+  }
+  wpcSystem.reset();
+  soundInstance.playBootSound();
 }
 
 function registerKeyboardListener() {

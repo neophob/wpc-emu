@@ -44,6 +44,7 @@ if (!process.argv[2]) {
 
 searchDirectory(process.argv[2], '.wav');
 console.log('PROCESSED FILES', samples.length);
+
 const opts = {
   output: 'output',
   export: 'mp3',
@@ -60,6 +61,6 @@ audiosprite(samples, opts, (err, obj) => {
   if (err) {
     return console.error(err);
   }
-
+  console.log('OUTPUT STARTS, copy that part to the client/scripts/db/ game entry (audio key):');
   console.log(JSON.stringify(obj, null, 2));
 });
