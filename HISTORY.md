@@ -1,5 +1,8 @@
 # HISTORY
 
+## 13/3/19
+- reflect fliptronics switch state in UI
+
 ## 6/3/19
 - add WPC-S testrom, WPC-95 testrom
 
