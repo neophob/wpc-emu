@@ -8,6 +8,8 @@ const DCS_SOUND = false;
 
 const PREDCS_VOLUME_COMMAND = 0x79;
 const PREDCS_EXTENDED_COMMAND = 0x7A;
+const DCS_VOLUME_COMMAND = 0x55;
+const DCS_VOLUME_GLOBAL = 0xAA;
 
 test.beforeEach((t) => {
   const preDcsData = [];
@@ -68,4 +70,20 @@ test('SoundSerialInterface preDCS, should play extended sample', (t) => {
   preDcsSound.writeData(PREDCS_EXTENDED_COMMAND);
   preDcsSound.writeData(1);
   t.deepEqual(t.context.preDcsData, [{ command: 'PLAYSAMPLE', id: 31233 }]);
+});
+
+test('SoundSerialInterface DCS, write volume', (t) => {
+  const dcsSound = t.context.dcsSound;
+  dcsSound.writeData(DCS_VOLUME_COMMAND);
+  dcsSound.writeData(DCS_VOLUME_GLOBAL);
+  dcsSound.writeData(0xFF);
+  dcsSound.writeData(0x00);
+  t.deepEqual(t.context.dcsData, [{ command: 'MAINVOLUME', value: 31 }]);
+});
+
+test('SoundSerialInterface DCS, play sample', (t) => {
+  const dcsSound = t.context.dcsSound;
+  dcsSound.writeData(0x88);
+  dcsSound.writeData(0x77);
+  t.deepEqual(t.context.dcsData, [{ command: 'PLAYSAMPLE', id: 0x8877 }]);
 });
