@@ -32,7 +32,6 @@ module.exports = () => {
         runtimeCaching: [
           {
             // cache assets and reuse them
-            // TODO add sound to cache
             urlPattern: /.*\/rom\/.*|.*\/sound\/.*|.*\/foo-temp\/.*/,
             handler: 'cacheFirst',
             options: {
