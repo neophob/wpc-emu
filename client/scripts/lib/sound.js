@@ -57,9 +57,7 @@ class Sound {
       default:
         console.log('NOT_IMPLEMENTED YET', message.command);
         break;
-
     }
-
   }
 
   playBootSound() {
