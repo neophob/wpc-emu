@@ -1,5 +1,8 @@
 # HISTORY
 
+## 16/3/19
+- add lamps to cactus canyon
+
 ## 13/3/19
 - reflect fliptronics switch state in UI
 - bring back the BOING boot sound
