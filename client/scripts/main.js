@@ -21,7 +21,7 @@ const TICKS_PER_STEP = 16;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
 
 var wpcSystem;
-var soundInstance;
+var soundInstance = AudioOutput();
 var intervalId;
 var dmdDump;
 
@@ -105,9 +105,7 @@ function romSelection(romName) {
 }
 
 function initEmuWithGameName(name) {
-  if (soundInstance) {
-    soundInstance.stop();
-  }
+  soundInstance.stop();
   const gameEntry = gamelist.getByName(name);
   populateControlUiView(gameEntry, gamelist, name);
   return initialiseEmu(gameEntry)
@@ -161,9 +159,7 @@ function pauseEmu() {
     emuDebugUi.updateCanvas(wpcSystem.getUiState(), 'paused');
   }
 
-  if (soundInstance) {
-    soundInstance.stop();
-  }
+  soundInstance.stop();
 
   if (!intervalId) {
     // allows step by step
