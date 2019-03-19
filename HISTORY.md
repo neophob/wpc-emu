@@ -1,5 +1,8 @@
 # HISTORY
 
+## 19/3/19
+- do not clear RAM on reset
+
 ## 16/3/19
 - add lamps to cactus canyon
 
