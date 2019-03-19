@@ -6,11 +6,8 @@ const debug = require('debug')('wpcemu:benchmark');
 const Emulator = require('../../lib/emulator');
 
 const romU06Path = process.env.ROMFILE || path.join(__dirname, '/../../rom.freewpc/ft20_32.rom');
-const romU14Path = process.argv[3] || 'rom/U14.PP';
-const romU15Path = process.argv[4] || 'rom/U15.PP';
-const romU18Path = process.argv[5] || 'rom/U18.PP';
 
-debug('roms', { romU06Path, romU14Path, romU15Path, romU18Path });
+debug('roms', { romU06Path });
 
 const CYCLE_COUNT = process.env.CYCLES || 2000000 * 1;
 
@@ -27,26 +24,10 @@ function loadFile(fileName) {
 
 function benchmarkWithCycleCount(tickSteps) {
 
-  const loadRomFilesPromise = Promise.all([
-    loadFile(romU06Path),
-    loadFile(romU14Path).catch((error) => {
-      debug(error.message);
-    }),
-    loadFile(romU15Path).catch((error) => {
-      debug(error.message);
-    }),
-    loadFile(romU18Path).catch((error) => {
-      debug(error.message);
-    }),
-  ]);
-
-  return loadRomFilesPromise
-    .then((romFiles) => {
+  return loadFile(romU06Path)
+    .then((u06Rom) => {
       const romData = {
-        u06: romFiles[0],
-        u14: romFiles[1],
-        u15: romFiles[2],
-        u18: romFiles[3],
+        u06: u06Rom,
       };
       return Emulator.initVMwithRom(romData, 'unittest');
     })

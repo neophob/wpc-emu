@@ -13,30 +13,16 @@ switchBlacklist.push(21);
 console.log('GAME', romU06Path);
 console.log('switchesEnabled',switchesEnabled);
 console.log('switchBlacklist',switchBlacklist);
-const romU14Path = process.argv[3] || path.join(__dirname, '/../rom/U14.PP');
-const romU15Path = process.argv[4] || path.join(__dirname, '/../rom/U15.PP');
-const romU18Path = process.argv[5] || path.join(__dirname, '/../rom/U18.PP');
-console.log('romU14Path',romU14Path);
 
 const HALF_SECOND_TICKS = 1000000;
 const KEYPRESS_TICKS = 500000;
 const CPU_STEPS = 64;
 
 function bootEmu() {
-  const loadRomFilesPromise = Promise.all([
-    loadFile(romU06Path),
-    loadFile(romU14Path),
-    loadFile(romU15Path),
-    loadFile(romU18Path),
-  ]);
-
-  return loadRomFilesPromise
-    .then((romFiles) => {
+  return loadFile(romU06Path)
+    .then((u06Rom) => {
       const romData = {
-        u06: romFiles[0],
-        u14: romFiles[1],
-        u15: romFiles[2],
-        u18: romFiles[3],
+        u06: u06Rom,
       };
       return Emulator.initVMwithRom(romData, {
         fileName: 'foo',

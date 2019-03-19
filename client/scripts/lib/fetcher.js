@@ -11,7 +11,7 @@ function downloadFileFromUrlAsUInt8Array(filename) {
   return fetch(FETCHURL + filename)
     .then((response) => {
       if (response.status >= 400) {
-        throw new Error('INVALID_STATUSCODE_' + response.status);
+        return Promise.reject(new Error('INVALID_STATUSCODE_' + response.status));
       }
       return response.arrayBuffer();
     })

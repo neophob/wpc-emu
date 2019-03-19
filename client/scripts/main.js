@@ -11,13 +11,12 @@ import { initialise as initDmdExport, save as saveFile } from './lib/pin2DmdExpo
 import { AudioOutput } from './lib/sound';
 import { pairBluetooth, restartBluetoothController, resetPinballMachine } from './bluetooth/index';
 import * as gamelist from './db/gamelist';
-import { populateControlUiView } from './ui/control-ui';
+import { populateControlUiView, updateUiSwitchState } from './ui/control-ui';
 import * as emuDebugUi from './ui/emu-debug-ui';
 import * as CONSTANT from './constants';
 
-const soundInstance = AudioOutput();
-
 var wpcSystem;
+var soundInstance = AudioOutput();
 var intervalId;
 var lastZeroContCounter = 0;
 var bleMessageCount = 0;
@@ -82,15 +81,11 @@ function initialiseEmu(gameEntry) {
 
   emuDebugUi.loadFeedback(gameEntry.name);
 
-  const u06Promise = downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06);
-
-  return Promise.all([
-      u06Promise,
-    ])
-    .then((romFiles) => {
-      console.log('Successfully loaded ROM', romFiles[0].length);
+  return downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06)
+    .then((u06Rom) => {
+      console.log('Successfully loaded ROM', u06Rom.length);
       const romData = {
-        u06: romFiles[0],
+        u06: u06Rom,
       };
       return initialiseEmulator(romData, gameEntry);
     })
@@ -99,10 +94,12 @@ function initialiseEmu(gameEntry) {
       const selectElementRoot = document.getElementById('wpc-release-info');
       selectElementRoot.innerHTML = 'WPC-Emu v' + _wpcSystem.version();
 
+      soundInstance = AudioOutput(gameEntry.audio);
       wpcSystem = _wpcSystem;
       // TODO IIKS we pollute globals here
       window.wpcInterface = {
         wpcSystem,
+        resetEmu,
         pauseEmu,
         resumeEmu,
         romSelection,
@@ -113,15 +110,18 @@ function initialiseEmu(gameEntry) {
         restartBluetoothController,
         resetPinballMachine,
       };
+      //TODO proper init audio
       wpcSystem.registerAudioConsumer((message) => soundInstance.callback(message) );
       wpcSystem.start();
       console.log('Successfully started EMU v' + wpcSystem.version());
       return emuDebugUi.populateInitialCanvas(gameEntry);
     })
+    .then(() => {
+      soundInstance.playBootSound();
+    })
     .catch((error) => {
       console.error('FAILED to load ROM:', error.message);
       emuDebugUi.errorFeedback(error);
-      throw error;
     });
 }
 
@@ -175,6 +175,10 @@ function step() {
   const emuState = wpcSystem.getUiState();
   const cpuRunningState = intervalId ? 'running' : 'paused';
   emuDebugUi.updateCanvas(emuState, cpuRunningState);
+  if (emuState.asic.wpc.inputState) {
+    updateUiSwitchState(emuState.asic.wpc.inputState);
+  }
+
   intervalId = requestAnimationFrame(step);
 
   if (dmdDump) {
@@ -207,6 +211,7 @@ function pauseEmu() {
   }
 
   soundInstance.stop();
+
   if (!intervalId) {
     // allows step by step
     step();
@@ -214,6 +219,14 @@ function pauseEmu() {
 
   cancelAnimationFrame(intervalId);
   intervalId = false;
+}
+
+function resetEmu() {
+  if (!wpcSystem) {
+    return;
+  }
+  wpcSystem.reset();
+  soundInstance.playBootSound();
 }
 
 function registerKeyboardListener() {
@@ -294,5 +307,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-initEmuWithGameName(CONSTANT.INITIAL_GAME);
+initEmuWithGameName(CONSTANT.INITIAL_GAME)
+  .catch((error) => console.error);
+
 registerKeyboardListener();

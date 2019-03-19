@@ -1,5 +1,18 @@
 # HISTORY
 
+## 16/3/19
+- add lamps to cactus canyon
+
+## 13/3/19
+- reflect fliptronics switch state in UI
+- bring back the BOING boot sound
+
+## 6/3/19
+- add WPC-S testrom, WPC-95 testrom
+
+## 5/3/19
+- reflect switch state in UI
+
 ## 13/2/19
 - cleanup UI
 - make sure client works without any active audio file

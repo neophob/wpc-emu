@@ -23,7 +23,7 @@
   </div>
   <div class="column column-10">Emulator</div>
   <div class="column column-40">
-    <button class="button-black button-small black" onclick="console.log('reset...'); wpcInterface.wpcSystem.reset();">RESET</button>
+    <button class="button-black button-small black" onclick="console.log('reset...'); wpcInterface.resetEmu();">RESET</button>
     <button class="button-black button-outline button-small black" onclick="wpcInterface.pauseEmu();">Pause</button>
     <button class="button-black button-outline button-small black" onclick="wpcInterface.resumeEmu();">Resume</button>
     <button class="button-black button-outline button-small black" onclick="wpcInterface.loadState();">Load State</button>
@@ -41,5 +41,5 @@
 
 <div id="pinball-specific-fliptronics-root" class="row">
   <div class="column column-10">Fliptronics</div>
-  <div id="pinball-specific-fliptronics-input" class="column column-90"></div>
+  <div class="column column-90" id="pinball-specific-fliptronics-input"></div>
 </div>

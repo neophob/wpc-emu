@@ -56,21 +56,16 @@ test('HardwareMapper, should get address, 0x3A00 (DMD PAGE 2)', (t) => {
   t.deepEqual(result, expectedResult);
 });
 
-test('HardwareMapper, should get address, 0x4000', (t) => {
+test('HardwareMapper, should fail to get address, 0x4000', (t) => {
   t.throws(() => HardwareMapper.getAddress(0x4000), 'HW_GET_ADDRESS_INVALID_MEMORY_REGION_0x4000');
 });
 
-test('HardwareMapper, should fail when using invalid offset', (t) => {
+test('HardwareMapper, should fail to get invalid offset', (t) => {
   t.throws(HardwareMapper.getAddress, 'HW_GET_ADDRESS_UNDEFINED');
 });
 
-test('HardwareMapper, should get address, 0x2000', (t) => {
-  const expectedResult = {
-    offset: 0x2000,
-    subsystem: 'expansion',
-  };
-  const result = HardwareMapper.getAddress(0x2000);
-  t.deepEqual(result, expectedResult);
+test('HardwareMapper, should fail to get address, 0x2000', (t) => {
+  t.throws(() => HardwareMapper.getAddress(0x2000), 'HW_GET_ADDRESS_INVALID_MEMORY_REGION_0x2000');
 });
 
 test('HardwareMapper, should get address, 0x3800', (t) => {

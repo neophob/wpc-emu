@@ -1,38 +1,32 @@
 'use strict';
 
 import { Howl, Howler } from 'howler';
+import { SoundPlayer } from './sound-player';
 
 export { AudioOutput };
 
-function AudioOutput(sprite) {
-  return new Sound(sprite);
+function AudioOutput(audioData) {
+  return new Sound(audioData);
 }
 
-const STOP_ALL_SOUNDS_ID = 0;
+const BONG_SOUND = [ FETCHURL + 'sound/boing.mp3' ];
+const NO_SOUND = {
+  urls: [],
+  sprite: {},
+  category: {},
+}
 
 class Sound {
 
-  constructor(sprite = []) {
-    this.sprite = sprite;
-    //TODO pass audio sample
-    this.sound = new Howl({
-      src: [
-        '',
-        // TODO add bong sound
-       // 'sound/result.mp3',
-      ],
-      sprite,
-      onplayerror: (error) => {
-        console.log('SOUND PLAYER ERROR', error.message);
-      },
-      onloaderror: (error) => {
-        //console.log('SOUND LOAD ERROR', error.message);
-      },
-      onload: () => {
-        console.log('SOUND LOADED');
-      },
+  constructor(audioData = NO_SOUND) {
+    this.audioData = audioData.sprite;
+
+    this.bong = new Howl({
+      volume: 1.0,
+      src: BONG_SOUND,
     });
-    this.activePlayId = [];
+
+    this.player = new SoundPlayer(audioData);
   }
 
   callback(message = {}) {
@@ -40,11 +34,11 @@ class Sound {
       case 'PLAYSAMPLE': {
         const id = message.id;
         const key = 'snd' + id;
-        if (!this.sprite[key]) {
+        if (!this.audioData[key]) {
           return console.log('SAMPLE ID NOT FOUND', id);
         }
-        console.log('playbackId', id);
-        this.activePlayId[0] = this.sound.play(key);
+        console.log('PLAY SAMPLE ID', id);
+        this.player.playId(id, key);
         break;
       }
       case 'MAINVOLUME':
@@ -53,7 +47,7 @@ class Sound {
         break;
 
       case 'STOPSOUND':
-        this.sound.stop();
+        this.player.stopAll();
         break;
 
       case 'CHANNELOFF':
@@ -69,7 +63,8 @@ class Sound {
   }
 
   playBootSound() {
-    //TODO
+    console.log('playbootsound');
+    this.bong.play();
   }
 
   setVolume(floatVolume) {
@@ -78,7 +73,7 @@ class Sound {
   }
 
   stop() {
-    this.sound.pause();
+    this.player.pause();
   }
 
 }
