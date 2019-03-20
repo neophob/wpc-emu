@@ -73,6 +73,7 @@ class SoundCategory {
     if (!this.soundEnabled) {
       return;
     }
+    //TODO resume channel 1+2
     this.audioSpritePlayer.resume();
   }
 
@@ -80,6 +81,7 @@ class SoundCategory {
     if (!this.soundEnabled) {
       return;
     }
+    //TODO pause channel 1+2
     this.audioSpritePlayer.stop();
   }
 }

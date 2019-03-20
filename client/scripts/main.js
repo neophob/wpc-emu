@@ -150,6 +150,8 @@ function resumeEmu() {
     pauseEmu();
   }
   console.log('client start emu');
+  soundInstance.resume();
+
   intervalId = requestAnimationFrame(step);
 }
 
@@ -159,7 +161,7 @@ function pauseEmu() {
     emuDebugUi.updateCanvas(wpcSystem.getUiState(), 'paused');
   }
 
-  soundInstance.stop();
+  soundInstance.pause();
 
   if (!intervalId) {
     // allows step by step

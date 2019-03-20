@@ -69,7 +69,7 @@ class Sound {
   }
 
   stop() {
-    this.player.stop();
+    this.player.stopAll();
   }
 
   pause() {
