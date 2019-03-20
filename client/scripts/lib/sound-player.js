@@ -39,13 +39,27 @@ class SoundCategory {
     });
   }
 
-  playId(sampleData) {
-    if (!this.soundEnabled) {
+  playId(sampleData = {}) {
+    if (!this.soundEnabled || !sampleData.sample) {
       return;
     }
-    //TODO handle loop, channel
+    //TODO handle DUCK, GAIN
+    let playId;
     const spriteId = sampleData.sample;
-    this.audioSpritePlayer.play(spriteId);
+    const hasDedicatedChannel = Number.isInteger(sampleData.channel);
+    if (hasDedicatedChannel) {
+      console.log('has channel')
+      this.audioSpritePlayer.stop(this.activePlayId[sampleData.channel]);
+      playId = this.audioSpritePlayer.play(spriteId);
+      this.activePlayId[sampleData.channel] = playId;
+    } else {
+      playId = this.audioSpritePlayer.play(spriteId);
+    }
+
+    if (sampleData.loop) {
+      console.log('will loop', playId)
+      this.audioSpritePlayer.loop(true, playId);
+    }
   }
 
   pause() {

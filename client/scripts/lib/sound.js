@@ -36,7 +36,6 @@ class Sound {
         if (!this.sample[id]) {
           return console.log('SAMPLE ID NOT FOUND', id);
         }
-        console.log('PLAY SAMPLE ID', id);
         this.player.playId(this.sample[id]);
         break;
       }
