@@ -27,7 +27,6 @@ module.exports = () => {
       }),
       new FaviconsWebpackPlugin(path.resolve('../assets/logo.png')),
       new GenerateSW({
-        importWorkboxFrom: 'local',
         clientsClaim: true,
         skipWaiting: true,
         runtimeCaching: [
