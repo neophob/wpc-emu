@@ -1,10 +1,10 @@
-self.__precacheManifest = [
+self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "b9c6eba3fac7df95c0259b9546c54fef",
-    "url": "icons-36a999383ad31e07b5a873913afa8c67/apple-touch-icon.png"
+    "url": "icons-36a999383ad31e07b5a873913afa8c67/apple-touch-icon-precomposed.png"
   },
   {
-    "revision": "609f0ebff250a4966e24",
+    "revision": "8c25f4f97992b9a7253e",
     "url": "wpc-client.js"
   },
   {
@@ -32,12 +32,12 @@ self.__precacheManifest = [
     "url": "icons-36a999383ad31e07b5a873913afa8c67/manifest.json"
   },
   {
-    "revision": "d8798f3913a1c2f2e9f71c4ad233d4d0",
-    "url": "icons-36a999383ad31e07b5a873913afa8c67/firefox_app_128x128.png"
+    "revision": "364b9a6f73c2449bd6fd0ab232e6704b",
+    "url": "icons-36a999383ad31e07b5a873913afa8c67/firefox_app_60x60.png"
   },
   {
-    "revision": "9868004beefdec3b9179aa66c18cbbc1",
-    "url": "icons-36a999383ad31e07b5a873913afa8c67/firefox_app_512x512.png"
+    "revision": "d8798f3913a1c2f2e9f71c4ad233d4d0",
+    "url": "icons-36a999383ad31e07b5a873913afa8c67/firefox_app_128x128.png"
   },
   {
     "revision": "ebe463d555ca2889b8381ec08b787ee9",
@@ -81,11 +81,11 @@ self.__precacheManifest = [
   },
   {
     "revision": "b9c6eba3fac7df95c0259b9546c54fef",
-    "url": "icons-36a999383ad31e07b5a873913afa8c67/apple-touch-icon-precomposed.png"
+    "url": "icons-36a999383ad31e07b5a873913afa8c67/apple-touch-icon.png"
   },
   {
-    "revision": "364b9a6f73c2449bd6fd0ab232e6704b",
-    "url": "icons-36a999383ad31e07b5a873913afa8c67/firefox_app_60x60.png"
+    "revision": "9868004beefdec3b9179aa66c18cbbc1",
+    "url": "icons-36a999383ad31e07b5a873913afa8c67/firefox_app_512x512.png"
   },
   {
     "revision": "0e428751ae60e3b5bd468b6c7afca5f1",
@@ -164,7 +164,7 @@ self.__precacheManifest = [
     "url": "icons-36a999383ad31e07b5a873913afa8c67/android-chrome-144x144.png"
   },
   {
-    "revision": "77bd5a5c9078ffea8d51565ea0bbfb78",
+    "revision": "ef4554cee9bec62d358c56fe84add06d",
     "url": "icons-36a999383ad31e07b5a873913afa8c67/.cache"
   }
-];
+]);
