@@ -69,6 +69,13 @@ class SoundCategory {
     this.audioSpritePlayer.pause();
   }
 
+  resume() {
+    if (!this.soundEnabled) {
+      return;
+    }
+    this.audioSpritePlayer.resume();
+  }
+
   stopAll() {
     if (!this.soundEnabled) {
       return;

@@ -69,7 +69,15 @@ class Sound {
   }
 
   stop() {
+    this.player.stop();
+  }
+
+  pause() {
     this.player.pause();
+  }
+
+  resume() {
+    this.player.resume();
   }
 
 }
