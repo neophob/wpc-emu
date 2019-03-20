@@ -48,7 +48,7 @@ class SoundCategory {
     const spriteId = sampleData.sample;
     const hasDedicatedChannel = Number.isInteger(sampleData.channel);
     if (hasDedicatedChannel) {
-      console.log('has channel')
+      console.log('has channel', sampleData)
       this.audioSpritePlayer.stop(this.activePlayId[sampleData.channel]);
       playId = this.audioSpritePlayer.play(spriteId);
       this.activePlayId[sampleData.channel] = playId;
@@ -57,7 +57,7 @@ class SoundCategory {
     }
 
     if (sampleData.loop) {
-      console.log('will loop', playId)
+      console.log('will loop', sampleData)
       this.audioSpritePlayer.loop(true, playId);
     }
   }
