@@ -67,10 +67,6 @@ function initialiseEmu(gameEntry) {
     })
     .then(() => {
       soundInstance.playBootSound();
-    })
-    .catch((error) => {
-      console.error('FAILED to load ROM:', error.message);
-      emuDebugUi.errorFeedback(error);
     });
 }
 
@@ -112,6 +108,10 @@ function initEmuWithGameName(name) {
     .then(() => {
       resumeEmu();
       return initialiseActions(gameEntry.initialise, wpcSystem);
+    })
+    .catch((error) => {
+      console.error('FAILED to load ROM:', error.message);
+      emuDebugUi.errorFeedback(error);
     });
 }
 
