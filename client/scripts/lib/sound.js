@@ -11,15 +11,15 @@ function AudioOutput(audioData) {
 
 const BONG_SOUND = [ FETCHURL + 'sound/boing.mp3' ];
 const NO_SOUND = {
-  urls: [],
+  url: [],
+  sample: {},
   sprite: {},
-  category: {},
 }
 
 class Sound {
 
   constructor(audioData = NO_SOUND) {
-    this.audioData = audioData.sprite;
+    this.sample = audioData.sample;
 
     this.bong = new Howl({
       volume: 1.0,
@@ -33,12 +33,11 @@ class Sound {
     switch (message.command) {
       case 'PLAYSAMPLE': {
         const id = message.id;
-        const key = 'snd' + id;
-        if (!this.audioData[key]) {
+        if (!this.sample[id]) {
           return console.log('SAMPLE ID NOT FOUND', id);
         }
         console.log('PLAY SAMPLE ID', id);
-        this.player.playId(id, key);
+        this.player.playId(this.sample[id]);
         break;
       }
       case 'MAINVOLUME':

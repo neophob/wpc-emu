@@ -11,18 +11,18 @@ function SoundPlayer(audioData) {
 class SoundCategory {
 
   constructor(audioData) {
-    this.category = audioData.category;
+    this.sample = audioData.sample;
     this.activePlayId = [];
     this.soundEnabled = false;
 
-    if (audioData.urls.length === 0) {
+    if (audioData.url.length === 0) {
       console.log('NO_SOUND_DATA');
       return;
     }
 
     this.soundLoaded = new Promise((resolve, reject) => {
       this.audioSpritePlayer = new Howl({
-        src: audioData.urls,
+        src: audioData.url,
         sprite: audioData.sprite,
         onplayerror: (error) => {
           console.log('SOUND PLAYER ERROR', error.message);
@@ -39,11 +39,13 @@ class SoundCategory {
     });
   }
 
-  playId(id, key) {
+  playId(sampleData) {
     if (!this.soundEnabled) {
       return;
     }
-    this.audioSpritePlayer.play(key);
+    //TODO handle loop, channel
+    const spriteId = sampleData.sample;
+    this.audioSpritePlayer.play(spriteId);
   }
 
   pause() {
