@@ -21,7 +21,7 @@ const TICKS_PER_STEP = 16;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
 
 var wpcSystem;
-var soundInstance;
+var soundInstance = AudioOutput();
 var intervalId;
 var dmdDump;
 
@@ -67,10 +67,6 @@ function initialiseEmu(gameEntry) {
     })
     .then(() => {
       soundInstance.playBootSound();
-    })
-    .catch((error) => {
-      console.error('FAILED to load ROM:', error.message);
-      emuDebugUi.errorFeedback(error);
     });
 }
 
@@ -105,15 +101,17 @@ function romSelection(romName) {
 }
 
 function initEmuWithGameName(name) {
-  if (soundInstance) {
-    soundInstance.stop();
-  }
+  soundInstance.stop();
   const gameEntry = gamelist.getByName(name);
   populateControlUiView(gameEntry, gamelist, name);
   return initialiseEmu(gameEntry)
     .then(() => {
       resumeEmu();
       return initialiseActions(gameEntry.initialise, wpcSystem);
+    })
+    .catch((error) => {
+      console.error('FAILED to load ROM:', error.message);
+      emuDebugUi.errorFeedback(error);
     });
 }
 
@@ -161,9 +159,7 @@ function pauseEmu() {
     emuDebugUi.updateCanvas(wpcSystem.getUiState(), 'paused');
   }
 
-  if (soundInstance) {
-    soundInstance.stop();
-  }
+  soundInstance.stop();
 
   if (!intervalId) {
     // allows step by step
@@ -252,11 +248,12 @@ if ('serviceWorker' in navigator) {
   // Use the window load event to keep the page load performant
   // NOTE: works only via SSL!
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('service-worker.js').then(registration => {
-      console.log('SW registered:', registration);
-    }).catch(registrationError => {
-      console.log('SW registration failed:', registrationError);
-    });
+    navigator.serviceWorker.register('service-worker.js')
+      .then((registration) => {
+        console.log('SW registered:', registration);
+      }).catch(registrationError => {
+        console.log('SW registration failed:', registrationError);
+      });
   });
 }
 
