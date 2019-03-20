@@ -67,10 +67,6 @@ function initialiseEmu(gameEntry) {
     })
     .then(() => {
       soundInstance.playBootSound();
-    })
-    .catch((error) => {
-      console.error('FAILED to load ROM:', error.message);
-      emuDebugUi.errorFeedback(error);
     });
 }
 
@@ -112,6 +108,10 @@ function initEmuWithGameName(name) {
     .then(() => {
       resumeEmu();
       return initialiseActions(gameEntry.initialise, wpcSystem);
+    })
+    .catch((error) => {
+      console.error('FAILED to load ROM:', error.message);
+      emuDebugUi.errorFeedback(error);
     });
 }
 
@@ -248,11 +248,12 @@ if ('serviceWorker' in navigator) {
   // Use the window load event to keep the page load performant
   // NOTE: works only via SSL!
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('service-worker.js').then(registration => {
-      console.log('SW registered:', registration);
-    }).catch(registrationError => {
-      console.log('SW registration failed:', registrationError);
-    });
+    navigator.serviceWorker.register('service-worker.js')
+      .then((registration) => {
+        console.log('SW registered:', registration);
+      }).catch(registrationError => {
+        console.log('SW registration failed:', registrationError);
+      });
   });
 }
 
