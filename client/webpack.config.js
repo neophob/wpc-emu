@@ -27,14 +27,13 @@ module.exports = () => {
       }),
       new FaviconsWebpackPlugin(path.resolve('../assets/logo.png')),
       new GenerateSW({
-        importWorkboxFrom: 'local',
         clientsClaim: true,
         skipWaiting: true,
         runtimeCaching: [
           {
             // cache assets and reuse them
             urlPattern: /.*\/rom\/.*|.*\/sound\/.*|.*\/foo-temp\/.*/,
-            handler: 'CacheFirst',
+            handler: 'cacheFirst',
             options: {
               cacheName: 'assets',
               expiration: {
@@ -46,7 +45,7 @@ module.exports = () => {
           {
             // cache everything else
             urlPattern: /\//,
-            handler: 'NetworkFirst',
+            handler: 'networkFirst',
             options: {
               cacheName: 'application',
               expiration: {
