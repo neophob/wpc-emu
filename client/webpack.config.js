@@ -34,7 +34,7 @@ module.exports = () => {
           {
             // cache assets and reuse them
             urlPattern: /.*\/rom\/.*|.*\/sound\/.*|.*\/foo-temp\/.*/,
-            handler: 'CacheFirst',
+            handler: 'cacheFirst',
             options: {
               cacheName: 'assets',
               expiration: {
@@ -46,7 +46,7 @@ module.exports = () => {
           {
             // cache everything else
             urlPattern: /\//,
-            handler: 'NetworkFirst',
+            handler: 'networkFirst',
             options: {
               cacheName: 'application',
               expiration: {
