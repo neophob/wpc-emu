@@ -8,10 +8,10 @@ function SoundPlayer(audioData) {
   return new SoundCategory(audioData);
 }
 
-const NO_SOUND_AVAILABLE = 'NO SOUND AVAILABLE';
-const SOUND_LOADING = 'SOUND LOADING...';
-const SOUND_LOADED = 'SOUND LOADED';
-const SOUND_LOADING_ERROR = 'SOUND LOADING ERROR';
+const NO_SOUND_AVAILABLE = 'NOT AVAILABLE';
+const SOUND_LOADING = 'LOADING...';
+const SOUND_LOADED = 'LOADED';
+const SOUND_LOADING_ERROR = 'ERROR';
 
 class SoundCategory {
 

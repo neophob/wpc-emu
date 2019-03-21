@@ -75,8 +75,8 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 120);
   canvas.fillText('SND WRITE (DATA/CTL): ' + emuState.asic.sound.writeDataBytes + '/' + emuState.asic.sound.writeControlBytes,
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 130);
-  canvas.fillText('EMU TIME: ' + emuState.asic.wpc.time, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 140);
-  canvas.fillText('AUDIO STATE: ' + audioState, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 150);
+  canvas.fillText('SND STATE: ' + audioState, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 140);
+  canvas.fillText('EMU TIME: ' + emuState.asic.wpc.time, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 150);
 
   canvas.fillText('DMD PAGE MAP: ' + emuState.asic.dmd.dmdPageMapping, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
   canvas.fillText('DMD ACTIVE PAGE: ' + emuState.asic.dmd.activepage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
