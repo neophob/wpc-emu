@@ -80,4 +80,7 @@ class Sound {
     this.player.resume();
   }
 
+  getState() {
+    return this.player.soundState;
+  }
 }

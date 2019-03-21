@@ -8,17 +8,24 @@ function SoundPlayer(audioData) {
   return new SoundCategory(audioData);
 }
 
+const NO_SOUND_AVAILABLE = 'NO SOUND AVAILABLE';
+const SOUND_LOADING = 'SOUND LOADING...';
+const SOUND_LOADED = 'SOUND LOADED';
+const SOUND_LOADING_ERROR = 'SOUND LOADING ERROR';
+
 class SoundCategory {
 
   constructor(audioData) {
     this.sample = audioData.sample;
     this.activePlayId = [];
-    this.soundEnabled = false;
+    this.soundState = NO_SOUND_AVAILABLE;
 
     if (audioData.url.length === 0) {
       console.log('NO_SOUND_DATA');
       return;
     }
+
+    this.soundState = SOUND_LOADING;
 
     this.soundLoaded = new Promise((resolve, reject) => {
       this.audioSpritePlayer = new Howl({
@@ -28,10 +35,11 @@ class SoundCategory {
           console.log('SOUND PLAYER ERROR', error.message);
         },
         onloaderror: (error) => {
+          this.soundState = SOUND_LOADING_ERROR;
           reject(error);
         },
         onload: () => {
-          this.soundEnabled = true;
+          this.soundState = SOUND_LOADED;
           console.log('SOUND LOADED');
           resolve();
         },
@@ -40,7 +48,7 @@ class SoundCategory {
   }
 
   playId(sampleData = {}) {
-    if (!this.soundEnabled || !sampleData.sample) {
+    if (this.soundState === NO_SOUND_AVAILABLE || !sampleData.sample) {
       return;
     }
     //TODO handle DUCK, GAIN

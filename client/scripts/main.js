@@ -123,7 +123,8 @@ function step() {
   wpcSystem.executeCycle(TICKS_PER_CALL, TICKS_PER_STEP);
   const emuState = wpcSystem.getUiState();
   const cpuRunningState = intervalId ? 'running' : 'paused';
-  emuDebugUi.updateCanvas(emuState, cpuRunningState);
+  const audioState = soundInstance.getState();
+  emuDebugUi.updateCanvas(emuState, cpuRunningState, audioState);
   if (emuState.asic.wpc.inputState) {
     updateUiSwitchState(emuState.asic.wpc.inputState);
   }
