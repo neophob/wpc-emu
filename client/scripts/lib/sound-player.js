@@ -29,7 +29,7 @@ class SoundCategory {
 
     this.soundLoaded = new Promise((resolve, reject) => {
       this.audioSpritePlayer = new Howl({
-        src: audioData.url,
+        src: FETCHURL + audioData.url,
         sprite: audioData.sprite,
         onplayerror: (error) => {
           console.log('SOUND PLAYER ERROR', error.message);

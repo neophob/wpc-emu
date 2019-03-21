@@ -167,7 +167,7 @@ module.exports = {
     ],
   },
   audio: {
-    url: FETCHURL + 'sound/fishtales.mp3',
+    url: 'sound/fishtales.mp3',
     sample: {
       // background music
       2: { channel: 0, loop: true, sample: 'snd2' },
