@@ -2,9 +2,9 @@
 
 import { Howl } from 'howler';
 
-export { SoundPlayer };
+export { createSoundPlayer };
 
-function SoundPlayer(audioData) {
+function createSoundPlayer(audioData) {
   return new SoundCategory(audioData);
 }
 
@@ -19,6 +19,7 @@ class SoundCategory {
     this.sample = audioData.sample;
     this.activePlayId = [];
     this.soundState = NO_SOUND_AVAILABLE;
+    this.soundEnabled = false;
 
     if (audioData.url.length === 0) {
       console.log('NO_SOUND_DATA');
@@ -40,6 +41,7 @@ class SoundCategory {
         },
         onload: () => {
           this.soundState = SOUND_LOADED;
+          this.soundEnabled = true;
           console.log('SOUND LOADED');
           resolve();
         },
@@ -48,7 +50,7 @@ class SoundCategory {
   }
 
   playId(sampleData = {}) {
-    if (this.soundState === NO_SOUND_AVAILABLE || !sampleData.sample) {
+    if (!this.soundEnabled || !sampleData.sample) {
       return;
     }
     //TODO handle DUCK, GAIN

@@ -1,7 +1,7 @@
 'use strict';
 
 import { Howl, Howler } from 'howler';
-import { SoundPlayer } from './sound-player';
+import { createSoundPlayer } from './sound-player';
 
 export { AudioOutput };
 
@@ -14,7 +14,7 @@ const NO_SOUND = {
   url: [],
   sample: {},
   sprite: {},
-}
+};
 
 class Sound {
 
@@ -26,7 +26,7 @@ class Sound {
       src: BONG_SOUND,
     });
 
-    this.player = new SoundPlayer(audioData);
+    this.player = createSoundPlayer(audioData);
   }
 
   callback(message = {}) {
