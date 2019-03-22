@@ -380,7 +380,11 @@ Example output for Fish Tales Sound files:
 
 ```
 
-TODO document to use the `assets/soundripper` tool
+Make sure to checkout the `assets/soundripper` tool, to generate the soundsprite file:
+
+```
+# node index.js /path/fileWithSoundFiles
+```
 
 ## RAM / NVRAM positions
 
