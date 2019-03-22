@@ -53,21 +53,24 @@ class SoundCategory {
     if (!this.soundEnabled || !sampleData.sample) {
       return;
     }
+    console.log('play', sampleData)
+
     //TODO handle DUCK, GAIN
-    let playId;
-    const spriteId = sampleData.sample;
+
     const hasDedicatedChannel = Number.isInteger(sampleData.channel);
     if (hasDedicatedChannel) {
-      console.log('has channel', sampleData)
+      // stop previous track on this channel
       this.audioSpritePlayer.stop(this.activePlayId[sampleData.channel]);
-      playId = this.audioSpritePlayer.play(spriteId);
+    }
+
+    const playId = this.audioSpritePlayer.play(sampleData.sample);
+
+    if (hasDedicatedChannel) {
+      // add id to queue
       this.activePlayId[sampleData.channel] = playId;
-    } else {
-      playId = this.audioSpritePlayer.play(spriteId);
     }
 
     if (sampleData.loop) {
-      console.log('will loop', sampleData)
       this.audioSpritePlayer.loop(true, playId);
     }
   }
@@ -83,8 +86,9 @@ class SoundCategory {
     if (!this.soundEnabled) {
       return;
     }
-    //TODO resume channel 1+2
-    this.audioSpritePlayer.resume();
+    this.activePlayId.forEach((activeId) => {
+      this.audioSpritePlayer.play(activeId);
+    });
   }
 
   stopAll() {
