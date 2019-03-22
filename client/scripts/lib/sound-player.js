@@ -29,9 +29,11 @@ class SoundCategory {
     this.soundState = SOUND_LOADING;
 
     this.soundLoaded = new Promise((resolve, reject) => {
+      const startTs = Date.now();
       this.audioSpritePlayer = new Howl({
         src: FETCHURL + audioData.url,
         sprite: audioData.sprite,
+        html5: true,
         onplayerror: (error) => {
           console.log('SOUND PLAYER ERROR', error.message);
         },
@@ -42,7 +44,8 @@ class SoundCategory {
         onload: () => {
           this.soundState = SOUND_LOADED;
           this.soundEnabled = true;
-          console.log('SOUND LOADED');
+          const loadTimeMs = Date.now() - startTs;
+          console.log('SOUND LOADED', loadTimeMs);
           resolve();
         },
       });
