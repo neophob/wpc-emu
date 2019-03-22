@@ -70,6 +70,11 @@ class SoundCategory {
       this.activePlayId[sampleData.channel] = playId;
     }
 
+    if (!hasDedicatedChannel || sampleData.gain) {
+      const specificVolume = sampleData.gain || 0.5;
+      this.audioSpritePlayer.volume(specificVolume, playId)
+    }
+
     if (sampleData.loop) {
       this.audioSpritePlayer.loop(true, playId);
     }

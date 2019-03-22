@@ -168,8 +168,14 @@ module.exports = {
   },
   audio: {
     url: 'sound/fishtales.mp3',
+    // Options:
+    // - channel: 0 (background music), 1 (music snippet), undefined (sound fx). If channel is defined, the previous sample will be stopped
+    // - loop: true (loop sample, used for background music), false (default, play once)
+    // - sample: link to audio sprite name
+    // - gain: increase or reduce volume of this sample. Range 0-100. 50 as normal
+    // - TODO duck: reduce volume of the background music. Range 0-100 in percent
+    // - TODO stop: stop playback of background music
     sample: {
-      // background music
       2: { channel: 0, loop: true, sample: 'snd2' },
       3: { channel: 0, loop: true, sample: 'snd3' },
       4: { channel: 0, loop: true, sample: 'snd4' },
@@ -193,12 +199,10 @@ module.exports = {
       52: { channel: 0, loop: true, sample: 'snd52' },
 
       // music snippets
-      // TODO implement DUCK: reduce volume of the background music. Range 0-100 in percent
       48: { channel: 1, sample: 'snd48' },
       145: { channel: 1, sample: 'snd145' },
 
       // samples
-      // TODO GAIN: increase or reduce volume of this sample. Range 0-100. 50 as normal
       16: { sample: 'snd16' }, //TODO this is a duplicate
       17: { sample: 'snd17' },
       18: { sample: 'snd18' },
