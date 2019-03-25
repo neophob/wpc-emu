@@ -19,8 +19,10 @@ const NO_SOUND = {
 class Sound {
 
   constructor(audioData = NO_SOUND) {
-    this.sample = audioData.sample;
+    Howler.unload();
+    Howler.autoUnlock = false;
 
+    this.sample = audioData.sample;
     this.bong = new Howl({
       volume: 1.0,
       src: BONG_SOUND,
