@@ -1,5 +1,11 @@
 # HISTORY
 
+## 22/3/19
+- Fishtales support sound and music
+
+## 20/3/19
+- improve error handling when ROM could not be loaded
+
 ## 19/3/19
 - do not clear RAM on reset
 

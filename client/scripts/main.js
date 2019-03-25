@@ -65,7 +65,8 @@ function pairing() {
           console.log('TODO RESET PINBALL MACHINE!');
         }
         const emuState = wpcSystem.getUiState();
-        emuDebugUi.updateCanvas(emuState, 'running BLE SYNC', { bleMessageCount, pinballUptimeS });
+        const audioState = soundInstance.getState();
+        emuDebugUi.updateCanvas(emuState, 'running BLE SYNC', audioState, { bleMessageCount, pinballUptimeS });
       }
     }
   }).catch((error) => {
@@ -118,10 +119,6 @@ function initialiseEmu(gameEntry) {
     })
     .then(() => {
       soundInstance.playBootSound();
-    })
-    .catch((error) => {
-      console.error('FAILED to load ROM:', error.message);
-      emuDebugUi.errorFeedback(error);
     });
 }
 
@@ -163,6 +160,10 @@ function initEmuWithGameName(name) {
     .then(() => {
       resumeEmu();
       return initialiseActions(gameEntry.initialise, wpcSystem);
+    })
+    .catch((error) => {
+      console.error('FAILED to load ROM:', error.message);
+      emuDebugUi.errorFeedback(error);
     });
 }
 
@@ -174,7 +175,8 @@ function step() {
   wpcSystem.executeCycle(CONSTANT.TICKS_PER_CALL, CONSTANT.TICKS_PER_STEP);
   const emuState = wpcSystem.getUiState();
   const cpuRunningState = intervalId ? 'running' : 'paused';
-  emuDebugUi.updateCanvas(emuState, cpuRunningState);
+  const audioState = soundInstance.getState();
+  emuDebugUi.updateCanvas(emuState, cpuRunningState, audioState);
   if (emuState.asic.wpc.inputState) {
     updateUiSwitchState(emuState.asic.wpc.inputState);
   }
@@ -201,6 +203,8 @@ function resumeEmu() {
     pauseEmu();
   }
   console.log('client start emu');
+  soundInstance.resume();
+
   intervalId = requestAnimationFrame(step);
 }
 
@@ -210,7 +214,7 @@ function pauseEmu() {
     emuDebugUi.updateCanvas(wpcSystem.getUiState(), 'paused');
   }
 
-  soundInstance.stop();
+  soundInstance.pause();
 
   if (!intervalId) {
     // allows step by step
@@ -299,11 +303,12 @@ if ('serviceWorker' in navigator) {
   // Use the window load event to keep the page load performant
   // NOTE: works only via SSL!
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('service-worker.js').then(registration => {
-      console.log('SW registered:', registration);
-    }).catch(registrationError => {
-      console.log('SW registration failed:', registrationError);
-    });
+    navigator.serviceWorker.register('service-worker.js')
+      .then((registration) => {
+        console.log('SW registered:', registration);
+      }).catch((error) => {
+        console.log('SW registration failed:', error);
+      });
   });
 }
 

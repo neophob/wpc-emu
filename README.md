@@ -355,11 +355,11 @@ I *assume* there can be only one active sound per audio type.
 
 There are also some sound effects that contain two samples, not sure yet if the play sequentially ot alternated.
 
-| Model | Channels | Interface | Read control register |
-| ----- | -------- | --------- | --------------------- |
-| DMD   | ??       | 8 bit     | false                 |
-| DCS   | 4        | 16 bit    | false                 |
-| WPC95 | 6        | 16 bit    | true                  |
+| Model           | Mono/Stereo | Sample rate | Channels | Interface | Read control register |
+| --------------- | ----------- | ----------- | -------- | --------- | --------------------- |
+| DMD / A-12738   | Mono 1.0    | 11kHz       | ??       | 8 bit     | false                 |
+| DCS / A-16917   | Mono 1.1    | 32kHz       | 4        | 16 bit    | false                 |
+| WPC95 / A-20516 | Mono 1.1    | 32kHz       | 6        | 16 bit    | true                  |
 
 ### Build Sound File
 
@@ -380,7 +380,11 @@ Example output for Fish Tales Sound files:
 
 ```
 
-TODO document to use the `assets/soundripper` tool
+Make sure to checkout the `assets/soundripper` tool, to generate the soundsprite file:
+
+```
+# node index.js /path/fileWithSoundFiles
+```
 
 ## RAM / NVRAM positions
 
