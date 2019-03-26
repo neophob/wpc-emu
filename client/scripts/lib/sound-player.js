@@ -1,6 +1,7 @@
 'use strict';
 
 import { Howl } from 'howler';
+import { isMobileBrowser } from './device-detection';
 
 export { createSoundPlayer };
 
@@ -27,7 +28,7 @@ class SoundCategory {
       return;
     }
 
-    const isRunningOnMobile = navigator.maxTouchPoints > 0;
+    const isRunningOnMobile = isMobileBrowser();
     if (isRunningOnMobile) {
       this.soundState = NO_SOUND_AVAILABLE_ON_MOBILE;
       return;
