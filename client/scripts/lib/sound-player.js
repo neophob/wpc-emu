@@ -9,6 +9,7 @@ function createSoundPlayer(audioData) {
 }
 
 const NO_SOUND_AVAILABLE = 'NOT AVAILABLE';
+const NO_SOUND_AVAILABLE_ON_MOBILE = 'DISABLED ON MOBILE';
 const SOUND_LOADING = 'LOADING...';
 const SOUND_LOADED = 'LOADED';
 const SOUND_LOADING_ERROR = 'ERROR';
@@ -23,6 +24,12 @@ class SoundCategory {
 
     if (audioData.url.length === 0) {
       console.log('NO_SOUND_DATA');
+      return;
+    }
+
+    const isRunningOnMobile = navigator.maxTouchPoints > 0;
+    if (isRunningOnMobile) {
+      this.soundState = NO_SOUND_AVAILABLE_ON_MOBILE;
       return;
     }
 

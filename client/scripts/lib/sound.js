@@ -20,7 +20,6 @@ class Sound {
 
   constructor(audioData = NO_SOUND) {
     Howler.unload();
-    Howler.autoUnlock = false;
 
     this.sample = audioData.sample;
     this.bong = new Howl({
