@@ -40,7 +40,7 @@ function bootEmu() {
         x++;
         if (x % 200 === 50) {
           const status = wpcSystem.getUiState();
-          console.log('# STATUS', { ticks: status.ticks, opsMs: status.opsMs });
+          console.log('# STATUS', { ticks: status.cpuState.tickCount, opsMs: status.opsMs });
         }
 
         const cycles = HALF_SECOND_TICKS + HALF_SECOND_TICKS * parseInt(10 * Math.random(), 10);
