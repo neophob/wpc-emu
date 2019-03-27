@@ -40,10 +40,11 @@ class Sound {
         this.player.playId(this.sample[id]);
         break;
       }
-      case 'MAINVOLUME':
+      case 'MAINVOLUME': {
         const volume = (message.value / 31);
         this.setVolume(volume);
         break;
+      }
 
       case 'STOPSOUND':
         this.player.stopAll();

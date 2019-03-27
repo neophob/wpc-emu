@@ -64,7 +64,7 @@ class SoundCategory {
     if (!this.soundEnabled || !sampleData.sample) {
       return;
     }
-    console.log('play', sampleData)
+    console.log('play', sampleData);
 
     //TODO handle DUCK, GAIN
 
@@ -83,7 +83,7 @@ class SoundCategory {
 
     if (!hasDedicatedChannel || sampleData.gain) {
       const specificVolume = sampleData.gain || 0.5;
-      this.audioSpritePlayer.volume(specificVolume, playId)
+      this.audioSpritePlayer.volume(specificVolume, playId);
     }
 
     if (sampleData.loop) {

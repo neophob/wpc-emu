@@ -9,8 +9,8 @@ browserEnv();
 
 let createSoundPlayer;
 
-test.before((t) => {
-  const player = require('../../../scripts/lib/sound-player')
+test.before(() => {
+  const player = require('../../../scripts/lib/sound-player');
   createSoundPlayer = player.createSoundPlayer;
 });
 

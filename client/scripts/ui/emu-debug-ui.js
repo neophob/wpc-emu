@@ -298,7 +298,7 @@ function initCanvas() {
   drawDmdShaded([], LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
 }
 
-function initialise(gameEntry) {
+function initialise() {
   console.log('initialise');
 
   // prepare view
