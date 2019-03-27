@@ -1,8 +1,18 @@
 'use strict';
 
 import test from 'ava';
+import browserEnv from 'browser-env';
+// NOTE: Import Howler to avoid error "message: 'HowlerGlobal is not defined'"
+import { Howler } from 'howler';
 
-import { createSoundPlayer } from '../../../scripts/lib/sound-player';
+browserEnv();
+
+let createSoundPlayer;
+
+test.before((t) => {
+  const player = require('../../../scripts/lib/sound-player')
+  createSoundPlayer = player.createSoundPlayer;
+});
 
 const NO_SOUND = {
   url: [],
