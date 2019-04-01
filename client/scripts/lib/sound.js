@@ -20,7 +20,6 @@ class Sound {
 
   constructor(audioData = NO_SOUND) {
     Howler.unload();
-    Howler.autoUnlock = false;
 
     this.sample = audioData.sample;
     this.bong = new Howl({
@@ -41,10 +40,11 @@ class Sound {
         this.player.playId(this.sample[id]);
         break;
       }
-      case 'MAINVOLUME':
+      case 'MAINVOLUME': {
         const volume = (message.value / 31);
         this.setVolume(volume);
         break;
+      }
 
       case 'STOPSOUND':
         this.player.stopAll();

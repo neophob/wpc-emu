@@ -75,7 +75,7 @@ function pairing() {
 }
 
 function initialiseEmu(gameEntry) {
-  emuDebugUi.initialise(gameEntry);
+  emuDebugUi.initialise();
   window.wpcInterface = {
     romSelection,
   };
@@ -211,7 +211,8 @@ function resumeEmu() {
 function pauseEmu() {
   console.log('stop emu');
   if (wpcSystem) {
-    emuDebugUi.updateCanvas(wpcSystem.getUiState(), 'paused');
+    const audioState = soundInstance.getState();
+    emuDebugUi.updateCanvas(wpcSystem.getUiState(), 'paused', audioState);
   }
 
   soundInstance.pause();

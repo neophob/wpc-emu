@@ -1,5 +1,8 @@
 # HISTORY
 
+## 26/3/19
+- disable game specific audio file on mobile - as its just a PITA
+
 ## 22/3/19
 - Fishtales support sound and music
 

@@ -1,6 +1,6 @@
 {
   "name": "wpc-emu",
-  "version": "0.20.3",
+  "version": "0.20.6",
   "description": "WPC pinball machine emu",
   "main": "index.js",
   "engines": {
@@ -72,7 +72,6 @@
     "test:debug": "DEBUG='wpc*' ava --fail-fast --verbose test/lib/**",
     "test:integration": "ava --verbose test/integration/*.test.js",
     "test:runner": "node test/headless-runner.js",
-    "test:soundboard": "env DEBUG='*' node test/integration/soundboard.js",
     "tracer:dump": "cd ./test/tracer && ./_runbig.sh",
     "tracer:stats": "cd ./test/tracer && ./_runbig.sh stats",
     "tracer:status": "cd ./test/tracer/wpc-emu-dumps && git status",
