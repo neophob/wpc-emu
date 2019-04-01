@@ -8,12 +8,12 @@ The ones that are omitted are 20, 24, 28, 29, 30 and 31.
 
 Note that GPIO_NUM_34 – GPIO_NUM_39 are input mode only. You can not use these pins for signal output.
 
-Also, pins 6 (SD_CLK), 7 (SD_DATA0), 8 (SD_DATA1), 9 (SD_DATA2), 10 (SD_DATA3), 11 (SD_CMD) 16 (CS) and 17(Q) are used to interact
-with the SPI flash chip … you can not use those for other purposes.
+Also, pins 6 (SD_CLK), 7 (SD_DATA0), 8 (SD_DATA1), 9 (SD_DATA2), 10 (SD_DATA3), 11 (SD_CMD) 16 (CS) and 17(Q)
+are used to interact with the SPI flash chip, you can not use those for other purposes.
+Note: 31 (CLK), 32 (D0), 33 (D1), 28 (D2), 29 (D3), CMD (30)
 
 When using pSRAM, Strapping pins are GPIO0, GPIO2 and GPIO12.
 TX and RX (as used for flash) are GPIO1 and GPIO3.
-
 
 pinMode:
 - INPUT: Pins configured this way are said to be in a high-impedance state. Input pins make extremely small demands on the
@@ -22,6 +22,8 @@ pinMode:
                 pullup resistors are accessed by setting the pinMode() as INPUT_PULLUP.
 
 TODO: validate those values for the ESP32!
+>> GPIO_RO_ACTIVE_COLUMN_7 32
+>> GPIO_RO_ACTIVE_COLUMN_6 33
 
 TODO:
  - measure zerocross signal
