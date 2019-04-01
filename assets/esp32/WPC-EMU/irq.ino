@@ -26,3 +26,8 @@ void initTimer() {
 }
 
 #endif
+
+#ifndef FAKE_PINBALL_ENABLED
+  void initTimer() {
+  }
+#endif

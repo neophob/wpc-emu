@@ -113,7 +113,9 @@ void loopBluetooth() {
   noInterrupts();
 #ifdef FAKE_PINBALL_ENABLED
   uint32_t currentZerocross = fakeTimer;
-#elif
+#endif
+
+#ifndef FAKE_PINBALL_ENABLED
   uint32_t currentZerocross = zeroconfInterruptCounter;
 #endif
   interrupts();
@@ -127,9 +129,6 @@ void loopBluetooth() {
   }*/
 #endif
 
-#ifdef DEBUG
-  Serial.printf("BT ZC: %lu\n", currentZerocross);
-#endif
   // send WPC state using BLT
   pCharacteristicWpcState->setValue(statePayload, MESSAGE_SIZE);        
   pCharacteristicWpcState->notify();
