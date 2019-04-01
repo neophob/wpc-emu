@@ -25,14 +25,14 @@ Connections:
 
 Source: CPU Board (A-12742-50005)
 Connections:
-- J206 (Column)
-- J209 (Row)
+- J206/J207 (Column)
+- J208/J209 (Row)
 
 ## Reset sense
 
 Source: CPU Board (A-12742-50005)
 Connections:
-- D25, left of CPU6809
+- D25 (cathode side), left of CPU6809
 
 ## Zerocross
 
