@@ -77,6 +77,14 @@
 - 2nd generation Williams WPC hardware called "WPC Dot Matrix" aka WPC DMD
 - Emulate game "Hurricane" - also "Gilligan's Island", "Terminator 2" and "Party Zone"
 
+```
+___        ___   ___
+\_ \/\____/   \_/   \  zS!  ___   /\_______
+/  / /  /  ___/  /__/ _   _/_  \_/__\__ \_ \/\_
+¯\_____/¯\/   ¯\___/ \// /  /__/  /  /  /  /  /
+                        ¯\___/¯\/__/__/¯\___/
+```
+
 # Implementation Status
 
 Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
