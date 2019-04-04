@@ -9,6 +9,7 @@ import { initialiseActions } from './lib/initialise';
 import { loadRam, saveRam, } from './lib/ramState';
 import { initialise as initDmdExport, save as saveFile } from './lib/pin2DmdExport';
 import { AudioOutput } from './lib/sound';
+import { connectToBroker } from './lib/mqtt';
 import * as gamelist from './db/gamelist';
 import { populateControlUiView, updateUiSwitchState } from './ui/control-ui';
 import * as emuDebugUi from './ui/emu-debug-ui';
@@ -24,6 +25,9 @@ var wpcSystem;
 var soundInstance = AudioOutput();
 var intervalId;
 var dmdDump;
+var broker = connectToBroker();
+broker.connect();
+var cccc = 0;
 
 function initialiseEmu(gameEntry) {
   emuDebugUi.initialise();
@@ -130,6 +134,12 @@ function step() {
   }
 
   intervalId = requestAnimationFrame(step);
+
+  cccc++;
+  if (cccc % 30 === 0) {
+    broker.publish('machine', emuState.asic.wpc);
+    broker.publish('cpu', emuState.cpuState);
+  }
 
   if (dmdDump) {
     dmdDump.addFrames(emuState.asic.dmd.videoOutputBuffer, emuState.cpuState.tickCount);

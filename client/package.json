@@ -78,6 +78,7 @@
     }
   },
   "dependencies": {
-    "file-saver": "^2.0.1"
+    "file-saver": "^2.0.1",
+    "mqtt": "^2.18.8"
   }
 }
