@@ -31,6 +31,28 @@ body {
   animation: blinker 1s linear infinite;
 }
 
+.uppy-FileInput-container {
+  padding: 0;
+}
+
+.uppy-FileInput-btn {
+  background: none;
+  -webkit-appearance: none;
+  font-family: inherit;
+  font-size: .8rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  margin: 0;
+  border: 0;
+  padding: 0 1.2rem;
+  color: #000;
+  border: 1px solid #000;
+  border-radius: 4px;
+  cursor: pointer; }
+  .uppy-FileInput-btn:hover {
+    background-color: transparent;
+    color: #606c76; }
+
 @keyframes blinker {
   50% {
     opacity: 0;
