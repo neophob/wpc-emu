@@ -87,7 +87,7 @@ module.exports = {
     { id: 'F7', name: 'UL FLIPPER EOS' },
     { id: 'F8', name: 'UL FLIPPER BUT' },
   ],
-  skipWmcRomCheck: false,
+  skipWpcRomCheck: false,
   features: [
     'wpcDmd',
   ],

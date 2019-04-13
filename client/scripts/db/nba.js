@@ -74,7 +74,7 @@ module.exports = {
     //size must be 200x400, lamp positions according to image
     image: 'playfield-nba.jpg',
   },
-  skipWmcRomCheck: true,
+  skipWpcRomCheck: true,
   features: [
     'securityPic',
     'wpc95',

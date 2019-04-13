@@ -147,7 +147,7 @@ module.exports = {
       { id: 28, x: 20, y: 180 },
     ],
   },
-  skipWmcRomCheck: true,
+  skipWpcRomCheck: true,
   features: [
     'wpcFliptronics',
   ],

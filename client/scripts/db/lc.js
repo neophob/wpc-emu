@@ -50,7 +50,7 @@ module.exports = {
     { id: 67, name: 'PIN SWITCH J' },
     { id: 68, name: 'PIN SWITCH I' },
   ],
-  skipWmcRomCheck: true,
+  skipWpcRomCheck: true,
   features: [
     // NOTE: this WPC-95 device does NOT include a Security Pic!
     // TODO: looks like this board has NO DCS Sound chip - is this the correct rom?

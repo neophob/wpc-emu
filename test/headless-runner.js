@@ -26,7 +26,7 @@ function bootEmu() {
       };
       return Emulator.initVMwithRom(romData, {
         fileName: 'foo',
-        skipWmcRomCheck: true,
+        skipWpcRomCheck: true,
         switchesEnabled,
         //features: ['securityPic'],
       });

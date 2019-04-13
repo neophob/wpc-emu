@@ -50,7 +50,7 @@ module.exports = {
     { id: 67, name: 'PIN SWITCH J' },
     { id: 68, name: 'PIN SWITCH I' },
   ],
-  skipWmcRomCheck: true,
+  skipWpcRomCheck: true,
   features: [
     'wpcDmd',
   ],

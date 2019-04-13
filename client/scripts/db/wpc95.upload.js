@@ -95,7 +95,8 @@ module.exports = {
       'F2', 'F4', 'F6', 'F8',
     ],
   },
-  skipWmcRomCheck: false,
+  // Currently needed, see
+  skipWpcRomCheck: true,
   features: [
     'securityPic',
     'wpc95',

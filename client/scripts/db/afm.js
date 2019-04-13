@@ -148,7 +148,7 @@ module.exports = {
       [{ x: 10, y: 390, color: 'RED' }],
     ],
   },
-  skipWmcRomCheck: true,
+  skipWpcRomCheck: true,
   features: [
     'securityPic',
     'wpc95',

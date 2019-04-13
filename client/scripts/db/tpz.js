@@ -68,7 +68,7 @@ module.exports = {
     { id: 84, name: 'CONTROL' },
     { id: 85, name: '2ND COTTAGE SW' },
   ],
-  skipWmcRomCheck: true,
+  skipWpcRomCheck: true,
   features: [
     'wpcDmd',
   ],

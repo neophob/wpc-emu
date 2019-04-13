@@ -94,7 +94,7 @@ module.exports = {
       'F2', 'F4', 'F6', 'F8',
     ],
   },
-  skipWmcRomCheck: false,
+  skipWpcRomCheck: false,
   features: [
     'wpcFliptronics',
   ],

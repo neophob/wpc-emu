@@ -79,7 +79,7 @@ module.exports = {
     { id: 88, name: 'SWITCH 88' },
 
   ],
-  skipWmcRomCheck: false,
+  skipWpcRomCheck: false,
   features: [
     'securityPic',
   ],
