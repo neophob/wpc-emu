@@ -26,7 +26,7 @@ var intervalId;
 var dmdDump;
 
 function initialiseEmu(gameEntry) {
-  emuDebugUi.initialise(gameEntry);
+  emuDebugUi.initialise();
   window.wpcInterface = {
     romSelection,
   };

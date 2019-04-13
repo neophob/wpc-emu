@@ -9,3 +9,4 @@ function replaceNode(id, child) {
   }
   rootNode.appendChild(child);
 }
+
