@@ -23,7 +23,7 @@ module.exports = {
     { id: 32, name: 'BASKET MTR TOP' },
     { id: 33, name: 'BASKET MTR BOT' },
   ],
-  skipWmcRomCheck: true,
+  skipWpcRomCheck: true,
   features: [
     'wpcDmd',
   ],

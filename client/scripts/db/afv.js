@@ -39,7 +39,7 @@ module.exports = {
     { id: 52, name: 'GOBBLE CENTER' },
     { id: 53, name: 'GOBBLE LEFT' },
   ],
-  skipWmcRomCheck: true,
+  skipWpcRomCheck: true,
   features: [
     'wpcFliptronics',
   ],

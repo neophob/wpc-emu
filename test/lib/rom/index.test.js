@@ -30,7 +30,7 @@ test('romParser should parse game rom', (t) => {
       t.is(result.gameRom[0x000000], 11);
       t.is(result.fileName, 'Unknown');
       t.is(result.romSizeMBit, 2);
-      t.is(result.skipWmcRomCheck, false);
+      t.is(result.skipWpcRomCheck, false);
       t.is(result.hasSecurityPic, false);
       t.is(result.preDcsSoundboard, false);
     });

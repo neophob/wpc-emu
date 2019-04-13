@@ -61,7 +61,7 @@ module.exports = {
     { id: 'F6', name: 'UR FLIPPER BUT' },
     { id: 'F8', name: 'UL FLIPPER BUT' },
   ],
-  skipWmcRomCheck: true,
+  skipWpcRomCheck: true,
   features: [
     'securityPic',
     'wpc95',

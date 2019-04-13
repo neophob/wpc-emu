@@ -678,7 +678,7 @@ Solution:
 
 ### Do not disable checksum check
 
-If the `skipWmcRomCheck` is set to false, you see this error on some machines (dh, mm):
+If the `skipWpcRomCheck` is set to false, you see this error on some machines (dh, mm):
 
 - `G11 CKSUM ERROR`
 

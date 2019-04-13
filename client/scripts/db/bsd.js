@@ -78,7 +78,7 @@ module.exports = {
     //size must be 200x400, lamp positions according to image
     image: 'playfield-bsd.jpg',
   },
-  skipWmcRomCheck: true,
+  skipWpcRomCheck: true,
   features: [
     'wpcFliptronics',
   ],

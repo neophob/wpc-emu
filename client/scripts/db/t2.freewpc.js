@@ -136,7 +136,7 @@ module.exports = {
     { id: 77, name: 'DROP TARGET' },
     { id: 78, name: 'SHOOTER' },
   ],
-  skipWmcRomCheck: false,
+  skipWpcRomCheck: false,
   features: [
     'wpcDmd',
   ],

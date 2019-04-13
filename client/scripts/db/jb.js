@@ -70,7 +70,7 @@ module.exports = {
     { id: 'F7', name: 'VISOR IS OPEN' },
     { id: 'F8', name: 'UL FLIPPER BUT' },
   ],
-  skipWmcRomCheck: true,
+  skipWpcRomCheck: true,
   features: [
     'securityPic',
     'wpcSecure',
