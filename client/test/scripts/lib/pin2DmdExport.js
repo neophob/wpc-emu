@@ -4,7 +4,9 @@ import test from 'ava';
 import browserEnv from 'browser-env';
 import { initialise, save } from '../../../scripts/lib/pin2DmdExport';
 
-browserEnv();
+test.before(() => {
+  browserEnv();
+});
 
 test.beforeEach((t) => {
   t.context = initialise();
