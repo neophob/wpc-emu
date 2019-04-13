@@ -1,10 +1,8 @@
 <div class="row">
   <div class="column column-10">ROM</div>
-  <div class="column column-30">
+  <div class="column column-40">
     <div id="game-selection"></div>
-  </div>
-  <div class="column column-10">
-      <div class="UppyInput"></div>
+    <div class="UppyInput"></div>
   </div>
   <div class="column column-10">Meta</div>
   <div class="column column-40">

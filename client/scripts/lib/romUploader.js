@@ -13,7 +13,7 @@ function registerUppy(callback) {
 
   const uppy = new Uppy({
     id: 'wpc-uppy',
-    debug: false,
+    debug: true,
     autoProceed: true,
     restrictions: {
       maxFileSize: 1048576,
@@ -22,13 +22,8 @@ function registerUppy(callback) {
     },
   });
   uppy.use(FileInput, {
-    pretty: true,
+    pretty: false,
     target: '.UppyInput',
-    locale: {
-      strings: {
-        chooseFiles: 'Upload ROM',
-      },
-    },
   });
 
   uppy.on('complete', (result) => {
@@ -43,8 +38,27 @@ function registerUppy(callback) {
       });
   });
 
+  //TODO register cancel
   uppy.on('error', () => {
     callback(uppy.getState().error);
+  });
+
+  uppy.on('upload-error', () => {
+    callback(uppy.getState().error);
+  });
+
+  uppy.on('cancel-all', () => {
+    console.log('cancel-all')
+  });
+
+  uppy.on('info-hidden', () => {
+    console.log('info-hidden')
+  });
+  uppy.on('info-visible', () => {
+    console.log('info-visible')
+  });
+  uppy.on('file-removed', () => {
+    console.log('file-removed')
   });
 }
 
@@ -53,8 +67,7 @@ function fileToUint8Array(file) {
     const fileReader = new FileReader();
     fileReader.onload = () => {
       const arrayBuffer = fileReader.result
-      const bytes = new Uint8Array(arrayBuffer);
-      resolve(bytes);
+      resolve(arrayBuffer);
     }
     fileReader.readAsArrayBuffer(file.data);
   });

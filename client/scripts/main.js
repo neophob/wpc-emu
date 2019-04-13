@@ -7,7 +7,6 @@ import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher';
 import { initialiseEmulator } from './lib/emulator';
 import { initialiseActions } from './lib/initialise';
 import { loadRam, saveRam, } from './lib/ramState';
-import { registerUppy } from './lib/romUploader';
 import { initialise as initDmdExport, save as saveFile } from './lib/pin2DmdExport';
 import { AudioOutput } from './lib/sound';
 import * as gamelist from './db/gamelist';
@@ -266,10 +265,3 @@ initEmuWithGameName(INITIAL_GAME)
   .catch((error) => console.error);
 
 registerKeyboardListener();
-registerUppy((error, uploadedRom) => {
-  if (error) {
-    console.log('LOADING_ROM_FAILED', error);
-    return;
-  }
-  console.log('TODO LOAD', uploadedRom)
-});
