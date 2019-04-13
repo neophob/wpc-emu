@@ -58,6 +58,8 @@ import wpcTestrom from './wpc.testrom';
 import wpc95Testrom from './wpc95.testrom';
 import wpcSTestrom from './wpcs.testrom';
 import uploadWpc from './wpc.upload';
+import uploadWpcS from './wpcs.upload';
+import uploadWpc95 from './wpc95.upload';
 
 export { getAllNames, getByName };
 
@@ -120,6 +122,8 @@ const wpcGames = [
   wpc95Testrom,
   wpcSTestrom,
   uploadWpc,
+  uploadWpcS,
+  uploadWpc95,
 ];
 
 function getAllNames() {

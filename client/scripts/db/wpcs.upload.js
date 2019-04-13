@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'UPLOAD: WPC-DMD Emulation',
+  name: 'UPLOAD: WPC-S Emulation',
   version: 'Unknown',
   rom: {
     u06: 'UPLOAD'
@@ -77,9 +77,11 @@ module.exports = {
     { id: 86, name: 'SWITCH 86' },
     { id: 87, name: 'SWITCH 87' },
     { id: 88, name: 'SWITCH 88' },
+
   ],
   skipWmcRomCheck: false,
   features: [
-    'wpcDmd',
+    'securityPic',
   ],
+
 };
