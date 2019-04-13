@@ -1,7 +1,7 @@
 'use strict';
 
 import 'whatwg-fetch';
-import { getUploadedFile } from './romUploader';
+import { getUploadedFile } from './rom-uploader';
 
 export { downloadFileFromUrlAsUInt8Array };
 

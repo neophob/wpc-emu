@@ -4,7 +4,6 @@ export { getUploadedFile };
 
 function getUploadedFile() {
   return new Promise((resolve, reject) => {
-    console.log('getUploadedFile');
     const romUploadElement = document.getElementById('romUpload');
 
     romUploadElement.addEventListener('abort', () => {
