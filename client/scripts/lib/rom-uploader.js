@@ -17,8 +17,8 @@ function getUploadedFile() {
 
     romUploadElement.addEventListener('change', () => {
       const files = romUploadElement.files;
-      if (!Array.isArray(files) || files.length !== 1) {
-        const error = new Error('ABORT');
+      if (!files || files.length !== 1) {
+        const error = new Error('ABORT_MISSING_FILES_PROPERTIES');
         return reject(error);
       }
 

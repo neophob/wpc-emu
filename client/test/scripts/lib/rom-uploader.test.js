@@ -50,7 +50,7 @@ test.serial('getUploadedFile, should throw error', (t) => {
 test.serial('getUploadedFile, should resolve but no files defined - abort', (t) => {
   const promise = getUploadedFile()
     .catch((error) => {
-      t.is(error.message, 'ABORT');
+      t.is(error.message, 'ABORT_MISSING_FILES_PROPERTIES');
     });
 
   t.context.callback.change();
