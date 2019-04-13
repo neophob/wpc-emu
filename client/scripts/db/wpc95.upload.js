@@ -95,7 +95,7 @@ module.exports = {
       'F2', 'F4', 'F6', 'F8',
     ],
   },
-  // Currently needed, see
+  // Currently needed, see https://github.com/neophob/wpc-emu/issues/31
   skipWpcRomCheck: true,
   features: [
     'securityPic',
