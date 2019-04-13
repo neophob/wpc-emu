@@ -1,74 +1,50 @@
 'use strict';
 
-const Uppy = require('@uppy/core');
-const FileInput = require('@uppy/file-input');
+export { getUploadedFile };
 
-export { registerUppy };
+function getUploadedFile() {
+  return new Promise((resolve, reject) => {
+    console.log('getUploadedFile');
+    const romUploadElement = document.getElementById('romUpload');
 
-function registerUppy(callback) {
-  console.log('registerUppy');
-  if (typeof callback !== 'function') {
-    throw new Error('MISSING_CALLBACK_FUNCTION');
-  }
+    romUploadElement.addEventListener('abort', () => {
+      const error = new Error('ABORT');
+      reject(error);
+    });
 
-  const uppy = new Uppy({
-    id: 'wpc-uppy',
-    debug: true,
-    autoProceed: true,
-    restrictions: {
-      maxFileSize: 1048576,
-      maxNumberOfFiles: 1,
-      minNumberOfFiles: 1,
-    },
-  });
-  uppy.use(FileInput, {
-    pretty: false,
-    target: '.UppyInput',
-  });
+    romUploadElement.addEventListener('error', (error) => {
+      reject(error);
+    });
 
-  uppy.on('complete', (result) => {
-    console.log('File uploaded');
-    const file = result.successful[0];
-    fileToUint8Array(file)
-      .then((uInt8Array) => {
-        callback(null, uInt8Array);
-      })
-      .catch((error) => {
-        callback(error);
-      });
-  });
+    romUploadElement.addEventListener('change', () => {
+      const files = romUploadElement.files;
+      if (!files || files.length !== 1) {
+        const error = new Error('ABORT');
+        return reject(error);
+      }
 
-  //TODO register cancel
-  uppy.on('error', () => {
-    callback(uppy.getState().error);
-  });
+      console.log('Filename:', files[0].name);
+      console.log('Size:', files[0].size + " bytes");
+      fileToUint8Array(files[0])
+        .then((arrayBuffer) => {
+          resolve(arrayBuffer);
+        });
+    });
+  //TODO unregister event listeners
 
-  uppy.on('upload-error', () => {
-    callback(uppy.getState().error);
-  });
-
-  uppy.on('cancel-all', () => {
-    console.log('cancel-all')
-  });
-
-  uppy.on('info-hidden', () => {
-    console.log('info-hidden')
-  });
-  uppy.on('info-visible', () => {
-    console.log('info-visible')
-  });
-  uppy.on('file-removed', () => {
-    console.log('file-removed')
+    romUploadElement.click();
   });
 }
 
 function fileToUint8Array(file) {
+  console.log('file',file)
+  console.log('type', typeof file)
   return new Promise((resolve) => {
     const fileReader = new FileReader();
     fileReader.onload = () => {
       const arrayBuffer = fileReader.result
       resolve(arrayBuffer);
     }
-    fileReader.readAsArrayBuffer(file.data);
+    fileReader.readAsArrayBuffer(file);
   });
 }

@@ -17,8 +17,6 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/register": "^7.0.0",
-    "@uppy/core": "^0.30.4",
-    "@uppy/file-input": "^0.30.4",
     "ava": "^0.25.0",
     "babel-preset-env": "^1.7.0",
     "browser-env": "^3.2.6",

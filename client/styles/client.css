@@ -31,16 +31,6 @@ body {
   animation: blinker 1s linear infinite;
 }
 
-.uppy-FileInput-container {
-  display: none;
-}
-.uppy-FileInput-btn {
-  display: none;
- }
-.uppy-FileInput-btn:hover {
-  display: none;
-}
-
 @keyframes blinker {
   50% {
     opacity: 0;

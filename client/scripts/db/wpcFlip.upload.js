@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'UPLOAD: WPC-DCS/WPC-DMD Emulation',
+  name: 'UPLOAD: WPC-Fliptronics Emulation',
   version: 'Unknown',
   rom: {
     u06: 'UPLOAD'
@@ -89,6 +89,6 @@ module.exports = {
   ],
   skipWmcRomCheck: false,
   features: [
-    'wpcDmd',
+    'wpcFliptronics',
   ],
 };

@@ -58,6 +58,7 @@ import wpcTestrom from './wpc.testrom';
 import wpc95Testrom from './wpc95.testrom';
 import wpcSTestrom from './wpcs.testrom';
 import uploadWpc from './wpc.upload';
+import uploadWpcFlip from './wpcFlip.upload';
 import uploadWpcS from './wpcs.upload';
 import uploadWpc95 from './wpc95.upload';
 
@@ -122,6 +123,7 @@ const wpcGames = [
   wpc95Testrom,
   wpcSTestrom,
   uploadWpc,
+  uploadWpcFlip,
   uploadWpcS,
   uploadWpc95,
 ];

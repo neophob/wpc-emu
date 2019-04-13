@@ -1,7 +1,7 @@
 'use strict';
 
 import 'whatwg-fetch';
-import { registerUppy } from './romUploader';
+import { getUploadedFile } from './romUploader';
 
 export { downloadFileFromUrlAsUInt8Array };
 
@@ -11,7 +11,7 @@ function downloadFileFromUrlAsUInt8Array(filename) {
   }
 
   const getRomContent = filename === 'UPLOAD' ?
-    userUploadRom() :
+    getUploadedFile() :
     fetch(FETCHURL + filename)
       .then((response) => {
         if (response.status >= 400) {
@@ -24,20 +24,4 @@ function downloadFileFromUrlAsUInt8Array(filename) {
     .then((buffer) => {
       return new Uint8Array(buffer);
     });
-}
-
-function userUploadRom() {
-  return new Promise((resolve, reject) => {
-    registerUppy((error, uploadedRom) => {
-      if (error) {
-        return reject(error);
-      };
-      resolve(uploadedRom);
-    });
-
-    //TODO cleanup
-    const uppyHtmlElement = document.getElementsByClassName('uppy-FileInput-input');
-    console.log('uppyHtmlElement',uppyHtmlElement);
-    uppyHtmlElement[0].click();
-  });
 }
