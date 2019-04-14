@@ -2,6 +2,7 @@
 
 ## 13/4/19
 - added option to upload ROM
+- fix safe cracker reboot sound board (#30)
 
 ## 26/3/19
 - disable game specific audio file on mobile - as its just a PITA
