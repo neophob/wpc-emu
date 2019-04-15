@@ -101,3 +101,10 @@ test('SoundSerialInterface DCS, get reply from unknown 0x03D3 command (AFM + CON
   dcsSound.writeData(0xD3);
   t.is(dcsSound.readData(), 0x01);
 });
+
+test('SoundSerialInterface DCS, get reply from getVersion call (0x03E7)', (t) => {
+  const dcsSound = t.context.dcsSound;
+  dcsSound.writeData(0x03);
+  dcsSound.writeData(0xE7);
+  t.is(dcsSound.readData(), 0x10);
+});
