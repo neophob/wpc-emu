@@ -87,3 +87,17 @@ test('SoundSerialInterface DCS, play sample', (t) => {
   dcsSound.writeData(0x77);
   t.deepEqual(t.context.dcsData, [{ command: 'PLAYSAMPLE', id: 0x8877 }]);
 });
+
+test('SoundSerialInterface DCS, get reply from unknown 0x03D2 command (SAFE CRACKER)', (t) => {
+  const dcsSound = t.context.dcsSound;
+  dcsSound.writeData(0x03);
+  dcsSound.writeData(0xD2);
+  t.is(dcsSound.readData(), 0x01);
+});
+
+test('SoundSerialInterface DCS, get reply from unknown 0x03D3 command (AFM + CONGO)', (t) => {
+  const dcsSound = t.context.dcsSound;
+  dcsSound.writeData(0x03);
+  dcsSound.writeData(0xD3);
+  t.is(dcsSound.readData(), 0x01);
+});
