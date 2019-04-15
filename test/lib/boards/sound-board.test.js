@@ -97,7 +97,7 @@ test('preDcs: set volume', (t) => {
   ]);
 });
 
-test('Dcs: set volume', (t) => {
+test('DCS: set volume', (t) => {
   const soundBoard = t.context.instanceDcs;
   soundBoard.writeInterface(WPC_SOUND_DATA, 0x55);
   soundBoard.writeInterface(WPC_SOUND_DATA, 0xAA);
@@ -106,6 +106,21 @@ test('Dcs: set volume', (t) => {
   t.deepEqual(t.context.playbackArray, [
     { command: 'MAINVOLUME', value: 22 },
   ]);
+});
+
+test('DCS: ignore first 0 byte after alot of sound board resets', (t) => {
+  const soundBoard = t.context.instanceDcs;
+  soundBoard.resetCount = 22;
+  soundBoard.writeInterface(WPC_SOUND_DATA, 0);
+  soundBoard.writeInterface(WPC_SOUND_DATA, 22);
+  const actualState = soundBoard.getState();
+  t.deepEqual(actualState, {
+    volume: 8,
+    readDataBytes: 0,
+    writeDataBytes: 1,
+    readControlBytes: 0,
+    writeControlBytes: 0,
+  });
 });
 
 test('set and get state', (t) => {

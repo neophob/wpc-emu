@@ -1,5 +1,8 @@
 # HISTORY
 
+## 15/4/19
+- improved DCS sound interface
+
 ## 13/4/19
 - added option to upload ROM
 - fix safe cracker reboot sound board (#30)
