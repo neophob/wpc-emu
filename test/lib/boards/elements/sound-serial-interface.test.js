@@ -42,7 +42,7 @@ test('SoundSerialInterface preDCS, no control data available', (t) => {
 
 test('SoundSerialInterface preDCS, should read data', (t) => {
   const readControl = t.context.preDcsSound.readData();
-  t.deepEqual(readControl, 0xFF);
+  t.deepEqual(readControl, 0x00);
 });
 
 test('SoundSerialInterface preDCS, should process volume command', (t) => {
