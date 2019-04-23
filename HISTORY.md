@@ -1,5 +1,9 @@
 # HISTORY
 
+## 21/4/19
+- more sound interface improvements, Ticket Tak Toe does not restart anymore (#30)
+- improve PWA caching time
+
 ## 15/4/19
 - improved DCS sound interface
 
