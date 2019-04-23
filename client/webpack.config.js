@@ -50,7 +50,7 @@ module.exports = () => {
               cacheName: 'application',
               expiration: {
                 maxEntries: 32,
-                maxAgeSeconds: 3600 * 24 * 7,
+                maxAgeSeconds: 0,
               },
             }
           },
