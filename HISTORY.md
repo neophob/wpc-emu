@@ -2,6 +2,7 @@
 
 ## 24/4/19
 - Add sound support for Theatre of Magic
+- Add sound support for White Water
 
 ## 21/4/19
 - more sound interface improvements, Ticket Tak Toe does not restart anymore (#30)
