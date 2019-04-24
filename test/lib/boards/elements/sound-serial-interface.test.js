@@ -37,7 +37,7 @@ test.beforeEach((t) => {
 
 test('SoundSerialInterface preDCS, no control data available', (t) => {
   const readControl = t.context.preDcsSound.readControl();
-  t.deepEqual(readControl, 0x00);
+  t.deepEqual(readControl, 0xFF);
 });
 
 test('SoundSerialInterface preDCS, should read data', (t) => {

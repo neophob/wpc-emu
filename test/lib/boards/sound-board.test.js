@@ -55,7 +55,7 @@ test('should validate callback function', (t) => {
 test('should read control status, no data available', (t) => {
   const soundBoard = t.context.instanceDcs;
   const result = soundBoard.readInterface(WPC_SOUND_CONTROL_STATUS);
-  t.is(result, 0);
+  t.is(result, 0xFF);
 });
 
 test('should read control status, data is available', (t) => {
@@ -74,9 +74,10 @@ test('should handle multiple writes', (t) => {
   soundBoard.writeInterface(WPC_SOUND_DATA, 0x22);
   soundBoard.writeInterface(WPC_SOUND_DATA, 0x00);
   soundBoard.writeInterface(WPC_SOUND_DATA, 0x01);
+
   const result = soundBoard.readInterface(WPC_SOUND_CONTROL_STATUS);
 
-  t.is(result, 0);
+  t.is(result, 0xFF);
   t.deepEqual(t.context.playbackArray, [
     { command: 'STOPSOUND' },
     { command: 'STOPSOUND' },

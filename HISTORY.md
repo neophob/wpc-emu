@@ -1,5 +1,8 @@
 # HISTORY
 
+## 24/4/19
+- Add sound support for Theatre of Magic
+
 ## 21/4/19
 - more sound interface improvements, Ticket Tak Toe does not restart anymore (#30)
 - improve PWA caching time
