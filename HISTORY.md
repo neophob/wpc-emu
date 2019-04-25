@@ -1,5 +1,9 @@
 # HISTORY
 
+## 25/4/19
+- Fix White Water DMD flickering (#33) - revert vpinmame DMD flipping
+- detect if FIRQ could not be triggered (because of the masking)
+
 ## 24/4/19
 - Add sound support for Theatre of Magic
 - Add sound support for White Water
