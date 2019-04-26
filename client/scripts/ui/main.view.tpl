@@ -1,6 +1,9 @@
 <div class="row">
   <div class="column column-10">ROM</div>
-  <div id="game-selection" class="column column-40"></div>
+  <div class="column column-40">
+    <div id="game-selection"></div>
+    <input id="romUpload" type="file" style="display:none">
+  </div>
   <div class="column column-10">Meta</div>
   <div class="column column-40">
     <button class="button-black button-small black" id="wpc-release-info" onclick="location.href='https://github.com/neophob/wpc-emu'">WPC-EMU v0.X.Y</button>

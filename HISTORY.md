@@ -1,5 +1,24 @@
 # HISTORY
 
+## 25/4/19
+- Fix White Water DMD flickering (#33) - revert vpinmame DMD flipping
+- detect if FIRQ could not be triggered (because of the masking)
+
+## 24/4/19
+- Add sound support for Theatre of Magic
+- Add sound support for White Water
+
+## 21/4/19
+- more sound interface improvements, Ticket Tak Toe does not restart anymore (#30)
+- improve PWA caching time
+
+## 15/4/19
+- improved DCS sound interface
+
+## 13/4/19
+- added option to upload ROM
+- fix safe cracker reboot sound board (#30)
+
 ## 26/3/19
 - disable game specific audio file on mobile - as its just a PITA
 

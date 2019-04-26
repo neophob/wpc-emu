@@ -8,7 +8,6 @@ function copyFileToTemp(file) {
   const slash = file.split('/');
   const filename = slash[slash.length - 2];
   const id = parseInt(filename.split('-')[0], 10);
-
   const convertedFile = path.join(TEMPDIR, 'snd' + id + '.wav');
   console.log('>', file, '->', convertedFile);
 
@@ -18,7 +17,7 @@ function copyFileToTemp(file) {
 
 const samples = [];
 
-function searchDirectory(startPath, filter) {
+function searchDirectory(startPath, filter, callbackFunction) {
   if (!fs.existsSync(startPath)) {
     console.error('Invalid directory', startPath);
     process.exit(1);
@@ -30,9 +29,9 @@ function searchDirectory(startPath, filter) {
     const stat = fs.lstatSync(filename);
     //TODO symlink handling
     if (stat.isDirectory()) {
-      searchDirectory(filename, filter);
+      searchDirectory(filename, filter, callbackFunction);
     } else if (filename.indexOf(filter) >= 0) {
-      const file = copyFileToTemp(filename);
+      const file = callbackFunction(filename);
       samples.push(file);
     }
   });
@@ -42,14 +41,34 @@ if (!process.argv[2]) {
   throw new Error('MISSING MUSIC_SOURCE_DIRECTORY_PATH');
 }
 
-searchDirectory(process.argv[2], '.wav');
+if (process.argv[3]) {
+  const type = process.argv[3];
+  searchDirectory(process.argv[2], '.wav', ((file) => {
+    const slash = file.split('/');
+    const filename = slash[slash.length - 2];
+    const id = parseInt(filename.split('-')[0], 10);
+    const snd = 'snd' + id;
+
+    if (type === 'music') {
+      console.log(id + ': { channel: 0, loop: true, sample: \'' + snd + '\' },');
+    } else if (type === 'jingle') {
+      console.log(id + ': { channel: 1, sample: \'' + snd + '\' },');
+    } else {
+      console.log(id + ': { sample: \'' + snd + '\' },');
+    }
+  }));
+  return;
+}
+
+searchDirectory(process.argv[2], '.wav', copyFileToTemp);
 console.log('PROCESSED FILES', samples.length);
 
 const opts = {
   output: 'output',
   export: 'mp3',
   format: 'howler',
-  vbr: 5,
+  vbr: 9,
+  samplerate: 22050,
   logger: {
     debug: (a, b) => console.log(a, b),
     info: (a, b) => console.log(a, b),

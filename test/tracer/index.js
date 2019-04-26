@@ -37,7 +37,7 @@ function startTrace() {
         features: [
           HAS_SECURITY_FEATURE,
         ],
-        skipWmcRomCheck: false,
+        skipWpcRomCheck: false,
       });
     })
     .then((wpcSystem) => {

@@ -156,7 +156,7 @@ module.exports = {
       { id: 28, x: 9, y: 241, },
     ],
   },
-  skipWmcRomCheck: true,
+  skipWpcRomCheck: true,
   features: [
     'wpcDmd',
   ],

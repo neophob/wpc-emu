@@ -87,7 +87,7 @@ module.exports = {
     //size must be 200x400, lamp positions according to image
     image: 'playfield-dm.jpg',
   },
-  skipWmcRomCheck: false,
+  skipWpcRomCheck: false,
   features: [
     'wpcDcs',
   ],

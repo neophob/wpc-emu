@@ -156,7 +156,7 @@ function ripDmdFrames() {
       };
       return Emulator.initVMwithRom(romData, {
         fileName: 'foo',
-        skipWmcRomCheck: true,
+        skipWpcRomCheck: true,
         switchesEnabled,
       });
     })

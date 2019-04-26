@@ -1,10 +1,10 @@
 'use strict';
 
 module.exports = {
-  name: 'WPC-S: WPC Test Fixture ',
-  version: '1.2',
+  name: 'UPLOAD: WPC-S Emulation',
+  version: 'Unknown',
   rom: {
-    u06: 'u6_12.rom',
+    u06: 'UPLOAD'
   },
   switchMapping: [
     { id: 11, name: 'RIGHT FLIPPER' },
@@ -79,7 +79,24 @@ module.exports = {
     { id: 88, name: 'SWITCH 88' },
 
   ],
-  skipWpcRomCheck: false,
+  fliptronicsMapping: [
+    { id: 'F1', name: 'R FLIPPER EOS' },
+    { id: 'F2', name: 'R FLIPPER BUTTON' },
+    { id: 'F3', name: 'L FLIPPER EOS' },
+    { id: 'F4', name: 'L FLIPPER BUTTON' },
+    { id: 'F5', name: 'UR FLIPPER EOS' },
+    { id: 'F6', name: 'UR FLIPPER BUT' },
+    { id: 'F7', name: 'UL FLIPPER EOS' },
+    { id: 'F8', name: 'UL FLIPPER BUT' },
+  ],
+  initialise: {
+    closedSwitches: [
+      22,
+      'F2', 'F4', 'F6', 'F8',
+    ],
+  },
+  // Currently needed, see https://github.com/neophob/wpc-emu/issues/31
+  skipWpcRomCheck: true,
   features: [
     'securityPic',
   ],

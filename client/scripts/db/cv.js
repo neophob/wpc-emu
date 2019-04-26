@@ -80,7 +80,7 @@ module.exports = {
     //size must be 200x400, lamp positions according to image
     image: 'playfield-cv.jpg',
   },
-  skipWmcRomCheck: true,
+  skipWpcRomCheck: true,
   features: [
     'securityPic',
     'wpc95',
@@ -89,7 +89,7 @@ module.exports = {
     closedSwitches: [
       22,
       //OPTO SWITCHES: 31, 32, 33, 34, 35, 36,
-      31,
+      16, 31,
       'F2', 'F4', 'F6', 'F8',
     ],
     initialAction: [

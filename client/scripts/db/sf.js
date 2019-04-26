@@ -43,7 +43,7 @@ module.exports = {
     { id: 62, name: 'M BLEACHER' },
     { id: 63, name: 'R BLEACHER' },
   ],
-  skipWmcRomCheck: true,
+  skipWpcRomCheck: true,
   features: [
     'wpcDmd',
   ],

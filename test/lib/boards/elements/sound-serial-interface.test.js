@@ -37,12 +37,12 @@ test.beforeEach((t) => {
 
 test('SoundSerialInterface preDCS, no control data available', (t) => {
   const readControl = t.context.preDcsSound.readControl();
-  t.deepEqual(readControl, 0x00);
+  t.deepEqual(readControl, 0xFF);
 });
 
 test('SoundSerialInterface preDCS, should read data', (t) => {
   const readControl = t.context.preDcsSound.readData();
-  t.deepEqual(readControl, 0xFF);
+  t.deepEqual(readControl, 0x00);
 });
 
 test('SoundSerialInterface preDCS, should process volume command', (t) => {
@@ -86,4 +86,25 @@ test('SoundSerialInterface DCS, play sample', (t) => {
   dcsSound.writeData(0x88);
   dcsSound.writeData(0x77);
   t.deepEqual(t.context.dcsData, [{ command: 'PLAYSAMPLE', id: 0x8877 }]);
+});
+
+test('SoundSerialInterface DCS, get reply from unknown 0x03D2 command (SAFE CRACKER)', (t) => {
+  const dcsSound = t.context.dcsSound;
+  dcsSound.writeData(0x03);
+  dcsSound.writeData(0xD2);
+  t.is(dcsSound.readData(), 0x01);
+});
+
+test('SoundSerialInterface DCS, get reply from unknown 0x03D3 command (AFM + CONGO)', (t) => {
+  const dcsSound = t.context.dcsSound;
+  dcsSound.writeData(0x03);
+  dcsSound.writeData(0xD3);
+  t.is(dcsSound.readData(), 0x01);
+});
+
+test('SoundSerialInterface DCS, get reply from getVersion call (0x03E7)', (t) => {
+  const dcsSound = t.context.dcsSound;
+  dcsSound.writeData(0x03);
+  dcsSound.writeData(0xE7);
+  t.is(dcsSound.readData(), 0x10);
 });

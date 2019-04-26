@@ -78,7 +78,7 @@ module.exports = {
     { id: 87, name: 'SWITCH 87' },
     { id: 88, name: 'SWITCH 88' },
   ],
-  skipWmcRomCheck: false,
+  skipWpcRomCheck: false,
   features: [
     'wpcDmd',
   ],

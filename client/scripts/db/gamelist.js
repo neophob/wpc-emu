@@ -57,6 +57,10 @@ import worldCupSoccer from './wcs';
 import wpcTestrom from './wpc.testrom';
 import wpc95Testrom from './wpc95.testrom';
 import wpcSTestrom from './wpcs.testrom';
+import uploadWpc from './wpc.upload';
+import uploadWpcFlip from './wpcFlip.upload';
+import uploadWpcS from './wpcs.upload';
+import uploadWpc95 from './wpc95.upload';
 
 export { getAllNames, getByName };
 
@@ -118,6 +122,10 @@ const wpcGames = [
   wpcTestrom,
   wpc95Testrom,
   wpcSTestrom,
+  uploadWpc,
+  uploadWpcFlip,
+  uploadWpcS,
+  uploadWpc95,
 ];
 
 function getAllNames() {
