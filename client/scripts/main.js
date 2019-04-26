@@ -48,7 +48,7 @@ function initialiseEmu(gameEntry) {
 
       soundInstance = AudioOutput(gameEntry.audio);
       wpcSystem = _wpcSystem;
-      // TODO IIKS we pollute globals here
+      //NOTE: IIKS we pollute globals here
       window.wpcInterface = {
         wpcSystem,
         resetEmu,
@@ -59,7 +59,7 @@ function initialiseEmu(gameEntry) {
         loadState,
         toggleDmdDump
       };
-      //TODO proper init audio
+
       wpcSystem.registerAudioConsumer((message) => soundInstance.callback(message) );
       wpcSystem.start();
       console.log('Successfully started EMU v' + wpcSystem.version());
