@@ -153,9 +153,9 @@ module.exports = {
   ],
   initialise: {
     closedSwitches: [
-      15, 16, 17, 18,
+      16, 17, 18,
       22,
-      37, 38,
+      38, 48,
       'F2', 'F4',
     ],
     initialAction: [
