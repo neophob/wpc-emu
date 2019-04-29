@@ -1,5 +1,8 @@
 # HISTORY
 
+## 29/4/19
+- implement blanking LED
+
 ## 25/4/19
 - Fix White Water DMD flickering (#33) - revert vpinmame DMD flipping
 - detect if FIRQ could not be triggered (because of the masking)
