@@ -25,24 +25,8 @@ function loadFile(fileName) {
 
 function runWpsMainloop(wpcSystem) {
   setInterval(() => {
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-    wpcSystem.executeCycle();
-  }, 0);
+    wpcSystem.executeCycle(34482, 16);
+  }, 16);
 }
 
 loadFile(romGamePath)
