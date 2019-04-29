@@ -95,9 +95,9 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 - emulate 6809 CPU ✓
 
 ## CPU/ASIC Board
-- Blanking ✗ (not sure if needed)
+- Blanking ✓
 - Diagnostics LED ✓
-- Watchdog ✗ (needed for proper boot up sequence)
+- Watchdog ✗
 - Bit Shifter ✓
 - Memory Protection ✓
 - Time of Day Clock ✓

@@ -66,7 +66,9 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
   canvas.fillText('NMI CALLS: ' + emuState.cpuState.nmiCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 70);
 
-  canvas.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, LEFT_X_OFFSET + 10, YPOS_GENERIC_DATA + 80);
+  canvas.fillText('D19', LEFT_X_OFFSET + 10, YPOS_GENERIC_DATA + 80);
+  canvas.fillText('D21', LEFT_X_OFFSET + 40, YPOS_GENERIC_DATA + 80);
+  canvas.fillText('D20 TGLE:' + emuState.asic.wpc.diagnosticLedToggleCount, LEFT_X_OFFSET + 70, YPOS_GENERIC_DATA + 80);
   canvas.fillText('ACTIVE ROM BANK: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 90);
   canvas.fillText('WRITE TO LOCKED MEM: ' + emuState.protectedMemoryWriteAttempts, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 100);
 
@@ -81,8 +83,17 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   canvas.fillText('DMD PAGE MAP: ' + emuState.asic.dmd.dmdPageMapping, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
   canvas.fillText('DMD ACTIVE PAGE: ' + emuState.asic.dmd.activepage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
 
-  canvas.fillStyle = emuState.asic.wpc.diagnosticLed ? COLOR_DMD[3] : COLOR_DMD[0];
+  //D19
+  canvas.fillStyle = emuState.asic.wpc.blankSignalHigh ? COLOR_DMD[3] : COLOR_DMD[0];
   canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA + 72, 8, 8);
+
+  //D20
+  canvas.fillStyle = emuState.asic.wpc.diagnosticLed ? COLOR_DMD[3] : COLOR_DMD[0];
+  canvas.fillRect(LEFT_X_OFFSET + 60, YPOS_GENERIC_DATA + 72, 8, 8);
+
+  //D21 - always on
+  canvas.fillStyle = COLOR_DMD[3];
+  canvas.fillRect(LEFT_X_OFFSET + 30, YPOS_GENERIC_DATA + 72, 8, 8);
 
   if (emuState.asic.dmd.dmdShadedBuffer) {
     drawDmdShaded(emuState.asic.dmd.dmdShadedBuffer, LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
