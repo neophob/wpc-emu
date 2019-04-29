@@ -12,8 +12,8 @@ const CANVAS_WIDTH = 815 + LAMP_DISPLAY_WIDTH;
 const CANVAS_HEIGHT = 560;
 const YPOS_DMD_MAIN_VIEW = 15;
 const YPOS_GENERIC_DATA = 225;
-const YPOS_DMD_DATA = 415;
-const YPOS_MEM_DATA = YPOS_DMD_DATA + 67;
+const YPOS_DMD_DATA = 405;
+const YPOS_MEM_DATA = YPOS_DMD_DATA + 50;
 
 const LEFT_X_OFFSET = 15;
 const MIDDLE_X_OFFSET = 250 + LEFT_X_OFFSET;
@@ -52,7 +52,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     return;
   }
   canvas.fillStyle = '#000';
-  canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 245, 175);
+  canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 245, 165);
   canvas.fillRect(LEFT_X_OFFSET, YPOS_DMD_DATA, 170, 40);
 
   canvas.fillStyle = COLOR_DMD[2];
@@ -100,7 +100,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   }
 
   if (emuState.asic.ram) {
-    drawMemRegion(emuState.asic.ram, LEFT_X_OFFSET, YPOS_MEM_DATA, 120);
+    drawMemRegion(emuState.asic.ram, LEFT_X_OFFSET, YPOS_MEM_DATA + 2);
   }
 
   if (emuState.asic.wpc.lampState) {
@@ -148,9 +148,9 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   }
 }
 
-function drawMemRegion(data, x, y, width) {
+function drawMemRegion(data, x, y, width = 96 * 2, height = 86) {
   canvas.fillStyle = COLOR_DMD[0];
-  canvas.fillRect(x, y, width, 70);
+  canvas.fillRect(x, y, width, height);
 
   let offsetX = 0;
   let offsetY = 0;
@@ -161,7 +161,7 @@ function drawMemRegion(data, x, y, width) {
         color = data[i].toString(16);
         canvas.fillStyle = '#' + color + color + color;
       }
-      canvas.fillRect(x + offsetX, y + offsetY, 1, 1);
+      canvas.fillRect(x + offsetX, y + offsetY, 2, 1);
     }
     if (offsetX++ >= width - 1) {
       offsetX = 0;
@@ -297,6 +297,7 @@ function initCanvas() {
   canvas.fillStyle = COLOR_DMD[3];
   canvas.fillText('# DEBUG DATA:', LEFT_X_OFFSET, YPOS_GENERIC_DATA);
   canvas.fillText('# DMD BOARD DATA:', LEFT_X_OFFSET, YPOS_DMD_DATA);
+  canvas.fillText('# WPC CPU RAM:', LEFT_X_OFFSET, YPOS_MEM_DATA);
 
   canvas.fillStyle = COLOR_DMD[2];
   canvas.fillText('SOLENOID OUT MATRIX', MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 10);
@@ -304,7 +305,6 @@ function initCanvas() {
   canvas.fillText('LAMP OUT MATRIX', RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 10);
   canvas.fillText('SWITCH IN MATRIX', RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 10);
   canvas.fillText('DMD PAGE RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
-  canvas.fillText('WPC CPU RAM:', LEFT_X_OFFSET, YPOS_MEM_DATA - 10);
 
   drawDmdShaded([], LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
 }
