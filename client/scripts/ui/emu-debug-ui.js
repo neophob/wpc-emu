@@ -16,10 +16,10 @@ const YPOS_DMD_DATA = 405;
 const YPOS_MEM_DATA = YPOS_DMD_DATA + 50;
 
 const LEFT_X_OFFSET = 15;
-const MIDDLE_X_OFFSET = 250 + LEFT_X_OFFSET;
-const MIDDLE_PLUS_X_OFFSET = 125 + MIDDLE_X_OFFSET;
-const RIGHT_X_OFFSET = 250 + MIDDLE_X_OFFSET;
-const RIGHT_PLUS_X_OFFSET = 125 + RIGHT_X_OFFSET;
+const MIDDLE_X_OFFSET = 260 + LEFT_X_OFFSET;
+const MIDDLE_PLUS_X_OFFSET = 130 + MIDDLE_X_OFFSET;
+const RIGHT_X_OFFSET = 260 + MIDDLE_X_OFFSET;
+const RIGHT_PLUS_X_OFFSET = 130 + RIGHT_X_OFFSET;
 
 const BIT_ARRAY = [1, 2, 4, 8, 16, 32, 64, 128];
 
@@ -103,10 +103,6 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     drawMemRegion(emuState.asic.ram, LEFT_X_OFFSET, YPOS_MEM_DATA + 2);
   }
 
-  if (emuState.asic.wpc.lampState) {
-    drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 20);
-    drawLampPositions(emuState.asic.wpc.lampState, 800, YPOS_DMD_MAIN_VIEW);
-  }
 
   if (emuState.asic.wpc.solenoidState) {
     drawMatrix8x8(emuState.asic.wpc.solenoidState, MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 20);
@@ -114,11 +110,16 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     drawFlashlamps(emuState.asic.wpc.solenoidState, 800, YPOS_DMD_MAIN_VIEW);
   }
 
+  drawMatrix8x8(emuState.asic.wpc.generalIlluminationState, MIDDLE_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
+
+  if (emuState.asic.wpc.lampState) {
+    drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 20);
+    drawLampPositions(emuState.asic.wpc.lampState, 800, YPOS_DMD_MAIN_VIEW);
+  }
+
   if (emuState.asic.wpc.inputState) {
     drawInputStateMatrix(emuState.asic.wpc.inputState, RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
   }
-
-  drawMatrix8x8(emuState.asic.wpc.generalIlluminationState, MIDDLE_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
 
   //dmd pages - 8 pixel (on/off) per byte, display is 128x32 pixels
   if (emuState.asic.dmd.videoRam) {
