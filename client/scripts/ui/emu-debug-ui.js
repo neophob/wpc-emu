@@ -16,7 +16,7 @@ const YPOS_DMD_DATA = 405;
 const YPOS_MEM_DATA = YPOS_DMD_DATA + 50;
 
 const LEFT_X_OFFSET = 15;
-const MIDDLE_X_OFFSET = 260 + LEFT_X_OFFSET;
+const MIDDLE_X_OFFSET = 240 + LEFT_X_OFFSET;
 const MIDDLE_PLUS_X_OFFSET = 130 + MIDDLE_X_OFFSET;
 const RIGHT_X_OFFSET = 260 + MIDDLE_X_OFFSET;
 const RIGHT_PLUS_X_OFFSET = 130 + RIGHT_X_OFFSET;
@@ -52,7 +52,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     return;
   }
   canvas.fillStyle = '#000';
-  canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 245, 165);
+  canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 240, 165);
   canvas.fillRect(LEFT_X_OFFSET, YPOS_DMD_DATA, 170, 40);
 
   canvas.fillStyle = COLOR_DMD[2];
@@ -105,20 +105,20 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
 
   if (emuState.asic.wpc.solenoidState) {
-    drawMatrix8x8(emuState.asic.wpc.solenoidState, MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 20);
+    drawMatrix8x8(emuState.asic.wpc.solenoidState, MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 2);
     canvasOverlay.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
     drawFlashlamps(emuState.asic.wpc.solenoidState, 800, YPOS_DMD_MAIN_VIEW);
   }
 
-  drawMatrix8x8(emuState.asic.wpc.generalIlluminationState, MIDDLE_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
+  drawMatrix8x8(emuState.asic.wpc.generalIlluminationState, MIDDLE_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 2);
 
   if (emuState.asic.wpc.lampState) {
-    drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 20);
+    drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 2);
     drawLampPositions(emuState.asic.wpc.lampState, 800, YPOS_DMD_MAIN_VIEW);
   }
 
   if (emuState.asic.wpc.inputState) {
-    drawInputStateMatrix(emuState.asic.wpc.inputState, RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
+    drawInputStateMatrix(emuState.asic.wpc.inputState, RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 2);
   }
 
   //dmd pages - 8 pixel (on/off) per byte, display is 128x32 pixels
@@ -130,7 +130,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   // draw only 4 dmd frames to avoid dropping fps
   if (Array.isArray(videoRam)) {
     let xpos = MIDDLE_X_OFFSET;
-    let ypos = YPOS_DMD_DATA;
+    let ypos = YPOS_DMD_DATA + 2;
     for (let i = 0; i < dmdRow * 4; i++) {
       xpos += 130;
       if (xpos > (800 - 130)) {
@@ -299,13 +299,11 @@ function initCanvas() {
   canvas.fillText('# DEBUG DATA:', LEFT_X_OFFSET, YPOS_GENERIC_DATA);
   canvas.fillText('# DMD BOARD DATA:', LEFT_X_OFFSET, YPOS_DMD_DATA);
   canvas.fillText('# WPC CPU RAM:', LEFT_X_OFFSET, YPOS_MEM_DATA);
-
-  canvas.fillStyle = COLOR_DMD[2];
-  canvas.fillText('SOLENOID OUT MATRIX', MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 10);
-  canvas.fillText('ILLUM. OUT MATRIX', MIDDLE_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 10);
-  canvas.fillText('LAMP OUT MATRIX', RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 10);
-  canvas.fillText('SWITCH IN MATRIX', RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 10);
-  canvas.fillText('DMD PAGE RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
+  canvas.fillText('SOLENOID OUT MATRIX', MIDDLE_X_OFFSET, YPOS_GENERIC_DATA);
+  canvas.fillText('ILLUM. OUT MATRIX', MIDDLE_PLUS_X_OFFSET, YPOS_GENERIC_DATA);
+  canvas.fillText('LAMP OUT MATRIX', RIGHT_X_OFFSET, YPOS_GENERIC_DATA);
+  canvas.fillText('SWITCH IN MATRIX', RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA);
+  canvas.fillText('# DMD PAGE RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA);
 
   drawDmdShaded([], LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
 }

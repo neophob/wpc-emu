@@ -1,7 +1,10 @@
 # HISTORY
 
-## 29/4/19
+## 30/4/19
 - implement blanking LED
+- minor UI improvements
+
+![30.04.19](assets/30.04.19.png?raw=true)
 
 ## 25/4/19
 - Fix White Water DMD flickering (#33) - revert vpinmame DMD flipping
