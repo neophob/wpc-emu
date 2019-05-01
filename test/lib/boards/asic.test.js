@@ -184,3 +184,15 @@ test('wpc, getState / setState', (t) => {
   wpc.setState(state);
   t.is(wpc.romBank, 11);
 });
+
+test('wpc, should reset blanking', (t) => {
+  const wpc = t.context;
+  wpc.write(CpuBoardAsic.OP.WPC_ZEROCROSS_IRQ_CLEAR, 0x02);
+  t.is(wpc.blankSignalHigh, false);
+});
+
+test('wpc, should NOT reset blanking', (t) => {
+  const wpc = t.context;
+  wpc.write(CpuBoardAsic.OP.WPC_ZEROCROSS_IRQ_CLEAR, 0x04);
+  t.is(wpc.blankSignalHigh, true);
+});
