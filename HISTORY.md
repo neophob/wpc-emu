@@ -1,5 +1,9 @@
 # HISTORY
 
+## 5/5/19
+- allow write to system rom, MM and MB use this to change reset vector
+- simplify ROM bank R/W
+
 ## 30/4/19
 - implement blanking LED
 - minor UI improvements
