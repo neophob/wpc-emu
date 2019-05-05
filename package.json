@@ -1,12 +1,17 @@
 {
   "name": "wpc-emu",
-  "version": "0.22.5",
+  "version": "0.22.6",
   "description": "WPC pinball machine emu",
+  "author": "Michael Vogt <michu@neophob.com>",
+  "homepage": "https://github.com/neophob/wpc-emu",
   "main": "index.js",
   "engines": {
     "node": ">=10.0.0"
   },
-  "author": "Michael Vogt",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/neophob/wpc-emu"
+  },
   "license": "ISC",
   "devDependencies": {
     "ava": "^1.4.1",

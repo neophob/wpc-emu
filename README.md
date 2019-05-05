@@ -32,6 +32,7 @@
     - [DMD display scanline](#dmd-display-scanline)
   - [DMD controller](#dmd-controller)
   - [Security PIC (U22)](#security-pic-u22)
+  - [Blanking](#blanking)
   - [Audio](#audio)
     - [Build Sound File](#build-sound-file)
   - [RAM / NVRAM positions](#ram--nvram-positions)
@@ -344,6 +345,14 @@ is stored at 0x81C9/0x81CA (16 bit) for this game.
 2018-10-04T21:33:43.053Z wpcemu:boards:cpu-board mem-read e873
 2018-10-04T21:33:43.053Z wpcemu:boards:cpu-board mem-read e874
 ```
+
+## Blanking
+
+Blanking protects the hardware on the pinball machines when booting. As soon as the system is ready, blanking is disabled (D19).
+
+I **assume** that the blanking signal is reset periodically with the `WPC_ZEROCROSS_IRQ_CLEAR` call.
+
+I only implemented the initial HIGH (enabled) to LOW (disabled) transition, re - enabling the blanking signal is NOT implemented.
 
 ## Audio
 The soundboard works independent from the main board and the communication between the CPU board and Sound board is rather simple, just a 8 or 16 bit command is send to the sound board, then the sound board will play that specific number.
