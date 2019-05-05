@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "icons-36a999383ad31e07b5a873913afa8c67/apple-touch-icon-precomposed.png"
   },
   {
-    "revision": "2affa1620b91930fa1cc",
+    "revision": "b686c50d4b64fe32ba81",
     "url": "wpc-client.js"
   },
   {
@@ -68,12 +68,12 @@ self.__precacheManifest = [
     "url": "icons-36a999383ad31e07b5a873913afa8c67/apple-touch-icon-144x144.png"
   },
   {
-    "revision": "bad3940f607f2a66d4468687fa455a83",
-    "url": "icons-36a999383ad31e07b5a873913afa8c67/apple-touch-icon-167x167.png"
-  },
-  {
     "revision": "e3adf8853900d850cf80dd7aa9960066",
     "url": "icons-36a999383ad31e07b5a873913afa8c67/apple-touch-icon-152x152.png"
+  },
+  {
+    "revision": "bad3940f607f2a66d4468687fa455a83",
+    "url": "icons-36a999383ad31e07b5a873913afa8c67/apple-touch-icon-167x167.png"
   },
   {
     "revision": "b9c6eba3fac7df95c0259b9546c54fef",
@@ -164,7 +164,7 @@ self.__precacheManifest = [
     "url": "icons-36a999383ad31e07b5a873913afa8c67/android-chrome-144x144.png"
   },
   {
-    "revision": "35c9d5574fdf336db150c6d5ff11979c",
+    "revision": "1f3f9d5f3c37146ac6271329fd93338a",
     "url": "icons-36a999383ad31e07b5a873913afa8c67/.cache"
   }
 ];

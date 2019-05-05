@@ -12,14 +12,14 @@ const CANVAS_WIDTH = 815 + LAMP_DISPLAY_WIDTH;
 const CANVAS_HEIGHT = 560;
 const YPOS_DMD_MAIN_VIEW = 15;
 const YPOS_GENERIC_DATA = 225;
-const YPOS_DMD_DATA = 415;
-const YPOS_MEM_DATA = YPOS_DMD_DATA + 67;
+const YPOS_DMD_DATA = 405;
+const YPOS_MEM_DATA = YPOS_DMD_DATA + 50;
 
 const LEFT_X_OFFSET = 15;
-const MIDDLE_X_OFFSET = 250 + LEFT_X_OFFSET;
-const MIDDLE_PLUS_X_OFFSET = 125 + MIDDLE_X_OFFSET;
-const RIGHT_X_OFFSET = 250 + MIDDLE_X_OFFSET;
-const RIGHT_PLUS_X_OFFSET = 125 + RIGHT_X_OFFSET;
+const MIDDLE_X_OFFSET = 240 + LEFT_X_OFFSET;
+const MIDDLE_PLUS_X_OFFSET = 130 + MIDDLE_X_OFFSET;
+const RIGHT_X_OFFSET = 260 + MIDDLE_X_OFFSET;
+const RIGHT_PLUS_X_OFFSET = 130 + RIGHT_X_OFFSET;
 
 const BIT_ARRAY = [1, 2, 4, 8, 16, 32, 64, 128];
 
@@ -52,7 +52,7 @@ function updateCanvas(emuState, cpuRunningState, audioState, bleState) {
     return;
   }
   canvas.fillStyle = '#000';
-  canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 245, 175);
+  canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA, 240, 165);
   canvas.fillRect(LEFT_X_OFFSET, YPOS_DMD_DATA, 170, 40);
 
   canvas.fillStyle = COLOR_DMD[2];
@@ -66,7 +66,9 @@ function updateCanvas(emuState, cpuRunningState, audioState, bleState) {
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
   canvas.fillText('NMI CALLS: ' + emuState.cpuState.nmiCount, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 70);
 
-  canvas.fillText('DIAGLED TOGGLE COUNT: ' + emuState.asic.wpc.diagnosticLedToggleCount, LEFT_X_OFFSET + 10, YPOS_GENERIC_DATA + 80);
+  canvas.fillText('D19', LEFT_X_OFFSET + 10, YPOS_GENERIC_DATA + 80);
+  canvas.fillText('D21', LEFT_X_OFFSET + 40, YPOS_GENERIC_DATA + 80);
+  canvas.fillText('D20 TGLE:' + emuState.asic.wpc.diagnosticLedToggleCount, LEFT_X_OFFSET + 70, YPOS_GENERIC_DATA + 80);
   canvas.fillText('ACTIVE ROM BANK: ' + emuState.asic.wpc.activeRomBank, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 90);
   canvas.fillText('WRITE TO LOCKED MEM: ' + emuState.protectedMemoryWriteAttempts, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 100);
 
@@ -85,33 +87,43 @@ function updateCanvas(emuState, cpuRunningState, audioState, bleState) {
   canvas.fillText('DMD PAGE MAP: ' + emuState.asic.dmd.dmdPageMapping, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
   canvas.fillText('DMD ACTIVE PAGE: ' + emuState.asic.dmd.activepage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
 
-  canvas.fillStyle = emuState.asic.wpc.diagnosticLed ? COLOR_DMD[3] : COLOR_DMD[0];
+  //D19
+  canvas.fillStyle = emuState.asic.wpc.blankSignalHigh ? COLOR_DMD[3] : COLOR_DMD[0];
   canvas.fillRect(LEFT_X_OFFSET, YPOS_GENERIC_DATA + 72, 8, 8);
+
+  //D20
+  canvas.fillStyle = emuState.asic.wpc.diagnosticLed ? COLOR_DMD[3] : COLOR_DMD[0];
+  canvas.fillRect(LEFT_X_OFFSET + 60, YPOS_GENERIC_DATA + 72, 8, 8);
+
+  //D21 - always on
+  canvas.fillStyle = COLOR_DMD[3];
+  canvas.fillRect(LEFT_X_OFFSET + 30, YPOS_GENERIC_DATA + 72, 8, 8);
 
   if (emuState.asic.dmd.dmdShadedBuffer) {
     drawDmdShaded(emuState.asic.dmd.dmdShadedBuffer, LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
   }
 
   if (emuState.asic.ram) {
-    drawMemRegion(emuState.asic.ram, LEFT_X_OFFSET, YPOS_MEM_DATA, 120);
+    drawMemRegion(emuState.asic.ram, LEFT_X_OFFSET, YPOS_MEM_DATA + 2);
   }
 
-  if (emuState.asic.wpc.lampState) {
-    drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 20);
-    drawLampPositions(emuState.asic.wpc.lampState, 800, YPOS_DMD_MAIN_VIEW);
-  }
 
   if (emuState.asic.wpc.solenoidState) {
-    drawMatrix8x8(emuState.asic.wpc.solenoidState, MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 20);
+    drawMatrix8x8(emuState.asic.wpc.solenoidState, MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 2);
     canvasOverlay.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
     drawFlashlamps(emuState.asic.wpc.solenoidState, 800, YPOS_DMD_MAIN_VIEW);
   }
 
-  if (emuState.asic.wpc.inputState) {
-    drawInputStateMatrix(emuState.asic.wpc.inputState, RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
+  drawMatrix8x8(emuState.asic.wpc.generalIlluminationState, MIDDLE_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 2);
+
+  if (emuState.asic.wpc.lampState) {
+    drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 2);
+    drawLampPositions(emuState.asic.wpc.lampState, 800, YPOS_DMD_MAIN_VIEW);
   }
 
-  drawMatrix8x8(emuState.asic.wpc.generalIlluminationState, MIDDLE_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 20);
+  if (emuState.asic.wpc.inputState) {
+    drawInputStateMatrix(emuState.asic.wpc.inputState, RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 2);
+  }
 
   //dmd pages - 8 pixel (on/off) per byte, display is 128x32 pixels
   if (emuState.asic.dmd.videoRam) {
@@ -122,7 +134,7 @@ function updateCanvas(emuState, cpuRunningState, audioState, bleState) {
   // draw only 4 dmd frames to avoid dropping fps
   if (Array.isArray(videoRam)) {
     let xpos = MIDDLE_X_OFFSET;
-    let ypos = YPOS_DMD_DATA;
+    let ypos = YPOS_DMD_DATA + 2;
     for (let i = 0; i < dmdRow * 4; i++) {
       xpos += 130;
       if (xpos > (800 - 130)) {
@@ -141,9 +153,9 @@ function updateCanvas(emuState, cpuRunningState, audioState, bleState) {
   }
 }
 
-function drawMemRegion(data, x, y, width) {
+function drawMemRegion(data, x, y, width = 96 * 2, height = 86) {
   canvas.fillStyle = COLOR_DMD[0];
-  canvas.fillRect(x, y, width, 70);
+  canvas.fillRect(x, y, width, height);
 
   let offsetX = 0;
   let offsetY = 0;
@@ -154,7 +166,7 @@ function drawMemRegion(data, x, y, width) {
         color = data[i].toString(16);
         canvas.fillStyle = '#' + color + color + color;
       }
-      canvas.fillRect(x + offsetX, y + offsetY, 1, 1);
+      canvas.fillRect(x + offsetX, y + offsetY, 2, 1);
     }
     if (offsetX++ >= width - 1) {
       offsetX = 0;
@@ -290,14 +302,12 @@ function initCanvas() {
   canvas.fillStyle = COLOR_DMD[3];
   canvas.fillText('# DEBUG DATA:', LEFT_X_OFFSET, YPOS_GENERIC_DATA);
   canvas.fillText('# DMD BOARD DATA:', LEFT_X_OFFSET, YPOS_DMD_DATA);
-
-  canvas.fillStyle = COLOR_DMD[2];
-  canvas.fillText('SOLENOID OUT MATRIX', MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 10);
-  canvas.fillText('ILLUM. OUT MATRIX', MIDDLE_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 10);
-  canvas.fillText('LAMP OUT MATRIX', RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 10);
-  canvas.fillText('SWITCH IN MATRIX', RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA + 10);
-  canvas.fillText('DMD PAGE RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA + 10);
-  canvas.fillText('WPC CPU RAM:', LEFT_X_OFFSET, YPOS_MEM_DATA - 10);
+  canvas.fillText('# WPC CPU RAM:', LEFT_X_OFFSET, YPOS_MEM_DATA);
+  canvas.fillText('SOLENOID OUT MATRIX', MIDDLE_X_OFFSET, YPOS_GENERIC_DATA);
+  canvas.fillText('ILLUM. OUT MATRIX', MIDDLE_PLUS_X_OFFSET, YPOS_GENERIC_DATA);
+  canvas.fillText('LAMP OUT MATRIX', RIGHT_X_OFFSET, YPOS_GENERIC_DATA);
+  canvas.fillText('SWITCH IN MATRIX', RIGHT_PLUS_X_OFFSET, YPOS_GENERIC_DATA);
+  canvas.fillText('# DMD PAGE RAM:', MIDDLE_X_OFFSET, YPOS_DMD_DATA);
 
   drawDmdShaded([], LEFT_X_OFFSET, YPOS_DMD_MAIN_VIEW, 128, 6);
 }

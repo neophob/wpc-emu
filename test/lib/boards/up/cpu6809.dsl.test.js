@@ -367,6 +367,7 @@ Source: Description Of The Motorola 6809 Instruction Set by Paul D. Burgin
 const FLAG_CLEAR = '0';
 const FLAG_SET = '1';
 const FLAG_UNAFFECTED = '-';
+//TODO add missing flags d s c n
 
 //HNZVC
 const EXPECTED_FLAG_MAP = [
@@ -396,8 +397,8 @@ test.beforeEach((t) => {
 
 function flagCheckTest(t, testData) {
   const cpu = t.context.cpu;
-  cpu.set('flags', 0xFF);
   cpu.reset();
+  cpu.set('flags', 0xFF);
   cpu.step();
 
   for (var x = 0; x < testData.flags.length; x++) {
@@ -470,8 +471,8 @@ marshall(PAGE1_OPS)
         testData.op & 0xFF, (testData.op >>> 8) & 0xFF, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI
       ];
       const cpu = t.context.cpu;
-      cpu.set('flags', flags);
       cpu.reset();
+      cpu.set('flags', flags);
       cpu.step();
       t.is(expectedTickCount, cpu.tickCount - OP_0X10_OPCODE_CYCLE);
     }
@@ -511,8 +512,8 @@ marshall(PAGE2_OPS)
         testData.op & 0xFF, (testData.op >>> 8) & 0xFF, RESET_VECTOR_VALUE_LO, RESET_VECTOR_VALUE_HI
       ];
       const cpu = t.context.cpu;
-      cpu.set('flags', flags);
       cpu.reset();
+      cpu.set('flags', flags);
       cpu.step();
       t.is(testData.cycles, cpu.tickCount - OP_0X11_OPCODE_CYCLE);
     }
