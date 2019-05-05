@@ -109,6 +109,7 @@ test('clear irq mask should set flags correct', (t) => {
   const cpu = t.context;
   cpu.set('flags', 0x00);
   cpu.irq();
+  cpu.steps();
   cpu.clearIrqMasking();
   t.is(cpu.flagsToString(), 'Efhinzvc');
 });
@@ -116,10 +117,10 @@ test('clear irq mask should set flags correct', (t) => {
 test('clear firq mask should set flags correct', (t) => {
   const cpu = t.context;
   cpu.set('flags', 0x00);
-  const firqTriggered = cpu.firq();
+  cpu.firq();
+  cpu.steps();
   cpu.clearFirqMasking();
   t.is(cpu.flagsToString(), 'efhInzvc');
-  t.true(firqTriggered);
 });
 
 test('detect that firq could not be triggered', (t) => {
