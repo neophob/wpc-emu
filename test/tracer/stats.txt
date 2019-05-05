@@ -1,0 +1,139 @@
+
+> wpc-emu@0.22.5 tracer:stats /Users/michaelvogt/_code/github/wpc-emu
+> cd ./test/tracer && ./_runbig.sh stats
+
+UPDATE DUMPS STATS (wpc-emu-dump)
+# OPS
+- WPC_LEDS: $3FF2
+- WPC_RAM_BANK: $3FF3
+- WPC_SHIFTADDRH: $3FF4
+- WPC_SHIFTADDRL: $3FF5
+- WPC_SHIFTBIT: $3FF6
+- WPC_SHIFTBIT2: $3FF7
+- WPC_PERIPHERAL_TIMER_FIRQ_CLEAR: $3FF8
+- WPC_ROM_LOCK: $3FF9
+- WPC_CLK_HOURS_DAYS: $3FFA
+- WPC_CLK_MINS: $3FFB
+- WPC_ROM_BANK: $3FFC
+- WPC_RAM_LOCK: $3FFD
+- WPC_RAM_LOCKSIZE: $3FFE
+- WPC_ZEROCROSS_IRQ_CLEAR: $3FFF
+
+## Hurricane WPC
+   Size: 74872405 bytes
+---------------------
+110	$3FF2
+1898	$3FF4
+1781	$3FF6
+1	$3FF8
+6	$3FFA
+56	$3FFB
+11131	$3FFC
+1221	$3FFD
+2	$3FFE
+13983	$3FFF
+
+## Hurricane MAME
+   Size: 78840913 bytes
+---------------------
+117	$3FF2
+2002	$3FF4
+1885	$3FF6
+3	$3FF8
+6	$3FFA
+59	$3FFB
+11587	$3FFC
+1223	$3FFD
+2	$3FFE
+14795	$3FFF
+
+
+## Twilight Zone WPC
+   Size: 84785463 bytes
+---------------------
+91	$3FF2
+1488	$3FF4
+1394	$3FF6
+78	$3FF8
+6	$3FFA
+45	$3FFB
+11391	$3FFC
+1671	$3FFD
+2	$3FFE
+11832	$3FFF
+
+## Twilight Zone MAME
+   Size: 81789061 bytes
+---------------------
+87	$3FF2
+1428	$3FF4
+1334	$3FF6
+37	$3FF8
+6	$3FFA
+43	$3FFB
+11080	$3FFC
+1673	$3FFD
+2	$3FFE
+11378	$3FFF
+
+
+## Indiana Jones WPC
+   Size: 87999116 bytes
+---------------------
+90	$3FF2
+1456	$3FF4
+1362	$3FF6
+4	$3FF8
+6	$3FFA
+44	$3FFB
+12751	$3FFC
+1845	$3FFD
+2	$3FFE
+11984	$3FFF
+
+## Indiana Jones MAME
+   Size: 92663822 bytes
+---------------------
+65	$3FF2
+11512	$3FF4
+11490	$3FF6
+2021	$3FF8
+6	$3FFA
+36	$3FFB
+14543	$3FFC
+1074	$3FFD
+2	$3FFE
+8799	$3FFF
+
+
+## Johnny Mnemonic WPC
+   Size: 95704406 bytes
+---------------------
+92	$3FF2
+5912	$3FF3
+1412	$3FF4
+1318	$3FF6
+116	$3FF8
+6	$3FFA
+42	$3FFB
+18616	$3FFC
+1925	$3FFD
+2	$3FFE
+12041	$3FFF
+
+## Johnny Mnemonic MAME
+   Size: 101099192 bytes
+---------------------
+78	$3FF2
+5965	$3FF3
+3338	$3FF4
+3248	$3FF6
+1175	$3FF8
+12	$3FFA
+39	$3FFB
+21272	$3FFC
+3291	$3FFD
+4	$3FFE
+10478	$3FFF
+
+
