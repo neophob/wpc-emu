@@ -1,0 +1,479 @@
+MC6809 Cycle-By-Cycle Performance
+=================================
+
+This document is based on Arto Salmi's work.
+(salmiarto@gmail.com, http://koti.mbnet.fi/~atjs/mc6809/Information/6809cyc.txt). Additional information by ALeX Kazik.
+
+This information is taken from Motorola Semiconductor Technical Data: MC6809E 8-bit microprocessing unit
+http://www.funet.fi/pub/cbm/documents/chipdata/6809/index.html (6809-21.gif - 6809-25.gif).
+Interrupt information is taken from HD6809E, HD68A09E, HD68B09E datasheet.
+
+Please mail me if you find errors, something is missing etc... (salmiarto@gmail.com)
+
+V1.0 2000-10-19 atjs   first version (there must be errors)
+V1.1 2000-11-03 atjs   tabs -> spaces, clean up, now normal text file (no MS-DOS), added LEA, stack writes
+                       and interrupts.
+V1.2 2000-11-30 atjs   fixed LBRA, LBSR cycles
+
+V1.3 2015-10-21 ALeX   restructured the document
+                       added [,R]
+                       added reset (soft- & hardware) characteristics
+
+
+Format
+------
+- Cycle (1, 2, ...)
+- Read/Write (R/W)
+- Data Bus
+- Address Bus
+
+
+Address Bus
+-----------
+$xxxx: fixed Address
+PC: Program Counter
+SP: Hardware Stack Pointer (aka S)
+US: User Stack Pointer (aka U)
+EA: Effective Address
+IX: Indexed Indirect Address
+Z: Tri-Stated bus
+
+
+########################################################
+Immediate, Direct, Extended and Indexed Addressing Modes
+########################################################
+
+ASL, ASR, CLR, COM, DEC, INC, LSL, LSR, NEG, ROL, ROR
+----------------------------|-----------------------------|-----------------------------|----------------------------
+                            | Direct Addressing Mode      | Extended Addressing Mode    | Indexed Addressing Mode
+----------------------------|-----------------------------|-----------------------------|----------------------------
+                            |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC
+                            |  2 R Address Low      PC+1  |  2 R Address High     PC+1  |  2 R Post Byte        PC+1
+                            |  3 R Don't Care       $ffff |  3 R Address Low      PC+2  | Based on Index Mode
+                            |  4 R Data             EA    |  4 R Don't Care       $ffff |  ? R Data             EA
+                            |  5 R Don't Care       $ffff |  5 R Data             EA    |  ? R Don't Care       $ffff
+                            |  6 W Data             EA    |  6 R Don't Care       $ffff |  ? W Data             EA
+                            |                             |  7 W Data             EA    |
+
+TST
+----------------------------|-----------------------------|-----------------------------|----------------------------
+                            | Direct Addressing Mode      | Extended Addressing Mode    | Indexed Addressing Mode
+----------------------------|-----------------------------|-----------------------------|----------------------------
+                            |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC
+                            |  2 R Address Low      PC+1  |  2 R Address High     PC+1  |  2 R Post Byte        PC+1
+                            |  3 R Don't Care       $ffff |  3 R Address Low      PC+2  | Based on Index Mode
+                            |  4 R Data             EA    |  4 R Don't Care       $ffff |  ? R Data             EA
+                            |  5 R Don't Care       $ffff |  5 R Data             EA    |  ? R Don't Care       $ffff
+                            |  6 R Don't Care       $ffff |  6 R Don't Care       $ffff |  ? R Don't Care       $ffff
+                            |                             |  7 R Don't Care       $ffff |
+
+ADCA, ADCB, ADDA, ADDB, ANDA, ANDB, BITA, BITB, CMPA, CMPB, EORA, EORB, LDA, LDB, ORA, ORB, SBCA, SBCB, SUBA, SUBB
+----------------------------|-----------------------------|-----------------------------|----------------------------
+Immediate Addressing Mode   | Direct Addressing Mode      | Extended Addressing Mode    | Indexed Addressing Mode
+----------------------------|-----------------------------|-----------------------------|----------------------------
+ 1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC
+ 2 R Data             PC+1  |  2 R Address Low      PC+1  |  2 R Address High     PC+1  |  2 R Post Byte        PC+1
+                            |  3 R Don't Care       $ffff |  3 R Address Low      PC+2  | Based on Index Mode
+                            |  4 R Data             EA    |  4 R Don't Care       $ffff |  ? R Data             EA
+                            |                             |  5 R Data             EA    |
+
+ANDCC, ORCC
+----------------------------|-----------------------------|-----------------------------|----------------------------
+Immediate Addressing Mode   |                             |                             |
+----------------------------|-----------------------------|-----------------------------|----------------------------
+ 1 R Opcode Fetch     PC    |                             |                             |
+ 2 R Data             PC+1  |                             |                             |
+ 3 R Don't Care       $ffff |                             |                             |
+
+STA, STB
+----------------------------|-----------------------------|-----------------------------|----------------------------
+                            | Direct Addressing Mode      | Extended Addressing Mode    | Indexed Addressing Mode
+----------------------------|-----------------------------|-----------------------------|----------------------------
+                            |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC
+                            |  2 R Address Low      PC+1  |  2 R Address High     PC+1  |  2 R Post Byte        PC+1
+                            |  3 R Don't Care       $ffff |  3 R Address Low      PC+2  | Based on Index Mode
+                            |  4 W Register         EA    |  4 R Don't Care       $ffff |  ? W Register         EA
+                            |                             |  5 W Register         EA    |
+
+ADDD, CMPX, SUBD
+----------------------------|-----------------------------|-----------------------------|----------------------------
+Immediate Addressing Mode   | Direct Addressing Mode      | Extended Addressing Mode    | Indexed Addressing Mode
+----------------------------|-----------------------------|-----------------------------|----------------------------
+ 1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC
+ 2 R Data High        PC+1  |  2 R Address Low      PC+1  |  2 R Address High     PC+1  |  2 R Post Byte        PC+1
+ 3 R Data Low         PC+2  |  3 R Don't Care       $ffff |  3 R Address Low      PC+2  | Based on Index Mode
+ 4 R Don't Care       $ffff |  4 R Data High        EA    |  4 R Don't Care       $ffff |  ? R Data High        EA
+                            |  5 R Data Low         EA+1  |  5 R Data High        EA    |  ? R Data Low         EA+1
+                            |  6 R Don't Care       $ffff |  6 R Data Low         EA+1  |  ? R Don't Care       $ffff
+                            |                             |  7 R Don't Care       $ffff |
+
+CMPY, CMPD, CMPS, CMPU
+----------------------------|-----------------------------|-----------------------------|----------------------------
+Immediate Addressing Mode   | Direct Addressing Mode      | Extended Addressing Mode    | Indexed Addressing Mode
+----------------------------|-----------------------------|-----------------------------|----------------------------
+ 1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC
+ 2 R Opcode 2nd Byte  PC+1  |  2 R Opcode 2nd Byte  PC+1  |  2 R Opcode 2nd Byte  PC+1  |  2 R Opcode 2nd Byte  PC+1
+ 3 R Data High        PC+2  |  3 R Address Low      PC+2  |  3 R Address High     PC+2  |  3 R Post Byte        PC+2
+ 4 R Data Low         PC+3  |  4 R Don't Care       $ffff |  4 R Address Low      PC+3  | Based on Index Mode; see Note
+ 5 R Don't Care       $ffff |  5 R Data High        EA    |  5 R Don't Care       $ffff |  ? R Data High        EA
+                            |  6 R Data Low         EA+1  |  6 R Data High        EA    |  ? R Data Low         EA+1
+                            |  7 R Don't Care       $ffff |  7 R Data Low         EA+1  |  ? R Don't Care       $ffff
+                            |                             |  8 R Don't Care       $ffff |
+
+LDD, LDU, LDX
+----------------------------|-----------------------------|-----------------------------|----------------------------
+Immediate Addressing Mode   | Direct Addressing Mode      | Extended Addressing Mode    | Indexed Addressing Mode
+----------------------------|-----------------------------|-----------------------------|----------------------------
+ 1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC
+ 2 R Register High    PC+1  |  2 R Address Low      PC+1  |  2 R Address High     PC+1  |  2 R Post Byte        PC+1
+ 3 R Register Low     PC+2  |  3 R Don't Care       $ffff |  3 R Address Low      PC+2  | Based on Index Mode
+                            |  4 R Register High    EA    |  4 R Don't Care       $ffff |  ? R Register High    EA
+                            |  5 R Register Low     EA+1  |  5 R Register High    EA    |  ? R Register Low     EA+1
+                            |                             |  6 R Register Low     EA+1  |
+
+LDS, LDY
+----------------------------|-----------------------------|-----------------------------|----------------------------
+Immediate Addressing Mode   | Direct Addressing Mode      | Extended Addressing Mode    | Indexed Addressing Mode
+----------------------------|-----------------------------|-----------------------------|----------------------------
+ 1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC
+ 2 R Opcode 2nd Byte  PC+1  |  2 R Opcode 2nd Byte  PC+1  |  2 R Opcode 2nd Byte  PC+1  |  2 R Opcode 2nd Byte  PC+1
+ 3 R Register High    PC+2  |  3 R Address Low      PC+2  |  3 R Address High     PC+2  |  3 R Post Byte        PC+2
+ 4 R Register Low     PC+3  |  4 R Don't Care       $ffff |  4 R Address Low      PC+3  | Based on Index Mode; see Note
+                            |  5 R Register High    EA    |  5 R Don't Care       $ffff |  ? R Register High    EA
+                            |  6 R Register Low     EA+1  |  6 R Register High    EA    |  ? R Register Low     EA+1
+                            |                             |  7 R Register Low     EA+1  |
+
+STD, STU, STX
+----------------------------|-----------------------------|-----------------------------|----------------------------
+                            | Direct Addressing Mode      | Extended Addressing Mode    | Indexed Addressing Mode
+----------------------------|-----------------------------|-----------------------------|----------------------------
+                            |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC
+                            |  2 R Address Low      PC+1  |  2 R Address High     PC+1  |  2 R Post Byte        PC+1
+                            |  3 R Don't Care       $ffff |  3 R Address Low      PC+2  | Based on Index Mode
+                            |  4 W Register High    EA    |  4 R Don't Care       $ffff |  ? W Register High    EA
+                            |  5 W Register Low     EA+1  |  5 W Register High    EA    |  ? W Register Low     EA+1
+                            |                             |  6 W Register Low     EA+1  |
+
+STS, STY
+----------------------------|-----------------------------|-----------------------------|----------------------------
+                            | Direct Addressing Mode      | Extended Addressing Mode    | Indexed Addressing Mode
+----------------------------|-----------------------------|-----------------------------|----------------------------
+                            |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC
+                            |  2 R Opcode 2nd Byte  PC+1  |  2 R Opcode 2nd Byte  PC+1  |  2 R Opcode 2nd Byte  PC+1
+                            |  3 R Address Low      PC+2  |  3 R Address High     PC+2  |  3 R Post Byte        PC+2
+                            |  4 R Don't Care       $ffff |  4 R Address Low      PC+3  | Based on Index Mode; see Note
+                            |  5 W Register High    EA    |  5 R Don't Care       $ffff |  ? W Register High    EA
+                            |  6 W Register Low     EA+1  |  6 W Register High    EA    |  ? W Register Low     EA+1
+                            |                             |  7 W Register Low     EA+1  |
+
+LEAS, LEAU, LEAX, LEAY
+----------------------------|-----------------------------|-----------------------------|----------------------------
+                            |                             |                             | Indexed Addressing Mode
+----------------------------|-----------------------------|-----------------------------|----------------------------
+                            |                             |                             |  1 R Opcode Fetch     PC
+                            |                             |                             |  2 R Post Byte        PC+1
+                            |                             |                             | Based on Index Mode
+                            |                             |                             |  ? R Don't Care       $ffff
+
+JMP
+----------------------------|-----------------------------|-----------------------------|----------------------------
+                            | Direct Addressing Mode      | Extended Addressing Mode    | Indexed Addressing Mode
+----------------------------|-----------------------------|-----------------------------|----------------------------
+                            |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC
+                            |  2 R Address Low      PC+1  |  2 R Address High     PC+1  |  2 R Post Byte        PC+1
+                            |  3 R Don't Care       $ffff |  3 R Address Low      PC+2  | Based on Index Mode
+                            |                             |  4 R Don't Care       $ffff |
+
+JSR
+----------------------------|-----------------------------|-----------------------------|----------------------------
+                            | Direct Addressing Mode      | Extended Addressing Mode    | Indexed Addressing Mode
+----------------------------|-----------------------------|-----------------------------|----------------------------
+                            |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC
+                            |  2 R Address Low      PC+1  |  2 R Address High     PC+1  |  2 R Post Byte        PC+1
+                            |  3 R Don't Care       $ffff |  3 R Address Low      PC+2  | Based on Index Mode
+                            |  4 R Don't Care       EA    |  4 R Don't Care       $ffff |  ? R Don't Care       EA
+                            |  5 R Don't Care       $ffff |  5 R Don't Care       EA    |  ? R Don't Care       $ffff
+                            |  6 W PC Low           SP-1  |  6 R Don't Care       $ffff |  ? W PC Low           SP-1
+                            |  7 W PC High          SP-2  |  7 W PC Low           SP-1  |  ? W PC High          SP-2
+                            |                             |  8 W PC High          SP-2  |
+
+
+#########################
+Relative Addressing Modes
+#########################
+
+BCC, BCS, BEQ, BGE, BGT, BHI, BHS, BLE, BLO, BLS, BLT, BMI, BNE, BPL, BRA, BRN, BVC, BVS
+---------------------------
+ 1 R Opcode Fetch     PC
+ 2 R Offset           PC+1
+ 3 R Don't Care       $ffff
+
+LBCC, LBCS, LBEQ, LBGE, LBGT, LBHI, LBHS, LBLE, LBLO, LBLS, LBLT, LBMI, LBNE, LBPL, LBRN, LBVC, LBVS
+---------------------------------------------------------------------------------------
+ 1 R Opcode Fetch     PC    |                             |
+ 2 R Opcode 2nd Byte  PC+1  |                             |
+ 3 R Offset High      PC+2  |                             |
+ 4 R Offset Low       PC+3  |                             |
+ 5 R Don't Care       $ffff |                             |
+Depends on branching        | IF Branch is not taken      | IF Branch is taken
+                            |                             |  6 R Don't Care       $ffff
+
+BSR                         | LBSR                        | LBRA
+----------------------------|-----------------------------|----------------------------
+ 1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC
+ 2 R Offset           PC+1  |  2 R Offset High      PC+1  |  2 R Offset High      PC+1
+ 3 R Don't Care       $ffff |  3 R Offset Low       PC+2  |  3 R Offset Low       PC+2
+ 4 R Don't Care       EA    |  4 R Don't Care       $ffff |  4 R Don't Care       $ffff
+ 5 R Don't Care       $ffff |  5 R Don't Care       $ffff |  5 R Don't Care       $ffff
+ 6 W Return Addr Low  SP-1  |  6 R Don't Care       EA    |
+ 7 W Return Addr High SP-2  |  7 R Don't Care       $ffff |
+                            |  8 W Return Addr Low  SP-1  |
+                            |  9 W Return Addr High SP-2  |
+
+#########################
+Inherent Addressing Modes
+#########################
+
+ASLA, ASRA, CLRA, COMA, DECA, INCA, LSLA, LSRA, NEGA, ROLA, RORA, TSTA
+ASLB, ASRB, CLRB, COMB, DECB, INCB, LSLB, LSRB, NEGB, ROLB, RORB, TSTB
+DAA, NOP, SEX
+---------------------------
+ 1 R Opcode Fetch     PC
+ 2 R Don't Care       PC+1
+
+ABX                         | MUL
+----------------------------|----------------------------
+ 1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC
+ 2 R Don't Care       PC+1  |  2 R Don't Care       PC+1
+ 3 R Don't Care       $ffff |  3 R Don't Care       $ffff
+                            |  4 R Don't Care       $ffff
+                            |  5 R Don't Care       $ffff
+                            |  6 R Don't Care       $ffff
+                            |  7 R Don't Care       $ffff
+                            |  8 R Don't Care       $ffff
+                            |  9 R Don't Care       $ffff
+                            | 10 R Don't Care       $ffff
+                            | 11 R Don't Care       $ffff
+
+EXG                         | TFR
+----------------------------|----------------------------
+ 1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC
+ 2 R Post Byte        PC+1  |  2 R Post Byte        PC+1
+ 3 R Don't Care       $ffff |  3 R Don't Care       $ffff
+ 4 R Don't Care       $ffff |  4 R Don't Care       $ffff
+ 5 R Don't Care       $ffff |  5 R Don't Care       $ffff
+ 6 R Don't Care       $ffff |  6 R Don't Care       $ffff
+ 7 R Don't Care       $ffff |
+ 8 R Don't Care       $ffff |
+
+RTS                         | RTI
+----------------------------|----------------------------------------------------------------------------------------
+ 1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |                             |
+ 2 R Don't Care       PC+1  |  2 R Don't Care       PC+1  |                             |
+ 3 R PC High          SP    |  3 R CCR              SP    |                             |
+ 4 R PC Low           SP+1  | Depends on E, see right     | IF E=0                      | IF E=1
+ 5 R Don't Care       $ffff |                             |  4 R PC High          SP+1  |  4 R A  Register      SP+1
+                            |                             |  5 R PC Low           SP+2  |  5 R B  Register      SP+2
+                            |                             |  6 R Don't Care       $ffff |  6 R DP Register      SP+3
+                            |                             |                             |  7 R X  Register High SP+4
+                            |                             |                             |  8 R X  Register Low  SP+5
+                            |                             |                             |  9 R Y  Register High SP+6
+                            |                             |                             | 10 R Y  Register Low  SP+7
+                            |                             |                             | 11 R User Stack High  SP+8
+                            |                             |                             | 12 R User Stack Low   SP+9
+                            |                             |                             | 13 R PC High          SP+10
+                            |                             |                             | 14 R PC Low           SP+11
+                            |                             |                             | 15 R Don't Care       $ffff
+
+PSHS                        | PSHU                        | PULS                        | PULU
+----------------------------|-----------------------------|-----------------------------|----------------------------
+ 1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC
+ 2 R Post Byte        PC+1  |  2 R Post Byte        PC+1  |  2 R Post Byte        PC+1  |  2 R Post Byte        PC+1
+ 3 R Don't Care       $ffff |  3 R Don't Care       $ffff |  3 R Don't Care       $ffff |  3 R Don't Care       $ffff
+ 4 R Don't Care       $ffff |  4 R Don't Care       $ffff |  4 R Don't Care       $ffff |  4 R Don't Care       $ffff
+ 5 R Don't Care       SP    |  5 R Don't Care       US    | PULL 0-12 Bytes (0-8 Regs)  | PULL 0-12 Bytes (0-8 Regs)
+PUSH 0-12 Bytes (0-8 Regs)  | PUSH 0-12 Bytes (0-8 Regs)  |  ? R Register ?       SP    |  ? R Register ?       US
+ ? W Register ?       SP-1  |  ? W Register ?       US-1  |  ? R Register ?       SP+1  |  ? R Register ?       US+1
+ ? W Register ?       SP-2  |  ? W Register ?       US-2  |  ? R Register ?       SP+2  |  ? R Register ?       US+2
+ ? W Register ?       SP-3  |  ? W Register ?       US-3  |  ? R ...                    |  ? R ...
+ ? W ...                    |  ? W ...                    | END LOOP                    | END LOOP
+END LOOP                    | END LOOP                    |  ? R Don't Care       SP+X  |  ? R Don't Care       US+X
+
+SWI                         | SWI2                        | SWI3                        | RESET (undocumented Op $3e)
+----------------------------|-----------------------------|-----------------------------|----------------------------
+ 1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC
+ 2 R Don't Care       PC+1  |  2 R Opcode 2nd Byte  PC+1  |  2 R Opcode 2nd Byte  PC+1  |  2 R Don't Care       PC+1
+ 3 R Don't Care       $ffff |  3 R Don't Care       PC+2  |  3 R Don't Care       PC+2  |  3 R Don't Care       $ffff
+ 4 W PC Low           SP-1  |  4 R Don't Care       $ffff |  4 R Don't Care       $ffff |  4 W PC Low           SP-1
+ 5 W PC High          SP-2  |  5 W PC Low           SP-1  |  5 W PC Low           SP-1  |  5 W PC High          SP-2
+ 6 W User Stack Low   SP-3  |  6 W PC High          SP-2  |  6 W PC High          SP-2  |  6 W User Stack Low   SP-3
+ 7 W User Stack High  SP-4  |  7 W User Stack Low   SP-3  |  7 W User Stack Low   SP-3  |  7 W User Stack High  SP-4
+ 8 W Y  Register Low  SP-5  |  8 W User Stack High  SP-4  |  8 W User Stack High  SP-4  |  8 W Y  Register Low  SP-5
+ 9 W Y  Register High SP-6  |  9 W Y  Register Low  SP-5  |  9 W Y  Register Low  SP-5  |  9 W Y  Register High SP-6
+10 W X  Register Low  SP-7  | 10 W Y  Register High SP-6  | 10 W Y  Register High SP-6  | 10 W X  Register Low  SP-7
+11 W X  Register High SP-8  | 11 W X  Register Low  SP-7  | 11 W X  Register Low  SP-7  | 11 W X  Register High SP-8
+12 W DP Register      SP-9  | 12 W X  Register High SP-8  | 12 W X  Register High SP-8  | 12 W DP Register      SP-9
+13 W B  Register      SP-10 | 13 W DP Register      SP-9  | 13 W DP Register      SP-9  | 13 W B  Register      SP-10
+14 W A  Register      SP-11 | 14 W B  Register      SP-10 | 14 W B  Register      SP-10 | 14 W A  Register      SP-11
+15 W CC Register      SP-12 | 15 W A  Register      SP-11 | 15 W A  Register      SP-11 | 15 W CC Register      SP-12
+16 R Don't Care       $ffff | 16 W CC Register      SP-12 | 16 W CC Register      SP-12 | 16 R Don't Care       $ffff
+17 R Int. Vector High $fffa | 17 R Don't Care       $ffff | 17 R Don't Care       $ffff | 17 R Int. Vector High $fffe
+18 R Int. Vector Low  $fffb | 18 R Int. Vector High $fff4 | 18 R Int. Vector High $fff2 | 18 R Int. Vector Low  $ffff
+19 R Don't Care       $ffff | 19 R Int. Vector Low  $fff5 | 19 R Int. Vector Low  $fff3 | 19 R Don't Care       $ffff
+                            | 20 R Don't Care       $ffff | 20 R Don't Care       $ffff |
+
+CWAI                        | SYNC
+----------------------------|----------------------------
+ 1 R Opcode Fetch     PC    |  1 R Opcode Fetch     PC
+ 2 R CC Mask          PC+1  |  2 R Don't Care       PC+1
+ 3 R Don't Care       PC+2  | DO
+ 4 R Don't Care       $ffff |  ? R Don't Care       Z
+ 5 W PC Low           SP-1  | WHILE Interrupt Not Present
+ 6 W PC High          SP-2  |  ? R Don't Care       Z
+ 7 W User Stack Low   SP-3  |
+ 8 W User Stack High  SP-4  |
+ 9 W Y  Register Low  SP-5  |
+10 W Y  Register High SP-6  |
+11 W X  Register Low  SP-7  |
+12 W X  Register High SP-8  |
+13 W DP Register      SP-9  |
+14 W B  Register      SP-10 |
+15 W A  Register      SP-11 |
+16 W CC Register      SP-12 |
+DO                          |
+ ? R Don't Care       $ffff |
+WHILE Interrupt Not Present |
+ ? R Int. Vector High $fffx |
+ ? R Int. Vector Low  $fffy |
+ ? R Don't Care       $ffff |
+
+
+###################
+Hardware Interrupts
+###################
+
+FIRQ                        | IRQ                         | NMI                         | RESET
+----------------------------|-----------------------------|-----------------------------|----------------------------
+ 1 R ?                PC    |  1 R ?                PC    |  1 R ?                PC    | DO
+ 2 R ?                PC    |  2 R ?                PC    |  2 R ?                PC    |  ? R Don't Care       $fffe
+ 3 R Don't Care       $ffff |  3 R Don't Care       $ffff |  3 R Don't Care       $ffff | WHILE Reset Line is Low
+ 4 W PC Low           SP-1  |  4 W PC Low           SP-1  |  4 W PC Low           SP-1  |  ? R Don't Care       $fffe
+ 5 W PC High          SP-2  |  5 W PC High          SP-2  |  5 W PC High          SP-2  |  ? R Don't Care       $fffe
+ 6 W CC Register      SP-3  |  6 W User Stack Low   SP-3  |  6 W User Stack Low   SP-3  |  ? R Don't Care       $fffe
+ 7 R Don't Care       $ffff |  7 W User Stack High  SP-4  |  7 W User Stack High  SP-4  |  ? R Int. Vector High $fffe
+ 8 R Int. Vector High $fff6 |  8 W Y  Register Low  SP-5  |  8 W Y  Register Low  SP-5  |  ? R Int. Vector Low  $ffff
+ 9 R Int. Vector Low  $fff7 |  9 W Y  Register High SP-6  |  9 W Y  Register High SP-6  |  ? R Don't Care       $ffff
+10 R Don't Care       $ffff | 10 W X  Register Low  SP-7  | 10 W X  Register Low  SP-7  |
+                            | 11 W X  Register High SP-8  | 11 W X  Register High SP-8  |
+                            | 12 W DP Register      SP-9  | 12 W DP Register      SP-9  |
+                            | 13 W B  Register      SP-10 | 13 W B  Register      SP-10 |
+                            | 14 W A  Register      SP-11 | 14 W A  Register      SP-11 |
+                            | 15 W CC Register      SP-12 | 15 W CC Register      SP-12 |
+                            | 16 R Don't Care       $ffff | 16 R Don't Care       $ffff |
+                            | 17 R Int. Vector Low  $fff8 | 17 R Int. Vector Low  $fffc |
+                            | 18 R Int. Vector High $fff9 | 18 R Int. Vector High $fffd |
+                            | 19 R Don't Care       $ffff | 19 R Don't Care       $ffff |
+
+
+################################
+Index Addressing Mode variations
+################################
+
+NOTE: For opcodes $10xx and $11xx cycle and PC
+      has to be increased by 1 to get correct values.
+
+,R                          | [,R]
+----------------------------|----------------------------
+ 3 R Don't Care       PC+2  |  3 R Don't Care       PC+2
+                            |  4 R Indirect High    IX
+                            |  5 R Indirect Low     IX+1
+                            |  6 R Don't Care       $ffff
+
+5n,R                        |
+----------------------------|----------------------------
+ 3 R Don't Care       PC+2  |
+ 4 R Don't Care       $ffff |
+
+8n,R                        | [8n,R]
+----------------------------|----------------------------
+ 3 R Offset           PC+2  |  3 R Offset           PC+2
+ 4 R Don't Care       $ffff |  4 R Don't Care       $ffff
+                            |  5 R Indirect High    IX
+                            |  6 R Indirect Low     IX+1
+                            |  7 R Don't Care       $ffff
+
+16n,R                       | [16n,R]
+----------------------------|----------------------------
+ 3 R Offset High      PC+2  |  3 R Offset High      PC+2
+ 4 R Offset Low       PC+3  |  4 R Offset Low       PC+3
+ 5 R Don't Care       PC+4  |  5 R Don't Care       PC+4
+ 6 R Don't Care       $ffff |  6 R Don't Care       $ffff
+ 7 R Don't Care       $ffff |  7 R Don't Care       $ffff
+                            |  8 R Indirect High    IX
+                            |  9 R Indirect Low     IX+1
+                            | 10 R Don't Care       $ffff
+
+A,R / B,R                   | [A,R] / [B,R]
+----------------------------|----------------------------
+ 3 R Don't Care       PC+2  |  3 R Don't Care       PC+2
+ 4 R Don't Care       $ffff |  4 R Don't Care       $ffff
+                            |  5 R Indirect High    IX
+                            |  6 R Indirect Low     IX+1
+                            |  7 R Don't Care       $ffff
+
+D,R                         | [D,R]
+----------------------------|----------------------------
+ 3 R Don't Care       PC+2  |  3 R Don't Care       PC+2
+ 4 R Don't Care       PC+3  |  4 R Don't Care       PC+3
+ 5 R Don't Care       PC+4  |  5 R Don't Care       PC+4
+ 6 R Don't Care       $ffff |  6 R Don't Care       $ffff
+ 7 R Don't Care       $ffff |  7 R Don't Care       $ffff
+                            |  8 R Indirect High    IX
+                            |  9 R Indirect Low     IX+1
+                            | 10 R Don't Care       $ffff
+
+,R+ / ,-R                   |
+----------------------------|----------------------------
+ 3 R Don't Care       PC+2  |
+ 4 R Don't Care       $ffff |
+ 5 R Don't Care       $ffff |
+
+,R++ / ,--R                 | [,R++] / [,--R]
+----------------------------|----------------------------
+ 3 R Don't Care       PC+2  |  3 R Don't Care       PC+2
+ 4 R Don't Care       $ffff |  4 R Don't Care       $ffff
+ 5 R Don't Care       $ffff |  5 R Don't Care       $ffff
+ 6 R Don't Care       $ffff |  6 R Don't Care       $ffff
+                            |  7 R Indirect High    IX
+                            |  8 R Indirect Low     IX+1
+                            |  9 R Don't Care       $ffff
+
+8n,PC                       | [8n,PC]
+----------------------------|----------------------------
+ 3 R Offset           PC+2  |  3 R Offset           PC+2
+ 4 R Don't Care       $ffff |  4 R Don't Care       $ffff
+                            |  5 R Indirect High    IX
+                            |  6 R Indirect Low     IX+1
+                            |  7 R Don't Care       $ffff
+
+16n,PC                      | [16n,PC]
+----------------------------|----------------------------
+ 3 R Offset High      PC+2  |  3 R Offset High      PC+2
+ 4 R Offset Low       PC+3  |  4 R Offset Low       PC+3
+ 5 R Don't Care       PC+4  |  5 R Don't Care       PC+4
+ 6 R Don't Care       $ffff |  6 R Don't Care       $ffff
+ 7 R Don't Care       $ffff |  7 R Don't Care       $ffff
+ 8 R Don't Care       $ffff |  8 R Don't Care       $ffff
+                            |  9 R Indirect High    IX
+                            | 10 R Indirect Low     IX+1
+                            | 11 R Don't Care       $ffff
+
+                            | [Addr]
+----------------------------|----------------------------
+                            |  3 R Address High     PC+2
+                            |  4 R Address Low      PC+3
+                            |  5 R Don't Care       PC+4
+                            |  6 R Indirect High    IX
+                            |  7 R Indirect Low     IX+1
+                            |  8 R Don't Care       $ffff
+
