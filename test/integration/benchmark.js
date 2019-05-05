@@ -37,7 +37,8 @@ function benchmarkWithCycleCount(tickSteps) {
       const ticksExecuted = wpcSystem.executeCycle(CYCLE_COUNT, tickSteps);
       const durationMs = Date.now() - tsStart;
       const status = wpcSystem.getUiState();
-      console.error(`  ${tickSteps}\t\t${durationMs}\t\t${status.cpuState.missedIRQ}\t\t${status.cpuState.missedFIRQ}\t\t${ticksExecuted}`);
+      const watchdogExpired = status.asic.wpc.watchdogExpiredCounter;
+      console.error(`  ${tickSteps}\t\t${durationMs}\t\t${status.cpuState.missedIRQ}\t\t${status.cpuState.missedFIRQ}\t\t${ticksExecuted}\t\t${watchdogExpired}`);
     });
 }
 
@@ -45,7 +46,7 @@ const HZ = 2000000;
 const cpuRealTime = 1 / HZ * CYCLE_COUNT * 1000;
 console.error(`BENCHMARK START, ROM: ${romU06Path}`);
 console.error(`Ticks to execute: ${CYCLE_COUNT} => CPU REALTIME: ${cpuRealTime}ms (CPU HZ: ${HZ})`);
-console.error('  tickSteps\tdurationMs\tmissed IRQ\tmissed FIRQ\tticksExecuted');
+console.error('  tickSteps\tdurationMs\tmissed IRQ\tmissed FIRQ\tticksExecuted\twatchDogExpired');
 
 Promise.resolve()
   .then(() => benchmarkWithCycleCount(1))
