@@ -121,15 +121,3 @@ sound-board.js:244 wpcemu:boards:sound-board: CPU_WRITE8_FAIL {"offset":14907,"s
 
   CWAI might be broken!
 ```
-
-## WPC95 (Medieval Madness / Attack From Mars / Circus Voltaire ...)
-
-After about 100k cycles the emu crashes with this error message:
-
-```
-21:05:36.646 cpu-board.js:256 CPU_WRITE8_FAIL {"offset":32766,"subsystem":"system"} 65534 142
-  ```
-
-Somehow mm writes to the registerS position. Depending on the initial value of registerS, the emu write to whatever is stored there.
-
-Best guess is that there's a bug in the CPU which triggers this issue.
