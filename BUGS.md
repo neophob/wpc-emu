@@ -2,6 +2,11 @@
 
 There are some known issues with the Emu, here I try to collect most of them.
 
+However there are some more problematic ROM's:
+- MM/MB: reference WPC95 implementation, only games that change the reset vector
+- Johnny Mnemonic: often crash after 12 million ops
+- STTNG: DMD rendering is a bit delicate - troublesome
+
 ## Unclear implementation details
 
 ### ADD operation, set halfcarry bit
