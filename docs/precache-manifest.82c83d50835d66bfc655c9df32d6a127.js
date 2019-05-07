@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "icons-36a999383ad31e07b5a873913afa8c67/apple-touch-icon-precomposed.png"
   },
   {
-    "revision": "b686c50d4b64fe32ba81",
+    "revision": "e74210f2c505fbdba367",
     "url": "wpc-client.js"
   },
   {
