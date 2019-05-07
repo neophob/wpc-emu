@@ -79,6 +79,8 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     LEFT_X_OFFSET, YPOS_GENERIC_DATA + 130);
   canvas.fillText('SND STATE: ' + audioState, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 140);
   canvas.fillText('EMU TIME: ' + emuState.asic.wpc.time, LEFT_X_OFFSET, YPOS_GENERIC_DATA + 150);
+  canvas.fillText('WATCHDOG EXPIRED: ' + emuState.asic.wpc.watchdogExpiredCounter + '/' + emuState.asic.wpc.watchdogTicks,
+    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 160);
 
   canvas.fillText('DMD PAGE MAP: ' + emuState.asic.dmd.dmdPageMapping, LEFT_X_OFFSET, YPOS_DMD_DATA + 10);
   canvas.fillText('DMD ACTIVE PAGE: ' + emuState.asic.dmd.activepage, LEFT_X_OFFSET, YPOS_DMD_DATA + 20);
