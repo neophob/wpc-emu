@@ -60,6 +60,7 @@
   - [Pinball 2000](#pinball-2000)
   - [DMD](#dmd)
   - [CPU](#cpu)
+  - [Security Chip](#security-chip)
   - [Sound Chip](#sound-chip)
   - [ROM](#rom)
   - [Custom Power Driver](#custom-power-driver)
@@ -835,6 +836,9 @@ More, unofficial suffix:
 - http://atjs.mbnet.fi/mc6809/
 - https://github.com/maly/6809js (use this CPU core, fixed typos + implemented IRQ handling)
 - http://www.roust-it.dk/coco/6809irq.pdf
+
+## Security Chip
+- http://www.edcheung.com/album/album07/Pinball/wpc_sound2.htm
 
 ## Sound Chip
 - http://www.ionpool.net/arcade/gottlieb/technical/datasheets/YM2151_datasheet.pdf
