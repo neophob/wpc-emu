@@ -7,7 +7,13 @@ const Emulator = require('../../lib/emulator');
 const disasm = require('./disasm');
 
 const romU06Path = process.env.ROMFILE || path.join(__dirname, '/../../rom/HURCNL_2.ROM');
-const HAS_SECURITY_FEATURE = process.env.HAS_SECURITY_FEATURE === 'true' ? 'securityPic' : '';
+const HAS_SECURITY_FEATURE = process.env.HAS_SECURITY_FEATURE === 'true' ? ['securityPic', 'wpcSecure'] : [];
+const HAS_DCS_BOARD = process.env.HAS_DCS_BOARD === 'true' ? ['wpcDcs'] : [];
+const HAS_DMD_BOARD = process.env.HAS_DMD_BOARD === 'true' ? ['wpcDmd'] : [];
+const HAS_FLIPTRONICS_BOARD = process.env.HAS_FLIPTRONICS_BOARD === 'true' ? ['wpcFliptronics'] : [];
+
+const FEATURES = HAS_DCS_BOARD.concat(HAS_SECURITY_FEATURE).concat(HAS_DMD_BOARD).concat(HAS_FLIPTRONICS_BOARD);
+
 const MAXSTEPS = process.env.STEPS || 0xFF000;
 
 console.log('WPC-EMU tracer', { HAS_SECURITY_FEATURE, MAXSTEPS, ROMFILE: romU06Path });
@@ -34,10 +40,9 @@ function startTrace() {
       };
       return Emulator.initVMwithRom(romData, {
         fileName: 'foo',
-        features: [
-          HAS_SECURITY_FEATURE,
-        ],
+        features: FEATURES,
         skipWpcRomCheck: false,
+//        features: ['wpcDmd'], //'securityPic', 'wpc95', 'wpcFliptronics', 'wpcDmd', 'wpcSecure'
       });
     })
     .then((wpcSystem) => {

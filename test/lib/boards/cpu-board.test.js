@@ -7,7 +7,7 @@ const PAGESIZE = 0x4000;
 const WPC_ROM_BANK = 0x3FFC;
 
 test.beforeEach((t) => {
-  const gameRom = new Uint8Array(0x18000);
+  const gameRom = new Uint8Array(0x18000).fill(0xFF);
   const initObject = {
     romObject: '',
     romSizeMBit: 1,
@@ -101,38 +101,19 @@ test('should _bankswitchedRead, bank 5', (t) => {
   t.is(result, 12);
 });
 
-test('should _bankswitchedRead, bank 6 (systemrom)', (t) => {
+test('should _bankswitchedRead, bank 6 (systemrom, out of band)', (t) => {
   const BANK = 6;
   const cpuBoard = t.context;
   // this read wraps already
-  cpuBoard.systemRom[0] = 12;
   cpuBoard.asic.write(WPC_ROM_BANK, BANK);
   const result = cpuBoard._bankswitchedRead(0);
-  t.is(result, 12);
-});
-
-test('should _bankswitchedRead, bank 7 (systemrom)', (t) => {
-  const BANK = 7;
-  const cpuBoard = t.context;
-  cpuBoard.systemRom[PAGESIZE] = 12;
-  cpuBoard.asic.write(WPC_ROM_BANK, BANK);
-  const result = cpuBoard._bankswitchedRead(0);
-  t.is(result, 12);
+  t.is(result, 0);
 });
 
 test('should _bankswitchedRead, bank 8', (t) => {
   const BANK = 8;
   const cpuBoard = t.context;
   cpuBoard.gameRom[0] = 12;
-  cpuBoard.asic.write(WPC_ROM_BANK, BANK);
-  const result = cpuBoard._bankswitchedRead(0);
-  t.is(result, 12);
-});
-
-test('should _bankswitchedRead, bank 0xFF (systemrom)', (t) => {
-  const BANK = 0xFF;
-  const cpuBoard = t.context;
-  cpuBoard.systemRom[PAGESIZE] = 12;
   cpuBoard.asic.write(WPC_ROM_BANK, BANK);
   const result = cpuBoard._bankswitchedRead(0);
   t.is(result, 12);
