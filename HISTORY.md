@@ -1,5 +1,10 @@
 # HISTORY
 
+## 7/5/19
+- re-introduced proper IRQ/FIRQ latching (revert change from 19/1/19)
+- do not clear IRQ/FIRQ from ASIC - this crashed for example JM
+- track watchdog state
+
 ## 6/5/19
 - simplify ROM bank R/W
 
