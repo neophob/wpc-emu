@@ -78,7 +78,7 @@
     "test:integration": "ava --verbose test/integration/*.test.js",
     "test:runner": "node test/headless-runner.js",
     "tracer:dump": "cd ./test/tracer && ./_runbig.sh",
-    "tracer:stats": "cd ./test/tracer && ./_runbig.sh stats",
+    "tracer:stats": "cd ./test/tracer && ./_runbig.sh stats > stats.txt",
     "tracer:status": "cd ./test/tracer/wpc-emu-dumps && git status",
     "tracer:diff": "cd ./test/tracer/wpc-emu-dumps && git diff",
     "benchmark": "node test/integration/benchmark.js > /dev/null",

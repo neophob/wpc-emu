@@ -1,7 +1,3 @@
-
-> wpc-emu@0.22.5 tracer:stats /Users/michaelvogt/_code/github/wpc-emu
-> cd ./test/tracer && ./_runbig.sh stats
-
 UPDATE DUMPS STATS (wpc-emu-dump)
 # OPS
 - WPC_LEDS: $3FF2
@@ -20,18 +16,18 @@ UPDATE DUMPS STATS (wpc-emu-dump)
 - WPC_ZEROCROSS_IRQ_CLEAR: $3FFF
 
 ## Hurricane WPC
-   Size: 74872405 bytes
+   Size: 61910455 bytes
 ---------------------
-110	$3FF2
-1898	$3FF4
-1781	$3FF6
-1	$3FF8
+92	$3FF2
+1532	$3FF4
+1447	$3FF6
+3	$3FF8
 6	$3FFA
-56	$3FFB
-11131	$3FFC
-1221	$3FFD
+46	$3FFB
+9596	$3FFC
+1223	$3FFD
 2	$3FFE
-13983	$3FFF
+11367	$3FFF
 
 ## Hurricane MAME
    Size: 78840913 bytes
@@ -49,18 +45,18 @@ UPDATE DUMPS STATS (wpc-emu-dump)
 
 
 ## Twilight Zone WPC
-   Size: 84785463 bytes
+   Size: 85491410 bytes
 ---------------------
-91	$3FF2
-1488	$3FF4
-1394	$3FF6
-78	$3FF8
+94	$3FF2
+1496	$3FF4
+1402	$3FF6
+74	$3FF8
 6	$3FFA
 45	$3FFB
-11391	$3FFC
-1671	$3FFD
+11439	$3FFC
+1674	$3FFD
 2	$3FFE
-11832	$3FFF
+11920	$3FFF
 
 ## Twilight Zone MAME
    Size: 81789061 bytes
@@ -78,18 +74,18 @@ UPDATE DUMPS STATS (wpc-emu-dump)
 
 
 ## Indiana Jones WPC
-   Size: 87999116 bytes
+   Size: 89216890 bytes
 ---------------------
-90	$3FF2
-1456	$3FF4
-1362	$3FF6
-4	$3FF8
+93	$3FF2
+1477	$3FF4
+1382	$3FF6
+5	$3FF8
 6	$3FFA
 44	$3FFB
-12751	$3FFC
-1845	$3FFD
+12852	$3FFC
+1849	$3FFD
 2	$3FFE
-11984	$3FFF
+12151	$3FFF
 
 ## Indiana Jones MAME
    Size: 92663822 bytes
@@ -107,19 +103,19 @@ UPDATE DUMPS STATS (wpc-emu-dump)
 
 
 ## Johnny Mnemonic WPC
-   Size: 95704406 bytes
+   Size: 97074789 bytes
 ---------------------
-92	$3FF2
-5912	$3FF3
-1412	$3FF4
-1318	$3FF6
-116	$3FF8
+95	$3FF2
+6009	$3FF3
+1425	$3FF4
+1330	$3FF6
+109	$3FF8
 6	$3FFA
 42	$3FFB
-18616	$3FFC
-1925	$3FFD
+18820	$3FFC
+1928	$3FFD
 2	$3FFE
-12041	$3FFF
+12223	$3FFF
 
 ## Johnny Mnemonic MAME
    Size: 101099192 bytes
