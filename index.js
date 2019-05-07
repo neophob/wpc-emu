@@ -34,7 +34,12 @@ loadFile(romGamePath)
     const romData = {
       u06: u06Rom,
     };
-    return Emulator.initVMwithRom(romData, { fileName: romGamePath });
+    const metaData = {
+      features: [], //'securityPic', 'wpc95', 'wpcFliptronics', 'wpcDmd', 'wpcSecure'
+      fileName: romGamePath,
+      skipWpcRomCheck: true,
+    };
+    return Emulator.initVMwithRom(romData, metaData);
   })
   .then((wpcSystem) => {
     debug('WPC System initialised');

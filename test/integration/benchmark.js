@@ -29,7 +29,12 @@ function benchmarkWithCycleCount(tickSteps) {
       const romData = {
         u06: u06Rom,
       };
-      return Emulator.initVMwithRom(romData, 'unittest');
+      const metaData = {
+        features: [], //'securityPic', 'wpc95', 'wpcFliptronics', 'wpcDmd', 'wpcSecure'
+        fileName: 'unittest',
+        skipWpcRomCheck: false,
+      };
+      return Emulator.initVMwithRom(romData, metaData);
     })
     .then((wpcSystem) => {
       wpcSystem.start();
