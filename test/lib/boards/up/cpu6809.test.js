@@ -105,24 +105,6 @@ test('flags should be correct after calling irq(), init flags to 0x00', (t) => {
   t.is(t.context.readMemoryAddress[3], 0xFFF9);
 });
 
-test('clear irq mask should set flags correct', (t) => {
-  const cpu = t.context;
-  cpu.set('flags', 0x00);
-  cpu.irq();
-  cpu.steps();
-  cpu.clearIrqMasking();
-  t.is(cpu.flagsToString(), 'Efhinzvc');
-});
-
-test('clear firq mask should set flags correct', (t) => {
-  const cpu = t.context;
-  cpu.set('flags', 0x00);
-  cpu.firq();
-  cpu.steps();
-  cpu.clearFirqMasking();
-  t.is(cpu.flagsToString(), 'efhInzvc');
-});
-
 test('detect that firq could not be triggered', (t) => {
   const cpu = t.context;
   cpu.set('flags', 0x00);
