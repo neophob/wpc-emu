@@ -25,6 +25,7 @@ STATS() {
   ls -l "$DUMPFILE" | awk '{print "   Size: " $5 " bytes"}'
   echo "---------------------"
   cat $DUMPFILE | grep "\$3FF" | awk '{print $10}' | sort | uniq -c | awk '{print $1 "\t" $2}'
+  #cat $DUMPFILE | grep "\$3FF" | awk '{print $9 " " $10}' | sort | uniq -c | awk '{print $1 "\t" $2 " " $3}'
   echo ""
 }
 
