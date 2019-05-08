@@ -9,7 +9,7 @@ const romU06Path = process.env.ROMFILE || path.join(__dirname, '/../../rom.freew
 
 debug('roms', { romU06Path });
 
-const CYCLE_COUNT = process.env.CYCLES || 2000000 * 1;
+const CYCLE_COUNT = process.env.CYCLES || 2000000 * 5;
 
 function loadFile(fileName) {
   return new Promise((resolve, reject) => {
