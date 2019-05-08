@@ -42,7 +42,6 @@ function startTrace() {
         fileName: 'foo',
         features: FEATURES,
         skipWpcRomCheck: false,
-//        features: ['wpcDmd'], //'securityPic', 'wpc95', 'wpcFliptronics', 'wpcDmd', 'wpcSecure'
       });
     })
     .then((wpcSystem) => {
