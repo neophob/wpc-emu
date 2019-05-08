@@ -57,7 +57,6 @@ if (process.argv[3]) {
       console.log(id + ': { sample: \'' + snd + '\' },');
     }
   }));
-  return;
 }
 
 searchDirectory(process.argv[2], '.wav', copyFileToTemp);

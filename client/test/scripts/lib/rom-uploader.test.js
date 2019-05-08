@@ -11,7 +11,7 @@ test.beforeEach((t) => {
   t.context.callback = [];
 
   const div = document.createElement('div');
-	document.body.appendChild(div);
+  document.body.appendChild(div);
 
   const htmlInput = document.createElement('INPUT');
   htmlInput.setAttribute('type', 'file');
@@ -19,9 +19,9 @@ test.beforeEach((t) => {
 
   div.appendChild(htmlInput);
 
-  htmlInput.addEventListener = function(name, func) {
+  htmlInput.addEventListener = function (name, func) {
     t.context.callback[name] = func;
-  }
+  };
   t.context.htmlInput = htmlInput;
 });
 
@@ -31,7 +31,7 @@ test.serial('getUploadedFile, should abort', (t) => {
       t.is(error.message, 'ABORT');
     });
 
-  t.context.callback['abort']();
+  t.context.callback.abort();
 
   return promise;
 });
@@ -81,8 +81,8 @@ function stringToArrayBuffer(string) {
 }
 
 function addFileListToInputElement(elements, filePaths) {
-  const fileList = filePaths.map(fp => createFile(fp))
-  fileList.__proto__ = Object.create(FileList.prototype)
+  const fileList = filePaths.map(fp => createFile(fp));
+  fileList.__proto__ = Object.create(FileList.prototype);
 
   Object.defineProperty(elements, 'files', {
     value: fileList,
@@ -98,5 +98,5 @@ function createFile(filePath) {
       lastModified: Date.now(),
       type: 'foo',
     }
-  )
+  );
 }

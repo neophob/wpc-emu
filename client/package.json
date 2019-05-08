@@ -1,6 +1,6 @@
 {
   "name": "wpc-emu-frontend",
-  "version": "0.23.1",
+  "version": "0.23.2",
   "description": "WPC pinball machine emu frontend",
   "main": "index.js",
   "engines": {
@@ -16,7 +16,7 @@
   "author": "Michael Vogt",
   "license": "ISC",
   "devDependencies": {
-    "@babel/register": "^7.0.0",
+    "@babel/register": "^7.4.4",
     "ava": "^0.25.0",
     "babel-preset-env": "^1.7.0",
     "browser-env": "^3.2.6",
@@ -26,12 +26,12 @@
     "howler": "^2.1.2",
     "html-webpack-plugin": "^3.2.0",
     "milligram": "^1.3.0",
-    "nyc": "^14.0.0",
+    "nyc": "^14.1.0",
     "raw-loader": "^2.0.0",
     "style-loader": "^0.23.1",
     "terser-webpack-plugin": "^1.2.3",
     "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.1",
+    "webpack-cli": "^3.3.2",
     "webpack-pwa-manifest": "^4.0.0",
     "whatwg-fetch": "^2.0.4",
     "workbox-webpack-plugin": "^3.6.3",

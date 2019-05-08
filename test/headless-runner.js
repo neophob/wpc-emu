@@ -36,7 +36,7 @@ function bootEmu() {
       boot(wpcSystem);
 
       let x = 0;
-      while (1) {
+      while (true) {
         x++;
         if (x % 200 === 50) {
           const status = wpcSystem.getUiState();
