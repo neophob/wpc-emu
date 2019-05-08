@@ -60,7 +60,7 @@ function initialiseEmu(gameEntry) {
         toggleDmdDump
       };
 
-      wpcSystem.registerAudioConsumer((message) => soundInstance.callback(message) );
+      wpcSystem.registerAudioConsumer((message) => soundInstance.callback(message));
       wpcSystem.start();
       console.log('Successfully started EMU v' + wpcSystem.version());
       return emuDebugUi.populateInitialCanvas(gameEntry);

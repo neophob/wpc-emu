@@ -105,7 +105,6 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     drawMemRegion(emuState.asic.ram, LEFT_X_OFFSET, YPOS_MEM_DATA + 2);
   }
 
-
   if (emuState.asic.wpc.solenoidState) {
     drawMatrix8x8(emuState.asic.wpc.solenoidState, MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 2);
     canvasOverlay.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);

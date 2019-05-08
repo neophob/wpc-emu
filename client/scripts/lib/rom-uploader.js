@@ -37,7 +37,7 @@ function fileToUint8Array(file) {
     const fileReader = new FileReader();
     fileReader.onload = () => {
       resolve(fileReader.result);
-    }
+    };
     fileReader.readAsArrayBuffer(file);
   });
 }
