@@ -16,7 +16,7 @@ const FEATURES = HAS_DCS_BOARD.concat(HAS_SECURITY_FEATURE).concat(HAS_DMD_BOARD
 
 const MAXSTEPS = process.env.STEPS || 0xFF000;
 
-console.log('WPC-EMU tracer', { HAS_SECURITY_FEATURE, MAXSTEPS, ROMFILE: romU06Path });
+console.log('WPC-EMU tracer', { FEATURES, MAXSTEPS, ROMFILE: romU06Path });
 
 const MAX_LOOPS = 64;
 const lastPC = [MAX_LOOPS].fill(0xFF);

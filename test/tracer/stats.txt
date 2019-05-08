@@ -16,18 +16,18 @@ UPDATE DUMPS STATS (wpc-emu-dump)
 - WPC_ZEROCROSS_IRQ_CLEAR: $3FFF
 
 ## Hurricane WPC
-   Size: 61910455 bytes
+   Size: 73255209 bytes
 ---------------------
 92	$3FF2
-1532	$3FF4
-1447	$3FF6
+1509	$3FF4
+1416	$3FF6
 3	$3FF8
 6	$3FFA
-46	$3FFB
-9596	$3FFC
-1223	$3FFD
+45	$3FFB
+7954	$3FFC
+1329	$3FFD
 2	$3FFE
-11367	$3FFF
+11659	$3FFF
 
 ## Hurricane MAME
    Size: 78840913 bytes
