@@ -11,7 +11,7 @@ import { initialise as initDmdExport, save as saveFile } from './lib/pin2DmdExpo
 import { AudioOutput } from './lib/sound';
 import * as gamelist from './db/gamelist';
 import { populateControlUiView, updateUiSwitchState } from './ui/control-ui';
-import * as emuDebugUi from './ui/emu-debug-ui';
+import * as emuDebugUi from './ui/oblivion-ui';
 
 const MAXIMAL_DMD_FRAMES_TO_RIP = 8000;
 const TICKS = 2000000;
@@ -26,14 +26,16 @@ var intervalId;
 var dmdDump;
 
 function initialiseEmu(gameEntry) {
-  emuDebugUi.initialise();
   window.wpcInterface = {
     romSelection,
   };
 
-  emuDebugUi.loadFeedback(gameEntry.name);
-
-  return downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06)
+//TODO  emuDebugUi.loadFeedback(gameEntry.name);
+  return document.fonts.load('24pt "Space Mono"')
+    .then(() => {
+      emuDebugUi.initialise();
+      return downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06);
+    })
     .then((u06Rom) => {
       console.log('Successfully loaded ROM', u06Rom.length);
       const romData = {
@@ -68,6 +70,7 @@ function initialiseEmu(gameEntry) {
     .then(() => {
       soundInstance.playBootSound();
     });
+
 }
 
 function saveState() {
