@@ -16,6 +16,7 @@ const CANVAS_HEIGHT = 768;
 let canvas, canvasDrawLib;
 let canvasOverlay, canvasOverlayDrawLib;
 let canvasDmd, canvaDmdDrawLib;
+let canvasMem, canvaMemDrawLib;
 
 let playfieldData;
 let playfieldImage;
@@ -106,9 +107,9 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X + 25, THEME.POS_DMD_Y - 2.5, 6, (Date.now() / 0xCAFFE) << 2);
   canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X + 50, THEME.POS_DMD_Y - 2.5, 8);
 
-  canvasOverlayDrawLib.drawDiagram(THEME.POS_DMD_X + 1, THEME.POS_DMD_X + 10, 'DMD_ACTIVE_PAGE', emuState.asic.dmd.activepage);
-
-
+  canvasOverlayDrawLib.drawDiagram(THEME.POS_DMD_X + 32, THEME.POS_DMD_Y - 5.5, 'ASIC_ROM_BANK', emuState.asic.wpc.activeRomBank);
+  canvasOverlayDrawLib.drawDiagram(THEME.POS_DMD_X + 32, THEME.POS_DMD_Y - 2.5, 'DMD_ACTIVE_PAGE', emuState.asic.dmd.activepage);
+  canvasOverlayDrawLib.writeLabel(THEME.POS_DMD_X + 12, THEME.POS_DMD_Y - 2.5, emuState.asic.dmd.dmdPageMapping);
 
   //ASIC
   canvasOverlayDrawLib.drawDiagram(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 3, 'WATCHDOG', emuState.asic.wpc.watchdogTicks);
@@ -122,6 +123,10 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   canvasOverlayDrawLib.writeHeader(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 10, emuState.asic.wpc.activeRomBank);
   canvasOverlayDrawLib.writeHeader(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 10, emuState.protectedMemoryWriteAttempts);
 
+  // MEMORY
+  if (emuState.asic.ram) {
+    canvaMemDrawLib.drawMemRegion(THEME.POS_MEM_X + 1, THEME.POS_MEM_Y + 2, emuState.asic.ram);
+  }
 
 }
 
@@ -146,10 +151,17 @@ function initialise() {
   canvasDmd = canvasDmdElement.getContext('2d', { alpha: true });
   replaceNode('canvasDmdNode', canvasDmdElement);
 
+  const canvasMemElement = document.createElement('canvas');
+  canvasMemElement.width = CANVAS_WIDTH;
+  canvasMemElement.height = CANVAS_HEIGHT;
+  canvasMem = canvasMemElement.getContext('2d', { alpha: true });
+  replaceNode('canvasMemNode', canvasMemElement);
+
   canvasDrawLib = createDrawLib(canvas, THEME);
   canvasDrawLib.drawBackgroundPoints();
   canvasOverlayDrawLib = createDrawLib(canvasOverlay, THEME);
   canvaDmdDrawLib = createDrawLib(canvasDmd, THEME);
+  canvaMemDrawLib = createDrawLib(canvasMem, THEME);
 
   canvasDmd.clearRect(0, 0, canvasDmd.width, canvasDmd.height);
 
@@ -204,8 +216,8 @@ function initialise() {
   canvasDrawLib.drawVerticalLine(THEME.POS_ASIC_X + 6, THEME.POS_ASIC_Y + 8, 3);
 
   // MEM
-  canvasDrawLib.drawVerticalLine(THEME.POS_MEM_X,      THEME.POS_MEM_Y, 5);
-  canvasDrawLib.drawVerticalLine(THEME.POS_MEM_X + 15, THEME.POS_MEM_Y, 5);
+  canvasDrawLib.drawVerticalLine(THEME.POS_MEM_X,      THEME.POS_MEM_Y, 7);
+  canvasDrawLib.drawVerticalLine(THEME.POS_MEM_X + 15, THEME.POS_MEM_Y, 7);
   canvasDrawLib.writeLabel(THEME.POS_MEM_X + 1, THEME.POS_MEM_Y + 1, 'MEMORY');
 
   // DMD SHADED

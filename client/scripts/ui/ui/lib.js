@@ -127,7 +127,7 @@ class DrawLib {
     }
   }
 
-  drawHorizontalRandomBlip(x, y, nr, seed = (Date.now() % 0xFFFF) >> 6) {
+  drawHorizontalRandomBlip(x, y, nr, seed = (Date.now() % 0xFFFF) >> 8) {
     const startX = x * this.theme.GRID_STEP_X;
     const endX = startX + nr * this.theme.GRID_STEP_X / 2;
     const startY = y * this.theme.GRID_STEP_Y;
@@ -191,7 +191,6 @@ class DrawLib {
 
   drawDmdShaded(xpos, ypos, data) {
     //128 x 32
-    // TODO draw on new canvas
     const startX = xpos * this.theme.GRID_STEP_X;
     const startY = ypos * this.theme.GRID_STEP_Y;
 
@@ -219,6 +218,30 @@ class DrawLib {
       }
       offsetX++;
       if (offsetX === 128) {
+        offsetX = 0;
+        offsetY++;
+      }
+    }
+  }
+
+
+  drawMemRegion(xpos, ypos, data, width = 13 * this.theme.GRID_STEP_X) {
+    const startX = xpos * this.theme.GRID_STEP_X;
+    const startY = ypos * this.theme.GRID_STEP_Y;
+
+    let offsetX = 0;
+    let offsetY = 0;
+    let color = 0;
+    for (let i = 0; i < data.length / 2; i++) {
+      if (data[i] > 0) {
+        if (color !== data[i]) {
+          color = data[i].toString(16);
+          const color2 = (data[i]>>1).toString(16);
+          this.ctx.fillStyle = '#' + color2 + color + color;
+        }
+        this.ctx.fillRect(startX + offsetX, startY + offsetY, 2, 1);
+      }
+      if (offsetX++ >= width - 1) {
         offsetX = 0;
         offsetY++;
       }
