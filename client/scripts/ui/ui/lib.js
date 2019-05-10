@@ -27,12 +27,12 @@ class DrawLib {
     }
   }
 
-  drawHorizontalLine(x, y, x2) {
+  drawHorizontalLine(x, y, width) {
     this.ctx.strokeStyle = this.theme.HEADER_LINE_LOW_COLOR;
     this.ctx.lineWidth = 1;
 
     const startX = x * this.theme.GRID_STEP_X;
-    const endX = x2 * this.theme.GRID_STEP_X;
+    const endX = (x + width) * this.theme.GRID_STEP_X;
     const startY = y * this.theme.GRID_STEP_Y;
 
     this.ctx.beginPath();
@@ -45,10 +45,10 @@ class DrawLib {
     this.ctx.fillRect(endX, startY - 1, 2, 2);
   }
 
-  drawVerticalLine(x, y, y2) {
+  drawVerticalLine(x, y, height) {
     const startX = x * this.theme.GRID_STEP_X;
     const startY = y * this.theme.GRID_STEP_Y;
-    const endY = y2 * this.theme.GRID_STEP_Y;
+    const endY = (y + height) * this.theme.GRID_STEP_Y;
 
     this.ctx.strokeStyle = this.theme.HEADER_LINE_LOW_COLOR;
     this.ctx.lineWidth = 1;
@@ -67,9 +67,9 @@ class DrawLib {
     this.ctx.clearRect(0, 0, this.theme.CANVAS_WIDTH, this.theme.CANVAS_HEIGHT);
   }
 
-  writeLabel(x, y, text) {
+  writeLabel(x, y, text, color = this.theme.TEXT_COLOR_LABEL) {
     this.ctx.font = this.theme.FONT_TEXT;
-    this.ctx.fillStyle = this.theme.TEXT_COLOR_LABEL;
+    this.ctx.fillStyle = color;
     this.ctx.fillText(text, x * this.theme.GRID_STEP_X, y * this.theme.GRID_STEP_Y);
   }
 
@@ -120,6 +120,25 @@ class DrawLib {
     }
   }
 
+  drawHorizontalRandomBlip(x, y, nr, seed = (Date.now() % 0xFFFF) >> 6) {
+    const startX = x * this.theme.GRID_STEP_X;
+    const endX = startX + nr * this.theme.GRID_STEP_X / 2;
+    const startY = y * this.theme.GRID_STEP_Y;
+    const colors = [
+      this.theme.COLOR_RED,
+      this.theme.DMD_COLOR_MIDDLE,
+      this.theme.COLOR_YELLOW,
+      this.theme.DMD_COLOR_DARK,
+      this.theme.RIBBON_COLOR_HEADER,
+    ];
+
+    let count = 0;
+    for (let n = startX; n < endX; n += this.theme.GRID_STEP_X / 2) {
+      this.ctx.fillStyle = colors[(seed + count++) % 5];
+      this.ctx.fillRect(n, startY, 2, 2);
+    }
+  }
+
   drawDiagram(xpos, ypos, name, value) {
     let startX = xpos * this.theme.GRID_STEP_X;
     const startY = ypos * this.theme.GRID_STEP_Y;
@@ -142,6 +161,52 @@ class DrawLib {
     })
 
     this.ctx.stroke();
+  }
+
+  drawRect(xpos, ypos, width, height, color) {
+    const startX = xpos * this.theme.GRID_STEP_X;
+    const startY = ypos * this.theme.GRID_STEP_Y;
+    const endX = width * this.theme.GRID_STEP_X;
+    const endY = height * this.theme.GRID_STEP_Y;
+    this.ctx.strokeStyle = color;
+    this.ctx.lineWidth = 1;
+    this.ctx.strokeRect(startX, startY, endX, endY);
+  }
+
+  drawDmdShaded(xpos, ypos, data) {
+    //128 x 32
+    // TODO draw on new canvas
+    const startX = xpos * this.theme.GRID_STEP_X;
+    const startY = ypos * this.theme.GRID_STEP_Y;
+
+    const KOL = [
+      this.theme.DMD_COLOR_DARK,
+      this.theme.DMD_COLOR_DARK,
+      this.theme.DMD_COLOR_MIDDLE,
+      this.theme.DMD_COLOR_HIGH,
+    ];
+    let offsetX = 0;
+    let offsetY = 0;
+    let color = 0;
+    for (let i = 0; i < data.length; i++) {
+      if (data[i] > 0) {
+        if (color !== data[i]) {
+          color = data[i];
+          this.ctx.fillStyle = KOL[color];
+        }
+
+        this.ctx.fillRect(
+          1 + startX + offsetX * this.theme.GRID_STEP_X / 2,
+          1 + startY + offsetY * 1 * this.theme.GRID_STEP_Y / 2,
+          this.theme.GRID_STEP_X / 2 - 1,
+          this.theme.GRID_STEP_Y / 2 - 1);
+      }
+      offsetX++;
+      if (offsetX === 128) {
+        offsetX = 0;
+        offsetY++;
+      }
+    }
   }
 }
 

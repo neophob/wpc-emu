@@ -32,6 +32,9 @@ function initialiseEmu(gameEntry) {
 
 //TODO  emuDebugUi.loadFeedback(gameEntry.name);
   return document.fonts.load('24pt "Space Mono"')
+    .catch((error) => {
+      console.error('FONT_LOAD_FAILED');
+    })
     .then(() => {
       emuDebugUi.initialise();
       return downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06);
