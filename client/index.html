@@ -8,7 +8,9 @@
     <style>
       canvas { position: absolute; }
       #rootNode { z-index: 1 }
-      #canvasOverlayNode { z-index: 2 }
+      #canvasNode { z-index: 4 }
+      #canvasOverlayNode { z-index: 3 }
+      #canvasDmdNode { z-index: 2 }
       html,
       body {
           width: 1025;
@@ -28,6 +30,7 @@
         <div id="rootNode"></div>
         <div id="canvasNode"></div>
         <div id="canvasOverlayNode"></div>
+        <div id="canvasDmdNode"></div>
       </div>
     </main>
   </body>

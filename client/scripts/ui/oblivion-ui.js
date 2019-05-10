@@ -15,6 +15,7 @@ const CANVAS_HEIGHT = 768;
 
 let canvas, canvasDrawLib;
 let canvasOverlay, canvasOverlayDrawLib;
+let canvasDmd, canvaDmdDrawLib;
 
 let playfieldData;
 let playfieldImage;
@@ -39,6 +40,7 @@ const THEME = {
   FONT_NAME: 'Space Mono',
   FONT_HEADER: '15px "Space Mono"',
   FONT_TEXT: '10px "Space Mono"',
+  FONT_HUGE: '22px "Space Mono"',
 
   TEXT_COLOR_HEADER: 'rgb(127, 179, 171)',
   RIBBON_COLOR_HEADER: 'rgb(32, 45, 50)',
@@ -66,8 +68,6 @@ const THEME = {
   POS_ASIC_Y: 35,
 };
 
-let lastDmd;
-
 function updateCanvas(emuState, cpuRunningState, audioState) {
   if (!emuState) {
     return;
@@ -76,7 +76,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
   // META
   canvasOverlayDrawLib.writeHeader(THEME.POS_META_X + 4, THEME.POS_META_Y + 1, emuState.romFileName);
-  canvasOverlayDrawLib.writeHeader(THEME.POS_META_X + 4, THEME.POS_META_Y + 4, emuState.asic.wpc.time, THEME.DMD_COLOR_HIGH);
+  canvasOverlayDrawLib.writeHuge(THEME.POS_META_X + 1, THEME.POS_META_Y + 4, emuState.asic.wpc.time, THEME.DMD_COLOR_HIGH);
 
   // CPU
   canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 2, emuState.cpuState.tickCount);
@@ -96,39 +96,45 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
   // DMD SHADED
   if (emuState.asic.dmd.dmdShadedBuffer) {
-    canvasOverlayDrawLib.drawDmdShaded(THEME.POS_DMD_X, THEME.POS_DMD_Y, emuState.asic.dmd.dmdShadedBuffer);//128, emuState.asic.dmd.dmdShadedBuffer, 5);
-    lastDmd = emuState.asic.dmd.dmdShadedBuffer;
-  } else if (lastDmd) {
-    canvasOverlayDrawLib.drawDmdShaded(THEME.POS_DMD_X, THEME.POS_DMD_Y, lastDmd);//128, lastDmd, 5);
+    canvaDmdDrawLib.clear();
+    canvaDmdDrawLib.drawDmdShaded(THEME.POS_DMD_X, THEME.POS_DMD_Y, emuState.asic.dmd.dmdShadedBuffer);//128, emuState.asic.dmd.dmdShadedBuffer, 5);
   }
+
   canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X + 50, THEME.POS_DMD_Y - 2.5, 8);
   canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X, THEME.POS_DMD_Y - 2.5, 10, (Date.now() & 0xDBABE) >> 9);
 
   //ASIC
-  canvasOverlayDrawLib.drawDiagram(THEME.POS_ASIC_X, THEME.POS_ASIC_Y, 'WATCHDOG', emuState.asic.wpc.watchdogTicks);
+  canvasOverlayDrawLib.drawDiagram(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 2, 'WATCHDOG', emuState.asic.wpc.watchdogTicks);
 
 }
 
 function initialise() {
   console.log('initialise');
 
-  // prepare view
   const canvasRootElement = document.createElement('canvas');
   canvasRootElement.width = CANVAS_WIDTH;
   canvasRootElement.height = CANVAS_HEIGHT;
   canvas = canvasRootElement.getContext('2d', { alpha: false });
   replaceNode('canvasNode', canvasRootElement);
 
-  //TODO make canvas smaller
   const canvasOverlayElement = document.createElement('canvas');
   canvasOverlayElement.width = CANVAS_WIDTH;
   canvasOverlayElement.height = CANVAS_HEIGHT;
   canvasOverlay = canvasOverlayElement.getContext('2d', { alpha: true });
   replaceNode('canvasOverlayNode', canvasOverlayElement);
 
-  canvasOverlayDrawLib = createDrawLib(canvasOverlay, THEME);
+  const canvasDmdElement = document.createElement('canvas');
+  canvasDmdElement.width = CANVAS_WIDTH;
+  canvasDmdElement.height = CANVAS_HEIGHT;
+  canvasDmd = canvasDmdElement.getContext('2d', { alpha: true });
+  replaceNode('canvasDmdNode', canvasDmdElement);
+
   canvasDrawLib = createDrawLib(canvas, THEME);
   canvasDrawLib.drawBackgroundPoints();
+  canvasOverlayDrawLib = createDrawLib(canvasOverlay, THEME);
+  canvaDmdDrawLib = createDrawLib(canvasDmd, THEME);
+
+  canvasDmd.clearRect(0, 0, canvasDmd.width, canvasDmd.height);
 
   //DRAW STATIC
   canvasDrawLib.drawHorizontalLine(1, 1, 15);
@@ -170,6 +176,9 @@ function initialise() {
   canvasDrawLib.drawHorizontalLine(THEME.POS_DMD_X - 1, THEME.POS_DMD_Y - 2, 66);
   canvasDrawLib.writeLabel(THEME.POS_DMD_X + 60, THEME.POS_DMD_Y - 2.5, 'LIVE', THEME.TEXT_COLOR_HEADER);
   canvasDrawLib.writeLabel(THEME.POS_DMD_X + 62, THEME.POS_DMD_Y - 2.5, 'FEED');
+
+  // ASIC
+  canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y, 'WATCHDOG');
 
 /*
   canvas.fillText('IRQ CALLS/MISSED: ' + emuState.cpuState.irqCount + '/' + emuState.cpuState.missedIRQ,

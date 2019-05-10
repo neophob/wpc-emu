@@ -85,6 +85,12 @@ class DrawLib {
     this.ctx.fillText(text, x * this.theme.GRID_STEP_X, y * this.theme.GRID_STEP_Y);
   }
 
+  writeHuge(x, y, text, color = this.theme.TEXT_COLOR_HEADER) {
+    this.ctx.font = this.theme.FONT_HUGE;
+    this.ctx.fillStyle = color;
+    this.ctx.fillText(text, x * this.theme.GRID_STEP_X, y * this.theme.GRID_STEP_Y);
+  }
+
   writeRibbonHeader(x, y, text) {
     this.ctx.font = this.theme.FONT_HEADER;
     const textWidth = this.ctx.measureText(text).width + this.theme.GRID_STEP_X;
