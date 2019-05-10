@@ -247,8 +247,5 @@ class HorizontalDiagram {
     this.values[this.pos] = value;
     this.pos = (this.pos + 1) % this.maxEntries;
     this.maxValue = Math.max(value, this.maxValue);
-    if (this.maxValue > 1) {
-      this.maxValue--;
-    }
   }
 }
