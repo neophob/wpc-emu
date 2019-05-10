@@ -99,12 +99,21 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     canvaDmdDrawLib.clear();
     canvaDmdDrawLib.drawDmdShaded(THEME.POS_DMD_X, THEME.POS_DMD_Y, emuState.asic.dmd.dmdShadedBuffer);//128, emuState.asic.dmd.dmdShadedBuffer, 5);
   }
-
   canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X + 50, THEME.POS_DMD_Y - 2.5, 8);
   canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X, THEME.POS_DMD_Y - 2.5, 10, (Date.now() & 0xDBABE) >> 9);
 
   //ASIC
-  canvasOverlayDrawLib.drawDiagram(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 2, 'WATCHDOG', emuState.asic.wpc.watchdogTicks);
+  canvasOverlayDrawLib.drawDiagram(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 3, 'WATCHDOG', emuState.asic.wpc.watchdogTicks);
+  canvasOverlayDrawLib.writeLabel(THEME.POS_ASIC_X + 12, THEME.POS_ASIC_Y + 1, emuState.asic.wpc.watchdogExpiredCounter);
+
+  canvasOverlayDrawLib.fillRect(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 6, 1, 1, emuState.asic.wpc.blankSignalHigh ? THEME.COLOR_GREEN : THEME.DMD_COLOR_DARK);
+  canvasOverlayDrawLib.fillRect(THEME.POS_ASIC_X + 4, THEME.POS_ASIC_Y + 6, 1, 1, emuState.asic.wpc.diagnosticLed ? THEME.COLOR_GREEN : THEME.DMD_COLOR_DARK);
+  canvasOverlayDrawLib.fillRect(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 6, 1, 1, THEME.COLOR_GREEN);
+  canvasOverlayDrawLib.writeLabel(THEME.POS_ASIC_X + 10, THEME.POS_ASIC_Y + 7, emuState.asic.wpc.diagnosticLedToggleCount);
+
+  canvasOverlayDrawLib.writeHeader(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 10, emuState.asic.wpc.activeRomBank);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 10, emuState.protectedMemoryWriteAttempts);
+
 
 }
 
@@ -169,6 +178,23 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 10, 'IRQ/MISSED');
   canvasDrawLib.writeLabel(THEME.POS_CPU_X + 8, THEME.POS_CPU_Y + 10, 'FIRQ/MISSED');
 
+  // ASIC
+  canvasDrawLib.drawVerticalLine(THEME.POS_ASIC_X,      THEME.POS_ASIC_Y, 11);
+  canvasDrawLib.drawVerticalLine(THEME.POS_ASIC_X + 15, THEME.POS_ASIC_Y, 11);
+  canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 1, 'WATCHDOG');
+  canvasDrawLib.writeRibbonHeader(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 1, 'EXPIRED:', THEME.FONT_TEXT);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_ASIC_X, THEME.POS_ASIC_Y + 4, 15);
+
+  canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 5, 'D19');
+  canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 4, THEME.POS_ASIC_Y + 5, 'D21');
+  canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 5, 'D20');
+  canvasDrawLib.writeRibbonHeader(THEME.POS_ASIC_X + 10, THEME.POS_ASIC_Y + 5, 'TGLE CNT', THEME.FONT_TEXT);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_ASIC_X, THEME.POS_ASIC_Y + 8, 15);
+
+  canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 9, 'ROM BANK');
+  canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 9, 'LOCKED MEM W');
+  canvasDrawLib.drawVerticalLine(THEME.POS_ASIC_X + 6, THEME.POS_ASIC_Y + 8, 3);
+
   // DMD SHADED
   canvasDrawLib.drawRect(THEME.POS_DMD_X - 0.2, THEME.POS_DMD_Y - 0.2, 65 - 0.6, 17 - 0.6, THEME.DMD_COLOR_DARK);
   canvasDrawLib.drawRect(THEME.POS_DMD_X - 1, THEME.POS_DMD_Y - 1, 66, 18, THEME.TEXT_COLOR_HEADER);
@@ -176,17 +202,6 @@ function initialise() {
   canvasDrawLib.drawHorizontalLine(THEME.POS_DMD_X - 1, THEME.POS_DMD_Y - 2, 66);
   canvasDrawLib.writeLabel(THEME.POS_DMD_X + 60, THEME.POS_DMD_Y - 2.5, 'LIVE', THEME.TEXT_COLOR_HEADER);
   canvasDrawLib.writeLabel(THEME.POS_DMD_X + 62, THEME.POS_DMD_Y - 2.5, 'FEED');
-
-  // ASIC
-  canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y, 'WATCHDOG');
-
-/*
-  canvas.fillText('IRQ CALLS/MISSED: ' + emuState.cpuState.irqCount + '/' + emuState.cpuState.missedIRQ,
-    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 50);
-  canvas.fillText('FIRQ CALLS/MISSED: ' + emuState.cpuState.firqCount + '/' + emuState.cpuState.missedFIRQ,
-    LEFT_X_OFFSET, YPOS_GENERIC_DATA + 60);
-*/
-
 }
 
 function initCanvas() {

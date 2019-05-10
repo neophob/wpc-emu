@@ -91,16 +91,17 @@ class DrawLib {
     this.ctx.fillText(text, x * this.theme.GRID_STEP_X, y * this.theme.GRID_STEP_Y);
   }
 
-  writeRibbonHeader(x, y, text) {
-    this.ctx.font = this.theme.FONT_HEADER;
+  writeRibbonHeader(x, y, text, font = this.theme.FONT_HEADER) {
+    this.ctx.font = font;
     const textWidth = this.ctx.measureText(text).width + this.theme.GRID_STEP_X;
+    const textHeight = parseInt(this.ctx.font.match(/\d+/), 10); + this.theme.GRID_STEP_Y;
 
     const startX = x * this.theme.GRID_STEP_X;
     const startY = y * this.theme.GRID_STEP_Y;
 
     this.ctx.fillStyle = this.theme.RIBBON_COLOR_HEADER;
-    this.ctx.fillRect(startX - this.theme.GRID_STEP_X / 2, startY - this.theme.GRID_STEP_Y * 1.5,
-      textWidth, this.theme.GRID_STEP_Y * 2);
+    this.ctx.fillRect(startX - this.theme.GRID_STEP_X / 2, startY - textHeight,
+      textWidth, textHeight + 4);
 
     this.ctx.fillStyle = this.theme.TEXT_COLOR_HEADER;
     this.ctx.fillText(text, startX, startY);
@@ -177,6 +178,15 @@ class DrawLib {
     this.ctx.strokeStyle = color;
     this.ctx.lineWidth = 1;
     this.ctx.strokeRect(startX, startY, endX, endY);
+  }
+
+  fillRect(xpos, ypos, width, height, color) {
+    const startX = xpos * this.theme.GRID_STEP_X;
+    const startY = ypos * this.theme.GRID_STEP_Y;
+    const endX = width * this.theme.GRID_STEP_X;
+    const endY = height * this.theme.GRID_STEP_Y;
+    this.ctx.fillStyle = color;
+    this.ctx.fillRect(startX, startY, endX, endY);
   }
 
   drawDmdShaded(xpos, ypos, data) {
