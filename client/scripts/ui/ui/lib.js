@@ -8,6 +8,7 @@ function createDrawLib(ctx, theme) {
 }
 
 const diagrams = [];
+const BIT_ARRAY = [1, 2, 4, 8, 16, 32, 64, 128];
 
 class DrawLib {
 
@@ -224,7 +225,6 @@ class DrawLib {
     }
   }
 
-
   drawMemRegion(xpos, ypos, data, width = 13 * this.theme.GRID_STEP_X) {
     const startX = xpos * this.theme.GRID_STEP_X;
     const startY = ypos * this.theme.GRID_STEP_Y;
@@ -247,6 +247,71 @@ class DrawLib {
       }
     }
   }
+
+  drawDmd(data, x, y, width = 128) {
+    this.ctx.fillStyle = this.theme.DMD_COLOR_HIGH;
+
+    let offsetX = 0;
+    let offsetY = 0;
+    for (let i = 0; i < data.length; i++) {
+      const packedByte = data[i];
+      for (let j = 0; j < BIT_ARRAY.length; j++) {
+        //NOTE: important speed optimize here...
+        if (packedByte > 0) {
+          const mask = BIT_ARRAY[j];
+          if (mask & packedByte) {
+            this.ctx.fillRect(x + offsetX, y + offsetY, 1, 1);
+          }
+        }
+        //this.ctx.fillRect(x + offsetX, y + offsetY, 1, 1);
+        offsetX++;
+        if (offsetX === width) {
+          offsetX = 0;
+          offsetY++;
+        }
+      }
+    }
+  }
+
+  drawVideoRam(x, y, frame, data) {
+    let xpos = x * this.theme.GRID_STEP_X;
+    let ypos = y * this.theme.GRID_STEP_Y;
+
+    let elementsDraw = 0;
+/*    const dmdRow = frame % 4;
+    // draw only 4 dmd frames to avoid dropping fps
+    for (let i = 0; i < dmdRow * 4; i++) {
+      xpos += 130;
+      if (xpos > (800 - 130)) {
+        xpos = x * this.theme.GRID_STEP_X;
+        ypos += 35;
+      }
+    }
+    for (let i = 0; i < 4; i++) {
+      this.drawDmd(data[dmdRow * 4 + i], xpos, ypos, 128);
+      xpos += 130;
+      if (xpos > (800 - 130)) {
+        xpos = x * this.theme.GRID_STEP_X;
+        ypos += 35;
+      }
+    }*/
+
+    for (let dmdRow = 0; dmdRow < 4; dmdRow++)
+      for (let i = 0; i < 4; i++) {
+      this.drawDmd(data[dmdRow * 4 + i], xpos, ypos);
+      xpos += this.theme.GRID_STEP_Y * 11;
+      if (++elementsDraw > 3) {
+        elementsDraw = 0;
+        xpos = x * this.theme.GRID_STEP_X;
+        ypos += 3 * this.theme.GRID_STEP_Y;
+      }
+/*      if (xpos > (800 - 130)) {
+        xpos = x * this.theme.GRID_STEP_X;
+        ypos += 35;
+      }*/
+    }
+  }
+
 }
 
 function getDiagram(name) {

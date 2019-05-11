@@ -16,10 +16,12 @@ const CANVAS_HEIGHT = 768;
 let canvas, canvasDrawLib;
 let canvasOverlay, canvasOverlayDrawLib;
 let canvasDmd, canvaDmdDrawLib;
+let canvasDmdMem, canvaDmdMemDrawLib;
 let canvasMem, canvaMemDrawLib;
 
 let playfieldData;
 let playfieldImage;
+let frame = 0;
 
 const THEME = {
   CANVAS_WIDTH,
@@ -65,6 +67,9 @@ const THEME = {
   POS_DMD_X: 19,
   POS_DMD_Y: 8,
 
+  POS_DMDMEM_X: 19,
+  POS_DMDMEM_Y: 28,
+
   POS_ASIC_X: 1,
   POS_ASIC_Y: 34,
 
@@ -76,6 +81,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   if (!emuState) {
     return;
   }
+  frame++;
   canvasOverlayDrawLib.clear();
 
   // META
@@ -128,32 +134,40 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     canvaMemDrawLib.drawMemRegion(THEME.POS_MEM_X + 1, THEME.POS_MEM_Y + 2, emuState.asic.ram);
   }
 
+  if (emuState.asic.dmd.videoRam) {
+    canvaDmdMemDrawLib.clear();
+    canvaDmdMemDrawLib.drawVideoRam(THEME.POS_DMDMEM_X, THEME.POS_DMDMEM_Y, frame, emuState.asic.dmd.videoRam);
+  }
+
+}
+
+function createCanvas() {
+  const canvasElement = document.createElement('canvas');
+  canvasElement.width = CANVAS_WIDTH;
+  canvasElement.height = CANVAS_HEIGHT;
+  return canvasElement;
 }
 
 function initialise() {
   console.log('initialise');
 
-  const canvasRootElement = document.createElement('canvas');
-  canvasRootElement.width = CANVAS_WIDTH;
-  canvasRootElement.height = CANVAS_HEIGHT;
+  const canvasRootElement = createCanvas();
   canvas = canvasRootElement.getContext('2d', { alpha: false });
   replaceNode('canvasNode', canvasRootElement);
 
-  const canvasOverlayElement = document.createElement('canvas');
-  canvasOverlayElement.width = CANVAS_WIDTH;
-  canvasOverlayElement.height = CANVAS_HEIGHT;
+  const canvasOverlayElement = createCanvas();
   canvasOverlay = canvasOverlayElement.getContext('2d', { alpha: true });
   replaceNode('canvasOverlayNode', canvasOverlayElement);
 
-  const canvasDmdElement = document.createElement('canvas');
-  canvasDmdElement.width = CANVAS_WIDTH;
-  canvasDmdElement.height = CANVAS_HEIGHT;
+  const canvasDmdElement = createCanvas();
   canvasDmd = canvasDmdElement.getContext('2d', { alpha: true });
   replaceNode('canvasDmdNode', canvasDmdElement);
 
-  const canvasMemElement = document.createElement('canvas');
-  canvasMemElement.width = CANVAS_WIDTH;
-  canvasMemElement.height = CANVAS_HEIGHT;
+  const canvasDmdMemElement = createCanvas();
+  canvasDmdMem = canvasDmdMemElement.getContext('2d', { alpha: true });
+  replaceNode('canvasDmdMemNode', canvasDmdMemElement);
+
+  const canvasMemElement = createCanvas();
   canvasMem = canvasMemElement.getContext('2d', { alpha: true });
   replaceNode('canvasMemNode', canvasMemElement);
 
@@ -162,6 +176,7 @@ function initialise() {
   canvasOverlayDrawLib = createDrawLib(canvasOverlay, THEME);
   canvaDmdDrawLib = createDrawLib(canvasDmd, THEME);
   canvaMemDrawLib = createDrawLib(canvasMem, THEME);
+  canvaDmdMemDrawLib = createDrawLib(canvasDmdMem, THEME);
 
   canvasDmd.clearRect(0, 0, canvasDmd.width, canvasDmd.height);
 
@@ -214,6 +229,9 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 9, 'ROM BANK');
   canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 9, 'LOCKED MEM W');
   canvasDrawLib.drawVerticalLine(THEME.POS_ASIC_X + 6, THEME.POS_ASIC_Y + 8, 3);
+
+  // DMD
+  canvasDrawLib.writeLabel(THEME.POS_DMD_X + 32, THEME.POS_DMD_Y - 4.5, 'DMD ACTIVE PAGE');
 
   // MEM
   canvasDrawLib.drawVerticalLine(THEME.POS_MEM_X,      THEME.POS_MEM_Y, 7);
