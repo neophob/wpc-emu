@@ -128,7 +128,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   canvasOverlayDrawLib.writeHeader(THEME.POS_ASIC_X + 8, THEME.POS_ASIC_Y + 6.5, emuState.asic.wpc.diagnosticLedToggleCount);
 
   canvasOverlayDrawLib.drawDiagram(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 10, 'ASIC_ROM_BANK', emuState.asic.wpc.activeRomBank, 22);
-  canvasOverlayDrawLib.writeHeader(THEME.POS_ASIC_X + 8, THEME.POS_ASIC_Y + 8.5, emuState.protectedMemoryWriteAttempts);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_ASIC_X + 8, THEME.POS_ASIC_Y + 9.5, emuState.protectedMemoryWriteAttempts);
 
 
   // MEMORY
@@ -147,7 +147,8 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   }
 
   // SOUND
-  canvasOverlayDrawLib.drawRedTriangle(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 2, 13, emuState.asic.sound.volume / 31);
+  canvasOverlayDrawLib.drawRedTriangle(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 2.5, 13, emuState.asic.sound.volume / 31);
+  canvasOverlayDrawLib.writeLabel(THEME.POS_SND_X + 8, THEME.POS_SND_Y + 1, audioState);
 
 }
 
@@ -286,7 +287,11 @@ function initialise() {
   canvasDrawLib.drawVerticalLine(THEME.POS_SND_X + 15, THEME.POS_SND_Y, 8);
   canvasDrawLib.writeLabel(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 1, 'SOUND');
 
-  canvasDrawLib.drawScala(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 2, 10, 3);
+  canvasDrawLib.writeRibbonHeader(THEME.POS_SND_X + 5, THEME.POS_SND_Y + 1, 'STATE', THEME.FONT_TEXT);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_SND_X, THEME.POS_SND_Y + 4, 15);
+
+  canvasDrawLib.drawScala(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 2.5, 10, 3);
+
 }
 
 function initCanvas() {
