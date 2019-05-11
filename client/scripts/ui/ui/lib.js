@@ -190,6 +190,54 @@ class DrawLib {
     this.ctx.fillRect(startX, startY, endX, endY);
   }
 
+  drawRedTriangle(xpos, ypos, sliderMaxValue, floatValue) {
+    const startX = xpos * this.theme.GRID_STEP_X + sliderMaxValue * floatValue * this.theme.GRID_STEP_X;
+    const startY = ypos * this.theme.GRID_STEP_Y;
+
+    this.ctx.fillStyle = this.theme.COLOR_RED;
+
+    this.ctx.beginPath();
+    this.ctx.moveTo(startX - this.theme.GRID_STEP_Y / 2, startY - this.theme.GRID_STEP_Y / 2);
+    this.ctx.lineTo(startX + this.theme.GRID_STEP_Y / 2, startY - this.theme.GRID_STEP_Y / 2);
+    this.ctx.lineTo(startX, startY);
+    this.ctx.fill();
+  }
+
+  drawScala(xpos, ypos, p1, p2) {
+    const startX = xpos * this.theme.GRID_STEP_X;
+    const startY = ypos * this.theme.GRID_STEP_Y;
+    const end1 = p1 * this.theme.GRID_STEP_X;
+    const end2 = p2 * this.theme.GRID_STEP_X;
+
+    this.ctx.fillStyle = this.theme.COLOR_BLUE;
+    this.ctx.fillRect(startX, startY + this.theme.GRID_STEP_Y / 4, end1, this.theme.GRID_STEP_Y / 2);
+
+    this.ctx.fillStyle = this.theme.COLOR_YELLOW;
+    this.ctx.fillRect(startX + end1, startY + this.theme.GRID_STEP_Y / 4, end2, this.theme.GRID_STEP_Y / 2);
+
+    this.ctx.strokeStyle = this.theme.COLOR_YELLOW;
+    this.ctx.lineWidth = 1;
+
+    const strokeXStart = startX - this.theme.GRID_STEP_X / 4;
+    const strokeXEnd = (xpos + p1 + p2) * this.theme.GRID_STEP_X + this.theme.GRID_STEP_X / 4;
+    const Y34 = startY + this.theme.GRID_STEP_Y;//this.theme.GRID_STEP_Y / 4 + this.theme.GRID_STEP_Y / 2;
+
+    this.ctx.beginPath();
+    this.ctx.moveTo(strokeXStart, startY - this.theme.GRID_STEP_Y / 2);
+    this.ctx.lineTo(strokeXStart, Y34);
+    this.ctx.lineTo(strokeXEnd, Y34);
+    this.ctx.lineTo(strokeXEnd, startY - this.theme.GRID_STEP_Y / 2);
+    this.ctx.stroke();
+
+    this.ctx.beginPath();
+    for (let ofs = 1; ofs < p1 + p2; ofs++) {
+      const x = startX + this.theme.GRID_STEP_X * ofs;
+      this.ctx.moveTo(x, Y34);
+      this.ctx.lineTo(x, startY);
+    }
+    this.ctx.stroke();
+  }
+
   drawDmdShaded(xpos, ypos, data) {
     //128 x 32
     const startX = xpos * this.theme.GRID_STEP_X;
