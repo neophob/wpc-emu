@@ -287,7 +287,7 @@ class DrawLib {
           const color2 = (data[i]>>1).toString(16);
           this.ctx.fillStyle = '#' + color2 + color + color;
         }
-        this.ctx.fillRect(startX + offsetX, startY + offsetY, 2, 1);
+        this.ctx.fillRect(startX + offsetX, startY + offsetY, 1, 1);
       }
       if (offsetX++ >= width - 1) {
         offsetX = 0;

@@ -23,6 +23,7 @@ let playfieldData;
 let playfieldImage;
 let frame = 0;
 let initialized = false;
+let gameEntry;
 
 const THEME = {
   CANVAS_WIDTH,
@@ -67,7 +68,7 @@ const THEME = {
   POS_DMD_Y: 8,
 
   POS_PLAYFIELD_X: 88,
-  POS_PLAYFIELD_Y: 6,
+  POS_PLAYFIELD_Y: 7,
 
   POS_DMDMEM_X: 20,
   POS_DMDMEM_Y: 28,
@@ -80,8 +81,17 @@ const THEME = {
 
   POS_SND_X: 1,
   POS_SND_Y: 51,
-
 };
+
+const colorLut = new Map();
+colorLut.set('YELLOW', 'rgba(255,255,0,');
+colorLut.set('ORANGE', 'rgba(255,165,0,');
+colorLut.set('RED', 'rgba(255,0,0,');
+colorLut.set('LBLUE', 'rgba(173,216,230,');
+colorLut.set('LPURPLE', 'rgba(218,112,214,');
+colorLut.set('WHITE', 'rgba(255,255,255,');
+colorLut.set('GREEN', 'rgba(0,255,0,');
+colorLut.set('BLACK', 'rgba(0,0,0,0)');
 
 function updateCanvas(emuState, cpuRunningState, audioState) {
   if (!emuState) {
@@ -134,7 +144,6 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   canvasOverlayDrawLib.drawDiagram(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 10, 'ASIC_ROM_BANK', emuState.asic.wpc.activeRomBank, 22);
   canvasOverlayDrawLib.writeHeader(THEME.POS_ASIC_X + 8, THEME.POS_ASIC_Y + 9.5, emuState.protectedMemoryWriteAttempts);
 
-
   // MEMORY
   if (emuState.asic.ram) {
     canvaMemDrawLib.drawMemRegion(THEME.POS_MEM_X + 1, THEME.POS_MEM_Y + 2, emuState.asic.ram);
@@ -158,6 +167,18 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   canvasOverlayDrawLib.writeHeader(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 7, emuState.asic.sound.writeControlBytes);
   canvasOverlayDrawLib.writeHeader(THEME.POS_SND_X + 8, THEME.POS_SND_Y + 6, emuState.asic.sound.readDataBytes);
   canvasOverlayDrawLib.writeHeader(THEME.POS_SND_X + 8, THEME.POS_SND_Y + 7, emuState.asic.sound.writeDataBytes);
+
+  if (emuState.asic.wpc.lampState) {
+    //drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 2);
+    drawLampPositions(emuState.asic.wpc.lampState);
+  }
+
+
+  if (emuState.asic.wpc.solenoidState) {
+    //drawMatrix8x8(emuState.asic.wpc.solenoidState, MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 2);
+    //canvasOverlay.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+    drawFlashlamps(emuState.asic.wpc.solenoidState);
+  }
 }
 
 function createCanvas() {
@@ -316,8 +337,65 @@ function initialise() {
 
 }
 
+// PLAYFIELD START
 
-function populateInitialCanvas(gameEntry) {
+function drawFlashlamps(lampState) {
+  //TODO FLICKERS!
+  if (!playfieldData || !lampState || !Array.isArray(playfieldData.flashlamps)) {
+    return;
+  }
+
+  const x = THEME.POS_PLAYFIELD_X * THEME.GRID_STEP_X;
+  const y = THEME.POS_PLAYFIELD_Y * THEME.GRID_STEP_Y;
+
+  playfieldData.flashlamps.forEach((lamp) => {
+    const selectedLamp = lampState[lamp.id - 1];
+    if (!selectedLamp) {
+      return;
+    }
+    const alpha = (selectedLamp / 255).toFixed(2);
+    canvasOverlayDrawLib.ctx.beginPath();
+    canvasOverlayDrawLib.ctx.fillStyle = 'rgba(255,255,255,' + alpha + ')';
+    canvasOverlayDrawLib.ctx.arc(x + lamp.x, y + lamp.y, 24, 0, 2 * Math.PI);
+    canvasOverlayDrawLib.ctx.fill();
+  });
+}
+
+function drawLampPositions(lampState) {
+  if (!playfieldData || !lampState || !Array.isArray(playfieldData.lamps)) {
+    return;
+  }
+
+  const x = THEME.POS_PLAYFIELD_X * THEME.GRID_STEP_X;
+  const y = THEME.POS_PLAYFIELD_Y * THEME.GRID_STEP_Y;
+
+  lampState.forEach((lamp, index) => {
+    if (index >= playfieldData.lamps.length) {
+      return;
+    }
+    const lampObjects = playfieldData.lamps[index];
+    if (!lampObjects) {
+      return;
+    }
+
+    const alpha = (lamp / 0xFF).toFixed(2);
+    //console.log(alpha)
+    const isOn = lamp > 0;
+    lampObjects.forEach((lampObject) => {
+      if (isOn) {
+        canvasOverlayDrawLib.ctx.fillStyle = colorLut.get(lampObject.color) + alpha + ')';
+      } else {
+        canvasOverlayDrawLib.ctx.fillStyle = 'black';
+      }
+      canvasOverlayDrawLib.ctx.fillRect(x + lampObject.x - 3, y + lampObject.y - 3, 6, 6);
+    });
+  });
+}
+
+//PLAYFIELD STOP
+
+function populateInitialCanvas(_gameEntry) {
+  gameEntry = _gameEntry;
   initialise();
 
   // preload data
