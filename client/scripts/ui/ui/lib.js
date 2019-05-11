@@ -147,11 +147,11 @@ class DrawLib {
     }
   }
 
-  drawDiagram(xpos, ypos, name, value) {
+  drawDiagram(xpos, ypos, name, value, maxEntries = 54) {
     let startX = xpos * this.theme.GRID_STEP_X;
     const startY = ypos * this.theme.GRID_STEP_Y;
 
-    const diagramData = getDiagram(name);
+    const diagramData = getDiagram(name, maxEntries);
     diagramData.add(value);
 
     let normalized = diagramData.values[0] / diagramData.maxValue * this.theme.GRID_STEP_Y;
@@ -263,7 +263,7 @@ class DrawLib {
             this.ctx.fillRect(x + offsetX, y + offsetY, 1, 1);
           }
         }
-        //this.ctx.fillRect(x + offsetX, y + offsetY, 1, 1);
+        this.ctx.fillRect(x + offsetX, y + offsetY, 1, 1);
         offsetX++;
         if (offsetX === width) {
           offsetX = 0;
@@ -274,8 +274,9 @@ class DrawLib {
   }
 
   drawVideoRam(x, y, frame, data) {
-    let xpos = x * this.theme.GRID_STEP_X;
-    let ypos = y * this.theme.GRID_STEP_Y;
+    const XPOS = x * this.theme.GRID_STEP_X + (128 % this.theme.GRID_STEP_X) / 2;
+    let xpos = XPOS;
+    let ypos = y * this.theme.GRID_STEP_Y + (32 % this.theme.GRID_STEP_Y) / 2;
 
     let elementsDraw = 0;
 /*    const dmdRow = frame % 4;
@@ -302,23 +303,19 @@ class DrawLib {
       xpos += this.theme.GRID_STEP_Y * 11;
       if (++elementsDraw > 3) {
         elementsDraw = 0;
-        xpos = x * this.theme.GRID_STEP_X;
+        xpos = XPOS;
         ypos += 3 * this.theme.GRID_STEP_Y;
       }
-/*      if (xpos > (800 - 130)) {
-        xpos = x * this.theme.GRID_STEP_X;
-        ypos += 35;
-      }*/
     }
   }
 
 }
 
-function getDiagram(name) {
+function getDiagram(name, maxEntries) {
   if (diagrams[name]) {
     return diagrams[name];
   }
-  diagrams[name] = new HorizontalDiagram(27 * 2);
+  diagrams[name] = new HorizontalDiagram(maxEntries);
   return diagrams[name];
 }
 

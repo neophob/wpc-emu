@@ -10,7 +10,7 @@ export { initialise, updateCanvas, populateInitialCanvas, errorFeedback, loadFee
 // https://ilikeinterfaces.com/2015/04/21/ui-review-oblivion/
 // FONT: https://www.whatfontis.com/Blender-Bold.similar
 
-const CANVAS_WIDTH = 1024;
+const CANVAS_WIDTH = 1280;
 const CANVAS_HEIGHT = 768;
 
 let canvas, canvasDrawLib;
@@ -113,9 +113,8 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X + 25, THEME.POS_DMD_Y - 2.5, 6, (Date.now() / 0xCAFFE) << 2);
   canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X + 50, THEME.POS_DMD_Y - 2.5, 8);
 
-  canvasOverlayDrawLib.drawDiagram(THEME.POS_DMD_X + 32, THEME.POS_DMD_Y - 5.5, 'ASIC_ROM_BANK', emuState.asic.wpc.activeRomBank);
   canvasOverlayDrawLib.drawDiagram(THEME.POS_DMD_X + 32, THEME.POS_DMD_Y - 2.5, 'DMD_ACTIVE_PAGE', emuState.asic.dmd.activepage);
-  canvasOverlayDrawLib.writeLabel(THEME.POS_DMD_X + 12, THEME.POS_DMD_Y - 2.5, emuState.asic.dmd.dmdPageMapping);
+  canvasOverlayDrawLib.writeLabel(THEME.POS_DMD_X + 12, THEME.POS_DMD_Y - 2.5, emuState.asic.dmd.dmdPageMapping, THEME.TEXT_COLOR_HEADER);
 
   //ASIC
   canvasOverlayDrawLib.drawDiagram(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 3, 'WATCHDOG', emuState.asic.wpc.watchdogTicks);
@@ -126,17 +125,19 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   canvasOverlayDrawLib.fillRect(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 6, 1, 1, THEME.COLOR_GREEN);
   canvasOverlayDrawLib.writeLabel(THEME.POS_ASIC_X + 10, THEME.POS_ASIC_Y + 7, emuState.asic.wpc.diagnosticLedToggleCount);
 
-  canvasOverlayDrawLib.writeHeader(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 10, emuState.asic.wpc.activeRomBank);
-  canvasOverlayDrawLib.writeHeader(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 10, emuState.protectedMemoryWriteAttempts);
+  canvasOverlayDrawLib.drawDiagram(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 11, 'ASIC_ROM_BANK', emuState.asic.wpc.activeRomBank, 22);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_ASIC_X + 8, THEME.POS_ASIC_Y + 10, emuState.protectedMemoryWriteAttempts);
+
 
   // MEMORY
   if (emuState.asic.ram) {
     canvaMemDrawLib.drawMemRegion(THEME.POS_MEM_X + 1, THEME.POS_MEM_Y + 2, emuState.asic.ram);
   }
 
+  // DMD MEM
   if (emuState.asic.dmd.videoRam) {
     canvaDmdMemDrawLib.clear();
-    canvaDmdMemDrawLib.drawVideoRam(THEME.POS_DMDMEM_X, THEME.POS_DMDMEM_Y, frame, emuState.asic.dmd.videoRam);
+    canvaDmdMemDrawLib.drawVideoRam(THEME.POS_DMDMEM_X + 1, THEME.POS_DMDMEM_Y + 1, frame, emuState.asic.dmd.videoRam);
   }
 
 }
@@ -227,11 +228,18 @@ function initialise() {
   canvasDrawLib.drawHorizontalLine(THEME.POS_ASIC_X, THEME.POS_ASIC_Y + 8, 15);
 
   canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 9, 'ROM BANK');
-  canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 9, 'LOCKED MEM W');
-  canvasDrawLib.drawVerticalLine(THEME.POS_ASIC_X + 6, THEME.POS_ASIC_Y + 8, 3);
+  canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 8, THEME.POS_ASIC_Y + 9, 'LOCKED MEM W');
+  canvasDrawLib.drawVerticalLine(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 8, 3);
 
   // DMD
+  canvasDrawLib.writeLabel(THEME.POS_DMD_X + 12, THEME.POS_DMD_Y - 4.5, 'DMD PAGE MAP');
   canvasDrawLib.writeLabel(THEME.POS_DMD_X + 32, THEME.POS_DMD_Y - 4.5, 'DMD ACTIVE PAGE');
+
+  // DMD MEM
+  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X,      THEME.POS_DMDMEM_Y, 13);
+  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 45, THEME.POS_DMDMEM_Y, 13);
+  canvasDrawLib.writeRibbonHeader(THEME.POS_DMDMEM_X + 1, THEME.POS_DMDMEM_Y + 1, 'DMD', THEME.FONT_TEXT);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 3, THEME.POS_DMDMEM_Y + 1, 'VIDEO RAM');
 
   // MEM
   canvasDrawLib.drawVerticalLine(THEME.POS_MEM_X,      THEME.POS_MEM_Y, 7);
