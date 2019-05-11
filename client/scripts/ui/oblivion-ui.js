@@ -22,6 +22,7 @@ let canvasMem, canvaMemDrawLib;
 let playfieldData;
 let playfieldImage;
 let frame = 0;
+let initialized = false;
 
 const THEME = {
   CANVAS_WIDTH,
@@ -64,6 +65,9 @@ const THEME = {
 
   POS_DMD_X: 21,
   POS_DMD_Y: 8,
+
+  POS_PLAYFIELD_X: 88,
+  POS_PLAYFIELD_Y: 6,
 
   POS_DMDMEM_X: 20,
   POS_DMDMEM_Y: 28,
@@ -120,7 +124,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
   //ASIC
   canvasOverlayDrawLib.drawDiagram(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 3, 'WATCHDOG', emuState.asic.wpc.watchdogTicks);
-  canvasOverlayDrawLib.writeLabel(THEME.POS_ASIC_X + 12, THEME.POS_ASIC_Y + 1, emuState.asic.wpc.watchdogExpiredCounter);
+  canvasOverlayDrawLib.writeLabel(THEME.POS_ASIC_X + 11.5, THEME.POS_ASIC_Y + 1, emuState.asic.wpc.watchdogExpiredCounter);
 
   canvasOverlayDrawLib.fillRect(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 5.5, 1, 1, emuState.asic.wpc.blankSignalHigh ? THEME.COLOR_GREEN : THEME.DMD_COLOR_DARK);
   canvasOverlayDrawLib.fillRect(THEME.POS_ASIC_X + 3, THEME.POS_ASIC_Y + 5.5, 1, 1, emuState.asic.wpc.diagnosticLed ? THEME.COLOR_GREEN : THEME.DMD_COLOR_DARK);
@@ -148,7 +152,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
   // SOUND
   canvasOverlayDrawLib.drawRedTriangle(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 2.5, 13, emuState.asic.sound.volume / 31);
-  canvasOverlayDrawLib.writeLabel(THEME.POS_SND_X + 9, THEME.POS_SND_Y + 1, audioState);
+  canvasOverlayDrawLib.writeLabel(THEME.POS_SND_X + 9.5, THEME.POS_SND_Y + 1, audioState);
 
   canvasOverlayDrawLib.writeHeader(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 6, emuState.asic.sound.readControlBytes);
   canvasOverlayDrawLib.writeHeader(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 7, emuState.asic.sound.writeControlBytes);
@@ -164,14 +168,26 @@ function createCanvas() {
 }
 
 function initialise() {
+  if (initialized) {
+    console.log('ALREADY_INITIALIZED!');
+    return;
+  }
+  initialized = true;
   console.log('initialise');
 
   const canvasRootElement = createCanvas();
   canvas = canvasRootElement.getContext('2d', { alpha: false });
+  /*canvas = canvasRootElement.getContext('2d', { alpha: true });
+  canvas.fillStyle = '#000000';
+  canvas.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  canvas.shadowBlur = 2;
+  canvas.shadowColor = THEME.COLOR_BLUE;*/
   replaceNode('canvasNode', canvasRootElement);
 
   const canvasOverlayElement = createCanvas();
   canvasOverlay = canvasOverlayElement.getContext('2d', { alpha: true });
+  //canvasOverlay.shadowBlur = 2;
+  //canvasOverlay.shadowColor = THEME.COLOR_BLUE;
   replaceNode('canvasOverlayNode', canvasOverlayElement);
 
   const canvasDmdElement = createCanvas();
@@ -224,7 +240,7 @@ function initialise() {
   canvasDrawLib.drawVerticalLine(THEME.POS_ASIC_X,      THEME.POS_ASIC_Y, 10);
   canvasDrawLib.drawVerticalLine(THEME.POS_ASIC_X + 15, THEME.POS_ASIC_Y, 10);
   canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 1, 'WATCHDOG');
-  canvasDrawLib.writeRibbonHeader(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 1, 'EXPIRED:', THEME.FONT_TEXT);
+  canvasDrawLib.writeRibbonHeader(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 1, 'EXPIRED', THEME.FONT_TEXT);
   canvasDrawLib.drawHorizontalLine(THEME.POS_ASIC_X, THEME.POS_ASIC_Y + 4, 15);
 
   canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 5, 'D19');
@@ -248,7 +264,7 @@ function initialise() {
   canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 36, THEME.POS_DMDMEM_Y + 1, 20);
   canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 48, THEME.POS_DMDMEM_Y, 21);
   canvasDrawLib.writeRibbonHeader(THEME.POS_DMDMEM_X + 1, THEME.POS_DMDMEM_Y + 1, 'DMD', THEME.FONT_TEXT);
-  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 3, THEME.POS_DMDMEM_Y + 1, 'VIDEO RAM');
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 3.5, THEME.POS_DMDMEM_Y + 1, 'VIDEO RAM');
   canvasDrawLib.drawHorizontalLine(THEME.POS_DMDMEM_X, THEME.POS_DMDMEM_Y + 6, 48);
   canvasDrawLib.drawHorizontalLine(THEME.POS_DMDMEM_X, THEME.POS_DMDMEM_Y + 11, 48);
   canvasDrawLib.drawHorizontalLine(THEME.POS_DMDMEM_X, THEME.POS_DMDMEM_Y + 16, 48);
@@ -300,11 +316,9 @@ function initialise() {
 
 }
 
-function initCanvas() {
-}
 
 function populateInitialCanvas(gameEntry) {
-  initCanvas();
+  initialise();
 
   // preload data
   playfieldData = gameEntry.playfield;
@@ -312,14 +326,14 @@ function populateInitialCanvas(gameEntry) {
   if (playfieldData) {
     playfieldImage = new Image();
     playfieldImage.onload = function () {
-//TODO      canvas.drawImage(playfieldImage, 800, YPOS_DMD_MAIN_VIEW);
+      canvasDrawLib.drawImage(THEME.POS_PLAYFIELD_X, THEME.POS_PLAYFIELD_Y, playfieldImage);
     };
     playfieldImage.src = FETCHURL + playfieldData.image;
   }
 }
 
 function errorFeedback(error) {
-  initCanvas();
+  initialise();
 
   canvas.fillStyle = COLOR_DMD[3];
   const x = LEFT_X_OFFSET + 10;
@@ -333,7 +347,7 @@ function errorFeedback(error) {
 }
 
 function loadFeedback(romName) {
-  initCanvas();
+  initialise();
 
   canvas.fillStyle = COLOR_DMD[3];
   const x = LEFT_X_OFFSET + 10;

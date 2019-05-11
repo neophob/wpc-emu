@@ -357,6 +357,12 @@ class DrawLib {
     }
   }
 
+  drawImage(xpos, ypos, playfieldImage) {
+    const startX = xpos * this.theme.GRID_STEP_X;
+    const startY = ypos * this.theme.GRID_STEP_Y;
+    this.ctx.drawImage(playfieldImage, startX, startY);
+  }
+
 }
 
 function getDiagram(name, maxEntries) {
