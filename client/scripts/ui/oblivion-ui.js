@@ -37,7 +37,7 @@ const THEME = {
   GRID_STEP_Y: 12,
   GRID_SIZE: 1.2,
 
-  HEADER_LINE_LOW_COLOR: 'rgb(65, 68, 70)',
+  HEADER_LINE_LOW_COLOR: 'rgb(52, 71, 75)',
   HEADER_LINE_HIGH_COLOR: 'rgb(150, 154, 147)',
 
   FONT_NAME: 'Space Mono',
@@ -67,7 +67,7 @@ const THEME = {
   POS_DMD_X: 19,
   POS_DMD_Y: 8,
 
-  POS_DMDMEM_X: 19,
+  POS_DMDMEM_X: 18,
   POS_DMDMEM_Y: 28,
 
   POS_ASIC_X: 1,
@@ -109,9 +109,9 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     canvaDmdDrawLib.clear();
     canvaDmdDrawLib.drawDmdShaded(THEME.POS_DMD_X, THEME.POS_DMD_Y, emuState.asic.dmd.dmdShadedBuffer);//128, emuState.asic.dmd.dmdShadedBuffer, 5);
   }
-  canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X, THEME.POS_DMD_Y - 2.5, 10, (Date.now() & 0xDBABE) >> 9);
-  canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X + 25, THEME.POS_DMD_Y - 2.5, 6, (Date.now() / 0xCAFFE) << 2);
-  canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X + 50, THEME.POS_DMD_Y - 2.5, 8);
+  canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X, THEME.POS_DMD_Y - 2.5, 10, emuState.opsMs >> 2);
+  canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X + 25, THEME.POS_DMD_Y - 2.5, 6, emuState.asic.dmd.activepage >> 1);
+  canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X + 50, THEME.POS_DMD_Y - 2.5, 8, emuState.asic.wpc.diagnosticLedToggleCount);
 
   canvasOverlayDrawLib.drawDiagram(THEME.POS_DMD_X + 32, THEME.POS_DMD_Y - 2.5, 'DMD_ACTIVE_PAGE', emuState.asic.dmd.activepage);
   canvasOverlayDrawLib.writeLabel(THEME.POS_DMD_X + 12, THEME.POS_DMD_Y - 2.5, emuState.asic.dmd.dmdPageMapping, THEME.TEXT_COLOR_HEADER);
@@ -137,7 +137,12 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   // DMD MEM
   if (emuState.asic.dmd.videoRam) {
     canvaDmdMemDrawLib.clear();
-    canvaDmdMemDrawLib.drawVideoRam(THEME.POS_DMDMEM_X + 1, THEME.POS_DMDMEM_Y + 1, frame, emuState.asic.dmd.videoRam);
+    canvaDmdMemDrawLib.drawVideoRam(THEME.POS_DMDMEM_X + 0.5, THEME.POS_DMDMEM_Y + 2.75, frame, emuState.asic.dmd.videoRam);
+    canvaDmdMemDrawLib.drawHorizontalRandomBlip(THEME.POS_DMDMEM_X + 13, THEME.POS_DMDMEM_Y + 11.5, 2);
+    canvaDmdMemDrawLib.drawHorizontalRandomBlip(THEME.POS_DMDMEM_X + 25, THEME.POS_DMDMEM_Y + 11.5, 1);
+    canvaDmdMemDrawLib.drawHorizontalRandomBlip(THEME.POS_DMDMEM_X + 25, THEME.POS_DMDMEM_Y + 1.5, 3);
+    canvaDmdMemDrawLib.drawVerticalRandomBlip(THEME.POS_DMDMEM_X + 0.5, THEME.POS_DMDMEM_Y + 16.5, 2, (Date.now() / 0xCAFFE) << 2);
+
   }
 
 }
@@ -236,10 +241,37 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_DMD_X + 32, THEME.POS_DMD_Y - 4.5, 'DMD ACTIVE PAGE');
 
   // DMD MEM
-  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X,      THEME.POS_DMDMEM_Y, 13);
-  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 45, THEME.POS_DMDMEM_Y, 13);
+  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X,      THEME.POS_DMDMEM_Y, 21);
+  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 12, THEME.POS_DMDMEM_Y + 1, 20);
+  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 24, THEME.POS_DMDMEM_Y + 1, 20);
+  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 36, THEME.POS_DMDMEM_Y + 1, 20);
+  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 48, THEME.POS_DMDMEM_Y, 21);
   canvasDrawLib.writeRibbonHeader(THEME.POS_DMDMEM_X + 1, THEME.POS_DMDMEM_Y + 1, 'DMD', THEME.FONT_TEXT);
   canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 3, THEME.POS_DMDMEM_Y + 1, 'VIDEO RAM');
+  canvasDrawLib.drawHorizontalLine(THEME.POS_DMDMEM_X, THEME.POS_DMDMEM_Y + 6, 48);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_DMDMEM_X, THEME.POS_DMDMEM_Y + 11, 48);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_DMDMEM_X, THEME.POS_DMDMEM_Y + 16, 48);
+
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 10, THEME.POS_DMDMEM_Y + 2, '#00', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 10, THEME.POS_DMDMEM_Y + 7, '#04', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 10, THEME.POS_DMDMEM_Y + 12, '#08', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 10, THEME.POS_DMDMEM_Y + 17, '#12', THEME.COLOR_YELLOW);
+
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 22, THEME.POS_DMDMEM_Y + 2, '#01', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 22, THEME.POS_DMDMEM_Y + 7, '#05', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 22, THEME.POS_DMDMEM_Y + 12, '#09', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 22, THEME.POS_DMDMEM_Y + 17, '#13', THEME.COLOR_YELLOW);
+
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 34, THEME.POS_DMDMEM_Y + 2, '#02', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 34, THEME.POS_DMDMEM_Y + 7, '#06', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 34, THEME.POS_DMDMEM_Y + 12, '#10', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 34, THEME.POS_DMDMEM_Y + 17, '#14', THEME.COLOR_YELLOW);
+
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 46, THEME.POS_DMDMEM_Y + 2, '#03', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 46, THEME.POS_DMDMEM_Y + 7, '#07', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 46, THEME.POS_DMDMEM_Y + 12, '#11', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 46, THEME.POS_DMDMEM_Y + 17, '#15', THEME.COLOR_YELLOW);
+
 
   // MEM
   canvasDrawLib.drawVerticalLine(THEME.POS_MEM_X,      THEME.POS_MEM_Y, 7);

@@ -263,7 +263,7 @@ class DrawLib {
             this.ctx.fillRect(x + offsetX, y + offsetY, 1, 1);
           }
         }
-        this.ctx.fillRect(x + offsetX, y + offsetY, 1, 1);
+        //this.ctx.fillRect(x + offsetX, y + offsetY, 1, 1);
         offsetX++;
         if (offsetX === width) {
           offsetX = 0;
@@ -276,7 +276,7 @@ class DrawLib {
   drawVideoRam(x, y, frame, data) {
     const XPOS = x * this.theme.GRID_STEP_X + (128 % this.theme.GRID_STEP_X) / 2;
     let xpos = XPOS;
-    let ypos = y * this.theme.GRID_STEP_Y + (32 % this.theme.GRID_STEP_Y) / 2;
+    let ypos = y * this.theme.GRID_STEP_Y;// + (32 % this.theme.GRID_STEP_Y) / 2;
 
     let elementsDraw = 0;
 /*    const dmdRow = frame % 4;
@@ -300,11 +300,11 @@ class DrawLib {
     for (let dmdRow = 0; dmdRow < 4; dmdRow++)
       for (let i = 0; i < 4; i++) {
       this.drawDmd(data[dmdRow * 4 + i], xpos, ypos);
-      xpos += this.theme.GRID_STEP_Y * 11;
+      xpos += this.theme.GRID_STEP_Y * 12;
       if (++elementsDraw > 3) {
         elementsDraw = 0;
         xpos = XPOS;
-        ypos += 3 * this.theme.GRID_STEP_Y;
+        ypos += 5 * this.theme.GRID_STEP_Y;
       }
     }
   }
