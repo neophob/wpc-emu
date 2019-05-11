@@ -72,10 +72,10 @@ const THEME = {
   POS_ASIC_Y: 28,
 
   POS_MEM_X: 1,
-  POS_MEM_Y: 42,
+  POS_MEM_Y: 41,
 
   POS_SND_X: 1,
-  POS_SND_Y: 52,
+  POS_SND_Y: 51,
 
 };
 
@@ -148,7 +148,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
   // SOUND
   canvasOverlayDrawLib.drawRedTriangle(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 2.5, 13, emuState.asic.sound.volume / 31);
-  canvasOverlayDrawLib.writeLabel(THEME.POS_SND_X + 8, THEME.POS_SND_Y + 1, audioState);
+  canvasOverlayDrawLib.writeLabel(THEME.POS_SND_X + 9, THEME.POS_SND_Y + 1, audioState);
 
   canvasOverlayDrawLib.writeHeader(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 6, emuState.asic.sound.readControlBytes);
   canvasOverlayDrawLib.writeHeader(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 7, emuState.asic.sound.writeControlBytes);
@@ -291,7 +291,7 @@ function initialise() {
   canvasDrawLib.drawVerticalLine(THEME.POS_SND_X + 15, THEME.POS_SND_Y, 8);
   canvasDrawLib.writeLabel(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 1, 'SOUND');
 
-  canvasDrawLib.writeRibbonHeader(THEME.POS_SND_X + 5, THEME.POS_SND_Y + 1, 'STATE', THEME.FONT_TEXT);
+  canvasDrawLib.writeRibbonHeader(THEME.POS_SND_X + 6, THEME.POS_SND_Y + 1, 'STATE', THEME.FONT_TEXT);
   canvasDrawLib.drawScala(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 2.5, 10, 3);
   canvasDrawLib.drawHorizontalLine(THEME.POS_SND_X, THEME.POS_SND_Y + 4, 15);
 
