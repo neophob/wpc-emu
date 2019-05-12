@@ -333,40 +333,17 @@ class DrawLib {
   }
 
   drawVideoRam(x, y, frame, data) {
-    const XPOS = x * this.theme.GRID_STEP_X + (128 % this.theme.GRID_STEP_X) / 2;
-    let xpos = XPOS;
-    let ypos = y * this.theme.GRID_STEP_Y;// + (32 % this.theme.GRID_STEP_Y) / 2;
-
-    let elementsDraw = 0;
+    // draw only 4 dmd frames to avoid dropping fps
     const dmdRow = frame % 4;
-    ypos += dmdRow * (5 * this.theme.GRID_STEP_Y);
+    let xpos = x * this.theme.GRID_STEP_X + (128 % this.theme.GRID_STEP_X) / 2;
+    const ypos = y * this.theme.GRID_STEP_Y + dmdRow * (5 * this.theme.GRID_STEP_Y);
 
-/*    // draw only 4 dmd frames to avoid dropping fps
-    for (let i = 0; i < dmdRow * 4; i++) {
-      xpos += 130;
-      if (xpos > (800 - 130)) {
-        xpos = x * this.theme.GRID_STEP_X;
-        ypos += 35;
-      }
-    }
+    // clear rect
+    this.ctx.clearRect(xpos, ypos, this.theme.GRID_STEP_X * 12 * 4, 5 * this.theme.GRID_STEP_Y);
+
     for (let i = 0; i < 4; i++) {
-      this.drawDmd(data[dmdRow * 4 + i], xpos, ypos, 128);
-      xpos += 130;
-      if (xpos > (800 - 130)) {
-        xpos = x * this.theme.GRID_STEP_X;
-        ypos += 35;
-      }
-    }*/
-
-    //for (let dmdRow = 0; dmdRow < 4; dmdRow++)
-      for (let i = 0; i < 4; i++) {
       this.drawDmd(data[dmdRow * 4 + i], xpos, ypos);
-      xpos += this.theme.GRID_STEP_Y * 12;
-      if (++elementsDraw > 3) {
-        elementsDraw = 0;
-        xpos = XPOS;
-        ypos += 5 * this.theme.GRID_STEP_Y;
-      }
+      xpos += this.theme.GRID_STEP_X * 12;
     }
   }
 
