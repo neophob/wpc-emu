@@ -29,6 +29,7 @@ const THEME = {
   CANVAS_WIDTH,
   CANVAS_HEIGHT,
 
+  DMD_COLOR_BLACK: 'rgb(0,0,0)',
   DMD_COLOR_DARK: 'rgb(43,50,50)',
   DMD_COLOR_LOW: 'rgb(65,101,105)',
   DMD_COLOR_MIDDLE: 'rgb(66,116,127)',
@@ -64,13 +65,13 @@ const THEME = {
   POS_CPU_X: 1,
   POS_CPU_Y: 12,
 
-  POS_DMD_X: 21,
+  POS_DMD_X: 20,
   POS_DMD_Y: 8,
 
-  POS_PLAYFIELD_X: 88,
-  POS_PLAYFIELD_Y: 7,
+  POS_PLAYFIELD_X: 89,
+  POS_PLAYFIELD_Y: 9,
 
-  POS_DMDMEM_X: 20,
+  POS_DMDMEM_X: 19,
   POS_DMDMEM_Y: 28,
 
   POS_ASIC_X: 1,
@@ -198,6 +199,7 @@ function initialise() {
 
   const canvasRootElement = createCanvas();
   canvas = canvasRootElement.getContext('2d', { alpha: false });
+
   /*canvas = canvasRootElement.getContext('2d', { alpha: true });
   canvas.fillStyle = '#000000';
   canvas.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -231,9 +233,20 @@ function initialise() {
 
   canvasDrawLib.drawBackgroundPoints();
 
-  //DRAW STATIC
+  // DRAW TOP LINES
   canvasDrawLib.drawHorizontalLine(1, 1, 15);
   canvasDrawLib.drawHorizontalLine(THEME.POS_DMD_X - 1, 1, 66);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, 1, 18);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, 6, 18);
+
+  // DRAW BOTTOM LINES
+  const BOTTOM_Y = 62;
+  canvasDrawLib.drawHorizontalLine(1, BOTTOM_Y, 15);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_DMD_X - 1, BOTTOM_Y, 66);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, BOTTOM_Y, 18);
+  canvasDrawLib.drawHorizontalLine(1, BOTTOM_Y + 0.5, 15);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_DMD_X - 1, BOTTOM_Y + 0.5, 66);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, BOTTOM_Y + 0.5, 18);
 
   // HEADER
   canvasDrawLib.drawHorizontalLine(THEME.POS_HEADER_X, THEME.POS_HEADER_Y, 15);
@@ -335,6 +348,13 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 5, 'CTRL R/W');
   canvasDrawLib.writeLabel(THEME.POS_SND_X + 8, THEME.POS_SND_Y + 5, 'DATA R/W');
 
+  // PLAYFIELD
+  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X - 1,  THEME.POS_PLAYFIELD_Y, 36);
+  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X + 17, THEME.POS_PLAYFIELD_Y, 36);
+  canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X + 0.5, THEME.POS_PLAYFIELD_Y + 1, 'PLAYFIELD', THEME.FONT_TEXT);
+  canvasDrawLib.writeLabel(THEME.POS_PLAYFIELD_X + 6, THEME.POS_PLAYFIELD_Y + 1, 'VISUALIZATION');
+  canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, THEME.POS_PLAYFIELD_Y + 2, 18);
+
 }
 
 // PLAYFIELD START
@@ -345,8 +365,8 @@ function drawFlashlamps(lampState) {
     return;
   }
 
-  const x = THEME.POS_PLAYFIELD_X * THEME.GRID_STEP_X;
-  const y = THEME.POS_PLAYFIELD_Y * THEME.GRID_STEP_Y;
+  const x = (THEME.POS_PLAYFIELD_X + 0) * THEME.GRID_STEP_X;
+  const y = (THEME.POS_PLAYFIELD_Y + 3) * THEME.GRID_STEP_Y;
 
   playfieldData.flashlamps.forEach((lamp) => {
     const selectedLamp = lampState[lamp.id - 1];
@@ -366,8 +386,8 @@ function drawLampPositions(lampState) {
     return;
   }
 
-  const x = THEME.POS_PLAYFIELD_X * THEME.GRID_STEP_X;
-  const y = THEME.POS_PLAYFIELD_Y * THEME.GRID_STEP_Y;
+  const x = (THEME.POS_PLAYFIELD_X + 0) * THEME.GRID_STEP_X;
+  const y = (THEME.POS_PLAYFIELD_Y + 3) * THEME.GRID_STEP_Y;
 
   lampState.forEach((lamp, index) => {
     if (index >= playfieldData.lamps.length) {
@@ -404,9 +424,11 @@ function populateInitialCanvas(_gameEntry) {
   if (playfieldData) {
     playfieldImage = new Image();
     playfieldImage.onload = function () {
-      canvasDrawLib.drawImage(THEME.POS_PLAYFIELD_X, THEME.POS_PLAYFIELD_Y, playfieldImage);
+      canvasDrawLib.drawImage(THEME.POS_PLAYFIELD_X, THEME.POS_PLAYFIELD_Y + 3, playfieldImage);
     };
     playfieldImage.src = FETCHURL + playfieldData.image;
+  } else {
+    canvasDrawLib.fillRect(THEME.POS_PLAYFIELD_X, THEME.POS_PLAYFIELD_Y, 17, 35, THEME.DMD_COLOR_BLACK);
   }
 }
 
