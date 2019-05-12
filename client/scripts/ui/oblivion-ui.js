@@ -149,7 +149,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
   //ASIC
   canvasOverlayDrawLib.drawDiagram(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 3, 'WATCHDOG', emuState.asic.wpc.watchdogTicks);
-  canvasOverlayDrawLib.writeLabel(THEME.POS_ASIC_X + 11.5, THEME.POS_ASIC_Y + 1, emuState.asic.wpc.watchdogExpiredCounter);
+  canvasOverlayDrawLib.writeLabel(THEME.POS_ASIC_X + 11.5, THEME.POS_ASIC_Y + 1, emuState.asic.wpc.watchdogExpiredCounter, THEME.COLOR_RED);
 
   canvasOverlayDrawLib.fillRect(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 5.5, 1, 1, emuState.asic.wpc.blankSignalHigh ? THEME.COLOR_GREEN : THEME.DMD_COLOR_DARK);
   canvasOverlayDrawLib.fillRect(THEME.POS_ASIC_X + 3, THEME.POS_ASIC_Y + 5.5, 1, 1, emuState.asic.wpc.diagnosticLed ? THEME.COLOR_GREEN : THEME.DMD_COLOR_DARK);
@@ -206,12 +206,21 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   if (emuState.asic.wpc.inputState) {
     const inputState = canvasOverlayDrawLib.unpackBits(emuState.asic.wpc.inputState);
     canvaDmdDrawLib.drawMatrix8x8(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 2, inputState);
+    //canvaDmdDrawLib.drawVerticalByteDiagram(THEME.POS_PLAYFIELD_X + 1, THEME.POS_PLAYFIELD_Y + 44, emuState.asic.wpc.inputState);
   }
 
   // LAMP
   if (emuState.asic.wpc.lampState) {
     canvaDmdDrawLib.drawMatrix8x8(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 3.5, emuState.asic.wpc.lampState);
     drawLampPositions(emuState.asic.wpc.lampState);
+
+    canvaDmdDrawLib.clear(
+      (THEME.POS_PLAYFIELD_X - 1) * THEME.GRID_STEP_X,
+      (THEME.POS_PLAYFIELD_Y + 35) * THEME.GRID_STEP_Y,
+      THEME.GRID_STEP_X * 18,
+      THEME.GRID_STEP_Y * 5
+    );
+    canvaDmdDrawLib.drawVerticalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 40, emuState.asic.wpc.lampState);
   }
 
   // SOLENOID
@@ -392,11 +401,14 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_SND_X + 8, THEME.POS_SND_Y + 5, 'DATA R/W');
 
   // PLAYFIELD
-  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X - 1,  THEME.POS_PLAYFIELD_Y, 37);
-  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X + 17, THEME.POS_PLAYFIELD_Y, 37);
+  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X - 1,  THEME.POS_PLAYFIELD_Y, 41);
+  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X + 17, THEME.POS_PLAYFIELD_Y, 41);
   canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X + 0.5, THEME.POS_PLAYFIELD_Y + 1, 'PLAYFIELD', THEME.FONT_TEXT);
   canvasDrawLib.writeLabel(THEME.POS_PLAYFIELD_X + 6, THEME.POS_PLAYFIELD_Y + 1, 'VISUALIZATION');
   canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, THEME.POS_PLAYFIELD_Y + 2, 18);
+
+  canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, THEME.POS_PLAYFIELD_Y + 37, 18);
+  canvasDrawLib.writeLabel(THEME.POS_PLAYFIELD_X, THEME.POS_PLAYFIELD_Y + 38.25, 'LAMP ENERGY USAGE');
 
   // MATRIX
   canvasDrawLib.drawVerticalLine(THEME.POS_MATRIX_X,  THEME.POS_MATRIX_Y, 21);
@@ -404,8 +416,8 @@ function initialise() {
   canvasDrawLib.writeRibbonHeader(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 1, 'MATRIX', THEME.FONT_TEXT);
   canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 5, THEME.POS_MATRIX_Y + 1, 'STATUS');
 
-  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 11, 'INPUT');
-  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 11, 'LAMP');
+  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 10.25, 'INPUT');
+  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 10.25, 'LAMP');
 
   canvasDrawLib.drawHorizontalLine(THEME.POS_MATRIX_X, THEME.POS_MATRIX_Y + 12, 15);
 

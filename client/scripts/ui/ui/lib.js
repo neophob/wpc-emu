@@ -347,6 +347,39 @@ class DrawLib {
     }
   }
 
+  drawVerticalByteDiagram(xpos, ypos, data) {
+    const startX = xpos * this.theme.GRID_STEP_X;
+    const startY = ypos * this.theme.GRID_STEP_Y;
+    const KOL = [
+      this.theme.DMD_COLOR_DARK,
+      this.theme.DMD_COLOR_HIGH,
+      this.theme.DMD_COLOR_MIDDLE,
+      this.theme.COLOR_YELLOW,
+    ];
+    let ofs = 0;
+    let colorOffset = 0;
+
+    this.ctx.strokeStyle = this.theme.DMD_COLOR_HIGH;
+    this.ctx.lineWidth = 1;
+    this.ctx.beginPath();
+
+    data.forEach((value, index) => {
+      if (index % 8 === 7) {
+        this.ctx.stroke();
+        this.ctx.beginPath();
+
+        colorOffset++;
+        this.ctx.strokeStyle = KOL[colorOffset % 4];
+      }
+
+      this.ctx.moveTo(startX + ofs, startY);
+      this.ctx.lineTo(startX + ofs, startY - (value >> 4));
+
+      ofs += 3;
+    });
+    this.ctx.stroke();
+  }
+
   drawMatrix8x8(xpos, ypos, data) {
     const startX = xpos * this.theme.GRID_STEP_X;
     const startY = ypos * this.theme.GRID_STEP_Y;
@@ -359,7 +392,7 @@ class DrawLib {
         lamp & 0x70 ? this.theme.DMD_COLOR_LOW : this.theme.DMD_COLOR_BLACK;
       const i = startX + (index % 8) * gridsizeX;
       const j = startY + parseInt(index / 8, 10) * gridsizeY;
-      this.ctx.fillRect(i, j, gridsizeX, gridsizeY);
+      this.ctx.fillRect(i, j, gridsizeX - 1, gridsizeY - 1);
     });
   }
 
