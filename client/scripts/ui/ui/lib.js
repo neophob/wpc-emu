@@ -356,7 +356,7 @@ class DrawLib {
 
     data.forEach((lamp, index) => {
       this.ctx.fillStyle = lamp & 0x80 ? this.theme.DMD_COLOR_HIGH :
-        lamp & 0x70 ? this.theme.DMD_COLOR_MIDDLE : this.theme.DMD_COLOR_DARK;
+        lamp & 0x70 ? this.theme.DMD_COLOR_LOW : this.theme.DMD_COLOR_BLACK;
       const i = startX + (index % 8) * gridsizeX;
       const j = startY + parseInt(index / 8, 10) * gridsizeY;
       this.ctx.fillRect(i, j, gridsizeX, gridsizeY);

@@ -188,9 +188,8 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     canvaDmdMemDrawLib.drawHorizontalRandomBlip(THEME.POS_DMDMEM_X + 25, THEME.POS_DMDMEM_Y + 11.5, 1);
     canvaDmdMemDrawLib.drawHorizontalRandomBlip(THEME.POS_DMDMEM_X + 25, THEME.POS_DMDMEM_Y + 1.5, 3);
     canvaDmdMemDrawLib.drawVerticalRandomBlip(THEME.POS_DMDMEM_X + 0.5, THEME.POS_DMDMEM_Y + 16.5, 2, (Date.now() / 0xCAFFE) << 2);
-    if (videoRamDraw++ > 3) {
+    if (videoRamDraw++ > 4) {
       videoRam = null;
-      return;
     };
   }
 
