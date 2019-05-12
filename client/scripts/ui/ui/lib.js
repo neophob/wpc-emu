@@ -353,7 +353,7 @@ class DrawLib {
     const KOL = [
       this.theme.DMD_COLOR_DARK,
       this.theme.DMD_COLOR_HIGH,
-      this.theme.DMD_COLOR_MIDDLE,
+      this.theme.COLOR_BLUE,
       this.theme.COLOR_YELLOW,
     ];
     let ofs = 0;

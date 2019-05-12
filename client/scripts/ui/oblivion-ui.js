@@ -227,6 +227,14 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   if (emuState.asic.wpc.solenoidState) {
     canvaDmdDrawLib.drawMatrix8x8(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 13, emuState.asic.wpc.solenoidState);
     drawFlashlamps(emuState.asic.wpc.solenoidState);
+
+    canvaDmdDrawLib.clear(
+      (THEME.POS_PLAYFIELD_X - 1) * THEME.GRID_STEP_X,
+      (THEME.POS_PLAYFIELD_Y + 39) * THEME.GRID_STEP_Y,
+      THEME.GRID_STEP_X * 18,
+      THEME.GRID_STEP_Y * 5
+    );
+    canvaDmdDrawLib.drawVerticalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 44, emuState.asic.wpc.solenoidState);
   }
 
   // GI
@@ -401,14 +409,17 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_SND_X + 8, THEME.POS_SND_Y + 5, 'DATA R/W');
 
   // PLAYFIELD
-  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X - 1,  THEME.POS_PLAYFIELD_Y, 41);
-  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X + 17, THEME.POS_PLAYFIELD_Y, 41);
+  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X - 1,  THEME.POS_PLAYFIELD_Y, 45);
+  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X + 17, THEME.POS_PLAYFIELD_Y, 45);
   canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X + 0.5, THEME.POS_PLAYFIELD_Y + 1, 'PLAYFIELD', THEME.FONT_TEXT);
   canvasDrawLib.writeLabel(THEME.POS_PLAYFIELD_X + 6, THEME.POS_PLAYFIELD_Y + 1, 'VISUALIZATION');
   canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, THEME.POS_PLAYFIELD_Y + 2, 18);
 
   canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, THEME.POS_PLAYFIELD_Y + 37, 18);
   canvasDrawLib.writeLabel(THEME.POS_PLAYFIELD_X, THEME.POS_PLAYFIELD_Y + 38.25, 'LAMP ENERGY USAGE');
+
+  canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, THEME.POS_PLAYFIELD_Y + 41, 18);
+  canvasDrawLib.writeLabel(THEME.POS_PLAYFIELD_X, THEME.POS_PLAYFIELD_Y + 42.25, 'SOLENOID ENERGY USAGE');
 
   // MATRIX
   canvasDrawLib.drawVerticalLine(THEME.POS_MATRIX_X,  THEME.POS_MATRIX_Y, 21);
