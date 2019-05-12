@@ -339,7 +339,6 @@ class DrawLib {
 
     let elementsDraw = 0;
     const dmdRow = frame % 4;
-    console.log(dmdRow);
     ypos += dmdRow * (5 * this.theme.GRID_STEP_Y);
 
 /*    // draw only 4 dmd frames to avoid dropping fps

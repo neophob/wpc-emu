@@ -86,6 +86,8 @@ const THEME = {
   POS_MATRIX_X: 19,
   POS_MATRIX_Y: 28,
 
+  POS_RAMDIAG_X: 19,
+  POS_RAMDIAG_Y: 51,
 };
 
 const colorLut = new Map();
@@ -129,7 +131,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   if (emuState.asic.dmd.dmdShadedBuffer) {
     canvaDmdDrawLib.clear(
       THEME.GRID_STEP_X * THEME.POS_DMD_X,
-      THEME.GRID_STEP_X * THEME.POS_DMD_Y,
+      THEME.GRID_STEP_Y * THEME.POS_DMD_Y,
       THEME.GRID_STEP_X * 128 / 2,
       THEME.GRID_STEP_Y * 32 / 2
     );
@@ -157,6 +159,19 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   // MEMORY
   if (emuState.asic.ram) {
     canvaMemDrawLib.drawMemRegion(THEME.POS_MEM_X + 1, THEME.POS_MEM_Y + 2, emuState.asic.ram);
+
+    canvaDmdDrawLib.clear(
+      THEME.POS_RAMDIAG_X * THEME.GRID_STEP_X,
+      (THEME.POS_RAMDIAG_Y - 2) * THEME.GRID_STEP_Y,
+      THEME.GRID_STEP_X * 60,
+      THEME.GRID_STEP_Y * 13
+    );
+    for (let x = 0; x < 10; x++) {
+      canvaDmdDrawLib.drawDiagram(THEME.POS_RAMDIAG_X + x * 6, THEME.POS_RAMDIAG_Y,     'RAM' + x, emuState.asic.ram[x], 22);
+      canvaDmdDrawLib.drawDiagram(THEME.POS_RAMDIAG_X + x * 6, THEME.POS_RAMDIAG_Y + 2, '1RAM' + x, emuState.asic.ram[10+x], 22);
+      canvaDmdDrawLib.drawDiagram(THEME.POS_RAMDIAG_X + x * 6, THEME.POS_RAMDIAG_Y + 4, '2RAM' + x, emuState.asic.ram[20+x], 22);
+      canvaDmdDrawLib.drawDiagram(THEME.POS_RAMDIAG_X + x * 6, THEME.POS_RAMDIAG_Y + 6, '3RAM' + x, emuState.asic.ram[30+x], 22);
+    }
   }
 
   // DMD MEM
