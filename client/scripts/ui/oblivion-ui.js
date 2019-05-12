@@ -71,7 +71,7 @@ const THEME = {
   POS_PLAYFIELD_X: 89,
   POS_PLAYFIELD_Y: 9,
 
-  POS_DMDMEM_X: 19,
+  POS_DMDMEM_X: 37,
   POS_DMDMEM_Y: 28,
 
   POS_ASIC_X: 1,
@@ -82,6 +82,10 @@ const THEME = {
 
   POS_SND_X: 1,
   POS_SND_Y: 51,
+
+  POS_MATRIX_X: 19,
+  POS_MATRIX_Y: 28,
+
 };
 
 const colorLut = new Map();
@@ -123,8 +127,13 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
   // DMD SHADED
   if (emuState.asic.dmd.dmdShadedBuffer) {
-    canvaDmdDrawLib.clear();
-    canvaDmdDrawLib.drawDmdShaded(THEME.POS_DMD_X, THEME.POS_DMD_Y, emuState.asic.dmd.dmdShadedBuffer);//128, emuState.asic.dmd.dmdShadedBuffer, 5);
+    canvaDmdDrawLib.clear(
+      THEME.GRID_STEP_X * THEME.POS_DMD_X,
+      THEME.GRID_STEP_X * THEME.POS_DMD_Y,
+      THEME.GRID_STEP_X * 128 / 2,
+      THEME.GRID_STEP_Y * 32 / 2
+    );
+    canvaDmdDrawLib.drawDmdShaded(THEME.POS_DMD_X, THEME.POS_DMD_Y, emuState.asic.dmd.dmdShadedBuffer);
   }
   canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X, THEME.POS_DMD_Y - 2.5, 10, emuState.opsMs >> 2);
   canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X + 25, THEME.POS_DMD_Y - 2.5, 6, emuState.asic.dmd.activepage >> 1);
@@ -169,17 +178,27 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   canvasOverlayDrawLib.writeHeader(THEME.POS_SND_X + 8, THEME.POS_SND_Y + 6, emuState.asic.sound.readDataBytes);
   canvasOverlayDrawLib.writeHeader(THEME.POS_SND_X + 8, THEME.POS_SND_Y + 7, emuState.asic.sound.writeDataBytes);
 
+  // INPUT
+  if (emuState.asic.wpc.inputState) {
+    const inputState = canvasOverlayDrawLib.unpackBits(emuState.asic.wpc.inputState);
+    canvaDmdDrawLib.drawMatrix8x8(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 2, inputState);
+  }
+
+  // LAMP
   if (emuState.asic.wpc.lampState) {
-    //drawMatrix8x8(emuState.asic.wpc.lampState, RIGHT_X_OFFSET, YPOS_GENERIC_DATA + 2);
+    canvaDmdDrawLib.drawMatrix8x8(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 3.5, emuState.asic.wpc.lampState);
     drawLampPositions(emuState.asic.wpc.lampState);
   }
 
-
+  // SOLENOID
   if (emuState.asic.wpc.solenoidState) {
-    //drawMatrix8x8(emuState.asic.wpc.solenoidState, MIDDLE_X_OFFSET, YPOS_GENERIC_DATA + 2);
-    //canvasOverlay.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+    canvaDmdDrawLib.drawMatrix8x8(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 13, emuState.asic.wpc.solenoidState);
     drawFlashlamps(emuState.asic.wpc.solenoidState);
   }
+
+  // GI
+  canvaDmdDrawLib.drawMatrix8x8(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 13, emuState.asic.wpc.generalIlluminationState);
+
 }
 
 function createCanvas() {
@@ -349,12 +368,25 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_SND_X + 8, THEME.POS_SND_Y + 5, 'DATA R/W');
 
   // PLAYFIELD
-  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X - 1,  THEME.POS_PLAYFIELD_Y, 36);
-  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X + 17, THEME.POS_PLAYFIELD_Y, 36);
+  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X - 1,  THEME.POS_PLAYFIELD_Y, 37);
+  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X + 17, THEME.POS_PLAYFIELD_Y, 37);
   canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X + 0.5, THEME.POS_PLAYFIELD_Y + 1, 'PLAYFIELD', THEME.FONT_TEXT);
   canvasDrawLib.writeLabel(THEME.POS_PLAYFIELD_X + 6, THEME.POS_PLAYFIELD_Y + 1, 'VISUALIZATION');
   canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, THEME.POS_PLAYFIELD_Y + 2, 18);
 
+  // MATRIX
+  canvasDrawLib.drawVerticalLine(THEME.POS_MATRIX_X,  THEME.POS_MATRIX_Y, 21);
+  canvasDrawLib.drawVerticalLine(THEME.POS_MATRIX_X + 15, THEME.POS_MATRIX_Y, 21);
+  canvasDrawLib.writeRibbonHeader(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 1, 'MATRIX', THEME.FONT_TEXT);
+  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 5, THEME.POS_MATRIX_Y + 1, 'STATUS');
+
+  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 11, 'INPUT');
+  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 11, 'LAMP');
+
+  canvasDrawLib.drawHorizontalLine(THEME.POS_MATRIX_X, THEME.POS_MATRIX_Y + 12, 15);
+
+  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 19, 'SOLENOID');
+  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 15, 'GI');
 }
 
 // PLAYFIELD START
@@ -365,8 +397,8 @@ function drawFlashlamps(lampState) {
     return;
   }
 
-  const x = (THEME.POS_PLAYFIELD_X + 0) * THEME.GRID_STEP_X;
-  const y = (THEME.POS_PLAYFIELD_Y + 3) * THEME.GRID_STEP_Y;
+  const x = (THEME.POS_PLAYFIELD_X - 0.25) * THEME.GRID_STEP_X;
+  const y = (THEME.POS_PLAYFIELD_Y + 2.75) * THEME.GRID_STEP_Y;
 
   playfieldData.flashlamps.forEach((lamp) => {
     const selectedLamp = lampState[lamp.id - 1];
@@ -386,8 +418,8 @@ function drawLampPositions(lampState) {
     return;
   }
 
-  const x = (THEME.POS_PLAYFIELD_X + 0) * THEME.GRID_STEP_X;
-  const y = (THEME.POS_PLAYFIELD_Y + 3) * THEME.GRID_STEP_Y;
+  const x = (THEME.POS_PLAYFIELD_X - 0.25) * THEME.GRID_STEP_X;
+  const y = (THEME.POS_PLAYFIELD_Y + 2.75) * THEME.GRID_STEP_Y;
 
   lampState.forEach((lamp, index) => {
     if (index >= playfieldData.lamps.length) {
@@ -424,7 +456,7 @@ function populateInitialCanvas(_gameEntry) {
   if (playfieldData) {
     playfieldImage = new Image();
     playfieldImage.onload = function () {
-      canvasDrawLib.drawImage(THEME.POS_PLAYFIELD_X, THEME.POS_PLAYFIELD_Y + 3, playfieldImage);
+      canvasDrawLib.drawImage(THEME.POS_PLAYFIELD_X - 0.25, THEME.POS_PLAYFIELD_Y + 2.75, playfieldImage);
     };
     playfieldImage.src = FETCHURL + playfieldData.image;
   } else {

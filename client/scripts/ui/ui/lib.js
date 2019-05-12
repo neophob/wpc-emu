@@ -28,6 +28,17 @@ class DrawLib {
     }
   }
 
+  unpackBits(data) {
+    const dataUnpacked = [];
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 8; j++) {
+        const entry = data[i] & BIT_ARRAY[j];
+        dataUnpacked.push(entry > 0 ? 255 : 0);
+      }
+    }
+    return dataUnpacked;
+  }
+
   drawHorizontalLine(x, y, width) {
     this.ctx.strokeStyle = this.theme.HEADER_LINE_LOW_COLOR;
     this.ctx.lineWidth = 1;
@@ -64,8 +75,8 @@ class DrawLib {
     this.ctx.fillRect(startX, endY - 2, 2, 2);
   }
 
-  clear() {
-    this.ctx.clearRect(0, 0, this.theme.CANVAS_WIDTH, this.theme.CANVAS_HEIGHT);
+  clear(x = 0, y = 0, width = this.theme.CANVAS_WIDTH, height = this.theme.CANVAS_HEIGHT) {
+    this.ctx.clearRect(x, y, width, height);
   }
 
   writeLabel(x, y, text, color = this.theme.TEXT_COLOR_LABEL) {
@@ -327,8 +338,11 @@ class DrawLib {
     let ypos = y * this.theme.GRID_STEP_Y;// + (32 % this.theme.GRID_STEP_Y) / 2;
 
     let elementsDraw = 0;
-/*    const dmdRow = frame % 4;
-    // draw only 4 dmd frames to avoid dropping fps
+    const dmdRow = frame % 4;
+    console.log(dmdRow);
+    ypos += dmdRow * (5 * this.theme.GRID_STEP_Y);
+
+/*    // draw only 4 dmd frames to avoid dropping fps
     for (let i = 0; i < dmdRow * 4; i++) {
       xpos += 130;
       if (xpos > (800 - 130)) {
@@ -345,7 +359,7 @@ class DrawLib {
       }
     }*/
 
-    for (let dmdRow = 0; dmdRow < 4; dmdRow++)
+    //for (let dmdRow = 0; dmdRow < 4; dmdRow++)
       for (let i = 0; i < 4; i++) {
       this.drawDmd(data[dmdRow * 4 + i], xpos, ypos);
       xpos += this.theme.GRID_STEP_Y * 12;
@@ -355,6 +369,22 @@ class DrawLib {
         ypos += 5 * this.theme.GRID_STEP_Y;
       }
     }
+  }
+
+  drawMatrix8x8(xpos, ypos, data) {
+    const startX = xpos * this.theme.GRID_STEP_X;
+    const startY = ypos * this.theme.GRID_STEP_Y;
+
+    const gridsizeX = this.theme.GRID_STEP_X * 0.75;
+    const gridsizeY = this.theme.GRID_STEP_Y * 0.75;
+
+    data.forEach((lamp, index) => {
+      this.ctx.fillStyle = lamp & 0x80 ? this.theme.DMD_COLOR_HIGH :
+        lamp & 0x70 ? this.theme.DMD_COLOR_MIDDLE : this.theme.DMD_COLOR_DARK;
+      const i = startX + (index % 8) * gridsizeX;
+      const j = startY + parseInt(index / 8, 10) * gridsizeY;
+      this.ctx.fillRect(i, j, gridsizeX, gridsizeY);
+    });
   }
 
   drawImage(xpos, ypos, playfieldImage) {
