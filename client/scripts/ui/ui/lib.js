@@ -412,8 +412,9 @@ class DrawLib {
     this.ctx.beginPath();
 
     const diagramDataArray = getDiagramCluster(arrayData.length, maxEntries);
-    diagramDataArray.add(Array.from(arrayData));
+    diagramDataArray.add(arrayData);
 
+    // DRAW diagram
     diagramDataArray.getInterestingDiagrams(visibleElements)
       .forEach((diagramData, index) => {
         let normalized = diagramData.values[0] / diagramData.maxValue * this.theme.GRID_STEP_Y;
@@ -425,10 +426,10 @@ class DrawLib {
           startX += this.theme.GRID_STEP_X / 4;
         });
 
-        startX += this.theme.GRID_STEP_X;
-        if (index % 10 === 9) {
+        startX += this.theme.GRID_STEP_X / 2;
+        if (index % 8 === 7) {
           startX = STARTX;
-          startY += this.theme.GRID_STEP_Y * 2;
+          startY += this.theme.GRID_STEP_Y * 1.5;
         }
       });
 
@@ -522,6 +523,7 @@ class HorizontalDiagramCluster {
         }
         return -1;
       })
+      //TODO REMOVE DUPLICATE ELEMENTS
       .reverse()
       .slice(0, nrOfDiagramsToReturn);
   }

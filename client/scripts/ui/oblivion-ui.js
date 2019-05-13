@@ -86,7 +86,7 @@ const THEME = {
   POS_MATRIX_X: 19,
   POS_MATRIX_Y: 28,
 
-  POS_RAMDIAG_X: 19,
+  POS_RAMDIAG_X: 37,
   POS_RAMDIAG_Y: 51,
 };
 
@@ -116,7 +116,9 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
   // CPU
   canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 2, emuState.cpuState.tickCount);
-  canvasOverlayDrawLib.drawVerticalRandomBlip(THEME.POS_CPU_X + 11, THEME.POS_CPU_Y + 1, 3);
+  canvasOverlayDrawLib.fillRect(THEME.POS_CPU_X + 13, THEME.POS_CPU_Y + 1.5, 1, 1, emuState.asic.wpc.irqEnabled ? THEME.COLOR_YELLOW : THEME.DMD_COLOR_DARK);
+  canvasOverlayDrawLib.drawVerticalRandomBlip(THEME.POS_CPU_X + 0.5, THEME.POS_CPU_Y + 1, 3);
+
   canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 5, emuState.opsMs);
   if (cpuRunningState === 'running') {
     canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 8, THEME.POS_CPU_Y + 5, cpuRunningState, THEME.COLOR_GREEN);
@@ -164,12 +166,13 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     canvaMemDrawLib.drawMemRegion(THEME.POS_MEM_X + 1, THEME.POS_MEM_Y + 2, emuState.asic.ram);
 
     canvaDmdDrawLib.clear(
-      (THEME.POS_RAMDIAG_X - 2)* THEME.GRID_STEP_X,
+      (THEME.POS_RAMDIAG_X - 1) * THEME.GRID_STEP_X,
       (THEME.POS_RAMDIAG_Y - 2) * THEME.GRID_STEP_Y,
-      THEME.GRID_STEP_X * 67,
-      THEME.GRID_STEP_Y * 15
+      THEME.GRID_STEP_X * 50,
+      THEME.GRID_STEP_Y * 10
     );
-    canvaDmdDrawLib.drawDiagramCluster(THEME.POS_RAMDIAG_X, THEME.POS_RAMDIAG_Y, emuState.asic.ram, 40, 20);
+    const memory1k = Array.from(emuState.asic.ram.slice(0, 1024));
+    canvaDmdDrawLib.drawDiagramCluster(THEME.POS_RAMDIAG_X, THEME.POS_RAMDIAG_Y, memory1k, 32, 20);
   }
 
   // DMD MEM - draw only 4 dmd video fragment per loop
@@ -319,8 +322,8 @@ function initialise() {
   canvasDrawLib.drawVerticalLine(THEME.POS_CPU_X,      THEME.POS_CPU_Y, 13);
   canvasDrawLib.drawVerticalLine(THEME.POS_CPU_X + 15, THEME.POS_CPU_Y, 13);
 
-  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 1, 'TICKS');
-  canvasDrawLib.writeRibbonHeader(THEME.POS_CPU_X + 12, THEME.POS_CPU_Y + 2, 'CPU');
+  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 1, 'CPU TICKS');
+  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 8.5, THEME.POS_CPU_Y + 1, 'IRQ ENABLED');
 
   canvasDrawLib.drawHorizontalLine(THEME.POS_CPU_X, THEME.POS_CPU_Y + 3, 15);
   canvasDrawLib.drawHorizontalLine(THEME.POS_CPU_X, THEME.POS_CPU_Y + 6, 15);
