@@ -169,7 +169,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
       THEME.GRID_STEP_X * 67,
       THEME.GRID_STEP_Y * 15
     );
-    canvaDmdDrawLib.drawDiagramCluster(THEME.POS_RAMDIAG_X, THEME.POS_RAMDIAG_Y, emuState.asic.ram, 40, 22);
+    canvaDmdDrawLib.drawDiagramCluster(THEME.POS_RAMDIAG_X, THEME.POS_RAMDIAG_Y, emuState.asic.ram, 40, 20);
   }
 
   // DMD MEM - draw only 4 dmd video fragment per loop
@@ -201,7 +201,13 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   if (emuState.asic.wpc.inputState) {
     const inputState = canvasOverlayDrawLib.unpackBits(emuState.asic.wpc.inputState);
     canvaDmdDrawLib.drawMatrix8x8(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 2, inputState);
-    //canvaDmdDrawLib.drawVerticalByteDiagram(THEME.POS_PLAYFIELD_X + 1, THEME.POS_PLAYFIELD_Y + 44, emuState.asic.wpc.inputState);
+    canvaDmdDrawLib.clear(
+      (THEME.POS_PLAYFIELD_X - 1) * THEME.GRID_STEP_X,
+      (THEME.POS_PLAYFIELD_Y + 42) * THEME.GRID_STEP_Y,
+      THEME.GRID_STEP_X * 18,
+      THEME.GRID_STEP_Y * 5
+    );
+    canvaDmdDrawLib.drawVerticalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 47, inputState);
   }
 
   // LAMP
@@ -404,8 +410,8 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_SND_X + 8, THEME.POS_SND_Y + 5, 'DATA R/W');
 
   // PLAYFIELD
-  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X - 1,  THEME.POS_PLAYFIELD_Y, 45);
-  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X + 17, THEME.POS_PLAYFIELD_Y, 45);
+  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X - 1,  THEME.POS_PLAYFIELD_Y, 48);
+  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X + 17, THEME.POS_PLAYFIELD_Y, 48);
   canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X + 0.5, THEME.POS_PLAYFIELD_Y + 1, 'PLAYFIELD', THEME.FONT_TEXT);
   canvasDrawLib.writeLabel(THEME.POS_PLAYFIELD_X + 6, THEME.POS_PLAYFIELD_Y + 1, 'VISUALIZATION');
 
@@ -414,6 +420,9 @@ function initialise() {
 
   canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, THEME.POS_PLAYFIELD_Y + 40, 18);
   canvasDrawLib.writeLabel(THEME.POS_PLAYFIELD_X, THEME.POS_PLAYFIELD_Y + 41.25, 'SOLENOID ENERGY USAGE');
+
+  canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, THEME.POS_PLAYFIELD_Y + 44, 18);
+  canvasDrawLib.writeLabel(THEME.POS_PLAYFIELD_X, THEME.POS_PLAYFIELD_Y + 45.25, 'INPUT FEEDBACK');
 
   // MATRIX
   canvasDrawLib.drawVerticalLine(THEME.POS_MATRIX_X,  THEME.POS_MATRIX_Y, 21);

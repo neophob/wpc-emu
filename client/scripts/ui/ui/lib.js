@@ -460,11 +460,15 @@ class HorizontalDiagram {
     this.values[this.pos] = value;
     this.pos = (this.pos + 1) % this.nrOfElementsPerDiagram;
     this.maxValue = Math.max(value, this.maxValue);
-    let interesting = 0;
-    for (let n = 0; n < this.values.length - 1; n++) {
-      interesting += Math.abs(this.values[n] - this.values[n + 1]);
+
+    if (this.pos === 0) {
+      this.maxValue = Math.max(value, this.maxValue);
+      let interesting = 0;
+      for (let n = 0; n < this.values.length - 1; n++) {
+        interesting += Math.abs(this.values[n] - this.values[n + 1]);
+      }
+      this.interesting = interesting;
     }
-    this.interesting = interesting;
   }
 }
 
