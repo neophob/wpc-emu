@@ -255,7 +255,7 @@ class DrawLib {
     const startY = ypos * this.theme.GRID_STEP_Y;
 
     const KOL = [
-      this.theme.DMD_COLOR_DARK,
+      'rgb(255,0,0)',
       this.theme.DMD_COLOR_DARK,
       this.theme.DMD_COLOR_MIDDLE,
       this.theme.DMD_COLOR_HIGH,
@@ -308,7 +308,7 @@ class DrawLib {
   }
 
   drawDmd(data, x, y, width = 128) {
-    this.ctx.fillStyle = this.theme.DMD_COLOR_HIGH;
+    this.ctx.fillStyle = this.theme.DMD_COLOR_MIDDLE;
 
     let offsetX = 0;
     let offsetY = 0;
@@ -351,15 +351,15 @@ class DrawLib {
     const startX = xpos * this.theme.GRID_STEP_X;
     const startY = ypos * this.theme.GRID_STEP_Y;
     const KOL = [
-      this.theme.DMD_COLOR_DARK,
-      this.theme.DMD_COLOR_HIGH,
-      this.theme.COLOR_BLUE,
+      this.theme.COLOR_BLUE_INTENSE,//DMD_COLOR_MIDDLE,
       this.theme.COLOR_YELLOW,
+      this.theme.DMD_COLOR_DARK,
+      this.theme.COLOR_GREEN,
     ];
     let ofs = 0;
     let colorOffset = 0;
 
-    this.ctx.strokeStyle = this.theme.DMD_COLOR_HIGH;
+    this.ctx.strokeStyle = KOL[0];
     this.ctx.lineWidth = 1;
     this.ctx.beginPath();
 
@@ -371,7 +371,6 @@ class DrawLib {
         colorOffset++;
         this.ctx.strokeStyle = KOL[colorOffset % 4];
       }
-
       this.ctx.moveTo(startX + ofs, startY);
       this.ctx.lineTo(startX + ofs, startY - (value >> 4));
 
@@ -411,7 +410,7 @@ class DrawLib {
     const gridsizeY = this.theme.GRID_STEP_Y * 0.75;
 
     data.forEach((lamp, index) => {
-      this.ctx.fillStyle = lamp & 0x80 ? this.theme.DMD_COLOR_HIGH :
+      this.ctx.fillStyle = lamp & 0x80 ? this.theme.DMD_COLOR_MIDDLE :
         lamp & 0x70 ? this.theme.DMD_COLOR_LOW : this.theme.DMD_COLOR_BLACK;
       const i = startX + (index % 8) * gridsizeX;
       const j = startY + parseInt(index / 8, 10) * gridsizeY;

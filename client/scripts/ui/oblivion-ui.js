@@ -30,10 +30,10 @@ const THEME = {
   CANVAS_HEIGHT,
 
   DMD_COLOR_BLACK: 'rgb(0,0,0)',
-  DMD_COLOR_DARK: 'rgb(43,50,50)',
+  DMD_COLOR_DARK: 'rgb(43,62,67)',
   DMD_COLOR_LOW: 'rgb(65,101,105)',
-  DMD_COLOR_MIDDLE: 'rgb(66,116,127)',
-  DMD_COLOR_HIGH: 'rgb(75,164,175)',
+  DMD_COLOR_MIDDLE: 'rgb(143,149,115)',
+  DMD_COLOR_HIGH: 'rgb(254, 255, 211)',
 
   GRID_POINTS_COLOR: 'rgb(44, 63, 67)',
   GRID_STEP_X: 12,
@@ -55,6 +55,7 @@ const THEME = {
   TEXT_COLOR: 'rgb(237, 246, 206)',
 
   COLOR_BLUE: 'rgb(81, 115, 117)',
+  COLOR_BLUE_INTENSE: 'rgb(106, 198, 213)',
   COLOR_GREEN: 'rgb(17, 226, 19)',
   COLOR_RED: 'rgb(255, 108, 74)',
   COLOR_YELLOW: 'rgb(254, 255, 211)',
@@ -141,9 +142,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   /*
   regA: 0
 regB: 0
-regCC: 149
 regDP: 0
-regPC: 38955
 regS: 5918
 regU: 2817
 regX: 887
@@ -245,7 +244,7 @@ regY: 36587
       THEME.GRID_STEP_X * 18,
       THEME.GRID_STEP_Y * 4
     );
-    canvaDmdDrawLib.drawVerticalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 47, inputState);
+    canvaDmdDrawLib.drawVerticalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 47, inputState.slice(0, 64));
   }
 
   // LAMP
@@ -331,6 +330,13 @@ function initialise() {
   canvaDmdMemDrawLib = createDrawLib(canvasDmdMem, THEME);
 
   canvasDrawLib.drawBackgroundPoints();
+
+  // LOGO
+  canvasDrawLib.fillRect(1, 3, 1, 1, THEME.COLOR_BLUE_INTENSE);
+  canvasDrawLib.fillRect(2.5, 3, 1, 1, THEME.COLOR_YELLOW);
+  canvasDrawLib.fillRect(4, 3, 1, 1, THEME.COLOR_RED);
+  canvasDrawLib.writeRibbonHeader(6, 3.9, 'WPC-EMU');
+
 
   // DRAW TOP LINES
   canvasDrawLib.drawHorizontalLine(1, 1, 15);
