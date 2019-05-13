@@ -201,11 +201,12 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   if (emuState.asic.wpc.inputState) {
     const inputState = canvasOverlayDrawLib.unpackBits(emuState.asic.wpc.inputState);
     canvaDmdDrawLib.drawMatrix8x8(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 2, inputState);
+
     canvaDmdDrawLib.clear(
       (THEME.POS_PLAYFIELD_X - 1) * THEME.GRID_STEP_X,
-      (THEME.POS_PLAYFIELD_Y + 42) * THEME.GRID_STEP_Y,
+      (THEME.POS_PLAYFIELD_Y + 44) * THEME.GRID_STEP_Y,
       THEME.GRID_STEP_X * 18,
-      THEME.GRID_STEP_Y * 5
+      THEME.GRID_STEP_Y * 4
     );
     canvaDmdDrawLib.drawVerticalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 47, inputState);
   }
@@ -217,9 +218,9 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
     canvaDmdDrawLib.clear(
       (THEME.POS_PLAYFIELD_X - 1) * THEME.GRID_STEP_X,
-      (THEME.POS_PLAYFIELD_Y + 34) * THEME.GRID_STEP_Y,
+      (THEME.POS_PLAYFIELD_Y + 36) * THEME.GRID_STEP_Y,
       THEME.GRID_STEP_X * 18,
-      THEME.GRID_STEP_Y * 5
+      THEME.GRID_STEP_Y * 4
     );
     canvaDmdDrawLib.drawVerticalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 39, emuState.asic.wpc.lampState);
   }
@@ -231,9 +232,9 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
     canvaDmdDrawLib.clear(
       (THEME.POS_PLAYFIELD_X - 1) * THEME.GRID_STEP_X,
-      (THEME.POS_PLAYFIELD_Y + 38) * THEME.GRID_STEP_Y,
+      (THEME.POS_PLAYFIELD_Y + 40) * THEME.GRID_STEP_Y,
       THEME.GRID_STEP_X * 18,
-      THEME.GRID_STEP_Y * 5
+      THEME.GRID_STEP_Y * 4
     );
     canvaDmdDrawLib.drawVerticalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 43, emuState.asic.wpc.solenoidState);
   }
