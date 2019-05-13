@@ -380,6 +380,29 @@ class DrawLib {
     this.ctx.stroke();
   }
 
+  drawVerticalBitDiagram(xpos, ypos, data) {
+    const startX = xpos * this.theme.GRID_STEP_X;
+    const startY = ypos * this.theme.GRID_STEP_Y;
+
+    let ofs = 0;
+    const dataUnpacked = [];
+    for (let j = 0; j < 8; j++) {
+      const entry = data & BIT_ARRAY[j];
+      dataUnpacked.push(entry > 0 ? 1 : 0);
+    }
+
+    this.ctx.strokeStyle = this.theme.COLOR_YELLOW;
+    this.ctx.lineWidth = 3;
+    this.ctx.beginPath();
+
+    dataUnpacked.forEach((value, index) => {
+      this.ctx.moveTo(startX + ofs, startY);
+      this.ctx.lineTo(startX + ofs, startY - value * (this.theme.GRID_STEP_Y / 2));
+      ofs += 4;
+    });
+    this.ctx.stroke();
+  }
+
   drawMatrix8x8(xpos, ypos, data) {
     const startX = xpos * this.theme.GRID_STEP_X;
     const startY = ypos * this.theme.GRID_STEP_Y;
@@ -402,7 +425,7 @@ class DrawLib {
     this.ctx.drawImage(playfieldImage, startX, startY);
   }
 
-  drawDiagramCluster(xpos, ypos, arrayData, visibleElements, maxEntries = 54) {
+  drawDiagramCluster(xpos, ypos, arrayData, visibleElements, maxEntries = 20) {
     const STARTX = xpos * this.theme.GRID_STEP_X;
     let startX = STARTX;
     let startY = ypos * this.theme.GRID_STEP_Y;
@@ -426,7 +449,7 @@ class DrawLib {
           startX += this.theme.GRID_STEP_X / 4;
         });
 
-        startX += this.theme.GRID_STEP_X / 2;
+        startX += this.theme.GRID_STEP_X * .75;
         if (index % 8 === 7) {
           startX = STARTX;
           startY += this.theme.GRID_STEP_Y * 1.5;
