@@ -492,7 +492,6 @@ function initialise() {
   canvasDrawLib.drawVerticalLine(THEME.POS_RAMDIAG_X + 47, THEME.POS_RAMDIAG_Y - 2, 7);
   canvasDrawLib.writeRibbonHeader(THEME.POS_RAMDIAG_X, THEME.POS_RAMDIAG_Y - 1, 'RANDOM ACCESS MEMORY', THEME.FONT_TEXT);
   canvasDrawLib.writeLabel(THEME.POS_RAMDIAG_X + 11.5, THEME.POS_RAMDIAG_Y - 1, 'ANALYTICS');
-
 }
 
 // PLAYFIELD START
@@ -525,7 +524,7 @@ function drawLampPositions(lampState) {
   }
 
   const x = (THEME.POS_PLAYFIELD_X - 0.25) * THEME.GRID_STEP_X;
-  const y = (THEME.POS_PLAYFIELD_Y + 2.75) * THEME.GRID_STEP_Y;
+  const y = (THEME.POS_PLAYFIELD_Y + 1.75) * THEME.GRID_STEP_Y;
 
   lampState.forEach((lamp, index) => {
     if (index >= playfieldData.lamps.length) {
