@@ -1,6 +1,6 @@
 'use strict';
 
-export { createDrawLib };
+export { createDrawLib, getDiagramCluster };
 
 
 function createDrawLib(ctx, theme) {
@@ -177,7 +177,7 @@ class DrawLib {
       normalized = n / diagramData.maxValue * this.theme.GRID_STEP_Y;
       this.ctx.lineTo(startX, startY - normalized);
       startX += this.theme.GRID_STEP_X / 4;
-    })
+    });
 
     this.ctx.stroke();
   }
@@ -402,28 +402,124 @@ class DrawLib {
     this.ctx.drawImage(playfieldImage, startX, startY);
   }
 
+  drawDiagramCluster(xpos, ypos, arrayData, visibleElements, maxEntries = 54) {
+    const STARTX = xpos * this.theme.GRID_STEP_X;
+    let startX = STARTX;
+    let startY = ypos * this.theme.GRID_STEP_Y;
+
+    this.ctx.strokeStyle = this.theme.COLOR_YELLOW;
+    this.ctx.lineWidth = 1;
+    this.ctx.beginPath();
+
+    const diagramDataArray = getDiagramCluster(arrayData.length, maxEntries);
+    diagramDataArray.add(Array.from(arrayData));
+
+    diagramDataArray.getInterestingDiagrams(visibleElements)
+      .forEach((diagramData, index) => {
+        let normalized = diagramData.values[0] / diagramData.maxValue * this.theme.GRID_STEP_Y;
+        this.ctx.moveTo(startX, startY - normalized);
+
+        diagramData.values.forEach((n) => {
+          normalized = n / diagramData.maxValue * this.theme.GRID_STEP_Y;
+          this.ctx.lineTo(startX, startY - normalized);
+          startX += this.theme.GRID_STEP_X / 4;
+        });
+
+        startX += this.theme.GRID_STEP_X;
+        if (index % 10 === 9) {
+          startX = STARTX;
+          startY += this.theme.GRID_STEP_Y * 2;
+        }
+      });
+
+    this.ctx.stroke();
+  }
+
 }
 
-function getDiagram(name, maxEntries) {
+function getDiagram(name, nrOfElementsPerDiagram) {
   if (diagrams[name]) {
     return diagrams[name];
   }
-  diagrams[name] = new HorizontalDiagram(maxEntries);
+  diagrams[name] = new HorizontalDiagram(nrOfElementsPerDiagram);
   return diagrams[name];
 }
 
 class HorizontalDiagram {
 
-  constructor(maxEntries) {
-    this.maxEntries = maxEntries;
-    this.values = new Array(maxEntries).fill(0);
+  constructor(nrOfElementsPerDiagram) {
+    this.nrOfElementsPerDiagram = nrOfElementsPerDiagram;
+    this.values = new Array(nrOfElementsPerDiagram).fill(0);
     this.pos = 0;
     this.maxValue = 1;
+    this.interesting = 0;
   }
 
+  // add value to diagram
   add(value) {
     this.values[this.pos] = value;
-    this.pos = (this.pos + 1) % this.maxEntries;
+    this.pos = (this.pos + 1) % this.nrOfElementsPerDiagram;
     this.maxValue = Math.max(value, this.maxValue);
+    let interesting = 0;
+    for (let n = 0; n < this.values.length - 1; n++) {
+      interesting += Math.abs(this.values[n] - this.values[n + 1]);
+    }
+    this.interesting = interesting;
   }
+}
+
+function getDiagramCluster(nrOfDiagrams, nrOfElementsPerDiagram) {
+  const name = nrOfDiagrams + 'cluster' + nrOfElementsPerDiagram;
+  if (diagrams[name]) {
+    return diagrams[name];
+  }
+  diagrams[name] = new HorizontalDiagramCluster(nrOfDiagrams, nrOfElementsPerDiagram);
+  return diagrams[name];
+}
+
+class HorizontalDiagramCluster {
+
+  // nrOfDiagrams, int: how many diagrams should be created
+  // nrOfElementsPerDiagram, int: how many elements should a diagram have
+  constructor(nrOfDiagrams, nrOfElementsPerDiagram) {
+    this.nrOfDiagrams = nrOfDiagrams;
+    this.diagCluster = new Map();
+    for (let i = 0; i < nrOfDiagrams; i++) {
+      const diagram = new HorizontalDiagram(nrOfElementsPerDiagram);
+      diagram.offset = i;
+      this.diagCluster.set(i, diagram);
+    }
+  }
+
+  // elements, array: input data, array length MUST match the nrOfDiagrams
+  add(elements) {
+    if (!Array.isArray(elements)) {
+      console.error('HorizontalDiagramCluster: input is not an Array', typeof elements);
+      return false;
+    }
+    if (elements.length !== this.nrOfDiagrams) {
+      console.error('HorizontalDiagramCluster: data count invalid');
+      return false;
+    }
+    elements.forEach((element, index) => {
+      const diag = this.diagCluster.get(index);
+      diag.add(element);
+    });
+  }
+
+  getInterestingDiagrams(nrOfDiagramsToReturn) {
+    return [...this.diagCluster.values()]
+      .sort((e1, e2) => {
+        if (e1.interesting === e2.interesting) {
+          return 0;
+        }
+        if (e1.interesting > e2.interesting) {
+          return 1;
+        }
+        return -1;
+      })
+      .reverse()
+      .slice(0, nrOfDiagramsToReturn);
+  }
+
 }

@@ -164,17 +164,12 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     canvaMemDrawLib.drawMemRegion(THEME.POS_MEM_X + 1, THEME.POS_MEM_Y + 2, emuState.asic.ram);
 
     canvaDmdDrawLib.clear(
-      THEME.POS_RAMDIAG_X * THEME.GRID_STEP_X,
+      (THEME.POS_RAMDIAG_X - 2)* THEME.GRID_STEP_X,
       (THEME.POS_RAMDIAG_Y - 2) * THEME.GRID_STEP_Y,
-      THEME.GRID_STEP_X * 60,
-      THEME.GRID_STEP_Y * 13
+      THEME.GRID_STEP_X * 67,
+      THEME.GRID_STEP_Y * 15
     );
-    for (let x = 0; x < 10; x++) {
-      canvaDmdDrawLib.drawDiagram(THEME.POS_RAMDIAG_X + x * 6, THEME.POS_RAMDIAG_Y,     'RAM' + x, emuState.asic.ram[x], 22);
-      canvaDmdDrawLib.drawDiagram(THEME.POS_RAMDIAG_X + x * 6, THEME.POS_RAMDIAG_Y + 2, '1RAM' + x, emuState.asic.ram[10+x], 22);
-      canvaDmdDrawLib.drawDiagram(THEME.POS_RAMDIAG_X + x * 6, THEME.POS_RAMDIAG_Y + 4, '2RAM' + x, emuState.asic.ram[20+x], 22);
-      canvaDmdDrawLib.drawDiagram(THEME.POS_RAMDIAG_X + x * 6, THEME.POS_RAMDIAG_Y + 6, '3RAM' + x, emuState.asic.ram[30+x], 22);
-    }
+    canvaDmdDrawLib.drawDiagramCluster(THEME.POS_RAMDIAG_X, THEME.POS_RAMDIAG_Y, emuState.asic.ram, 40, 22);
   }
 
   // DMD MEM - draw only 4 dmd video fragment per loop
@@ -216,11 +211,11 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
     canvaDmdDrawLib.clear(
       (THEME.POS_PLAYFIELD_X - 1) * THEME.GRID_STEP_X,
-      (THEME.POS_PLAYFIELD_Y + 35) * THEME.GRID_STEP_Y,
+      (THEME.POS_PLAYFIELD_Y + 34) * THEME.GRID_STEP_Y,
       THEME.GRID_STEP_X * 18,
       THEME.GRID_STEP_Y * 5
     );
-    canvaDmdDrawLib.drawVerticalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 40, emuState.asic.wpc.lampState);
+    canvaDmdDrawLib.drawVerticalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 39, emuState.asic.wpc.lampState);
   }
 
   // SOLENOID
@@ -230,11 +225,11 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
     canvaDmdDrawLib.clear(
       (THEME.POS_PLAYFIELD_X - 1) * THEME.GRID_STEP_X,
-      (THEME.POS_PLAYFIELD_Y + 39) * THEME.GRID_STEP_Y,
+      (THEME.POS_PLAYFIELD_Y + 38) * THEME.GRID_STEP_Y,
       THEME.GRID_STEP_X * 18,
       THEME.GRID_STEP_Y * 5
     );
-    canvaDmdDrawLib.drawVerticalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 44, emuState.asic.wpc.solenoidState);
+    canvaDmdDrawLib.drawVerticalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 43, emuState.asic.wpc.solenoidState);
   }
 
   // GI
@@ -358,7 +353,7 @@ function initialise() {
   canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 36, THEME.POS_DMDMEM_Y + 1, 20);
   canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 48, THEME.POS_DMDMEM_Y, 21);
   canvasDrawLib.writeRibbonHeader(THEME.POS_DMDMEM_X + 1, THEME.POS_DMDMEM_Y + 1, 'DMD', THEME.FONT_TEXT);
-  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 3.5, THEME.POS_DMDMEM_Y + 1, 'VIDEO RAM');
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 3.5, THEME.POS_DMDMEM_Y + 1, 'VIDEO RANDOM ACCESS MEMORY');
   canvasDrawLib.drawHorizontalLine(THEME.POS_DMDMEM_X, THEME.POS_DMDMEM_Y + 6, 48);
   canvasDrawLib.drawHorizontalLine(THEME.POS_DMDMEM_X, THEME.POS_DMDMEM_Y + 11, 48);
   canvasDrawLib.drawHorizontalLine(THEME.POS_DMDMEM_X, THEME.POS_DMDMEM_Y + 16, 48);
@@ -386,7 +381,7 @@ function initialise() {
   // MEM
   canvasDrawLib.drawVerticalLine(THEME.POS_MEM_X,      THEME.POS_MEM_Y, 7);
   canvasDrawLib.drawVerticalLine(THEME.POS_MEM_X + 15, THEME.POS_MEM_Y, 7);
-  canvasDrawLib.writeLabel(THEME.POS_MEM_X + 1, THEME.POS_MEM_Y + 1, 'MEMORY');
+  canvasDrawLib.writeLabel(THEME.POS_MEM_X + 1, THEME.POS_MEM_Y + 1, 'ASIC RANDOM ACCESS MEMORY');
 
   // DMD SHADED
   canvasDrawLib.drawRect(THEME.POS_DMD_X - 0.2, THEME.POS_DMD_Y - 0.2, 65 - 0.6, 17 - 0.6, THEME.DMD_COLOR_DARK);
@@ -413,13 +408,12 @@ function initialise() {
   canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X + 17, THEME.POS_PLAYFIELD_Y, 45);
   canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X + 0.5, THEME.POS_PLAYFIELD_Y + 1, 'PLAYFIELD', THEME.FONT_TEXT);
   canvasDrawLib.writeLabel(THEME.POS_PLAYFIELD_X + 6, THEME.POS_PLAYFIELD_Y + 1, 'VISUALIZATION');
-  canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, THEME.POS_PLAYFIELD_Y + 2, 18);
 
-  canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, THEME.POS_PLAYFIELD_Y + 37, 18);
-  canvasDrawLib.writeLabel(THEME.POS_PLAYFIELD_X, THEME.POS_PLAYFIELD_Y + 38.25, 'LAMP ENERGY USAGE');
+  canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, THEME.POS_PLAYFIELD_Y + 36, 18);
+  canvasDrawLib.writeLabel(THEME.POS_PLAYFIELD_X, THEME.POS_PLAYFIELD_Y + 37.25, 'LAMP ENERGY USAGE');
 
-  canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, THEME.POS_PLAYFIELD_Y + 41, 18);
-  canvasDrawLib.writeLabel(THEME.POS_PLAYFIELD_X, THEME.POS_PLAYFIELD_Y + 42.25, 'SOLENOID ENERGY USAGE');
+  canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, THEME.POS_PLAYFIELD_Y + 40, 18);
+  canvasDrawLib.writeLabel(THEME.POS_PLAYFIELD_X, THEME.POS_PLAYFIELD_Y + 41.25, 'SOLENOID ENERGY USAGE');
 
   // MATRIX
   canvasDrawLib.drawVerticalLine(THEME.POS_MATRIX_X,  THEME.POS_MATRIX_Y, 21);
@@ -445,7 +439,7 @@ function drawFlashlamps(lampState) {
   }
 
   const x = (THEME.POS_PLAYFIELD_X - 0.25) * THEME.GRID_STEP_X;
-  const y = (THEME.POS_PLAYFIELD_Y + 2.75) * THEME.GRID_STEP_Y;
+  const y = (THEME.POS_PLAYFIELD_Y + 1.75) * THEME.GRID_STEP_Y;
 
   playfieldData.flashlamps.forEach((lamp) => {
     const selectedLamp = lampState[lamp.id - 1];
@@ -503,7 +497,7 @@ function populateInitialCanvas(_gameEntry) {
   if (playfieldData) {
     playfieldImage = new Image();
     playfieldImage.onload = function () {
-      canvasDrawLib.drawImage(THEME.POS_PLAYFIELD_X - 0.25, THEME.POS_PLAYFIELD_Y + 2.75, playfieldImage);
+      canvasDrawLib.drawImage(THEME.POS_PLAYFIELD_X - 0.25, THEME.POS_PLAYFIELD_Y + 1.75, playfieldImage);
     };
     playfieldImage.src = FETCHURL + playfieldData.image;
   } else {
