@@ -2,7 +2,6 @@
 
 export { createDrawLib, getDiagramCluster };
 
-
 function createDrawLib(ctx, theme) {
   return new DrawLib(ctx, theme);
 }
@@ -53,7 +52,7 @@ class DrawLib {
     this.ctx.stroke();
 
     this.ctx.fillStyle = this.theme.HEADER_LINE_HIGH_COLOR;
-    this.ctx.fillRect(startX,   startY - 1, 2, 2);
+    this.ctx.fillRect(startX, startY - 1, 2, 2);
     this.ctx.fillRect(endX, startY - 1, 2, 2);
   }
 
@@ -106,14 +105,14 @@ class DrawLib {
   writeRibbonHeader(x, y, text, font = this.theme.FONT_HEADER) {
     this.ctx.font = font;
     const textWidth = this.ctx.measureText(text).width + this.theme.GRID_STEP_X;
-    const textHeight = parseInt(this.ctx.font.match(/\d+/), 10); + this.theme.GRID_STEP_Y;
+    const textHeight = parseInt(this.ctx.font.match(/\d+/), 10);
 
     const startX = x * this.theme.GRID_STEP_X;
     const startY = y * this.theme.GRID_STEP_Y;
 
     this.ctx.fillStyle = this.theme.RIBBON_COLOR_HEADER;
     this.ctx.fillRect(startX - this.theme.GRID_STEP_X / 2, startY - textHeight,
-      textWidth, textHeight + 4);
+      textWidth, textHeight * 1.3);
 
     this.ctx.fillStyle = this.theme.TEXT_COLOR_HEADER;
     this.ctx.fillText(text, startX, startY);
@@ -134,7 +133,7 @@ class DrawLib {
     let count = 0;
     const now = Date.now();
     for (let n = startY; n < endY; n += this.theme.GRID_STEP_Y / 2) {
-      this.ctx.fillStyle = colors[((now % 0xFFFF)>>6 + count++) % 5];
+      this.ctx.fillStyle = colors[((now % 0xFFFF) >> 6 + count++) % 5];
       this.ctx.fillRect(startX, n, 2, 2);
     }
   }
@@ -272,7 +271,7 @@ class DrawLib {
 
         this.ctx.fillRect(
           1 + startX + offsetX * this.theme.GRID_STEP_X / 2,
-          1 + startY + offsetY * 1 * this.theme.GRID_STEP_Y / 2,
+          1 + startY + offsetY * this.theme.GRID_STEP_Y / 2,
           this.theme.GRID_STEP_X / 2 - 1,
           this.theme.GRID_STEP_Y / 2 - 1);
       }
@@ -295,7 +294,7 @@ class DrawLib {
       if (data[i] > 0) {
         if (color !== data[i]) {
           color = data[i].toString(16);
-          const color2 = (data[i]>>1).toString(16);
+          const color2 = (data[i] >> 1).toString(16);
           this.ctx.fillStyle = '#' + color2 + color + color;
         }
         this.ctx.fillRect(startX + offsetX, startY + offsetY, 1, 1);
@@ -394,7 +393,7 @@ class DrawLib {
     this.ctx.lineWidth = 3;
     this.ctx.beginPath();
 
-    dataUnpacked.forEach((value, index) => {
+    dataUnpacked.forEach((value) => {
       this.ctx.moveTo(startX + ofs, startY);
       this.ctx.lineTo(startX + ofs, startY - value * (this.theme.GRID_STEP_Y / 2));
       ofs += 4;
@@ -448,7 +447,7 @@ class DrawLib {
           startX += this.theme.GRID_STEP_X / 4;
         });
 
-        startX += this.theme.GRID_STEP_X * .75;
+        startX += this.theme.GRID_STEP_X * 0.75;
         if (index % 8 === 7) {
           startX = STARTX;
           startY += this.theme.GRID_STEP_Y * 1.5;

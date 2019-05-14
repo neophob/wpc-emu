@@ -1,7 +1,7 @@
 'use strict';
 
 import { replaceNode } from './htmlselector';
-import { createDrawLib } from './ui/lib.js';
+import { createDrawLib } from './ui/lib';
 
 export { initialise, updateCanvas, populateInitialCanvas, errorFeedback, loadFeedback };
 
