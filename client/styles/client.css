@@ -7,24 +7,76 @@
 }
 
 body {
-  background-color: #bbb;
+  font-family: 'Space Mono';
+  background-color: #000;
+  width: 1281px;
+  height: 100%;
+  margin: 5px;
 }
 
 .container {
   padding: 0;
 }
 
-.button-black {
-  background-color: black;
-  border-color: black;
+.button-invert {
+  background-color: green;
+  border-color: red;
 }
-.button-black.button-clear,
-.button-black.button-outline {
+
+.button-wpc {
+  background-color: rgb(81, 115, 117);
+  border-color: rgb(81, 115, 117);
+  color: rgb(237, 246, 206);
+}
+.button-wpc.button-clear,
+.button-wpc.button-outline {
   background-color: transparent;
-  color: black;
+  color: rgb(81, 115, 117);
 }
-.button-black.button-clear {
+.button-wpc.button-clear {
   border-color: transparent;
+}
+.button-wpc.button-blue {
+  background-color: rgb(255, 108, 74);
+  border-color: rgba(255, 108, 74, 0.5);
+  color: rgb(0,0,0);
+}
+.button-wpc.button:focus, .button:hover,
+button:focus,
+button:hover {
+  background-color: rgb(81, 115, 117);
+  border-color: rgb(255, 108, 74);
+  color: rgb(255, 108, 74);
+}
+.button-wpc.button-outline:focus, .button-wpc.button-outline:hover,
+button.button-outline:focus,
+button.button-outline:hover {
+  border-color: rgb(255, 108, 74);
+  color: rgb(255, 108, 74);
+}
+
+input:not([type]),
+textarea,
+select {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: transparent;
+  border: 0.1rem solid #d1d1d1;
+  border-radius: .4rem;
+  box-shadow: none;
+  box-sizing: inherit;
+  height: 3.8rem;
+  padding: .6rem 1.0rem;
+  width: 100%;
+  border-color: rgb(81, 115, 117);
+  color: rgb(81, 115, 117);
+}
+
+input:not([type]):focus,
+textarea:focus,
+select:focus {
+  outline: 0;
 }
 
 /* Custom size */
