@@ -29,9 +29,9 @@ function _updateFliptronicsState(fliptronicsElements, packedSwitchInput) {
   fliptronicsElements.childNodes.forEach((childNode) => {
     const id = parseInt(childNode.id.substring(PINBALL_FLIPTRONICS_ELEMENT.length + 1), 10) - 1;
     if (fliptronicsSwitchState[id]) {
-      childNode.className = 'button-wpc button-small';
+      childNode.className = 'button-wpc';
     } else {
-      childNode.className = 'button-wpc button-outline button-small';
+      childNode.className = 'button-wpc button-outline';
     }
   });
 }
@@ -50,9 +50,9 @@ function updateUiSwitchState(packedSwitchInput) {
     const rawId = parseInt(childNode.id.substring(PINBALL_SWITCH_BUTTONS_ELEMENT.length), 10);
     const id = logicalIdToArrayOffset(rawId);
     if (matrixSwitchState[id]) {
-      childNode.className = 'button-wpc button-small';
+      childNode.className = 'button-wpc';
     } else {
-      childNode.className = 'button-wpc button-outline button-small';
+      childNode.className = 'button-wpc button-outline';
     }
   });
 
@@ -76,7 +76,7 @@ function addGameSpecificControls(gameEntry) {
       const child = document.createElement('button');
       child.textContent = mapping.name;
       child.id = PINBALL_SWITCH_BUTTONS_ELEMENT + mapping.id;
-      child.className = 'button-wpc button-outline button-small';
+      child.className = 'button-wpc button-outline';
       child.addEventListener('click', () => {
         window.wpcInterface.wpcSystem.setInput(mapping.id);
       });
@@ -91,7 +91,7 @@ function addGameSpecificControls(gameEntry) {
       const child = document.createElement('button');
       child.textContent = mapping.name;
       child.id = PINBALL_FLIPTRONICS_ELEMENT + mapping.id;
-      child.className = 'button-wpc button-outline button-small';
+      child.className = 'button-wpc button-outline';
       child.addEventListener('click', () => {
         window.wpcInterface.wpcSystem.setFliptronicsInput(mapping.id);
       });
