@@ -91,7 +91,7 @@ const THEME = {
   POS_MATRIX_Y: 38,
 
   POS_RAMDIAG_X: 38,
-  POS_RAMDIAG_Y: 54,
+  POS_RAMDIAG_Y: 53,
 };
 
 let videoRam;
@@ -184,7 +184,7 @@ regY: 36587
       THEME.GRID_STEP_Y * 10
     );
     const memory1k = Array.from(emuState.asic.ram.slice(0, 1024));
-    canvaDmdDrawLib.drawDiagramCluster(THEME.POS_RAMDIAG_X + 0.5, THEME.POS_RAMDIAG_Y + 0.5, memory1k, 24);
+    canvaDmdDrawLib.drawDiagramCluster(THEME.POS_RAMDIAG_X + 0.5, THEME.POS_RAMDIAG_Y + 1, memory1k, 24);
 /*    const MEM_RANGE = frame % 0x8000;
     const memory192b = Array.from(emuState.asic.ram.slice(MEM_RANGE, MEM_RANGE + 192));
 
@@ -397,36 +397,36 @@ function initialise() {
   canvasDrawLib.drawVerticalLine(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 7, 3);
 
   // DMD MEM
-  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X,      THEME.POS_DMDMEM_Y, 21);
-  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 12, THEME.POS_DMDMEM_Y + 1, 20);
-  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 24, THEME.POS_DMDMEM_Y + 1, 20);
-  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 36, THEME.POS_DMDMEM_Y + 1, 20);
-  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 48, THEME.POS_DMDMEM_Y, 21);
+  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X,      THEME.POS_DMDMEM_Y, 20);
+  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 12, THEME.POS_DMDMEM_Y + 1.5, 18.5);
+  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 24, THEME.POS_DMDMEM_Y + 1.5, 18.5);
+  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 36, THEME.POS_DMDMEM_Y + 1.5, 18.5);
+  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 48, THEME.POS_DMDMEM_Y, 20);
   canvasDrawLib.writeRibbonHeader(THEME.POS_DMDMEM_X + 1, THEME.POS_DMDMEM_Y + 1, 'DMD', THEME.FONT_TEXT);
   canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 3.5, THEME.POS_DMDMEM_Y + 1, 'VIDEO RANDOM ACCESS MEMORY');
   canvasDrawLib.drawHorizontalLine(THEME.POS_DMDMEM_X, THEME.POS_DMDMEM_Y + 6, 48);
-  canvasDrawLib.drawHorizontalLine(THEME.POS_DMDMEM_X, THEME.POS_DMDMEM_Y + 11, 48);
-  canvasDrawLib.drawHorizontalLine(THEME.POS_DMDMEM_X, THEME.POS_DMDMEM_Y + 16, 48);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_DMDMEM_X, THEME.POS_DMDMEM_Y + 10.5, 48);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_DMDMEM_X, THEME.POS_DMDMEM_Y + 15, 48);
 
-  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 10, THEME.POS_DMDMEM_Y + 2, '#00', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 10, THEME.POS_DMDMEM_Y + 2.5, '#00', THEME.COLOR_YELLOW);
   canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 10, THEME.POS_DMDMEM_Y + 7, '#04', THEME.COLOR_YELLOW);
-  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 10, THEME.POS_DMDMEM_Y + 12, '#08', THEME.COLOR_YELLOW);
-  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 10, THEME.POS_DMDMEM_Y + 17, '#12', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 10, THEME.POS_DMDMEM_Y + 11.5, '#08', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 10, THEME.POS_DMDMEM_Y + 16, '#12', THEME.COLOR_YELLOW);
 
-  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 22, THEME.POS_DMDMEM_Y + 2, '#01', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 22, THEME.POS_DMDMEM_Y + 2.5, '#01', THEME.COLOR_YELLOW);
   canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 22, THEME.POS_DMDMEM_Y + 7, '#05', THEME.COLOR_YELLOW);
-  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 22, THEME.POS_DMDMEM_Y + 12, '#09', THEME.COLOR_YELLOW);
-  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 22, THEME.POS_DMDMEM_Y + 17, '#13', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 22, THEME.POS_DMDMEM_Y + 11.5, '#09', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 22, THEME.POS_DMDMEM_Y + 16, '#13', THEME.COLOR_YELLOW);
 
-  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 34, THEME.POS_DMDMEM_Y + 2, '#02', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 34, THEME.POS_DMDMEM_Y + 2.5, '#02', THEME.COLOR_YELLOW);
   canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 34, THEME.POS_DMDMEM_Y + 7, '#06', THEME.COLOR_YELLOW);
-  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 34, THEME.POS_DMDMEM_Y + 12, '#10', THEME.COLOR_YELLOW);
-  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 34, THEME.POS_DMDMEM_Y + 17, '#14', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 34, THEME.POS_DMDMEM_Y + 11.5, '#10', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 34, THEME.POS_DMDMEM_Y + 16, '#14', THEME.COLOR_YELLOW);
 
-  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 46, THEME.POS_DMDMEM_Y + 2, '#03', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 46, THEME.POS_DMDMEM_Y + 2.5, '#03', THEME.COLOR_YELLOW);
   canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 46, THEME.POS_DMDMEM_Y + 7, '#07', THEME.COLOR_YELLOW);
-  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 46, THEME.POS_DMDMEM_Y + 12, '#11', THEME.COLOR_YELLOW);
-  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 46, THEME.POS_DMDMEM_Y + 17, '#15', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 46, THEME.POS_DMDMEM_Y + 11.5, '#11', THEME.COLOR_YELLOW);
+  canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 46, THEME.POS_DMDMEM_Y + 16, '#15', THEME.COLOR_YELLOW);
 
   // MEM
   canvasDrawLib.drawVerticalLine(THEME.POS_MEM_X,      THEME.POS_MEM_Y, 7);
@@ -494,10 +494,10 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 15, 'GI');
 
   // RAMDIAG
-  canvasDrawLib.drawVerticalLine(THEME.POS_RAMDIAG_X - 1,  THEME.POS_RAMDIAG_Y - 2, 7);
-  canvasDrawLib.drawVerticalLine(THEME.POS_RAMDIAG_X + 47, THEME.POS_RAMDIAG_Y - 2, 7);
+  canvasDrawLib.drawVerticalLine(THEME.POS_RAMDIAG_X - 1,  THEME.POS_RAMDIAG_Y - 2, 8);
+  canvasDrawLib.drawVerticalLine(THEME.POS_RAMDIAG_X + 47, THEME.POS_RAMDIAG_Y - 2, 8);
   canvasDrawLib.writeRibbonHeader(THEME.POS_RAMDIAG_X, THEME.POS_RAMDIAG_Y - 1, 'RANDOM ACCESS MEMORY', THEME.FONT_TEXT);
-  canvasDrawLib.writeLabel(THEME.POS_RAMDIAG_X + 11.5, THEME.POS_RAMDIAG_Y - 1, 'ANALYTICS');
+  canvasDrawLib.writeLabel(THEME.POS_RAMDIAG_X + 11.5, THEME.POS_RAMDIAG_Y - 1, 'REAL TIME ANALYTICS');
 }
 
 // PLAYFIELD START

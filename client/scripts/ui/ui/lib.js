@@ -335,10 +335,10 @@ class DrawLib {
     // draw only 4 dmd frames to avoid dropping fps
     const dmdRow = frame % 4;
     let xpos = x * this.theme.GRID_STEP_X + (128 % this.theme.GRID_STEP_X) / 2;
-    const ypos = y * this.theme.GRID_STEP_Y + dmdRow * (5 * this.theme.GRID_STEP_Y);
+    const ypos = y * this.theme.GRID_STEP_Y + dmdRow * (4.5 * this.theme.GRID_STEP_Y);
 
     // clear rect
-    this.ctx.clearRect(xpos, ypos, this.theme.GRID_STEP_X * 12 * 4, 5 * this.theme.GRID_STEP_Y);
+    this.ctx.clearRect(xpos, ypos, this.theme.GRID_STEP_X * 12 * 4, 4.5 * this.theme.GRID_STEP_Y);
 
     for (let i = 0; i < 4; i++) {
       this.drawDmd(data[dmdRow * 4 + i], xpos, ypos);
@@ -430,6 +430,9 @@ class DrawLib {
 
     this.ctx.strokeStyle = this.theme.COLOR_YELLOW;
     this.ctx.lineWidth = 1;
+    this.ctx.font = this.theme.FONT_TEXT;
+    this.ctx.fillStyle = this.theme.TEXT_COLOR_LABEL;
+
     this.ctx.beginPath();
 
     const diagramDataArray = getDiagramCluster(arrayData.length, maxEntries);
@@ -439,6 +442,9 @@ class DrawLib {
     diagramDataArray.getInterestingDiagrams(visibleElements)
       .forEach((diagramData, index) => {
         let normalized = diagramData.values[0] / diagramData.maxValue * this.theme.GRID_STEP_Y;
+
+        this.ctx.fillText('#' + diagramData.offset, startX, startY + this.theme.GRID_STEP_Y * 0.5);
+
         this.ctx.moveTo(startX, startY - normalized);
 
         diagramData.values.forEach((n) => {
@@ -450,7 +456,7 @@ class DrawLib {
         startX += this.theme.GRID_STEP_X * 0.75;
         if (index % 8 === 7) {
           startX = STARTX;
-          startY += this.theme.GRID_STEP_Y * 1.5;
+          startY += this.theme.GRID_STEP_Y * 2;
         }
       });
 
@@ -475,6 +481,7 @@ class HorizontalDiagram {
     this.pos = 0;
     this.maxValue = 1;
     this.interesting = 0;
+    this.offset = -1;
   }
 
   // add value to diagram
