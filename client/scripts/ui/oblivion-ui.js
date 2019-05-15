@@ -161,6 +161,7 @@ regY: 36587
   canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X, THEME.POS_DMD_Y - 2.5, 10, emuState.opsMs >> 2);
   canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X + 50, THEME.POS_DMD_Y - 2.5, 8, emuState.asic.wpc.diagnosticLedToggleCount);
   canvasOverlayDrawLib.fillRect(THEME.POS_DMD_X - 1, THEME.POS_DMD_Y + 17.5, 1, 0.5, emuState.asic.dmd.requestFIRQ ? THEME.COLOR_RED : THEME.DMD_COLOR_DARK);
+  canvasOverlayDrawLib.fillRect(THEME.POS_DMD_X + 24, THEME.POS_DMD_Y + 17.5, 1, 0.5, emuState.asic.wpc.zeroCrossFlag ? THEME.COLOR_GREEN : THEME.DMD_COLOR_DARK);
 
   // ASIC
   canvasOverlayDrawLib.drawDiagram(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 3, 'WATCHDOG', emuState.asic.wpc.watchdogTicks);
@@ -447,6 +448,7 @@ function initialise() {
   canvasDrawLib.fillRect(THEME.POS_DMD_X + 50.5, THEME.POS_DMD_Y + 17.5, 0.8, 0.5, THEME.DMD_COLOR_HIGH);
   canvasDrawLib.writeLabel(THEME.POS_DMD_X + 51.5, THEME.POS_DMD_Y + 18, 'DOT MATRIX DISPLAY PALETTE');
   canvasDrawLib.writeLabel(THEME.POS_DMD_X + 0.25, THEME.POS_DMD_Y + 18, 'FAST INTERRUPT REQUESTED');
+  canvasDrawLib.writeLabel(THEME.POS_DMD_X + 25.25, THEME.POS_DMD_Y + 18, 'AC ZERO CROSS DETECTED');
 
   // SND
   canvasDrawLib.drawVerticalLine(THEME.POS_SND_X,      THEME.POS_SND_Y, 8);
