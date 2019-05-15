@@ -29,11 +29,12 @@ test('getDiagramCluster should getInterestingDiagrams', (t) => {
 
   diagCluster.add([2, 8, 0]);
   diagCluster.add([0, 1, 0]);
+  diagCluster.add([0, 1, 0]);
+  diagCluster.add([0, 1, 0]);
 
   const result = diagCluster.getInterestingDiagrams(3);
-
   t.is(result[0].offset, 1);
-  t.is(result[0].interesting, 8);
+  t.is(result[0].interesting, 7);
   t.is(result[1].offset, 0);
   t.is(result[1].interesting, 2);
   t.is(result[2].offset, 2);
