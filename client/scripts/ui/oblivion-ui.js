@@ -125,7 +125,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
   canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 5, emuState.opsMs);
   if (cpuRunningState === 'running') {
-    canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 9, THEME.POS_CPU_Y + 5, cpuRunningState, THEME.COLOR_GREEN);
+    canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 9, THEME.POS_CPU_Y + 5, cpuRunningState, THEME.COLOR_BLUE_INTENSE);
   } else {
     canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 9, THEME.POS_CPU_Y + 5, cpuRunningState, THEME.COLOR_RED);
   }
@@ -161,15 +161,15 @@ regY: 36587
   canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X, THEME.POS_DMD_Y - 2.5, 10, emuState.opsMs >> 2);
   canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X + 50, THEME.POS_DMD_Y - 2.5, 8, emuState.asic.wpc.diagnosticLedToggleCount);
   canvasOverlayDrawLib.fillRect(THEME.POS_DMD_X - 1, THEME.POS_DMD_Y + 17.5, 1, 0.5, emuState.asic.dmd.requestFIRQ ? THEME.COLOR_RED : THEME.DMD_COLOR_DARK);
-  canvasOverlayDrawLib.fillRect(THEME.POS_DMD_X + 24, THEME.POS_DMD_Y + 17.5, 1, 0.5, emuState.asic.wpc.zeroCrossFlag ? THEME.COLOR_GREEN : THEME.DMD_COLOR_DARK);
+  canvasOverlayDrawLib.fillRect(THEME.POS_DMD_X + 24, THEME.POS_DMD_Y + 17.5, 1, 0.5, emuState.asic.wpc.zeroCrossFlag ? THEME.COLOR_RED : THEME.DMD_COLOR_DARK);
 
   // ASIC
   canvasOverlayDrawLib.drawDiagram(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 3, 'WATCHDOG', emuState.asic.wpc.watchdogTicks);
   canvasOverlayDrawLib.writeLabel(THEME.POS_ASIC_X + 11.5, THEME.POS_ASIC_Y + 1, emuState.asic.wpc.watchdogExpiredCounter, THEME.COLOR_RED);
 
-  canvasOverlayDrawLib.fillRect(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 5.5, 1, 1, emuState.asic.wpc.blankSignalHigh ? THEME.COLOR_GREEN : THEME.DMD_COLOR_DARK);
-  canvasOverlayDrawLib.fillRect(THEME.POS_ASIC_X + 3, THEME.POS_ASIC_Y + 5.5, 1, 1, THEME.COLOR_GREEN);
-  canvasOverlayDrawLib.fillRect(THEME.POS_ASIC_X + 5, THEME.POS_ASIC_Y + 5.5, 1, 1, emuState.asic.wpc.diagnosticLed ? THEME.COLOR_GREEN : THEME.DMD_COLOR_DARK);
+  canvasOverlayDrawLib.fillRect(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 5.5, 1, 1, emuState.asic.wpc.blankSignalHigh ? THEME.COLOR_RED : THEME.DMD_COLOR_DARK);
+  canvasOverlayDrawLib.fillRect(THEME.POS_ASIC_X + 3, THEME.POS_ASIC_Y + 5.5, 1, 1, THEME.COLOR_RED);
+  canvasOverlayDrawLib.fillRect(THEME.POS_ASIC_X + 5, THEME.POS_ASIC_Y + 5.5, 1, 1, emuState.asic.wpc.diagnosticLed ? THEME.COLOR_RED : THEME.DMD_COLOR_DARK);
   canvasOverlayDrawLib.writeHeader(THEME.POS_ASIC_X + 8, THEME.POS_ASIC_Y + 6.5, emuState.asic.wpc.diagnosticLedToggleCount);
 
   canvasOverlayDrawLib.drawDiagram(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 10, 'ASIC_ROM_BANK', emuState.asic.wpc.activeRomBank, 22);
