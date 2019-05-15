@@ -334,11 +334,8 @@ function initialise() {
   canvasDrawLib.drawBackgroundPoints();
 
   // LOGO
-  canvasDrawLib.fillRect(1, 3, 1, 1, THEME.COLOR_BLUE_INTENSE);
-  canvasDrawLib.fillRect(2.5, 3, 1, 1, THEME.COLOR_YELLOW);
-  canvasDrawLib.fillRect(4, 3, 1, 1, THEME.COLOR_RED);
+  canvasDrawLib.drawWpcLogo(2, 2.75);
   canvasDrawLib.writeRibbonHeader(6, 3.9, 'WPC-EMU');
-
 
   // DRAW TOP LINES
   canvasDrawLib.drawHorizontalLine(1, 1, 15);

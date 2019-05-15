@@ -207,10 +207,40 @@ class DrawLib {
     this.ctx.fillStyle = this.theme.COLOR_RED;
 
     this.ctx.beginPath();
-    this.ctx.moveTo(startX - this.theme.GRID_STEP_Y / 2, startY - this.theme.GRID_STEP_Y / 2);
-    this.ctx.lineTo(startX + this.theme.GRID_STEP_Y / 2, startY - this.theme.GRID_STEP_Y / 2);
+    this.ctx.moveTo(startX - this.theme.GRID_STEP_X / 2, startY - this.theme.GRID_STEP_Y / 2);
+    this.ctx.lineTo(startX + this.theme.GRID_STEP_X / 2, startY - this.theme.GRID_STEP_Y / 2);
     this.ctx.lineTo(startX, startY);
     this.ctx.fill();
+  }
+
+  drawWpcLogo(xpos, ypos) {
+    const startX = xpos * this.theme.GRID_STEP_X;
+    const startY = ypos * this.theme.GRID_STEP_Y;
+    const XXX = 1.5;
+    const Y_STRETCH = this.theme.GRID_STEP_Y * XXX;
+    const X_OFFSET = this.theme.GRID_STEP_X / XXX;
+
+    this.ctx.fillStyle = this.theme.COLOR_BLUE_INTENSE;
+    this.ctx.beginPath();
+    this.ctx.moveTo(startX, startY);
+    this.ctx.lineTo(startX + this.theme.GRID_STEP_X * 2, startY);
+    this.ctx.lineTo(startX + this.theme.GRID_STEP_X, startY + Y_STRETCH);
+    this.ctx.fill();
+
+    this.ctx.fillStyle = this.theme.COLOR_RED;
+    this.ctx.beginPath();
+    this.ctx.moveTo(startX + X_OFFSET, startY);
+    this.ctx.lineTo(startX + X_OFFSET + this.theme.GRID_STEP_X * 2, startY);
+    this.ctx.lineTo(startX + X_OFFSET + this.theme.GRID_STEP_X, startY + Y_STRETCH);
+    this.ctx.fill();
+
+    this.ctx.fillStyle = this.theme.COLOR_YELLOW;
+    this.ctx.beginPath();
+    this.ctx.moveTo(startX + X_OFFSET, startY);
+    this.ctx.lineTo(startX + X_OFFSET + X_OFFSET * 2, startY);
+    this.ctx.lineTo(startX + X_OFFSET + this.theme.GRID_STEP_X / XXX, startY + Y_STRETCH / XXX);
+    this.ctx.fill();
+
   }
 
   drawScala(xpos, ypos, p1, p2) {
