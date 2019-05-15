@@ -408,7 +408,7 @@ class DrawLib {
     this.ctx.stroke();
   }
 
-  drawVerticalBitDiagram(xpos, ypos, data) {
+  drawHorizontalBitDiagram(xpos, ypos, data) {
     const startX = xpos * this.theme.GRID_STEP_X;
     const startY = ypos * this.theme.GRID_STEP_Y;
 
@@ -473,7 +473,7 @@ class DrawLib {
       .forEach((diagramData, index) => {
         let normalized = diagramData.values[0] / diagramData.maxValue * this.theme.GRID_STEP_Y;
 
-        this.ctx.fillText('#' + diagramData.offset, startX, startY + this.theme.GRID_STEP_Y * 0.5);
+        this.ctx.fillText('0x' + diagramData.offset.toString(16), startX, startY + this.theme.GRID_STEP_Y * 0.5);
 
         this.ctx.moveTo(startX, startY - normalized);
 

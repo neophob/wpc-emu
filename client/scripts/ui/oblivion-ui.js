@@ -97,15 +97,15 @@ const THEME = {
 let videoRam;
 let videoRamDraw = 0;
 
-const colorLut = new Map();
-colorLut.set('YELLOW', 'rgba(255,255,0,');
-colorLut.set('ORANGE', 'rgba(255,165,0,');
-colorLut.set('RED', 'rgba(255,0,0,');
-colorLut.set('LBLUE', 'rgba(173,216,230,');
-colorLut.set('LPURPLE', 'rgba(218,112,214,');
-colorLut.set('WHITE', 'rgba(255,255,255,');
-colorLut.set('GREEN', 'rgba(0,255,0,');
-colorLut.set('BLACK', 'rgba(0,0,0,0)');
+const lampColorLut = new Map();
+lampColorLut.set('YELLOW', 'rgba(255,255,0,');
+lampColorLut.set('ORANGE', 'rgba(255,165,0,');
+lampColorLut.set('RED', 'rgba(255,0,0,');
+lampColorLut.set('LBLUE', 'rgba(173,216,230,');
+lampColorLut.set('LPURPLE', 'rgba(218,112,214,');
+lampColorLut.set('WHITE', 'rgba(255,255,255,');
+lampColorLut.set('GREEN', 'rgba(0,255,0,');
+lampColorLut.set('BLACK', 'rgba(0,0,0,0)');
 
 function updateCanvas(emuState, cpuRunningState, audioState) {
   if (!emuState) {
@@ -136,7 +136,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 8, THEME.POS_CPU_Y + 11, emuState.cpuState.firqCount);
   canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 8, THEME.POS_CPU_Y + 12, emuState.cpuState.missedFIRQ);
 
-  canvasOverlayDrawLib.drawVerticalBitDiagram(THEME.POS_CPU_X + 11.5, THEME.POS_CPU_Y + 8, emuState.cpuState.regCC);
+  canvasOverlayDrawLib.drawHorizontalBitDiagram(THEME.POS_CPU_X + 11.5, THEME.POS_CPU_Y + 8, emuState.cpuState.regCC);
   canvasOverlayDrawLib.drawDiagram(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 8.5, 'REGPC', emuState.cpuState.regPC, 32);
 
   /*
@@ -222,7 +222,7 @@ regY: 36587
 
   // SOUND
   canvasOverlayDrawLib.drawRedTriangle(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 2.5, 13, emuState.asic.sound.volume / 31);
-  canvasOverlayDrawLib.writeLabel(THEME.POS_SND_X + 9.5, THEME.POS_SND_Y + 1, audioState);
+  canvasOverlayDrawLib.writeLabel(THEME.POS_SND_X + 8, THEME.POS_SND_Y + 1, audioState);
 
   canvasOverlayDrawLib.writeHeader(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 6, emuState.asic.sound.readControlBytes);
   canvasOverlayDrawLib.writeHeader(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 7, emuState.asic.sound.writeControlBytes);
@@ -450,9 +450,9 @@ function initialise() {
   // SND
   canvasDrawLib.drawVerticalLine(THEME.POS_SND_X,      THEME.POS_SND_Y, 8);
   canvasDrawLib.drawVerticalLine(THEME.POS_SND_X + 15, THEME.POS_SND_Y, 8);
-  canvasDrawLib.writeLabel(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 1, 'SOUND');
+  canvasDrawLib.writeLabel(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 1, 'AUDIO');
 
-  canvasDrawLib.writeRibbonHeader(THEME.POS_SND_X + 6, THEME.POS_SND_Y + 1, 'STATE', THEME.FONT_TEXT);
+  canvasDrawLib.writeRibbonHeader(THEME.POS_SND_X + 4.5, THEME.POS_SND_Y + 1, 'STATE', THEME.FONT_TEXT);
   canvasDrawLib.drawScala(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 2.5, 10, 3);
   canvasDrawLib.drawHorizontalLine(THEME.POS_SND_X, THEME.POS_SND_Y + 4, 15);
 
@@ -554,7 +554,7 @@ function drawLampPositions(lampState) {
     const isOn = lamp > 0;
     lampObjects.forEach((lampObject) => {
       if (isOn) {
-        canvasOverlayDrawLib.ctx.fillStyle = colorLut.get(lampObject.color) + alpha + ')';
+        canvasOverlayDrawLib.ctx.fillStyle = lampColorLut.get(lampObject.color) + alpha + ')';
       } else {
         canvasOverlayDrawLib.ctx.fillStyle = 'black';
       }
