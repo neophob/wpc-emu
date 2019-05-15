@@ -30,13 +30,13 @@ function initialiseEmu(gameEntry) {
     romSelection,
   };
 
-//TODO  emuDebugUi.loadFeedback(gameEntry.name);
   return document.fonts.load('24pt "Space Mono"')
     .catch((error) => {
       console.error('FONT_LOAD_FAILED', error);
     })
     .then(() => {
       emuDebugUi.initialise();
+      emuDebugUi.loadFeedback(gameEntry.name);
       return downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06);
     })
     .then((u06Rom) => {

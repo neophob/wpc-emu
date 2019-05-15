@@ -84,8 +84,8 @@ class DrawLib {
     this.ctx.fillText(text, x * this.theme.GRID_STEP_X, y * this.theme.GRID_STEP_Y);
   }
 
-  writeText(x, y, text) {
-    this.ctx.font = this.theme.FONT_TEXT;
+  writeText(x, y, text, font = this.theme.FONT_TEXT) {
+    this.ctx.font = font;
     this.ctx.fillStyle = this.theme.TEXT_COLOR;
     this.ctx.fillText(text, x * this.theme.GRID_STEP_X, y * this.theme.GRID_STEP_Y);
   }

@@ -289,7 +289,7 @@ function createCanvas() {
   return canvasElement;
 }
 
-function initialise() {
+function initiateCanvasElements() {
   if (initialized) {
     console.log('ALREADY_INITIALIZED!');
     return;
@@ -330,6 +330,16 @@ function initialise() {
   canvaDmdDrawLib = createDrawLib(canvasDmd, THEME);
   canvaMemDrawLib = createDrawLib(canvasMem, THEME);
   canvaDmdMemDrawLib = createDrawLib(canvasDmdMem, THEME);
+}
+
+function initialise() {
+  initiateCanvasElements();
+
+  canvasDrawLib.clear();
+  canvasOverlayDrawLib.clear();
+  canvaDmdDrawLib.clear();
+  canvaMemDrawLib.clear();
+  canvaDmdMemDrawLib.clear();
 
   canvasDrawLib.drawBackgroundPoints();
 
@@ -550,7 +560,6 @@ function drawLampPositions(lampState) {
     }
 
     const alpha = (lamp / 0xFF).toFixed(2);
-    //console.log(alpha)
     const isOn = lamp > 0;
     lampObjects.forEach((lampObject) => {
       if (isOn) {
@@ -585,27 +594,12 @@ function populateInitialCanvas(_gameEntry) {
 
 function errorFeedback(error) {
   initialise();
-
-  canvas.fillStyle = COLOR_DMD[3];
-  const x = LEFT_X_OFFSET + 10;
-  const y = YPOS_DMD_MAIN_VIEW + 30;
-  canvas.font = '25px ' + FONT;
-
-  canvas.fillText('ERROR! Failed to load ROM!', x, y);
-  canvas.fillText('Details: ' + error.message, x, y + 30);
-
-  canvas.font = '10px ' + FONT;
+  canvasDrawLib.writeText(THEME.POS_DMD_X + 1, THEME.POS_DMD_Y + 2, 'ERROR! Failed to load ROM!', THEME.FONT_HUGE);
+  canvasDrawLib.writeText(THEME.POS_DMD_X + 1, THEME.POS_DMD_Y + 4, 'Details: ' + error.message, THEME.FONT_HUGE);
 }
 
 function loadFeedback(romName) {
+  console.log('loadFeedback',romName)
   initialise();
-
-  canvas.fillStyle = COLOR_DMD[3];
-  const x = LEFT_X_OFFSET + 10;
-  const y = YPOS_DMD_MAIN_VIEW + 30;
-  canvas.font = '25px ' + FONT;
-
-  canvas.fillText('Load ROM ' + romName, x, y);
-
-  canvas.font = '10px ' + FONT;
+  canvasDrawLib.writeText(THEME.POS_DMD_X + 1, THEME.POS_DMD_Y + 2, 'Load ROM ' + romName, THEME.FONT_HUGE);
 }
