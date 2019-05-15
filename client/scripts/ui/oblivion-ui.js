@@ -368,16 +368,21 @@ function initialise() {
   // DRAW BOTTOM LINES
   const BOTTOM_Y = 62;
   canvasDrawLib.drawHorizontalLine(1, BOTTOM_Y, 15);
-  canvasDrawLib.drawHorizontalLine(THEME.POS_DMD_X - 1, BOTTOM_Y, 66);
-  canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, BOTTOM_Y, 18);
   canvasDrawLib.drawHorizontalLine(1, BOTTOM_Y + 0.5, 15);
+
+  canvasDrawLib.drawHorizontalLine(THEME.POS_DMD_X - 1, BOTTOM_Y, 66);
   canvasDrawLib.drawHorizontalLine(THEME.POS_DMD_X - 1, BOTTOM_Y + 0.5, 66);
+
+  canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, BOTTOM_Y, 18);
   canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, BOTTOM_Y + 0.5, 18);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X + 8, BOTTOM_Y, 9, THEME.COLOR_BLUE_INTENSE);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X + 8, BOTTOM_Y + 0.5, 9, THEME.COLOR_BLUE_INTENSE);
 
   // HEADER
   canvasDrawLib.drawHorizontalLine(THEME.POS_HEADER_X, THEME.POS_HEADER_Y, 15);
   canvasDrawLib.writeRibbonHeader(THEME.POS_HEADER_X + 1, THEME.POS_HEADER_Y + 2, 'FILE');
   canvasDrawLib.drawHorizontalLine(THEME.POS_HEADER_X, THEME.POS_HEADER_Y + 3, 15);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_HEADER_X + 5, THEME.POS_HEADER_Y + 3, 10, THEME.COLOR_BLUE_INTENSE);
 
   // CPU
   canvasDrawLib.drawVerticalLine(THEME.POS_CPU_X,      THEME.POS_CPU_Y, 13);
