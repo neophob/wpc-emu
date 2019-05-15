@@ -460,6 +460,9 @@ class DrawLib {
     let startX = STARTX;
     let startY = ypos * this.theme.GRID_STEP_Y;
 
+    const diagramDataArray = getDiagramCluster(arrayData.length, maxEntries);
+    diagramDataArray.add(arrayData);
+
     this.ctx.strokeStyle = this.theme.COLOR_YELLOW;
     this.ctx.lineWidth = 1;
     this.ctx.font = this.theme.FONT_TEXT;
@@ -467,16 +470,12 @@ class DrawLib {
 
     this.ctx.beginPath();
 
-    const diagramDataArray = getDiagramCluster(arrayData.length, maxEntries);
-    diagramDataArray.add(arrayData);
-
     // DRAW diagram
     diagramDataArray.getInterestingDiagrams(visibleElements)
       .forEach((diagramData, index) => {
         let normalized = diagramData.values[0] / diagramData.maxValue * this.theme.GRID_STEP_Y;
 
         this.ctx.fillText('0x' + diagramData.offset.toString(16), startX, startY + this.theme.GRID_STEP_Y * 0.5);
-
         this.ctx.moveTo(startX, startY - normalized);
 
         diagramData.values.forEach((n) => {
