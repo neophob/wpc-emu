@@ -39,6 +39,7 @@ body {
   border-color: rgb(96, 108, 118);
   color: rgb(237, 246, 206);
 }
+
 .button-wpc.button-clear,
 .button-wpc.button-outline {
   background-color: transparent;
@@ -52,10 +53,26 @@ button:hover {
   border-color: rgb(255, 108, 74);
   color: rgb(255, 108, 74);
 }
-.button-wpc.button-outline:focus, .button-wpc.button-outline:hover,
+
+.button-wpc.button-outline:focus,
+.button-wpc.button-outline:hover,
 button.button-outline:hover {
+  border-color: rgb(255, 108, 74);
   color: rgb(255, 108, 74);
 }
+
+.button-wpc.button-red {
+  background-color: transparent;
+  border-color: rgb(96, 108, 118);
+  color: rgb(255, 108, 74);
+}
+
+.button-wpc.button-red:focus,
+.button-wpc.button-red:hover {
+  border-color: rgb(255, 108, 74);
+  color: rgb(255, 108, 74);
+}
+
 
 input:not([type]),
 textarea,
