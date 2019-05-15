@@ -142,12 +142,12 @@ class DrawLib {
     const endX = startX + nr * this.theme.GRID_STEP_X / 2;
     const startY = y * this.theme.GRID_STEP_Y;
     const colors = [
+      this.theme.COLOR_BLUE,
       this.theme.COLOR_RED,
       this.theme.COLOR_BLUE_INTENSE,
       this.theme.COLOR_YELLOW,
       this.theme.DMD_COLOR_DARK,
       this.theme.RIBBON_COLOR_HEADER,
-      this.theme.COLOR_RED,
       this.theme.DMD_COLOR_DARK,
       this.theme.COLOR_BLUE_INTENSE,
       this.theme.COLOR_YELLOW,

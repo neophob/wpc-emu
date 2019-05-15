@@ -31,29 +31,29 @@ body {
 
 .button-wpc {
   font-family: 'Space Mono';
-  font-size: 1.0rem;
+  font-size: 0.85rem;
   height: 2.8rem;
   line-height: 2.8rem;
   padding: 0 1.2rem;
-  background-color: rgb(81, 115, 117);
-  border-color: rgb(81, 115, 117);
+  background-color: transparent;
+  border-color: rgb(96, 108, 118);
   color: rgb(237, 246, 206);
 }
 .button-wpc.button-clear,
 .button-wpc.button-outline {
   background-color: transparent;
+  border-color: rgb(96, 108, 118);
   color: rgb(106, 198, 213);
 }
 
 .button-wpc.button:focus, .button:hover,
 button:hover {
-  background-color: rgb(81, 115, 117);
+  background-color: transparent;
   border-color: rgb(255, 108, 74);
   color: rgb(255, 108, 74);
 }
 .button-wpc.button-outline:focus, .button-wpc.button-outline:hover,
 button.button-outline:hover {
-  border-color: rgb(255, 108, 74);
   color: rgb(255, 108, 74);
 }
 
