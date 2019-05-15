@@ -38,8 +38,8 @@ class DrawLib {
     return dataUnpacked;
   }
 
-  drawHorizontalLine(x, y, width) {
-    this.ctx.strokeStyle = this.theme.HEADER_LINE_LOW_COLOR;
+  drawHorizontalLine(x, y, width, color = this.theme.HEADER_LINE_LOW_COLOR) {
+    this.ctx.strokeStyle = color;
     this.ctx.lineWidth = 1;
 
     const startX = x * this.theme.GRID_STEP_X;
@@ -56,13 +56,13 @@ class DrawLib {
     this.ctx.fillRect(endX, startY - 1, 2, 2);
   }
 
-  drawVerticalLine(x, y, height) {
+  drawVerticalLine(x, y, height, color = this.theme.HEADER_LINE_LOW_COLOR) {
+    this.ctx.strokeStyle = color;
+    this.ctx.lineWidth = 1;
+
     const startX = x * this.theme.GRID_STEP_X;
     const startY = y * this.theme.GRID_STEP_Y;
     const endY = (y + height) * this.theme.GRID_STEP_Y;
-
-    this.ctx.strokeStyle = this.theme.HEADER_LINE_LOW_COLOR;
-    this.ctx.lineWidth = 1;
 
     this.ctx.beginPath();
     this.ctx.moveTo(startX + 1, startY);

@@ -344,14 +344,26 @@ function initialise() {
   canvasDrawLib.drawBackgroundPoints();
 
   // LOGO
-  canvasDrawLib.drawWpcLogo(2, 2.75);
-  canvasDrawLib.writeRibbonHeader(6, 3.9, 'WPC-EMU');
+  canvasDrawLib.drawWpcLogo(2.25, 2.75);
+  canvasDrawLib.writeRibbonHeader(8.5, 4, 'WPC-EMU');
+  canvasDrawLib.drawHorizontalLine(1, 1, 5, THEME.COLOR_BLUE_INTENSE);
+  canvasDrawLib.drawHorizontalLine(1, 6, 5, THEME.COLOR_BLUE_INTENSE);
+
+  canvasDrawLib.drawVerticalLine(1, 1, 1, THEME.COLOR_BLUE_INTENSE);
+  canvasDrawLib.drawVerticalLine(6, 1, 1, THEME.COLOR_BLUE_INTENSE);
+  canvasDrawLib.drawVerticalLine(1, 5, 1, THEME.COLOR_BLUE_INTENSE);
+  canvasDrawLib.drawVerticalLine(6, 5, 1, THEME.COLOR_BLUE_INTENSE);
 
   // DRAW TOP LINES
   canvasDrawLib.drawHorizontalLine(1, 1, 15);
   canvasDrawLib.drawHorizontalLine(THEME.POS_DMD_X - 1, 1, 66);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_DMD_X - 1, THEME.POS_DMD_Y - 2, 66);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_DMD_X + 59, THEME.POS_DMD_Y - 2, 6, THEME.COLOR_BLUE_INTENSE);
+
+  canvasDrawLib.drawVerticalLine(THEME.POS_DMD_X - 1, 1, 1, THEME.COLOR_BLUE_INTENSE);
   canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, 1, 18);
   canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, 6, 18);
+  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X - 1, 5, 1, THEME.COLOR_BLUE_INTENSE);
 
   // DRAW BOTTOM LINES
   const BOTTOM_Y = 62;
@@ -376,7 +388,11 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_CPU_X + 8.5, THEME.POS_CPU_Y + 1, 'IRQ ENABLED');
 
   canvasDrawLib.drawHorizontalLine(THEME.POS_CPU_X, THEME.POS_CPU_Y + 3, 15);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_CPU_X, THEME.POS_CPU_Y + 3, 8, THEME.COLOR_BLUE_INTENSE);
+
   canvasDrawLib.drawHorizontalLine(THEME.POS_CPU_X, THEME.POS_CPU_Y + 6, 15);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_CPU_X + 8, THEME.POS_CPU_Y + 6, 7, THEME.COLOR_BLUE_INTENSE);
+
   canvasDrawLib.writeLabel(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 4, 'OPS/MS');
   canvasDrawLib.drawVerticalLine(THEME.POS_CPU_X + 8, THEME.POS_CPU_Y + 3, 3);
   canvasDrawLib.writeLabel(THEME.POS_CPU_X + 9, THEME.POS_CPU_Y + 4, 'STATUS');
@@ -394,12 +410,14 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 1, 'WATCHDOG');
   canvasDrawLib.writeRibbonHeader(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 1, 'EXPIRED', THEME.FONT_TEXT);
   canvasDrawLib.drawHorizontalLine(THEME.POS_ASIC_X, THEME.POS_ASIC_Y + 4, 15);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 4, 8, THEME.COLOR_BLUE_INTENSE);
 
   canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 5, 'D19');
   canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 3, THEME.POS_ASIC_Y + 5, 'D21');
   canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 5, THEME.POS_ASIC_Y + 5, 'D20');
   canvasDrawLib.writeRibbonHeader(THEME.POS_ASIC_X + 8, THEME.POS_ASIC_Y + 5, 'TGLE CNT', THEME.FONT_TEXT);
   canvasDrawLib.drawHorizontalLine(THEME.POS_ASIC_X, THEME.POS_ASIC_Y + 7, 15);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_ASIC_X, THEME.POS_ASIC_Y + 7, 7, THEME.COLOR_BLUE_INTENSE);
 
   canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 8, 'ROM BANK');
   canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 8, THEME.POS_ASIC_Y + 8, 'LOCKED MEM W');
@@ -421,6 +439,7 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 10, THEME.POS_DMDMEM_Y + 7, '#04', THEME.COLOR_YELLOW);
   canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 10, THEME.POS_DMDMEM_Y + 11.5, '#08', THEME.COLOR_YELLOW);
   canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 10, THEME.POS_DMDMEM_Y + 16, '#12', THEME.COLOR_YELLOW);
+  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X, THEME.POS_DMDMEM_Y + 6, 4.5, THEME.COLOR_BLUE_INTENSE);
 
   canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 22, THEME.POS_DMDMEM_Y + 2.5, '#01', THEME.COLOR_YELLOW);
   canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 22, THEME.POS_DMDMEM_Y + 7, '#05', THEME.COLOR_YELLOW);
@@ -436,6 +455,7 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 46, THEME.POS_DMDMEM_Y + 7, '#07', THEME.COLOR_YELLOW);
   canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 46, THEME.POS_DMDMEM_Y + 11.5, '#11', THEME.COLOR_YELLOW);
   canvasDrawLib.writeLabel(THEME.POS_DMDMEM_X + 46, THEME.POS_DMDMEM_Y + 16, '#15', THEME.COLOR_YELLOW);
+  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 48, THEME.POS_DMDMEM_Y + 10.5, 4.5, THEME.COLOR_BLUE_INTENSE);
 
   // MEM
   canvasDrawLib.drawVerticalLine(THEME.POS_MEM_X,      THEME.POS_MEM_Y, 7);
@@ -446,7 +466,6 @@ function initialise() {
   canvasDrawLib.drawRect(THEME.POS_DMD_X - 0.2, THEME.POS_DMD_Y - 0.2, 65 - 0.6, 17 - 0.6, THEME.DMD_COLOR_DARK);
   canvasDrawLib.drawRect(THEME.POS_DMD_X - 1, THEME.POS_DMD_Y - 1, 66, 18, THEME.TEXT_COLOR_HEADER);
 
-  canvasDrawLib.drawHorizontalLine(THEME.POS_DMD_X - 1, THEME.POS_DMD_Y - 2, 66);
   canvasDrawLib.writeLabel(THEME.POS_DMD_X + 60, THEME.POS_DMD_Y - 2.5, 'LIVE', THEME.TEXT_COLOR_HEADER);
   canvasDrawLib.writeLabel(THEME.POS_DMD_X + 62, THEME.POS_DMD_Y - 2.5, 'FEED');
 
@@ -482,6 +501,7 @@ function initialise() {
 
   canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, THEME.POS_PLAYFIELD_Y + 40, 18);
   canvasDrawLib.writeLabel(THEME.POS_PLAYFIELD_X, THEME.POS_PLAYFIELD_Y + 41.25, 'SOLENOID ENERGY USAGE');
+  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X - 1, THEME.POS_PLAYFIELD_Y + 40, 4, THEME.COLOR_BLUE_INTENSE);
 
   canvasDrawLib.drawHorizontalLine(THEME.POS_PLAYFIELD_X - 1, THEME.POS_PLAYFIELD_Y + 44, 18);
   canvasDrawLib.writeLabel(THEME.POS_PLAYFIELD_X, THEME.POS_PLAYFIELD_Y + 45.25, 'INPUT FEEDBACK');
@@ -492,6 +512,8 @@ function initialise() {
   canvasDrawLib.writeRibbonHeader(THEME.POS_DMDSTAT_X + 1, THEME.POS_DMDSTAT_Y + 1, 'DMD', THEME.FONT_TEXT);
   canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 3.5, THEME.POS_DMDSTAT_Y + 1, 'ACTIVE PAGE');
   canvasDrawLib.drawHorizontalLine(THEME.POS_DMDSTAT_X, THEME.POS_DMDSTAT_Y + 4, 15);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_DMDSTAT_X, THEME.POS_DMDSTAT_Y + 4, 8, THEME.COLOR_BLUE_INTENSE);
+
   canvasDrawLib.drawVerticalLine(THEME.POS_DMDSTAT_X + 8, THEME.POS_DMDSTAT_Y + 4, 4);
 
   canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 1, THEME.POS_DMDSTAT_Y + 5, 'PAGE MAP');
@@ -507,6 +529,7 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 10.25, 'LAMP');
 
   canvasDrawLib.drawHorizontalLine(THEME.POS_MATRIX_X, THEME.POS_MATRIX_Y + 12, 15);
+  canvasDrawLib.drawHorizontalLine(THEME.POS_MATRIX_X, THEME.POS_MATRIX_Y + 12, 8, THEME.COLOR_BLUE_INTENSE);
 
   canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 19, 'SOLENOID');
   canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 15, 'GI');
