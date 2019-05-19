@@ -497,7 +497,7 @@ class DrawLib {
       .forEach((diagramData, index) => {
         let normalized = diagramData.values[0] / diagramData.maxValue * this.theme.GRID_STEP_Y;
 
-        this.ctx.fillText('0x' + diagramData.offset.toString(16), startX, startY + this.theme.GRID_STEP_Y * 0.5);
+        this.ctx.fillText('0x' + diagramData.offset.toString(16), startX, startY + this.theme.GRID_STEP_Y * 0.5 + this.theme.GRID_STEP_Y / 4);
         this.ctx.moveTo(startX, startY - normalized);
 
         diagramData.values.forEach((n) => {

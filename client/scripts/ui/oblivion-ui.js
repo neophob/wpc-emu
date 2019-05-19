@@ -187,21 +187,6 @@ regY: 36587
     );
     const memory1k = Array.from(emuState.asic.ram.slice(0, 1024));
     canvaDmdDrawLib.drawDiagramCluster(THEME.POS_RAMDIAG_X + 0.5, THEME.POS_RAMDIAG_Y + 1, memory1k, 24);
-/*    const MEM_RANGE = frame % 0x8000;
-    const memory192b = Array.from(emuState.asic.ram.slice(MEM_RANGE, MEM_RANGE + 192));
-
-    const POS_RAM_HORIZONTAL_X = 20;
-    const POS_RAM_HORIZONTAL_Y = 4;
-    //canvaDmdDrawLib.ctx.fillStyle='rgb(255,0,0)'
-    //canvaDmdDrawLib.ctx.fillRect(
-    canvaDmdDrawLib.clear(
-      (POS_RAM_HORIZONTAL_X - 1) * THEME.GRID_STEP_X,
-      (POS_RAM_HORIZONTAL_Y - 4) * THEME.GRID_STEP_Y,
-      THEME.GRID_STEP_X * 50,
-      THEME.GRID_STEP_Y * 5
-    );
-    canvaDmdDrawLib.writeHeader(20, 3, MEM_RANGE);
-    canvaDmdDrawLib.drawVerticalByteDiagram(POS_RAM_HORIZONTAL_X, POS_RAM_HORIZONTAL_Y, memory192b);*/
   }
 
   // DMD MEM - draw only 4 dmd video fragment per loop
