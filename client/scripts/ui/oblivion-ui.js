@@ -56,7 +56,6 @@ const THEME = {
 
   COLOR_BLUE: 'rgb(81, 115, 117)',
   COLOR_BLUE_INTENSE: 'rgb(106, 198, 213)',
-  COLOR_GREEN: 'rgb(17, 226, 19)',
   COLOR_RED: 'rgb(255, 108, 74)',
   COLOR_YELLOW: 'rgb(254, 255, 211)',
 
@@ -230,7 +229,7 @@ regY: 36587
       THEME.GRID_STEP_X * 18,
       THEME.GRID_STEP_Y * 4
     );
-    canvaDmdDrawLib.drawVerticalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 47, inputState.slice(0, 64));
+    canvaDmdDrawLib.drawHorizontalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 47, inputState.slice(0, 64).fill(0xff));
   }
   canvasOverlayDrawLib.drawVerticalRandomBlip(THEME.POS_MATRIX_X + 0.5, THEME.POS_MATRIX_Y + 9, 5, emuState.cpuState.irqCount << 4);
 
@@ -245,7 +244,7 @@ regY: 36587
       THEME.GRID_STEP_X * 18,
       THEME.GRID_STEP_Y * 4
     );
-    canvaDmdDrawLib.drawVerticalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 39, emuState.asic.wpc.lampState);
+    canvaDmdDrawLib.drawHorizontalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 39, emuState.asic.wpc.lampState);
   }
 
   // SOLENOID
@@ -259,7 +258,7 @@ regY: 36587
       THEME.GRID_STEP_X * 18,
       THEME.GRID_STEP_Y * 4
     );
-    canvaDmdDrawLib.drawVerticalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 43, emuState.asic.wpc.solenoidState);
+    canvaDmdDrawLib.drawHorizontalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 43, emuState.asic.wpc.solenoidState);
   }
 
   // GI

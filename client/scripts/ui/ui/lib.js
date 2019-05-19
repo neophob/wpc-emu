@@ -406,14 +406,14 @@ class DrawLib {
     }
   }
 
-  drawVerticalByteDiagram(xpos, ypos, data) {
+  drawHorizontalByteDiagram(xpos, ypos, data) {
     const startX = xpos * this.theme.GRID_STEP_X;
     const startY = ypos * this.theme.GRID_STEP_Y;
     const KOL = [
-      this.theme.COLOR_BLUE_INTENSE,//DMD_COLOR_MIDDLE,
-      this.theme.COLOR_YELLOW,
       this.theme.DMD_COLOR_DARK,
-      this.theme.COLOR_GREEN,
+      this.theme.DMD_COLOR_LOW,
+      this.theme.COLOR_YELLOW,
+      this.theme.COLOR_BLUE_INTENSE,
     ];
     let ofs = 0;
     let colorOffset = 0;
