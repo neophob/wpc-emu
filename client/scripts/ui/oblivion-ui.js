@@ -32,7 +32,7 @@ const THEME = {
   DMD_COLOR_BLACK: 'rgb(0,0,0)',
   DMD_COLOR_DARK: 'rgb(43,62,67)',
   DMD_COLOR_LOW: 'rgb(65,101,105)',
-  DMD_COLOR_MIDDLE: 'rgb(143,149,115)',
+  DMD_COLOR_MIDDLE: 'rgb(182,155,93)',
   DMD_COLOR_HIGH: 'rgb(254, 255, 211)',
 
   GRID_POINTS_COLOR: 'rgb(44, 63, 67)',
@@ -251,7 +251,7 @@ regY: 36587
 
   // LAMP
   if (emuState.asic.wpc.lampState) {
-    canvaDmdDrawLib.drawMatrix8x8(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 3.5, emuState.asic.wpc.lampState);
+    canvaDmdDrawLib.drawMatrix8x8(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 13, emuState.asic.wpc.lampState);
     drawLampPositions(emuState.asic.wpc.lampState);
 
     canvaDmdDrawLib.clear(
@@ -265,7 +265,7 @@ regY: 36587
 
   // SOLENOID
   if (emuState.asic.wpc.solenoidState) {
-    canvaDmdDrawLib.drawMatrix8x8(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 13, emuState.asic.wpc.solenoidState);
+    canvaDmdDrawLib.drawMatrix8x8(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 2, emuState.asic.wpc.solenoidState);
     drawFlashlamps(emuState.asic.wpc.solenoidState);
 
     canvaDmdDrawLib.clear(
@@ -278,8 +278,10 @@ regY: 36587
   }
 
   // GI
-  canvaDmdDrawLib.drawMatrix8x8(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 13, emuState.asic.wpc.generalIlluminationState);
+  canvaDmdDrawLib.drawMatrix8x8(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 8.75, emuState.asic.wpc.generalIlluminationState);
 
+  canvasOverlayDrawLib.drawDiagram(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 14.5, 'inputSwitchMatrixActiveRow', emuState.asic.wpc.lampRow, 26);
+  canvasOverlayDrawLib.drawDiagram(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 18.5, 'inputSwitchMatrixActiveColumn', emuState.asic.wpc.lampColumn, 26);
 }
 
 function createCanvas() {
@@ -531,13 +533,15 @@ function initialise() {
   canvasDrawLib.writeRibbonHeader(THEME.POS_MATRIX_X + 5, THEME.POS_MATRIX_Y + 1, 'I/O STATUS', THEME.FONT_TEXT);
 
   canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 10.25, 'INPUT');
-  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 10.25, 'LAMP');
+  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 7.25, 'SOLENOID');
+  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 10.25, 'GI');
 
   canvasDrawLib.drawHorizontalLine(THEME.POS_MATRIX_X, THEME.POS_MATRIX_Y + 12, 15);
   canvasDrawLib.drawHorizontalLine(THEME.POS_MATRIX_X, THEME.POS_MATRIX_Y + 12, 7.25, THEME.COLOR_BLUE_INTENSE);
 
-  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 19, 'SOLENOID');
-  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 15, 'GI');
+  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 20, 'LAMP');
+  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 16, 'LAMP ROW');
+  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 20, 'LAMP COLUMN');
 
   // RAMDIAG
   canvasDrawLib.drawVerticalLine(THEME.POS_RAMDIAG_X - 1,  THEME.POS_RAMDIAG_Y - 2, 8);
