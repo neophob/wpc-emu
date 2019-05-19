@@ -441,7 +441,7 @@ class DrawLib {
     const gridsizeY = this.theme.GRID_STEP_Y * 0.75;
 
     data.forEach((lamp, index) => {
-      this.ctx.fillStyle = lamp & 0x80 ? this.theme.DMD_COLOR_MIDDLE :
+      this.ctx.fillStyle = lamp & 0x80 ? this.theme.COLOR_RED :
         lamp & 0x70 ? this.theme.DMD_COLOR_LOW : this.theme.DMD_COLOR_DARK;
       const i = startX + (index % 8) * gridsizeX;
       const j = startY + parseInt(index / 8, 10) * gridsizeY;
