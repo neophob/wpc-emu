@@ -76,16 +76,16 @@ const THEME = {
   POS_DMDMEM_Y: 28,
 
   POS_ASIC_X: 1,
-  POS_ASIC_Y: 28,
+  POS_ASIC_Y: 38,
 
-  POS_MEM_X: 1,
-  POS_MEM_Y: 41,
+  POS_MEM_X: 19,
+  POS_MEM_Y: 28,
 
   POS_SND_X: 1,
   POS_SND_Y: 51,
 
   POS_DMDSTAT_X: 19,
-  POS_DMDSTAT_Y: 28,
+  POS_DMDSTAT_Y: 1,
 
   POS_MATRIX_X: 19,
   POS_MATRIX_Y: 38,
@@ -136,8 +136,9 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 9, THEME.POS_CPU_Y + 8, emuState.cpuState.firqCount);
   canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 9, THEME.POS_CPU_Y + 9, emuState.cpuState.missedFIRQ);
 
-  canvasOverlayDrawLib.drawHorizontalBitDiagram(THEME.POS_CPU_X + 1.25, THEME.POS_CPU_Y + 11.5, emuState.cpuState.regCC);
-  canvasOverlayDrawLib.drawDiagram(THEME.POS_CPU_X + 6.5, THEME.POS_CPU_Y + 12, 'REGPC', emuState.cpuState.regPC, 32);
+  canvasOverlayDrawLib.drawDiagram(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 12, 'REGPC', emuState.cpuState.regPC);
+
+  canvasOverlayDrawLib.drawHorizontalBitDiagram(THEME.POS_CPU_X + 1.25, THEME.POS_CPU_Y + 18.625, emuState.cpuState.regCC);
 
   /*
   regA: 0
@@ -158,7 +159,7 @@ regY: 36587
     );
     canvaDmdDrawLib.drawDmdShaded(THEME.POS_DMD_X, THEME.POS_DMD_Y, emuState.asic.dmd.dmdShadedBuffer);
   }
-  canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X + 50, THEME.POS_DMD_Y - 2.5, 8, emuState.asic.wpc.diagnosticLedToggleCount);
+  canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X + 60, THEME.POS_DMD_Y - 5, 8, emuState.asic.wpc.diagnosticLedToggleCount);
   canvasOverlayDrawLib.fillRect(THEME.POS_DMD_X - 1, THEME.POS_DMD_Y + 17.5, 1, 0.5, emuState.asic.dmd.requestFIRQ ? THEME.COLOR_RED : THEME.DMD_COLOR_DARK);
   canvasOverlayDrawLib.fillRect(THEME.POS_DMD_X + 24, THEME.POS_DMD_Y + 17.5, 1, 0.5, emuState.asic.wpc.zeroCrossFlag ? THEME.COLOR_RED : THEME.DMD_COLOR_DARK);
 
@@ -229,10 +230,9 @@ regY: 36587
   canvasOverlayDrawLib.writeHeader(THEME.POS_SND_X + 8, THEME.POS_SND_Y + 7, emuState.asic.sound.writeDataBytes);
 
   // DMD STAT
-  canvasOverlayDrawLib.drawDiagram(THEME.POS_DMDSTAT_X + 1, THEME.POS_DMDSTAT_Y + 3, 'DMD_ACTIVE_PAGE', emuState.asic.dmd.activepage);
-  canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMDSTAT_X + 0.5, THEME.POS_DMDSTAT_Y + 3.5, 6, emuState.asic.dmd.activepage >> 1);
-  canvasOverlayDrawLib.drawDiagram(THEME.POS_DMDSTAT_X + 9, THEME.POS_DMDSTAT_Y + 7, 'DMD_SCANLINE', emuState.asic.dmd.scanline, 20);
-  canvasOverlayDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 1, THEME.POS_DMDSTAT_Y + 6, emuState.asic.dmd.dmdPageMapping, THEME.TEXT_COLOR_HEADER);
+  canvasOverlayDrawLib.drawDiagram(THEME.POS_DMDSTAT_X + 1.5, THEME.POS_DMDSTAT_Y + 4.5, 'DMD_ACTIVE_PAGE', emuState.asic.dmd.activepage);
+  canvasOverlayDrawLib.drawDiagram(THEME.POS_DMDSTAT_X + 17, THEME.POS_DMDSTAT_Y + 4.5, 'DMD_SCANLINE', emuState.asic.dmd.scanline);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_DMDSTAT_X + 32.5, THEME.POS_DMDSTAT_Y + 4.5, emuState.asic.dmd.dmdPageMapping);
 
   // MATRIX / INPUT
   if (emuState.asic.wpc.inputState) {
@@ -387,8 +387,8 @@ function initialise() {
   canvasDrawLib.drawHorizontalLine(THEME.POS_HEADER_X + 5, THEME.POS_HEADER_Y + 3, 10, THEME.COLOR_BLUE_INTENSE);
 
   // CPU
-  canvasDrawLib.drawVerticalLine(THEME.POS_CPU_X,      THEME.POS_CPU_Y, 13);
-  canvasDrawLib.drawVerticalLine(THEME.POS_CPU_X + 15, THEME.POS_CPU_Y, 13);
+  canvasDrawLib.drawVerticalLine(THEME.POS_CPU_X,      THEME.POS_CPU_Y, 23);
+  canvasDrawLib.drawVerticalLine(THEME.POS_CPU_X + 15, THEME.POS_CPU_Y, 23);
 
   canvasDrawLib.writeRibbonHeader(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 1, 'CPU', THEME.FONT_TEXT);
   canvasDrawLib.writeLabel(THEME.POS_CPU_X + 3, THEME.POS_CPU_Y + 1, 'TICKS');
@@ -408,8 +408,37 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_CPU_X + 9, THEME.POS_CPU_Y + 7, 'FIRQ/MISSED');
 
   canvasDrawLib.drawHorizontalLine(THEME.POS_CPU_X, THEME.POS_CPU_Y + 9.5, 15);
-  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 10.5, 'REG CC');
-  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 6.5, THEME.POS_CPU_Y + 10.5, 'PROGRAM COUNTER');
+  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 14, 'CONDITION CODE REGISTER');
+  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 10.5, 'PROGRAM COUNTER');
+  canvasDrawLib.drawHorizontalLine(THEME.POS_CPU_X, THEME.POS_CPU_Y + 13, 15);
+
+
+  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 8.5, THEME.POS_CPU_Y + 20, 'ZERO');
+  canvasDrawLib.drawSimpleVerticalLine(THEME.POS_CPU_X + 6.25, THEME.POS_CPU_Y + 19, 0.75);
+  canvasDrawLib.drawSimpleHorizontalLine(THEME.POS_CPU_X + 6.25, THEME.POS_CPU_Y + 19.75, 1.5);
+
+  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 6.5, THEME.POS_CPU_Y + 21, 'IRQ');
+  canvasDrawLib.drawSimpleVerticalLine(THEME.POS_CPU_X + 4.25, THEME.POS_CPU_Y + 19, 1.75);
+  canvasDrawLib.drawSimpleHorizontalLine(THEME.POS_CPU_X + 4.25, THEME.POS_CPU_Y + 20.75, 1.5);
+
+  canvasDrawLib.drawSimpleVerticalLine(THEME.POS_CPU_X + 1.125, THEME.POS_CPU_Y + 19, 2.75);
+  canvasDrawLib.drawSimpleHorizontalLine(THEME.POS_CPU_X + 1.125, THEME.POS_CPU_Y + 21.75, 1.5);
+  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 3, THEME.POS_CPU_Y + 22, 'ENTIRE');
+
+  canvasDrawLib.drawSimpleHorizontalLine(THEME.POS_CPU_X + 9, THEME.POS_CPU_Y + 18.375, 1.5);
+  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 11, THEME.POS_CPU_Y + 18.625, 'CARRY');
+
+  canvasDrawLib.drawSimpleVerticalLine(THEME.POS_CPU_X + 2.125, THEME.POS_CPU_Y + 15, 2.75);
+  canvasDrawLib.drawSimpleHorizontalLine(THEME.POS_CPU_X + 2.125, THEME.POS_CPU_Y + 15, 1.5);
+  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 4, THEME.POS_CPU_Y + 15.25, 'FIRQ');
+
+  canvasDrawLib.drawSimpleVerticalLine(THEME.POS_CPU_X + 3.125, THEME.POS_CPU_Y + 16, 1.75);
+  canvasDrawLib.drawSimpleHorizontalLine(THEME.POS_CPU_X + 3.125, THEME.POS_CPU_Y + 16, 1.5);
+  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 5, THEME.POS_CPU_Y + 16.25, 'HALF CARRY');
+
+  canvasDrawLib.drawSimpleVerticalLine(THEME.POS_CPU_X + 5.125, THEME.POS_CPU_Y + 17, 0.75);
+  canvasDrawLib.drawSimpleHorizontalLine(THEME.POS_CPU_X + 5.125, THEME.POS_CPU_Y + 17, 1.5);
+  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 7, THEME.POS_CPU_Y + 17.25, 'NEGATIVE');
 
   // ASIC
   canvasDrawLib.drawVerticalLine(THEME.POS_ASIC_X,      THEME.POS_ASIC_Y, 10);
@@ -489,7 +518,7 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 1, 'AUDIO');
 
   canvasDrawLib.writeRibbonHeader(THEME.POS_SND_X + 4.5, THEME.POS_SND_Y + 1, 'STATE', THEME.FONT_TEXT);
-  canvasDrawLib.drawScala(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 2.5, 10, 3);
+  canvasDrawLib.drawHorizontalScale(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 2.5, 10, 3);
   canvasDrawLib.drawHorizontalLine(THEME.POS_SND_X, THEME.POS_SND_Y + 4, 15);
 
   canvasDrawLib.writeLabel(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 5, 'CTRL R/W');
@@ -514,17 +543,10 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_PLAYFIELD_X, THEME.POS_PLAYFIELD_Y + 45.25, 'INPUT FEEDBACK');
 
   // DMD STAT
-  canvasDrawLib.drawVerticalLine(THEME.POS_DMDSTAT_X,  THEME.POS_DMDSTAT_Y, 8);
-  canvasDrawLib.drawVerticalLine(THEME.POS_DMDSTAT_X + 15, THEME.POS_DMDSTAT_Y, 8);
-  canvasDrawLib.writeRibbonHeader(THEME.POS_DMDSTAT_X + 1, THEME.POS_DMDSTAT_Y + 1, 'DMD', THEME.FONT_TEXT);
-  canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 3.5, THEME.POS_DMDSTAT_Y + 1, 'ACTIVE PAGE');
-  canvasDrawLib.drawHorizontalLine(THEME.POS_DMDSTAT_X, THEME.POS_DMDSTAT_Y + 4, 15);
-  canvasDrawLib.drawHorizontalLine(THEME.POS_DMDSTAT_X, THEME.POS_DMDSTAT_Y + 4, 8, THEME.COLOR_BLUE_INTENSE);
-
-  canvasDrawLib.drawVerticalLine(THEME.POS_DMDSTAT_X + 8, THEME.POS_DMDSTAT_Y + 4, 4);
-
-  canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 1, THEME.POS_DMDSTAT_Y + 5, 'PAGE MAP');
-  canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 9, THEME.POS_DMDSTAT_Y + 5, 'SCANLINE');
+  canvasDrawLib.writeRibbonHeader(THEME.POS_DMDSTAT_X + 1.5, THEME.POS_DMDSTAT_Y + 3, 'DMD', THEME.FONT_TEXT);
+  canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 4, THEME.POS_DMDSTAT_Y + 3, 'ACTIVE PAGE');
+  canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 17, THEME.POS_DMDSTAT_Y + 3, 'DMD SCANLINE');
+  canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 32.5, THEME.POS_DMDSTAT_Y + 3, 'DMD PAGE MAP');
 
   // MATRIX
   canvasDrawLib.drawVerticalLine(THEME.POS_MATRIX_X,  THEME.POS_MATRIX_Y, 21);

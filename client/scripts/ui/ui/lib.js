@@ -74,6 +74,34 @@ class DrawLib {
     this.ctx.fillRect(startX, endY - 2, 2, 2);
   }
 
+  drawSimpleHorizontalLine(x, y, width, color = this.theme.HEADER_LINE_LOW_COLOR) {
+    this.ctx.strokeStyle = color;
+    this.ctx.lineWidth = 2;
+
+    const startX = x * this.theme.GRID_STEP_X;
+    const endX = (x + width) * this.theme.GRID_STEP_X;
+    const startY = y * this.theme.GRID_STEP_Y;
+
+    this.ctx.beginPath();
+    this.ctx.moveTo(startX, startY);
+    this.ctx.lineTo(endX, startY);
+    this.ctx.stroke();
+  }
+
+  drawSimpleVerticalLine(x, y, height, color = this.theme.HEADER_LINE_LOW_COLOR) {
+    this.ctx.strokeStyle = color;
+    this.ctx.lineWidth = 2;
+
+    const startX = x * this.theme.GRID_STEP_X;
+    const startY = y * this.theme.GRID_STEP_Y;
+    const endY = (y + height) * this.theme.GRID_STEP_Y;
+
+    this.ctx.beginPath();
+    this.ctx.moveTo(startX + 1, startY);
+    this.ctx.lineTo(startX + 1, endY);
+    this.ctx.stroke();
+  }
+
   clear(x = 0, y = 0, width = this.theme.CANVAS_WIDTH, height = this.theme.CANVAS_HEIGHT) {
     this.ctx.clearRect(x, y, width, height);
   }
@@ -245,7 +273,7 @@ class DrawLib {
 
   }
 
-  drawScala(xpos, ypos, p1, p2) {
+  drawHorizontalScale(xpos, ypos, p1, p2) {
     const startX = xpos * this.theme.GRID_STEP_X;
     const startY = ypos * this.theme.GRID_STEP_Y;
     const end1 = p1 * this.theme.GRID_STEP_X;
@@ -262,7 +290,7 @@ class DrawLib {
 
     const strokeXStart = startX - this.theme.GRID_STEP_X / 4;
     const strokeXEnd = (xpos + p1 + p2) * this.theme.GRID_STEP_X + this.theme.GRID_STEP_X / 4;
-    const Y34 = startY + this.theme.GRID_STEP_Y;//this.theme.GRID_STEP_Y / 4 + this.theme.GRID_STEP_Y / 2;
+    const Y34 = startY + this.theme.GRID_STEP_Y;
 
     this.ctx.beginPath();
     this.ctx.moveTo(strokeXStart, startY - this.theme.GRID_STEP_Y / 2);
@@ -414,18 +442,17 @@ class DrawLib {
     const startX = xpos * this.theme.GRID_STEP_X;
     const startY = ypos * this.theme.GRID_STEP_Y;
 
-    this.ctx.strokeStyle = this.theme.COLOR_RED;
-    this.ctx.lineWidth = 3;
-    this.ctx.beginPath();
+    this.ctx.lineWidth = 10;
     let ofs = 0;
 
     for (let i = 7; i > -1; i--) {
-      const value = (data & BIT_ARRAY[i]) > 0 ? 1 : 0;
+      this.ctx.beginPath();
+      this.ctx.strokeStyle = (data & BIT_ARRAY[i]) > 0 ? this.theme.COLOR_RED : this.theme.DMD_COLOR_LOW;
       this.ctx.moveTo(startX + ofs, startY);
-      this.ctx.lineTo(startX + ofs, startY - value * (this.theme.GRID_STEP_Y / 2));
-      ofs += (this.theme.GRID_STEP_X / 2);
+      this.ctx.lineTo(startX + ofs, startY -  (this.theme.GRID_STEP_Y / 2));
+      this.ctx.stroke();
+      ofs += (this.theme.GRID_STEP_X / 1);
     };
-    this.ctx.stroke();
   }
 
   drawMatrix8x8(xpos, ypos, data) {
