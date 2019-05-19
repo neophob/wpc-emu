@@ -421,7 +421,7 @@ class DrawLib {
       dataUnpacked.push(entry > 0 ? 1 : 0);
     }
 
-    this.ctx.strokeStyle = this.theme.COLOR_YELLOW;
+    this.ctx.strokeStyle = this.theme.COLOR_RED;
     this.ctx.lineWidth = 3;
     this.ctx.beginPath();
 

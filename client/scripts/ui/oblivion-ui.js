@@ -120,7 +120,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
   // CPU
   canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 2, emuState.cpuState.tickCount);
-  canvasOverlayDrawLib.fillRect(THEME.POS_CPU_X + 13, THEME.POS_CPU_Y + 1.5, 1, 1, emuState.asic.wpc.irqEnabled ? THEME.COLOR_YELLOW : THEME.DMD_COLOR_DARK);
+  canvasOverlayDrawLib.fillRect(THEME.POS_CPU_X + 13, THEME.POS_CPU_Y + 1.5, 1, 1, emuState.asic.wpc.irqEnabled ? THEME.COLOR_RED : THEME.DMD_COLOR_DARK);
   canvasOverlayDrawLib.drawVerticalRandomBlip(THEME.POS_CPU_X + 14.5, THEME.POS_CPU_Y + 1, 3);
 
   canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 5, emuState.opsMs);
@@ -480,7 +480,7 @@ function initialise() {
   canvasDrawLib.fillRect(THEME.POS_DMD_X + 49.5, THEME.POS_DMD_Y + 17.5, 0.8, 0.5, THEME.DMD_COLOR_MIDDLE);
   canvasDrawLib.fillRect(THEME.POS_DMD_X + 50.5, THEME.POS_DMD_Y + 17.5, 0.8, 0.5, THEME.DMD_COLOR_HIGH);
   canvasDrawLib.writeLabel(THEME.POS_DMD_X + 51.5, THEME.POS_DMD_Y + 18, 'DOT MATRIX DISPLAY PALETTE');
-  canvasDrawLib.writeLabel(THEME.POS_DMD_X + 0.25, THEME.POS_DMD_Y + 18, 'FAST INTERRUPT REQUESTED');
+  canvasDrawLib.writeLabel(THEME.POS_DMD_X + 0.25, THEME.POS_DMD_Y + 18, 'FAST INTERRUPT REQUEST');
   canvasDrawLib.writeLabel(THEME.POS_DMD_X + 25.25, THEME.POS_DMD_Y + 18, 'AC ZERO CROSS DETECTED');
 
   // SND
