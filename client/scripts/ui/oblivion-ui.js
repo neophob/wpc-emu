@@ -229,7 +229,7 @@ regY: 36587
       THEME.GRID_STEP_X * 18,
       THEME.GRID_STEP_Y * 4
     );
-    canvaDmdDrawLib.drawHorizontalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 47, inputState.slice(0, 64).fill(0xff));
+    canvaDmdDrawLib.drawHorizontalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 47, inputState.slice(0, 64));
   }
   canvasOverlayDrawLib.drawVerticalRandomBlip(THEME.POS_MATRIX_X + 0.5, THEME.POS_MATRIX_Y + 9, 5, emuState.cpuState.irqCount << 4);
 
