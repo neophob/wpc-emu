@@ -131,13 +131,13 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   }
   canvasOverlayDrawLib.drawDiagram(THEME.POS_CPU_X + 4.5, THEME.POS_CPU_Y + 5.5, 'OPS-DIAG', emuState.opsMs, 12);
 
-  canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 11, emuState.cpuState.irqCount);
-  canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 12, emuState.cpuState.missedIRQ);
-  canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 8, THEME.POS_CPU_Y + 11, emuState.cpuState.firqCount);
-  canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 8, THEME.POS_CPU_Y + 12, emuState.cpuState.missedFIRQ);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 8, emuState.cpuState.irqCount);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 9, emuState.cpuState.missedIRQ);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 9, THEME.POS_CPU_Y + 8, emuState.cpuState.firqCount);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 9, THEME.POS_CPU_Y + 9, emuState.cpuState.missedFIRQ);
 
-  canvasOverlayDrawLib.drawHorizontalBitDiagram(THEME.POS_CPU_X + 11.5, THEME.POS_CPU_Y + 8, emuState.cpuState.regCC);
-  canvasOverlayDrawLib.drawDiagram(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 8.5, 'REGPC', emuState.cpuState.regPC, 32);
+  canvasOverlayDrawLib.drawHorizontalBitDiagram(THEME.POS_CPU_X + 1.25, THEME.POS_CPU_Y + 11.5, emuState.cpuState.regCC);
+  canvasOverlayDrawLib.drawDiagram(THEME.POS_CPU_X + 6.5, THEME.POS_CPU_Y + 12, 'REGPC', emuState.cpuState.regPC, 32);
 
   /*
   regA: 0
@@ -404,12 +404,12 @@ function initialise() {
   canvasDrawLib.drawVerticalLine(THEME.POS_CPU_X + 8, THEME.POS_CPU_Y + 3, 3);
   canvasDrawLib.writeLabel(THEME.POS_CPU_X + 9, THEME.POS_CPU_Y + 4, 'STATUS');
 
-  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 7, 'PROGRAM COUNTER');
-  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 11, THEME.POS_CPU_Y + 7, 'REG CC');
+  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 7, 'IRQ/MISSED');
+  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 9, THEME.POS_CPU_Y + 7, 'FIRQ/MISSED');
 
-  canvasDrawLib.drawHorizontalLine(THEME.POS_CPU_X, THEME.POS_CPU_Y + 9, 15);
-  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 10, 'IRQ/MISSED');
-  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 8, THEME.POS_CPU_Y + 10, 'FIRQ/MISSED');
+  canvasDrawLib.drawHorizontalLine(THEME.POS_CPU_X, THEME.POS_CPU_Y + 9.5, 15);
+  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 10.5, 'REG CC');
+  canvasDrawLib.writeLabel(THEME.POS_CPU_X + 6.5, THEME.POS_CPU_Y + 10.5, 'PROGRAM COUNTER');
 
   // ASIC
   canvasDrawLib.drawVerticalLine(THEME.POS_ASIC_X,      THEME.POS_ASIC_Y, 10);

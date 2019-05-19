@@ -414,22 +414,17 @@ class DrawLib {
     const startX = xpos * this.theme.GRID_STEP_X;
     const startY = ypos * this.theme.GRID_STEP_Y;
 
-    let ofs = 0;
-    const dataUnpacked = [];
-    for (let j = 0; j < 8; j++) {
-      const entry = data & BIT_ARRAY[j];
-      dataUnpacked.push(entry > 0 ? 1 : 0);
-    }
-
     this.ctx.strokeStyle = this.theme.COLOR_RED;
     this.ctx.lineWidth = 3;
     this.ctx.beginPath();
+    let ofs = 0;
 
-    dataUnpacked.forEach((value) => {
+    for (let i = 7; i > -1; i--) {
+      const value = (data & BIT_ARRAY[i]) > 0 ? 1 : 0;
       this.ctx.moveTo(startX + ofs, startY);
       this.ctx.lineTo(startX + ofs, startY - value * (this.theme.GRID_STEP_Y / 2));
-      ofs += 4;
-    });
+      ofs += (this.theme.GRID_STEP_X / 2);
+    };
     this.ctx.stroke();
   }
 
