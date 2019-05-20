@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.be8f99cfb263ac45dc2fdab9eb60bdc5.js"
+  "precache-manifest.a5b5ebb818cb381cfad6fb8f15235203.js"
 );
 
 workbox.skipWaiting();
@@ -29,5 +29,5 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerRoute(/.*\/rom\/.*|.*\/sound\/.*|.*\/foo-temp\/.*/, workbox.strategies.cacheFirst({ "cacheName":"assets", plugins: [new workbox.expiration.Plugin({"maxEntries":48,"maxAgeSeconds":7776000,"purgeOnQuotaError":false})] }), 'GET');
+workbox.routing.registerRoute(/.*\/rom\/.*|.*\.woff2|.*\/sound\/.*|.*\/foo-temp\/.*/, workbox.strategies.cacheFirst({ "cacheName":"assets", plugins: [new workbox.expiration.Plugin({"maxEntries":48,"maxAgeSeconds":7776000,"purgeOnQuotaError":false})] }), 'GET');
 workbox.routing.registerRoute(/\//, workbox.strategies.networkFirst({ "cacheName":"application", plugins: [new workbox.expiration.Plugin({"maxEntries":32,"maxAgeSeconds":1,"purgeOnQuotaError":false})] }), 'GET');
