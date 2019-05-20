@@ -107,7 +107,7 @@ lampColorLut.set('LBLUE', 'rgba(173,216,230,');
 lampColorLut.set('LPURPLE', 'rgba(218,112,214,');
 lampColorLut.set('WHITE', 'rgba(255,255,255,');
 lampColorLut.set('GREEN', 'rgba(0,255,0,');
-lampColorLut.set('BLACK', 'rgba(0,0,0,0)');
+lampColorLut.set('BLACK', 'rgba(0,0,0,255)');
 
 function updateCanvas(emuState, cpuRunningState, audioState) {
   if (!emuState) {
@@ -311,7 +311,7 @@ function initiateCanvasElements() {
 
   const canvasFlashElement = createCanvas();
   canvasFlash = canvasFlashElement.getContext('2d', { alpha: true });
-  replaceNode('canvasLampNode', canvasFlashElement);
+  replaceNode('canvasFlashNode', canvasFlashElement);
 
   canvasDrawLib = createDrawLib(canvas, THEME);
   canvasOverlayDrawLib = createDrawLib(canvasOverlay, THEME);
@@ -602,6 +602,8 @@ function drawLampPositions(lampState) {
   const x = (THEME.POS_PLAYFIELD_X - 0.25) * THEME.GRID_STEP_X;
   const y = (THEME.POS_PLAYFIELD_Y + 1.75) * THEME.GRID_STEP_Y;
 
+  canvaLampDrawLib.clear();
+
   lampState.forEach((lamp, index) => {
     if (index >= playfieldData.lamps.length) {
       return;
@@ -614,11 +616,9 @@ function drawLampPositions(lampState) {
     const alpha = (lamp / 0xFF).toFixed(2);
     const isOn = lamp > 0;
     lampObjects.forEach((lampObject) => {
-      if (isOn) {
-        canvaLampDrawLib.ctx.fillStyle = lampColorLut.get(lampObject.color) + alpha + ')';
-      } else {
+      canvaLampDrawLib.ctx.fillStyle = isOn ?
+        lampColorLut.get(lampObject.color) + alpha + ')' :
         canvaLampDrawLib.ctx.fillStyle = 'black';
-      }
       canvaLampDrawLib.ctx.fillRect(x + lampObject.x - 3, y + lampObject.y - 3, 6, 6);
     });
   });
