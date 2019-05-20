@@ -2,6 +2,9 @@
 
 ## 20/5/19
 - introducing "Oblivion UI"
+- new App icons
+
+![20.05.19](assets/20.05.19.png?raw=true)
 
 ## 7/5/19
 - re-introduced proper IRQ/FIRQ latching (revert change from 19/1/19)
