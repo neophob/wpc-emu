@@ -9,7 +9,7 @@ function createSoundPlayer(audioData) {
   return new SoundCategory(audioData);
 }
 
-const NO_SOUND_AVAILABLE = 'NOT AVAILABLE';
+const NO_SOUND_AVAILABLE = 'N/A';
 const NO_SOUND_AVAILABLE_ON_MOBILE = 'DISABLED ON MOBILE';
 const SOUND_LOADING = 'LOADING...';
 const SOUND_LOADED = 'LOADED';

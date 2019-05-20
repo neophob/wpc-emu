@@ -1,30 +1,114 @@
+@font-face {
+  font-family: 'Space Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Space Mono'), local('SpaceMono-Regular'), url(https://fonts.gstatic.com/s/spacemono/v4/i7dPIFZifjKcF5UAWdDRYEF8RXi4EwQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF;
+}
+
+html {
+  width: 100%;
+  height: 800px;
+}
+
+canvas {
+  position: absolute;
+  width: 100%;
+  height: 768;
+}
+
 body {
-  background-color: #bbb;
+  font-family: 'Space Mono';
+  color: rgb(106, 198, 213);
+  background-color: #000;
+  width: 1280;
+  height: 100%;
+  margin: 5px;
 }
 
 .container {
-  padding: 0;
+  padding: 0px;
 }
 
-.button-black {
-  background-color: black;
-  border-color: black;
-}
-.button-black.button-clear,
-.button-black.button-outline {
-  background-color: transparent;
-  color: black;
-}
-.button-black.button-clear {
-  border-color: transparent;
-}
-
-/* Custom size */
-.button-small {
-  font-size: .8rem;
-  height: 2.5rem;
-  line-height: 2.5rem;
+.button-wpc {
+  font-family: 'Space Mono';
+  font-size: 0.85rem;
+  height: 2.8rem;
+  line-height: 2.8rem;
   padding: 0 1.2rem;
+  background-color: rgb(0,0,0);
+  border-color: rgb(96, 108, 118);
+  color: rgb(237, 246, 206);
+}
+
+.button-wpc.button-clear,
+.button-wpc.button-outline,
+button.button-outline:focus,
+button.button-outline:hover {
+  background-color: transparent;
+  border-color: rgb(96, 108, 118);
+  color: rgb(106, 198, 213);
+}
+
+.button-wpc.button:focus, .button:hover,
+button:hover {
+  background-color: transparent;
+  border-color: rgb(255, 108, 74);
+}
+
+.button-wpc.button-outline:focus,
+.button-wpc.button-outline:hover,
+button.button-outline:hover {
+  background-color: transparent;
+  border-color: rgb(255, 108, 74);
+}
+
+.button-wpc.button-red {
+  background-color: transparent;
+  border-color: rgb(96, 108, 118);
+}
+
+.button-wpc.button-red:focus,
+.button-wpc.button-red:hover {
+  border-color: rgb(255, 108, 74);
+}
+
+.button:focus, .button:hover,
+button:focus,
+button:hover,
+input[type='button']:focus,
+input[type='button']:hover,
+input[type='reset']:focus,
+input[type='reset']:hover,
+input[type='submit']:focus,
+input[type='submit']:hover {
+  background-color: transparent;
+}
+
+input:not([type]),
+textarea,
+select {
+  font-size: 1.1rem;
+  font-family: 'Space Mono';
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: transparent;
+  border: 0.1rem solid #d1d1d1;
+  border-radius: .4rem;
+  box-shadow: none;
+  box-sizing: inherit;
+  height: 3.8rem;
+  padding: .6rem 1.0rem;
+  width: 100%;
+  border-color: rgb(81, 115, 117);
+  color: rgb(106, 198, 213);
+}
+
+input:not([type]):focus,
+select:focus {
+  border-color: rgb(81, 115, 117);
+  outline: 0;
 }
 
 .blinkText {

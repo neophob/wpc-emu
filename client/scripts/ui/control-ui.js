@@ -11,6 +11,7 @@ let selectedIndex = -1;
 const BIT_ARRAY = [1, 2, 4, 8, 16, 32, 64, 128];
 const PINBALL_SWITCH_BUTTONS_ELEMENT = 'pinball-specific-switch-input';
 const PINBALL_FLIPTRONICS_ELEMENT = 'pinball-specific-fliptronics-input';
+const CSS_BUTTON_CLASS = 'button-wpc button-outline';
 
 function populateControlUiView(gameEntry, gameList, initialGameName) {
   console.log('gameEntry', gameEntry);
@@ -29,9 +30,9 @@ function _updateFliptronicsState(fliptronicsElements, packedSwitchInput) {
   fliptronicsElements.childNodes.forEach((childNode) => {
     const id = parseInt(childNode.id.substring(PINBALL_FLIPTRONICS_ELEMENT.length + 1), 10) - 1;
     if (fliptronicsSwitchState[id]) {
-      childNode.className = 'button-black button-small black';
+      childNode.className = 'button-wpc';
     } else {
-      childNode.className = 'button-black button-outline button-small black';
+      childNode.className = CSS_BUTTON_CLASS;
     }
   });
 }
@@ -50,9 +51,9 @@ function updateUiSwitchState(packedSwitchInput) {
     const rawId = parseInt(childNode.id.substring(PINBALL_SWITCH_BUTTONS_ELEMENT.length), 10);
     const id = logicalIdToArrayOffset(rawId);
     if (matrixSwitchState[id]) {
-      childNode.className = 'button-black button-small black';
+      childNode.className = 'button-wpc';
     } else {
-      childNode.className = 'button-black button-outline button-small black';
+      childNode.className = CSS_BUTTON_CLASS;
     }
   });
 
@@ -68,6 +69,7 @@ function addEmulatorControls() {
   replaceNode('rootNode', div);
 }
 
+
 function addGameSpecificControls(gameEntry) {
   //switch input
   if (Array.isArray(gameEntry.switchMapping)) {
@@ -76,7 +78,7 @@ function addGameSpecificControls(gameEntry) {
       const child = document.createElement('button');
       child.textContent = mapping.name;
       child.id = PINBALL_SWITCH_BUTTONS_ELEMENT + mapping.id;
-      child.className = 'button-black button-outline button-small black';
+      child.className = CSS_BUTTON_CLASS;
       child.addEventListener('click', () => {
         window.wpcInterface.wpcSystem.setInput(mapping.id);
       });
@@ -91,7 +93,7 @@ function addGameSpecificControls(gameEntry) {
       const child = document.createElement('button');
       child.textContent = mapping.name;
       child.id = PINBALL_FLIPTRONICS_ELEMENT + mapping.id;
-      child.className = 'button-black button-outline button-small black';
+      child.className = CSS_BUTTON_CLASS;
       child.addEventListener('click', () => {
         window.wpcInterface.wpcSystem.setFliptronicsInput(mapping.id);
       });
