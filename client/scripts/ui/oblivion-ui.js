@@ -398,37 +398,37 @@ function initialise() {
 
   canvasDrawLib.writeRibbonHeader(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 14, 'CONDITION CODE REGISTER', THEME.FONT_TEXT);
   const REG_CC_POS_X = THEME.POS_CPU_X + 1;
-  canvasDrawLib.writeLabel(REG_CC_POS_X + 10.625, THEME.POS_CPU_Y + 20, 'CARRY');
+  canvasDrawLib.writeLabel(REG_CC_POS_X + 10.125, THEME.POS_CPU_Y + 20, 'CARRY');
   canvasDrawLib.drawSimpleVerticalLine(REG_CC_POS_X + 8.75, THEME.POS_CPU_Y + 19, 0.75);
-  canvasDrawLib.drawSimpleHorizontalLine(REG_CC_POS_X + 8.75, THEME.POS_CPU_Y + 19.75, 1.5);
+  canvasDrawLib.drawSimpleHorizontalLine(REG_CC_POS_X + 8.75, THEME.POS_CPU_Y + 19.75, 1);
 
-  canvasDrawLib.writeLabel(REG_CC_POS_X + 8.625, THEME.POS_CPU_Y + 20.75, 'ZERO');
+  canvasDrawLib.writeLabel(REG_CC_POS_X + 8.125, THEME.POS_CPU_Y + 20.75, 'ZERO');
   canvasDrawLib.drawSimpleVerticalLine(REG_CC_POS_X + 6.75, THEME.POS_CPU_Y + 19, 1.5);
-  canvasDrawLib.drawSimpleHorizontalLine(REG_CC_POS_X + 6.75, THEME.POS_CPU_Y + 20.5, 1.5);
+  canvasDrawLib.drawSimpleHorizontalLine(REG_CC_POS_X + 6.75, THEME.POS_CPU_Y + 20.5, 1);
 
-  canvasDrawLib.writeLabel(REG_CC_POS_X + 6.625, THEME.POS_CPU_Y + 21.5, 'IRQ');
+  canvasDrawLib.writeLabel(REG_CC_POS_X + 6.125, THEME.POS_CPU_Y + 21.5, 'IRQ');
   canvasDrawLib.drawSimpleVerticalLine(REG_CC_POS_X + 4.75, THEME.POS_CPU_Y + 19, 2.25);
-  canvasDrawLib.drawSimpleHorizontalLine(REG_CC_POS_X + 4.75, THEME.POS_CPU_Y + 21.25, 1.5);
+  canvasDrawLib.drawSimpleHorizontalLine(REG_CC_POS_X + 4.75, THEME.POS_CPU_Y + 21.25, 1);
 
-  canvasDrawLib.writeLabel(REG_CC_POS_X + 4.625, THEME.POS_CPU_Y + 22.25, 'FIRQ');
+  canvasDrawLib.writeLabel(REG_CC_POS_X + 4.125, THEME.POS_CPU_Y + 22.25, 'FIRQ');
   canvasDrawLib.drawSimpleVerticalLine(REG_CC_POS_X + 2.75, THEME.POS_CPU_Y + 19, 3);
-  canvasDrawLib.drawSimpleHorizontalLine(REG_CC_POS_X + 2.75, THEME.POS_CPU_Y + 22, 1.5);
+  canvasDrawLib.drawSimpleHorizontalLine(REG_CC_POS_X + 2.75, THEME.POS_CPU_Y + 22, 1);
 
-  canvasDrawLib.writeLabel(REG_CC_POS_X + 9.5, THEME.POS_CPU_Y + 17.25, 'OVERFLOW');
+  canvasDrawLib.writeLabel(REG_CC_POS_X + 9, THEME.POS_CPU_Y + 17.25, 'OVERFLOW');
   canvasDrawLib.drawSimpleVerticalLine(REG_CC_POS_X + 7.625, THEME.POS_CPU_Y + 17, 0.75);
-  canvasDrawLib.drawSimpleHorizontalLine(REG_CC_POS_X + 7.625, THEME.POS_CPU_Y + 17, 1.5);
+  canvasDrawLib.drawSimpleHorizontalLine(REG_CC_POS_X + 7.625, THEME.POS_CPU_Y + 17, 1);
 
-  canvasDrawLib.writeLabel(REG_CC_POS_X + 7.5, THEME.POS_CPU_Y + 16.5, 'NEGATIVE');
+  canvasDrawLib.writeLabel(REG_CC_POS_X + 7, THEME.POS_CPU_Y + 16.5, 'NEGATIVE');
   canvasDrawLib.drawSimpleVerticalLine(REG_CC_POS_X + 5.625, THEME.POS_CPU_Y + 16.25, 1.5);
-  canvasDrawLib.drawSimpleHorizontalLine(REG_CC_POS_X + 5.625, THEME.POS_CPU_Y + 16.25, 1.5);
+  canvasDrawLib.drawSimpleHorizontalLine(REG_CC_POS_X + 5.625, THEME.POS_CPU_Y + 16.25, 1);
 
-  canvasDrawLib.writeLabel(REG_CC_POS_X + 5.5, THEME.POS_CPU_Y + 15.75, 'HALF CARRY');
+  canvasDrawLib.writeLabel(REG_CC_POS_X + 5, THEME.POS_CPU_Y + 15.75, 'HALF CARRY');
   canvasDrawLib.drawSimpleVerticalLine(REG_CC_POS_X + 3.625, THEME.POS_CPU_Y + 15.5, 2.25);
-  canvasDrawLib.drawSimpleHorizontalLine(REG_CC_POS_X + 3.625, THEME.POS_CPU_Y + 15.5, 1.5);
+  canvasDrawLib.drawSimpleHorizontalLine(REG_CC_POS_X + 3.625, THEME.POS_CPU_Y + 15.5, 1);
 
-  canvasDrawLib.writeLabel(REG_CC_POS_X + 3.5, THEME.POS_CPU_Y + 15, 'ENTIRE');
+  canvasDrawLib.writeLabel(REG_CC_POS_X + 3, THEME.POS_CPU_Y + 15, 'ENTIRE');
   canvasDrawLib.drawSimpleVerticalLine(REG_CC_POS_X + 1.625, THEME.POS_CPU_Y + 14.75, 3);
-  canvasDrawLib.drawSimpleHorizontalLine(REG_CC_POS_X + 1.625, THEME.POS_CPU_Y + 14.75, 1.5);
+  canvasDrawLib.drawSimpleHorizontalLine(REG_CC_POS_X + 1.625, THEME.POS_CPU_Y + 14.75, 1);
 
   // ASIC
   canvasDrawLib.drawVerticalLine(THEME.POS_ASIC_X,      THEME.POS_ASIC_Y, 10);
