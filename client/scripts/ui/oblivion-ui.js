@@ -18,6 +18,8 @@ let canvasOverlay, canvasOverlayDrawLib;
 let canvasDmd, canvaDmdDrawLib;
 let canvasDmdMem, canvaDmdMemDrawLib;
 let canvasMem, canvaMemDrawLib;
+let canvasLamp, canvaLampDrawLib;
+let canvasFlash, canvaFlashDrawLib;
 
 let playfieldData;
 let playfieldImage;
@@ -139,15 +141,6 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
   canvasOverlayDrawLib.drawHorizontalBitDiagram(THEME.POS_CPU_X + 2.75, THEME.POS_CPU_Y + 18.625, emuState.cpuState.regCC);
 
-  /*
-  regA: 0
-regB: 0
-regDP: 0
-regS: 5918
-regU: 2817
-regX: 887
-regY: 36587
-*/
   // DMD SHADED
   if (emuState.asic.dmd.dmdShadedBuffer) {
     canvaDmdDrawLib.clear(
@@ -311,11 +304,21 @@ function initiateCanvasElements() {
   canvasMem = canvasMemElement.getContext('2d', { alpha: true });
   replaceNode('canvasMemNode', canvasMemElement);
 
+  const canvasLampElement = createCanvas();
+  canvasLamp = canvasLampElement.getContext('2d', { alpha: true });
+  replaceNode('canvasLampNode', canvasLampElement);
+
+  const canvasFlashElement = createCanvas();
+  canvasFlash = canvasFlashElement.getContext('2d', { alpha: true });
+  replaceNode('canvasLampNode', canvasFlashElement);
+
   canvasDrawLib = createDrawLib(canvas, THEME);
   canvasOverlayDrawLib = createDrawLib(canvasOverlay, THEME);
   canvaDmdDrawLib = createDrawLib(canvasDmd, THEME);
-  canvaMemDrawLib = createDrawLib(canvasMem, THEME);
   canvaDmdMemDrawLib = createDrawLib(canvasDmdMem, THEME);
+  canvaMemDrawLib = createDrawLib(canvasMem, THEME);
+  canvaLampDrawLib = createDrawLib(canvasLamp, THEME);
+  canvaFlashDrawLib = createDrawLib(canvasFlash, THEME);
 }
 
 function initialise() {
@@ -326,6 +329,8 @@ function initialise() {
   canvaDmdDrawLib.clear();
   canvaMemDrawLib.clear();
   canvaDmdMemDrawLib.clear();
+  canvaLampDrawLib.clear();
+  canvaFlashDrawLib.clear();
 
   canvasDrawLib.drawBackgroundPoints();
 
@@ -573,16 +578,18 @@ function drawFlashlamps(lampState) {
   const x = (THEME.POS_PLAYFIELD_X - 0.25) * THEME.GRID_STEP_X;
   const y = (THEME.POS_PLAYFIELD_Y + 1.75) * THEME.GRID_STEP_Y;
 
+  canvaFlashDrawLib.clear();
+
   playfieldData.flashlamps.forEach((lamp) => {
     const selectedLamp = lampState[lamp.id - 1];
     if (!selectedLamp) {
       return;
     }
     const alpha = (selectedLamp / 255).toFixed(2);
-    canvasOverlayDrawLib.ctx.beginPath();
-    canvasOverlayDrawLib.ctx.fillStyle = 'rgba(255,255,255,' + alpha + ')';
-    canvasOverlayDrawLib.ctx.arc(x + lamp.x, y + lamp.y, 24, 0, 2 * Math.PI);
-    canvasOverlayDrawLib.ctx.fill();
+    canvaFlashDrawLib.ctx.beginPath();
+    canvaFlashDrawLib.ctx.fillStyle = 'rgba(255,255,255,' + alpha + ')';
+    canvaFlashDrawLib.ctx.arc(x + lamp.x, y + lamp.y, 24, 0, 2 * Math.PI);
+    canvaFlashDrawLib.ctx.fill();
   });
 }
 
@@ -607,11 +614,11 @@ function drawLampPositions(lampState) {
     const isOn = lamp > 0;
     lampObjects.forEach((lampObject) => {
       if (isOn) {
-        canvasOverlayDrawLib.ctx.fillStyle = lampColorLut.get(lampObject.color) + alpha + ')';
+        canvaLampDrawLib.ctx.fillStyle = lampColorLut.get(lampObject.color) + alpha + ')';
       } else {
-        canvasOverlayDrawLib.ctx.fillStyle = 'black';
+        canvaLampDrawLib.ctx.fillStyle = 'black';
       }
-      canvasOverlayDrawLib.ctx.fillRect(x + lampObject.x - 3, y + lampObject.y - 3, 6, 6);
+      canvaLampDrawLib.ctx.fillRect(x + lampObject.x - 3, y + lampObject.y - 3, 6, 6);
     });
   });
 }

@@ -85,7 +85,6 @@ input[type='submit']:hover {
   background-color: transparent;
 }
 
-
 input:not([type]),
 textarea,
 select {
