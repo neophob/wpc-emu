@@ -5,6 +5,7 @@ import { createDrawLib } from './ui/lib';
 
 export { initialise, updateCanvas, populateInitialCanvas, errorFeedback, loadFeedback };
 
+// inspiration:
 // https://gmunk.com/OBLIVION-GFX
 // https://www.reddit.com/r/OblivionMovie/comments/6pchsr/i_have_cloned_the_dc_tet_font_as_best_as_i_can/
 // https://ilikeinterfaces.com/2015/04/21/ui-review-oblivion/
