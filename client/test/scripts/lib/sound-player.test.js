@@ -21,7 +21,7 @@ const NO_SOUND = {
 
 test('soundPlayer, init without data', (t) => {
   const player = createSoundPlayer(NO_SOUND);
-  t.is(player.soundState, 'NOT AVAILABLE');
+  t.is(player.soundState, 'N/A');
 });
 
 test('soundPlayer, ignore play, pause, stopAll', (t) => {

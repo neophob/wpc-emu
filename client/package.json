@@ -1,6 +1,6 @@
 {
   "name": "wpc-emu-frontend",
-  "version": "0.23.2",
+  "version": "0.25.0",
   "description": "WPC pinball machine emu frontend",
   "main": "index.js",
   "engines": {
