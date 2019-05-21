@@ -41,7 +41,19 @@ body {
   color: rgb(237, 246, 206);
 }
 
-.button-wpc.button-clear,
+.button:focus, .button:hover,
+button:focus,
+button:hover,
+input[type='button']:focus,
+input[type='button']:hover,
+input[type='reset']:focus,
+input[type='reset']:hover,
+input[type='submit']:focus,
+input[type='submit']:hover {
+  background-color: transparent;
+  border-color: rgb(96, 108, 118);
+}
+
 .button-wpc.button-outline,
 button.button-outline:focus,
 button.button-outline:hover {
@@ -61,28 +73,6 @@ button:hover {
 button.button-outline:hover {
   background-color: transparent;
   border-color: rgb(255, 108, 74);
-}
-
-.button-wpc.button-red {
-  background-color: transparent;
-  border-color: rgb(96, 108, 118);
-}
-
-.button-wpc.button-red:focus,
-.button-wpc.button-red:hover {
-  border-color: rgb(255, 108, 74);
-}
-
-.button:focus, .button:hover,
-button:focus,
-button:hover,
-input[type='button']:focus,
-input[type='button']:hover,
-input[type='reset']:focus,
-input[type='reset']:hover,
-input[type='submit']:focus,
-input[type='submit']:hover {
-  background-color: transparent;
 }
 
 input:not([type]),
