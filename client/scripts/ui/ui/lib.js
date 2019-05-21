@@ -449,10 +449,10 @@ class DrawLib {
       this.ctx.beginPath();
       this.ctx.strokeStyle = (data & BIT_ARRAY[i]) > 0 ? this.theme.COLOR_RED : this.theme.DMD_COLOR_LOW;
       this.ctx.moveTo(startX + ofs, startY);
-      this.ctx.lineTo(startX + ofs, startY -  (this.theme.GRID_STEP_Y / 2));
+      this.ctx.lineTo(startX + ofs, startY - (this.theme.GRID_STEP_Y / 2));
       this.ctx.stroke();
       ofs += (this.theme.GRID_STEP_X / 1);
-    };
+    }
   }
 
   drawMatrix8x8(xpos, ypos, data) {
@@ -594,8 +594,7 @@ class HorizontalDiagramCluster {
   }
 
   getInterestingDiagrams(nrOfDiagramsToReturn) {
-    const sourceArray = [...this.diagCluster.values()];
-    return sourceArray
+    return [...this.diagCluster.values()]
       .sort((e1, e2) => {
         if (e1.interesting === e2.interesting) {
           return 0;
@@ -606,7 +605,7 @@ class HorizontalDiagramCluster {
         return -1;
       })
       //TODO REMOVE DUPLICATE ELEMENTS
-      .slice(sourceArray.length - nrOfDiagramsToReturn, sourceArray.length)
+      .slice(-nrOfDiagramsToReturn)
       .reverse();
   }
 

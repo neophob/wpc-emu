@@ -33,10 +33,35 @@ test('getDiagramCluster should getInterestingDiagrams', (t) => {
   diagCluster.add([0, 1, 0]);
 
   const result = diagCluster.getInterestingDiagrams(3);
+  t.is(result.length, 3);
   t.is(result[0].offset, 1);
   t.is(result[0].interesting, 7);
   t.is(result[1].offset, 0);
   t.is(result[1].interesting, 2);
   t.is(result[2].offset, 2);
   t.is(result[2].interesting, 0);
+});
+
+test('getDiagramCluster should ignore if too many getInterestingDiagrams are requested', (t) => {
+  const diagCluster = getDiagramCluster(3, 4);
+
+  diagCluster.add([2, 8, 0]);
+  diagCluster.add([0, 1, 0]);
+  diagCluster.add([0, 1, 0]);
+  diagCluster.add([0, 1, 0]);
+
+  const result = diagCluster.getInterestingDiagrams(100);
+  t.is(result.length, 3);
+});
+
+test('getDiagramCluster should fail to add a non array', (t) => {
+  const diagCluster = getDiagramCluster(3, 4);
+  const result = diagCluster.add('1');
+  t.is(result, false);
+});
+
+test('getDiagramCluster should fail to add an invalid number of entries', (t) => {
+  const diagCluster = getDiagramCluster(3, 4);
+  const result = diagCluster.add([1]);
+  t.is(result, false);
 });
