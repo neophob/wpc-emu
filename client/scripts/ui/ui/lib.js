@@ -594,7 +594,8 @@ class HorizontalDiagramCluster {
   }
 
   getInterestingDiagrams(nrOfDiagramsToReturn) {
-    return [...this.diagCluster.values()]
+    const sourceArray = [...this.diagCluster.values()];
+    return sourceArray
       .sort((e1, e2) => {
         if (e1.interesting === e2.interesting) {
           return 0;
@@ -605,8 +606,8 @@ class HorizontalDiagramCluster {
         return -1;
       })
       //TODO REMOVE DUPLICATE ELEMENTS
-      .reverse()
-      .slice(0, nrOfDiagramsToReturn);
+      .slice(sourceArray.length - nrOfDiagramsToReturn, sourceArray.length)
+      .reverse();
   }
 
 }
