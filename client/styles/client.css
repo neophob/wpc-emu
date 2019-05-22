@@ -118,33 +118,33 @@ select:focus {
 
 #canvasNode {
   z-index: 1;
-  animation: zoomin 1s;
+  animation: zoomin 1s, fadein 0.5s;
 }
 
 #canvasOverlayNode {
   z-index: 3;
-  animation: zoomin 2s;
+  animation: zoomin 1.8s, fadein 0.5s;
 }
 
 #canvasDmdNode {
   z-index: 2;
-  animation: zoomin 1.2s;
+  animation: zoomin 1.7s, fadein 0.5s;
 }
 
 #canvasDmdMemNode {
-  animation: zoomin 1.4s;
+  animation: zoomin 1.6s, fadein 0.5s;
 }
 
 #canvasMemNode {
-  animation: zoomin 1.6s;
+  animation: zoomin 1.5s, fadein 0.5s;
 }
 
 #canvasLampNode {
-  animation: zoomin 1.8s;
+  animation: zoomin 1.3s, fadein 0.5s;
 }
 
 #canvasFlashNode {
-  animation: zoomin 1.8s;
+  animation: zoomin 1.3s, fadein 0.5s;
 }
 
 @keyframes fadein {
