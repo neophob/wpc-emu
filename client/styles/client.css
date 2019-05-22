@@ -110,3 +110,44 @@ select:focus {
     opacity: 0;
   }
 }
+
+#rootNode {
+  z-index: 1;
+  animation: fadein 0.5s;
+}
+
+#canvasNode {
+  z-index: 4;
+  animation: fadein 0.5s;
+}
+
+#canvasOverlayNode {
+  z-index: 3;
+  animation: fadein 0.5s;
+}
+
+#canvasDmdNode {
+  z-index: 2;
+  animation: fadein 0.5s;
+}
+
+#canvasDmdMemNode {
+  animation: fadein 0.5s;
+}
+
+#canvasMemNode {
+  animation: fadein 0.5s;
+}
+
+#canvasLampNode {
+  animation: fadein 0.5s;
+}
+
+#canvasFlashNode {
+  animation: fadein 0.5s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
