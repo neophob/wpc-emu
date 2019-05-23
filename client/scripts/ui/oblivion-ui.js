@@ -613,10 +613,9 @@ function drawLampPositions(lampState) {
       return;
     }
 
-    const alpha = (lamp / 0xFF).toFixed(2);
-    const isOn = lamp > 0;
+    const alpha = (lamp / 0xFF);
     lampObjects.forEach((lampObject) => {
-      canvaLampDrawLib.ctx.fillStyle = isOn ?
+      canvaLampDrawLib.ctx.fillStyle = lamp ?
         lampColorLut.get(lampObject.color) + alpha + ')' :
         canvaLampDrawLib.ctx.fillStyle = 'black';
       canvaLampDrawLib.ctx.fillRect(x + lampObject.x - 3, y + lampObject.y - 3, 6, 6);
