@@ -4,7 +4,7 @@ import '../node_modules/milligram/dist/milligram.css';
 import '../styles/client.css';
 
 import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher';
-import { initialiseEmulator } from './lib/emulator';
+//import { initialiseEmulator } from './lib/emulator';
 import { initialiseActions } from './lib/initialise';
 import { loadRam, saveRam, } from './lib/ramState';
 import { initialise as initDmdExport, save as saveFile } from './lib/pin2DmdExport';
@@ -19,6 +19,16 @@ const DESIRED_FPS = 58;
 const TICKS_PER_CALL = parseInt(TICKS / DESIRED_FPS, 10);
 const TICKS_PER_STEP = 16;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
+
+if (!window.Worker) {
+  console.error('ERROR: NO WEBWORKER SUPPORT');
+}
+
+const worker = new Worker('./webworker.js');
+worker.onmessage = e => {
+  const message = JSON.stringify(e.data);
+  console.log(`[From Worker]: ${message}`);
+};
 
 var wpcSystem;
 var soundInstance = AudioOutput();
@@ -44,18 +54,23 @@ function initialiseEmu(gameEntry) {
       const romData = {
         u06: u06Rom,
       };
-      return initialiseEmulator(romData, gameEntry);
-    })
-    .then((_wpcSystem) => {
-      console.log('Successfully initialized emulator');
-      const selectElementRoot = document.getElementById('wpc-release-info');
-      selectElementRoot.innerHTML = 'WPC-Emu v' + _wpcSystem.version();
+
+      worker.postMessage([
+        'initialiseEmulator', { romData, gameEntry }
+      ]);
+
+//      return initialiseEmulator(romData, gameEntry);
+//    })
+//    .then((_wpcSystem) => {
+//      console.log('Successfully initialized emulator');
+//      const selectElementRoot = document.getElementById('wpc-release-info');
+//      selectElementRoot.innerHTML = 'WPC-Emu v' + _wpcSystem.version();
 
       soundInstance = AudioOutput(gameEntry.audio);
-      wpcSystem = _wpcSystem;
+ //     wpcSystem = _wpcSystem;
       //NOTE: IIKS we pollute globals here
       window.wpcInterface = {
-        wpcSystem,
+//        wpcSystem,
         resetEmu,
         pauseEmu,
         resumeEmu,
@@ -65,9 +80,9 @@ function initialiseEmu(gameEntry) {
         toggleDmdDump
       };
 
-      wpcSystem.registerAudioConsumer((message) => soundInstance.callback(message));
-      wpcSystem.start();
-      console.log('Successfully started EMU v' + wpcSystem.version());
+//      wpcSystem.registerAudioConsumer((message) => soundInstance.callback(message));
+//      wpcSystem.start();
+//      console.log('Successfully started EMU v' + wpcSystem.version());
       return emuDebugUi.populateInitialCanvas(gameEntry);
     })
     .then(() => {
