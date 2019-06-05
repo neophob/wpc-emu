@@ -14,6 +14,7 @@ module.exports = () => {
   return {
     entry: {
       'wpc-client': './scripts/main.js',
+      'webworker': './scripts/webworker.js',
     },
     plugins: [
       new webpack.DefinePlugin({
@@ -94,7 +95,7 @@ module.exports = () => {
       })]
     },
     output: {
-      filename: 'wpc-client.js',
+      filename: '[name].js',
       path: path.resolve(__dirname, '../dist')
     },
     module: {
