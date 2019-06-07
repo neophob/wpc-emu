@@ -6,7 +6,11 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = () => {
   return {
-    entry: './lib/emulator.js',
+    entry: {
+      'emulator': './lib/emulator.js',
+      'webclient': './lib/webclient/index.js',
+      'webworker': './lib/webclient/webworker.js',
+    },
     optimization: {
       minimizer: [new TerserPlugin({
         terserOptions: {
@@ -27,7 +31,7 @@ module.exports = () => {
       })]
     },
     output: {
-      filename: 'wpc-emu.js',
+      filename: '[name].js',
       path: path.resolve(__dirname, 'dist'),
       library: 'WpcEmu',
     },
