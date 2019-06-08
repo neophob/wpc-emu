@@ -2,7 +2,7 @@
 
 export { initialiseActions };
 
-function initialiseActions(initObject, wpcSystem) {
+function initialiseActions(initObject, webclient) {
   let initPromise = Promise.resolve();
   if (!initObject) {
     return initPromise;
@@ -12,9 +12,9 @@ function initialiseActions(initObject, wpcSystem) {
     initObject.closedSwitches.forEach((switchIdToEnable) => {
       console.log('INIT::enable switch', switchIdToEnable);
       if (switchIdToEnable[0] === 'F') {
-        wpcSystem.setFliptronicsInput(switchIdToEnable);
+        webclient.setFliptronicsInput(switchIdToEnable);
       } else {
-        wpcSystem.setInput(switchIdToEnable);
+        webclient.setInput(switchIdToEnable);
       }
     });
   }
@@ -30,7 +30,7 @@ function initialiseActions(initObject, wpcSystem) {
           if (source === 'cabinetInput') {
             const keyValue = initialAction.value;
             console.log('INIT::action - cabinet key', keyValue);
-            wpcSystem.setCabinetInput(keyValue);
+            webclient.setCabinetInput(keyValue);
           }
         });
     });

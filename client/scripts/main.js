@@ -18,8 +18,9 @@ let webclient;
 const MAXIMAL_DMD_FRAMES_TO_RIP = 8000;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
 
-var soundInstance = AudioOutput();
-var dmdDump;
+let soundInstance = AudioOutput();
+let dmdDump;
+let intervalId;
 
 function initialiseEmu(gameEntry) {
   window.wpcInterface = {
@@ -40,7 +41,7 @@ function initialiseEmu(gameEntry) {
       const romData = {
         u06: u06Rom,
       };
-console.log('webclient.initialiseEmulator');
+console.log('webclient.initialiseEmulator', gameEntry);
       return webclient.initialiseEmulator(romData, gameEntry);
     })
     .then(() => {
@@ -109,10 +110,8 @@ function initEmuWithGameName(name) {
   const gameEntry = gamelist.getByName(name);
   populateControlUiView(gameEntry, gamelist, name);
   return initialiseEmu(gameEntry)
-    .then(() => {
-      resumeEmu();
-      return initialiseActions(gameEntry.initialise, wpcSystem);
-    })
+    .then(resumeEmu)
+    .then(() => initialiseActions(gameEntry.initialise, webclient))
     .catch((error) => {
       console.error('FAILED to load ROM:', error.message);
       emuDebugUi.errorFeedback(error);
@@ -121,12 +120,12 @@ function initEmuWithGameName(name) {
 
 //called at 60hz -> 16.6ms
 function step() {
-  if (!wpcSystem) {
+/*  if (!wpcSystem) {
     return;
   }
   wpcSystem.executeCycle(TICKS_PER_CALL, TICKS_PER_STEP);
   const emuState = wpcSystem.getUiState();
-  const cpuRunningState = intervalId ? 'running' : 'paused';
+  const cpuRunningState = 'running';//intervalId ? 'running' : 'paused';
   const audioState = soundInstance.getState();
   emuDebugUi.updateCanvas(emuState, cpuRunningState, audioState);
   if (emuState.asic.wpc.inputState) {
@@ -134,8 +133,9 @@ function step() {
   }
 
   intervalId = requestAnimationFrame(step);
-
+*/
   if (dmdDump) {
+    //TODO moveme
     dmdDump.addFrames(emuState.asic.dmd.videoOutputBuffer, emuState.cpuState.tickCount);
 
     const capturedFrames = dmdDump.getCapturedFrames();
@@ -151,39 +151,16 @@ function step() {
 }
 
 function resumeEmu() {
-  if (intervalId) {
-    pauseEmu();
-  }
-  console.log('client start emu');
-  soundInstance.resume();
-
-  intervalId = requestAnimationFrame(step);
+  return webclient.resumeEmulator();
 }
 
 function pauseEmu() {
-  console.log('stop emu');
-  if (wpcSystem) {
-    const audioState = soundInstance.getState();
-    emuDebugUi.updateCanvas(wpcSystem.getUiState(), 'paused', audioState);
-  }
-
-  soundInstance.pause();
-
-  if (!intervalId) {
-    // allows step by step
-    step();
-  }
-
-  cancelAnimationFrame(intervalId);
-  intervalId = false;
+  return webclient.pauseEmulator();
 }
 
 function resetEmu() {
-  if (!wpcSystem) {
-    return;
-  }
-  wpcSystem.reset();
-  soundInstance.playBootSound();
+  return webclient.resetEmulator();
+  //soundInstance.playBootSound();
 }
 
 function registerKeyboardListener() {
