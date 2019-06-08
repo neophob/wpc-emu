@@ -3,7 +3,7 @@ import test from 'ava';
 import RpcProxy from '../../../../lib/webclient/messaging/rpcProxy';
 
 test.beforeEach((t) => {
-  t.context.rpcProxy = RpcProxy.buildRpcProxy();
+  t.context.rpcProxy = RpcProxy.build();
 });
 
 test.serial('RpcProxy: send and receive a message', (t) => {

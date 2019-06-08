@@ -12,26 +12,13 @@ import * as gamelist from './db/gamelist';
 import { populateControlUiView, updateUiSwitchState } from './ui/control-ui';
 import * as emuDebugUi from './ui/oblivion-ui';
 
+const Webclient = require('../../lib/webclient');
+const webclient = Webclient.initialiseWebworker();
+
 const MAXIMAL_DMD_FRAMES_TO_RIP = 8000;
-const TICKS = 2000000;
-const DESIRED_FPS = 58;
-const TICKS_PER_CALL = parseInt(TICKS / DESIRED_FPS, 10);
-const TICKS_PER_STEP = 16;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
 
-if (!window.Worker) {
-  console.error('ERROR: NO WEBWORKER SUPPORT');
-}
-
-const worker = new Worker('./webworker.js');
-worker.onmessage = e => {
-  const message = JSON.stringify(e.data);
-  console.log(`[From Worker]: ${message}`);
-};
-
-var wpcSystem;
 var soundInstance = AudioOutput();
-var intervalId;
 var dmdDump;
 
 function initialiseEmu(gameEntry) {
@@ -53,23 +40,20 @@ function initialiseEmu(gameEntry) {
       const romData = {
         u06: u06Rom,
       };
+console.log('aaa');
+      return webclient.initialiseEmulator(romData, gameEntry);
+    })
+    .then(() => {
+      console.log('Successfully initialized emulator');
+      return webclient.getVersion();
+    })
+    .then((emuVersion) => {
 
-      worker.postMessage([
-        'initialiseEmulator', { romData, gameEntry }
-      ]);
-
-//      return initialiseEmulator(romData, gameEntry);
-//    })
-//    .then((_wpcSystem) => {
-//      console.log('Successfully initialized emulator');
-//      const selectElementRoot = document.getElementById('wpc-release-info');
-//      selectElementRoot.innerHTML = 'WPC-Emu v' + _wpcSystem.version();
-
+      const selectElementRoot = document.getElementById('wpc-release-info');
+      selectElementRoot.innerHTML = 'WPC-Emu v' + emuVersion;
       soundInstance = AudioOutput(gameEntry.audio);
- //     wpcSystem = _wpcSystem;
       //NOTE: IIKS we pollute globals here
       window.wpcInterface = {
-//        wpcSystem,
         resetEmu,
         pauseEmu,
         resumeEmu,
