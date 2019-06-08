@@ -271,11 +271,10 @@ function createCanvas() {
 
 function initiateCanvasElements() {
   if (initialized) {
-    console.log('ALREADY_INITIALIZED!');
     return;
   }
   initialized = true;
-  console.log('initialise');
+  console.log('INIT_CANVAS');
 
   const canvasRootElement = createCanvas();
   canvas = canvasRootElement.getContext('2d', { alpha: false });

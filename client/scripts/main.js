@@ -13,7 +13,7 @@ import { populateControlUiView, updateUiSwitchState } from './ui/control-ui';
 import * as emuDebugUi from './ui/oblivion-ui';
 
 const Webclient = require('../../lib/webclient');
-const webclient = Webclient.initialiseWebworker();
+let webclient;
 
 const MAXIMAL_DMD_FRAMES_TO_RIP = 8000;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
@@ -40,7 +40,7 @@ function initialiseEmu(gameEntry) {
       const romData = {
         u06: u06Rom,
       };
-console.log('aaa');
+console.log('webclient.initialiseEmulator');
       return webclient.initialiseEmulator(romData, gameEntry);
     })
     .then(() => {
@@ -265,6 +265,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+webclient = Webclient.initialiseWebworker();
 initEmuWithGameName(INITIAL_GAME)
   .catch((error) => console.error);
 
