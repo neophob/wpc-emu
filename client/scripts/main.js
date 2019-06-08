@@ -4,7 +4,6 @@ import '../node_modules/milligram/dist/milligram.css';
 import '../styles/client.css';
 
 import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher';
-//import { initialiseEmulator } from './lib/emulator';
 import { initialiseActions } from './lib/initialise';
 import { loadRam, saveRam, } from './lib/ramState';
 import { initialise as initDmdExport, save as saveFile } from './lib/pin2DmdExport';

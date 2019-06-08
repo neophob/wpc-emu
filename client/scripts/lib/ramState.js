@@ -31,11 +31,13 @@ function loadRam(wpcSystem) {
     return false;
   }
   const stateObject = JSON.parse(stateObjectAsString);
+  //TODO MOVE to interface
   wpcSystem.cpuBoard.setState(stateObject);
   console.log('RAM STATE LOADED', romName);
   return true;
 }
 
 function getRomName(wpcSystem) {
+  //TODO MOVE to interface
   return wpcSystem.cpuBoard.romFileName;
 }
