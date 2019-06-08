@@ -21,6 +21,14 @@ test.serial('RpcProxy: send and receive a message', (t) => {
     });
 });
 
+test.serial('RpcProxy: send indicate that message was not handled', (t) => {
+  const rpcProxy = t.context.rpcProxy;
+
+  const isMessageExpected = rpcProxy.resolvePendingAnswerIfFoundFor();
+
+  t.is(isMessageExpected, false);
+});
+
 test.serial('RpcProxy: should timeout when no message receieved', (t) => {
   const rpcProxy = t.context.rpcProxy;
   const requestId = 123;
