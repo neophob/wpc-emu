@@ -242,8 +242,9 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-webclient = Webclient.initialiseWebworker((emuState) => {
-  emuDebugUi.updateCanvas(emuState);//, cpuRunningState, audioState);
+webclient = Webclient.initialiseWebworker((data) => {
+  const { emuState, emuRunningState } = data;
+  emuDebugUi.updateCanvas(emuState, emuRunningState ? 'running' : 'paused');//, cpuRunningState, audioState);
 });
 
 initEmuWithGameName(INITIAL_GAME)
