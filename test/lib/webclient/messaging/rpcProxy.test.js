@@ -41,7 +41,6 @@ test.serial('RpcProxy: should timeout when no message receieved', (t) => {
     });
 });
 
-
 test.serial('RpcProxy: should handle duplicate, duplicate answers', (t) => {
   const rpcProxy = t.context.rpcProxy;
   const requestId = 123;
