@@ -66,8 +66,6 @@ console.log('webclient.initialiseEmulator', gameEntry);
       };
 
 //      wpcSystem.registerAudioConsumer((message) => soundInstance.callback(message));
-//      wpcSystem.start();
-//      console.log('Successfully started EMU v' + wpcSystem.version());
       return emuDebugUi.populateInitialCanvas(gameEntry);
     })
     .then(() => {
@@ -185,19 +183,19 @@ function registerKeyboardListener() {
   window.addEventListener('keydown', (e) => {
     switch (e.keyCode) {
       case 49: //1
-        return wpcSystem.setCabinetInput(1);
+        return webclient.setCabinetInput(1);
 
       case 50: //2
-        return wpcSystem.setCabinetInput(2);
+        return webclient.setCabinetInput(2);
 
       case 51: //3
-        return wpcSystem.setCabinetInput(4);
+        return webclient.setCabinetInput(4);
 
       case 52: //4
-        return wpcSystem.setCabinetInput(8);
+        return webclient.setCabinetInput(8);
 
       case 53: //5
-        return wpcSystem.setInput(13);
+        return webclient.setInput(13);
 
       case 80: //P
         return pauseEmu();
@@ -212,16 +210,16 @@ function registerKeyboardListener() {
         return loadState();
 
       case 55: //7
-        return wpcSystem.setCabinetInput(16);
+        return webclient.setCabinetInput(16);
 
       case 56: //8
-        return wpcSystem.setCabinetInput(32);
+        return webclient.setCabinetInput(32);
 
       case 57: //9
-        return wpcSystem.setCabinetInput(64);
+        return webclient.setCabinetInput(64);
 
       case 48: //0
-        return wpcSystem.setCabinetInput(128);
+        return webclient.setCabinetInput(128);
 
       default:
 
