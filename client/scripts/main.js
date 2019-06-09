@@ -21,7 +21,6 @@ const INITIAL_GAME = 'WPC-DMD: Hurricane';
 
 let soundInstance = AudioOutput();
 let dmdDump;
-let intervalId;
 
 function initialiseEmu(gameEntry) {
   window.wpcInterface = {
@@ -75,15 +74,26 @@ console.log('webclient.initialiseEmulator', gameEntry);
 }
 
 function saveState() {
-  pauseEmu();
-  saveRam(wpcSystem);
-  resumeEmu();
+  return pauseEmu()
+    .then(() => {
+      return Promise.all([ webclient.getEmulatorRomName(),  webclient.getEmulatorState() ]);
+    })
+    .then((data) => {
+      const romName = data[0];
+      const emuState = data[1];
+      saveRam(romName, emuState);
+      return resumeEmu();
+    });
 }
 
 function loadState() {
-  pauseEmu();
-  loadRam(wpcSystem);
-  resumeEmu();
+  return pauseEmu()
+    .then(() => { return webclient.getEmulatorRomName(); })
+    .then((romName) => {
+      const emuState = loadRam(romName);
+      return webclient.setEmulatorState(emuState);
+    })
+    .then(() => { return resumeEmu(); });
 }
 
 function toggleDmdDump() {
