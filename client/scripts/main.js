@@ -12,6 +12,7 @@ import * as gamelist from './db/gamelist';
 import { populateControlUiView, updateUiSwitchState } from './ui/control-ui';
 import * as emuDebugUi from './ui/oblivion-ui';
 
+// start the emu as web worker
 const Webclient = require('../../lib/webclient');
 let webclient;
 
