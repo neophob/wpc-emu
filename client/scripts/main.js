@@ -12,7 +12,7 @@ import * as gamelist from './db/gamelist';
 import { populateControlUiView, updateUiSwitchState } from './ui/control-ui';
 import * as emuDebugUi from './ui/oblivion-ui';
 
-// start the emu as web worker
+// start the emu as web worker TODO rename me
 const Webclient = require('../../lib/webclient');
 let webclient;
 
@@ -41,7 +41,6 @@ function initialiseEmu(gameEntry) {
       const romData = {
         u06: u06Rom,
       };
-console.log('webclient.initialiseEmulator', gameEntry);
       return webclient.initialiseEmulator(romData, gameEntry);
     })
     .then(() => {
@@ -49,12 +48,12 @@ console.log('webclient.initialiseEmulator', gameEntry);
       return webclient.getVersion();
     })
     .then((emuVersion) => {
-
       const selectElementRoot = document.getElementById('wpc-release-info');
       selectElementRoot.innerHTML = 'WPC-Emu v' + emuVersion;
       soundInstance = AudioOutput(gameEntry.audio);
       //NOTE: IIKS we pollute globals here
       window.wpcInterface = {
+        webclient,
         resetEmu,
         pauseEmu,
         resumeEmu,
@@ -129,19 +128,11 @@ function initEmuWithGameName(name) {
 
 //called at 60hz -> 16.6ms
 function step() {
-/*  if (!wpcSystem) {
-    return;
-  }
-  wpcSystem.executeCycle(TICKS_PER_CALL, TICKS_PER_STEP);
-  const emuState = wpcSystem.getUiState();
-  const cpuRunningState = 'running';//intervalId ? 'running' : 'paused';
-  const audioState = soundInstance.getState();
+/*   const audioState = soundInstance.getState();
   emuDebugUi.updateCanvas(emuState, cpuRunningState, audioState);
   if (emuState.asic.wpc.inputState) {
     updateUiSwitchState(emuState.asic.wpc.inputState);
   }
-
-  intervalId = requestAnimationFrame(step);
 */
   if (dmdDump) {
     //TODO moveme
