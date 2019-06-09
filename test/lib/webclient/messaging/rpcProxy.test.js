@@ -36,7 +36,7 @@ test.serial('RpcProxy: should timeout when no message receieved', (t) => {
 
   return promise
     .catch((error) => {
-      t.is(error.message, 'PROMISE_TIMEOUT');
+      t.is(error.message, 'PROMISE_TIMEOUT_1');
       t.is(rpcProxy.pendingAnswers.size, 0);
     });
 });

@@ -21,6 +21,8 @@ const INITIAL_GAME = 'WPC-DMD: Hurricane';
 
 let soundInstance = AudioOutput();
 let dmdDump;
+let intervalId;
+let emuUiState;
 
 function initialiseEmu(gameEntry) {
   window.wpcInterface = {
@@ -128,6 +130,15 @@ function initEmuWithGameName(name) {
 
 //called at 60hz -> 16.6ms
 function step() {
+  if (emuUiState) {
+    const { emuState, emuRunningState } = emuUiState;
+    emuDebugUi.updateCanvas(emuState, emuRunningState ? 'running' : 'paused');//, cpuRunningState, audioState);
+    if (emuState.asic.wpc.inputState) {
+      updateUiSwitchState(emuState.asic.wpc.inputState);
+    }
+    emuUiState = undefined;
+  }
+
 /*   const audioState = soundInstance.getState();
 */
   if (dmdDump) {
@@ -144,13 +155,18 @@ function step() {
     const element = document.getElementById('dmd-dump-text');
     element.textContent = 'DUMPING: ' + dmdDump.getCapturedFrames();
   }
+
+  intervalId = requestAnimationFrame(step);
 }
 
 function resumeEmu() {
+  intervalId = requestAnimationFrame(step);
   return webclient.resumeEmulator();
 }
 
 function pauseEmu() {
+  cancelAnimationFrame(intervalId);
+  intervalId = false;
   return webclient.pauseEmulator();
 }
 
@@ -239,12 +255,7 @@ if ('serviceWorker' in navigator) {
 }
 
 webclient = Webclient.initialiseWebworkerAPI((data) => {
-  const { emuState, emuRunningState } = data;
-  emuDebugUi.updateCanvas(emuState, emuRunningState ? 'running' : 'paused');//, cpuRunningState, audioState);
-  if (emuState.asic.wpc.inputState) {
-    updateUiSwitchState(emuState.asic.wpc.inputState);
-  }
-
+  emuUiState = data;
 });
 
 initEmuWithGameName(INITIAL_GAME)
