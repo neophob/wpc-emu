@@ -243,7 +243,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-webclient = Webclient.initialiseWebworker((data) => {
+webclient = Webclient.initialiseWebworkerAPI((data) => {
   const { emuState, emuRunningState } = data;
   emuDebugUi.updateCanvas(emuState, emuRunningState ? 'running' : 'paused');//, cpuRunningState, audioState);
 });
