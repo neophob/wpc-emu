@@ -129,10 +129,6 @@ function initEmuWithGameName(name) {
 //called at 60hz -> 16.6ms
 function step() {
 /*   const audioState = soundInstance.getState();
-  emuDebugUi.updateCanvas(emuState, cpuRunningState, audioState);
-  if (emuState.asic.wpc.inputState) {
-    updateUiSwitchState(emuState.asic.wpc.inputState);
-  }
 */
   if (dmdDump) {
     //TODO moveme
@@ -245,6 +241,10 @@ if ('serviceWorker' in navigator) {
 webclient = Webclient.initialiseWebworkerAPI((data) => {
   const { emuState, emuRunningState } = data;
   emuDebugUi.updateCanvas(emuState, emuRunningState ? 'running' : 'paused');//, cpuRunningState, audioState);
+  if (emuState.asic.wpc.inputState) {
+    updateUiSwitchState(emuState.asic.wpc.inputState);
+  }
+
 });
 
 initEmuWithGameName(INITIAL_GAME)
