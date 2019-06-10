@@ -22,7 +22,6 @@ const INITIAL_GAME = 'WPC-DMD: Hurricane';
 let soundInstance = AudioOutput();
 let dmdDump;
 let intervalId;
-let emuUiState;
 
 function initialiseEmu(gameEntry) {
   window.wpcInterface = {
@@ -130,31 +129,28 @@ function initEmuWithGameName(name) {
 
 //called at 60hz -> 16.6ms
 function step() {
-  if (emuUiState) {
-    console.log('>>START')
-    const { emuState, emuRunningState } = emuUiState;
-    emuDebugUi.updateCanvas(emuState, emuRunningState ? 'running' : 'paused');//, cpuRunningState, audioState);
-    if (emuState.asic.wpc.inputState) {
-      updateUiSwitchState(emuState.asic.wpc.inputState);
-    }
-    console.log('>>END')
-
-    if (dmdDump) {
-      dmdDump.addFrames(emuState.asic.dmd.videoOutputBuffer, emuState.cpuState.tickCount);
-
-      const capturedFrames = dmdDump.getCapturedFrames();
-      if (capturedFrames > MAXIMAL_DMD_FRAMES_TO_RIP) {
-        const filename = 'wpc-emu-dump-' + Date.now() + '.raw';
-        saveFile(dmdDump.buildExportFile(), filename);
-        dmdDump = initDmdExport();
+  webclient.getNextFrame()
+    .then((emuUiState) => {
+      const { emuState } = emuUiState;
+      emuDebugUi.updateCanvas(emuState, intervalId ? 'running' : 'paused');//, cpuRunningState, audioState);
+      if (emuState.asic.wpc.inputState) {
+        updateUiSwitchState(emuState.asic.wpc.inputState);
       }
 
-      const element = document.getElementById('dmd-dump-text');
-      element.textContent = 'DUMPING: ' + dmdDump.getCapturedFrames();
-    }
+      if (dmdDump) {
+        dmdDump.addFrames(emuState.asic.dmd.videoOutputBuffer, emuState.cpuState.tickCount);
 
-    emuUiState = undefined;
-  } else console.log('no emuUiState available')
+        const capturedFrames = dmdDump.getCapturedFrames();
+        if (capturedFrames > MAXIMAL_DMD_FRAMES_TO_RIP) {
+          const filename = 'wpc-emu-dump-' + Date.now() + '.raw';
+          saveFile(dmdDump.buildExportFile(), filename);
+          dmdDump = initDmdExport();
+        }
+
+        const element = document.getElementById('dmd-dump-text');
+        element.textContent = 'DUMPING: ' + dmdDump.getCapturedFrames();
+      }
+    });
 
 /*   const audioState = soundInstance.getState();
 */
@@ -164,13 +160,11 @@ function step() {
 
 function resumeEmu() {
   intervalId = requestAnimationFrame(step);
-  return webclient.resumeEmulator();
 }
 
 function pauseEmu() {
   cancelAnimationFrame(intervalId);
   intervalId = false;
-  return webclient.pauseEmulator();
 }
 
 function resetEmu() {
@@ -257,12 +251,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-webclient = Webclient.initialiseWebworkerAPI((data) => {
-  if (emuUiState) {
-    console.log('overwrite state');
-  }
-  emuUiState = data;
-});
+webclient = Webclient.initialiseWebworkerAPI();
 
 initEmuWithGameName(INITIAL_GAME)
   .catch((error) => console.error);
