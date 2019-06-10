@@ -132,6 +132,9 @@ function step() {
   webclient.getNextFrame()
     .then((emuUiState) => {
       const { emuState } = emuUiState;
+      if (!emuState) {
+        return;
+      }
       emuDebugUi.updateCanvas(emuState, intervalId ? 'running' : 'paused');//, cpuRunningState, audioState);
       if (emuState.asic.wpc.inputState) {
         updateUiSwitchState(emuState.asic.wpc.inputState);
