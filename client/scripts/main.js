@@ -133,6 +133,7 @@ function step() {
     .then((emuUiState) => {
       const { emuState } = emuUiState;
       if (!emuState) {
+        webclient.executeCycles();
         return;
       }
       emuDebugUi.updateCanvas(emuState, intervalId ? 'running' : 'paused');//, cpuRunningState, audioState);
@@ -153,6 +154,9 @@ function step() {
         const element = document.getElementById('dmd-dump-text');
         element.textContent = 'DUMPING: ' + dmdDump.getCapturedFrames();
       }
+
+      // signal to worker that next emu cycles should be calculated, but run it async
+      webclient.executeCycles();
     });
 
 /*   const audioState = soundInstance.getState();
