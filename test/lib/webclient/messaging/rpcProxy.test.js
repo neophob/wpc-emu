@@ -109,3 +109,5 @@ test.serial('RpcProxy: clears queue if we each max pending answers', (t) => {
       t.is(rpcProxy.pendingAnswers.size, 0);
     });
 });
+
+//TODO RTT TESTS AND ERROR COUNTER TESTS

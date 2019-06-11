@@ -118,6 +118,7 @@ function initEmuWithGameName(name) {
   soundInstance.stop();
   const gameEntry = gamelist.getByName(name);
   populateControlUiView(gameEntry, gamelist, name);
+  webclient.reset();
   return initialiseEmu(gameEntry)
     .then(resumeEmu)
     .then(() => initialiseActions(gameEntry.initialise, webclient))
@@ -143,7 +144,9 @@ function step() {
         return;
       }
       emuDebugUi.updateCanvas(emuState, intervalId ? 'running' : 'paused');//, cpuRunningState, audioState);
-      emuDebugUi.drawMetaData(webclient.getAverageRttTimeMs(), webclient.getMessagesSend());
+
+      const { averageRTTms, sentMessages, failedMessages } = webclient.getStatistics();
+      emuDebugUi.drawMetaData(averageRTTms, sentMessages, failedMessages);
       if (emuState.asic.wpc.inputState) {
         updateUiSwitchState(emuState.asic.wpc.inputState);
       }

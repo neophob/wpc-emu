@@ -109,9 +109,10 @@ lampColorLut.set('WHITE', 'rgba(255,255,255,');
 lampColorLut.set('GREEN', 'rgba(0,255,0,');
 lampColorLut.set('BLACK', 'rgba(0,0,0,255)');
 
-function drawMetaData(rttTimeMs, messagesSent) {
-  canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X, 4, rttTimeMs);
-  canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 8, 4, messagesSent);
+function drawMetaData(averageRTTms, sentMessages, failedMessages) {
+  canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X, 4, averageRTTms);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 8, 4, sentMessages);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 8, 5, failedMessages);
 }
 
 function updateCanvas(emuState, cpuRunningState, audioState) {
@@ -461,7 +462,7 @@ function initialise() {
 
   // META
   canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X, 3, 'AVG RTT TIME', THEME.FONT_TEXT);
-  canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X + 8, 3, 'RPC MSG SENT', THEME.FONT_TEXT);
+  canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X + 8, 3, 'MSG SENT/FAILED', THEME.FONT_TEXT);
 
   // DMD MEM
   canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X,      THEME.POS_DMDMEM_Y, 20);
