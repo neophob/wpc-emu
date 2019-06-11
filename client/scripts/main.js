@@ -129,6 +129,12 @@ function initEmuWithGameName(name) {
 
 //called at 60hz -> 16.6ms
 function step() {
+  //TODO handle promise properly here:
+  /*
+    function requestAnimationFramePromise() {
+      return new Promise(resolve => requestAnimationFrame(resolve));
+    }
+  */
   webclient.getNextFrame()
     .then((emuUiState) => {
       const { emuState } = emuUiState;
@@ -137,6 +143,7 @@ function step() {
         return;
       }
       emuDebugUi.updateCanvas(emuState, intervalId ? 'running' : 'paused');//, cpuRunningState, audioState);
+      emuDebugUi.drawMetaData(webclient.getAverageRttTimeMs(), webclient.getMessagesSend());
       if (emuState.asic.wpc.inputState) {
         updateUiSwitchState(emuState.asic.wpc.inputState);
       }
@@ -157,7 +164,10 @@ function step() {
 
       // signal to worker that next emu cycles should be calculated, but run it async
       webclient.executeCycles();
-    });
+    }).catch(() => {
+      // next frame was not ready, request update
+      webclient.executeCycles();
+    })
 
 /*   const audioState = soundInstance.getState();
 */

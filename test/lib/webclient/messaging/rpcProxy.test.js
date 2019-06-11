@@ -1,6 +1,7 @@
 import test from 'ava';
 
 import RpcProxy from '../../../../lib/webclient/messaging/rpcProxy';
+const MESSAGE = require('../../../../lib/webclient/messaging/message');
 
 test.beforeEach((t) => {
   t.context.rpcProxy = RpcProxy.build();
@@ -11,11 +12,41 @@ test.serial('RpcProxy: send and receive a message', (t) => {
   const requestId = 123;
   const promise = rpcProxy.waitOnAnswer(requestId);
 
-  const isMessageExpected = rpcProxy.resolvePendingAnswerIfFoundFor({ message: 'ACK', requestId });
+  const isMessageExpected = rpcProxy.resolvePendingAnswerIfFoundFor({ message: MESSAGE.MSG_TYPE_ACK, requestId });
 
   return promise
     .then((result) => {
-      t.deepEqual(result, { message: 'ACK', requestId: 123 });
+      t.deepEqual(result, { message: MESSAGE.MSG_TYPE_ACK, requestId: 123 });
+      t.is(isMessageExpected, true);
+      t.is(rpcProxy.pendingAnswers.size, 0);
+    });
+});
+
+test.serial('RpcProxy: send and receive a message, detect error (with reason)', (t) => {
+  const rpcProxy = t.context.rpcProxy;
+  const requestId = 123;
+  const promise = rpcProxy.waitOnAnswer(requestId);
+
+  const isMessageExpected = rpcProxy.resolvePendingAnswerIfFoundFor({ message: MESSAGE.MSG_TYPE_ERROR, requestId, parameter: 'REASON' });
+
+  return promise
+    .catch((error) => {
+      t.deepEqual(error.message, 'REASON');
+      t.is(isMessageExpected, true);
+      t.is(rpcProxy.pendingAnswers.size, 0);
+    });
+});
+
+test.serial('RpcProxy: send and receive a message, detect error (without reason)', (t) => {
+  const rpcProxy = t.context.rpcProxy;
+  const requestId = 123;
+  const promise = rpcProxy.waitOnAnswer(requestId);
+
+  const isMessageExpected = rpcProxy.resolvePendingAnswerIfFoundFor({ message: MESSAGE.MSG_TYPE_ERROR, requestId });
+
+  return promise
+    .catch((error) => {
+      t.deepEqual(error.message, '123');
       t.is(isMessageExpected, true);
       t.is(rpcProxy.pendingAnswers.size, 0);
     });
@@ -52,7 +83,7 @@ test.serial('RpcProxy: should handle duplicate, duplicate answers', (t) => {
     });
 
   const resolvedPromise = rpcProxy.waitOnAnswer(requestId);
-  const isMessageExpected = rpcProxy.resolvePendingAnswerIfFoundFor({ message: 'ACK', requestId });
+  const isMessageExpected = rpcProxy.resolvePendingAnswerIfFoundFor({ message: MESSAGE.MSG_TYPE_ACK, requestId });
 
   return Promise.all([ resolvedPromise, rejectedPromise ])
     .then(() => {
@@ -72,7 +103,7 @@ test.serial('RpcProxy: clears queue if we each max pending answers', (t) => {
   });
 
   const lastPromise = rpcProxy.waitOnAnswer(requestId);
-  rpcProxy.resolvePendingAnswerIfFoundFor({ message: 'ACK', requestId });
+  rpcProxy.resolvePendingAnswerIfFoundFor({ message: MESSAGE.MSG_TYPE_ACK, requestId });
   return Promise.all([ rejectedPromises, lastPromise ])
     .then(() => {
       t.is(rpcProxy.pendingAnswers.size, 0);

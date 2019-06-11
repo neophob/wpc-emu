@@ -3,7 +3,7 @@
 import { replaceNode } from './htmlselector';
 import { createDrawLib } from './ui/lib';
 
-export { initialise, updateCanvas, populateInitialCanvas, errorFeedback, loadFeedback };
+export { initialise, drawMetaData, updateCanvas, populateInitialCanvas, errorFeedback, loadFeedback };
 
 // inspiration:
 // https://gmunk.com/OBLIVION-GFX
@@ -108,6 +108,11 @@ lampColorLut.set('LPURPLE', 'rgba(218,112,214,');
 lampColorLut.set('WHITE', 'rgba(255,255,255,');
 lampColorLut.set('GREEN', 'rgba(0,255,0,');
 lampColorLut.set('BLACK', 'rgba(0,0,0,255)');
+
+function drawMetaData(rttTimeMs, messagesSent) {
+  canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X, 4, rttTimeMs);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 8, 4, messagesSent);
+}
 
 function updateCanvas(emuState, cpuRunningState, audioState) {
   if (!emuState) {
@@ -453,6 +458,10 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 8, 'ROM BANK');
   canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 8, THEME.POS_ASIC_Y + 8, 'LOCKED MEM W');
   canvasDrawLib.drawVerticalLine(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 7, 3);
+
+  // META
+  canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X, 3, 'AVG RTT TIME', THEME.FONT_TEXT);
+  canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X + 8, 3, 'RPC MSG SENT', THEME.FONT_TEXT);
 
   // DMD MEM
   canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X,      THEME.POS_DMDMEM_Y, 20);
