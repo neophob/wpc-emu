@@ -13,8 +13,8 @@ import { populateControlUiView, updateUiSwitchState } from './ui/control-ui';
 import * as emuDebugUi from './ui/oblivion-ui';
 
 // start the emu as web worker TODO rename me
-const Webclient = require('../../lib/webclient');
-let webclient;
+const WpcEmuWebWorkerApi = require('../../lib/webclient');
+let wpcEmuWebWorkerApi;
 
 const MAXIMAL_DMD_FRAMES_TO_RIP = 8000;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
@@ -42,11 +42,11 @@ function initialiseEmu(gameEntry) {
       const romData = {
         u06: u06Rom,
       };
-      return webclient.initialiseEmulator(romData, gameEntry);
+      return wpcEmuWebWorkerApi.initialiseEmulator(romData, gameEntry);
     })
     .then(() => {
       console.log('Successfully initialized emulator');
-      return webclient.getVersion();
+      return wpcEmuWebWorkerApi.getVersion();
     })
     .then((emuVersion) => {
       const selectElementRoot = document.getElementById('wpc-release-info');
@@ -54,7 +54,8 @@ function initialiseEmu(gameEntry) {
       soundInstance = AudioOutput(gameEntry.audio);
       //NOTE: IIKS we pollute globals here
       window.wpcInterface = {
-        webclient,
+        //TODO Rename
+        webclient: wpcEmuWebWorkerApi,
         resetEmu,
         pauseEmu,
         resumeEmu,
@@ -64,7 +65,8 @@ function initialiseEmu(gameEntry) {
         toggleDmdDump
       };
 
-//      wpcSystem.registerAudioConsumer((message) => soundInstance.callback(message));
+      //TODO
+      //wpcSystem.registerAudioConsumer((message) => soundInstance.callback(message));
       return emuDebugUi.populateInitialCanvas(gameEntry);
     })
     .then(() => {
@@ -76,7 +78,7 @@ function initialiseEmu(gameEntry) {
 function saveState() {
   return pauseEmu()
     .then(() => {
-      return Promise.all([ webclient.getEmulatorRomName(),  webclient.getEmulatorState() ]);
+      return Promise.all([ wpcEmuWebWorkerApi.getEmulatorRomName(),  wpcEmuWebWorkerApi.getEmulatorState() ]);
     })
     .then((data) => {
       const romName = data[0];
@@ -88,10 +90,10 @@ function saveState() {
 
 function loadState() {
   return pauseEmu()
-    .then(() => { return webclient.getEmulatorRomName(); })
+    .then(() => { return wpcEmuWebWorkerApi.getEmulatorRomName(); })
     .then((romName) => {
       const emuState = loadRam(romName);
-      return webclient.setEmulatorState(emuState);
+      return wpcEmuWebWorkerApi.setEmulatorState(emuState);
     })
     .then(() => { return resumeEmu(); });
 }
@@ -118,10 +120,10 @@ function initEmuWithGameName(name) {
   soundInstance.stop();
   const gameEntry = gamelist.getByName(name);
   populateControlUiView(gameEntry, gamelist, name);
-  webclient.reset();
-  return initialiseEmu(gameEntry)
+
+  return Promise.all([ initialiseEmu(gameEntry), wpcEmuWebWorkerApi.reset() ])
     .then(resumeEmu)
-    .then(() => initialiseActions(gameEntry.initialise, webclient))
+    .then(() => initialiseActions(gameEntry.initialise, wpcEmuWebWorkerApi))
     .catch((error) => {
       console.error('FAILED to load ROM:', error.message);
       emuDebugUi.errorFeedback(error);
@@ -136,16 +138,17 @@ function step() {
       return new Promise(resolve => requestAnimationFrame(resolve));
     }
   */
-  webclient.getNextFrame()
+  wpcEmuWebWorkerApi.getNextFrame()
     .then((emuUiState) => {
       const { emuState } = emuUiState;
       if (!emuState) {
-        webclient.executeCycles();
+        wpcEmuWebWorkerApi.executeCycles();
         return;
       }
-      emuDebugUi.updateCanvas(emuState, intervalId ? 'running' : 'paused');//, cpuRunningState, audioState);
+      const audioState = soundInstance.getState();
+      emuDebugUi.updateCanvas(emuState, intervalId ? 'running' : 'paused', audioState);
 
-      const { averageRTTms, sentMessages, failedMessages } = webclient.getStatistics();
+      const { averageRTTms, sentMessages, failedMessages } = wpcEmuWebWorkerApi.getStatistics();
       emuDebugUi.drawMetaData(averageRTTms, sentMessages, failedMessages);
       if (emuState.asic.wpc.inputState) {
         updateUiSwitchState(emuState.asic.wpc.inputState);
@@ -166,10 +169,10 @@ function step() {
       }
 
       // signal to worker that next emu cycles should be calculated, but run it async
-      webclient.executeCycles();
+      wpcEmuWebWorkerApi.executeCycles();
     }).catch(() => {
       // next frame was not ready, request update
-      webclient.executeCycles();
+      wpcEmuWebWorkerApi.executeCycles();
     })
 
 /*   const audioState = soundInstance.getState();
@@ -182,10 +185,18 @@ function resumeEmu() {
   if (intervalId) {
     pauseEmu();
   }
+  soundInstance.resume();
   intervalId = requestAnimationFrame(step);
 }
 
 function pauseEmu() {
+/*  if (wpcSystem) {
+    const audioState = soundInstance.getState();
+    emuDebugUi.updateCanvas(wpcSystem.getUiState(), 'paused', audioState);
+  }*/
+
+  soundInstance.pause();
+
   if (!intervalId) {
     // allows step by step
     step();
@@ -196,8 +207,8 @@ function pauseEmu() {
 }
 
 function resetEmu() {
-  return webclient.resetEmulator();
-  //soundInstance.playBootSound();
+  soundInstance.playBootSound();
+  return wpcEmuWebWorkerApi.resetEmulator();
 }
 
 function registerKeyboardListener() {
@@ -221,19 +232,19 @@ function registerKeyboardListener() {
   window.addEventListener('keydown', (e) => {
     switch (e.keyCode) {
       case 49: //1
-        return webclient.setCabinetInput(1);
+        return wpcEmuWebWorkerApi.setCabinetInput(1);
 
       case 50: //2
-        return webclient.setCabinetInput(2);
+        return wpcEmuWebWorkerApi.setCabinetInput(2);
 
       case 51: //3
-        return webclient.setCabinetInput(4);
+        return wpcEmuWebWorkerApi.setCabinetInput(4);
 
       case 52: //4
-        return webclient.setCabinetInput(8);
+        return wpcEmuWebWorkerApi.setCabinetInput(8);
 
       case 53: //5
-        return webclient.setInput(13);
+        return wpcEmuWebWorkerApi.setInput(13);
 
       case 80: //P
         return pauseEmu();
@@ -248,16 +259,16 @@ function registerKeyboardListener() {
         return loadState();
 
       case 55: //7
-        return webclient.setCabinetInput(16);
+        return wpcEmuWebWorkerApi.setCabinetInput(16);
 
       case 56: //8
-        return webclient.setCabinetInput(32);
+        return wpcEmuWebWorkerApi.setCabinetInput(32);
 
       case 57: //9
-        return webclient.setCabinetInput(64);
+        return wpcEmuWebWorkerApi.setCabinetInput(64);
 
       case 48: //0
-        return webclient.setCabinetInput(128);
+        return wpcEmuWebWorkerApi.setCabinetInput(128);
 
       default:
 
@@ -279,7 +290,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-webclient = Webclient.initialiseWebworkerAPI();
+wpcEmuWebWorkerApi = WpcEmuWebWorkerApi.initialiseWebworkerAPI();
 
 initEmuWithGameName(INITIAL_GAME)
   .catch((error) => console.error);
