@@ -12,7 +12,6 @@ import * as gamelist from './db/gamelist';
 import { populateControlUiView, updateUiSwitchState } from './ui/control-ui';
 import * as emuDebugUi from './ui/oblivion-ui';
 
-// start the emu as web worker TODO rename me
 const WpcEmuWebWorkerApi = require('../../lib/webclient');
 let wpcEmuWebWorkerApi;
 
@@ -65,8 +64,7 @@ function initialiseEmu(gameEntry) {
         toggleDmdDump
       };
 
-      //TODO
-      //wpcSystem.registerAudioConsumer((message) => soundInstance.callback(message));
+      wpcEmuWebWorkerApi.registerAudioConsumer((message) => soundInstance.callback(message));
       return emuDebugUi.populateInitialCanvas(gameEntry);
     })
     .then(() => {
