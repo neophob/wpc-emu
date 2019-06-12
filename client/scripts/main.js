@@ -179,10 +179,18 @@ function step() {
 }
 
 function resumeEmu() {
+  if (intervalId) {
+    pauseEmu();
+  }
   intervalId = requestAnimationFrame(step);
 }
 
 function pauseEmu() {
+  if (!intervalId) {
+    // allows step by step
+    step();
+  }
+
   cancelAnimationFrame(intervalId);
   intervalId = false;
 }
