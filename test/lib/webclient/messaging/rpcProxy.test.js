@@ -7,7 +7,7 @@ test.beforeEach((t) => {
   t.context.rpcProxy = RpcProxy.build();
 });
 
-test.serial('RpcProxy: send and receive a message', (t) => {
+test('RpcProxy: send and receive a message', (t) => {
   const rpcProxy = t.context.rpcProxy;
   const requestId = 123;
   const promise = rpcProxy.waitOnAnswer(requestId);
@@ -22,7 +22,7 @@ test.serial('RpcProxy: send and receive a message', (t) => {
     });
 });
 
-test.serial('RpcProxy: send and receive a message, detect error (with reason)', (t) => {
+test('RpcProxy: send and receive a message, detect error (with reason)', (t) => {
   const rpcProxy = t.context.rpcProxy;
   const requestId = 123;
   const promise = rpcProxy.waitOnAnswer(requestId);
@@ -37,7 +37,7 @@ test.serial('RpcProxy: send and receive a message, detect error (with reason)', 
     });
 });
 
-test.serial('RpcProxy: send and receive a message, detect error (without reason)', (t) => {
+test('RpcProxy: send and receive a message, detect error (without reason)', (t) => {
   const rpcProxy = t.context.rpcProxy;
   const requestId = 123;
   const promise = rpcProxy.waitOnAnswer(requestId);
@@ -52,7 +52,7 @@ test.serial('RpcProxy: send and receive a message, detect error (without reason)
     });
 });
 
-test.serial('RpcProxy: send indicate that message was not handled', (t) => {
+test('RpcProxy: send indicate that message was not handled', (t) => {
   const rpcProxy = t.context.rpcProxy;
 
   const isMessageExpected = rpcProxy.resolvePendingAnswerIfFoundFor();
@@ -60,7 +60,7 @@ test.serial('RpcProxy: send indicate that message was not handled', (t) => {
   t.is(isMessageExpected, false);
 });
 
-test.serial('RpcProxy: should timeout when no message receieved', (t) => {
+test('RpcProxy: should timeout when no message receieved', (t) => {
   const rpcProxy = t.context.rpcProxy;
   const requestId = 123;
   const promise = rpcProxy.waitOnAnswer(requestId, 1);
@@ -72,7 +72,7 @@ test.serial('RpcProxy: should timeout when no message receieved', (t) => {
     });
 });
 
-test.serial('RpcProxy: should handle duplicate, duplicate answers', (t) => {
+test('RpcProxy: should handle duplicate, duplicate answers', (t) => {
   const rpcProxy = t.context.rpcProxy;
   const requestId = 123;
   let firstRequestRejected = false;
@@ -92,7 +92,7 @@ test.serial('RpcProxy: should handle duplicate, duplicate answers', (t) => {
     });
 });
 
-test.serial('RpcProxy: clears queue if we each max pending answers', (t) => {
+test('RpcProxy: clears queue if we each max pending answers', (t) => {
   const rpcProxy = t.context.rpcProxy;
   const requestId = 123;
 
