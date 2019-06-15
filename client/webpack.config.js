@@ -14,7 +14,6 @@ module.exports = () => {
   return {
     entry: {
       'wpc-client': './scripts/main.js',
-      'webworker': './scripts/webworker.js',
     },
     plugins: [
       new webpack.DefinePlugin({
@@ -111,6 +110,10 @@ module.exports = () => {
         {
           test: /\.tpl/,
           use: 'raw-loader'
+        },
+        {
+          test: /\.worker\.js$/,
+          use: { loader: 'worker-loader' }
         }
       ]
     }

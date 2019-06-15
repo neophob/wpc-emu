@@ -11,6 +11,7 @@ import { AudioOutput } from './lib/sound';
 import * as gamelist from './db/gamelist';
 import { populateControlUiView, updateUiSwitchState } from './ui/control-ui';
 import * as emuDebugUi from './ui/oblivion-ui';
+import WebWorker from 'worker-loader!../../lib/webclient/webworker.js';
 
 const WpcEmuWebWorkerApi = require('../../lib/webclient');
 let wpcEmuWebWorkerApi;
@@ -288,7 +289,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-wpcEmuWebWorkerApi = WpcEmuWebWorkerApi.initialiseWebworkerAPI();
+wpcEmuWebWorkerApi = WpcEmuWebWorkerApi.initialiseWebworkerAPI(new WebWorker());
 
 initEmuWithGameName(INITIAL_GAME)
   .catch((error) => console.error);
