@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How to run a 27 years old pinball machine in your browser</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      img {
+        max-width: 100%;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 45%;
+        height: 92%;
+        float: left;
+      }
+      .left-column h2:last-of-type, .left-column h3:last-child {
+        color: #000;
+      }
+      .right-column {
+        width: 50%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse
+---
+name: inverse
+layout: false
+class: center, middle, inverse
+
+# Run a 28 years old Pinball Machine in your browser
+2019 by Michael Vogt
+.footnote[Go directly to [project site](https://github.com/neophob/wpc-emu)]
+
+???
+- Hi Welcome to my talk "Run a 28 years old pinball machine in your browser"
+
+- My name is Michael, during the day I'm working as Software developper at NEEO. We're a consumer electronic startup located in Bern, Solothurn and Cupertino
+
+- at night I sometimes try to emulate old hardware
+
+- the goal of this talk is to show how to build an emulator - which in fact is not that hard.
+
+- so, lets jump to the agenda
+---
+
+# Agenda
+
+1. What?
+
+???
+
+- WHAT is a Williams Pinball Machine - how does it look like
+
+--
+
+1. Why?
+
+???
+
+- WHY would someone invest time in emulating an antiquated machine?
+
+--
+
+1. Build an Emulator, Step-by-Step
+
+???
+
+- Walk through how I build my emulator, will be the biggest part of this talk
+- As we cannot cover the whole Emulator in half an hour, I'll focus on the most important parts of it
+
+--
+
+1. Toolchain & Demo
+
+???
+
+- I'll show how I build and run the Emulator
+
+--
+
+1. Next Steps
+
+???
+
+- Future improvements
+
+---
+class: center, middle, inverse
+
+# WHAT?
+
+???
+- I guess most of you played at least once on a pinball machine
+
+---
+# WHAT?
+
+.left-column[
+  .left[![](pics/wpc-t2.jpg)]
+]
+
+???
+- THATS a Williams WPC machine we will emulate
+
+- produced 1990 and early 1999
+
+--
+.right-column[
+### WPC-89 Hardware
+
+- Build in 1991
+
+- CPU Board: 6809 CPU (2MHz), 8kb RAM, Williams ASIC
+
+- Dot Matrix Board: 128 x 32 resolution, 4 different brightness levels
+
+- and more: Sound Board, IO Board ...
+
+]
+
+???
+
+- Note: ASIC (Application Specific Integrated Circuits), analog and digital functionalities, custom chip
+
+---
+
+# WHAT?
+
+.left-column[
+  .left[![](pics/wpc-t2.jpg)]
+]
+
+.right-column[
+  .left[![](pics/wpc-backbox-removed.jpg)]
+]
+
+???
+- All electronic boards are installed behind the backbox - or Arnies head
+- There are dedicated boards
+- - the main CPU board
+- - Dot matrix display driver
+- - An IO board
+- - Sound board
+
+A Pinball Machine works quite simple:
+- there are **inputs** lines from the mechanical board that go to the IO board that report where the Pinball is using switches.
+- there are **output** lines to the mechanical board that light up lamps or activate motors
+
+Note about the Sound board:
+- it runs a dedicated 6809 CPU for sound processing
+- I didn't fully emulate the Sound board yet - so I won't talk about that board alot
+
+---
+class: center, middle, inverse
+
+# WHY?
+
+???
+- So why should i care about an antiquated machine
+- My oncle own one and I spend quite some time in front of that machine with my son
+- Really like that retro lo-fi sound and nice visuals on the display
+- i didn't found another emulator except MAME/PinMAME
+- Hardware seems to be simple enough to emulate
+- Canceled NES Emu
+
+---
+class: center, middle, inverse
+
+# Build an Emulator, Step-by-Step
+
+???
+- Sooo, lets start with the real stuff!
+
+---
+
+# Step-by-Step
+
+## Overview
+
+- CPU Emulation
+- Communication between peripherals
+- WPC Hardware Emulation
+- Emulator Timing
+- Sources
+
+???
+
+---
+
+class: center, middle, inverse
+
+## 6809 CPU Emulation
+
+???
+- is an 8-bit microprocessor CPU with 16-bit registers
+- produced 1978 - thats 40 years ago!
+
+- After some research I found an existing 6809 CPU emulator written JS
+- There were a couple of typos in the emulator - so I wasn't really sure about its quality. Also test coverage was pretty bad. But I thought better than nothing...
+
+Lts take a look how the CPU Emulator works
+
+---
+## CPU Emulation
+
+High Level view how the CPU Emulator works
+
+???
+I'll show the concrete examples in the following slides, here's just a overview what the CPU emu need to do
+
+--
+
+```js
+  1. reset CPU
+```
+???
+- first the CPU must be set to a defined state
+
+--
+
+```js
+  2. start infinite loop
+```
+???
+- the infinite loop starts
+
+--
+
+```js
+  3.     interrupt handling
+```
+???
+- interrupt handling is useful to react fast on certain events, can be initiated by devices
+
+--
+
+```js
+  4.     execute next opcode and modify CPU state
+```
+???
+- execute next opcode - an opcode is an instruction of the cpu, for example an mathematical addition. depending on the operation, the cpu state gets modified
+
+--
+
+```js
+  5.     update CPU ticks
+```
+???
+- add the end we update the CPU ticks to know what the CPU executed, important for time sync
+
+
+Before we can reset the CPU, we take a look how its state and API looks like
+
+---
+## CPU Emulation
+
+### CPU State
+
+```js
+class Cpu6809 {
+  constructor(memoryWriteFunction, memoryReadFunction) {
+    this.memoryWriteFunction = memoryWriteFunction;
+    this.memoryReadFunction = memoryReadFunction;
+
+    this.irqPendingFIRQ = false;
+    this.irqPendingIRQ = false;
+    this.tickCount = 0;
+
+    this.regA = 0;
+    this.regB = 0;
+    this.regX = 0;
+    this.regY = 0;
+    this.regU = 0;
+    this.regS = 0;
+    this.regPC = 0;
+    this.regCC = 0;
+    this.regDP = 0;
+  }
+```
+
+???
+Thats a simplified view of the CPU Emulator:
+- there are function to read and write to memory
+
+
+- the irqPending* flags define if a specific interrupt is pending
+
+
+- there's a tick counter thats used to synchronise the CPU against the time
+
+
+- and last but not least there are 9 registers
+- I wont go into details here, we take a closer look at two registers:
+- - (16) PC: Program Counter -> register pointing to the next instruction that will be executed by the CPU. after reading one byte, the counter value is increased
+- - ( 8) CC: Condition Code -> contains the flags, for example to mask FIRQ and IRQ, entire flag used when returning from an interrupt to restore the correct data of the registers
+
+
+thats all we need to know for now.
+
+
+- ( 8) A, B -> Accumulators (arithmetic and logic results are stored)
+- (16) X, Y -> Index Register, usually contain an index used for indexed addressing modes
+- (16) U: User Stack pointer, The user stack is usually used to pass arguments to/from subroutines, and it can also be used for temporary data storage
+- (16) S: System Stack pointer, The system stack stores machine state during subroutine calls and interrupts.
+- ( 8) DP: Direct Page -> there are 10 different address mode the CPU provides, in the direct addressing mode this register contains the most significant byte of the zero page address
+
+
+
+---
+## CPU Emulation
+
+### CPU API
+
+The CPU Emulator exposes those functions:
+```js
+  reset()
+
+  steps(ticks)
+
+  irq()
+  firq()
+
+```
+
+???
+to work with the CPU, it provides this limited API
+- **reset**: set the CPU in a defined state
+- **steps**: execute next opcodes for a defined amount of ticks
+- the rest of the functions are used to set interrupts or clear interrupt masks
+
+So the first step for the CPU Emulation was resetting the CPU, this looks simple as
+
+---
+
+## CPU Emulation
+
+### 1. Reset CPU
+
+```js
+reset() {
+  this.irqPendingIRQ = false;
+  this.irqPendingFIRQ = false;
+
+  // disable IRQ and FIRQ (set the mask flag)
+  this.regCC = F_IRQMASK | F_FIRQMASK;
+
+  this.regPC = this.ReadWord(0xFFFE);
+  this.tickCount = 0;
+}
+```
+
+???
+- most important we disable all interrupts
+- load the initial vector for the PC register (0xFFFE) - thats the location where the loaded ROM file boots
+- there are other hardcoded address spaces, for example all the IRQ routines can be found at 0xFFF6, 0xFFF8 and 0xFFFC
+
+Lets take a look what interrupts are and why they are useful...
+
+---
+
+## CPU Emulation
+
+### 2. Start infinite loop
+
+```js
+while(1) {
+
+}
+
+```
+
+---
+## CPU Emulation
+
+### 3. Interrupt handling
+
+???
+- the part I spend a lot of the time when i did the NES emulator
+- the CPU Emulator i use had no interrupt handling included, so i had to implement this myself.
+
+
+- **WHATS** an Interrupt? its a message from a device to the cpu to indicate there is something important to handle
+- The CPU will **suspending its current activities** and execute the interrupt routine
+
+
+- the result looks like this:
+
+--
+
+```js
+if (this.irqPendingFIRQ && (this.regCC & F_FIRQMASK) === 0) {
+  this.irqPendingFIRQ = false;
+  this._executeFirq();
+
+} else if (this.irqPendingIRQ && (this.regCC & F_IRQMASK) === 0) {
+  this.irqPendingIRQ = false;
+  this._executeIrq();
+}
+
+.. Fetch next Opcode
+
+```
+
+???
+
+- This CPU provides 3 different interrupt types: NMI, FIRQ, IRQ
+- important is that the interrupts have priority, so if multiple interrupts are pending, the most important one is run first
+- IRQ and FIRQ can be enabled or disabled (called masking)
+- FIRQ is called fast interrupt because this interrupt does not store and restore all registers before calling the interrupt routine. so this routing must save and load all used registers
+
+Lets take a look how a execute interrupt function looks like...
+
+---
+
+## CPU Emulation
+
+### 4. Fetch next opcode
+
+```js
+.. interrupt code
+
+const opcode = this.memoryReadFunction(this.regPC++);
+
+switch (opcode) {
+  case 0x00: //NEG Direct Page
+    addr = this.dpadd();
+    this.memoryWriteFunction(addr, this.oNEG(this.memoryReadFunction(addr)));
+    break;
+  case 0x03: //COM DP
+    addr = this.dpadd();
+    this.memoryWriteFunction(addr, this.oCOM(this.memoryReadFunction(addr)));
+    break;
+  case 0x12: //NOP
+    break;
+  case 0x0e: //JMP DP
+    addr = this.dpadd();
+    this.regPC = addr;
+    break;
+
+  ...
+
+```
+???
+
+If no interrupts are pending, we fetch the next opcode
+
+- the 6809 CPU provides 59 different instruction - which of course needs to be implemented
+
+- there's a Instruction Sets manual for each CPU that explains what each opcode does
+
+- if the instruction needs parameter, the needed parameter are fetched from the PC register and its offset will be increased
+
+---
+
+## CPU Emulation
+
+### 5. Update CPU ticks
+
+```js
+const cycles = [
+  6, 0, 0, 6, 6, 0, 6, 6, 6, 6, 6, 0, 6, 6, 3, 6,  /* 00-0F */
+  0, 0, 2, 4, 0, 0, 5, 9, 0, 2, 3, 0, 3, 2, 8, 6,  /* 10-1F */
+  3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,  /* 20-2F */
+  4, 4, 4, 4, 5, 5, 5, 5, 0, 5, 3, 6, 9,11, 0, 19, /* 30-3F */
+  2, 0, 0, 2, 2, 0, 2, 2, 2, 2, 2, 0, 2, 2, 0, 2,  /* 40-4F */
+  2, 0, 0, 2, 2, 0, 2, 2, 2, 2, 2, 0, 2, 2, 0, 2,  /* 50-5F */
+  6, 0, 0, 6, 6, 0, 6, 6, 6, 6, 6, 0, 6, 6, 3, 6,  /* 60-6F */
+  7, 0, 0, 7, 7, 0, 7, 7, 7, 7, 7, 0, 7, 7, 4, 7,  /* 70-7F */
+  2, 2, 2, 4, 2, 2, 2, 0, 2, 2, 2, 2, 4, 7, 3, 0,  /* 80-8F */
+  4, 4, 4, 6, 4, 4, 4, 4, 4, 4, 4, 4, 6, 7, 5, 5,  /* 90-9F */
+  4, 4, 4, 6, 4, 4, 4, 4, 4, 4, 4, 4, 6, 7, 5, 5,  /* A0-AF */
+  5, 5, 5, 7, 5, 5, 5, 5, 5, 5, 5, 5, 7, 8, 6, 6,  /* B0-BF */
+  2, 2, 2, 4, 2, 2, 2, 0, 2, 2, 2, 2, 3, 0, 3, 0,  /* C0-CF */
+  4, 4, 4, 6, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5,  /* D0-DF */
+  4, 4, 4, 6, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5,  /* E0-EF */
+  5, 5, 5, 7, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6   /* F0-FF */
+];
+
+
+...
+this.tickCount += cycles[opcode];
+
+```
+
+???
+We're already at the last step of the CPU Emulation - update CPU ticks
+- each instruction have a specific numbers of ticks it needs to run, thats basically how "expensive" an operation is
+- we use a look up table to increase the tick count
+- tick count is important to know how long the cpu is running
+
+---
+
+## CPU Emulation
+
+### Can I run a ROM now?
+
+???
+- CPU Emulation is implemented, does that mean I can run my ROM?
+
+--
+
+.center[![](pics/fn_no.jpg)]
+
+???
+- a pretty clear NO!
+
+- Why? The ROM expects that other hardware can be available.
+- As we didn't implemented other hardware yet, the program will either wait forever - maybe because an interrupt is not triggered - or the program crashes.
+
+So the main question now is, how can the CPU communicate with the other hardware?
+
+---
+
+class: center, middle, inverse
+
+## Communicate with other peripherals
+
+???
+As we already know:
+- Devices can communicate with the CPU using the interrupts - see the exposed CPU API
+
+- The CPU can use the injected memory read/write functions to communicate with devices, using a technique called memory mapper io.
+
+---
+## Communicate with other peripherals
+
+### Memory-mapped I/O (MMIO)
+
+???
+- Memory Mapped IO is a hardware feature build in the CPU
+
+--
+The CPU has access to an address space of 64kb (16 bit).
+
+???
+- our system has only 8kb RAM, so what to do with 64kb?
+- the answer is: we can communicate with other hardware
+
+--
+
+The memory map of the WPC-89 Hardware looks like this:
+
+- $0000-$1FFF (8kb)	RAM
+
+???
+- The memory map is static
+- communicate with RAM should be pretty clear
+
+--
+- $2000-$3FFF (8kb)	Hardware
+
+???
+- There is an 8kb address space reserved to communicate with the **Hardware**
+- Examples: Dot Matrix Controller, Sound Controller, Lamp output, Switch input...
+
+--
+- $4000-$7FFF (16kb) Bankswitched ROM (paging area) - READ ONLY
+???
+- **Bankswitched ROM**: Wikipedia describe Bank switching as: "Bank switching is a technique used in computer design to increase the amount of usable memory beyond the amount directly addressable by the processor"
+- the ROM file can be up to 1MB size - Bankswitching means to access parts of the ROM, the ROM is divided into 16kb junks (maximal 64 junks if the ROM is 1MB)
+
+--
+
+- $8000-$FFFF (32kb) Non-bankswitched "System ROM"
+
+???
+- **System ROM** is the last 32kb of the ROM and per definition the bootable part, aka the OS.
+- The OS is called Apple which means "Advanced Pinball Programming Logic Executive" and is always available
+- this OS contains the core operating system functions
+
+How can the Memory mapping be implemented in the Emulator?
+
+---
+## Communicate with other peripherals
+
+### Read Memory implementation
+
+Implementation of the memory read function
+
+???
+NOTE: thats the key concept how to Emulator works - it allows to split the emulator up in different pieces
+
+--
+
+```js
+  _read8(offset) {
+    const address = memoryMapper.getAddress(offset);
+    switch (address.subsystem) {
+
+      case memoryMapper.SUBSYSTEM_RAM:
+        return this.ram[address.offset];
+
+      case memoryMapper.SUBSYSTEM_HARDWARE:
+        return this._hardwareRead(address.offset);
+
+      case memoryMapper.SUBSYSTEM_BANKSWITCHED:
+        return this._bankswitchedRead(address.offset);
+
+      case memoryMapper.SUBSYSTEM_SYSTEMROM:
+        return this.systemRom[address.offset];
+
+      default:
+        throw new Error('INVALID_READ_SUBSYSTEM');
+    }
+  }
+```
+
+???
+- thats the function the CPU uses when a byte is loaded from the "memory"
+
+- the memoryMapper returns which subsystem the read function is responsible and delegates the function to it.
+
+- the write function is similar, except it cannot write to the BANKSWITCHED and SYSTEMROM
+
+We have now the bridge between CPU and the other hardware to implement, lets go!
+
+---
+
+## WPC Hardware Emulation
+
+### WPC-ASIC
+
+.left-column[
+  .left[![](pics/wpc-asic.jpg)]
+]
+
+.right-column[
+- The Heart of the WPC System
+
+- Custom made by Williams for this Pinball System
+
+- Giant address decoder
+]
+
+???
+
+- Note: ASIC (Application Specific Integrated Circuits), analog and digital functionalities, custom chip
+
+- All read/write requests from the CPU are first seen by the ASIC, which can then either respond to it directly if it is an internal function, or forward the request to another device.
+
+Let check which concrete functions this chip provides...
+---
+
+## WPC Hardware Emulation
+
+### WPC-ASIC Functions
+
+???
+The ASIC is quite complex, so I give you only a quick overview
+
+--
+
+- Triggers IRQ and FIRQ
+
+
+???
+
+- The ASIC is responsible for the Timing as it will trigger CPU interrupts
+
+- IRQ is triggered 976 times per second, about once every 1024us and triggers updating the IO settings
+
+- FIRQ is triggered when the Dot Matrix Controller finished drawing a specific Scanline, so the CPU can switch to the next frame to display
+
+--
+
+- Read the input switches using a 8x8 matrix
+- Update the lamps using a 8x8 matrix
+- Update 28 controlled outputs for solenoids, motors
+
+
+???
+- Updates all lamps and motors and report the switch state - basically make sure the User IO is up to date
+
+
+--
+
+- Triggers Diagnostic LED .. and more
+- Implements a Bit shifter
+
+???
+
+- there is a diagnostic LED on board that slowly blinks and gives you feedback if the system is running
+
+- there is more hardware we don't have time to talk about, for example a watchdog - but those systems are not mandatory to implement
+
+and the bitshifter we will look at
+
+---
+
+## WPC Hardware Emulation
+
+### WPC-ASIC Bit Shifter Write
+
+???
+- multiplications are the most expensive mathematical ops on this CPU, they use quite alot of ticks (11) to execute.
+- one way to avoid this is to use this bit shifter which means that this is a very primitive co-processor
+--
+
+```js
+write(offset, value) {
+  this.ram[offset] = value;
+
+  switch (offset) {
+    ...
+    case OP.WPC_SHIFTBIT:
+    case OP.WPC_SHIFTBIT2:
+      debug('WRITE', REVERSEOP[offset], value);
+      break;
+```
+???
+NOTE: this write function is called when the CPU writes to the ASIC part of the memory space
+
+- The write function is pretty easy, we just store the values in RAM
+- Shift Bit sets bit 0-7 for a 8 bit value
+- Shift Address
+The shifter works with 16bit numbers, thats why we have a H and L part of WPC_SHIFTADDR
+
+- The bit shifter is used to optimize bit-level operations (set, clear, test, and toggle).
+
+---
+
+## WPC Hardware Emulation
+
+### WPC-ASIC Bit Shifter Read
+
+```js
+read(offset) {
+  switch (offset) {
+    ...
+
+    case OP.WPC_SHIFTBIT:
+    case OP.WPC_SHIFTBIT2:
+      return 1 << (this.ram[offset] & 0x07);
+
+```
+
+???
+
+- WPC_SHIFTBIT and WPC_SHIFTBIT2 are used to set bit 0 to 7, depending which on the input value
+
+---
+
+## WPC Hardware Emulation
+
+### Much more to cover ...
+
+???
+
+Of course there are much more peripherals we need to implement, for example
+- the Dot Matrix Controller
+- drive the lamps
+- read input switches etc.
+
+However, Beer is waiting so I rather skip to the next chapter
+
+---
+
+## Emulator Timing
+
+???
+So how this timing
+
+--
+
+### CPU Specs
+
+- The CPU runs at 2 MHz
+
+???
+- this means the CPU can execute 2 Million ticks per second
+
+--
+
+- Execute approx. 350'000 operations per seconds
+
+???
+- DONT use debug statements if your Emulator should run at a decent framerate!
+
+--
+
+- Interrupts relies on exact timing
+
+???
+- If an interrupts is fired to late or early our program might crash or stuck forever
+
+-> Its obvious that the setTimeout function do not work, here's how I structure it
+
+---
+
+## Emulator Timing
+
+### Mainloop of the Backend/Emulator
+
+???
+To fulfill the requirements, the Emu expose one function that executes several ticks
+
+--
+```js
+executeCycles(ticksToRun) {
+  let ticksExecuted = 0;
+  while (ticksExecuted < ticksToRun) {
+    const singleTicks = this.cpu.steps();
+    ticksExecuted += singleTicks;
+    this.ticksIrq += singleTicks;
+    if (this.ticksIrq >= timing.CALL_IRQ_AFTER_TICKS) {
+      this.ticksIrq -= timing.CALL_IRQ_AFTER_TICKS;
+      this.cpu.irq();
+    }
+
+    this.ticksUpdateDmd += singleTicks;
+    if (this.ticksUpdateDmd >= timing.CALL_WPC_UPDATE_DISPLAY_AFTER_TICKS) {
+      this.ticksUpdateDmd -= timing.CALL_WPC_UPDATE_DISPLAY_AFTER_TICKS;
+      this.dmdBoard.copyScanline();
+    }
+
+    this.asic.executeCycle(singleTicks);
+  }
+
+  return ticksExecuted;
+}
+```
+
+???
+- the cpu execute steps until ticksToRun is exceeded
+- IRQ callback is called after 2049 ticks
+- we also need to call the DMD copy scanline function after 512 ticks
+
+Thats the mainloop - the rest is made with the memory mapped function.
+
+---
+
+## Emulator Timing
+
+### Mainloop of the Frontend
+
+Client use `requestAnimationFrame` to get 60 FPS
+
+???
+Nothing fancy here, we just to make sure drawing one frame does not exceed 16ms
+--
+
+To calculate the ticks we to draw one frame, use this simple calculation:
+
+```
+const TICKS = 2000000;
+const DESIRED_FPS = 60;
+const TICKS_PER_STEP = parseInt(TICKS / DESIRED_FPS, 10);
+```
+
+???
+This gives us about 33'000 ticks per call
+
+---
+
+## Emulator Timing
+
+### Mainloop of the Frontend
+
+.center[![](pics/wpc-client-perf.jpg)]
+
+???
+- this works pretty fine, it takes about 8ms to process 33000 ticks/6000 ops and render all elements.
+
+- Sidenote: this is the time need to actually run two emulated CPU's - the main CPU and the sound board
+
+- currently work on moving the core emu to a web worker thread
+
+---
+
+class: center, middle, inverse
+
+# Sources
+
+???
+- woher habe ich diese informationen?
+
+---
+
+# Sources
+
+- PinMame
+
+???
+- sehr umfangreich, code schwierig zu lesen da viele Markos und support für verschiedene pinball machinen
+--
+
+- FreeWPC
+
+???
+- Open Source projekt, welches das WPC OS nachbaut, sehr gute doku hat
+
+--
+
+- Other...
+???
+- diverse websites referenziert im readme (security pic), chicago!
+
+---
+
+class: center, middle, inverse
+
+# Toolchain & Demo
+
+---
+
+# Toolchain
+
+## Emulator / Backend
+
+- The main emulator is build as a library
+- No runtime dependencies
+- Use Webpack to compile
+
+???
+- The emulator uses less than 10k lines of code
+
+--
+
+## Frontend
+
+- Use the Emulator
+- Uses ES6 VanillaJS + Canvas
+- Use Webpack to compile
+- Fetches ROM files and has the game library
+
+???
+- The frontend uses less than 1k lines of code
+- game lib has game specific data
+
+---
+
+## Tracer
+
+- Dump current instruction with all registers
+- PinMame supports that
+
+???
+- zt subtile fehler, menu zeichned nichts auf dem dmd
+--
+```js
+CC=50 A=0000 B=0000 X=0000 Y=0000 S=0000 U=0000 8CBC: LDA   #$00
+CC=54 A=0000 B=0000 X=0000 Y=0000 S=0000 U=0000 8CBE: STA   $3FF2
+CC=54 A=0000 B=0000 X=0000 Y=0000 S=0000 U=0000 8CC1: LDY   #$0006
+CC=50 A=0000 B=0000 X=0000 Y=0006 S=0000 U=0000 8CC5: CLRB
+```
+
+???
+- vergleich pinmame / Wpc-emu, vergleich anzahl read/write auf hardware ressources -> zt sehr verschieden
+- All games worked except Johnny Mnemonic -> it turned out the the whole interrupt handling was wrong
+
+---
+
+# Demo
+
+???
+Show Emu in action
+
+- Open/Close Cabinet Door and enter system menu
+- show display test
+- explain debug output (game paused)
+
+---
+class: center, middle, inverse
+
+# Next Steps
+
+???
+Quick outlook what ideas I have
+
+---
+
+# Next Steps - Let's get physical
+
+.center[![](pics/wpc-board-v1.jpeg)]
+
+???
+- ESP32 board, welches via BLE mit dem browser kommuniziert
+- sync io state, reset detection, time sync
+---
+
+# OMG!
+
+.center[![](pics/wpc-board-v1-ugly-wires.JPG)]
+
+???
+- a pic from the alpha connection
+- flipper zuhause...
+---
+class: center, middle, inverse
+
+# Questions!
+
+???
+
+- Thats it, thanks for listening.
+- Questions?
+
+    </textarea>
+    <script src="remark/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create({
+        navigation: {
+          scroll: false
+        },
+        slideNumberFormat: '',
+      });
+    </script>
+  </body>
+</html>
