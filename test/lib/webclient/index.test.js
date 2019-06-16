@@ -25,12 +25,6 @@ test('WebclientIndex: getStatistics', (t) => {
   });
 });
 
-test('WebclientIndex: executeCycles', (t) => {
-  const webApiClient = t.context.webApiClient;
-  const result = webApiClient.executeCycles();
-  t.is(result, undefined);
-});
-
 [
   { command: 'initialiseEmulator', requestIdInAnswer: true },
   { command: 'resetEmulator', requestIdInAnswer: true },
@@ -42,7 +36,6 @@ test('WebclientIndex: executeCycles', (t) => {
   { command: 'getEmulatorRomName', requestIdInAnswer: false },
   { command: 'getEmulatorState', requestIdInAnswer: false },
   { command: 'setEmulatorState', requestIdInAnswer: true },
-  { command: 'getNextFrame', requestIdInAnswer: false },
   { command: 'registerAudioConsumer', requestIdInAnswer: false },
   { command: 'pauseEmulator', requestIdInAnswer: true },
   { command: 'resumeEmulator', requestIdInAnswer: true },
