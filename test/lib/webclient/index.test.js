@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import WebclientIndex from '../../../lib/webclient/';
+import WebclientIndex from '../../../lib/webclient';
 
 test.beforeEach((t) => {
   const mockWebWorker = new MockWebWorker('foo');
@@ -57,7 +57,7 @@ test('WebclientIndex: executeCycles', (t) => {
         } else {
           t.is(result, 'parameter');
         }
-      })
+      });
   });
 });
 
