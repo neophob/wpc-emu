@@ -16,6 +16,7 @@ class DrawLib {
     this.theme = theme;
 
     this.ctx.textBaseline = 'alphabetic';
+    this.drawMemRegionSegment = 0;
   }
 
   drawBackgroundPoints() {
@@ -344,18 +345,24 @@ class DrawLib {
   }
 
   drawMemRegion(xpos, ypos, data, width = 13 * this.theme.GRID_STEP_X) {
-    const startX = xpos * this.theme.GRID_STEP_X;
-    const startY = ypos * this.theme.GRID_STEP_Y;
+    const startX = (xpos * this.theme.GRID_STEP_X) | 0;
+    const startY = (ypos * this.theme.GRID_STEP_Y) | 0;
+    const currentSegment = this.drawMemRegionSegment++ % 8;
+    const SEGMENT_SIZE = 1024;
+    const height = parseInt(SEGMENT_SIZE / width, 10);
 
     let offsetX = 0;
-    let offsetY = 0;
+    let offsetY = height * currentSegment;
+
+    this.ctx.clearRect(startX + offsetX, startY + offsetY, width, height);
+
     let color = 0;
-    for (let i = 0; i < data.length / 2; i++) {
+    const dataOffset = currentSegment * SEGMENT_SIZE;
+    for (let i = dataOffset; i < dataOffset + SEGMENT_SIZE; i++) {
       if (data[i] > 0) {
         if (color !== data[i]) {
-          color = data[i].toString(16);
-          const color2 = (data[i] >> 1).toString(16);
-          this.ctx.fillStyle = '#' + color2 + color + color;
+          color = data[i];
+          this.ctx.fillStyle = 'rgba(128,255,255,' + (data[i] / 0xFF) + ')';
         }
         this.ctx.fillRect(startX + offsetX, startY + offsetY, 1, 1);
       }

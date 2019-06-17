@@ -23,6 +23,7 @@ const INITIAL_GAME = 'WPC-DMD: Hurricane';
 
 let soundInstance = AudioOutput();
 let dmdDump;
+let updatePending = false;
 
 function initialiseEmu(gameEntry) {
   window.wpcInterface = {
@@ -68,11 +69,15 @@ function initialiseEmu(gameEntry) {
 
       wpcEmuWebWorkerApi.registerAudioConsumer((message) => soundInstance.callback(message));
       wpcEmuWebWorkerApi.registerUiUpdateConsumer((emuUiState) => {
-        console.log('->UPD')
+        if (updatePending) {
+          console.log('MISSED_DRAW!')
+        }
+        updatePending = true;
+
         requestAnimationFrame(() => {
-          console.log('->RAF')
           const { emuState } = emuUiState;
           if (!emuState) {
+            updatePending = false;
             return;
           }
           const audioState = soundInstance.getState();
@@ -83,6 +88,7 @@ function initialiseEmu(gameEntry) {
           if (emuState.asic.wpc.inputState) {
             updateUiSwitchState(emuState.asic.wpc.inputState);
           }
+          updatePending = false;
 
           if (dmdDump) {
             dmdDump.addFrames(emuState.asic.dmd.videoOutputBuffer, emuState.cpuState.tickCount);
@@ -98,13 +104,13 @@ function initialiseEmu(gameEntry) {
             element.textContent = 'DUMPING: ' + dmdDump.getCapturedFrames();
           }
         });
+
       }, EXPECTED_FPS);
       return emuDebugUi.populateInitialCanvas(gameEntry);
     })
     .then(() => {
       soundInstance.playBootSound();
     });
-
 }
 
 function saveState() {
