@@ -25,6 +25,9 @@ let soundInstance = AudioOutput();
 let dmdDump;
 let updatePending = false;
 
+const times = [];
+let fps
+
 function initialiseEmu(gameEntry) {
   window.wpcInterface = {
     romSelection,
@@ -70,11 +73,12 @@ function initialiseEmu(gameEntry) {
       wpcEmuWebWorkerApi.registerAudioConsumer((message) => soundInstance.callback(message));
       wpcEmuWebWorkerApi.registerUiUpdateConsumer((emuUiState) => {
         if (updatePending) {
-          console.log('MISSED_DRAW!')
+          console.log('MISSED_DRAW!');
+          return;
         }
         updatePending = true;
 
-        requestAnimationFrame(() => {
+        requestAnimationFrame((timestamp) => {
           const { emuState } = emuUiState;
           if (!emuState) {
             updatePending = false;
@@ -103,6 +107,16 @@ function initialiseEmu(gameEntry) {
             const element = document.getElementById('dmd-dump-text');
             element.textContent = 'DUMPING: ' + dmdDump.getCapturedFrames();
           }
+
+          while (times.length > 0 && times[0] <= timestamp - 1000) {
+            times.shift();
+          }
+          times.push(timestamp);
+          if (fps !== times.length) {
+            console.log('fps',times.length);
+            //wpcEmuWebWorkerApi.adjustFramerate(times.length);
+          }
+          fps = times.length;
         });
 
       }, EXPECTED_FPS);
