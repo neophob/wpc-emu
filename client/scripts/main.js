@@ -25,8 +25,8 @@ let soundInstance = AudioOutput();
 let dmdDump;
 let updatePending = false;
 
-const times = [];
-let fps
+const fpsTimes = [];
+let lastFps;
 
 function initialiseEmu(gameEntry) {
   window.wpcInterface = {
@@ -76,15 +76,15 @@ function initialiseEmu(gameEntry) {
           console.log('MISSED_DRAW!');
           return;
         }
+        const { emuState } = emuUiState;
+        if (!emuState) {
+          return;
+        }
         updatePending = true;
 
         requestAnimationFrame((timestamp) => {
-          const { emuState } = emuUiState;
-          if (!emuState) {
-            updatePending = false;
-            return;
-          }
           const audioState = soundInstance.getState();
+          //TODO run state
           emuDebugUi.updateCanvas(emuState, true ? 'running' : 'paused', audioState);
 
           const { averageRTTms, sentMessages, failedMessages } = wpcEmuWebWorkerApi.getStatistics();
@@ -108,18 +108,18 @@ function initialiseEmu(gameEntry) {
             element.textContent = 'DUMPING: ' + dmdDump.getCapturedFrames();
           }
 
-          while (times.length > 0 && times[0] <= timestamp - 1000) {
-            times.shift();
+          while (fpsTimes.length > 0 && fpsTimes[0] <= timestamp - 1000) {
+            fpsTimes.shift();
           }
-          times.push(timestamp);
-          if (fps !== times.length) {
-            console.log('fps',times.length);
+          fpsTimes.push(timestamp);
+          if (lastFps !== fpsTimes.length) {
+            lastFps = fpsTimes.length;
+            console.log('fps changed', lastFps);
             //wpcEmuWebWorkerApi.adjustFramerate(times.length);
           }
-          fps = times.length;
         });
 
-      }, EXPECTED_FPS);
+      });
       return emuDebugUi.populateInitialCanvas(gameEntry);
     })
     .then(() => {
