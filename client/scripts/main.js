@@ -72,12 +72,14 @@ function initialiseEmu(gameEntry) {
 
       wpcEmuWebWorkerApi.registerAudioConsumer((message) => soundInstance.callback(message));
       wpcEmuWebWorkerApi.registerUiUpdateConsumer((emuUiState) => {
-        if (updatePending) {
-          console.log('MISSED_DRAW!');
-          return;
-        }
         const { emuState } = emuUiState;
         if (!emuState) {
+          console.log('NO_EMU_STATE!');
+          return;
+        }
+        if (updatePending) {
+          console.log('MISSED_DRAW!');
+          updatePending = false;
           return;
         }
         updatePending = true;
@@ -183,29 +185,14 @@ function initEmuWithGameName(name) {
 }
 
 function resumeEmu() {
-/*  if (intervalId) {
-    pauseEmu();
-  }
-  soundInstance.resume();
-  intervalId = requestAnimationFrame(step);*/
   soundInstance.resume();
   wpcEmuWebWorkerApi.resumeEmulator();
-
 }
 
 function pauseEmu() {
 /*  const audioState = soundInstance.getState();
   emuDebugUi.updateCanvas(null, 'paused', audioState);
-
-  soundInstance.pause();
-
-  if (!intervalId) {
-    // allows step by step
-    step();
-  }
-
-  cancelAnimationFrame(intervalId);
-  intervalId = false;*/
+*/
   soundInstance.pause();
   wpcEmuWebWorkerApi.pauseEmulator();
 }
