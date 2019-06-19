@@ -27,6 +27,7 @@ let updatePending = false;
 
 const fpsTimes = [];
 let lastFps;
+let rafId;
 
 function initialiseEmu(gameEntry) {
   window.wpcInterface = {
@@ -77,14 +78,12 @@ function initialiseEmu(gameEntry) {
           console.log('NO_EMU_STATE!');
           return;
         }
-        if (updatePending) {
-          console.log('MISSED_DRAW!');
-          updatePending = false;
-          return;
+        if (rafId) {
+          console.log('MISSED_DRAW!', rafId);
+          cancelAnimationFrame(rafId)
         }
-        updatePending = true;
 
-        requestAnimationFrame((timestamp) => {
+        rafId = requestAnimationFrame((timestamp) => {
           const audioState = soundInstance.getState();
           //TODO run state
           emuDebugUi.updateCanvas(emuState, true ? 'running' : 'paused', audioState);
@@ -119,6 +118,7 @@ function initialiseEmu(gameEntry) {
             console.log('fps changed', lastFps);
             //wpcEmuWebWorkerApi.adjustFramerate(times.length);
           }
+          rafId = 0;
         });
 
       });
@@ -166,8 +166,7 @@ function toggleDmdDump() {
 }
 
 function romSelection(romName) {
-  pauseEmu();
-  initEmuWithGameName(romName);
+  return initEmuWithGameName(romName);
 }
 
 function initEmuWithGameName(name) {
@@ -186,7 +185,7 @@ function initEmuWithGameName(name) {
 
 function resumeEmu() {
   soundInstance.resume();
-  wpcEmuWebWorkerApi.resumeEmulator();
+  return wpcEmuWebWorkerApi.resumeEmulator();
 }
 
 function pauseEmu() {
@@ -194,7 +193,7 @@ function pauseEmu() {
   emuDebugUi.updateCanvas(null, 'paused', audioState);
 */
   soundInstance.pause();
-  wpcEmuWebWorkerApi.pauseEmulator();
+  return wpcEmuWebWorkerApi.pauseEmulator();
 }
 
 function resetEmu() {
