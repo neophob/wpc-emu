@@ -1,0 +1,30 @@
+Reference Designator,Description,Manufacturer,Manufacturer Part Number,Suppliers,Package,Quantity,Mouser Part Number,Conn 22 Type,Conn 7 Type,Conn 10 Type,Conn 3 Type,Conn 34 Type,Conn 29 Type,Conn 19 Type,Conn 8 Type,Conn 11 Type,Conn 17 Type,Conn 26 Type,Mfg Package Ident,Mfg Package Ident Date,Conn 18 Type,Conn 16 Type,Number Of Adc Channels,Conn 25 Type,Conn 28 Type,Automotive,Verified Attributes,Verification Version,Conn 5 Type,Conn 21 Type,Conn 37 Type,Mfg Package Ident Rev,Verified Geometry,Conn 20 Type,Conn 27 Type,Interface,Conn 9 Type,Conn 1 Type,Conn 14 Type,Conn 31 Type,Conn 23 Type,Conn 15 Type,Max Frequency,Temperature Range Low,Max Supply Voltage,Conn 12 Type,Conn 30 Type,Conn 35 Type,Conn 6 Type,Footprint Variant Name 0,Verified Pin Names,Conn 33 Type,Conn 13 Type,Conn 0 Type,Conn 36 Type,Min Supply Voltage,Verified Pad Assignment,Centroid Not Specified,Number Of Gpio,Conn 32 Type,Conn 24 Type,Conn 4 Type,Bandwidth,Conn 2 Type,Device Class L1,Device Class L3,Device Class L2,Digikey Description,Is Connector,Is Male,Digikey Part Number,Temperature Range High,Symbol Type,Is Generic,Resistance
+ESP32-DevKit V4,"WiFi Development Tools (802.11) ESP32 General Development Kit, ESP32-WROOM-32 on the board",Espressif,ESP32-DevKitC V4,,PTH_WIFI-MODULE,1,356-ESP32-DEVKITC,I/O,I/O,I/O,input,I/O,I/O,input,I/O,I/O,input,I/O,ESP32-DevKitC V4,0,power,I/O,16,I/O,I/O,No,true,0.0.0.2,input,I/O,power,0,true,I/O,I/O,"I2C,SPI,UART,I2S",I/O,input,I/O,power,I/O,I/O,2.5GHz,-40°C,5V,I/O,I/O,I/O,I/O,Recommended_Land_Pattern,true,I/O,power,power,I/O,2.7V,true,No,22,I/O,I/O,input,2.4-2.5GHz,input,Integrated Circuits (ICs),Transceivers,RF Semiconductors and Devices,,,,,,,,
+J2,Single Row Straight Pin Header,Molex,90120-0124,,HDR4,1,538-90120-0124,,,,,,,,,,,,,,,,,,,,true,,,,,,true,,,,,,,,,,,-55°C,,,,,,,true,,,,,,true,Yes,,,,,,,,,,"4 Positions Header, Unshrouded, Breakaway Connector 0.100"" (2.54mm) Through Hole Tin",yes,yes,WM8074-ND,+125°C,,,
+J206/J207IN,9 Pin Header,Generic Headers,9 Pin Header,,,1,,,I/O,,I/O,,,,I/O,,,,,,,,,,,,,,I/O,,,,,,,,,I/O,,,,,,,,,,,I/O,,,,,I/O,,,,,,,,I/O,,I/O,,,,,,,,,,,
+J206/J207OUT,9 Pin Header,Generic Headers,9 Pin Header,,,1,,,I/O,,I/O,,,,I/O,,,,,,,,,,,,,,I/O,,,,,,,,,I/O,,,,,,,,,,,I/O,,,,,I/O,,,,,,,,I/O,,I/O,,,,,,,,,,,
+J208/J209IN,9 Pin Header,Generic Headers,9 Pin Header,,,1,,,I/O,,I/O,,,,I/O,,,,,,,,,,,,,,I/O,,,,,,,,,I/O,,,,,,,,,,,I/O,,,,,I/O,,,,,,,,I/O,,I/O,,,,,,,,,,,
+J208/J209OUT,9 Pin Header,Generic Headers,9 Pin Header,,,1,,,I/O,,I/O,,,,I/O,,,,,,,,,,,,,,I/O,,,,,,,,,I/O,,,,,,,,,,,I/O,,,,,I/O,,,,,,,,I/O,,I/O,,,,,,,,,,,
+R206_1,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+R206_2,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+R206_3,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+R206_4,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+R206_5,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+R206_6,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+R206_7,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+R206_9,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+R209_1,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+R209_2,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+R209_3,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+R209_4,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+R209_5,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+R209_7,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+R209_8,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+R209_9,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+RRES0,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+RRES2,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+RRES21,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+RRES4,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+R_RST,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+R_ZC,Generic Resistor (0),Generic,Resistor (0),,Axial,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Resistor,true,0
+ZC/RST/GND/5V,Single Row Straight Pin Header,Molex,90120-0124,,HDR4,1,538-90120-0124,,,,,,,,,,,,,,,,,,,,true,,,,,,true,,,,,,,,,,,-55°C,,,,,,,true,,,,,,true,Yes,,,,,,,,,,"4 Positions Header, Unshrouded, Breakaway Connector 0.100"" (2.54mm) Through Hole Tin",yes,yes,WM8074-ND,+125°C,,,

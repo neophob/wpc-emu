@@ -7,7 +7,6 @@ npm-debug.log
 *.ROM
 *.PP
 *.bin
-*.pdf
 .nyc_output
 coverage
 rootCA.*
@@ -18,3 +17,4 @@ server.crt
 test/dmdripper/img
 assets/soundripper/tmp
 assets/soundripper/output.*
+.clinic
