@@ -1,5 +1,8 @@
 # HISTORY
 
+## WIP
+- Smoother Lamp simulation
+
 ## 20/5/19
 - introducing "Oblivion UI"
 - new App icons
