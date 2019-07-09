@@ -61,6 +61,7 @@ const THEME = {
   COLOR_BLUE_INTENSE: 'rgb(106, 198, 213)',
   COLOR_RED: 'rgb(255, 108, 74)',
   COLOR_YELLOW: 'rgb(254, 255, 211)',
+  DMD_COLOR_RED_RGBA: 'rgb(255, 108, 74, ',
 
   POS_HEADER_X: 1,
   POS_HEADER_Y: 6,
@@ -262,7 +263,13 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   }
 
   // GI
-  canvaDmdDrawLib.drawMatrix8x8(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 8.75, emuState.asic.wpc.generalIlluminationState);
+/*  canvaDmdDrawLib.clear(
+    (THEME.POS_MATRIX_X + 7) * THEME.GRID_STEP_X,
+    (THEME.POS_MATRIX_Y + 7.75) * THEME.GRID_STEP_Y,
+    THEME.GRID_STEP_X * 6,
+    THEME.GRID_STEP_Y * 1
+  );*/
+  canvaDmdDrawLib.drawMatrix8x8Lights(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 8.75, emuState.asic.wpc.generalIlluminationState);
 
   canvasOverlayDrawLib.drawDiagram(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 15.5, 'lampRom', emuState.asic.wpc.lampRow, 26);
   canvasOverlayDrawLib.drawDiagram(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 18.5, 'lampColumn', emuState.asic.wpc.lampColumn, 26);

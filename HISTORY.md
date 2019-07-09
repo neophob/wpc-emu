@@ -2,6 +2,7 @@
 
 ## WIP
 - Smoother Lamp simulation
+- Implement GI Lamps (WIP)
 
 ## 20/5/19
 - introducing "Oblivion UI"
