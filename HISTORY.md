@@ -1,7 +1,7 @@
 # HISTORY
 
 ## WIP
-- Smoother Lamp simulation
+- Smoother Lamp simulation (Update timing, smooth lamp values)
 - Implement GI Lamps (WIP)
 
 ## 20/5/19
