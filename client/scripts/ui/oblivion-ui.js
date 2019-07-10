@@ -570,6 +570,10 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 7.25, 'SOLENOID');
   canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 10.25, 'GI');
 
+  canvasDrawLib.drawSimpleVerticalLine(THEME.POS_MATRIX_X + 13.5, THEME.POS_MATRIX_Y + 9.75, 1.25);
+  canvasDrawLib.drawSimpleHorizontalLine(THEME.POS_MATRIX_X + 12.5, THEME.POS_MATRIX_Y + 11, 1.125);
+  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 5.5, THEME.POS_MATRIX_Y + 11.25, 'FLIPPER RELAY');
+
   canvasDrawLib.drawHorizontalLine(THEME.POS_MATRIX_X, THEME.POS_MATRIX_Y + 12, 15);
   canvasDrawLib.drawHorizontalLine(THEME.POS_MATRIX_X, THEME.POS_MATRIX_Y + 12, 7.25, THEME.COLOR_BLUE_INTENSE);
 

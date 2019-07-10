@@ -2,6 +2,7 @@
 
 ## WIP
 - Smoother Lamp simulation (Update timing, smooth lamp values)
+- Show Flipper relay and Coin door relay in UI
 - Implement GI Lamps (WIP)
 
 ## 20/5/19
