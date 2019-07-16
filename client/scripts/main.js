@@ -17,13 +17,11 @@ import WebWorker from 'worker-loader!../../lib/webclient/webworker.js';
 const WpcEmuWebWorkerApi = require('../../lib/webclient');
 let wpcEmuWebWorkerApi;
 
-const EXPECTED_FPS = 60;
 const MAXIMAL_DMD_FRAMES_TO_RIP = 8000;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
 
 let soundInstance = AudioOutput();
 let dmdDump;
-let updatePending = false;
 
 const fpsTimes = [];
 let lastFps;
@@ -93,7 +91,6 @@ function initialiseEmu(gameEntry) {
           if (emuState.asic.wpc.inputState) {
             updateUiSwitchState(emuState.asic.wpc.inputState);
           }
-          updatePending = false;
 
           if (dmdDump) {
             dmdDump.addFrames(emuState.asic.dmd.videoOutputBuffer, emuState.cpuState.tickCount);
@@ -116,7 +113,7 @@ function initialiseEmu(gameEntry) {
           if (lastFps !== fpsTimes.length) {
             lastFps = fpsTimes.length;
             console.log('fps changed', lastFps);
-            //wpcEmuWebWorkerApi.adjustFramerate(times.length);
+            //wpcEmuWebWorkerApi.adjustFramerate(fpsTimes.length);
           }
           rafId = 0;
         });
@@ -177,6 +174,7 @@ function initEmuWithGameName(name) {
   return Promise.all([ initialiseEmu(gameEntry), wpcEmuWebWorkerApi.reset() ])
     .then(resumeEmu)
     .then(() => initialiseActions(gameEntry.initialise, wpcEmuWebWorkerApi))
+    .then(() => wpcEmuWebWorkerApi.adjustFramerate(50))
     .catch((error) => {
       console.error('FAILED to load ROM:', error.message);
       emuDebugUi.errorFeedback(error);
