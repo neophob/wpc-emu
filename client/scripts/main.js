@@ -24,7 +24,7 @@ let soundInstance = AudioOutput();
 let dmdDump;
 
 const fpsTimes = [];
-let lastFps;
+let lastFps = 1;
 let rafId;
 
 function initialiseEmu(gameEntry) {
@@ -110,7 +110,7 @@ function initialiseEmu(gameEntry) {
             fpsTimes.shift();
           }
           fpsTimes.push(timestamp);
-          if (lastFps !== fpsTimes.length) {
+          if (Math.abs(lastFps - fpsTimes.length) > 5) {
             lastFps = fpsTimes.length;
             console.log('fps changed', lastFps);
             //wpcEmuWebWorkerApi.adjustFramerate(fpsTimes.length);
