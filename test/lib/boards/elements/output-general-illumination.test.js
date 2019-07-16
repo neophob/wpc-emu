@@ -86,4 +86,17 @@ test('generalIllumination, getUint8ArrayFromState', (t) => {
   t.deepEqual(result, Uint8Array.from([8, 8, 8, 8, 8, 8, 8, 8]));
 });
 
-//TODO with multiple rounds
+test('generalIllumination, should decrease value (dim)', (t) => {
+  const generalIllumination = t.context.preWpc95;
+  generalIllumination.update(0xFF);
+  generalIllumination.update(0x00);
+  generalIllumination.update(0x00);
+  t.is(generalIllumination.generalIlluminationState[0], 0x05);
+  t.is(generalIllumination.generalIlluminationState[1], 0x05);
+  t.is(generalIllumination.generalIlluminationState[2], 0x05);
+  t.is(generalIllumination.generalIlluminationState[3], 0x05);
+  t.is(generalIllumination.generalIlluminationState[4], 0x05);
+  t.is(generalIllumination.generalIlluminationState[5], 0x00);
+  t.is(generalIllumination.generalIlluminationState[6], 0x00);
+  t.is(generalIllumination.generalIlluminationState[7], 0x00);
+});
