@@ -17,6 +17,7 @@ import WebWorker from 'worker-loader!../../lib/webclient/webworker.js';
 const WpcEmuWebWorkerApi = require('../../lib/webclient');
 let wpcEmuWebWorkerApi;
 
+const DESIRED_FPS = 50;
 const MAXIMAL_DMD_FRAMES_TO_RIP = 8000;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
 
@@ -59,7 +60,6 @@ function initialiseEmu(gameEntry) {
       soundInstance = AudioOutput(gameEntry.audio);
       //NOTE: IIKS we pollute globals here
       window.wpcInterface = {
-        //TODO Rename
         webclient: wpcEmuWebWorkerApi,
         resetEmu,
         pauseEmu,
@@ -85,7 +85,6 @@ function initialiseEmu(gameEntry) {
 
         rafId = requestAnimationFrame((timestamp) => {
           const audioState = soundInstance.getState();
-          //TODO run state
           emuDebugUi.updateCanvas(emuState, true ? 'running' : 'paused', audioState);
 
           const { averageRTTms, sentMessages, failedMessages } = wpcEmuWebWorkerApi.getStatistics();
@@ -117,6 +116,7 @@ function initialiseEmu(gameEntry) {
           if (Math.abs(lastFps - fpsTimes.length) > 5) {
             lastFps = fpsTimes.length;
             console.log('fps changed', lastFps);
+            //TODO: reduce FPS
             //wpcEmuWebWorkerApi.adjustFramerate(fpsTimes.length);
           }
           rafId = 0;
@@ -176,9 +176,9 @@ function initEmuWithGameName(name) {
   populateControlUiView(gameEntry, gamelist, name);
 
   return Promise.all([ initialiseEmu(gameEntry), wpcEmuWebWorkerApi.reset() ])
-    .then(() => initialiseActions(gameEntry.initialise, wpcEmuWebWorkerApi))
     .then(resumeEmu)
-    .then(() => wpcEmuWebWorkerApi.adjustFramerate(50))
+    .then(() => initialiseActions(gameEntry.initialise, wpcEmuWebWorkerApi))
+    .then(() => wpcEmuWebWorkerApi.adjustFramerate(DESIRED_FPS))
     .catch((error) => {
       console.error('FAILED to load ROM:', error.message);
       emuDebugUi.errorFeedback(error);
