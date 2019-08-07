@@ -176,8 +176,8 @@ function initEmuWithGameName(name) {
   populateControlUiView(gameEntry, gamelist, name);
 
   return Promise.all([ initialiseEmu(gameEntry), wpcEmuWebWorkerApi.reset() ])
-    .then(resumeEmu)
     .then(() => initialiseActions(gameEntry.initialise, wpcEmuWebWorkerApi))
+    .then(resumeEmu)
     .then(() => wpcEmuWebWorkerApi.adjustFramerate(50))
     .catch((error) => {
       console.error('FAILED to load ROM:', error.message);
