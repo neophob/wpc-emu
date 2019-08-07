@@ -110,10 +110,12 @@ lampColorLut.set('WHITE', 'rgba(255,255,255,');
 lampColorLut.set('GREEN', 'rgba(0,255,0,');
 lampColorLut.set('BLACK', 'rgba(0,0,0,255)');
 
-function drawMetaData(averageRTTms, sentMessages, failedMessages) {
-  canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X, 4, averageRTTms);
-  canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 8, 4, sentMessages);
-  canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 8, 5, failedMessages);
+function drawMetaData(object) {
+  const { averageRTTms, sentMessages, failedMessages, missedDraw } = object;
+  canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 1, 4, averageRTTms);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 1, 6, missedDraw);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 9, 4, sentMessages);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 9, 5, failedMessages);
 }
 
 function updateCanvas(emuState, cpuRunningState, audioState) {
@@ -468,7 +470,8 @@ function initialise() {
   canvasDrawLib.drawVerticalLine(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 7, 3);
 
   // META
-  canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X, 3, 'AVG RTT TIME', THEME.FONT_TEXT);
+  canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X, 3, 'AVG RTT MS', THEME.FONT_TEXT);
+  canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X, 5, 'MISSED DRAW', THEME.FONT_TEXT);
   canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X + 8, 3, 'MSG SENT/FAILED', THEME.FONT_TEXT);
 
   // DMD MEM

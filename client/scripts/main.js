@@ -25,6 +25,7 @@ let dmdDump;
 
 const fpsTimes = [];
 let lastFps = 1;
+let missedDraw = 0;
 let rafId;
 
 function initialiseEmu(gameEntry) {
@@ -77,7 +78,8 @@ function initialiseEmu(gameEntry) {
           return;
         }
         if (rafId) {
-          console.log('MISSED_DRAW!', rafId);
+          missedDraw++;
+          console.log('MISSED_DRAW!', rafId, missedDraw);
           cancelAnimationFrame(rafId)
         }
 
@@ -87,7 +89,9 @@ function initialiseEmu(gameEntry) {
           emuDebugUi.updateCanvas(emuState, true ? 'running' : 'paused', audioState);
 
           const { averageRTTms, sentMessages, failedMessages } = wpcEmuWebWorkerApi.getStatistics();
-          emuDebugUi.drawMetaData(averageRTTms, sentMessages, failedMessages);
+          emuDebugUi.drawMetaData({
+            averageRTTms, sentMessages, failedMessages, missedDraw
+          });
           if (emuState.asic.wpc.inputState) {
             updateUiSwitchState(emuState.asic.wpc.inputState);
           }
