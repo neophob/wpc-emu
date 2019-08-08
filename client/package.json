@@ -1,6 +1,6 @@
 {
   "name": "wpc-emu-frontend",
-  "version": "0.28.0",
+  "version": "0.28.1",
   "description": "WPC pinball machine emu frontend",
   "main": "index.js",
   "engines": {
@@ -15,23 +15,26 @@
   },
   "author": "Michael Vogt",
   "license": "ISC",
+  "dependencies": {
+    "file-saver": "^2.0.2"
+  },
   "devDependencies": {
-    "@babel/register": "^7.4.4",
+    "@babel/register": "^7.5.5",
     "ava": "^0.25.0",
     "babel-preset-env": "^1.7.0",
     "browser-env": "^3.2.6",
     "css-loader": "^2.1.1",
-    "current-device": "^0.8.0",
+    "current-device": "^0.8.2",
     "favicons-webpack-plugin": "0.0.9",
     "howler": "^2.1.2",
     "html-webpack-plugin": "^3.2.0",
     "milligram": "^1.3.0",
     "nyc": "^14.1.1",
-    "raw-loader": "^2.0.0",
-    "style-loader": "^0.23.1",
-    "terser-webpack-plugin": "^1.3.0",
-    "webpack": "^4.34.0",
-    "webpack-cli": "^3.3.4",
+    "raw-loader": "^3.1.0",
+    "style-loader": "^1.0.0",
+    "terser-webpack-plugin": "^1.4.1",
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6",
     "webpack-pwa-manifest": "^4.0.0",
     "whatwg-fetch": "^2.0.4",
     "workbox-webpack-plugin": "^3.6.3",
@@ -77,8 +80,5 @@
       "padding-line-between-statements": 0,
       "array-element-newline": 0
     }
-  },
-  "dependencies": {
-    "file-saver": "^2.0.1"
   }
 }
