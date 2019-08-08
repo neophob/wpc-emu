@@ -80,7 +80,7 @@ function addGameSpecificControls(gameEntry) {
       child.id = PINBALL_SWITCH_BUTTONS_ELEMENT + mapping.id;
       child.className = CSS_BUTTON_CLASS;
       child.addEventListener('click', () => {
-        window.wpcInterface.wpcSystem.setInput(mapping.id);
+        window.wpcInterface.webclient.setInput(mapping.id);
       });
       element.append(child);
     });
@@ -95,7 +95,7 @@ function addGameSpecificControls(gameEntry) {
       child.id = PINBALL_FLIPTRONICS_ELEMENT + mapping.id;
       child.className = CSS_BUTTON_CLASS;
       child.addEventListener('click', () => {
-        window.wpcInterface.wpcSystem.setFliptronicsInput(mapping.id);
+        window.wpcInterface.webclient.setFliptronicsInput(mapping.id);
       });
       element.appendChild(child);
     });

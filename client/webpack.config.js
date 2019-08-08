@@ -94,7 +94,7 @@ module.exports = () => {
       })]
     },
     output: {
-      filename: 'wpc-client.js',
+      filename: '[name].js',
       path: path.resolve(__dirname, '../dist')
     },
     module: {
@@ -110,6 +110,10 @@ module.exports = () => {
         {
           test: /\.tpl/,
           use: 'raw-loader'
+        },
+        {
+          test: /\.worker\.js$/,
+          use: { loader: 'worker-loader' }
         }
       ]
     }
