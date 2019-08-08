@@ -16,13 +16,13 @@
 <div class="row">
   <div class="column column-10">Coindoor</div>
   <div class="column column-40">
-    <button class="button-wpc button-outline" onclick="wpcInterface.wpcSystem.setCabinetInput(1);">Coin#1</button>
-    <button class="button-wpc button-outline" onclick="wpcInterface.wpcSystem.setCabinetInput(2);">Coin#2</button>
-    <button class="button-wpc button-outline" onclick="wpcInterface.wpcSystem.setCabinetInput(4);">Coin#3</button>
-    <button class="button-wpc" onclick="wpcInterface.wpcSystem.setCabinetInput(16);">Escape</button>
-    <button class="button-wpc button-outline" onclick="wpcInterface.wpcSystem.setCabinetInput(32);">-</button>
-    <button class="button-wpc button-outline" onclick="wpcInterface.wpcSystem.setCabinetInput(64);">+</button>
-    <button class="button-wpc" onclick="wpcInterface.wpcSystem.setCabinetInput(128);">Enter</button>
+    <button class="button-wpc button-outline" onclick="wpcInterface.webclient.setCabinetInput(1);">Coin#1</button>
+    <button class="button-wpc button-outline" onclick="wpcInterface.webclient.setCabinetInput(2);">Coin#2</button>
+    <button class="button-wpc button-outline" onclick="wpcInterface.webclient.setCabinetInput(4);">Coin#3</button>
+    <button class="button-wpc" onclick="wpcInterface.webclient.setCabinetInput(16);">Escape</button>
+    <button class="button-wpc button-outline" onclick="wpcInterface.webclient.setCabinetInput(32);">-</button>
+    <button class="button-wpc button-outline" onclick="wpcInterface.webclient.setCabinetInput(64);">+</button>
+    <button class="button-wpc" onclick="wpcInterface.webclient.setCabinetInput(128);">Enter</button>
   </div>
   <div class="column column-10">Emulator</div>
   <div class="column column-40">

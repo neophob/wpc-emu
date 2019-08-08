@@ -3,7 +3,7 @@
 import { replaceNode } from './htmlselector';
 import { createDrawLib } from './ui/lib';
 
-export { initialise, updateCanvas, populateInitialCanvas, errorFeedback, loadFeedback };
+export { initialise, drawMetaData, updateCanvas, populateInitialCanvas, errorFeedback, loadFeedback };
 
 // inspiration:
 // https://gmunk.com/OBLIVION-GFX
@@ -61,6 +61,7 @@ const THEME = {
   COLOR_BLUE_INTENSE: 'rgb(106, 198, 213)',
   COLOR_RED: 'rgb(255, 108, 74)',
   COLOR_YELLOW: 'rgb(254, 255, 211)',
+  DMD_COLOR_RED_RGBA: 'rgb(255, 108, 74, ',
 
   POS_HEADER_X: 1,
   POS_HEADER_Y: 6,
@@ -108,6 +109,14 @@ lampColorLut.set('LPURPLE', 'rgba(218,112,214,');
 lampColorLut.set('WHITE', 'rgba(255,255,255,');
 lampColorLut.set('GREEN', 'rgba(0,255,0,');
 lampColorLut.set('BLACK', 'rgba(0,0,0,255)');
+
+function drawMetaData(object) {
+  const { averageRTTms, sentMessages, failedMessages, missedDraw } = object;
+  canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 1, 4, averageRTTms);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 1, 6, missedDraw);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 9, 4, sentMessages);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 9, 5, failedMessages);
+}
 
 function updateCanvas(emuState, cpuRunningState, audioState) {
   if (!emuState) {
@@ -256,7 +265,13 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   }
 
   // GI
-  canvaDmdDrawLib.drawMatrix8x8(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 8.75, emuState.asic.wpc.generalIlluminationState);
+/*  canvaDmdDrawLib.clear(
+    (THEME.POS_MATRIX_X + 7) * THEME.GRID_STEP_X,
+    (THEME.POS_MATRIX_Y + 7.75) * THEME.GRID_STEP_Y,
+    THEME.GRID_STEP_X * 6,
+    THEME.GRID_STEP_Y * 1
+  );*/
+  canvaDmdDrawLib.drawMatrix8x8Lights(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 8.75, emuState.asic.wpc.generalIlluminationState);
 
   canvasOverlayDrawLib.drawDiagram(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 15.5, 'lampRom', emuState.asic.wpc.lampRow, 26);
   canvasOverlayDrawLib.drawDiagram(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 18.5, 'lampColumn', emuState.asic.wpc.lampColumn, 26);
@@ -271,11 +286,10 @@ function createCanvas() {
 
 function initiateCanvasElements() {
   if (initialized) {
-    console.log('ALREADY_INITIALIZED!');
     return;
   }
   initialized = true;
-  console.log('initialise');
+  console.log('INIT_CANVAS');
 
   const canvasRootElement = createCanvas();
   canvas = canvasRootElement.getContext('2d', { alpha: false });
@@ -455,6 +469,11 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 8, THEME.POS_ASIC_Y + 8, 'LOCKED MEM W');
   canvasDrawLib.drawVerticalLine(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 7, 3);
 
+  // META
+  canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X, 3, 'AVG RTT MS', THEME.FONT_TEXT);
+  canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X, 5, 'MISSED DRAW', THEME.FONT_TEXT);
+  canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X + 8, 3, 'MSG SENT/FAILED', THEME.FONT_TEXT);
+
   // DMD MEM
   canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X,      THEME.POS_DMDMEM_Y, 20);
   canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 12, THEME.POS_DMDMEM_Y + 1.5, 18.5);
@@ -553,6 +572,10 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 10.25, 'INPUT');
   canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 7.25, 'SOLENOID');
   canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 10.25, 'GI');
+
+  canvasDrawLib.drawSimpleVerticalLine(THEME.POS_MATRIX_X + 13.5, THEME.POS_MATRIX_Y + 9.75, 1.25);
+  canvasDrawLib.drawSimpleHorizontalLine(THEME.POS_MATRIX_X + 12.5, THEME.POS_MATRIX_Y + 11, 1.125);
+  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 5.5, THEME.POS_MATRIX_Y + 11.25, 'FLIPPER RELAY');
 
   canvasDrawLib.drawHorizontalLine(THEME.POS_MATRIX_X, THEME.POS_MATRIX_Y + 12, 15);
   canvasDrawLib.drawHorizontalLine(THEME.POS_MATRIX_X, THEME.POS_MATRIX_Y + 12, 7.25, THEME.COLOR_BLUE_INTENSE);

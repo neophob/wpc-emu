@@ -22,60 +22,33 @@ test.beforeEach((t) => {
     localStorage,
   };
 
-  let state;
-
-  const mockWpcSystem = {
-    cpuBoard: {
-      romFileName: 'mockedName',
-      getState: () => {
-        return {
-          foo: 'bar',
-          nested: {
-            data: 123,
-            moreNested: {
-              thats: 'deep',
-            }
-          },
-          convertMe: Uint8Array.from([1,2,3]),
-        };
-      },
-      setState: (_state) => {
-        state = _state;
-      },
-    }
-  };
-
   t.context = {
     localStorage: global.window.localStorage,
-    mockWpcSystem,
-    spySetState: () => {
-      return state;
-    },
   };
 });
 
 test('loadRam, should ignore non existent ram state', (t) => {
-  const loadedEntry = loadRam(t.context.mockWpcSystem);
+  const loadedEntry = loadRam('foo');
   t.is(loadedEntry, false);
 });
 
 test('saveRam, should ignore non existent ram state', (t) => {
-  saveRam(t.context.mockWpcSystem);
-  const result = t.context.localStorage.getItem('mockedName');
-  t.deepEqual(result, '{"foo":"bar","nested":{"data":123,"moreNested":{"thats":"deep"}},"convertMe":[1,2,3]}');
+  const filename = 'foobar';
+  const state = { is: true };
+  saveRam(filename, state);
+  const result = t.context.localStorage.getItem(filename);
+  t.deepEqual(result, JSON.stringify(state));
 });
 
-test('saveRam/loadRam, should populate wpc system with new data', (t) => {
-  saveRam(t.context.mockWpcSystem);
-  const loadedEntry = loadRam(t.context.mockWpcSystem);
-  const result = t.context.spySetState();
-  t.is(loadedEntry, true);
-  t.deepEqual(result, {
-    foo: 'bar',
-    nested: {
-      data: 123,
-      moreNested: { thats: 'deep' }
-    },
+test('saveRam/loadRam, load state should equal the initial state', (t) => {
+  const filename = 'foobar';
+  const state = {
+    is: true,
+    moreNested: { thats: 'deep' },
     convertMe: [ 1, 2, 3 ]
-  });
+  };
+  saveRam(filename, state);
+
+  const result = loadRam(filename);
+  t.deepEqual(result, state);
 });

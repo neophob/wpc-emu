@@ -1,5 +1,10 @@
 # HISTORY
 
+## WIP
+- Smoother Lamp simulation (Update timing, smooth lamp values)
+- Show Flipper relay and Coin door relay in UI
+- Implement GI Lamps
+
 ## 20/5/19
 - introducing "Oblivion UI"
 - new App icons

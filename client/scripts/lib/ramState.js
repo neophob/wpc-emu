@@ -13,29 +13,21 @@ function convertObjectUint8ArrayToRegularArray(object) {
   }
 }
 
-function saveRam(wpcSystem) {
-  const romName = getRomName(wpcSystem);
-  const stateObject = wpcSystem.cpuBoard.getState();
+function saveRam(romName, emuState) {
   //convert all typed array to plain arrays to store
-  convertObjectUint8ArrayToRegularArray(stateObject);
+  convertObjectUint8ArrayToRegularArray(emuState);
 
-  window.localStorage.setItem(romName, JSON.stringify(stateObject));
+  window.localStorage.setItem(romName, JSON.stringify(emuState));
   console.log('RAM STATE SAVED', romName);
 }
 
-function loadRam(wpcSystem) {
-  const romName = getRomName(wpcSystem);
+function loadRam(romName) {
   const stateObjectAsString = window.localStorage.getItem(romName);
   if (!stateObjectAsString) {
     console.log('NO RAM STATE FOUND', romName);
     return false;
   }
   const stateObject = JSON.parse(stateObjectAsString);
-  wpcSystem.cpuBoard.setState(stateObject);
   console.log('RAM STATE LOADED', romName);
-  return true;
-}
-
-function getRomName(wpcSystem) {
-  return wpcSystem.cpuBoard.romFileName;
+  return stateObject;
 }

@@ -150,7 +150,7 @@ test('wpc, update active lamp', (t) => {
   wpc.write(CpuBoardAsic.OP.WPC_LAMP_ROW_OUTPUT, 0x4);
   wpc.write(CpuBoardAsic.OP.WPC_LAMP_COL_STROBE, 0x4);
   const result = wpc.getState().lampState;
-  t.is(result[18], 0x80);
+  t.is(result[18], 0xFF);
 });
 
 test('wpc, get time, should update checksum', (t) => {
