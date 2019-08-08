@@ -19,3 +19,4 @@ test/dmdripper/img
 assets/soundripper/tmp
 assets/soundripper/output.*
 .clinic
+docs/rom

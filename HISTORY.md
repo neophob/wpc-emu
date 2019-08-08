@@ -1,9 +1,11 @@
 # HISTORY
 
-## WIP
+## 8/8/19
 - Smoother Lamp simulation (Update timing, smooth lamp values)
 - Show Flipper relay and Coin door relay in UI
 - Implement GI Lamps
+- improve emu bundling (emu, webworker, client)
+- client run emulator in web worked thread
 
 ## 20/5/19
 - introducing "Oblivion UI"

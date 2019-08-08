@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/apple-touch-icon-precomposed.png"
   },
   {
-    "revision": "5990209b82b034292349",
+    "revision": "4102b350aeaf7ca9c02d",
     "url": "wpc-client.js"
   },
   {
@@ -12,7 +12,7 @@ self.__precacheManifest = [
     "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/favicon-16x16.png"
   },
   {
-    "revision": "8fc0ce54b1d4c0cc23a18de66f642885",
+    "revision": "3fb860d1d8a305dc27b117e4716a6dbf",
     "url": "index.html"
   },
   {
@@ -32,12 +32,12 @@ self.__precacheManifest = [
     "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/manifest.json"
   },
   {
-    "revision": "a6c4b52da200450957c5c01bdda369db",
-    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/firefox_app_512x512.png"
-  },
-  {
     "revision": "e1b7b921e38dd64269cb9d475ab9f656",
     "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/firefox_app_128x128.png"
+  },
+  {
+    "revision": "a6c4b52da200450957c5c01bdda369db",
+    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/firefox_app_512x512.png"
   },
   {
     "revision": "43ddbb68d4f1da20bf642949e85469e5",
@@ -77,11 +77,11 @@ self.__precacheManifest = [
   },
   {
     "revision": "df465ba67d18d5267f1db48aed87ea56",
-    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/apple-touch-icon-180x180.png"
+    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/apple-touch-icon.png"
   },
   {
     "revision": "df465ba67d18d5267f1db48aed87ea56",
-    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/apple-touch-icon.png"
+    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/apple-touch-icon-180x180.png"
   },
   {
     "revision": "604317f86e9cca8d9c8cd2499f4f376a",
@@ -164,7 +164,11 @@ self.__precacheManifest = [
     "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/android-chrome-144x144.png"
   },
   {
-    "revision": "efb89f35a9765f7d9f2a2610655737e1",
+    "revision": "806b65bc55746fcfc6061498a97abf50",
     "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/.cache"
+  },
+  {
+    "revision": "f00aab0232c0b7d21b1d649053c91b77",
+    "url": "bab8d89471aa2c4bd7c8.worker.js"
   }
 ];
