@@ -3,6 +3,9 @@
 import '../node_modules/milligram/dist/milligram.css';
 import '../styles/client.css';
 
+// reference the webworker from wep-emu
+import WebWorker from 'worker-loader!../../lib/webclient/webworker.js';
+
 import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher';
 import { initialiseActions } from './lib/initialise';
 import { loadRam, saveRam, } from './lib/ramState';
@@ -12,8 +15,6 @@ import * as gamelist from './db/gamelist';
 import { populateControlUiView, updateUiSwitchState } from './ui/control-ui';
 import * as emuDebugUi from './ui/oblivion-ui';
 
-// reference the webworker from wep-emu
-import WebWorker from 'worker-loader!../../lib/webclient/webworker.js';
 const WpcEmuWebWorkerApi = require('../../lib/webclient');
 let wpcEmuWebWorkerApi;
 
@@ -80,7 +81,7 @@ function initialiseEmu(gameEntry) {
         if (rafId) {
           missedDraw++;
           console.log('MISSED_DRAW!', rafId, missedDraw);
-          cancelAnimationFrame(rafId)
+          cancelAnimationFrame(rafId);
         }
 
         rafId = requestAnimationFrame((timestamp) => {
