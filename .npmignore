@@ -3,6 +3,8 @@ docs
 .DS_Store
 node_modules
 /dist
+test/dmdripper
+test/tracer
 npm-debug.log
 *.ROM
 *.PP
@@ -16,3 +18,9 @@ server.key
 server.crt
 ./rom
 test/dmdripper/img
+assets/soundripper/tmp
+assets/soundripper/output.*
+.clinic
+docs/rom
+rom
+cert.pem
