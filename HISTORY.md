@@ -1,5 +1,8 @@
 # HISTORY
 
+## 11/8/19
+- Fix Flipper relay and Coin door relay in UI
+
 ## 8/8/19
 - Smoother Lamp simulation (Update timing, smooth lamp values)
 - Show Flipper relay and Coin door relay in UI

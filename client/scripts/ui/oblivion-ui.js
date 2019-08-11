@@ -204,7 +204,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     canvaDmdMemDrawLib.drawVerticalRandomBlip(THEME.POS_DMDMEM_X + 0.5, THEME.POS_DMDMEM_Y + 16.5, 2, (Date.now() / 0xCAFFE) << 2);
     if (videoRamDraw++ > 4) {
       videoRam = null;
-    };
+    }
   }
 
   // SOUND
@@ -265,12 +265,6 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   }
 
   // GI
-/*  canvaDmdDrawLib.clear(
-    (THEME.POS_MATRIX_X + 7) * THEME.GRID_STEP_X,
-    (THEME.POS_MATRIX_Y + 7.75) * THEME.GRID_STEP_Y,
-    THEME.GRID_STEP_X * 6,
-    THEME.GRID_STEP_Y * 1
-  );*/
   canvaDmdDrawLib.drawMatrix8x8Lights(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 8.75, emuState.asic.wpc.generalIlluminationState);
 
   canvasOverlayDrawLib.drawDiagram(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 15.5, 'lampRom', emuState.asic.wpc.lampRow, 26);
@@ -520,7 +514,7 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_DMD_X + 60, THEME.POS_DMD_Y - 2.5, 'LIVE', THEME.TEXT_COLOR_HEADER);
   canvasDrawLib.writeLabel(THEME.POS_DMD_X + 62, THEME.POS_DMD_Y - 2.5, 'FEED');
 
-  canvasDrawLib.fillRect(THEME.POS_DMD_X + 48.5,     THEME.POS_DMD_Y + 17.5, 0.8, 0.5, THEME.DMD_COLOR_DARK);
+  canvasDrawLib.fillRect(THEME.POS_DMD_X + 48.5, THEME.POS_DMD_Y + 17.5, 0.8, 0.5, THEME.DMD_COLOR_DARK);
   canvasDrawLib.fillRect(THEME.POS_DMD_X + 49.5, THEME.POS_DMD_Y + 17.5, 0.8, 0.5, THEME.DMD_COLOR_MIDDLE);
   canvasDrawLib.fillRect(THEME.POS_DMD_X + 50.5, THEME.POS_DMD_Y + 17.5, 0.8, 0.5, THEME.DMD_COLOR_HIGH);
   canvasDrawLib.writeLabel(THEME.POS_DMD_X + 51.5, THEME.POS_DMD_Y + 18, 'DOT MATRIX DISPLAY PALETTE');
@@ -564,7 +558,7 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 32.5, THEME.POS_DMDSTAT_Y + 3, 'DMD PAGE MAP');
 
   // MATRIX
-  canvasDrawLib.drawVerticalLine(THEME.POS_MATRIX_X,  THEME.POS_MATRIX_Y, 21);
+  canvasDrawLib.drawVerticalLine(THEME.POS_MATRIX_X,      THEME.POS_MATRIX_Y, 21);
   canvasDrawLib.drawVerticalLine(THEME.POS_MATRIX_X + 15, THEME.POS_MATRIX_Y, 21);
   canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 1, 'MATRIX');
   canvasDrawLib.writeRibbonHeader(THEME.POS_MATRIX_X + 5, THEME.POS_MATRIX_Y + 1, 'I/O STATUS', THEME.FONT_TEXT);
@@ -585,7 +579,7 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 17, 'LAMP COLUMN');
 
   // RAMDIAG
-  canvasDrawLib.drawVerticalLine(THEME.POS_RAMDIAG_X - 1,  THEME.POS_RAMDIAG_Y - 2, 8);
+  canvasDrawLib.drawVerticalLine(THEME.POS_RAMDIAG_X - 1, THEME.POS_RAMDIAG_Y - 2, 8);
   canvasDrawLib.drawVerticalLine(THEME.POS_RAMDIAG_X + 47, THEME.POS_RAMDIAG_Y - 2, 8);
   canvasDrawLib.writeRibbonHeader(THEME.POS_RAMDIAG_X, THEME.POS_RAMDIAG_Y - 1, 'RANDOM ACCESS MEMORY', THEME.FONT_TEXT);
   canvasDrawLib.writeLabel(THEME.POS_RAMDIAG_X + 11.5, THEME.POS_RAMDIAG_Y - 1, 'REAL TIME ANALYTICS');
@@ -673,7 +667,6 @@ function errorFeedback(error) {
 }
 
 function loadFeedback(romName) {
-  console.log('loadFeedback',romName)
   initialise();
   canvasDrawLib.writeText(THEME.POS_DMD_X + 1, THEME.POS_DMD_Y + 2, 'Load ROM ' + romName, THEME.FONT_HUGE);
 }

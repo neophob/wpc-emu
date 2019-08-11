@@ -42,9 +42,9 @@ test('generalIllumination, update with value 0xFF', (t) => {
   t.is(generalIllumination.generalIlluminationState[2], 0x07);
   t.is(generalIllumination.generalIlluminationState[3], 0x07);
   t.is(generalIllumination.generalIlluminationState[4], 0x07);
-  t.is(generalIllumination.generalIlluminationState[5], 0x00);
-  t.is(generalIllumination.generalIlluminationState[6], 0x00);
-  t.is(generalIllumination.generalIlluminationState[7], 0x00);
+  t.is(generalIllumination.generalIlluminationState[5], 0x07);
+  t.is(generalIllumination.generalIlluminationState[6], 0x07);
+  t.is(generalIllumination.generalIlluminationState[7], 0x07);
 });
 
 test('generalIllumination wpc95, update with value 0xFF', (t) => {
@@ -55,9 +55,9 @@ test('generalIllumination wpc95, update with value 0xFF', (t) => {
   t.is(generalIllumination.generalIlluminationState[2], 0x07);
   t.is(generalIllumination.generalIlluminationState[3], 0x07);
   t.is(generalIllumination.generalIlluminationState[4], 0x07);
-  t.is(generalIllumination.generalIlluminationState[5], 0x00);
-  t.is(generalIllumination.generalIlluminationState[6], 0x00);
-  t.is(generalIllumination.generalIlluminationState[7], 0x00);
+  t.is(generalIllumination.generalIlluminationState[5], 0x07);
+  t.is(generalIllumination.generalIlluminationState[6], 0x07);
+  t.is(generalIllumination.generalIlluminationState[7], 0x07);
 });
 
 test('generalIllumination, update with values 0x2 and 0x4', (t) => {

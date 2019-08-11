@@ -7,9 +7,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = () => {
   return {
     entry: {
-      'emulator': './lib/emulator.js',
-      'webclient': './lib/webclient/index.js',
-      'webworker': './lib/webclient/webworker.js',
+      emulator: './lib/emulator.js',
+      webclient: './lib/webclient/index.js',
+      webworker: './lib/webclient/webworker.js',
     },
     optimization: {
       minimizer: [new TerserPlugin({
