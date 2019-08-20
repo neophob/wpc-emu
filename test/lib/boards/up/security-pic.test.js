@@ -32,21 +32,30 @@ test('SecurityPic, read serial number', (t) => {
   t.is(result, 178);
 });
 
+test('SecurityPic, read first row', (t) => {
+  const securityPic = t.context;
+  securityPic.reset();
+  securityPic.write(0x16);
+  const result = securityPic.read((offset) => offset);
+  t.is(result, 1);
+});
+
+test('SecurityPic, read last row', (t) => {
+  const securityPic = t.context;
+  securityPic.reset();
+  securityPic.write(0x1F);
+  const result = securityPic.read((offset) => offset);
+  t.is(result, 10);
+});
+
 test('SecurityPic, calculate initial serial numbers', (t) => {
   const securityPic = t.context;
-  const expectedGameSerial = [
-    5,3,0,1,
-    2,3,4,5,
-    6,1,2,3,
-    4,5,1,2,
-    3
-  ];
   const expectedPicSerial = [
-    26, 40, 0, 27,
-    110, 0, 91, 1,
-    85, 208, 0, 45,
-    23, 0, 255, 178
+    197, 49, 52, 28,
+    110, 0, 95, 1,
+    253, 226, 18, 243,
+    28, 0, 117, 178,
   ];
-  t.deepEqual(securityPic.gameSerialNumber, new Uint8Array(expectedGameSerial));
-  t.deepEqual(securityPic.picSerialNumber, new Uint8Array(expectedPicSerial));
+  t.deepEqual(securityPic.originalPicSerialNumber, new Uint8Array(expectedPicSerial));
 });
+
