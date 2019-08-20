@@ -57,5 +57,6 @@ test('SecurityPic, calculate initial serial numbers', (t) => {
     28, 0, 117, 178,
   ];
   t.deepEqual(securityPic.originalPicSerialNumber, new Uint8Array(expectedPicSerial));
+  t.is(securityPic.serialNumberScrambler, 0xA5);
 });
 
