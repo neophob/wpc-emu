@@ -1,5 +1,9 @@
 # HISTORY
 
+## 19/8/19
+- Update Security PIC implementation, fix U22 error (WPC-S Test ROM) and G10 error (WPC95 Test ROM). Use PinMAME implementation with serial number scrambler update. Fixes #31.
+- Expose WPC-S Scrambler value in UI
+
 ## 11/8/19
 - Fix Flipper relay and Coin door relay in UI
 

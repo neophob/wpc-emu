@@ -16,11 +16,10 @@ rootCA.*
 server.csr
 server.key
 server.crt
-./rom
+/rom
 test/dmdripper/img
 assets/soundripper/tmp
 assets/soundripper/output.*
 .clinic
 docs/rom
-rom
 cert.pem
