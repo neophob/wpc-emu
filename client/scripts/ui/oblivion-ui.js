@@ -221,6 +221,11 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   canvasOverlayDrawLib.drawDiagram(THEME.POS_DMDSTAT_X + 17, THEME.POS_DMDSTAT_Y + 4.5, 'DMD_SCANLINE', emuState.asic.dmd.scanline);
   canvasOverlayDrawLib.writeHeader(THEME.POS_DMDSTAT_X + 32.5, THEME.POS_DMDSTAT_Y + 4.5, emuState.asic.dmd.dmdPageMapping);
 
+  // WPC-SECURITY
+  if (emuState.asic.wpc.wpcSecureScrambler) {
+    canvasOverlayDrawLib.writeHeader(THEME.POS_DMDSTAT_X + 43.5, THEME.POS_DMDSTAT_Y + 4.5, emuState.asic.wpc.wpcSecureScrambler);
+  }
+
   // MATRIX / INPUT
   if (emuState.asic.wpc.inputState) {
     const inputState = canvasOverlayDrawLib.unpackBits(emuState.asic.wpc.inputState);
@@ -556,6 +561,9 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 4, THEME.POS_DMDSTAT_Y + 3, 'ACTIVE PAGE');
   canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 17, THEME.POS_DMDSTAT_Y + 3, 'DMD SCANLINE');
   canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 32.5, THEME.POS_DMDSTAT_Y + 3, 'DMD PAGE MAP');
+
+  // WPC-SECURITY
+  canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 43.5, THEME.POS_DMDSTAT_Y + 3, 'SECURITY SCRAMBLER');
 
   // MATRIX
   canvasDrawLib.drawVerticalLine(THEME.POS_MATRIX_X,      THEME.POS_MATRIX_Y, 21);

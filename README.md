@@ -690,11 +690,12 @@ Solution:
 
 If the `skipWpcRomCheck` is set to false, you see this error on some machines (dh, mm):
 
-- `G11 CKSUM ERROR`
+- `G11 CKSUM ERROR` (WPC-95)
+- `U6 CKSUM ERROR` (WPC-S)
 
 Issue: ROM checksum invalid
 
-Solution:
+Solution: TODO
 
 # WPC-EMU Manual
 
