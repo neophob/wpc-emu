@@ -41,7 +41,7 @@
   - [To Test](#to-test)
   - [Error Messages](#error-messages)
     - [Invalid Switch state](#invalid-switch-state)
-    - [Do not disable checksum check](#do-not-disable-checksum-check)
+    - [Failed checksum check](#failed-checksum-check)
 - [WPC-EMU Manual](#wpc-emu-manual)
   - [Keyboard Shortcuts](#keyboard-shortcuts)
   - [Midnight Madness Mode](#midnight-madness-mode)
@@ -686,7 +686,7 @@ Solution:
 - check the initial switch state, possible that a switch is in the wrong state
 - NOTE: opto switches are closed in the initial state!
 
-### Do not disable checksum check
+### Failed checksum check
 
 If the `skipWpcRomCheck` is set to false, you see this error on some machines (dh, mm):
 
