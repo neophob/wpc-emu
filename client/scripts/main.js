@@ -68,7 +68,8 @@ function initialiseEmu(gameEntry) {
         romSelection,
         saveState,
         loadState,
-        toggleDmdDump
+        toggleDmdDump,
+        toggleMemoryMonitor,
       };
 
       wpcEmuWebWorkerApi.registerAudioConsumer((message) => soundInstance.callback(message));
@@ -191,6 +192,11 @@ function resumeEmu() {
   return wpcEmuWebWorkerApi.resumeEmulator();
 }
 
+function toggleMemoryMonitor() {
+  console.log('toggleMemoryMonitor');
+  emuDebugUi.toggleMemoryView();
+}
+
 function pauseEmu() {
 /*  const audioState = soundInstance.getState();
   emuDebugUi.updateCanvas(null, 'paused', audioState);
@@ -212,14 +218,14 @@ function registerKeyboardListener() {
     '  "3": Coin#3\n' +
     '  "4": Coin#4\n' +
     '  "5": Start\n' +
-    '  "P": pause\n' +
-    '  "R": resume\n' +
-    '  "S": save\n' +
-    '  "L": load\n' +
     '  "7": Escape\n' +
     '  "8": -\n' +
     '  "9": +\n' +
-    '  "0": Enter'
+    '  "0": Enter\n' +
+    '  "P": pause\n' +
+    '  "R": resume\n' +
+    '  "S": save\n' +
+    '  "L": load'
   );
 
   window.addEventListener('keydown', (e) => {
@@ -239,18 +245,6 @@ function registerKeyboardListener() {
       case 53: //5
         return wpcEmuWebWorkerApi.setInput(13);
 
-      case 80: //P
-        return pauseEmu();
-
-      case 82: //R
-        return resumeEmu();
-
-      case 83: //S
-        return saveState();
-
-      case 76: //L
-        return loadState();
-
       case 55: //7
         return wpcEmuWebWorkerApi.setCabinetInput(16);
 
@@ -262,6 +256,18 @@ function registerKeyboardListener() {
 
       case 48: //0
         return wpcEmuWebWorkerApi.setCabinetInput(128);
+
+      case 80: //P
+        return pauseEmu();
+
+      case 82: //R
+        return resumeEmu();
+
+      case 83: //S
+        return saveState();
+
+      case 76: //L
+        return loadState();
 
       default:
 

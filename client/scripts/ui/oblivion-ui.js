@@ -3,7 +3,15 @@
 import { replaceNode } from './htmlselector';
 import { createDrawLib } from './ui/lib';
 
-export { initialise, drawMetaData, updateCanvas, populateInitialCanvas, errorFeedback, loadFeedback };
+export {
+  initialise,
+  drawMetaData,
+  updateCanvas,
+  populateInitialCanvas,
+  errorFeedback,
+  loadFeedback,
+  toggleMemoryView,
+};
 
 // inspiration:
 // https://gmunk.com/OBLIVION-GFX
@@ -21,6 +29,9 @@ let canvasDmdMem, canvaDmdMemDrawLib;
 let canvasMem, canvaMemDrawLib;
 let canvasLamp, canvaLampDrawLib;
 let canvasFlash, canvaFlashDrawLib;
+
+let memoryMonitorEnabled;
+let canvasMemory, canvasMemoryDrawLib;
 
 let playfieldData;
 let playfieldImage;
@@ -189,6 +200,22 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     );
     const memory1k = Array.from(emuState.asic.ram.slice(0, 1024));
     canvaDmdDrawLib.drawDiagramCluster(THEME.POS_RAMDIAG_X + 0.5, THEME.POS_RAMDIAG_Y + 1, memory1k, 24);
+
+    if (memoryMonitorEnabled) {
+      canvasMemoryDrawLib.clear(0, 0, 800, 220);
+      for (let y = 0; y < 16; y++) {
+        let ramOffset = 16 * y;
+        for (let offset = 0; offset < 32; offset++) {
+          const value = emuState.asic.ram[ ramOffset ];
+          canvasMemoryDrawLib.writeHeader(3 + offset * 2, 3 + y, value < 16 ? '0' + value.toString(16) : value.toString(16));
+          ramOffset++;
+        }
+      }
+
+      canvasMemoryDrawLib.writeHeader(70, 3, 'OFFSET: 0x00');
+
+    }
+
   }
 
   // DMD MEM - draw only 4 dmd video fragment per loop
@@ -276,6 +303,21 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   canvasOverlayDrawLib.drawDiagram(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 18.5, 'lampColumn', emuState.asic.wpc.lampColumn, 26);
 }
 
+const MEM_HEIGHT = '220px'
+
+function toggleMemoryView() {
+  const node = document.querySelector('#memoryNode');
+
+  if (node && node.style && node.style.height === MEM_HEIGHT) {
+    node.style.height = '0px';
+    memoryMonitorEnabled = false;
+    return;
+  }
+
+  memoryMonitorEnabled = true;
+  node.style.height = MEM_HEIGHT;
+}
+
 function createCanvas() {
   const canvasElement = document.createElement('canvas');
   canvasElement.width = CANVAS_WIDTH;
@@ -292,18 +334,10 @@ function initiateCanvasElements() {
 
   const canvasRootElement = createCanvas();
   canvas = canvasRootElement.getContext('2d', { alpha: false });
-
-  /*canvas = canvasRootElement.getContext('2d', { alpha: true });
-  canvas.fillStyle = '#000000';
-  canvas.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-  canvas.shadowBlur = 2;
-  canvas.shadowColor = THEME.COLOR_BLUE;*/
   replaceNode('canvasNode', canvasRootElement);
 
   const canvasOverlayElement = createCanvas();
   canvasOverlay = canvasOverlayElement.getContext('2d', { alpha: true });
-  //canvasOverlay.shadowBlur = 2;
-  //canvasOverlay.shadowColor = THEME.COLOR_BLUE;
   replaceNode('canvasOverlayNode', canvasOverlayElement);
 
   const canvasDmdElement = createCanvas();
@@ -326,6 +360,10 @@ function initiateCanvasElements() {
   canvasFlash = canvasFlashElement.getContext('2d', { alpha: true });
   replaceNode('canvasFlashNode', canvasFlashElement);
 
+  const canvasMemoryElement = createCanvas();
+  canvasMemory = canvasMemoryElement.getContext('2d', { alpha: true });
+  replaceNode('memoryNode', canvasMemoryElement);
+
   canvasDrawLib = createDrawLib(canvas, THEME);
   canvasOverlayDrawLib = createDrawLib(canvasOverlay, THEME);
   canvaDmdDrawLib = createDrawLib(canvasDmd, THEME);
@@ -333,6 +371,7 @@ function initiateCanvasElements() {
   canvaMemDrawLib = createDrawLib(canvasMem, THEME);
   canvaLampDrawLib = createDrawLib(canvasLamp, THEME);
   canvaFlashDrawLib = createDrawLib(canvasFlash, THEME);
+  canvasMemoryDrawLib = createDrawLib(canvasMemory, THEME);
 }
 
 function initialise() {
@@ -345,6 +384,7 @@ function initialise() {
   canvaDmdMemDrawLib.clear();
   canvaLampDrawLib.clear();
   canvaFlashDrawLib.clear();
+  canvasMemoryDrawLib.clear();
 
   canvasDrawLib.drawBackgroundPoints();
 
