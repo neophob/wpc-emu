@@ -2,8 +2,19 @@
 
 import { replaceNode } from './htmlselector';
 import { createDrawLib } from './ui/lib';
+import * as MemoryMonitor from './ui/memory-monitor';
 
-export { initialise, drawMetaData, updateCanvas, populateInitialCanvas, errorFeedback, loadFeedback };
+export {
+  initialise,
+  drawMetaData,
+  updateCanvas,
+  populateInitialCanvas,
+  errorFeedback,
+  loadFeedback,
+  toggleMemoryView,
+  memoryMonitorNextPage,
+  memoryMonitorPrevPage,
+};
 
 // inspiration:
 // https://gmunk.com/OBLIVION-GFX
@@ -22,6 +33,8 @@ let canvasMem, canvaMemDrawLib;
 let canvasLamp, canvaLampDrawLib;
 let canvasFlash, canvaFlashDrawLib;
 
+let memoryMonitor;
+
 let playfieldData;
 let playfieldImage;
 let frame = 0;
@@ -37,6 +50,7 @@ const THEME = {
   DMD_COLOR_LOW: 'rgb(65,101,105)',
   DMD_COLOR_MIDDLE: 'rgb(182,155,93)',
   DMD_COLOR_HIGH: 'rgb(254, 255, 211)',
+  DMD_COLOR_RED_RGBA: 'rgb(255, 108, 74, ',
 
   GRID_POINTS_COLOR: 'rgb(44, 63, 67)',
   GRID_STEP_X: 12,
@@ -57,11 +71,12 @@ const THEME = {
   TEXT_COLOR_LABEL: 'rgb(96, 110, 112)',
   TEXT_COLOR: 'rgb(237, 246, 206)',
 
+  DMD_COLOR_VERY_DARK: 'rgba(64, 64, 64, 0.5)',
+
   COLOR_BLUE: 'rgb(81, 115, 117)',
   COLOR_BLUE_INTENSE: 'rgb(106, 198, 213)',
   COLOR_RED: 'rgb(255, 108, 74)',
   COLOR_YELLOW: 'rgb(254, 255, 211)',
-  DMD_COLOR_RED_RGBA: 'rgb(255, 108, 74, ',
 
   POS_HEADER_X: 1,
   POS_HEADER_Y: 6,
@@ -189,6 +204,8 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     );
     const memory1k = Array.from(emuState.asic.ram.slice(0, 1024));
     canvaDmdDrawLib.drawDiagramCluster(THEME.POS_RAMDIAG_X + 0.5, THEME.POS_RAMDIAG_Y + 1, memory1k, 24);
+
+    memoryMonitor.draw(emuState.asic.ram);
   }
 
   // DMD MEM - draw only 4 dmd video fragment per loop
@@ -276,6 +293,18 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   canvasOverlayDrawLib.drawDiagram(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 18.5, 'lampColumn', emuState.asic.wpc.lampColumn, 26);
 }
 
+function toggleMemoryView() {
+  memoryMonitor.toggleMemoryView();
+}
+
+function memoryMonitorNextPage() {
+  memoryMonitor.memoryMonitorNextPage();
+}
+
+function memoryMonitorPrevPage() {
+  memoryMonitor.memoryMonitorPrevPage();
+}
+
 function createCanvas() {
   const canvasElement = document.createElement('canvas');
   canvasElement.width = CANVAS_WIDTH;
@@ -292,18 +321,10 @@ function initiateCanvasElements() {
 
   const canvasRootElement = createCanvas();
   canvas = canvasRootElement.getContext('2d', { alpha: false });
-
-  /*canvas = canvasRootElement.getContext('2d', { alpha: true });
-  canvas.fillStyle = '#000000';
-  canvas.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-  canvas.shadowBlur = 2;
-  canvas.shadowColor = THEME.COLOR_BLUE;*/
   replaceNode('canvasNode', canvasRootElement);
 
   const canvasOverlayElement = createCanvas();
   canvasOverlay = canvasOverlayElement.getContext('2d', { alpha: true });
-  //canvasOverlay.shadowBlur = 2;
-  //canvasOverlay.shadowColor = THEME.COLOR_BLUE;
   replaceNode('canvasOverlayNode', canvasOverlayElement);
 
   const canvasDmdElement = createCanvas();
@@ -333,6 +354,8 @@ function initiateCanvasElements() {
   canvaMemDrawLib = createDrawLib(canvasMem, THEME);
   canvaLampDrawLib = createDrawLib(canvasLamp, THEME);
   canvaFlashDrawLib = createDrawLib(canvasFlash, THEME);
+
+  memoryMonitor = MemoryMonitor.getInstance({ THEME, CANVAS_WIDTH });
 }
 
 function initialise() {
@@ -345,6 +368,7 @@ function initialise() {
   canvaDmdMemDrawLib.clear();
   canvaLampDrawLib.clear();
   canvaFlashDrawLib.clear();
+  memoryMonitor.clear();
 
   canvasDrawLib.drawBackgroundPoints();
 

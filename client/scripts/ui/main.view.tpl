@@ -31,6 +31,7 @@
     <button class="button-wpc button-outline" onclick="wpcInterface.resumeEmu();">Resume</button>
     <button class="button-wpc button-outline" onclick="wpcInterface.loadState();">Load State</button>
     <button class="button-wpc button-outline" onclick="wpcInterface.saveState();">Save State</button>
+    <button class="button-wpc button-outline" onclick="wpcInterface.toggleMemoryMonitor();">MM</button>
   </div>
 </div>
 

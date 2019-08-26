@@ -118,3 +118,11 @@ test('should _bankswitchedRead, bank 8', (t) => {
   const result = cpuBoard._bankswitchedRead(0);
   t.is(result, 12);
 });
+
+test('should mirror wpc asic calls in memory', (t) => {
+  const BANK = 6;
+  const cpuBoard = t.context;
+  cpuBoard.asic.write(WPC_ROM_BANK, BANK);
+  const result = cpuBoard.ram[WPC_ROM_BANK];
+  t.is(result, BANK);
+});
