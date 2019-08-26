@@ -196,6 +196,14 @@ function toggleMemoryMonitor() {
   emuDebugUi.toggleMemoryView();
 }
 
+function memoryMonitorNextPage() {
+  emuDebugUi.memoryMonitorNextPage();
+}
+
+function memoryMonitorPrevPage() {
+  emuDebugUi.memoryMonitorPrevPage();
+}
+
 function pauseEmu() {
 /*  const audioState = soundInstance.getState();
   emuDebugUi.updateCanvas(null, 'paused', audioState);
@@ -224,7 +232,10 @@ function registerKeyboardListener() {
     '  "P": pause\n' +
     '  "R": resume\n' +
     '  "S": save\n' +
-    '  "L": load'
+    '  "L": load\n' +
+    '  "M": toggle memory monitor\n' +
+    '  "N": memory monitor: next page\n' +
+    '  "B": memory monitor: previous page\n'
   );
 
   window.addEventListener('keydown', (e) => {
@@ -267,6 +278,15 @@ function registerKeyboardListener() {
 
       case 76: //L
         return loadState();
+
+      case 77: //M
+        return toggleMemoryMonitor();
+
+      case 78: //N
+        return memoryMonitorNextPage();
+
+      case 66: //B
+        return memoryMonitorPrevPage();
 
       default:
 

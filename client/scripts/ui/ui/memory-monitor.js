@@ -6,9 +6,9 @@ import { replaceNode } from '../htmlselector';
 export { getInstance };
 
 const MEM_HEIGHT = 220;
-const MEM_CONTENT_X = 10;
-const MEM_CONTENT_Y = 3;
-const MEM_CONTENT_ASCII_X = 75;
+const MEM_CONTENT_X = 9;
+const MEM_CONTENT_Y = 2;
+const MEM_CONTENT_ASCII_X = 76;
 const MEM_CONTENT_OFFSET_X = 2;
 
 function getInstance(options) {
@@ -21,6 +21,7 @@ class MemoryMonitor {
     this.THEME = options.THEME;
     this.CANVAS_WIDTH = options.CANVAS_WIDTH;
     this.memoryMonitorEnabled = false;
+    this.page = 0;
 
     const canvasMemoryElement = this._createCanvas();
     this.canvasMemory = canvasMemoryElement.getContext('2d', { alpha: true });
@@ -36,10 +37,20 @@ class MemoryMonitor {
     for (let offset = 0; offset < 32; offset += 2) {
       this.canvasMemoryDrawLib.fillRect(
         MEM_CONTENT_X - 0.25 + offset * 2,
-        MEM_CONTENT_Y - 1.25,
+        MEM_CONTENT_Y - 1.5,
         2,
-        30,
-        this.THEME.DMD_COLOR_DARK);
+        17.25,
+        this.THEME.DMD_COLOR_VERY_DARK);
+
+      this.canvasMemoryDrawLib.fillRect(
+        MEM_CONTENT_ASCII_X + offset * 0.75,
+        MEM_CONTENT_Y - 1.5,
+        0.75,
+        17.25,
+        this.THEME.DMD_COLOR_VERY_DARK);
+
+//        this.canvasMemoryOverlayDrawLib.writeHeader(MEM_CONTENT_ASCII_X + offset * 0.75, 3 + y, String.fromCharCode(value));
+
     }
 
     for (let y = 0; y < 16; y += 2) {
@@ -62,6 +73,7 @@ class MemoryMonitor {
 
   clear() {
     this.canvasMemoryOverlayDrawLib.clear();
+    this.page = 0;
   }
 
   toggleMemoryView() {
@@ -77,6 +89,18 @@ class MemoryMonitor {
     node.style.height = MEM_HEIGHT + 'px';
   }
 
+  memoryMonitorNextPage() {
+    if (this.page < 31) {
+      this.page++;
+    }
+  }
+
+  memoryMonitorPrevPage() {
+    if (this.page > 0) {
+      this.page--;
+    }
+  }
+
   draw(ramArray) {
     if (!this.memoryMonitorEnabled) {
       return;
@@ -84,14 +108,14 @@ class MemoryMonitor {
 
     this.canvasMemoryOverlayDrawLib.clear();
     for (let y = 0; y < 16; y++) {
-      let ramOffset = 16 * y;
+      let ramOffset = this.page * 512 + 16 * y;
 
-      this.canvasMemoryOverlayDrawLib.writeHeader(MEM_CONTENT_OFFSET_X, MEM_CONTENT_Y + y, '0x' + ramOffset.toString(16));
+      this.canvasMemoryOverlayDrawLib.writeHeader(MEM_CONTENT_OFFSET_X, MEM_CONTENT_Y + y, '0x' + ramOffset.toString(16).toUpperCase());
 
       for (let offset = 0; offset < 32; offset++) {
         const value = ramArray[ ramOffset ];
         this.canvasMemoryOverlayDrawLib.writeHeader(MEM_CONTENT_X + offset * 2, MEM_CONTENT_Y + y, value < 16 ? '0' + value.toString(16) : value.toString(16));
-        this.canvasMemoryOverlayDrawLib.writeHeader(MEM_CONTENT_ASCII_X + offset * .75, 3 + y, String.fromCharCode(value));
+        this.canvasMemoryOverlayDrawLib.writeHeader(MEM_CONTENT_ASCII_X + offset * .75, MEM_CONTENT_Y + y, String.fromCharCode(value));
         ramOffset++;
       }
     }

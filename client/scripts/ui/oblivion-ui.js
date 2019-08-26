@@ -12,6 +12,8 @@ export {
   errorFeedback,
   loadFeedback,
   toggleMemoryView,
+  memoryMonitorNextPage,
+  memoryMonitorPrevPage,
 };
 
 // inspiration:
@@ -293,6 +295,14 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
 function toggleMemoryView() {
   memoryMonitor.toggleMemoryView();
+}
+
+function memoryMonitorNextPage() {
+  memoryMonitor.memoryMonitorNextPage();
+}
+
+function memoryMonitorPrevPage() {
+  memoryMonitor.memoryMonitorPrevPage();
 }
 
 function createCanvas() {
