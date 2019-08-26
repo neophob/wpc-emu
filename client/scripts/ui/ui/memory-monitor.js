@@ -119,6 +119,23 @@ class MemoryMonitor {
     console.log('UNKNOWN_ENCODING')
   }
 
+  memoryDumpData(offset) {
+    if (!this.lastRamSnapshot) {
+      console.warn('enable memory monitor first!')
+      return;
+    }
+
+    let dump = '';
+    if (this.lastRamSnapshot[offset] > 31 && this.lastRamSnapshot[offset] < 128) {
+      while (this.lastRamSnapshot[offset] > 31 && this.lastRamSnapshot[offset] < 128) {
+        dump += String.fromCharCode(this.lastRamSnapshot[offset++]);
+      }
+    } else {
+      dump = '0x' + this.lastRamSnapshot[offset].toString(16);
+    }
+    console.log('RAM-DUMP', dump);
+  }
+
   memoryMonitorNextPage() {
     if (this.page < 31) {
       this.page++;

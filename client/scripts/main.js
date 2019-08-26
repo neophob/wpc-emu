@@ -72,6 +72,7 @@ function initialiseEmu(gameEntry) {
         toggleMemoryMonitor,
         writeMemory,
         memoryFindData,
+        memoryDumpData,
         help,
       };
 
@@ -219,8 +220,22 @@ function memoryFindData(value, encoding) {
   emuDebugUi.memoryFindData(value, encoding);
 }
 
+/**
+ * write directly to emulator memory
+ * @param {*} offset where to write
+ * @param {*} value String or uint8 value to write
+ * @param {*} block optional option (default is false) to persist stored data
+ */
 function writeMemory(offset, value, block) {
   return wpcEmuWebWorkerApi.writeMemory(offset, value, block);
+}
+
+/**
+ * print memory content, if its a string
+ * @param {*} offset
+ */
+function memoryDumpData(offset) {
+  emuDebugUi.memoryDumpData(offset);
 }
 
 function pauseEmu() {
