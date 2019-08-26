@@ -1111,4 +1111,17 @@ module.exports = {
       ]
     },
   },
+  memoryPosition: [
+    { offset: 0x326, description: 'current text', type: 'string' },
+    { offset: 0x355, description: 'current player', type: 'uint8' },
+    { offset: 0x356, description: 'current ball', type: 'uint8' },
+    { offset: 0x3AF, description: 'current player', type: 'uint8' },
+    { offset: 0x1795, description: 'player count', type: 'uint8' },
+
+    //NOTE write to credits does NOT work, needs some other checksum
+    { offset: 0x1C93, description: 'credits full', type: 'uint8' },
+    { offset: 0x1C94, description: 'credits half', type: 'uint8' },
+    { offset: 0x1C95, description: 'credits checksum 1 (2 * full + half)', type: 'uint8' },
+    { offset: 0x1C9B, description: 'credits checksum 2 (0xff - (full + half + checksum1))', type: 'uint8' },
+  ],
 };
