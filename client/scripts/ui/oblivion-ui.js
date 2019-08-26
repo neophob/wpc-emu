@@ -2,6 +2,7 @@
 
 import { replaceNode } from './htmlselector';
 import { createDrawLib } from './ui/lib';
+import * as MemoryMonitor from './ui/memory-monitor';
 
 export {
   initialise,
@@ -30,8 +31,7 @@ let canvasMem, canvaMemDrawLib;
 let canvasLamp, canvaLampDrawLib;
 let canvasFlash, canvaFlashDrawLib;
 
-let memoryMonitorEnabled;
-let canvasMemory, canvasMemoryDrawLib;
+let memoryMonitor;
 
 let playfieldData;
 let playfieldImage;
@@ -48,6 +48,7 @@ const THEME = {
   DMD_COLOR_LOW: 'rgb(65,101,105)',
   DMD_COLOR_MIDDLE: 'rgb(182,155,93)',
   DMD_COLOR_HIGH: 'rgb(254, 255, 211)',
+  DMD_COLOR_RED_RGBA: 'rgb(255, 108, 74, ',
 
   GRID_POINTS_COLOR: 'rgb(44, 63, 67)',
   GRID_STEP_X: 12,
@@ -68,11 +69,12 @@ const THEME = {
   TEXT_COLOR_LABEL: 'rgb(96, 110, 112)',
   TEXT_COLOR: 'rgb(237, 246, 206)',
 
+  DMD_COLOR_VERY_DARK: 'rgba(64, 64, 64, 0.5)',
+
   COLOR_BLUE: 'rgb(81, 115, 117)',
   COLOR_BLUE_INTENSE: 'rgb(106, 198, 213)',
   COLOR_RED: 'rgb(255, 108, 74)',
   COLOR_YELLOW: 'rgb(254, 255, 211)',
-  DMD_COLOR_RED_RGBA: 'rgb(255, 108, 74, ',
 
   POS_HEADER_X: 1,
   POS_HEADER_Y: 6,
@@ -201,21 +203,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     const memory1k = Array.from(emuState.asic.ram.slice(0, 1024));
     canvaDmdDrawLib.drawDiagramCluster(THEME.POS_RAMDIAG_X + 0.5, THEME.POS_RAMDIAG_Y + 1, memory1k, 24);
 
-    if (memoryMonitorEnabled) {
-      canvasMemoryDrawLib.clear(0, 0, 800, 220);
-      for (let y = 0; y < 16; y++) {
-        let ramOffset = 16 * y;
-        for (let offset = 0; offset < 32; offset++) {
-          const value = emuState.asic.ram[ ramOffset ];
-          canvasMemoryDrawLib.writeHeader(3 + offset * 2, 3 + y, value < 16 ? '0' + value.toString(16) : value.toString(16));
-          ramOffset++;
-        }
-      }
-
-      canvasMemoryDrawLib.writeHeader(70, 3, 'OFFSET: 0x00');
-
-    }
-
+    memoryMonitor.draw(emuState.asic.ram);
   }
 
   // DMD MEM - draw only 4 dmd video fragment per loop
@@ -303,19 +291,8 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   canvasOverlayDrawLib.drawDiagram(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 18.5, 'lampColumn', emuState.asic.wpc.lampColumn, 26);
 }
 
-const MEM_HEIGHT = '220px'
-
 function toggleMemoryView() {
-  const node = document.querySelector('#memoryNode');
-
-  if (node && node.style && node.style.height === MEM_HEIGHT) {
-    node.style.height = '0px';
-    memoryMonitorEnabled = false;
-    return;
-  }
-
-  memoryMonitorEnabled = true;
-  node.style.height = MEM_HEIGHT;
+  memoryMonitor.toggleMemoryView();
 }
 
 function createCanvas() {
@@ -360,10 +337,6 @@ function initiateCanvasElements() {
   canvasFlash = canvasFlashElement.getContext('2d', { alpha: true });
   replaceNode('canvasFlashNode', canvasFlashElement);
 
-  const canvasMemoryElement = createCanvas();
-  canvasMemory = canvasMemoryElement.getContext('2d', { alpha: true });
-  replaceNode('memoryNode', canvasMemoryElement);
-
   canvasDrawLib = createDrawLib(canvas, THEME);
   canvasOverlayDrawLib = createDrawLib(canvasOverlay, THEME);
   canvaDmdDrawLib = createDrawLib(canvasDmd, THEME);
@@ -371,7 +344,8 @@ function initiateCanvasElements() {
   canvaMemDrawLib = createDrawLib(canvasMem, THEME);
   canvaLampDrawLib = createDrawLib(canvasLamp, THEME);
   canvaFlashDrawLib = createDrawLib(canvasFlash, THEME);
-  canvasMemoryDrawLib = createDrawLib(canvasMemory, THEME);
+
+  memoryMonitor = MemoryMonitor.getInstance({ THEME, CANVAS_WIDTH });
 }
 
 function initialise() {
@@ -384,7 +358,7 @@ function initialise() {
   canvaDmdMemDrawLib.clear();
   canvaLampDrawLib.clear();
   canvaFlashDrawLib.clear();
-  canvasMemoryDrawLib.clear();
+  memoryMonitor.clear();
 
   canvasDrawLib.drawBackgroundPoints();
 

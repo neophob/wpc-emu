@@ -116,11 +116,6 @@ select:focus {
   animation: fadein 0.5s;
 }
 
-#memoryNode {
-  width: 100%;
-  height: 0px;
-}
-
 #canvasNode {
   z-index: 1;
   animation: zoomin 1s, fadein 0.5s;
@@ -150,6 +145,14 @@ select:focus {
 
 #canvasFlashNode {
   animation: zoomin 1.3s, fadein 0.5s;
+}
+
+#memoryNode {
+  z-index: 1;
+}
+
+#memoryOverlayNode {
+  z-index: 3;
 }
 
 @keyframes fadein {

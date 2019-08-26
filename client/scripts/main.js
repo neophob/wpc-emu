@@ -193,7 +193,6 @@ function resumeEmu() {
 }
 
 function toggleMemoryMonitor() {
-  console.log('toggleMemoryMonitor');
   emuDebugUi.toggleMemoryView();
 }
 
