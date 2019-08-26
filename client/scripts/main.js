@@ -68,7 +68,8 @@ function initialiseEmu(gameEntry) {
         romSelection,
         saveState,
         loadState,
-        toggleDmdDump
+        toggleDmdDump,
+        toggleMemoryMonitor,
       };
 
       wpcEmuWebWorkerApi.registerAudioConsumer((message) => soundInstance.callback(message));
@@ -80,7 +81,7 @@ function initialiseEmu(gameEntry) {
         }
         if (rafId) {
           missedDraw++;
-          console.log('MISSED_DRAW!', rafId, missedDraw);
+          //console.log('MISSED_DRAW!', rafId, missedDraw);
           cancelAnimationFrame(rafId);
         }
 
@@ -191,6 +192,18 @@ function resumeEmu() {
   return wpcEmuWebWorkerApi.resumeEmulator();
 }
 
+function toggleMemoryMonitor() {
+  emuDebugUi.toggleMemoryView();
+}
+
+function memoryMonitorNextPage() {
+  emuDebugUi.memoryMonitorNextPage();
+}
+
+function memoryMonitorPrevPage() {
+  emuDebugUi.memoryMonitorPrevPage();
+}
+
 function pauseEmu() {
 /*  const audioState = soundInstance.getState();
   emuDebugUi.updateCanvas(null, 'paused', audioState);
@@ -212,14 +225,17 @@ function registerKeyboardListener() {
     '  "3": Coin#3\n' +
     '  "4": Coin#4\n' +
     '  "5": Start\n' +
+    '  "7": Escape\n' +
+    '  "8": -\n' +
+    '  "9": +\n' +
+    '  "0": Enter\n' +
     '  "P": pause\n' +
     '  "R": resume\n' +
     '  "S": save\n' +
     '  "L": load\n' +
-    '  "7": Escape\n' +
-    '  "8": -\n' +
-    '  "9": +\n' +
-    '  "0": Enter'
+    '  "M": toggle memory monitor\n' +
+    '  "N": memory monitor: next page\n' +
+    '  "B": memory monitor: previous page\n'
   );
 
   window.addEventListener('keydown', (e) => {
@@ -239,6 +255,18 @@ function registerKeyboardListener() {
       case 53: //5
         return wpcEmuWebWorkerApi.setInput(13);
 
+      case 55: //7
+        return wpcEmuWebWorkerApi.setCabinetInput(16);
+
+      case 56: //8
+        return wpcEmuWebWorkerApi.setCabinetInput(32);
+
+      case 57: //9
+        return wpcEmuWebWorkerApi.setCabinetInput(64);
+
+      case 48: //0
+        return wpcEmuWebWorkerApi.setCabinetInput(128);
+
       case 80: //P
         return pauseEmu();
 
@@ -251,17 +279,14 @@ function registerKeyboardListener() {
       case 76: //L
         return loadState();
 
-      case 55: //7
-        return wpcEmuWebWorkerApi.setCabinetInput(16);
+      case 77: //M
+        return toggleMemoryMonitor();
 
-      case 56: //8
-        return wpcEmuWebWorkerApi.setCabinetInput(32);
+      case 78: //N
+        return memoryMonitorNextPage();
 
-      case 57: //9
-        return wpcEmuWebWorkerApi.setCabinetInput(64);
-
-      case 48: //0
-        return wpcEmuWebWorkerApi.setCabinetInput(128);
+      case 66: //B
+        return memoryMonitorPrevPage();
 
       default:
 

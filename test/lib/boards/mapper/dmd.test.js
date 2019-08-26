@@ -84,5 +84,5 @@ test('DmdMapper, should get address, 0x3FB9', (t) => {
 });
 
 test('DmdMapper, should throw when using invalid address, -1', (t) => {
-  t.throws(() => DmdMapper.getAddress(-1), 'INVALID_DMD_ADRESSRANGE_-1');
+  t.throws(() => DmdMapper.getAddress(-1), 'INVALID_DMD_ADDRESSRANGE_-1');
 });

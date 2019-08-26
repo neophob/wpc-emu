@@ -69,7 +69,6 @@ function addEmulatorControls() {
   replaceNode('rootNode', div);
 }
 
-
 function addGameSpecificControls(gameEntry) {
   //switch input
   if (Array.isArray(gameEntry.switchMapping)) {

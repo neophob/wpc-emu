@@ -16,18 +16,18 @@ UPDATE DUMPS STATS (wpc-emu-dump)
 - WPC_ZEROCROSS_IRQ_CLEAR: $3FFF
 
 ## Hurricane WPC
-   Size: 73255209 bytes
+   Size: 61910455 bytes
 ---------------------
 92	$3FF2
-1509	$3FF4
-1416	$3FF6
+1532	$3FF4
+1447	$3FF6
 3	$3FF8
 6	$3FFA
-45	$3FFB
-7954	$3FFC
-1329	$3FFD
+46	$3FFB
+9596	$3FFC
+1223	$3FFD
 2	$3FFE
-11659	$3FFF
+11367	$3FFF
 
 ## Hurricane MAME
    Size: 78840913 bytes
@@ -103,7 +103,7 @@ UPDATE DUMPS STATS (wpc-emu-dump)
 
 
 ## Johnny Mnemonic WPC
-   Size: 97074789 bytes
+   Size: 97070244 bytes
 ---------------------
 95	$3FF2
 6009	$3FF3
@@ -112,7 +112,7 @@ UPDATE DUMPS STATS (wpc-emu-dump)
 109	$3FF8
 6	$3FFA
 42	$3FFB
-18820	$3FFC
+18822	$3FFC
 1928	$3FFD
 2	$3FFE
 12223	$3FFF

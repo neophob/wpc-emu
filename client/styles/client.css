@@ -147,6 +147,14 @@ select:focus {
   animation: zoomin 1.3s, fadein 0.5s;
 }
 
+#memoryNode {
+  z-index: 1;
+}
+
+#memoryOverlayNode {
+  z-index: 3;
+}
+
 @keyframes fadein {
   from {
     opacity: 0;
