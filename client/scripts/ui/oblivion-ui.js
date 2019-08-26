@@ -14,6 +14,7 @@ export {
   toggleMemoryView,
   memoryMonitorNextPage,
   memoryMonitorPrevPage,
+  memoryMonitorRefresh,
 };
 
 // inspiration:
@@ -303,6 +304,10 @@ function memoryMonitorNextPage() {
 
 function memoryMonitorPrevPage() {
   memoryMonitor.memoryMonitorPrevPage();
+}
+
+function memoryMonitorRefresh() {
+  memoryMonitor.refresh();
 }
 
 function createCanvas() {

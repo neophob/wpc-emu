@@ -87,7 +87,7 @@ function initialiseEmu(gameEntry) {
 
         rafId = requestAnimationFrame((timestamp) => {
           const audioState = soundInstance.getState();
-          emuDebugUi.updateCanvas(emuState, true ? 'running' : 'paused', audioState);
+          emuDebugUi.updateCanvas(emuState, 'running', audioState);
 
           const { averageRTTms, sentMessages, failedMessages } = wpcEmuWebWorkerApi.getStatistics();
           emuDebugUi.drawMetaData({
@@ -194,14 +194,17 @@ function resumeEmu() {
 
 function toggleMemoryMonitor() {
   emuDebugUi.toggleMemoryView();
+  emuDebugUi.memoryMonitorRefresh();
 }
 
 function memoryMonitorNextPage() {
   emuDebugUi.memoryMonitorNextPage();
+  emuDebugUi.memoryMonitorRefresh();
 }
 
 function memoryMonitorPrevPage() {
   emuDebugUi.memoryMonitorPrevPage();
+  emuDebugUi.memoryMonitorRefresh();
 }
 
 function pauseEmu() {
@@ -209,6 +212,8 @@ function pauseEmu() {
   emuDebugUi.updateCanvas(null, 'paused', audioState);
 */
   soundInstance.pause();
+  cancelAnimationFrame(rafId)
+  rafId = undefined;
   return wpcEmuWebWorkerApi.pauseEmulator();
 }
 

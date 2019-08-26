@@ -26,6 +26,7 @@ class MemoryMonitor {
     this.CANVAS_WIDTH = options.CANVAS_WIDTH;
     this.memoryMonitorEnabled = false;
     this.page = 0;
+    this.lastRamSnapshot = undefined;
 
     const canvasMemoryElement = this._createCanvas();
     this.canvasMemory = canvasMemoryElement.getContext('2d', { alpha: true });
@@ -75,6 +76,7 @@ class MemoryMonitor {
   clear() {
     this.canvasMemoryOverlayDrawLib.clear();
     this.page = 0;
+    this.lastRamSnapshot = undefined;
   }
 
   toggleMemoryView() {
@@ -104,11 +106,23 @@ class MemoryMonitor {
     }
   }
 
+  refresh() {
+    if (!this.memoryMonitorEnabled || !this.lastRamSnapshot) {
+      return;
+    }
+    this._render();
+  }
+
   draw(ramArray) {
-    if (!this.memoryMonitorEnabled) {
+    if (!this.memoryMonitorEnabled || !ramArray) {
       return;
     }
 
+    this.lastRamSnapshot = ramArray;
+    this._render();
+  }
+
+  _render() {
     this.canvasMemoryOverlayDrawLib.clear();
 
     for (let y = 0; y < ENTRIES_VERTICAL; y++) {
@@ -121,7 +135,7 @@ class MemoryMonitor {
       );
 
       for (let offset = 0; offset < ENTRIES_HORIZONTAL; offset++) {
-        const value = ramArray[ ramOffset + offset ];
+        const value = this.lastRamSnapshot[ ramOffset + offset ];
         // write hex value
         this.canvasMemoryOverlayDrawLib.writeHeader(
           MEM_CONTENT_X + offset * 2,
