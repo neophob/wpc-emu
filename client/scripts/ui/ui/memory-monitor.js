@@ -1,7 +1,7 @@
 'use strict';
 
 import { createDrawLib } from './lib';
-import { findString, findUint8 } from './search';
+import { findString, findUint8, findUint16 } from './search';
 import { replaceNode } from '../htmlselector';
 
 export { getInstance };

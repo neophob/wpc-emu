@@ -1,6 +1,6 @@
 'use strict';
 
-export { findString, findUint8 };
+export { findString, findUint8, findUint16 };
 
 const MAX_ELEMENTS_TO_SEARCH = 20;
 
@@ -41,6 +41,18 @@ function _findString(searchString, startPos, uint8Array) {
 }
 
 function findUint16(uint16ToSearch, uint8Array) {
+  const searchUint16 = uint16ToSearch & 0xFFFF;
+  const dataView = new DataView(uint8Array.buffer);
+  for (let offset = 0; offset < (uint8Array.length / 2); offset++) {
+    if (dataView.getUint16(offset) === searchUint16) {
+      console.log(uint8ToSearch, '(uint16) FOUND at position', '0x' + index.toString(16).toUpperCase());
+      if (foundElements++ > MAX_ELEMENTS_TO_SEARCH) {
+        console.warn('EXCEEDED_MAX_SEARCH_RESULTS')
+        return foundElements;
+      }
+    }
+  }
+  return foundElements;
 }
 
 function findUint8(uint8ToSearch, uint8Array) {
