@@ -728,6 +728,10 @@ WPC-EMU exposes the memory monitor to analyse the RAM of a running ROM. WPC-EMU 
 - `wpcInterface.writeMemory(78, 0);` -> change memory at offset 78 with value 0, the emulator can overwrite the stored value
 - `wpcInterface.writeMemory(0x1C65, 'XXX');` -> write string XXX to memory at offset 0x1C65
 - `wpcInterface.memoryFindData('OMA', 'string');` -> search memory for the string OMA
+- `wpcInterface.memoryFindData(3, 'uint8');` -> search memory for the uint8 value with 3 (useful for example if you want to find out where the number of players is stored)
+- `wpcInterface.memoryDumpData(0x181F);` - dumps the value at the offset 0x181F
+
+Note: WPC-EMU currently supports the data types `uint8`, `uint16`, `uint32` and `string`.
 
 ## Midnight Madness Mode
 

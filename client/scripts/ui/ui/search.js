@@ -2,7 +2,7 @@
 
 export { findString, findUint8, findUint16, findUint32 };
 
-const MAX_ELEMENTS_TO_SEARCH = 32;
+const MAX_ELEMENTS_TO_SEARCH = 64;
 
 function findString(stringToSearch, uint8Array) {
   const searchString = stringToSearch
