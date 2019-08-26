@@ -1,6 +1,7 @@
 'use strict';
 
 import { createDrawLib } from './lib';
+import { findString, findUint8 } from './search';
 import { replaceNode } from '../htmlselector';
 
 export { getInstance };
@@ -92,6 +93,28 @@ class MemoryMonitor {
     this.memoryMonitorEnabled = true;
     node.style.height = MEM_HEIGHT + 'px';
     node.style.visibility = 'visible';
+  }
+
+  memoryFindData(value, encoding = 'string') {
+    if (!this.lastRamSnapshot) {
+      console.warn('enable memory monitor first!')
+      return;
+    }
+
+    console.log('memoryFindData', { value, encoding });
+
+    if (encoding === 'string') {
+      return findString(value, this.lastRamSnapshot);
+    }
+
+    if (encoding === 'uint8') {
+      return findUint8(value, this.lastRamSnapshot);
+    }
+
+    if (encoding === 'uint16') {
+      return findUint16(value, this.lastRamSnapshot);
+    }
+
   }
 
   memoryMonitorNextPage() {

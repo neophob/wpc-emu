@@ -15,6 +15,7 @@ export {
   memoryMonitorNextPage,
   memoryMonitorPrevPage,
   memoryMonitorRefresh,
+  memoryFindData,
 };
 
 // inspiration:
@@ -308,6 +309,10 @@ function memoryMonitorPrevPage() {
 
 function memoryMonitorRefresh() {
   memoryMonitor.refresh();
+}
+
+function memoryFindData(value, encoding) {
+  memoryMonitor.memoryFindData(value, encoding);
 }
 
 function createCanvas() {

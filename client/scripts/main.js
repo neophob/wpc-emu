@@ -71,6 +71,7 @@ function initialiseEmu(gameEntry) {
         toggleDmdDump,
         toggleMemoryMonitor,
         writeMemory,
+        memoryFindData,
         help,
       };
 
@@ -207,6 +208,15 @@ function memoryMonitorNextPage() {
 function memoryMonitorPrevPage() {
   emuDebugUi.memoryMonitorPrevPage();
   emuDebugUi.memoryMonitorRefresh();
+}
+
+/**
+ * find data in memory
+ * @param {*} value the value you are looking for
+ * @param {*} encoding type of search, can be 'string', uint8, uint16
+ */
+function memoryFindData(value, encoding) {
+  emuDebugUi.memoryFindData(value, encoding);
 }
 
 function writeMemory(offset, value, block) {
