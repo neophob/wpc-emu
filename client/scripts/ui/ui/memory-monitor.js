@@ -11,6 +11,10 @@ const MEM_CONTENT_Y = 2;
 const MEM_CONTENT_ASCII_X = 76;
 const MEM_CONTENT_OFFSET_X = 2;
 
+const ENTRIES_HORIZONTAL = 32;
+const ENTRIES_VERTICAL = 16;
+const ENTRIES_PAGESIZE = ENTRIES_HORIZONTAL * ENTRIES_VERTICAL;
+
 function getInstance(options) {
   return new MemoryMonitor(options);
 }
@@ -106,16 +110,30 @@ class MemoryMonitor {
     }
 
     this.canvasMemoryOverlayDrawLib.clear();
-    for (let y = 0; y < 16; y++) {
-      let ramOffset = this.page * 512 + 16 * y;
 
-      this.canvasMemoryOverlayDrawLib.writeHeader(MEM_CONTENT_OFFSET_X, MEM_CONTENT_Y + y, '0x' + ramOffset.toString(16).toUpperCase());
+    for (let y = 0; y < ENTRIES_VERTICAL; y++) {
+      const ramOffset = this.page * ENTRIES_PAGESIZE + ENTRIES_HORIZONTAL * y;
+      //write offset
+      this.canvasMemoryOverlayDrawLib.writeHeader(
+        MEM_CONTENT_OFFSET_X,
+        MEM_CONTENT_Y + y,
+        '0x' + ramOffset.toString(16).toUpperCase()
+      );
 
-      for (let offset = 0; offset < 32; offset++) {
-        const value = ramArray[ ramOffset ];
-        this.canvasMemoryOverlayDrawLib.writeHeader(MEM_CONTENT_X + offset * 2, MEM_CONTENT_Y + y, value < 16 ? '0' + value.toString(16) : value.toString(16));
-        this.canvasMemoryOverlayDrawLib.writeHeader(MEM_CONTENT_ASCII_X + offset * 0.75, MEM_CONTENT_Y + y, String.fromCharCode(value));
-        ramOffset++;
+      for (let offset = 0; offset < ENTRIES_HORIZONTAL; offset++) {
+        const value = ramArray[ ramOffset + offset ];
+        // write hex value
+        this.canvasMemoryOverlayDrawLib.writeHeader(
+          MEM_CONTENT_X + offset * 2,
+          MEM_CONTENT_Y + y,
+          value < 16 ? '0' + value.toString(16) : value.toString(16)
+        );
+        //write ascii value
+        this.canvasMemoryOverlayDrawLib.writeHeader(
+          MEM_CONTENT_ASCII_X + offset * 0.75,
+          MEM_CONTENT_Y + y,
+          String.fromCharCode(value)
+        );
       }
     }
   }
