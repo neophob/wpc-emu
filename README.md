@@ -726,6 +726,7 @@ Solution: Stored checksum in ROM and actual computed checksum invalid, unclear w
 WPC-EMU exposes the memory monitor to analyse the RAM of a running ROM. WPC-EMU also exposes its core functions in the JS console, examples:
 - `wpcInterface.writeMemory(78, 0, true);` -> change memory at offset 78 with value 0 until the machine is rebooted, the emulator cannot overwrite the content at the defined offset!
 - `wpcInterface.writeMemory(78, 0);` -> change memory at offset 78 with value 0, the emulator can overwrite the stored value
+- `wpcInterface.writeMemory(0x1C65, 'XXX');` -> write string XXX to memory at offset 0x1C65
 - `wpcInterface.memoryFindData('OMA', 'string');` -> search memory for the string OMA
 
 ## Midnight Madness Mode
