@@ -2,6 +2,8 @@
 
 ## 26/8/19
 - Add memory monitor to UI, reachable via "M" key, "B" and "N" are used to change pages
+- Make sure patched memory is reflected in memory monitor
+- support volatile memory change (until next reboot) - currently only exposed on API level (`wpcInterface.writeMemory(78, 0, true);`)
 
 ## 19/8/19
 - Update Security PIC implementation, fix U22 error (WPC-S Test ROM) and G10 error (WPC95 Test ROM). Use PinMAME implementation with serial number scrambler update. Fixes #31.

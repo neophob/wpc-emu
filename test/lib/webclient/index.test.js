@@ -39,6 +39,7 @@ test('WebclientIndex: getStatistics', (t) => {
   { command: 'registerAudioConsumer', requestIdInAnswer: false },
   { command: 'pauseEmulator', requestIdInAnswer: true },
   { command: 'resumeEmulator', requestIdInAnswer: true },
+  { command: 'writeMemory', requestIdInAnswer: true },
 ].forEach((cmd) => {
   test('WebclientIndex: rpc ' + cmd.command, (t) => {
     const webApiClient = t.context.webApiClient;

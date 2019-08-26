@@ -44,6 +44,7 @@
     - [Failed checksum check](#failed-checksum-check)
 - [WPC-EMU Manual](#wpc-emu-manual)
   - [Keyboard Shortcuts](#keyboard-shortcuts)
+  - [Debug ROM](#debug-rom)
   - [Midnight Madness Mode](#midnight-madness-mode)
   - [Rip DMD Animation](#rip-dmd-animation)
     - [Intro](#intro)
@@ -695,7 +696,7 @@ If the `skipWpcRomCheck` is set to false, you see this error on some machines (d
 
 Issue: ROM checksum invalid
 
-Solution: TODO
+Solution: Stored checksum in ROM and actual computed checksum invalid, unclear why and what regions are used to calculate the checksum. Needs more investigation, see #37
 
 # WPC-EMU Manual
 
@@ -712,10 +713,25 @@ Solution: TODO
 | R   | Resume Game / Step by Step |
 | L   | Load Game state            |
 | S   | Pause Game state           |
-| 7   | Escape                     |
-| 8   | -                          |
-| 9   | +                          |
-| 0   | Enter                      |
+| 7   | Coin menu Escape           |
+| 8   | Coin menu -                |
+| 9   | Coin menu +                |
+| 0   | Coin menu Enter            |
+| M   | Opens the Memory monitor   |
+| B   | Memory monitor, next page  |
+| N   | Memory monitor, prev page  |
+
+## Debug ROM
+
+WPC-EMU exposes the memory monitor to analyse the RAM of a running ROM. WPC-EMU also exposes its core functions in the JS console, examples:
+- `wpcInterface.writeMemory(78, 0, true);` -> change memory at offset 78 with value 0 until the machine is rebooted, the emulator cannot overwrite the content at the defined offset!
+- `wpcInterface.writeMemory(78, 0);` -> change memory at offset 78 with value 0, the emulator can overwrite the stored value
+- `wpcInterface.writeMemory(0x1C65, 'XXX');` -> write string XXX to memory at offset 0x1C65
+- `wpcInterface.memoryFindData('OMA', 'string');` -> search memory for the string OMA
+- `wpcInterface.memoryFindData(3, 'uint8');` -> search memory for the uint8 value with 3 (useful for example if you want to find out where the number of players is stored)
+- `wpcInterface.memoryDumpData(0x181F);` - dumps the value at the offset 0x181F
+
+Note: WPC-EMU currently supports the data types `uint8`, `uint16`, `uint32` and `string`.
 
 ## Midnight Madness Mode
 

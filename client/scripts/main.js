@@ -70,6 +70,10 @@ function initialiseEmu(gameEntry) {
         loadState,
         toggleDmdDump,
         toggleMemoryMonitor,
+        writeMemory,
+        memoryFindData,
+        memoryDumpData,
+        help,
       };
 
       wpcEmuWebWorkerApi.registerAudioConsumer((message) => soundInstance.callback(message));
@@ -87,7 +91,7 @@ function initialiseEmu(gameEntry) {
 
         rafId = requestAnimationFrame((timestamp) => {
           const audioState = soundInstance.getState();
-          emuDebugUi.updateCanvas(emuState, true ? 'running' : 'paused', audioState);
+          emuDebugUi.updateCanvas(emuState, 'running', audioState);
 
           const { averageRTTms, sentMessages, failedMessages } = wpcEmuWebWorkerApi.getStatistics();
           emuDebugUi.drawMetaData({
@@ -194,14 +198,44 @@ function resumeEmu() {
 
 function toggleMemoryMonitor() {
   emuDebugUi.toggleMemoryView();
+  emuDebugUi.memoryMonitorRefresh();
 }
 
 function memoryMonitorNextPage() {
   emuDebugUi.memoryMonitorNextPage();
+  emuDebugUi.memoryMonitorRefresh();
 }
 
 function memoryMonitorPrevPage() {
   emuDebugUi.memoryMonitorPrevPage();
+  emuDebugUi.memoryMonitorRefresh();
+}
+
+/**
+ * find data in memory
+ * @param {*} value the value you are looking for
+ * @param {*} encoding type of search, can be 'string', uint8, uint16
+ */
+function memoryFindData(value, encoding) {
+  emuDebugUi.memoryFindData(value, encoding);
+}
+
+/**
+ * write directly to emulator memory
+ * @param {*} offset where to write
+ * @param {*} value String or uint8 value to write
+ * @param {*} block optional option (default is false) to persist stored data
+ */
+function writeMemory(offset, value, block) {
+  return wpcEmuWebWorkerApi.writeMemory(offset, value, block);
+}
+
+/**
+ * print memory content, if its a string
+ * @param {*} offset
+ */
+function memoryDumpData(offset) {
+  emuDebugUi.memoryDumpData(offset);
 }
 
 function pauseEmu() {
@@ -209,6 +243,8 @@ function pauseEmu() {
   emuDebugUi.updateCanvas(null, 'paused', audioState);
 */
   soundInstance.pause();
+  cancelAnimationFrame(rafId)
+  rafId = undefined;
   return wpcEmuWebWorkerApi.pauseEmulator();
 }
 
@@ -217,9 +253,9 @@ function resetEmu() {
   return wpcEmuWebWorkerApi.resetEmulator();
 }
 
-function registerKeyboardListener() {
+function help() {
   console.log(
-    '## KEYBOARD MAPPING:\n' +
+    '## WPC-EMU UI // KEYBOARD MAPPING:\n' +
     '  "1": Coin#1\n' +
     '  "2": Coin#2\n' +
     '  "3": Coin#3\n' +
@@ -235,9 +271,15 @@ function registerKeyboardListener() {
     '  "L": load\n' +
     '  "M": toggle memory monitor\n' +
     '  "N": memory monitor: next page\n' +
-    '  "B": memory monitor: previous page\n'
+    '  "B": memory monitor: previous page\n' +
+    '\n' +
+    '       you can use the "wpcInterface" global to access to the internals of the emulator!\n' +
+    ''
   );
+}
 
+function registerKeyboardListener() {
+  help();
   window.addEventListener('keydown', (e) => {
     switch (e.keyCode) {
       case 49: //1

@@ -169,5 +169,11 @@ module.exports = {
         value: 16
       }
     ],
-  }
+  },
+  memoryPosition: [
+    { offset: 0x323, description: 'current text', type: 'string' },
+    { offset: 0x3AC, description: 'current player', type: 'uint8' },
+    { offset: 0x3AD, description: 'current ball', type: 'uint8' },
+    { offset: 0x188D, description: 'player count', type: 'uint8' },
+  ],
 };

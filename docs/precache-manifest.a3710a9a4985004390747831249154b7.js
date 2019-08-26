@@ -1,10 +1,10 @@
 self.__precacheManifest = [
   {
     "revision": "df465ba67d18d5267f1db48aed87ea56",
-    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/apple-touch-icon.png"
+    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/apple-touch-icon-precomposed.png"
   },
   {
-    "revision": "89a1303335320c490ec1",
+    "revision": "7cadd64d2a64a853fc33",
     "url": "wpc-client.js"
   },
   {
@@ -36,8 +36,8 @@ self.__precacheManifest = [
     "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/firefox_app_60x60.png"
   },
   {
-    "revision": "a6c4b52da200450957c5c01bdda369db",
-    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/firefox_app_512x512.png"
+    "revision": "e1b7b921e38dd64269cb9d475ab9f656",
+    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/firefox_app_128x128.png"
   },
   {
     "revision": "43ddbb68d4f1da20bf642949e85469e5",
@@ -77,15 +77,15 @@ self.__precacheManifest = [
   },
   {
     "revision": "df465ba67d18d5267f1db48aed87ea56",
-    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/apple-touch-icon-180x180.png"
+    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/apple-touch-icon.png"
   },
   {
     "revision": "df465ba67d18d5267f1db48aed87ea56",
-    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/apple-touch-icon-precomposed.png"
+    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/apple-touch-icon-180x180.png"
   },
   {
-    "revision": "e1b7b921e38dd64269cb9d475ab9f656",
-    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/firefox_app_128x128.png"
+    "revision": "a6c4b52da200450957c5c01bdda369db",
+    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/firefox_app_512x512.png"
   },
   {
     "revision": "6ff038c7fb2d7102bc211994d376ccfe",
@@ -164,11 +164,11 @@ self.__precacheManifest = [
     "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/android-chrome-144x144.png"
   },
   {
-    "revision": "3f2cddd0a22094685d6567707bf4c326",
+    "revision": "d4222001c29cff690479fdc7b5454669",
     "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/.cache"
   },
   {
-    "revision": "644c73e1ffee39fccb4772a2c6e001c5",
-    "url": "3384d4f46fca2272ef3c.worker.js"
+    "revision": "e315c7559e95a26d49e743aff512762d",
+    "url": "cf3ac9fe0faf076e7a98.worker.js"
   }
 ];
