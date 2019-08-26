@@ -81,7 +81,7 @@ function initialiseEmu(gameEntry) {
         }
         if (rafId) {
           missedDraw++;
-          console.log('MISSED_DRAW!', rafId, missedDraw);
+          //console.log('MISSED_DRAW!', rafId, missedDraw);
           cancelAnimationFrame(rafId);
         }
 

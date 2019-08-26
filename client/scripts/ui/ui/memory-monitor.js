@@ -48,9 +48,6 @@ class MemoryMonitor {
         0.75,
         17.25,
         this.THEME.DMD_COLOR_VERY_DARK);
-
-//        this.canvasMemoryOverlayDrawLib.writeHeader(MEM_CONTENT_ASCII_X + offset * 0.75, 3 + y, String.fromCharCode(value));
-
     }
 
     for (let y = 0; y < 16; y += 2) {
@@ -81,12 +78,14 @@ class MemoryMonitor {
 
     if (this.memoryMonitorEnabled) {
       node.style.height = '0px';
+      node.style.visibility = 'hidden';
       this.memoryMonitorEnabled = false;
       return;
     }
 
     this.memoryMonitorEnabled = true;
     node.style.height = MEM_HEIGHT + 'px';
+    node.style.visibility = 'visible';
   }
 
   memoryMonitorNextPage() {
@@ -115,7 +114,7 @@ class MemoryMonitor {
       for (let offset = 0; offset < 32; offset++) {
         const value = ramArray[ ramOffset ];
         this.canvasMemoryOverlayDrawLib.writeHeader(MEM_CONTENT_X + offset * 2, MEM_CONTENT_Y + y, value < 16 ? '0' + value.toString(16) : value.toString(16));
-        this.canvasMemoryOverlayDrawLib.writeHeader(MEM_CONTENT_ASCII_X + offset * .75, MEM_CONTENT_Y + y, String.fromCharCode(value));
+        this.canvasMemoryOverlayDrawLib.writeHeader(MEM_CONTENT_ASCII_X + offset * 0.75, MEM_CONTENT_Y + y, String.fromCharCode(value));
         ramOffset++;
       }
     }
