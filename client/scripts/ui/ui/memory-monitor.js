@@ -8,7 +8,7 @@ export { getInstance };
 
 const MEM_HEIGHT = 220;
 const MEM_CONTENT_X = 9;
-const MEM_CONTENT_Y = 2;
+const MEM_CONTENT_Y = 3;
 const MEM_CONTENT_ASCII_X = 76;
 const MEM_CONTENT_OFFSET_X = 2;
 
@@ -40,23 +40,36 @@ class MemoryMonitor {
     this.canvasMemoryOverlayDrawLib = createDrawLib(this.canvasMemoryOverlay, options.THEME);
 
     this.canvasMemoryDrawLib.clear();
-    for (let offset = 0; offset < 32; offset += 2) {
+
+    // HIGHLIGHT ROWS
+    for (let offset = 0; offset < ENTRIES_HORIZONTAL; offset += 2) {
       this.canvasMemoryDrawLib.fillRect(
         MEM_CONTENT_X - 0.25 + offset * 2,
-        MEM_CONTENT_Y - 1.5,
+        MEM_CONTENT_Y - 1,
         2,
         17.25,
         this.THEME.DMD_COLOR_VERY_DARK);
 
       this.canvasMemoryDrawLib.fillRect(
         MEM_CONTENT_ASCII_X + offset * 0.75,
-        MEM_CONTENT_Y - 1.5,
+        MEM_CONTENT_Y - 1,
         0.75,
         17.25,
         this.THEME.DMD_COLOR_VERY_DARK);
     }
 
-    for (let y = 0; y < 16; y += 2) {
+    // OFFSET X
+    for (let offset = 0; offset < ENTRIES_HORIZONTAL; offset++) {
+      this.canvasMemoryDrawLib.writeHeader(
+        MEM_CONTENT_X + offset * 2,
+        MEM_CONTENT_Y - 1,
+        (offset < 16 ? '0' : '') + offset.toString(16).toUpperCase(),
+        this.THEME.HEADER_LINE_HIGH_COLOR
+      );
+    }
+
+    // HIGHLIGHT LINES
+    for (let y = 0; y < ENTRIES_VERTICAL; y += 2) {
       this.canvasMemoryDrawLib.fillRect(
         1,
         MEM_CONTENT_Y + y,
@@ -173,7 +186,8 @@ class MemoryMonitor {
       this.canvasMemoryOverlayDrawLib.writeHeader(
         MEM_CONTENT_OFFSET_X,
         MEM_CONTENT_Y + y,
-        '0x' + ramOffset.toString(16).toUpperCase()
+        '0x' + ramOffset.toString(16).toUpperCase(),
+        this.THEME.HEADER_LINE_HIGH_COLOR
       );
 
       for (let offset = 0; offset < ENTRIES_HORIZONTAL; offset++) {
