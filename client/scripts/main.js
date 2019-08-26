@@ -70,6 +70,8 @@ function initialiseEmu(gameEntry) {
         loadState,
         toggleDmdDump,
         toggleMemoryMonitor,
+        writeMemory,
+        help,
       };
 
       wpcEmuWebWorkerApi.registerAudioConsumer((message) => soundInstance.callback(message));
@@ -207,6 +209,10 @@ function memoryMonitorPrevPage() {
   emuDebugUi.memoryMonitorRefresh();
 }
 
+function writeMemory(offset, value, block) {
+  return wpcEmuWebWorkerApi.writeMemory(offset, value, block);
+}
+
 function pauseEmu() {
 /*  const audioState = soundInstance.getState();
   emuDebugUi.updateCanvas(null, 'paused', audioState);
@@ -222,9 +228,9 @@ function resetEmu() {
   return wpcEmuWebWorkerApi.resetEmulator();
 }
 
-function registerKeyboardListener() {
+function help() {
   console.log(
-    '## KEYBOARD MAPPING:\n' +
+    '## WPC-EMU UI // KEYBOARD MAPPING:\n' +
     '  "1": Coin#1\n' +
     '  "2": Coin#2\n' +
     '  "3": Coin#3\n' +
@@ -240,9 +246,15 @@ function registerKeyboardListener() {
     '  "L": load\n' +
     '  "M": toggle memory monitor\n' +
     '  "N": memory monitor: next page\n' +
-    '  "B": memory monitor: previous page\n'
+    '  "B": memory monitor: previous page\n' +
+    '\n' +
+    '       you can use the "wpcInterface" global to access to the internals of the emulator!\n' +
+    ''
   );
+}
 
+function registerKeyboardListener() {
+  help();
   window.addEventListener('keydown', (e) => {
     switch (e.keyCode) {
       case 49: //1
