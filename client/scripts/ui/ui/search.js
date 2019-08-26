@@ -15,19 +15,20 @@ function findString(stringToSearch, uint8Array) {
   let index = -1;
   for (const char of uint8Array) {
     index++;
-    if (index >= maxIndex) {
-      return;
+    if (index > maxIndex) {
+      return foundElements;
     }
     if (char === searchString[0]) {
       if (_findString(searchString, index, uint8Array)) {
         console.log(stringToSearch, '(String) FOUND at position', '0x' + index.toString(16).toUpperCase());
         if (foundElements++ > MAX_ELEMENTS_TO_SEARCH) {
           console.warn('EXCEEDED_MAX_SEARCH_RESULTS')
-          return;
+          return foundElements;
         }
       }
     }
   };
+  return foundElements;
 }
 
 function _findString(searchString, startPos, uint8Array) {
@@ -52,8 +53,9 @@ function findUint8(uint8ToSearch, uint8Array) {
       console.log(uint8ToSearch, '(uint8) FOUND at position', '0x' + index.toString(16).toUpperCase());
       if (foundElements++ > MAX_ELEMENTS_TO_SEARCH) {
         console.warn('EXCEEDED_MAX_SEARCH_RESULTS')
-        return;
+        return foundElements;
       }
     }
   };
+  return foundElements;
 }
