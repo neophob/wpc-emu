@@ -1,7 +1,7 @@
 'use strict';
 
 import { createDrawLib } from './lib';
-import { findString, findUint8, findUint16 } from './search';
+import { findString, findUint8, findUint16, findUint32 } from './search';
 import { replaceNode } from '../htmlselector';
 
 export { getInstance };
@@ -106,15 +106,17 @@ class MemoryMonitor {
     if (encoding === 'string') {
       return findString(value, this.lastRamSnapshot);
     }
-
     if (encoding === 'uint8') {
       return findUint8(value, this.lastRamSnapshot);
     }
-
     if (encoding === 'uint16') {
       return findUint16(value, this.lastRamSnapshot);
     }
+    if (encoding === 'uint32') {
+      return findUint32(value, this.lastRamSnapshot);
+    }
 
+    console.log('UNKNOWN_ENCODING')
   }
 
   memoryMonitorNextPage() {
