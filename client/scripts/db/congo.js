@@ -100,5 +100,14 @@ module.exports = {
         value: 16
       }
     ],
-  }
+  },
+  memoryPosition: [
+    { offset: 0x326, description: 'current text', type: 'string' },
+    { offset: 0x3B2, description: 'current player', type: 'uint8' },
+    { offset: 0x3B3, description: 'current ball', type: 'uint8' },
+    { offset: 0x1711, description: 'player count', type: 'uint8' },
+
+    { offset: 0x1D10, description: 'credits full', type: 'uint8' },
+    { offset: 0x1D11, description: 'credits half', type: 'uint8' },
+  ],
 };

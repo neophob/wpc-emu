@@ -167,5 +167,11 @@ module.exports = {
         value: 16
       }
     ],
-  }
+  },
+  memoryPosition: [
+    { offset: 0x326, description: 'current text', type: 'string' },
+
+    { offset: 0x1D5B, description: 'credits full', type: 'uint8' },
+    { offset: 0x1D5C, description: 'credits half', type: 'uint8' },
+  ],
 };

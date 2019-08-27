@@ -601,9 +601,12 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 4, THEME.POS_DMDSTAT_Y + 3, 'ACTIVE PAGE');
   canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 17, THEME.POS_DMDSTAT_Y + 3, 'DMD SCANLINE');
   canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 32.5, THEME.POS_DMDSTAT_Y + 3, 'DMD PAGE MAP');
-  canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 43.5, THEME.POS_DMDSTAT_Y + 3, 'FPS');
+
+  // FPS
+  canvasDrawLib.writeRibbonHeader(THEME.POS_DMDSTAT_X + 43.5, THEME.POS_DMDSTAT_Y + 3, 'FPS', THEME.FONT_TEXT);
 
   // WPC-SECURITY
+  canvasDrawLib.writeRibbonHeader(THEME.POS_DMDSTAT_X + 48.5, THEME.POS_DMDSTAT_Y + 2, 'SECURITY', THEME.FONT_TEXT);
   canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 48.5, THEME.POS_DMDSTAT_Y + 3, 'SCRAMBLER');
 
   // MATRIX

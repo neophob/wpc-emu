@@ -175,5 +175,11 @@ module.exports = {
     { offset: 0x3AC, description: 'current player', type: 'uint8' },
     { offset: 0x3AD, description: 'current ball', type: 'uint8' },
     { offset: 0x188D, description: 'player count', type: 'uint8' },
+
+    //GENERIC
+    { offset: 0x1C93, description: 'credits full', type: 'uint8' },
+    { offset: 0x1C94, description: 'credits half', type: 'uint8' },
+    { offset: 0x1C95, description: 'credits checksum 1 (2 * full + half)', type: 'uint8' },
+    { offset: 0x1C9B, description: 'credits checksum 2 (0xff - (full + half + checksum1))', type: 'uint8' },
   ],
 };

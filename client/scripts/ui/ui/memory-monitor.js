@@ -22,6 +22,8 @@ const ENTRIES_HORIZONTAL = 32;
 const ENTRIES_VERTICAL = 16;
 const ENTRIES_PAGESIZE = ENTRIES_HORIZONTAL * ENTRIES_VERTICAL;
 
+const ENABLE_MEMORY_MONITOR = 'enable memory monitor first (press m)!';
+
 function getInstance(options) {
   return new MemoryMonitor(options);
 }
@@ -117,8 +119,7 @@ class MemoryMonitor {
 
   memoryFindData(value, encoding = 'string', rememberResults) {
     if (!this.lastRamSnapshot) {
-      console.warn('enable memory monitor first!')
-      return;
+      return console.warn(ENABLE_MEMORY_MONITOR)
     }
 
     console.log('memoryFindData', { value, encoding, rememberResults });
@@ -158,8 +159,7 @@ class MemoryMonitor {
 
   memoryDumpData(offset) {
     if (!this.lastRamSnapshot) {
-      console.warn('enable memory monitor first!')
-      return;
+      return console.warn(ENABLE_MEMORY_MONITOR)
     }
 
     let dump = '';

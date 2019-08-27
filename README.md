@@ -766,11 +766,11 @@ Note: WPC-EMU currently supports the data types `uint8`, `uint16`, `uint32` and 
 ### Advanced example: "find RAM location of current credits"
 
 - start Hurricane ROM, wait until mainscreeen is visible
-- press key "1" to add two credits (total 2 credits)
+- press key "2" to add two credits (total 2 credits)
 - run `wpcInterface.memoryFindData(2, 'uint8', true)` to search all memory locations that contain 2 - no output is visible yet
-- press key "1" to add two credits (total 4 credits)
+- press key "2" to add two credits (total 4 credits)
 - run `wpcInterface.memoryFindData(4, 'uint8', true)` now you see all memory locations that matched all checks (2)
-- press key "1" to add two credits (total 6 credits)
+- press key "2" to add two credits (total 6 credits)
 - run `wpcInterface.memoryFindData(6, 'uint8', true)` now you see all memory locations that matched all checks (3), output:
 
 ```
