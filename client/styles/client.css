@@ -151,6 +151,11 @@ select:focus {
   z-index: 1;
 }
 
+#variableNode {
+  position: relative;
+  top: 220px;
+}
+
 #memoryOverlayNode {
   z-index: 3;
 }

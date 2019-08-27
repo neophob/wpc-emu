@@ -1,14 +1,14 @@
 'use strict';
 
-import { createDrawLib } from './lib';
+import { createDrawLib } from './ui/lib';
 import {
   findString,
   findUint8,
   findUint16,
   findUint32,
   findIdenticalOffsetInArray,
-} from './search';
-import { replaceNode } from '../htmlselector';
+} from './ui/search';
+import { replaceNode } from './htmlselector';
 
 export { getInstance };
 
@@ -41,13 +41,12 @@ class MemoryMonitor {
     this.canvasMemory = canvasMemoryElement.getContext('2d', { alpha: true });
     replaceNode('memoryNode', canvasMemoryElement);
     this.canvasMemoryDrawLib = createDrawLib(this.canvasMemory, options.THEME);
+    this.canvasMemoryDrawLib.clear();
 
     const canvasMemoryOverlayElement = this._createCanvas();
     this.canvasMemoryOverlay = canvasMemoryOverlayElement.getContext('2d', { alpha: true });
     replaceNode('memoryOverlayNode', canvasMemoryOverlayElement);
     this.canvasMemoryOverlayDrawLib = createDrawLib(this.canvasMemoryOverlay, options.THEME);
-
-    this.canvasMemoryDrawLib.clear();
 
     // HIGHLIGHT ROWS
     for (let offset = 0; offset < ENTRIES_HORIZONTAL; offset += 2) {
@@ -113,7 +112,7 @@ class MemoryMonitor {
     }
 
     this.memoryMonitorEnabled = true;
-    node.style.height = MEM_HEIGHT + 'px';
+    node.style.height = 2 * MEM_HEIGHT + 'px';
     node.style.visibility = 'visible';
   }
 

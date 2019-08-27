@@ -2,7 +2,7 @@
 
 import { replaceNode } from './htmlselector';
 import { createDrawLib } from './ui/lib';
-import * as MemoryMonitor from './ui/memory-monitor';
+import * as MemoryMonitor from './memory-monitor';
 
 export {
   initialise,
