@@ -1,6 +1,15 @@
 'use strict';
 
-export { findString, findUint8, findUint16, findUint32, findIdenticalOffsetInArray };
+import * as bcd from '../../../../lib/encoding/bcd';
+
+export {
+  findString,
+  findUint8,
+  findUint16,
+  findUint32,
+  findIdenticalOffsetInArray,
+  findBCD,
+};
 
 const MAX_ELEMENTS_TO_SEARCH = 1024;
 
@@ -78,6 +87,30 @@ function findUint8(uint8ToSearch, uint8Array) {
       result.push(index);
       if (result.length > MAX_ELEMENTS_TO_SEARCH) {
         return result;
+      }
+    }
+  };
+  return result;
+}
+
+function findBCD(string, uint8Array) {
+  const result = []
+  const number = parseInt(string, 10);
+  const bcdValue = bcd.toBCD(number, string.length / 2);
+
+  const maxIndex = uint8Array.length - (string.length / 2);
+  let index = -1;
+  for (const ramContent of uint8Array) {
+    index++;
+    if (index > maxIndex) {
+      return result;
+    }
+    if (ramContent === bcdValue[0]) {
+      if (_findString(bcdValue, index, uint8Array)) {
+        result.push(index);
+        if (result.length > MAX_ELEMENTS_TO_SEARCH) {
+          return result;
+        }
       }
     }
   };

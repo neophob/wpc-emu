@@ -7,6 +7,7 @@ import {
   findUint16,
   findUint32,
   findIdenticalOffsetInArray,
+  findBCD,
 } from './ui/search';
 import { replaceNode } from './htmlselector';
 
@@ -121,6 +122,7 @@ class MemoryMonitor {
           console.log(value, encoding, 'FOUND at position', '0x' + offset.toString(16).toUpperCase());
         });
         return;
+
       case 'uint8':
         foundOffset = findUint8(value, this.lastRamSnapshot);
         if (rememberResults) {
@@ -131,12 +133,19 @@ class MemoryMonitor {
           this.memorySearchResult = undefined;
         }
         break;
+
       case 'uint16':
         foundOffset = findUint16(value, this.lastRamSnapshot);
         break;
+
       case 'uint32':
         foundOffset = findUint32(value, this.lastRamSnapshot);
         break;
+
+      case 'bcd':
+        foundOffset = findBCD('' + value, this.lastRamSnapshot);
+        break
+
       default:
         console.warn('UNKNOWN_ENCODING', encoding);
         return;
