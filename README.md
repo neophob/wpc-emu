@@ -45,6 +45,7 @@
 - [WPC-EMU Manual](#wpc-emu-manual)
   - [Keyboard Shortcuts](#keyboard-shortcuts)
   - [Debug ROM](#debug-rom)
+    - [Advanced example: "find RAM location of current credits"](#advanced-example-%22find-ram-location-of-current-credits%22)
   - [Midnight Madness Mode](#midnight-madness-mode)
   - [Rip DMD Animation](#rip-dmd-animation)
     - [Intro](#intro)
@@ -723,7 +724,36 @@ Solution: Stored checksum in ROM and actual computed checksum invalid, unclear w
 
 ## Debug ROM
 
-WPC-EMU exposes the memory monitor to analyse the RAM of a running ROM. WPC-EMU also exposes its core functions in the JS console, examples:
+WPC-EMU exposes the memory monitor to analyse the RAM of a running ROM. WPC-EMU also exposes its core functions in the JS console. API description:
+
+```
+/**
+ * Write directly to emulator memory
+ * @param {Number} offset where to write
+ * @param {Number|String} value String or uint8 value to write
+ * @param {Boolean} block optional option (default is false) to persist stored data
+ */
+function writeMemory(offset, value, block)
+
+/**
+ * Find data in emulator memory
+ * @param {Number|String} value the value you are looking for
+ * @param {String} encoding type of search, can be 'string', uint8, uint16
+ * @param {Boolean} rememberResults only uint8 supported, remembers all the positions from a previous search
+ */
+function memoryFindData(value, encoding, rememberResults = false)
+
+/**
+ * Print emulator memory content, if its a string the whole string will be shown
+ * @param {Number} offset
+ */
+function memoryDumpData(offset)
+
+```
+
+
+
+Examples:
 - `wpcInterface.writeMemory(78, 0, true);` -> change memory at offset 78 with value 0 until the machine is rebooted, the emulator cannot overwrite the content at the defined offset!
 - `wpcInterface.writeMemory(78, 0);` -> change memory at offset 78 with value 0, the emulator can overwrite the stored value
 - `wpcInterface.writeMemory(0x1C65, 'XXX');` -> write string XXX to memory at offset 0x1C65
@@ -732,6 +762,26 @@ WPC-EMU exposes the memory monitor to analyse the RAM of a running ROM. WPC-EMU 
 - `wpcInterface.memoryDumpData(0x181F);` - dumps the value at the offset 0x181F
 
 Note: WPC-EMU currently supports the data types `uint8`, `uint16`, `uint32` and `string`.
+
+### Advanced example: "find RAM location of current credits"
+
+- start Hurricane ROM, wait until mainscreeen is visible
+- press key "1" to add two credits (total 2 credits)
+- run `wpcInterface.memoryFindData(2, 'uint8', true)` to search all memory locations that contain 2 - no output is visible yet
+- press key "1" to add two credits (total 4 credits)
+- run `wpcInterface.memoryFindData(4, 'uint8', true)` now you see all memory locations that matched all checks (2)
+- press key "1" to add two credits (total 6 credits)
+- run `wpcInterface.memoryFindData(6, 'uint8', true)` now you see all memory locations that matched all checks (3), output:
+
+```
+0x6 uint8 FOUND at position 0x356
+0x6 uint8 FOUND at position 0x990
+0x6 uint8 FOUND at position 0x9AA
+0x6 uint8 FOUND at position 0x1831
+0x6 uint8 FOUND at position 0x1855
+0x6 uint8 FOUND at position 0x1879
+0x6 uint8 FOUND at position 0x1C93
+```
 
 ## Midnight Madness Mode
 

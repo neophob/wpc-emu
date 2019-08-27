@@ -1,7 +1,13 @@
 'use strict';
 
 import { createDrawLib } from './lib';
-import { findString, findUint8, findUint16, findUint32 } from './search';
+import {
+  findString,
+  findUint8,
+  findUint16,
+  findUint32,
+  findIdenticalOffsetInArray,
+} from './search';
 import { replaceNode } from '../htmlselector';
 
 export { getInstance };
@@ -28,7 +34,7 @@ class MemoryMonitor {
     this.memoryMonitorEnabled = false;
     this.page = 0;
     this.lastRamSnapshot = undefined;
-    this.memorySearchResult = {};
+    this.memorySearchResult = undefined;
     const canvasMemoryElement = this._createCanvas();
     this.canvasMemory = canvasMemoryElement.getContext('2d', { alpha: true });
     replaceNode('memoryNode', canvasMemoryElement);
@@ -90,7 +96,7 @@ class MemoryMonitor {
   clear() {
     this.canvasMemoryOverlayDrawLib.clear();
     this.page = 0;
-    this.memorySearchResult = {};
+    this.memorySearchResult = undefined;
     this.lastRamSnapshot = undefined;
   }
 
@@ -109,44 +115,45 @@ class MemoryMonitor {
     node.style.visibility = 'visible';
   }
 
-  memoryFindData(value, encoding = 'string') {
+  memoryFindData(value, encoding = 'string', rememberResults) {
     if (!this.lastRamSnapshot) {
       console.warn('enable memory monitor first!')
       return;
     }
 
-    console.log('memoryFindData', { value, encoding });
+    console.log('memoryFindData', { value, encoding, rememberResults });
+    let foundOffset;
 
-    if (encoding === 'string') {
-      const foundOffset = findString(value, this.lastRamSnapshot);
-      foundOffset.forEach((offset) => {
-        console.log(stringToSearch, '(String) FOUND at position', '0x' + index.toString(16).toUpperCase());
-      });
-      return;
+    switch (encoding) {
+      case 'string':
+        foundOffset = findString(value, this.lastRamSnapshot);
+        foundOffset.forEach((offset) => {
+          console.log(value, encoding, 'FOUND at position', '0x' + offset.toString(16).toUpperCase());
+        });
+        return;
+      case 'uint8':
+        foundOffset = findUint8(value, this.lastRamSnapshot);
+        if (rememberResults) {
+          const identicalResult = findIdenticalOffsetInArray(foundOffset, this.memorySearchResult);
+          this.memorySearchResult = foundOffset;
+          foundOffset = identicalResult;
+        } else {
+          this.memorySearchResult = undefined;
+        }
+        break;
+      case 'uint16':
+        foundOffset = findUint16(value, this.lastRamSnapshot);
+        break;
+      case 'uint32':
+        foundOffset = findUint32(value, this.lastRamSnapshot);
+        break;
+      default:
+        console.warn('UNKNOWN_ENCODING', encoding);
+        return;
     }
-    if (encoding === 'uint8') {
-      const foundOffset = findUint8(value, this.lastRamSnapshot);
-      foundOffset.forEach((offset) => {
-        console.log('0x' + value.toString(16), '(uint8) FOUND at position', '0x' + offset.toString(16).toUpperCase());
-      });
-      return;
-    }
-    if (encoding === 'uint16') {
-      const foundOffset = findUint16(value, this.lastRamSnapshot);
-      foundOffset.forEach((offset) => {
-        console.log('0x' + value.toString(16), '(uint16) FOUND at position', '0x' + offset.toString(16).toUpperCase());
-      });
-      return;
-    }
-    if (encoding === 'uint32') {
-      const foundOffset = findUint32(value, this.lastRamSnapshot);
-      foundOffset.forEach((offset) => {
-        console.log('0x' + value.toString(16), '(uint32) FOUND at position', '0x' + offset.toString(16).toUpperCase());
-      });
-      return;
-    }
-
-    console.log('UNKNOWN_ENCODING')
+    foundOffset.forEach((offset) => {
+      console.log('0x' + value.toString(16), encoding, 'FOUND at position', '0x' + offset.toString(16).toUpperCase());
+    });
   }
 
   memoryDumpData(offset) {

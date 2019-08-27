@@ -1,6 +1,6 @@
 'use strict';
 
-export { findString, findUint8, findUint16, findUint32 };
+export { findString, findUint8, findUint16, findUint32, findIdenticalOffsetInArray };
 
 const MAX_ELEMENTS_TO_SEARCH = 64;
 
@@ -82,4 +82,13 @@ function findUint8(uint8ToSearch, uint8Array) {
     }
   };
   return result;
+}
+
+function findIdenticalOffsetInArray(uint8Array1, uint8Array2) {
+  if (!uint8Array1 || !uint8Array2) {
+    return new Uint8Array();
+  }
+  return uint8Array1.filter((offset) => {
+    return uint8Array2.indexOf(offset) !== -1;
+  });
 }

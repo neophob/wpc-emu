@@ -1,7 +1,7 @@
 'use strict';
 
 import test from 'ava';
-import { findString, findUint8, findUint16, findUint32 } from '../../../../scripts/ui/ui/search';
+import { findString, findUint8, findUint16, findUint32, findIdenticalOffsetInArray } from '../../../../scripts/ui/ui/search';
 
 test('findString: find no string', (t) => {
   const result = findString('BBB', new Uint8Array([0, 1, 2, 3, 65, 65, 65]));
@@ -81,4 +81,37 @@ test('findUint32: find one value', (t) => {
 test('findUint32: find multiple value', (t) => {
   const result = findUint32(0x13302233, new Uint8Array([0x13, 0x30, 0x22, 0x33, 0x00, 0x13, 0x30, 0x22, 0x33]));
   t.deepEqual(result, [ 0, 5 ]);
+});
+
+test('findIdenticalOffsetInArray: find nothing', (t) => {
+  const a1 = new Uint8Array([ 0x13, 0x30 ]);
+  const a2 = new Uint8Array([ ]);
+  const result = findIdenticalOffsetInArray(a1, a2);
+  t.deepEqual(result, new Uint8Array([]));
+});
+
+test('findIdenticalOffsetInArray: find nothing (undefined 1)', (t) => {
+  const a1 = new Uint8Array([ 0x13, 0x30 ]);
+  const result = findIdenticalOffsetInArray(a1, undefined);
+  t.deepEqual(result, new Uint8Array([]));
+});
+
+test('findIdenticalOffsetInArray: find nothing (undefined 2)', (t) => {
+  const a1 = new Uint8Array([ 0x13, 0x30 ]);
+  const result = findIdenticalOffsetInArray(undefined, a1);
+  t.deepEqual(result, new Uint8Array([]));
+});
+
+test('findIdenticalOffsetInArray: find one same value', (t) => {
+  const a1 = new Uint8Array([ 0x13, 0x30 ]);
+  const a2 = new Uint8Array([ 0, 0x30, 0x40 ]);
+  const result = findIdenticalOffsetInArray(a1, a2);
+  t.deepEqual(result, new Uint8Array([ 0x30 ]));
+});
+
+test('findIdenticalOffsetInArray: find multiple values', (t) => {
+  const a1 = new Uint8Array([ 0x13, 0x30, 0x40 ]);
+  const a2 = new Uint8Array([ 0, 0x30, 0x40 ]);
+  const result = findIdenticalOffsetInArray(a1, a2);
+  t.deepEqual(result, new Uint8Array([ 0x30, 0x40 ]));
 });
