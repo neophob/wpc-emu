@@ -169,9 +169,23 @@ module.exports = {
     ],
   },
   memoryPosition: [
-    { offset: 0x326, description: 'current text', type: 'string' },
+    // alternative locations 0x3EB,
+    { offset: 0x80, name: 'GAME_RUN', description: '0: pause, 1: running', type: 'uint8' },
+    { offset: 0x326, name: 'TEXT', description: 'random visible text', type: 'string' },
+    { offset: 0x3B2, name: 'PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
+    { offset: 0x3B3, name: 'BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
+    { offset: 0x440, name: 'CURRENT_SCREEN', description: '0: attract mode, 0x89: shows tournament enable screen, 0xF1: coin door open, 0xF4: switch scanning', type: 'uint8' },
 
-    { offset: 0x1D5B, description: 'credits full', type: 'uint8' },
-    { offset: 0x1D5C, description: 'credits half', type: 'uint8' },
+    { offset: 0x170D, name: 'PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
+    { offset: 0x1D5B, name: 'CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
+    { offset: 0x1D5C, name: 'CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
   ],
+
+  //TODO
+  //TILT sensor?
+  //current score
+  //player 2 score
+  //detect game over
+  //attract mode screen
+
 };
