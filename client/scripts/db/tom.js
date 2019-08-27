@@ -1342,9 +1342,9 @@ module.exports = {
     },
   },
   memoryPosition: [
-    { offset: 0x326, description: 'current text', type: 'string' },
-    { offset: 0x3AF, description: 'current player', type: 'uint8' },
-    { offset: 0x3B0, description: 'current ball', type: 'uint8' },
-    { offset: 0x629, description: 'player count', type: 'uint8' },
+    { offset: 0x326, name: 'TEXT', description: 'random visible text', type: 'string' },
+    { offset: 0x3AF, name: 'PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
+    { offset: 0x3B0, name: 'BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
+    { offset: 0x629, name: 'PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
   ],
 };

@@ -171,15 +171,14 @@ module.exports = {
     ],
   },
   memoryPosition: [
-    { offset: 0x326, description: 'current text', type: 'string' },
-    { offset: 0x3AC, description: 'current player', type: 'uint8' },
-    { offset: 0x3AD, description: 'current ball', type: 'uint8' },
-    { offset: 0x188D, description: 'player count', type: 'uint8' },
+    { offset: 0x326, name: 'TEXT', description: 'random visible text', type: 'string' },
+    { offset: 0x3AC, name: 'PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
+    { offset: 0x3AD, name: 'BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
 
-    //GENERIC
-    { offset: 0x1C93, description: 'credits full', type: 'uint8' },
-    { offset: 0x1C94, description: 'credits half', type: 'uint8' },
-    { offset: 0x1C95, description: 'credits checksum 1 (2 * full + half)', type: 'uint8' },
-    { offset: 0x1C9B, description: 'credits checksum 2 (0xff - (full + half + checksum1))', type: 'uint8' },
+    { offset: 0x188D, name: 'PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
+    { offset: 0x1C93, name: 'CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
+    { offset: 0x1C94, name: 'CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
+    //{ offset: 0x1C95, description: 'credits checksum 1 (2 * full + half)', type: 'uint8' },
+    //{ offset: 0x1C9B, description: 'credits checksum 2 (0xff - (full + half + checksum1))', type: 'uint8' },
   ],
 };

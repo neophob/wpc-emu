@@ -44,12 +44,12 @@ test.beforeEach((t) => {
   };
 });
 
-test('should filter out invalid memoryPosition entries', (t) => {
+test('UI: should filter out invalid memoryPosition entries', (t) => {
   const ui = t.context.ui;
   t.is(ui.memoryPosition.length, 2);
 });
 
-test('should fetch data from ram', (t) => {
+test('UI: should fetch data from ram', (t) => {
   const ui = t.context.ui;
   const result = ui.getChangedState(t.context.dummyState);
 
@@ -58,8 +58,17 @@ test('should fetch data from ram', (t) => {
   t.is(result.memoryPosition[1].value, 22);
 });
 
-test('should fetch data from ram (string)', (t) => {
+test('UI: should fetch data from ram (string)', (t) => {
   const ui = t.context.ui;
   const result = ui.getChangedState(t.context.dummyStateString);
   t.is(result.memoryPosition[0].value, 'AAA');
+});
+
+test('UI: should cap very long string', (t) => {
+  const ui = t.context.ui;
+  const data = t.context.dummyStateString;
+  data.ram = new Array(500).fill(65);
+  const result = ui.getChangedState(data);
+  console.log(result.memoryPosition[0])
+  t.is(result.memoryPosition[0].value.length, 32);
 });
