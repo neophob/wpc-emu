@@ -129,11 +129,12 @@ lampColorLut.set('GREEN', 'rgba(0,255,0,');
 lampColorLut.set('BLACK', 'rgba(0,0,0,255)');
 
 function drawMetaData(object) {
-  const { averageRTTms, sentMessages, failedMessages, missedDraw } = object;
+  const { averageRTTms, sentMessages, failedMessages, missedDraw, lastFps } = object;
   canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 1, 4, averageRTTms);
   canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 1, 6, missedDraw);
   canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 9, 4, sentMessages);
   canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 9, 5, failedMessages);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_DMDSTAT_X + 43.5, THEME.POS_DMDSTAT_Y + 4.5, lastFps);
 }
 
 function updateCanvas(emuState, cpuRunningState, audioState) {
@@ -243,7 +244,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
   // WPC-SECURITY
   if (emuState.asic.wpc.wpcSecureScrambler) {
-    canvasOverlayDrawLib.writeHeader(THEME.POS_DMDSTAT_X + 43.5, THEME.POS_DMDSTAT_Y + 4.5, emuState.asic.wpc.wpcSecureScrambler);
+    canvasOverlayDrawLib.writeHeader(THEME.POS_DMDSTAT_X + 48.5, THEME.POS_DMDSTAT_Y + 4.5, emuState.asic.wpc.wpcSecureScrambler);
   }
 
   // MATRIX / INPUT
@@ -600,9 +601,10 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 4, THEME.POS_DMDSTAT_Y + 3, 'ACTIVE PAGE');
   canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 17, THEME.POS_DMDSTAT_Y + 3, 'DMD SCANLINE');
   canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 32.5, THEME.POS_DMDSTAT_Y + 3, 'DMD PAGE MAP');
+  canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 43.5, THEME.POS_DMDSTAT_Y + 3, 'FPS');
 
   // WPC-SECURITY
-  canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 43.5, THEME.POS_DMDSTAT_Y + 3, 'SECURITY SCRAMBLER');
+  canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 48.5, THEME.POS_DMDSTAT_Y + 3, 'SCRAMBLER');
 
   // MATRIX
   canvasDrawLib.drawVerticalLine(THEME.POS_MATRIX_X,      THEME.POS_MATRIX_Y, 21);

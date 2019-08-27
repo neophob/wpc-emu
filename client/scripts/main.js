@@ -95,7 +95,7 @@ function initialiseEmu(gameEntry) {
 
           const { averageRTTms, sentMessages, failedMessages } = wpcEmuWebWorkerApi.getStatistics();
           emuDebugUi.drawMetaData({
-            averageRTTms, sentMessages, failedMessages, missedDraw
+            averageRTTms, sentMessages, failedMessages, missedDraw, lastFps
           });
           if (emuState.asic.wpc.inputState) {
             updateUiSwitchState(emuState.asic.wpc.inputState);
@@ -121,7 +121,6 @@ function initialiseEmu(gameEntry) {
           fpsTimes.push(timestamp);
           if (Math.abs(lastFps - fpsTimes.length) > 5) {
             lastFps = fpsTimes.length;
-            //console.log('fps changed', lastFps);
             //TODO: reduce FPS
             //wpcEmuWebWorkerApi.adjustFramerate(fpsTimes.length);
           }
