@@ -2,6 +2,7 @@
 
 ## 27/8/19
 - improve `memoryFindData` function - you can show results that matches multiple checks to easy find relevant memory positions
+- return known RAM state (like current player, current ball etc) with `getUiState()` call (see memoryPosition client option)
 
 ## 26/8/19
 - Add memory monitor to UI, reachable via "M" key, "B" and "N" are used to change pages

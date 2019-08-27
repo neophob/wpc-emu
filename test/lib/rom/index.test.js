@@ -75,6 +75,21 @@ test('romParser should parse wpcFliptronics board', (t) => {
     });
 });
 
+test('romParser should parse memoryPosition', (t) => {
+  const romData = buildRomData();
+  const metaData = {
+    memoryPosition: [
+      { offset: 0x326, description: 'current text', type: 'string' },
+    ],
+  }
+  return romParser
+    .parse(romData, metaData)
+    .then((result) => {
+      t.is(result.memoryPosition[0].offset, 0x326);
+      t.is(result.memoryPosition[0].description, 'current text');
+      t.is(result.memoryPosition[0].type, 'string');
+    });
+});
 
 function buildRomData() {
   const u06 = new Uint8Array(256 * 1024).fill(11);
