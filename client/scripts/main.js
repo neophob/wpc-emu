@@ -121,7 +121,7 @@ function initialiseEmu(gameEntry) {
           fpsTimes.push(timestamp);
           if (Math.abs(lastFps - fpsTimes.length) > 5) {
             lastFps = fpsTimes.length;
-            console.log('fps changed', lastFps);
+            //console.log('fps changed', lastFps);
             //TODO: reduce FPS
             //wpcEmuWebWorkerApi.adjustFramerate(fpsTimes.length);
           }
@@ -212,27 +212,28 @@ function memoryMonitorPrevPage() {
 }
 
 /**
- * find data in memory
- * @param {*} value the value you are looking for
- * @param {*} encoding type of search, can be 'string', uint8, uint16
+ * Find data in emulator memory
+ * @param {Number|String} value the value you are looking for
+ * @param {String} encoding type of search, can be 'string', uint8, uint16
+ * @param {Boolean} rememberResults only uint8 supported, remembers all the positions from a previous search
  */
-function memoryFindData(value, encoding) {
-  emuDebugUi.memoryFindData(value, encoding);
+function memoryFindData(value, encoding, rememberResults = false) {
+  emuDebugUi.memoryFindData(value, encoding, rememberResults);
 }
 
 /**
- * write directly to emulator memory
- * @param {*} offset where to write
- * @param {*} value String or uint8 value to write
- * @param {*} block optional option (default is false) to persist stored data
+ * Write directly to emulator memory
+ * @param {Number} offset where to write
+ * @param {Number|String} value String or uint8 value to write
+ * @param {Boolean} block optional option (default is false) to persist stored data
  */
 function writeMemory(offset, value, block) {
   return wpcEmuWebWorkerApi.writeMemory(offset, value, block);
 }
 
 /**
- * print memory content, if its a string
- * @param {*} offset
+ * Print emulator memory content, if its a string the whole string will be shown
+ * @param {Number} offset
  */
 function memoryDumpData(offset) {
   emuDebugUi.memoryDumpData(offset);

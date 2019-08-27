@@ -312,8 +312,8 @@ function memoryMonitorRefresh() {
   memoryMonitor.refresh();
 }
 
-function memoryFindData(value, encoding) {
-  memoryMonitor.memoryFindData(value, encoding);
+function memoryFindData(value, encoding, rememberResults) {
+  memoryMonitor.memoryFindData(value, encoding, rememberResults);
 }
 
 function memoryDumpData(offset) {
