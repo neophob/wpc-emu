@@ -12,7 +12,7 @@ import { replaceNode } from './htmlselector';
 
 export { getInstance };
 
-const MEM_HEIGHT = 220;
+const WINDOW_HEIGHT = 220;
 const MEM_CONTENT_X = 9;
 const MEM_CONTENT_Y = 3;
 const MEM_CONTENT_ASCII_X = 76;
@@ -37,6 +37,7 @@ class MemoryMonitor {
     this.page = 0;
     this.lastRamSnapshot = undefined;
     this.memorySearchResult = undefined;
+
     const canvasMemoryElement = this._createCanvas();
     this.canvasMemory = canvasMemoryElement.getContext('2d', { alpha: true });
     replaceNode('memoryNode', canvasMemoryElement);
@@ -90,7 +91,7 @@ class MemoryMonitor {
   _createCanvas() {
     const canvasElement = document.createElement('canvas');
     canvasElement.width = this.CANVAS_WIDTH;
-    canvasElement.height = MEM_HEIGHT;
+    canvasElement.height = WINDOW_HEIGHT;
     return canvasElement;
   }
 
@@ -101,19 +102,8 @@ class MemoryMonitor {
     this.lastRamSnapshot = undefined;
   }
 
-  toggleMemoryView() {
-    const node = document.querySelector('#memoryMonitor');
-
-    if (this.memoryMonitorEnabled) {
-      node.style.height = '0px';
-      node.style.visibility = 'hidden';
-      this.memoryMonitorEnabled = false;
-      return;
-    }
-
-    this.memoryMonitorEnabled = true;
-    node.style.height = 2 * MEM_HEIGHT + 'px';
-    node.style.visibility = 'visible';
+  toggleView(enabled) {
+    this.memoryMonitorEnabled = enabled === true;
   }
 
   memoryFindData(value, encoding = 'string', rememberResults) {

@@ -3,6 +3,7 @@
 import { replaceNode } from './htmlselector';
 import { createDrawLib } from './ui/lib';
 import * as MemoryMonitor from './memory-monitor';
+import * as VariableMonitor from './variable-monitor';
 
 export {
   initialise,
@@ -37,6 +38,7 @@ let canvasLamp, canvaLampDrawLib;
 let canvasFlash, canvaFlashDrawLib;
 
 let memoryMonitor;
+let variableMonitor;
 
 let playfieldData;
 let playfieldImage;
@@ -210,6 +212,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     canvaDmdDrawLib.drawDiagramCluster(THEME.POS_RAMDIAG_X + 0.5, THEME.POS_RAMDIAG_Y + 1, memory1k, 24);
 
     memoryMonitor.draw(emuState.asic.ram);
+    variableMonitor.draw(emuState.asic.memoryPosition);
   }
 
   // DMD MEM - draw only 4 dmd video fragment per loop
@@ -298,7 +301,20 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 }
 
 function toggleMemoryView() {
-  memoryMonitor.toggleMemoryView();
+  const node = document.querySelector('#memoryMonitor');
+
+  if (memoryMonitor.memoryMonitorEnabled) {
+    node.style.height = '0px';
+    node.style.visibility = 'hidden';
+    memoryMonitor.toggleView(false);
+    variableMonitor.toggleView(false);
+    return;
+  }
+
+  memoryMonitor.toggleView(true);
+  variableMonitor.toggleView(true)
+  node.style.height = 440 + 'px';
+  node.style.visibility = 'visible';
 }
 
 function memoryMonitorNextPage() {
@@ -372,6 +388,7 @@ function initiateCanvasElements() {
   canvaFlashDrawLib = createDrawLib(canvasFlash, THEME);
 
   memoryMonitor = MemoryMonitor.getInstance({ THEME, CANVAS_WIDTH });
+  variableMonitor = VariableMonitor.getInstance({ THEME, CANVAS_WIDTH });
 }
 
 function initialise() {
@@ -385,6 +402,7 @@ function initialise() {
   canvaLampDrawLib.clear();
   canvaFlashDrawLib.clear();
   memoryMonitor.clear();
+  variableMonitor.clear();
 
   canvasDrawLib.drawBackgroundPoints();
 
