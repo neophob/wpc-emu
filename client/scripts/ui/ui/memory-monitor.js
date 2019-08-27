@@ -28,7 +28,7 @@ class MemoryMonitor {
     this.memoryMonitorEnabled = false;
     this.page = 0;
     this.lastRamSnapshot = undefined;
-
+    this.memorySearchResult = {};
     const canvasMemoryElement = this._createCanvas();
     this.canvasMemory = canvasMemoryElement.getContext('2d', { alpha: true });
     replaceNode('memoryNode', canvasMemoryElement);
@@ -90,6 +90,7 @@ class MemoryMonitor {
   clear() {
     this.canvasMemoryOverlayDrawLib.clear();
     this.page = 0;
+    this.memorySearchResult = {};
     this.lastRamSnapshot = undefined;
   }
 
@@ -117,16 +118,32 @@ class MemoryMonitor {
     console.log('memoryFindData', { value, encoding });
 
     if (encoding === 'string') {
-      return findString(value, this.lastRamSnapshot);
+      const foundOffset = findString(value, this.lastRamSnapshot);
+      foundOffset.forEach((offset) => {
+        console.log(stringToSearch, '(String) FOUND at position', '0x' + index.toString(16).toUpperCase());
+      });
+      return;
     }
     if (encoding === 'uint8') {
-      return findUint8(value, this.lastRamSnapshot);
+      const foundOffset = findUint8(value, this.lastRamSnapshot);
+      foundOffset.forEach((offset) => {
+        console.log('0x' + value.toString(16), '(uint8) FOUND at position', '0x' + offset.toString(16).toUpperCase());
+      });
+      return;
     }
     if (encoding === 'uint16') {
-      return findUint16(value, this.lastRamSnapshot);
+      const foundOffset = findUint16(value, this.lastRamSnapshot);
+      foundOffset.forEach((offset) => {
+        console.log('0x' + value.toString(16), '(uint16) FOUND at position', '0x' + offset.toString(16).toUpperCase());
+      });
+      return;
     }
     if (encoding === 'uint32') {
-      return findUint32(value, this.lastRamSnapshot);
+      const foundOffset = findUint32(value, this.lastRamSnapshot);
+      foundOffset.forEach((offset) => {
+        console.log('0x' + value.toString(16), '(uint32) FOUND at position', '0x' + offset.toString(16).toUpperCase());
+      });
+      return;
     }
 
     console.log('UNKNOWN_ENCODING')
