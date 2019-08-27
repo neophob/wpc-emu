@@ -48,7 +48,7 @@ class VariableMonitor {
     memoryPositions.forEach((element, index) => {
       this.canvasVariablesDrawLib.writeHeader(
         2,
-        index * 1.5,
+        2 + index * 1.5,
         element.name + ': ' + element.value,
         index % 2 === 1 ? this.THEME.TEXT_COLOR : this.THEME.TEXT_COLOR_HEADER
       );

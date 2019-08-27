@@ -103,5 +103,45 @@ module.exports = {
         value: 16
       }
     ],
-  }
+  },
+
+/*
+"last_played": {"start": "0x1800", "encoding": "wpc_rtc", "length": 7},
+	"last_game": [
+		{	"label": "Player 1",
+			"start": "0x16A0", "encoding": "bcd", "length": 6
+		},
+		{	"label": "Player 2",
+			"start": "0x16A7", "encoding": "bcd", "length": 6}
+		,
+		{	"label": "Player 3",
+			"start": "0x16AE", "encoding": "bcd", "length": 6
+		},
+		{	"label": "Player 4",
+			"start": "0x16B5", "encoding": "bcd", "length": 6
+		}
+	],
+	"high_scores": [
+		{	"label": "Grand Champion", "short_label": "GC",
+			"initials": {"start": "0x1C87", "encoding": "ch", "length": 3},
+			"score": {"start": "0x1C8A", "encoding": "bcd", "length": 6}
+		},
+		{	"label": "First Place", "short_label": "1st",
+			"initials": {"start": "0x1C61", "encoding": "ch", "length": 3},
+			"score": {"start": "0x1C64", "encoding": "bcd", "length": 6}
+		},
+		{	"label": "Second Place", "short_label": "2nd",
+			"initials": {"start": "0x1C6A", "encoding": "ch", "length": 3},
+			"score": {"start": "0x1C6D", "encoding": "bcd", "length": 6}
+		},
+		{	"label": "Third Place", "short_label": "3rd",
+			"initials": {"start": "0x1C73", "encoding": "ch", "length": 3},
+			"score": {"start": "0x1C76", "encoding": "bcd", "length": 6}
+		},
+		{	"label": "Fourth Place", "short_label": "4th",
+			"initials": {"start": "0x1C7C", "encoding": "ch", "length": 3},
+			"score": {"start": "0x1C7F", "encoding": "bcd", "length": 6}
+		}
+  ],
+*/
 };

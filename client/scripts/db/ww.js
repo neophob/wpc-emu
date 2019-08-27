@@ -1615,5 +1615,16 @@ module.exports = {
         1661.9954648522253
       ],
     },
-  }
+  },
+  memoryPosition: [
+
+  ],
+
+/*
+last game
+		{"start": "0x1730", "encoding": "bcd", "length": 5},
+		{"start": "0x1736", "encoding": "bcd", "length": 5},
+		{"start": "0x173C", "encoding": "bcd", "length": 5},
+		{"start": "0x1742", "encoding": "bcd", "length": 5}
+*/
 };

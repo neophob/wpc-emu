@@ -176,10 +176,40 @@ module.exports = {
     { offset: 0x3B3, name: 'BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
     { offset: 0x440, name: 'CURRENT_SCREEN', description: '0: attract mode, 0x89: shows tournament enable screen, 0xF1: coin door open, 0xF4: switch scanning', type: 'uint8' },
 
+    { offset: 0x16A0, name: 'SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 5 },
+    { offset: 0x16A6, name: 'SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 5 },
+    { offset: 0x16AC, name: 'SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 5 },
+    { offset: 0x16B1, name: 'SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 5 },
+
     { offset: 0x170D, name: 'PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
     { offset: 0x1D5B, name: 'CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
     { offset: 0x1D5C, name: 'CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
   ],
+
+  /*
+  	"high_scores": [
+		{	"label": "Grand Champion", "short_label": "GC",
+			"initials": {"start": "0x1D4B", "encoding": "ch", "length": 3},
+			"score": {"start": "0x1D4E", "encoding": "bcd", "length": 5}
+		},
+		{	"label": "First Place", "short_label": "1st",
+			"initials": {"start": "0x1D29", "encoding": "ch", "length": 3},
+			"score": {"start": "0x1D2C", "encoding": "bcd", "length": 5}
+		},
+		{	"label": "Second Place", "short_label": "2nd",
+			"initials": {"start": "0x1D31", "encoding": "ch", "length": 3},
+			"score": {"start": "0x1D34", "encoding": "bcd", "length": 5}
+		},
+		{	"label": "Third Place", "short_label": "3rd",
+			"initials": {"start": "0x1D39", "encoding": "ch", "length": 3},
+			"score": {"start": "0x1D3C", "encoding": "bcd", "length": 5}
+		},
+		{	"label": "Fourth Place", "short_label": "4th",
+			"initials": {"start": "0x1D41", "encoding": "ch", "length": 3},
+			"score": {"start": "0x1D44", "encoding": "bcd", "length": 5}
+		}
+  ],
+  */
 
   //TODO
   //TILT sensor?
