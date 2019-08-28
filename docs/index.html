@@ -12,9 +12,11 @@
         <div id="rootNode"></div>
       </div>
 
-      <div id="memoryMonitor" class="container" style="visibility: hidden">
+      <div id="memoryMonitor" class="container" style="visibility: hidden; height: 0px;">
         <div id="memoryNode"></div>
+        <!-- NOTE: it's a hack, memoryOverlayNode has the height set, memoryNode not. Used to properly align variable node -->
         <div id="memoryOverlayNode"></div>
+        <div id="variableNode"></div>
       </div>
 
       <div class="container">

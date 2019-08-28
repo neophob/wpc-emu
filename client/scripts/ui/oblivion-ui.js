@@ -2,7 +2,8 @@
 
 import { replaceNode } from './htmlselector';
 import { createDrawLib } from './ui/lib';
-import * as MemoryMonitor from './ui/memory-monitor';
+import * as MemoryMonitor from './memory-monitor';
+import * as VariableMonitor from './variable-monitor';
 
 export {
   initialise,
@@ -37,6 +38,7 @@ let canvasLamp, canvaLampDrawLib;
 let canvasFlash, canvaFlashDrawLib;
 
 let memoryMonitor;
+let variableMonitor;
 
 let playfieldData;
 let playfieldImage;
@@ -129,11 +131,12 @@ lampColorLut.set('GREEN', 'rgba(0,255,0,');
 lampColorLut.set('BLACK', 'rgba(0,0,0,255)');
 
 function drawMetaData(object) {
-  const { averageRTTms, sentMessages, failedMessages, missedDraw } = object;
+  const { averageRTTms, sentMessages, failedMessages, missedDraw, lastFps } = object;
   canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 1, 4, averageRTTms);
   canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 1, 6, missedDraw);
   canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 9, 4, sentMessages);
   canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 9, 5, failedMessages);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_DMDSTAT_X + 43.5, THEME.POS_DMDSTAT_Y + 4.5, lastFps);
 }
 
 function updateCanvas(emuState, cpuRunningState, audioState) {
@@ -209,6 +212,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     canvaDmdDrawLib.drawDiagramCluster(THEME.POS_RAMDIAG_X + 0.5, THEME.POS_RAMDIAG_Y + 1, memory1k, 24);
 
     memoryMonitor.draw(emuState.asic.ram);
+    variableMonitor.draw(emuState.asic.memoryPosition);
   }
 
   // DMD MEM - draw only 4 dmd video fragment per loop
@@ -243,7 +247,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
   // WPC-SECURITY
   if (emuState.asic.wpc.wpcSecureScrambler) {
-    canvasOverlayDrawLib.writeHeader(THEME.POS_DMDSTAT_X + 43.5, THEME.POS_DMDSTAT_Y + 4.5, emuState.asic.wpc.wpcSecureScrambler);
+    canvasOverlayDrawLib.writeHeader(THEME.POS_DMDSTAT_X + 48.5, THEME.POS_DMDSTAT_Y + 4.5, emuState.asic.wpc.wpcSecureScrambler);
   }
 
   // MATRIX / INPUT
@@ -297,7 +301,20 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 }
 
 function toggleMemoryView() {
-  memoryMonitor.toggleMemoryView();
+  const node = document.querySelector('#memoryMonitor');
+
+  if (memoryMonitor.memoryMonitorEnabled) {
+    node.style.height = '0px';
+    node.style.visibility = 'hidden';
+    memoryMonitor.toggleView(false);
+    variableMonitor.toggleView(false);
+    return;
+  }
+
+  memoryMonitor.toggleView(true);
+  variableMonitor.toggleView(true);
+  node.style.height = 380 + 'px';
+  node.style.visibility = 'visible';
 }
 
 function memoryMonitorNextPage() {
@@ -312,8 +329,8 @@ function memoryMonitorRefresh() {
   memoryMonitor.refresh();
 }
 
-function memoryFindData(value, encoding) {
-  memoryMonitor.memoryFindData(value, encoding);
+function memoryFindData(value, encoding, rememberResults) {
+  memoryMonitor.memoryFindData(value, encoding, rememberResults);
 }
 
 function memoryDumpData(offset) {
@@ -371,6 +388,7 @@ function initiateCanvasElements() {
   canvaFlashDrawLib = createDrawLib(canvasFlash, THEME);
 
   memoryMonitor = MemoryMonitor.getInstance({ THEME, CANVAS_WIDTH });
+  variableMonitor = VariableMonitor.getInstance({ THEME, CANVAS_WIDTH });
 }
 
 function initialise() {
@@ -384,6 +402,7 @@ function initialise() {
   canvaLampDrawLib.clear();
   canvaFlashDrawLib.clear();
   memoryMonitor.clear();
+  variableMonitor.clear();
 
   canvasDrawLib.drawBackgroundPoints();
 
@@ -601,8 +620,12 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 17, THEME.POS_DMDSTAT_Y + 3, 'DMD SCANLINE');
   canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 32.5, THEME.POS_DMDSTAT_Y + 3, 'DMD PAGE MAP');
 
+  // FPS
+  canvasDrawLib.writeRibbonHeader(THEME.POS_DMDSTAT_X + 43.5, THEME.POS_DMDSTAT_Y + 3, 'FPS', THEME.FONT_TEXT);
+
   // WPC-SECURITY
-  canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 43.5, THEME.POS_DMDSTAT_Y + 3, 'SECURITY SCRAMBLER');
+  canvasDrawLib.writeRibbonHeader(THEME.POS_DMDSTAT_X + 48.5, THEME.POS_DMDSTAT_Y + 2, 'SECURITY', THEME.FONT_TEXT);
+  canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 48.5, THEME.POS_DMDSTAT_Y + 3, 'SCRAMBLER');
 
   // MATRIX
   canvasDrawLib.drawVerticalLine(THEME.POS_MATRIX_X,      THEME.POS_MATRIX_Y, 21);

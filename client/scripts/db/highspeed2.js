@@ -103,5 +103,7 @@ module.exports = {
         value: 16
       }
     ],
-  }
+  },
+  memoryPosition: [
+  ],
 };

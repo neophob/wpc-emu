@@ -1,9 +1,11 @@
 # HISTORY
 
+## 28/8/19
+- expose known RAM state (like current player, current ball..) in UI (and API)
+
 ## 26/8/19
 - Add memory monitor to UI, reachable via "M" key, "B" and "N" are used to change pages
-- Make sure patched memory is reflected in memory monitor
-- support volatile memory change (until next reboot) - currently only exposed on API level (`wpcInterface.writeMemory(78, 0, true);`)
+- support memory debugger (find & patch memory) using JS console, see README
 
 ## 19/8/19
 - Update Security PIC implementation, fix U22 error (WPC-S Test ROM) and G10 error (WPC95 Test ROM). Use PinMAME implementation with serial number scrambler update. Fixes #31.

@@ -140,5 +140,3 @@ function getAllNames() {
 function getByName(name) {
   return wpcGames.find((entry) => entry.name === name);
 }
-
-// HINT: make sure CORS is correct

@@ -171,9 +171,20 @@ module.exports = {
     ],
   },
   memoryPosition: [
-    { offset: 0x323, description: 'current text', type: 'string' },
-    { offset: 0x3AC, description: 'current player', type: 'uint8' },
-    { offset: 0x3AD, description: 'current ball', type: 'uint8' },
-    { offset: 0x188D, description: 'player count', type: 'uint8' },
+    { offset: 0x86, name: 'GAME_RUN', description: '0: not running, 1: running', type: 'uint8' },
+
+    //{ offset: 0x323, name: 'TEXT', description: 'random visible text', type: 'string' },
+    { offset: 0x3AC, name: 'PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
+    { offset: 0x3AD, name: 'BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
+
+    { offset: 0x172F, name: 'SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 6 },
+    { offset: 0x1735, name: 'SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 6 },
+    { offset: 0x173B, name: 'SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 6 },
+    { offset: 0x1741, name: 'SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 6 },
+
+    // alternative: 0x178C
+    { offset: 0x188D, name: 'PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
+    { offset: 0x1C7F, name: 'CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
+    { offset: 0x1C80, name: 'CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
   ],
 };
