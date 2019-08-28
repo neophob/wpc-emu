@@ -29,7 +29,7 @@ function memoryFindData(value, encoding = 'string', rememberResults, lastRamSnap
       let resultArray = findUint8(value, lastRamSnapshot);
       if (rememberResults) {
         const identicalResult = findIdenticalOffsetInArray(resultArray, memorySearchResult);
-        memorySearchResult = resultArray;
+        memorySearchResult = identicalResult.length ? identicalResult : resultArray;
         resultArray = identicalResult;
       } else {
         clearSearchResults();
