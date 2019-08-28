@@ -172,7 +172,7 @@ module.exports = {
     // alternative locations 0x3EB,
     { offset: 0x80, name: 'GAME_RUN', description: '0: not running, 1: running', type: 'uint8' },
 
-    { offset: 0x326, name: 'TEXT', description: 'random visible text', type: 'string' },
+    //{ offset: 0x326, name: 'TEXT', description: 'random visible text', type: 'string' },
     { offset: 0x3B2, name: 'PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
     { offset: 0x3B3, name: 'BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
     { offset: 0x440, name: 'CURRENT_SCREEN', description: '0: attract mode, 0x89: shows tournament enable screen, 0xF1: coin door open, 0xF4: switch scanning', type: 'uint8' },
