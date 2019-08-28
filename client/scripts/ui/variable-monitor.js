@@ -9,7 +9,7 @@ function getInstance(options) {
   return new VariableMonitor(options);
 }
 
-const WINDOW_HEIGHT = 220;
+const WINDOW_HEIGHT = 160;
 
 class VariableMonitor {
 
@@ -45,13 +45,20 @@ class VariableMonitor {
     }
 
     this.canvasVariablesDrawLib.clear();
+    let xpos = 2;
+    let ypos = 0;
     memoryPositions.forEach((element, index) => {
+      ypos += 1.5;
       this.canvasVariablesDrawLib.writeHeader(
-        2,
-        2 + index * 1.5,
+        xpos,
+        ypos,
         element.name + ': ' + element.value,
         index % 2 === 1 ? this.THEME.TEXT_COLOR : this.THEME.TEXT_COLOR_HEADER
       );
+      if ((index % 8) === 7) {
+        xpos += 25;
+        ypos = 0;
+      }
     });
   }
 

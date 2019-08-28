@@ -105,35 +105,5 @@ module.exports = {
     ],
   },
   memoryPosition: [
-
   ],
-
-  /*
-  	"last_game": [
-		{"start": "0x200", "encoding": "bcd", "length": 4},
-		{"start": "0x204", "encoding": "bcd", "length": 4},
-		{"start": "0x208", "encoding": "bcd", "length": 4},
-    {"start": "0x20C", "encoding": "bcd", "length": 4}
-
-	"high_scores": [
-		{	"label": "First Place", "short_label": "1st",
-			"initials": {"start": "0x737", "encoding": "ch", "length": 3},
-			"score": {"start": "0x727", "encoding": "bcd", "length": 4}
-		},
-		{	"label": "Second Place", "short_label": "2nd",
-			"initials": {"start": "0x73A", "encoding": "ch", "length": 3},
-			"score": {"start": "0x72B", "encoding": "bcd", "length": 4}
-		},
-		{	"label": "Third Place", "short_label": "3rd",
-			"initials": {"start": "0x73D", "encoding": "ch", "length": 3},
-			"score": {"start": "0x72F", "encoding": "bcd", "length": 4}
-		},
-		{	"label": "Fourth Place", "short_label": "4th",
-			"initials": {"start": "0x740", "encoding": "ch", "length": 3},
-			"score": {"start": "0x733", "encoding": "bcd", "length": 4}
-		}
-	],
-	"_hideout_jackpot": {"start": "0x770", "encoding": "bcd", "length": 4}
-
-*/
 };

@@ -179,43 +179,26 @@ module.exports = {
     { offset: 0x16A0, name: 'SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 5 },
     { offset: 0x16A6, name: 'SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 5 },
     { offset: 0x16AC, name: 'SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 5 },
-    { offset: 0x16B1, name: 'SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 5 },
+    { offset: 0x16B2, name: 'SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 5 },
+
+    { offset: 0x1D29, name: 'HI_SCORE_1_NAME', type: 'string' },
+    { offset: 0x1D2C, name: 'HI_SCORE_1_SCORE', type: 'bcd', length: 5 },
+    { offset: 0x1D31, name: 'HI_SCORE_2_NAME', type: 'string' },
+    { offset: 0x1D34, name: 'HI_SCORE_2_SCORE', type: 'bcd', length: 5 },
+    { offset: 0x1D39, name: 'HI_SCORE_3_NAME', type: 'string' },
+    { offset: 0x1D3C, name: 'HI_SCORE_3_SCORE', type: 'bcd', length: 5 },
+    { offset: 0x1D41, name: 'HI_SCORE_4_NAME', type: 'string' },
+    { offset: 0x1D44, name: 'HI_SCORE_4_SCORE', type: 'bcd', length: 5 },
+    { offset: 0x1D4B, name: 'CHAMPION_1_NAME', description: 'Grand Champion', type: 'string' },
+    { offset: 0x1D4E, name: 'CHAMPION_1_SCORE', description: 'Grand Champion', type: 'bcd', length: 5 },
 
     { offset: 0x170D, name: 'PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
     { offset: 0x1D5B, name: 'CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
     { offset: 0x1D5C, name: 'CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
   ],
 
-  /*
-  	"high_scores": [
-		{	"label": "Grand Champion", "short_label": "GC",
-			"initials": {"start": "0x1D4B", "encoding": "ch", "length": 3},
-			"score": {"start": "0x1D4E", "encoding": "bcd", "length": 5}
-		},
-		{	"label": "First Place", "short_label": "1st",
-			"initials": {"start": "0x1D29", "encoding": "ch", "length": 3},
-			"score": {"start": "0x1D2C", "encoding": "bcd", "length": 5}
-		},
-		{	"label": "Second Place", "short_label": "2nd",
-			"initials": {"start": "0x1D31", "encoding": "ch", "length": 3},
-			"score": {"start": "0x1D34", "encoding": "bcd", "length": 5}
-		},
-		{	"label": "Third Place", "short_label": "3rd",
-			"initials": {"start": "0x1D39", "encoding": "ch", "length": 3},
-			"score": {"start": "0x1D3C", "encoding": "bcd", "length": 5}
-		},
-		{	"label": "Fourth Place", "short_label": "4th",
-			"initials": {"start": "0x1D41", "encoding": "ch", "length": 3},
-			"score": {"start": "0x1D44", "encoding": "bcd", "length": 5}
-		}
-  ],
-  */
-
   //TODO
   //TILT sensor?
-  //current score
-  //player 2 score
-  //detect game over
-  //attract mode screen
+   //attract mode screen
 
 };

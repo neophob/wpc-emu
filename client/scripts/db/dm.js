@@ -105,35 +105,22 @@ module.exports = {
         value: 16
       }
     ],
-  }
-};
+  },
+  memoryPosition: [
+    { offset: 0x1730, name: 'SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 6 },
+    { offset: 0x1737, name: 'SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 6 },
+    { offset: 0x173E, name: 'SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 6 },
+    { offset: 0x1745, name: 'SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 6 },
 
-/*	"last_game": [
-		{"start": "0x1730", "encoding": "bcd", "length": 6},
-		{"start": "0x1737", "encoding": "bcd", "length": 6},
-		{"start": "0x173E", "encoding": "bcd", "length": 6},
-		{"start": "0x1745", "encoding": "bcd", "length": 6}
-	],
-	"high_scores": [
-		{	"label": "Grand Champion", "short_label": "GC",
-			"initials": {"start": "0x1C87", "encoding": "ch", "length": 3},
-			"score": {"start": "0x1C8A", "encoding": "bcd", "length": 6}
-		},
-		{	"label": "First Place", "short_label": "1st",
-			"initials": {"start": "0x1C61", "encoding": "ch", "length": 3},
-			"score": {"start": "0x1C64", "encoding": "bcd", "length": 6}
-		},
-		{	"label": "Second Place", "short_label": "2nd",
-			"initials": {"start": "0x1C6A", "encoding": "ch", "length": 3},
-			"score": {"start": "0x1C6D", "encoding": "bcd", "length": 6}
-		},
-		{	"label": "Third Place", "short_label": "3rd",
-			"initials": {"start": "0x1C73", "encoding": "ch", "length": 3},
-			"score": {"start": "0x1C76", "encoding": "bcd", "length": 6}
-		},
-		{	"label": "Fourth Place", "short_label": "4th",
-			"initials": {"start": "0x1C7C", "encoding": "ch", "length": 3},
-			"score": {"start": "0x1C7F", "encoding": "bcd", "length": 6}
-		}
-	],
-*/
+    { offset: 0x1C61, name: 'HI_SCORE_1_NAME', type: 'string' },
+    { offset: 0x1C64, name: 'HI_SCORE_1_SCORE', type: 'bcd', length: 6 },
+    { offset: 0x1C6A, name: 'HI_SCORE_2_NAME', type: 'string' },
+    { offset: 0x1C6D, name: 'HI_SCORE_2_SCORE', type: 'bcd', length: 6 },
+    { offset: 0x1C73, name: 'HI_SCORE_3_NAME', type: 'string' },
+    { offset: 0x1C76, name: 'HI_SCORE_3_SCORE', type: 'bcd', length: 6 },
+    { offset: 0x1C7C, name: 'HI_SCORE_4_NAME', type: 'string' },
+    { offset: 0x1C7F, name: 'HI_SCORE_4_SCORE', type: 'bcd', length: 6 },
+    { offset: 0x1C87, name: 'CHAMPION_1_NAME', description: 'Grand Champion', type: 'string' },
+    { offset: 0x1C8A, name: 'CHAMPION_1_SCORE', description: 'Grand Champion', type: 'bcd', length: 6 },
+  ],
+};

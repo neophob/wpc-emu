@@ -1346,5 +1346,11 @@ module.exports = {
     { offset: 0x3AF, name: 'PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
     { offset: 0x3B0, name: 'BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
     { offset: 0x629, name: 'PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
+
+    { offset: 0x16A0, name: 'SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 5 },
+    { offset: 0x16A6, name: 'SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 5 },
+    { offset: 0x16AC, name: 'SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 5 },
+    { offset: 0x16B2, name: 'SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 5 },
+
   ],
 };

@@ -87,37 +87,20 @@ module.exports = {
     ],
   },
   memoryPosition: [
+    { offset: 0x16A1, name: 'SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 5 },
+    { offset: 0x16A8, name: 'SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 5 },
+    { offset: 0x16AF, name: 'SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 5 },
+    { offset: 0x16B6, name: 'SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 5 },
 
+    { offset: 0x1CED, name: 'HI_SCORE_1_NAME', type: 'string' },
+    { offset: 0x1CF1, name: 'HI_SCORE_1_SCORE', type: 'bcd', length: 5 },
+    { offset: 0x1CF6, name: 'HI_SCORE_2_NAME', type: 'string' },
+    { offset: 0x1CFA, name: 'HI_SCORE_2_SCORE', type: 'bcd', length: 5 },
+    { offset: 0x1CFF, name: 'HI_SCORE_3_NAME', type: 'string' },
+    { offset: 0x1D03, name: 'HI_SCORE_3_SCORE', type: 'bcd', length: 5 },
+    { offset: 0x1D08, name: 'HI_SCORE_4_NAME', type: 'string' },
+    { offset: 0x1D0C, name: 'HI_SCORE_4_SCORE', type: 'bcd', length: 5 },
+    { offset: 0x1D13, name: 'CHAMPION_1_NAME', description: 'Grand Champion', type: 'string' },
+    { offset: 0x1D17, name: 'CHAMPION_1_SCORE', description: 'Grand Champion', type: 'bcd', length: 5 },
   ],
-
-  /*
-    "last_game": [
-                {"start": "0x16A1", "encoding": "bcd", "length": 5},
-                {"start": "0x16A8", "encoding": "bcd", "length": 5},
-                {"start": "0x16AF", "encoding": "bcd", "length": 5},
-                {"start": "0x16B6", "encoding": "bcd", "length": 5}
-                 ],
-	"high_scores": [
-				{	"label": "Grand Champion", "short_label": "GC",
-					"initials": {"start": "0x1D13", "encoding": "ch", "length": 3},
-					"score": {"start": "0x1D17", "encoding": "bcd", "length": 5}
-				},
-				{	"label": "First Place", "short_label": "1st",
-					"initials": {"start": "0x1CED", "encoding": "ch", "length": 3},
-					"score": {"start": "0x1CF1", "encoding": "bcd", "length": 5}
-				},
-				{	"label": "Second Place", "short_label": "2nd",
-					"initials": {"start": "0x1CF6", "encoding": "ch", "length": 3},
-					"score": {"start": "0x1CFA", "encoding": "bcd", "length": 5}
-				},
-				{	"label": "Third Place", "short_label": "3rd",
-					"initials": {"start": "0x1CFF", "encoding": "ch", "length": 3},
-					"score": {"start": "0x1D03", "encoding": "bcd", "length": 5}
-				},
-				{	"label": "Fourth Place", "short_label": "4th",
-					"initials": {"start": "0x1D08", "encoding": "ch", "length": 3},
-					"score": {"start": "0x1D0C", "encoding": "bcd", "length": 5}
-				}],
-
-  */
 };
