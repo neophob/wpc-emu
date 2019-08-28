@@ -10,7 +10,7 @@ test('BCD: toBCD, encode 12345 to BCD', (t) => {
 
 test('BCD: toBCD, encode 1000020 to BCD', (t) => {
   const result = bcd.toBCD('1000020');
-  t.deepEqual(result, new Uint8Array([ 0x20, 0x00, 0x00, 0x01 ]));
+  t.deepEqual(result, new Uint8Array([ 0x01, 0x00, 0x00, 0x20 ]));
 });
 
 test('BCD: toNumber, 0x123456)', (t) => {
