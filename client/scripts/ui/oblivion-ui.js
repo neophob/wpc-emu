@@ -312,7 +312,7 @@ function toggleMemoryView() {
   }
 
   memoryMonitor.toggleView(true);
-  variableMonitor.toggleView(true)
+  variableMonitor.toggleView(true);
   node.style.height = 440 + 'px';
   node.style.visibility = 'visible';
 }

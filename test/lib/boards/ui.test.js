@@ -69,6 +69,6 @@ test('UI: should cap very long string', (t) => {
   const data = t.context.dummyStateString;
   data.ram = new Array(500).fill(65);
   const result = ui.getChangedState(data);
-  console.log(result.memoryPosition[0])
+  console.log(result.memoryPosition[0]);
   t.is(result.memoryPosition[0].value.length, 32);
 });

@@ -1,7 +1,14 @@
 'use strict';
 
 import test from 'ava';
-import { findString, findUint8, findUint16, findUint32, findIdenticalOffsetInArray } from '../../../../scripts/ui/ui/search';
+import {
+  findString,
+  findUint8,
+  findUint16,
+  findUint32,
+  findIdenticalOffsetInArray,
+  findBCD
+} from '../../../../scripts/ui/ui/search';
 
 test('findString: find no string', (t) => {
   const result = findString('BBB', new Uint8Array([0, 1, 2, 3, 65, 65, 65]));
@@ -81,6 +88,26 @@ test('findUint32: find one value', (t) => {
 test('findUint32: find multiple value', (t) => {
   const result = findUint32(0x13302233, new Uint8Array([0x13, 0x30, 0x22, 0x33, 0x00, 0x13, 0x30, 0x22, 0x33]));
   t.deepEqual(result, [ 0, 5 ]);
+});
+
+test('findBCD: find zero value', (t) => {
+  const result = findBCD('6220', new Uint8Array([0x13]));
+  t.is(result.length, 0);
+});
+
+test('findBCD: find zero value (empty array)', (t) => {
+  const result = findBCD('6220', new Uint8Array());
+  t.is(result.length, 0);
+});
+
+test('findBCD: find one value', (t) => {
+  const result = findBCD('2345', new Uint8Array([ 0x23, 0x45 ]));
+  t.deepEqual(result, [ 0 ]);
+});
+
+test('findBCD: find multiple value', (t) => {
+  const result = findBCD('2345', new Uint8Array([ 0x23, 0x45, 0, 0x23, 0x45 ]));
+  t.deepEqual(result, [ 0, 3 ]);
 });
 
 test('findIdenticalOffsetInArray: find nothing', (t) => {

@@ -1,14 +1,7 @@
 'use strict';
 
 import { createDrawLib } from './ui/lib';
-import {
-  findString,
-  findUint8,
-  findUint16,
-  findUint32,
-  findIdenticalOffsetInArray,
-  findBCD,
-} from './ui/search';
+import { memoryFindData } from './ui/memorysearch';
 import { replaceNode } from './htmlselector';
 
 export { getInstance };
@@ -109,55 +102,25 @@ class MemoryMonitor {
 
   memoryFindData(value, encoding = 'string', rememberResults) {
     if (!this.lastRamSnapshot) {
-      return console.warn(ENABLE_MEMORY_MONITOR)
+      return console.warn(ENABLE_MEMORY_MONITOR);
     }
-
     console.log('memoryFindData', { value, encoding, rememberResults });
-    let foundOffset;
 
-    switch (encoding) {
-      case 'string':
-        foundOffset = findString(value, this.lastRamSnapshot);
-        foundOffset.forEach((offset) => {
-          console.log(value, encoding, 'FOUND at position', '0x' + offset.toString(16).toUpperCase());
-        });
-        return;
-
-      case 'uint8':
-        foundOffset = findUint8(value, this.lastRamSnapshot);
-        if (rememberResults) {
-          const identicalResult = findIdenticalOffsetInArray(foundOffset, this.memorySearchResult);
-          this.memorySearchResult = foundOffset;
-          foundOffset = identicalResult;
-        } else {
-          this.memorySearchResult = undefined;
-        }
-        break;
-
-      case 'uint16':
-        foundOffset = findUint16(value, this.lastRamSnapshot);
-        break;
-
-      case 'uint32':
-        foundOffset = findUint32(value, this.lastRamSnapshot);
-        break;
-
-      case 'bcd':
-        foundOffset = findBCD('' + value, this.lastRamSnapshot);
-        break
-
-      default:
-        console.warn('UNKNOWN_ENCODING', encoding);
-        return;
+    const foundOffset = memoryFindData(value, encoding, rememberResults, this.lastRamSnapshot);
+    if (encoding === 'string') {
+      foundOffset.forEach((offset) => {
+        console.log(value, encoding, 'FOUND at position', '0x' + offset.toString(16).toUpperCase());
+      });
+    } else {
+      foundOffset.forEach((offset) => {
+        console.log('0x' + value.toString(16), encoding, 'FOUND at position', '0x' + offset.toString(16).toUpperCase());
+      });
     }
-    foundOffset.forEach((offset) => {
-      console.log('0x' + value.toString(16), encoding, 'FOUND at position', '0x' + offset.toString(16).toUpperCase());
-    });
   }
 
   memoryDumpData(offset) {
     if (!this.lastRamSnapshot) {
-      return console.warn(ENABLE_MEMORY_MONITOR)
+      return console.warn(ENABLE_MEMORY_MONITOR);
     }
 
     let dump = '';
@@ -213,7 +176,7 @@ class MemoryMonitor {
       );
 
       for (let offset = 0; offset < ENTRIES_HORIZONTAL; offset++) {
-        const value = this.lastRamSnapshot[ ramOffset + offset ];
+        const value = this.lastRamSnapshot[ramOffset + offset];
         // write hex value
         this.canvasMemoryOverlayDrawLib.writeHeader(
           MEM_CONTENT_X + offset * 2,
