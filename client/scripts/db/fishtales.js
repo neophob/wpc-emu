@@ -1112,6 +1112,8 @@ module.exports = {
     },
   },
   memoryPosition: [
+    { offset: 0x7A, name: 'GAME_RUN', description: '0: not running, 1: running', type: 'uint8' },
+
     { offset: 0x326, name: 'TEXT', description: 'random visible text', type: 'string' },
     { offset: 0x355, name: 'PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
     { offset: 0x356, name: 'BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },

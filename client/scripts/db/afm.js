@@ -169,6 +169,8 @@ module.exports = {
     ],
   },
   memoryPosition: [
+    { offset: 0x80, name: 'GAME_RUN', description: '0: not running, 1: running', type: 'uint8' },
+
     { offset: 0x16A0, name: 'SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 6 },
     { offset: 0x16A7, name: 'SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 6 },
     { offset: 0x16AE, name: 'SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 6 },
