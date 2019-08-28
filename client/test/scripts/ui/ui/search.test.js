@@ -110,6 +110,11 @@ test('findBCD: find multiple value', (t) => {
   t.deepEqual(result, [ 0, 3 ]);
 });
 
+test('findBCD: find 1000020', (t) => {
+  const result = findBCD('1000020', new Uint8Array([ 0, 0, 0, 0, 0, 0x1, 0x00, 0x00, 0x20, 0x3 ]));
+  t.deepEqual(result, [ 5 ]);
+});
+
 test('findIdenticalOffsetInArray: find nothing', (t) => {
   const a1 = new Uint8Array([ 0x13, 0x30 ]);
   const a2 = new Uint8Array([ ]);

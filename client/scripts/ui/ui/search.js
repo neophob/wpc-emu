@@ -39,6 +39,7 @@ function findString(stringToSearch, uint8Array) {
 }
 
 function _findArray(searchString, startPos, uint8Array) {
+  console.log('searchString.length', searchString.length, startPos);
   for (let j = 1; j < searchString.length; j++) {
     if (uint8Array[startPos + j] !== searchString[j]) {
       return false;
@@ -97,6 +98,8 @@ function findBCD(string, uint8Array) {
   const result = [];
   const number = parseInt(string, 10);
   const bcdValue = bcd.toBCD(number, string.length / 2);
+
+console.log('findBCD',string,bcdValue);
 
   const maxIndex = uint8Array.length - (string.length / 2);
   let index = -1;
