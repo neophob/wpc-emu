@@ -761,7 +761,7 @@ Examples:
 - `wpcInterface.memoryFindData(3, 'uint8');` -> search memory for the uint8 value with 3 (useful for example if you want to find out where the number of players is stored)
 - `wpcInterface.memoryDumpData(0x181F);` - dumps the value at the offset 0x181F
 
-Note: WPC-EMU currently supports the data types `uint8`, `uint16`, `uint32` and `string`.
+Note: WPC-EMU currently supports the data types `uint8`, `uint16`, `uint32`, `bcd` and `string`.
 
 ### Advanced example: "find RAM location of current credits"
 

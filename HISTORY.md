@@ -1,14 +1,11 @@
 # HISTORY
 
-## 27/8/19
-- improve `memoryFindData` function - you can show results that matches multiple checks to easy find relevant memory positions
-- return known RAM state (like current player, current ball etc) with `getUiState()` call (see memoryPosition client option)
+## 28/8/19
+- expose known RAM state (like current player, current ball..) in UI (and API)
 
 ## 26/8/19
 - Add memory monitor to UI, reachable via "M" key, "B" and "N" are used to change pages
-- Make sure patched memory is reflected in memory monitor
-- support volatile memory change (until next reboot) - currently only exposed on API level (`wpcInterface.writeMemory(78, 0, true);`)
-- support simple memory debugger (find & patch memory)
+- support memory debugger (find & patch memory) using JS console, see README
 
 ## 19/8/19
 - Update Security PIC implementation, fix U22 error (WPC-S Test ROM) and G10 error (WPC95 Test ROM). Use PinMAME implementation with serial number scrambler update. Fixes #31.

@@ -1,18 +1,12 @@
 'use strict';
 
-import { createDrawLib } from './lib';
-import {
-  findString,
-  findUint8,
-  findUint16,
-  findUint32,
-  findIdenticalOffsetInArray,
-} from './search';
-import { replaceNode } from '../htmlselector';
+import { createDrawLib } from './ui/lib';
+import { memoryFindData } from './ui/memorysearch';
+import { replaceNode, replaceNodeAndResize } from './htmlselector';
 
 export { getInstance };
 
-const MEM_HEIGHT = 220;
+const WINDOW_HEIGHT = 220;
 const MEM_CONTENT_X = 9;
 const MEM_CONTENT_Y = 3;
 const MEM_CONTENT_ASCII_X = 76;
@@ -37,17 +31,17 @@ class MemoryMonitor {
     this.page = 0;
     this.lastRamSnapshot = undefined;
     this.memorySearchResult = undefined;
+
     const canvasMemoryElement = this._createCanvas();
     this.canvasMemory = canvasMemoryElement.getContext('2d', { alpha: true });
     replaceNode('memoryNode', canvasMemoryElement);
     this.canvasMemoryDrawLib = createDrawLib(this.canvasMemory, options.THEME);
+    this.canvasMemoryDrawLib.clear();
 
     const canvasMemoryOverlayElement = this._createCanvas();
     this.canvasMemoryOverlay = canvasMemoryOverlayElement.getContext('2d', { alpha: true });
-    replaceNode('memoryOverlayNode', canvasMemoryOverlayElement);
+    replaceNodeAndResize('memoryOverlayNode', canvasMemoryOverlayElement, WINDOW_HEIGHT);
     this.canvasMemoryOverlayDrawLib = createDrawLib(this.canvasMemoryOverlay, options.THEME);
-
-    this.canvasMemoryDrawLib.clear();
 
     // HIGHLIGHT ROWS
     for (let offset = 0; offset < ENTRIES_HORIZONTAL; offset += 2) {
@@ -91,7 +85,7 @@ class MemoryMonitor {
   _createCanvas() {
     const canvasElement = document.createElement('canvas');
     canvasElement.width = this.CANVAS_WIDTH;
-    canvasElement.height = MEM_HEIGHT;
+    canvasElement.height = WINDOW_HEIGHT;
     return canvasElement;
   }
 
@@ -102,64 +96,31 @@ class MemoryMonitor {
     this.lastRamSnapshot = undefined;
   }
 
-  toggleMemoryView() {
-    const node = document.querySelector('#memoryMonitor');
-
-    if (this.memoryMonitorEnabled) {
-      node.style.height = '0px';
-      node.style.visibility = 'hidden';
-      this.memoryMonitorEnabled = false;
-      return;
-    }
-
-    this.memoryMonitorEnabled = true;
-    node.style.height = MEM_HEIGHT + 'px';
-    node.style.visibility = 'visible';
+  toggleView(enabled) {
+    this.memoryMonitorEnabled = enabled === true;
   }
 
   memoryFindData(value, encoding = 'string', rememberResults) {
     if (!this.lastRamSnapshot) {
-      return console.warn(ENABLE_MEMORY_MONITOR)
+      return console.warn(ENABLE_MEMORY_MONITOR);
     }
-
     console.log('memoryFindData', { value, encoding, rememberResults });
-    let foundOffset;
 
-    switch (encoding) {
-      case 'string':
-        foundOffset = findString(value, this.lastRamSnapshot);
-        foundOffset.forEach((offset) => {
-          console.log(value, encoding, 'FOUND at position', '0x' + offset.toString(16).toUpperCase());
-        });
-        return;
-      case 'uint8':
-        foundOffset = findUint8(value, this.lastRamSnapshot);
-        if (rememberResults) {
-          const identicalResult = findIdenticalOffsetInArray(foundOffset, this.memorySearchResult);
-          this.memorySearchResult = foundOffset;
-          foundOffset = identicalResult;
-        } else {
-          this.memorySearchResult = undefined;
-        }
-        break;
-      case 'uint16':
-        foundOffset = findUint16(value, this.lastRamSnapshot);
-        break;
-      case 'uint32':
-        foundOffset = findUint32(value, this.lastRamSnapshot);
-        break;
-      default:
-        console.warn('UNKNOWN_ENCODING', encoding);
-        return;
+    const foundOffset = memoryFindData(value, encoding, rememberResults, this.lastRamSnapshot);
+    if (encoding === 'string') {
+      foundOffset.forEach((offset) => {
+        console.log(value, encoding, 'FOUND at position', '0x' + offset.toString(16).toUpperCase());
+      });
+    } else {
+      foundOffset.forEach((offset) => {
+        console.log('0x' + value.toString(16), encoding, 'FOUND at position', '0x' + offset.toString(16).toUpperCase());
+      });
     }
-    foundOffset.forEach((offset) => {
-      console.log('0x' + value.toString(16), encoding, 'FOUND at position', '0x' + offset.toString(16).toUpperCase());
-    });
   }
 
   memoryDumpData(offset) {
     if (!this.lastRamSnapshot) {
-      return console.warn(ENABLE_MEMORY_MONITOR)
+      return console.warn(ENABLE_MEMORY_MONITOR);
     }
 
     let dump = '';
@@ -215,7 +176,7 @@ class MemoryMonitor {
       );
 
       for (let offset = 0; offset < ENTRIES_HORIZONTAL; offset++) {
-        const value = this.lastRamSnapshot[ ramOffset + offset ];
+        const value = this.lastRamSnapshot[ramOffset + offset];
         // write hex value
         this.canvasMemoryOverlayDrawLib.writeHeader(
           MEM_CONTENT_X + offset * 2,

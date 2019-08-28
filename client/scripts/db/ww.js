@@ -1615,5 +1615,11 @@ module.exports = {
         1661.9954648522253
       ],
     },
-  }
+  },
+  memoryPosition: [
+    { offset: 0x1730, name: 'SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 5 },
+    { offset: 0x1736, name: 'SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 5 },
+    { offset: 0x173C, name: 'SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 5 },
+    { offset: 0x1742, name: 'SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 5 },
+  ],
 };

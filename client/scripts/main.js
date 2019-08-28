@@ -150,7 +150,9 @@ function saveState() {
 
 function loadState() {
   return pauseEmu()
-    .then(() => { return wpcEmuWebWorkerApi.getEmulatorRomName(); })
+    .then(() => {
+      return wpcEmuWebWorkerApi.getEmulatorRomName();
+    })
     .then((romName) => {
       const emuState = loadRam(romName);
       return wpcEmuWebWorkerApi.setEmulatorState(emuState);
@@ -243,7 +245,7 @@ function pauseEmu() {
   emuDebugUi.updateCanvas(null, 'paused', audioState);
 */
   soundInstance.pause();
-  cancelAnimationFrame(rafId)
+  cancelAnimationFrame(rafId);
   rafId = undefined;
   return wpcEmuWebWorkerApi.pauseEmulator();
 }
