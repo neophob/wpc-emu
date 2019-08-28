@@ -1,10 +1,10 @@
 self.__precacheManifest = [
   {
     "revision": "df465ba67d18d5267f1db48aed87ea56",
-    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/apple-touch-icon-precomposed.png"
+    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/apple-touch-icon.png"
   },
   {
-    "revision": "7cadd64d2a64a853fc33",
+    "revision": "a590d2b420e17f598118",
     "url": "wpc-client.js"
   },
   {
@@ -12,7 +12,7 @@ self.__precacheManifest = [
     "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/favicon-16x16.png"
   },
   {
-    "revision": "72083cbdff9b98000a03dd39e65e3a3d",
+    "revision": "db88444542090157cadb584b6585723c",
     "url": "index.html"
   },
   {
@@ -32,12 +32,12 @@ self.__precacheManifest = [
     "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/manifest.json"
   },
   {
-    "revision": "604317f86e9cca8d9c8cd2499f4f376a",
-    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/firefox_app_60x60.png"
-  },
-  {
     "revision": "e1b7b921e38dd64269cb9d475ab9f656",
     "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/firefox_app_128x128.png"
+  },
+  {
+    "revision": "604317f86e9cca8d9c8cd2499f4f376a",
+    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/firefox_app_60x60.png"
   },
   {
     "revision": "43ddbb68d4f1da20bf642949e85469e5",
@@ -77,11 +77,11 @@ self.__precacheManifest = [
   },
   {
     "revision": "df465ba67d18d5267f1db48aed87ea56",
-    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/apple-touch-icon.png"
+    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/apple-touch-icon-180x180.png"
   },
   {
     "revision": "df465ba67d18d5267f1db48aed87ea56",
-    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/apple-touch-icon-180x180.png"
+    "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/apple-touch-icon-precomposed.png"
   },
   {
     "revision": "a6c4b52da200450957c5c01bdda369db",
@@ -164,11 +164,11 @@ self.__precacheManifest = [
     "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/android-chrome-144x144.png"
   },
   {
-    "revision": "d4222001c29cff690479fdc7b5454669",
+    "revision": "81f4b61f385a9533ceaea7a1a6089867",
     "url": "icons-dd0930745b17d9ce514c182b2c8d4bd2/.cache"
   },
   {
-    "revision": "e315c7559e95a26d49e743aff512762d",
-    "url": "cf3ac9fe0faf076e7a98.worker.js"
+    "revision": "a02bcc7a057aa8571110a1e1eb7c6c13",
+    "url": "19a22d29865ea4c60529.worker.js"
   }
 ];
