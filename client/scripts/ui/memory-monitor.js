@@ -2,7 +2,7 @@
 
 import { createDrawLib } from './ui/lib';
 import { memoryFindData } from './ui/memorysearch';
-import { replaceNode } from './htmlselector';
+import { replaceNode, replaceNodeAndResize } from './htmlselector';
 
 export { getInstance };
 
@@ -40,7 +40,7 @@ class MemoryMonitor {
 
     const canvasMemoryOverlayElement = this._createCanvas();
     this.canvasMemoryOverlay = canvasMemoryOverlayElement.getContext('2d', { alpha: true });
-    replaceNode('memoryOverlayNode', canvasMemoryOverlayElement);
+    replaceNodeAndResize('memoryOverlayNode', canvasMemoryOverlayElement, WINDOW_HEIGHT);
     this.canvasMemoryOverlayDrawLib = createDrawLib(this.canvasMemoryOverlay, options.THEME);
 
     // HIGHLIGHT ROWS
