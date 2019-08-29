@@ -176,11 +176,14 @@ module.exports = {
     { offset: 0x3B2, name: 'PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
     { offset: 0x3B3, name: 'BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
     { offset: 0x440, name: 'CURRENT_SCREEN', description: '0: attract mode, 0x89: shows tournament enable screen, 0xF1: coin door open, 0xF4: switch scanning', type: 'uint8' },
+    { offset: 0x4B8, name: 'BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
 
     { offset: 0x16A0, name: 'SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 5 },
     { offset: 0x16A6, name: 'SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 5 },
     { offset: 0x16AC, name: 'SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 5 },
     { offset: 0x16B2, name: 'SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 5 },
+
+    { offset: 0x1B92, name: 'BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
 
     { offset: 0x1D29, name: 'HI_SCORE_1_NAME', type: 'string' },
     { offset: 0x1D2C, name: 'HI_SCORE_1_SCORE', type: 'bcd', length: 5 },
