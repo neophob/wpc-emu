@@ -1118,7 +1118,26 @@ module.exports = {
     { offset: 0x355, name: 'PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
     { offset: 0x356, name: 'BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
 
-    { offset: 0x1795, name: 'PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
+    { offset: 0x172F, name: 'SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 5 },
+    { offset: 0x1735, name: 'SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 5 },
+    { offset: 0x173B, name: 'SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 5 },
+    { offset: 0x1741, name: 'SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 5 },
+
+    { offset: 0x17A5, name: 'PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
+
+    { offset: 0x1B20, name: 'BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
+
+    { offset: 0x1C61, name: 'HI_SCORE_1_NAME', type: 'string' },
+    { offset: 0x1C64, name: 'HI_SCORE_1_SCORE', type: 'bcd', length: 5 },
+    { offset: 0x1C69, name: 'HI_SCORE_2_NAME', type: 'string' },
+    { offset: 0x1C6C, name: 'HI_SCORE_2_SCORE', type: 'bcd', length: 5 },
+    { offset: 0x1C71, name: 'HI_SCORE_3_NAME', type: 'string' },
+    { offset: 0x1C74, name: 'HI_SCORE_3_SCORE', type: 'bcd', length: 5 },
+    { offset: 0x1C79, name: 'HI_SCORE_4_NAME', type: 'string' },
+    { offset: 0x1C7C, name: 'HI_SCORE_4_SCORE', type: 'bcd', length: 5 },
+    { offset: 0x1C83, name: 'CHAMPION_1_NAME', description: 'Grand Champion', type: 'string' },
+    { offset: 0x1C86, name: 'CHAMPION_1_SCORE', description: 'Grand Champion', type: 'bcd', length: 5 },
+
     { offset: 0x1C93, name: 'CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
     { offset: 0x1C94, name: 'CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
     //{ offset: 0x1C95, description: 'credits checksum 1 (2 * full + half)', type: 'uint8' },
