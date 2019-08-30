@@ -84,6 +84,6 @@
     "tracer:diff": "cd ./test/tracer/wpc-emu-dumps && git diff",
     "benchmark": "node test/integration/benchmark.js > /dev/null",
     "benchmark:t2": "CYCLES=20000000 ROMFILE=./rom/t2_l8.rom node test/integration/benchmark.js > /dev/null",
-    "release": "rm -rf ./docs/* && rm -rf ./dist/* && npm run build:production && cd client && npm run build:production && cd .. && cp -rf dist/* docs"
+    "release": "./build/docker-wrapper.sh"
   }
 }
