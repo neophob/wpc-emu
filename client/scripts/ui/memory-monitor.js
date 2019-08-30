@@ -94,6 +94,7 @@ class MemoryMonitor {
     this.page = 0;
     this.memorySearchResult = undefined;
     this.lastRamSnapshot = undefined;
+    this.oldRamSnapshot = [];
   }
 
   toggleView(enabled) {
@@ -175,24 +176,29 @@ class MemoryMonitor {
         this.THEME.TEXT_COLOR
       );
 
+      const textColor = y % 2 ? this.THEME.TEXT_COLOR_HEADER : this.THEME.COLOR_BLUE_INTENSE;
+
       for (let offset = 0; offset < ENTRIES_HORIZONTAL; offset++) {
         const value = this.lastRamSnapshot[ramOffset + offset];
+        const changedValue = this.oldRamSnapshot[ramOffset + offset] !== value;
+
         // write hex value
         this.canvasMemoryOverlayDrawLib.writeHeader(
           MEM_CONTENT_X + offset * 2,
           MEM_CONTENT_Y + y + 0.5,
           value < 16 ? '0' + value.toString(16) : value.toString(16),
-          y % 2 ? this.THEME.TEXT_COLOR_HEADER : this.THEME.COLOR_BLUE_INTENSE
+          changedValue ? this.THEME.COLOR_RED : textColor
         );
         //write ascii value
         this.canvasMemoryOverlayDrawLib.writeHeader(
           MEM_CONTENT_ASCII_X + offset * 0.75,
           MEM_CONTENT_Y + y + 0.5,
           String.fromCharCode(value),
-          y % 2 ? this.THEME.TEXT_COLOR_HEADER : this.THEME.COLOR_BLUE_INTENSE
+          changedValue ? this.THEME.COLOR_RED : textColor
         );
       }
     }
+    this.oldRamSnapshot = this.lastRamSnapshot;
   }
 
 }
