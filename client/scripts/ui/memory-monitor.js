@@ -6,7 +6,7 @@ import { replaceNode, replaceNodeAndResize } from './htmlselector';
 
 export { getInstance };
 
-const WINDOW_HEIGHT = 220;
+const WINDOW_HEIGHT = 230;
 const MEM_CONTENT_X = 9;
 const MEM_CONTENT_Y = 3;
 const MEM_CONTENT_ASCII_X = 76;
@@ -47,35 +47,35 @@ class MemoryMonitor {
     for (let offset = 0; offset < ENTRIES_HORIZONTAL; offset += 2) {
       this.canvasMemoryDrawLib.fillRect(
         MEM_CONTENT_X - 0.25 + offset * 2,
-        MEM_CONTENT_Y - 1,
+        MEM_CONTENT_Y - 2.5,
         2,
-        17.25,
-        this.THEME.DMD_COLOR_VERY_DARK);
+        18.5,
+        this.THEME.DMD_COLOR_DARK);
 
       this.canvasMemoryDrawLib.fillRect(
         MEM_CONTENT_ASCII_X + offset * 0.75,
-        MEM_CONTENT_Y - 1,
+        MEM_CONTENT_Y - 0.5,
         0.75,
-        17.25,
+        16.5,
         this.THEME.DMD_COLOR_VERY_DARK);
     }
 
-    // OFFSET X
+    // HEADER: OFFSET X
     for (let offset = 0; offset < ENTRIES_HORIZONTAL; offset++) {
       this.canvasMemoryDrawLib.writeHeader(
         MEM_CONTENT_X + offset * 2,
         MEM_CONTENT_Y - 1,
         (offset < 16 ? '0' : '') + offset.toString(16).toUpperCase(),
-        this.THEME.HEADER_LINE_HIGH_COLOR
+        this.THEME.TEXT_COLOR
       );
     }
 
     // HIGHLIGHT LINES
     for (let y = 0; y < ENTRIES_VERTICAL; y += 2) {
       this.canvasMemoryDrawLib.fillRect(
-        1,
-        MEM_CONTENT_Y + y,
-        100,
+        1.5,
+        MEM_CONTENT_Y + y - 0.5,
+        99,
         1,
         this.THEME.DMD_COLOR_VERY_DARK);
     }
@@ -94,6 +94,7 @@ class MemoryMonitor {
     this.page = 0;
     this.memorySearchResult = undefined;
     this.lastRamSnapshot = undefined;
+    this.oldRamSnapshot = [];
   }
 
   toggleView(enabled) {
@@ -170,27 +171,34 @@ class MemoryMonitor {
       //write offset
       this.canvasMemoryOverlayDrawLib.writeHeader(
         MEM_CONTENT_OFFSET_X,
-        MEM_CONTENT_Y + y,
+        MEM_CONTENT_Y + y + 0.5,
         '0x' + ramOffset.toString(16).toUpperCase(),
-        this.THEME.HEADER_LINE_HIGH_COLOR
+        this.THEME.TEXT_COLOR
       );
+
+      const textColor = y % 2 ? this.THEME.TEXT_COLOR_HEADER : this.THEME.COLOR_BLUE_INTENSE;
 
       for (let offset = 0; offset < ENTRIES_HORIZONTAL; offset++) {
         const value = this.lastRamSnapshot[ramOffset + offset];
+        const changedValue = this.oldRamSnapshot[ramOffset + offset] !== value;
+
         // write hex value
         this.canvasMemoryOverlayDrawLib.writeHeader(
           MEM_CONTENT_X + offset * 2,
-          MEM_CONTENT_Y + y,
-          value < 16 ? '0' + value.toString(16) : value.toString(16)
+          MEM_CONTENT_Y + y + 0.5,
+          value < 16 ? '0' + value.toString(16) : value.toString(16),
+          changedValue ? this.THEME.COLOR_RED : textColor
         );
         //write ascii value
         this.canvasMemoryOverlayDrawLib.writeHeader(
           MEM_CONTENT_ASCII_X + offset * 0.75,
-          MEM_CONTENT_Y + y,
-          String.fromCharCode(value)
+          MEM_CONTENT_Y + y + 0.5,
+          String.fromCharCode(value),
+          changedValue ? this.THEME.COLOR_RED : textColor
         );
       }
     }
+    this.oldRamSnapshot = this.lastRamSnapshot;
   }
 
 }
