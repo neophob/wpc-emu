@@ -1,5 +1,9 @@
 # HISTORY
 
+## 30/8/19
+- Update memory positions for AFM, MM, FT, DM, CONGO, WW
+- Improve Memory Monitor visual
+
 ## 28/8/19
 - expose known RAM state (like current player, current ball..) in UI (and API)
 
