@@ -70,6 +70,8 @@ function initialiseEmu(gameEntry) {
         loadState,
         toggleDmdDump,
         toggleMemoryMonitor,
+        memoryMonitorPrevPage,
+        memoryMonitorNextPage,
         writeMemory,
         memoryFindData,
         memoryDumpData,
