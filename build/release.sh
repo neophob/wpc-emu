@@ -26,6 +26,7 @@ function npmBuild {
   PACKAGE_PATH=$1
   echo "INFO: Build $PROJECT_ROOT/$PACKAGE_PATH"
   pushd $PROJECT_ROOT/$PACKAGE_PATH
+  rm -rf ./node_modules
   npm ci
   time npm run build:production
   popd
