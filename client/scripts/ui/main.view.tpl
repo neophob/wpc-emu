@@ -43,3 +43,12 @@
   <div class="column column-10">Fliptronics</div>
   <div class="column column-90" id="pinball-specific-fliptronics-input"></div>
 </div>
+
+<div class="row">
+  <div class="column column-10">Monitor</div>
+  <div class="column column-90">
+    <button class="button-wpc" onclick="wpcInterface.toggleMemoryMonitor();">TOGGLE</button>
+    <button class="button-wpc" onclick="wpcInterface.memoryMonitorPrevPage();">PREV PAGE</button>
+    <button class="button-wpc" onclick="wpcInterface.memoryMonitorNextPage();">NEXT PAGE</button>
+  </div>
+</div>

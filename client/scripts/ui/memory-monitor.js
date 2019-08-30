@@ -40,7 +40,7 @@ class MemoryMonitor {
 
     const canvasMemoryOverlayElement = this._createCanvas();
     this.canvasMemoryOverlay = canvasMemoryOverlayElement.getContext('2d', { alpha: true });
-    replaceNodeAndResize('memoryOverlayNode', canvasMemoryOverlayElement, WINDOW_HEIGHT);
+    replaceNodeAndResize('memoryOverlayNode', canvasMemoryOverlayElement, WINDOW_HEIGHT - 20);
     this.canvasMemoryOverlayDrawLib = createDrawLib(this.canvasMemoryOverlay, options.THEME);
 
     // HIGHLIGHT ROWS
