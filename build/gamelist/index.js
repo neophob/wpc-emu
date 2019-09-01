@@ -24,6 +24,7 @@ const NOK = '❌';
 const elementsCounter = [0, 0, 0, 0, 0, 0];
 let overallSupportLevel = 0;
 
+console.error('WPC-EMU Game List');
 console.error('| Game | Summary | Switch Mapping | Playfield Image | Playfield Lamps | Playfield Flashlamps | Audio Support | Memory Position |');
 console.error('| --- | --- | --- | --- | --- | --- | --- | --- |');
 
