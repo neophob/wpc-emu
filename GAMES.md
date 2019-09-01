@@ -47,7 +47,7 @@
 | WPC-S: Corvette | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: Dirty Harry | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: Indianapolis 500 | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| WPC-S: Jack·Bot | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| WPC-S: Jack·Bot | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: Johnny Mnemonic | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (14) |
 | WPC-S: No Fear | 2 | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ (14) |
 | WPC-S: Red & Ted's Road Show | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
@@ -58,5 +58,5 @@
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: World Cup Soccer | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 
-Overall Support Level 125 (37%)
+Overall Support Level 126 (37%)
 
