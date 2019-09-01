@@ -21,11 +21,11 @@ const gameSummary = gameNames
 const FIELDS_NR = 6;
 const OK = '✅';
 const NOK = '❌';
+const elementsCounter = [0, 0, 0, 0, 0, 0];
+let overallSupportLevel = 0;
 
 console.error('| Game | Summary | Switch Mapping | Playfield Image | Playfield Lamps | Playfield Flashlamps | Audio Support | Memory Position |');
 console.error('| --- | --- | --- | --- | --- | --- | --- | --- |');
-
-let overallSupportLevel = 0;
 
 gameSummary.forEach((entry) => {
   let supportLevel = 0;
@@ -33,21 +33,27 @@ gameSummary.forEach((entry) => {
   const memoryPosition = entry.memoryPosition && entry.memoryPosition.length;
 
   if (entry.switchMapping) {
+    elementsCounter[0]++;
     supportLevel++;
   }
   if (entry.playfield) {
+    elementsCounter[1]++;
     supportLevel++;
   }
   if (entry.playfieldLamps) {
+    elementsCounter[2]++;
     supportLevel++;
   }
   if (entry.playfieldFlashLamps) {
+    elementsCounter[3]++;
     supportLevel++;
   }
   if (entry.audio) {
+    elementsCounter[4]++;
     supportLevel++;
   }
   if (memoryPosition) {
+    elementsCounter[5]++;
     supportLevel++;
   }
 
@@ -73,7 +79,25 @@ gameSummary.forEach((entry) => {
     '|',
   );
 });
-console.error();
+
 const percentageSupport = parseInt((100 / (gameSummary.length * FIELDS_NR)) * overallSupportLevel + 0.5);
-console.error('Overall Support Level', overallSupportLevel, '(' + percentageSupport + '%)' );
+
+console.error(
+  '| **Total** |',
+  '' + overallSupportLevel + ' (' + percentageSupport + '%)',
+  '|',
+  elementsCounter[0],
+  '|',
+  elementsCounter[1],
+  '|',
+  elementsCounter[2],
+  '|',
+  elementsCounter[3],
+  '|',
+  elementsCounter[4],
+  '|',
+  elementsCounter[5],
+  '|',
+);
+
 console.error();

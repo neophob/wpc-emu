@@ -57,6 +57,5 @@
 | WPC-S: WHO Dunnit | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: World Cup Soccer | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-
-Overall Support Level 126 (37%)
+| **Total** | 126 (37%) | 57 | 44 | 8 | 3 | 3 | 11 |
 
