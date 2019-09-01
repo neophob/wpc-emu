@@ -48,7 +48,7 @@
 | WPC-Fliptronics: White Water "Bigfoot" (FreeWPC) | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: Corvette | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: Dirty Harry | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| WPC-S: Indianapolis 500 | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| WPC-S: Indianapolis 500 | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: Jack·Bot | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: Johnny Mnemonic | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (14) |
 | WPC-S: No Fear | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (14) |
@@ -59,5 +59,5 @@
 | WPC-S: WHO Dunnit | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: World Cup Soccer | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **Total** | 127 (37%) | 57 | 45 | 8 | 3 | 3 | 11 |
+| **Total** | 128 (37%) | 57 | 46 | 8 | 3 | 3 | 11 |
 
