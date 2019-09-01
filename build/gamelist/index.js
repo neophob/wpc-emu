@@ -19,6 +19,9 @@ const gameSummary = gameNames
   });
 
 const FIELDS_NR = 6;
+const OK = '✅';
+const NOK = '❌';
+
 console.error('| Game | Summary | Switch Mapping | Playfield Image | Playfield Lamps | Playfield Flashlamps | Audio Support | Memory Position |');
 console.error('| --- | --- | --- | --- | --- | --- | --- | --- |');
 
@@ -56,19 +59,17 @@ gameSummary.forEach((entry) => {
     '|',
     supportLevel,
     '|',
-    entry.switchMapping ? '**✓**' : '✗',
+    entry.switchMapping ? OK : NOK,
     '|',
-    entry.playfield ? '**✓**' : '✗',
+    entry.playfield ? OK : NOK,
     '|',
-    entry.playfieldLamps ? '**✓**' : '✗',
+    entry.playfieldLamps ? OK : NOK,
     '|',
-    entry.playfieldFlashLamps ? '**✓**' : '✗',
+    entry.playfieldFlashLamps ? OK : NOK,
     '|',
-    entry.audio ? '**✓**' : '✗',
+    entry.audio ? OK : NOK,
     '|',
-    memoryPosition
-      ? '**✓**' + ' (' + entry.memoryPosition.length + ')'
-      : '✗',
+    memoryPosition ? OK + ' (' + entry.memoryPosition.length + ')' : NOK,
     '|',
   );
 });
