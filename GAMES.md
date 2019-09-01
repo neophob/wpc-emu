@@ -32,7 +32,7 @@
 | WPC-DMD: SlugFest (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | WPC-DMD: Strike Master Shuffle Alley (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | WPC-DMD: Terminator 2 | 4 | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
-| WPC-DMD: Terminator 2 (FreeWPC) | 3 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
+| WPC-DMD: Terminator 2 (FreeWPC) | 4 | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
 | WPC-DMD: The Party Zone | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | WPC-DMD: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | WPC-Fliptronics: Black Rose | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
@@ -59,5 +59,5 @@
 | WPC-S: WHO Dunnit | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: World Cup Soccer | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **Total** | 129 (38%) | 57 | 47 | 8 | 3 | 3 | 11 |
+| **Total** | 130 (38%) | 57 | 47 | 8 | 4 | 3 | 11 |
 
