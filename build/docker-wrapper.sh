@@ -12,8 +12,8 @@ fi
 
 echo "INFO: Starting DOCKER Release $ABSOLUTE_ROOT"
 
-EXECUTE_BUILDSCRIPT="ls -al /source && cd /source/build && ./release.sh"
-docker run --rm \
+EXECUTE_BUILDSCRIPT="cd /source/build && ./release.sh"
+time docker run --rm \
            -a stdin -a stdout -a stderr \
            -v ${ABSOLUTE_ROOT}:/source \
            $DOCKER_IMAGE bash -c "${EXECUTE_BUILDSCRIPT}"
