@@ -58,5 +58,5 @@
 | WPC-S: WPC Test Fixture  | 1 | **✓** | ✗ | ✗ | ✗ | ✗ | ✗ |
 | WPC-S: World Cup Soccer | 2 | **✓** | **✓** | ✗ | ✗ | ✗ | ✗ |
 
-Overall Support Level 125 (55%)
+Overall Support Level 125 (37%)
 

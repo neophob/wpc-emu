@@ -18,6 +18,7 @@ const gameSummary = gameNames
     }
   });
 
+const FIELDS_NR = 6;
 console.error('| Game | Summary | Switch Mapping | Playfield Image | Playfield Lamps | Playfield Flashlamps | Audio Support | Memory Position |');
 console.error('| --- | --- | --- | --- | --- | --- | --- | --- |');
 
@@ -72,6 +73,6 @@ gameSummary.forEach((entry) => {
   );
 });
 console.error();
-const percentageSupport = parseInt((100 / (gameSummary.length * 4)) * overallSupportLevel + 0.5);
+const percentageSupport = parseInt((100 / (gameSummary.length * FIELDS_NR)) * overallSupportLevel + 0.5);
 console.error('Overall Support Level', overallSupportLevel, '(' + percentageSupport + '%)' );
 console.error();
