@@ -18,8 +18,8 @@ const gameSummary = gameNames
     }
   });
 
-console.error('| Game | Summary | Switch Mapping | Playfield Image | Playfield Lamps | Playfield Flashlamps | Audio Support | Memory Position');
-console.error('| --- | --- | --- | --- | --- | --- |');
+console.error('| Game | Summary | Switch Mapping | Playfield Image | Playfield Lamps | Playfield Flashlamps | Audio Support | Memory Position |');
+console.error('| --- | --- | --- | --- | --- | --- | --- | --- |');
 
 let overallSupportLevel = 0;
 
