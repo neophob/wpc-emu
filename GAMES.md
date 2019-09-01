@@ -35,7 +35,7 @@
 | WPC-DMD: Terminator 2 (FreeWPC) | 3 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | WPC-DMD: The Party Zone | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | WPC-DMD: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| WPC-Fliptronics: Black Rose | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| WPC-Fliptronics: Black Rose | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-Fliptronics: Bram Stoker's Dracula | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-Fliptronics: Creature from the Black Lagoon | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-Fliptronics: Dr. Who | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
@@ -59,5 +59,5 @@
 | WPC-S: WHO Dunnit | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: World Cup Soccer | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **Total** | 128 (37%) | 57 | 46 | 8 | 3 | 3 | 11 |
+| **Total** | 129 (38%) | 57 | 47 | 8 | 3 | 3 | 11 |
 
