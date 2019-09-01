@@ -1,0 +1,14 @@
+{
+  "name": "gamelist",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gamelist.js",
+  "scripts": {
+    "start": "node -r esm index.js 2> ../../GAMES.md"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "esm": "^3.2.25"
+  }
+}
