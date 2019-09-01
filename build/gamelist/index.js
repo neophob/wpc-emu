@@ -11,12 +11,14 @@ const gameSummary = gameNames
       name: gameEntry.name,
       switchMapping: gameEntry.switchMapping ? true : false,
       playfield: gameEntry.playfield ? true : false,
+      playfieldLamps: gameEntry.playfield && gameEntry.playfield.lamps ? true : false,
+      playfieldFlashLamps: gameEntry.playfield && gameEntry.playfield.flashlamps ? true : false,
       audio: gameEntry.audio ? true : false,
       memoryPosition: gameEntry.memoryPosition,
     }
   });
 
-console.error('| Game | Summary | Switch Mapping | Playfield Support | Audio Support | Memory Position');
+console.error('| Game | Summary | Switch Mapping | Playfield Image | Playfield Lamps | Playfield Flashlamps | Audio Support | Memory Position');
 console.error('| --- | --- | --- | --- | --- | --- |');
 
 let overallSupportLevel = 0;
@@ -30,6 +32,12 @@ gameSummary.forEach((entry) => {
     supportLevel++;
   }
   if (entry.playfield) {
+    supportLevel++;
+  }
+  if (entry.playfieldLamps) {
+    supportLevel++;
+  }
+  if (entry.playfieldFlashLamps) {
     supportLevel++;
   }
   if (entry.audio) {
@@ -51,6 +59,10 @@ gameSummary.forEach((entry) => {
     '|',
     entry.playfield ? '**✓**' : '✗',
     '|',
+    entry.playfieldLamps ? '**✓**' : '✗',
+    '|',
+    entry.playfieldFlashLamps ? '**✓**' : '✗',
+    '|',
     entry.audio ? '**✓**' : '✗',
     '|',
     memoryPosition
@@ -60,6 +72,6 @@ gameSummary.forEach((entry) => {
   );
 });
 console.error();
-const percentageSupport = (100 / (gameSummary.length * 4)) * overallSupportLevel;
+const percentageSupport = parseInt((100 / (gameSummary.length * 4)) * overallSupportLevel + 0.5);
 console.error('Overall Support Level', overallSupportLevel, '(' + percentageSupport + '%)' );
 console.error();
