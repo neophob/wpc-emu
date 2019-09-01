@@ -1,4 +1,5 @@
-WPC-EMU Game List
+#WPC-EMU Game List
+
 | Game | Summary | Switch Mapping | Playfield Image | Playfield Lamps | Playfield Flashlamps | Audio Support | Memory Position |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | WPC-95: Attack from Mars | 4 | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ (20) |
