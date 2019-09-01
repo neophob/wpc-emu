@@ -19,6 +19,8 @@ const gameSummary = gameNames
 console.error('| Game | Summary | Switch Mapping | Playfield Support | Audio Support | Memory Position');
 console.error('| --- | --- | --- | --- | --- | --- |');
 
+let overallSupportLevel = 0;
+
 gameSummary.forEach((entry) => {
   let supportLevel = 0;
 
@@ -36,6 +38,9 @@ gameSummary.forEach((entry) => {
   if (memoryPosition) {
     supportLevel++;
   }
+
+  overallSupportLevel += supportLevel;
+
   console.error(
     '|',
     entry.name,
@@ -54,4 +59,7 @@ gameSummary.forEach((entry) => {
     '|',
   );
 });
+console.error();
+const percentageSupport = (100 / (gameSummary.length * 4)) * overallSupportLevel;
+console.error('Overall Support Level', overallSupportLevel, '(' + percentageSupport + '%)' );
 console.error();
