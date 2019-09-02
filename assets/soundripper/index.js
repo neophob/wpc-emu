@@ -4,6 +4,12 @@ const audiosprite = require('audiosprite');
 
 const TEMPDIR = 'tmp';
 
+/*
+Example:
+ > node index.js DIRECTORY_WITH_SOURCE
+*/
+
+
 function copyFileToTemp(file) {
   const slash = file.split('/');
   const filename = slash[slash.length - 2];
@@ -41,23 +47,22 @@ if (!process.argv[2]) {
   throw new Error('MISSING MUSIC_SOURCE_DIRECTORY_PATH');
 }
 
-if (process.argv[3]) {
-  const type = process.argv[3];
-  searchDirectory(process.argv[2], '.wav', ((file) => {
-    const slash = file.split('/');
-    const filename = slash[slash.length - 2];
-    const id = parseInt(filename.split('-')[0], 10);
-    const snd = 'snd' + id;
+searchDirectory(process.argv[2], '.wav', ((file) => {
+  const slash = file.split('/');
+  const filename = slash[slash.length - 2];
+  const type = slash[slash.length - 3];
+  const id = parseInt(filename.split('-')[0], 10);
+  const snd = 'snd' + id;
 
-    if (type === 'music') {
-      console.log(id + ': { channel: 0, loop: true, sample: \'' + snd + '\' },');
-    } else if (type === 'jingle') {
-      console.log(id + ': { channel: 1, sample: \'' + snd + '\' },');
-    } else {
-      console.log(id + ': { sample: \'' + snd + '\' },');
-    }
-  }));
-}
+  if (type === 'music') {
+    console.log(id + ': { channel: 0, loop: true, sample: \'' + snd + '\' },');
+  } else if (type === 'jingle') {
+    console.log(id + ': { channel: 1, sample: \'' + snd + '\' },');
+  } else {
+    console.log(id + ': { sample: \'' + snd + '\' },');
+  }
+}));
+
 
 searchDirectory(process.argv[2], '.wav', copyFileToTemp);
 console.log('PROCESSED FILES', samples.length);

@@ -46,7 +46,7 @@
 | WPC-Fliptronics: Twilight Zone (FreeWPC, Broken!) | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: White Water | 4 | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ (21) | ✅ |
 | WPC-Fliptronics: White Water "Bigfoot" (FreeWPC) | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-S: Corvette | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| WPC-S: Corvette | 3 | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | WPC-S: Dirty Harry | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: Indianapolis 500 | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: Jack·Bot | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
@@ -59,5 +59,5 @@
 | WPC-S: WHO Dunnit | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: World Cup Soccer | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| **Total** | 133 (33%) | 57 | 47 | 9 | 5 | 3 | 12 | 15 |
+| **Total** | 134 (34%) | 57 | 47 | 9 | 5 | 4 | 12 | 15 |
 
