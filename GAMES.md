@@ -12,7 +12,7 @@
 | WPC-95: Medieval Madness | 4 | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ (22) |
 | WPC-95: Monster Bash | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-95: NBA Fastbreak | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| WPC-95: No Good Gofers | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (2) |
+| WPC-95: No Good Gofers | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (21) |
 | WPC-95: Safe Cracker | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-95: Scared Stiff | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-95: Tales of the Arabian Nights | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
