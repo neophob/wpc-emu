@@ -5,7 +5,7 @@
 | WPC-95: Attack from Mars | 4 | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ (21) | ✅ |
 | WPC-95: Attack from Mars (FreeWPC, Broken) | 3 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: Cactus Canyon | 3 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ |
-| WPC-95: Cirqus Voltaire | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| WPC-95: Cirqus Voltaire | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (1) | ❌ (5) |
 | WPC-95: Congo | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (20) | ✅ |
 | WPC-95: Junk Yard | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: League Champ Shuffle Alley (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
@@ -59,5 +59,5 @@
 | WPC-S: WHO Dunnit | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: World Cup Soccer | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| **Total** | 130 (33%) | 57 | 47 | 8 | 4 | 3 | 11 | 10 |
+| **Total** | 131 (33%) | 57 | 47 | 8 | 4 | 3 | 12 | 15 |
 

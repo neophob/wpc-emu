@@ -89,7 +89,7 @@ module.exports = {
     closedSwitches: [
       22,
       //OPTO SWITCHES: 31, 32, 33, 34, 35, 36,
-      16, 31,
+      31,
       'F2', 'F4', 'F6', 'F8',
     ],
     initialAction: [
@@ -99,5 +99,15 @@ module.exports = {
         value: 16
       }
     ],
-  }
+  },
+  testErrors: [
+    'CHECK SWITCH 16 TOP EDDY',
+    'CHECK SWITCH 42 RINGMASTER UP',
+    'CHECK SWITCH 43 RINGMASTER MID',
+    'CHECK SWITCH 44 RINGMASTER DOWN',
+    'RINGMASTER ERROR NO MOTION',
+  ],
+  memoryPosition: [
+    { offset: 0x80, name: 'GAME_RUN', description: '0: not running, 1: running', type: 'uint8' },
+  ],
 };

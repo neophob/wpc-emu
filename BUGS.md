@@ -36,7 +36,6 @@ setV8(a, b, r) {
 ## Missing EMU features
 
 - enable / disable IRQ in the ASIC emu should work - currently the IRQ is fired all the time
-- DIP language selection does not work for TZ
 
 ## Circus Voltare
 
