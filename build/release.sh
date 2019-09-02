@@ -11,7 +11,7 @@ if [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]]; then
     #exit 1
 fi
 
-echo "# INFO: Starting Release"
+echo "# INFO: Starting Release $KIND"
 node -v
 npm -v
 
