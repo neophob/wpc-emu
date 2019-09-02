@@ -1,5 +1,11 @@
 # HISTORY
 
+## 2/9/19
+- Corvette/T2: support audio
+- TOM: add lamps & flasher
+- NF/HS2: fix invalid default switches
+- NGG: add memory positions
+
 ## 1/9/19
 - Create docker builder
 - add auto generated GAMES.md file - overview about supported games
