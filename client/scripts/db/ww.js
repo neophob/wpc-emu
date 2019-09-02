@@ -1636,9 +1636,9 @@ module.exports = {
     { offset: 0x1C69, name: 'HI_SCORE_2_NAME', type: 'string' },
     { offset: 0x1C6C, name: 'HI_SCORE_2_SCORE', type: 'bcd', length: 5 },
     { offset: 0x1C71, name: 'HI_SCORE_3_NAME', type: 'string' },
-    { offset: 0x1C75, name: 'HI_SCORE_3_SCORE', type: 'bcd', length: 5 },
+    { offset: 0x1C74, name: 'HI_SCORE_3_SCORE', type: 'bcd', length: 5 },
     { offset: 0x1C79, name: 'HI_SCORE_4_NAME', type: 'string' },
-    { offset: 0x1C7D, name: 'HI_SCORE_4_SCORE', type: 'bcd', length: 5 },
+    { offset: 0x1C7C, name: 'HI_SCORE_4_SCORE', type: 'bcd', length: 5 },
     { offset: 0x1C83, name: 'CHAMPION_1_NAME', description: 'Grand Champion', type: 'string' },
     { offset: 0x1C86, name: 'CHAMPION_1_SCORE', description: 'Grand Champion', type: 'bcd', length: 5 },
 

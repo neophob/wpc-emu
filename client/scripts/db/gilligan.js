@@ -91,5 +91,8 @@ module.exports = {
         value: 16
       }
     ],
-  }
+  },
+  testErrors: [
+    'Island ERROR',
+  ]
 };

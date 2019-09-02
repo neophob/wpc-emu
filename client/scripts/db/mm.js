@@ -199,10 +199,8 @@ module.exports = {
 
     { offset: 0x1D5B, name: 'CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
     { offset: 0x1D5C, name: 'CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
+    //TODO
+    //TILT sensor?
+    //attract mode screen
   ],
-
-  //TODO
-  //TILT sensor?
-   //attract mode screen
-
 };

@@ -179,6 +179,10 @@ module.exports = {
     { offset: 0x16AE, name: 'SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 6 },
     { offset: 0x16B5, name: 'SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 6 },
 
+    { offset: 0x1711, name: 'PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
+
+    { offset: 0x1B98, name: 'BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
+
     { offset: 0x1D0B, name: 'HI_SCORE_1_NAME', type: 'string' },
     { offset: 0x1D0E, name: 'HI_SCORE_1_SCORE', type: 'bcd', length: 6 },
     { offset: 0x1D14, name: 'HI_SCORE_2_NAME', type: 'string' },
@@ -190,10 +194,7 @@ module.exports = {
     { offset: 0x1D31, name: 'CHAMPION_1_NAME', description: 'Grand Champion', type: 'string' },
     { offset: 0x1D34, name: 'CHAMPION_1_SCORE', description: 'Grand Champion', type: 'bcd', length: 6 },
 
-    { offset: 0x1711, name: 'PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
     { offset: 0x1D42, name: 'CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
     { offset: 0x1D43, name: 'CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
-
-
   ],
 };

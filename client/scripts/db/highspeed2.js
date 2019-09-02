@@ -91,7 +91,7 @@ module.exports = {
   initialise: {
     closedSwitches: [
       22,
-      55, 56, 57, 58,
+      33, 55, 56, 57, 58,
       //OPTO SWITCH
       81, 82, 83, 84, 85,
       'F2', 'F4', 'F6', 'F8',
@@ -104,6 +104,4 @@ module.exports = {
       }
     ],
   },
-  memoryPosition: [
-  ],
 };

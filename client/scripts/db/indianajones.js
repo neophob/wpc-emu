@@ -112,5 +112,14 @@ module.exports = {
         value: 16
       }
     ],
-  }
+  },
+  testErrors: [
+    'ERR. MINI PFD. BAD, CHK. SWITCHES/MTR',
+    'ERROR IDOL BAD, CHK. SWITCHES/MTR',
+    'ERR. DROP BNK BAD, CHK. SWITCH/COIL',
+    'ER. SNGLE DRP. BAD, CHK. SWITCH/COIL',
+    'CHECK SWITCH 94, MINI PFD. RIGHT',
+    'CHECK SWITCH 95, MINI PFD. LEFT',
+
+  ]
 };

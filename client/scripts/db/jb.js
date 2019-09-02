@@ -70,6 +70,10 @@ module.exports = {
     { id: 'F7', name: 'VISOR IS OPEN' },
     { id: 'F8', name: 'UL FLIPPER BUT' },
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-jackbot.jpg',
+  },
   skipWpcRomCheck: true,
   features: [
     'securityPic',

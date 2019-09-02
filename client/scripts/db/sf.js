@@ -61,5 +61,9 @@ module.exports = {
         value: 16
       }
     ],
-  }
+  },
+  testErrors: [
+    'Ramp Position Error',
+    'Fast Pitch Error',
+  ]
 };

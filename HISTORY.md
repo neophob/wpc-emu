@@ -1,5 +1,10 @@
 # HISTORY
 
+## 1/9/19
+- Create docker builder
+- add auto generated GAMES.md file - overview about supported games
+- add missing playfield images to BR, I500 and NF
+
 ## 30/8/19
 - Update memory positions for AFM, MM, FT, DM, CONGO, WW
 - Improve Memory Monitor visual

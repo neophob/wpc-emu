@@ -36,8 +36,6 @@ setV8(a, b, r) {
 ## Missing EMU features
 
 - enable / disable IRQ in the ASIC emu should work - currently the IRQ is fired all the time
-- GI (General Illumination dimming) to implemented properly
-- DIP language selection does not work for TZ
 
 ## Circus Voltare
 
@@ -46,7 +44,7 @@ setV8(a, b, r) {
 
 ## No Fear / STTNG
 
-- cannot start game, probably because of invalid switch state
+- cannot start game, need to toggle THROUGH switch
 
 ## Adams Family Values
 

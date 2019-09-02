@@ -66,6 +66,10 @@ module.exports = {
     { id: 'F6', name: 'UR FLIPPER BUT' },
     { id: 'F8', name: 'UL FLIPPER BUT' },
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-nf.jpg',
+  },
   skipWpcRomCheck: true,
   features: [
     'securityPic',
@@ -75,7 +79,7 @@ module.exports = {
     closedSwitches: [
       22,
       //OPTO SWITCHES 31, 32, 33, 34, 35, 37, 38, 41, 42, 46, 47, 48,
-      31, 37, 38, 41, 42, 47,
+      31, 37, 38, 41, 42, 46, 47, 48,
       'F2', 'F4', 'F6', 'F8',
     ],
     initialAction: [
@@ -87,6 +91,8 @@ module.exports = {
     ],
   },
   memoryPosition: [
+    { offset: 0x80, name: 'GAME_RUN', description: '0: not running, 1: running', type: 'uint8' },
+
     { offset: 0x16A1, name: 'SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 5 },
     { offset: 0x16A8, name: 'SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 5 },
     { offset: 0x16AF, name: 'SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 5 },
@@ -102,5 +108,9 @@ module.exports = {
     { offset: 0x1D0C, name: 'HI_SCORE_4_SCORE', type: 'bcd', length: 5 },
     { offset: 0x1D13, name: 'CHAMPION_1_NAME', description: 'Grand Champion', type: 'string' },
     { offset: 0x1D17, name: 'CHAMPION_1_SCORE', description: 'Grand Champion', type: 'bcd', length: 5 },
+
+    { offset: 0x1D24, name: 'CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
+    { offset: 0x1D25, name: 'CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
+
   ],
 };

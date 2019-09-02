@@ -78,6 +78,89 @@ module.exports = {
   playfield: {
     //size must be 200x400, lamp positions according to image
     image: 'playfield-tom.jpg',
+    lamps: [
+      [{ x: 51, y: 257, color: 'RED' }],
+      [{ x: 63, y: 254, color: 'RED' }],
+      [{ x: 77, y: 252, color: 'RED' }],
+      [{ x: 90, y: 252, color: 'RED' }],
+      [{ x: 103, y: 252, color: 'RED' }],
+      [{ x: 117, y: 256, color: 'RED' }],
+      [{ x: 131, y: 257, color: 'RED' }],
+      [{ x: 70, y: 235, color: 'LBLUE' }],
+
+      [{ x: 133, y: 216, color: 'WHITE' }],
+      [{ x: 129, y: 226, color: 'RED' }],
+      [{ x: 126, y: 235, color: 'WHITE' }],
+      [{ x: 123, y: 243, color: 'RED' }],
+      [{ x: 150, y: 225, color: 'WHITE' }],
+      [{ x: 140, y: 248, color: 'ORANGE' }, { x: 36, y: 215, color: 'ORANGE' }],
+      [{ x: 75, y: 222, color: 'LBLUE' }],
+      [{ x: 81, y: 136, color: 'RED' }], // 28
+
+      [{ x: 91, y: 219, color: 'LBLUE' }],
+      [{ x: 112, y: 235, color: 'LBLUE' }],
+      [{ x: 101, y: 147, color: 'RED' }],
+      [{ x: 100, y: 158, color: 'WHITE' }],
+      [{ x: 99, y: 169, color: 'WHITE' }],
+      [{ x: 104, y: 222, color: 'LBLUE' }],
+      [{ x: 121, y: 17, color: 'YELLOW' }],
+      [{ x: 141, y: 20, color: 'YELLOW' }], // 38
+
+      [{ x: 16, y: 160, color: 'RED' }],
+      [{ x: 24, y: 179, color: 'RED' }],
+      [{ x: 30, y: 196, color: 'WHITE' }],
+      [{ x: 75, y: 203, color: 'RED' }],
+      [{ x: 128, y: 145, color: 'WHITE' }, { x: 41, y: 131, color: 'WHITE' }],
+      [{ x: 37, y: 176, color: 'YELLOW' }],
+      [{ x: 46, y: 148, color: 'RED' }],
+      [{ x: 62, y: 138, color: 'RED' }], //  48
+
+      [{ x: 71, y: 132, color: 'RED' }],
+      [{ x: 74, y: 190, color: 'RED' }],
+      [{ x: 74, y: 180, color: 'RED' }],
+      [{ x: 51, y: 170, color: 'WHITE' }, { x: 126, y: 166, color: 'WHITE' }],
+      [{ x: 73, y: 168, color: 'RED' }],
+      [{ x: 71, y: 144, color: 'RED' }],
+      [{ x: 72, y: 155, color: 'RED' }],
+      [{ x: 44, y: 196, color: 'RED' }], // 58
+
+      [{ x: 76, y: 279, color: 'YELLOW' }],
+      [{ x: 76, y: 292, color: 'GREEN' }],
+      [{ x: 90, y: 262, color: 'RED' }],
+      [{ x: 76, y: 305, color: 'ORANGE' }],
+      [{ x: 79, y: 318, color: 'RED' }],
+      [{ x: 105, y: 279, color: 'YELLOW' }],
+      [{ x: 105, y: 292, color: 'RED' }],
+      [{ x: 105, y: 305, color: 'GREEN' }], // 68
+
+      [{ x: 102, y: 318, color: 'LBLUE' }],
+      [{ x: 129, y: 123, color: 'ORANGE' }],
+      [{ x: 76, y: 337, color: 'RED' }],
+      [{ x: 85, y: 341, color: 'RED' }],
+      [{ x: 97, y: 341, color: 'ORANGE' }],
+      [{ x: 106, y: 337, color: 'RED' }],
+      [{ x: 163, y: 200, color: 'RED' }],
+      [{ x: 34, y: 241, color: 'ORANGE' }], // 78
+
+      [{ x: 16, y: 334, color: 'RED' }, { x: 165, y: 337, color: 'RED' }],
+      [{ x: 0, y: 0, color: 'BLACK' }],
+      [{ x: 0, y: 0, color: 'BLACK' }],
+      [{ x: 0, y: 0, color: 'BLACK' }],
+      [{ x: 63, y: 73, color: 'GREEN' }],
+      [{ x: 90, y: 360, color: 'RED' }],
+      [{ x: 160, y: 395, color: 'RED' }],
+      [{ x: 40, y: 395, color: 'YELLOW' }],
+    ],
+    flashlamps: [
+      { id: 20, x: 22, y: 319 },
+      { id: 20, x: 160, y: 323 },
+      { id: 23, x: 24, y: 148 },
+      { id: 24, x: 144, y: 140 },
+      { id: 25, x: 17, y: 105 },
+      { id: 26, x: 24, y: 148 },
+      { id: 27, x: 153, y: 64 },
+      { id: 28, x: 111, y: 90 },
+    ]
   },
   skipWpcRomCheck: true,
   features: [
@@ -1342,6 +1425,8 @@ module.exports = {
     },
   },
   memoryPosition: [
+    { offset: 0x86, name: 'GAME_RUN', description: '0: not running, 1: running', type: 'uint8' },
+
     //{ offset: 0x326, name: 'TEXT', description: 'random visible text', type: 'string' },
     { offset: 0x3AF, name: 'PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
     { offset: 0x3B0, name: 'BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
@@ -1351,6 +1436,22 @@ module.exports = {
     { offset: 0x16A6, name: 'SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 5 },
     { offset: 0x16AC, name: 'SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 5 },
     { offset: 0x16B2, name: 'SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 5 },
+
+    { offset: 0x1B20, name: 'BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
+
+    { offset: 0x1C61, name: 'HI_SCORE_1_NAME', type: 'string' },
+    { offset: 0x1C64, name: 'HI_SCORE_1_SCORE', type: 'bcd', length: 5 },
+    { offset: 0x1C69, name: 'HI_SCORE_2_NAME', type: 'string' },
+    { offset: 0x1C6C, name: 'HI_SCORE_2_SCORE', type: 'bcd', length: 5 },
+    { offset: 0x1C71, name: 'HI_SCORE_3_NAME', type: 'string' },
+    { offset: 0x1C74, name: 'HI_SCORE_3_SCORE', type: 'bcd', length: 5 },
+    { offset: 0x1C79, name: 'HI_SCORE_4_NAME', type: 'string' },
+    { offset: 0x1C7C, name: 'HI_SCORE_4_SCORE', type: 'bcd', length: 5 },
+    { offset: 0x1C83, name: 'CHAMPION_1_NAME', description: 'Grand Champion', type: 'string' },
+    { offset: 0x1C86, name: 'CHAMPION_1_SCORE', description: 'Grand Champion', type: 'bcd', length: 5 },
+
+    { offset: 0x1C93, name: 'CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
+    { offset: 0x1C94, name: 'CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
 
   ],
 };
