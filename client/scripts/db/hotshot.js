@@ -38,5 +38,9 @@ module.exports = {
         value: 16
       }
     ],
-  }
+  },
+  testError: [
+    'ERROR-BASKET NOT CALIBRATED',
+    'CHK. BASKET MOTOR AND SW32/SW33',
+  ]
 };

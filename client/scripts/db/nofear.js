@@ -90,7 +90,13 @@ module.exports = {
       }
     ],
   },
+  testErrors: [
+    'L. ACCEL SW. STUCK',
+    'R. ACCEL SW. STUCK',
+  ],
   memoryPosition: [
+    { offset: 0x80, name: 'GAME_RUN', description: '0: not running, 1: running', type: 'uint8' },
+
     { offset: 0x16A1, name: 'SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 5 },
     { offset: 0x16A8, name: 'SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 5 },
     { offset: 0x16AF, name: 'SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 5 },
@@ -106,5 +112,9 @@ module.exports = {
     { offset: 0x1D0C, name: 'HI_SCORE_4_SCORE', type: 'bcd', length: 5 },
     { offset: 0x1D13, name: 'CHAMPION_1_NAME', description: 'Grand Champion', type: 'string' },
     { offset: 0x1D17, name: 'CHAMPION_1_SCORE', description: 'Grand Champion', type: 'bcd', length: 5 },
+
+    { offset: 0x1D24, name: 'CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
+    { offset: 0x1D25, name: 'CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
+
   ],
 };

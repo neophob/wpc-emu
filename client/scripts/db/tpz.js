@@ -87,5 +87,8 @@ module.exports = {
         value: 16
       }
     ],
-  }
+  },
+  testErrors: [
+    'HEAD MALFUNCTION, USE HEAD TEST',
+  ]
 };

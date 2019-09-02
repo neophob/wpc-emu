@@ -104,6 +104,7 @@ module.exports = {
       }
     ],
   },
-  memoryPosition: [
-  ],
+  testErrors: [
+    'SHIFTER ERROR',
+  ]
 };
