@@ -40,7 +40,7 @@
 | WPC-Fliptronics: Creature from the Black Lagoon | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: Dr. Who | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: Fish Tales | 6 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ (21) | ✅ |
-| WPC-Fliptronics: High Speed II, The Getaway | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ (1) |
+| WPC-Fliptronics: High Speed II, The Getaway | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: The Addams Family Special | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: Twilight Zone | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: Twilight Zone (FreeWPC, Broken!) | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
@@ -59,5 +59,5 @@
 | WPC-S: WHO Dunnit | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: World Cup Soccer | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| **Total** | 130 (33%) | 57 | 47 | 8 | 4 | 3 | 11 | 13 |
+| **Total** | 130 (33%) | 57 | 47 | 8 | 4 | 3 | 11 | 12 |
 
