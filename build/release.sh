@@ -16,7 +16,7 @@ node -v
 npm -v
 
 # npmInstallFor $PACKAGE_PATH
-function npmRelease {
+function npmBump {
   PACKAGE_PATH=$1
   echo "## INFO: Bump version $PROJECT_ROOT/$PACKAGE_PATH"
   pushd $PROJECT_ROOT/$PACKAGE_PATH
@@ -44,15 +44,15 @@ function npmStart {
   popd
 }
 
-npmRelease ""
-npmRelease "client"
+npmBump ""
+npmBump "client"
 echo "# INFO: Release successfully bumped"
 
 echo "# INFO: start release"
 rm -rf $PROJECT_ROOT/docs/*
 rm -rf $PROJECT_ROOT/dist/*
 
-npmBuild ""&
+#npmBuild ""&
 npmBuild "client"&
 npmStart "build/gamelist"&
 
