@@ -1,4 +1,5 @@
 assets
+build
 docs
 .DS_Store
 node_modules
