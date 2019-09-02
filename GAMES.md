@@ -51,7 +51,7 @@
 | WPC-S: Indianapolis 500 | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: Jack·Bot | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: Johnny Mnemonic | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (21) | ✅ |
-| WPC-S: No Fear | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (17) | ❌ (2) |
+| WPC-S: No Fear | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (17) | ✅ |
 | WPC-S: Red & Ted's Road Show | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: The Flintstones | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: The Shadow | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
@@ -59,5 +59,5 @@
 | WPC-S: WHO Dunnit | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: World Cup Soccer | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| **Total** | 130 (33%) | 57 | 47 | 8 | 4 | 3 | 11 | 12 |
+| **Total** | 130 (33%) | 57 | 47 | 8 | 4 | 3 | 11 | 10 |
 
