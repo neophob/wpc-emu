@@ -55,7 +55,7 @@
 | WPC-S: Red & Ted's Road Show | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: The Flintstones | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: The Shadow | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| WPC-S: Theatre of Magic | 4 | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ (7) |
+| WPC-S: Theatre of Magic | 4 | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ (21) |
 | WPC-S: WHO Dunnit | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | WPC-S: World Cup Soccer | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |

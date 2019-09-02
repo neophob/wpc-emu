@@ -7,6 +7,7 @@ const gameSummary = gameNames
   .filter(name => !name.startsWith('UPLOAD'))
   .map((name) => {
     const gameEntry = gamelist.getByName(name);
+
     return {
       name: gameEntry.name,
       switchMapping: gameEntry.switchMapping ? true : false,
@@ -14,7 +15,7 @@ const gameSummary = gameNames
       playfieldLamps: gameEntry.playfield && gameEntry.playfield.lamps ? true : false,
       playfieldFlashLamps: gameEntry.playfield && gameEntry.playfield.flashlamps ? true : false,
       audio: gameEntry.audio ? true : false,
-      memoryPosition: gameEntry.memoryPosition,
+      memoryPosition: gameEntry.memoryPosition && gameEntry.memoryPosition.length ? gameEntry.memoryPosition.length : 0,
     }
   });
 
@@ -31,8 +32,6 @@ console.error('| --- | --- | --- | --- | --- | --- | --- | --- |');
 
 gameSummary.forEach((entry) => {
   let supportLevel = 0;
-
-  const memoryPosition = entry.memoryPosition && entry.memoryPosition.length;
 
   if (entry.switchMapping) {
     elementsCounter[0]++;
@@ -54,7 +53,7 @@ gameSummary.forEach((entry) => {
     elementsCounter[4]++;
     supportLevel++;
   }
-  if (memoryPosition) {
+  if (entry.memoryPosition) {
     elementsCounter[5]++;
     supportLevel++;
   }
@@ -77,7 +76,7 @@ gameSummary.forEach((entry) => {
     '|',
     entry.audio ? OK : NOK,
     '|',
-    memoryPosition ? OK + ' (' + entry.memoryPosition.length + ')' : NOK,
+    entry.memoryPosition ? OK + ' (' + entry.memoryPosition + ')' : NOK,
     '|',
   );
 });
