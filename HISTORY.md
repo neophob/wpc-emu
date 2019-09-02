@@ -1,7 +1,7 @@
 # HISTORY
 
 ## 2/9/19
-- Corvette: support audio
+- Corvette/T2: support audio
 - TOM: add lamps & flasher
 - NF/HS2: fix invalid default switches
 - NGG: add memory positions

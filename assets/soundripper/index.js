@@ -4,24 +4,26 @@ const audiosprite = require('audiosprite');
 
 const TEMPDIR = 'tmp';
 
+const FILE_EXTENSION = process.argv[3] ? process.argv[2] : '.wav';
+console.log('use file extension', FILE_EXTENSION);
+
 /*
 Example:
- > node index.js DIRECTORY_WITH_SOURCE
+ > node index.js DIRECTORY_WITH_AUDIO_SOURCE [optional file extension, default .wav]
 */
-
 
 function copyFileToTemp(file) {
   const slash = file.split('/');
   const filename = slash[slash.length - 2];
   const id = parseInt(filename.split('-')[0], 10);
-  const convertedFile = path.join(TEMPDIR, 'snd' + id + '.wav');
+  const convertedFile = path.join(TEMPDIR, 'snd' + id + FILE_EXTENSION);
   console.log('>', file, '->', convertedFile);
 
   fs.copyFileSync(file, convertedFile);
   return convertedFile;
 }
 
-const samples = [];
+let samples = [];
 
 function searchDirectory(startPath, filter, callbackFunction) {
   if (!fs.existsSync(startPath)) {
@@ -47,7 +49,7 @@ if (!process.argv[2]) {
   throw new Error('MISSING MUSIC_SOURCE_DIRECTORY_PATH');
 }
 
-searchDirectory(process.argv[2], '.wav', ((file) => {
+searchDirectory(process.argv[2], FILE_EXTENSION, ((file) => {
   const slash = file.split('/');
   const filename = slash[slash.length - 2];
   const type = slash[slash.length - 3];
@@ -63,9 +65,11 @@ searchDirectory(process.argv[2], '.wav', ((file) => {
   }
 }));
 
+// yes hacky!
+samples = [];
 
-searchDirectory(process.argv[2], '.wav', copyFileToTemp);
-console.log('PROCESSED FILES', samples.length);
+searchDirectory(process.argv[2], FILE_EXTENSION, copyFileToTemp);
+console.log('> PROCESSED FILES', samples.length);
 
 const opts = {
   output: 'output',
@@ -80,6 +84,7 @@ const opts = {
   },
 };
 
+console.log('> RUN AUDIOSPRITE',samples);
 audiosprite(samples, opts, (err, obj) => {
   if (err) {
     return console.error(err);
