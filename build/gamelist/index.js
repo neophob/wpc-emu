@@ -15,9 +15,10 @@ const gameSummary = gameNames
       playfieldLamps: gameEntry.playfield && gameEntry.playfield.lamps ? true : false,
       playfieldFlashLamps: gameEntry.playfield && gameEntry.playfield.flashlamps ? true : false,
       audio: gameEntry.audio ? true : false,
-      memoryPosition: gameEntry.memoryPosition && gameEntry.memoryPosition.length ? gameEntry.memoryPosition.length : 0,
+      memoryPosition: gameEntry && gameEntry.memoryPosition &&
+        gameEntry.memoryPosition.knownValues ? gameEntry.memoryPosition.knownValues.length : 0,
       testErrors: gameEntry.testErrors && gameEntry.testErrors.length ? gameEntry.testErrors.length : 0,
-    }
+    };
   });
 
 const FIELDS_NR = 7;
@@ -87,7 +88,7 @@ gameSummary.forEach((entry) => {
   );
 });
 
-const percentageSupport = parseInt((100 / (gameSummary.length * FIELDS_NR)) * overallSupportLevel + 0.5);
+const percentageSupport = parseInt((100 / (gameSummary.length * FIELDS_NR)) * overallSupportLevel + 0.5, 10);
 
 console.error(
   '| **Total** |',

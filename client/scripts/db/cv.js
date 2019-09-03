@@ -107,7 +107,9 @@ module.exports = {
     'CHECK SWITCH 44 RINGMASTER DOWN',
     'RINGMASTER ERROR NO MOTION',
   ],
-  memoryPosition: [
-    { offset: 0x80, name: 'GAME_RUN', description: '0: not running, 1: running', type: 'uint8' },
-  ],
+  memoryPosition: {
+    knownValues: [
+      { offset: 0x80, name: 'GAME_RUN', description: '0: not running, 1: running', type: 'uint8' },
+    ],
+  },
 };

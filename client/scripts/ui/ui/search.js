@@ -1,6 +1,6 @@
 'use strict';
 
-import * as bcd from '../../../../lib/encoding/bcd';
+import * as bcd from '../../../../lib/boards/memory/bcd';
 
 export {
   findString,

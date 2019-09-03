@@ -237,9 +237,10 @@ function writeMemory(offset, value, block) {
 /**
  * Print emulator memory content, if its a string the whole string will be shown
  * @param {Number} offset
+ * @param {Number} optionalEndOffset
  */
-function memoryDumpData(offset) {
-  emuDebugUi.memoryDumpData(offset);
+function memoryDumpData(offset, optionalEndOffset) {
+  emuDebugUi.memoryDumpData(offset, optionalEndOffset);
 }
 
 function pauseEmu() {
