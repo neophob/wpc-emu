@@ -92,7 +92,7 @@ module.exports = {
   },
   memoryPosition: {
     checksum: [
-      { dataStartOffset: 0x1CED, dataEndOffset: 0x1D10, checksumOffset: 0x1D11, checksum: '16bit', name: 'HIGHSCORE' },
+      { dataStartOffset: 0x1CED, dataEndOffset: 0x1D10, checksumOffset: 0x1D11, checksum: '16bit', name: 'HI_SCORE' },
     ],
     knownValues: [
       { offset: 0x80, name: 'GAME_RUN', description: '0: not running, 1: running', type: 'uint8' },
