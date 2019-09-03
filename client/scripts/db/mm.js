@@ -170,7 +170,8 @@ module.exports = {
   },
   memoryPosition: {
     checksum: [
-      { dataStartOffset: 0x1D29, dataEndOffset: 0x1D48, checksumOffset: 0x1D49, checksum: '16bit', name: 'HIGHSCORE' },
+      { dataStartOffset: 0x1D29, dataEndOffset: 0x1D48, checksumOffset: 0x1D49, checksum: '16bit', name: 'HI_SCORE' },
+      { dataStartOffset: 0x1D4B, dataEndOffset: 0x1D52, checksumOffset: 0x1D53, checksum: '16bit', name: 'CHAMPION' },
     ],
     knownValues: [
       // alternative locations 0x3EB,
