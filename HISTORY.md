@@ -1,7 +1,7 @@
 # HISTORY
 
 ## 3/9/19
-- Support RAM write including checksum, currently supports high score modifiying
+- Support RAM write including checksum, currently supports high score and champion settings
 
 ## 2/9/19
 - Corvette/T2: support audio
