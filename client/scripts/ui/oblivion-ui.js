@@ -333,8 +333,8 @@ function memoryFindData(value, encoding, rememberResults) {
   memoryMonitor.memoryFindData(value, encoding, rememberResults);
 }
 
-function memoryDumpData(offset) {
-  memoryMonitor.memoryDumpData(offset);
+function memoryDumpData(offset, optionalEndOffset) {
+  memoryMonitor.memoryDumpData(offset, optionalEndOffset);
 }
 
 function createCanvas() {

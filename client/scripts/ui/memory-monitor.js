@@ -119,20 +119,25 @@ class MemoryMonitor {
     }
   }
 
-  memoryDumpData(offset) {
+  memoryDumpData(offset, optionalEndOffset) {
     if (!this.lastRamSnapshot) {
       return console.warn(ENABLE_MEMORY_MONITOR);
     }
 
     let dump = '';
-    if (this.lastRamSnapshot[offset] > 31 && this.lastRamSnapshot[offset] < 128) {
+    if (!optionalEndOffset && this.lastRamSnapshot[offset] > 31 && this.lastRamSnapshot[offset] < 128) {
       while (this.lastRamSnapshot[offset] > 31 && this.lastRamSnapshot[offset] < 128) {
         dump += String.fromCharCode(this.lastRamSnapshot[offset++]);
       }
     } else {
       dump = '0x' + this.lastRamSnapshot[offset].toString(16);
+      if (optionalEndOffset > offset) {
+        for (let n = offset + 1; n < optionalEndOffset; n++) {
+          dump += ', 0x' + this.lastRamSnapshot[n].toString(16);
+        }
+      }
     }
-    console.log('RAM-DUMP', dump);
+    console.log('RAM-DUMP:', dump);
   }
 
   memoryMonitorNextPage() {
