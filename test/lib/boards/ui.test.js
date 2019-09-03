@@ -4,13 +4,15 @@ import test from 'ava';
 import UI from '../../../lib/boards/ui';
 
 test.beforeEach((t) => {
-  const memoryPosition = [
-    { offset: 0, description: 'valid1', type: 'string' },
-    { offset: 1, description: 'valid2', type: 'uint8' },
-    { offset: 2, description: 'valid3', type: 'bcd' },
-    { offset: 0x3AD, description: 'invalid1', type: 'foo' },
-    { description: 'invalid2', type: 'uint8' },
-  ];
+  const memoryPosition = {
+    knownValues: [
+      { offset: 0, description: 'valid1', type: 'string' },
+      { offset: 1, description: 'valid2', type: 'uint8' },
+      { offset: 2, description: 'valid3', type: 'bcd' },
+      { offset: 0x3AD, description: 'invalid1', type: 'foo' },
+      { description: 'invalid2', type: 'uint8' },
+    ]
+  };
 
   const dummyState = {
     dmd: {

@@ -90,27 +90,31 @@ module.exports = {
       }
     ],
   },
-  memoryPosition: [
-    { offset: 0x80, name: 'GAME_RUN', description: '0: not running, 1: running', type: 'uint8' },
+  memoryPosition: {
+    checksum: [
+      { dataStartOffset: 0x1CED, dataEndOffset: 0x1D10, checksumOffset: 0x1D11, checksum: '16bit', name: 'HIGHSCORE' },
+    ],
+    knownValues: [
+      { offset: 0x80, name: 'GAME_RUN', description: '0: not running, 1: running', type: 'uint8' },
 
-    { offset: 0x16A1, name: 'SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 5 },
-    { offset: 0x16A8, name: 'SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 5 },
-    { offset: 0x16AF, name: 'SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 5 },
-    { offset: 0x16B6, name: 'SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 5 },
+      { offset: 0x16A1, name: 'SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 6 },
+      { offset: 0x16A8, name: 'SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 6 },
+      { offset: 0x16AF, name: 'SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 6 },
+      { offset: 0x16B6, name: 'SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 6 },
 
-    { offset: 0x1CED, name: 'HI_SCORE_1_NAME', type: 'string' },
-    { offset: 0x1CF1, name: 'HI_SCORE_1_SCORE', type: 'bcd', length: 5 },
-    { offset: 0x1CF6, name: 'HI_SCORE_2_NAME', type: 'string' },
-    { offset: 0x1CFA, name: 'HI_SCORE_2_SCORE', type: 'bcd', length: 5 },
-    { offset: 0x1CFF, name: 'HI_SCORE_3_NAME', type: 'string' },
-    { offset: 0x1D03, name: 'HI_SCORE_3_SCORE', type: 'bcd', length: 5 },
-    { offset: 0x1D08, name: 'HI_SCORE_4_NAME', type: 'string' },
-    { offset: 0x1D0C, name: 'HI_SCORE_4_SCORE', type: 'bcd', length: 5 },
-    { offset: 0x1D13, name: 'CHAMPION_1_NAME', description: 'Grand Champion', type: 'string' },
-    { offset: 0x1D17, name: 'CHAMPION_1_SCORE', description: 'Grand Champion', type: 'bcd', length: 5 },
+      { offset: 0x1CED, name: 'HI_SCORE_1_NAME', type: 'string' },
+      { offset: 0x1CF1, name: 'HI_SCORE_1_SCORE', type: 'bcd', length: 6 },
+      { offset: 0x1CF6, name: 'HI_SCORE_2_NAME', type: 'string' },
+      { offset: 0x1CFA, name: 'HI_SCORE_2_SCORE', type: 'bcd', length: 6 },
+      { offset: 0x1CFF, name: 'HI_SCORE_3_NAME', type: 'string' },
+      { offset: 0x1D03, name: 'HI_SCORE_3_SCORE', type: 'bcd', length: 6 },
+      { offset: 0x1D08, name: 'HI_SCORE_4_NAME', type: 'string' },
+      { offset: 0x1D0C, name: 'HI_SCORE_4_SCORE', type: 'bcd', length: 6 },
+      { offset: 0x1D13, name: 'CHAMPION_1_NAME', description: 'Grand Champion', type: 'string' },
+      { offset: 0x1D17, name: 'CHAMPION_1_SCORE', description: 'Grand Champion', type: 'bcd', length: 5 },
 
-    { offset: 0x1D24, name: 'CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
-    { offset: 0x1D25, name: 'CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
-
-  ],
+      { offset: 0x1D24, name: 'CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
+      { offset: 0x1D25, name: 'CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
+    ]
+  },
 };
