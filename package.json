@@ -58,9 +58,7 @@
     "ignores": [
       "client",
       "docs",
-      "test/tracer/disasm.js",
-      "lib/boards/up/ym2151.js",
-      "lib/boards/up/mc6809.js"
+      "test/tracer/disasm.js"
     ]
   },
   "scripts": {
