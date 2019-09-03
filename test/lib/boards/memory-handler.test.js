@@ -31,6 +31,14 @@ test('MemoryHandler: should not update checksum', (t) => {
   t.is(valuesNotZero, 1);
 });
 
+test('MemoryHandler: validate new checksum', (t) => {
+  const OFFSET = 0x1D29;
+  const memoryHandler = t.context;
+  memoryHandler.writeMemory(OFFSET, 1);
+  t.is(memoryHandler.ram[0x1D49], 0xFF);
+  t.is(memoryHandler.ram[0x1D4A], 0xFE);
+});
+
 test('MemoryHandler: should update checksum (start)', (t) => {
   const OFFSET = 0x1D29;
   const memoryHandler = t.context;
