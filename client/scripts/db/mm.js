@@ -175,19 +175,19 @@ module.exports = {
     ],
     knownValues: [
       // alternative locations 0x3EB,
-      { offset: 0x80, name: 'GAME_RUN', description: '0: not running, 1: running', type: 'uint8' },
+      { offset: 0x80, name: 'GAME_RUNNING', description: '0: not running, 1: running', type: 'uint8' },
 
       //{ offset: 0x326, name: 'TEXT', description: 'random visible text', type: 'string' },
-      { offset: 0x3B2, name: 'PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
-      { offset: 0x3B3, name: 'BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
+      { offset: 0x3B2, name: 'GAME_PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
+      { offset: 0x3B3, name: 'GAME_BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
       { offset: 0x440, name: 'CURRENT_SCREEN', description: '0: attract mode, 0x89: shows tournament enable screen, 0xF1: coin door open, 0xF4: switch scanning', type: 'uint8' },
 
-      { offset: 0x16A0, name: 'SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 5 },
-      { offset: 0x16A6, name: 'SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 5 },
-      { offset: 0x16AC, name: 'SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 5 },
-      { offset: 0x16B2, name: 'SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 5 },
+      { offset: 0x16A0, name: 'GAME_SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 5 },
+      { offset: 0x16A6, name: 'GAME_SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 5 },
+      { offset: 0x16AC, name: 'GAME_SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 5 },
+      { offset: 0x16B2, name: 'GAME_SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 5 },
 
-      { offset: 0x170D, name: 'PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
+      { offset: 0x170D, name: 'GAME_PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
 
       { offset: 0x1883, name: 'STAT_GAMES_STARTED', type: 'uint8', length: 3 },
       { offset: 0x1889, name: 'STAT_TOTAL_PLAYS', type: 'uint8', length: 3 },
@@ -207,21 +207,21 @@ module.exports = {
 
       { offset: 0x1A03, name: 'STAT_RIGHT_FLIPPER_TRIG', type: 'uint8', length: 3 },
 
-      { offset: 0x1B92, name: 'BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
+      { offset: 0x1B92, name: 'GAME_BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
 
-      { offset: 0x1D29, name: 'HI_SCORE_1_NAME', type: 'string' },
-      { offset: 0x1D2C, name: 'HI_SCORE_1_SCORE', type: 'bcd', length: 5 },
-      { offset: 0x1D31, name: 'HI_SCORE_2_NAME', type: 'string' },
-      { offset: 0x1D34, name: 'HI_SCORE_2_SCORE', type: 'bcd', length: 5 },
-      { offset: 0x1D39, name: 'HI_SCORE_3_NAME', type: 'string' },
-      { offset: 0x1D3C, name: 'HI_SCORE_3_SCORE', type: 'bcd', length: 5 },
-      { offset: 0x1D41, name: 'HI_SCORE_4_NAME', type: 'string' },
-      { offset: 0x1D44, name: 'HI_SCORE_4_SCORE', type: 'bcd', length: 5 },
-      { offset: 0x1D4B, name: 'CHAMPION_1_NAME', description: 'Grand Champion', type: 'string' },
-      { offset: 0x1D4E, name: 'CHAMPION_1_SCORE', description: 'Grand Champion', type: 'bcd', length: 5 },
+      { offset: 0x1D29, name: 'HISCORE_1_NAME', type: 'string' },
+      { offset: 0x1D2C, name: 'HISCORE_1_SCORE', type: 'bcd', length: 5 },
+      { offset: 0x1D31, name: 'HISCORE_2_NAME', type: 'string' },
+      { offset: 0x1D34, name: 'HISCORE_2_SCORE', type: 'bcd', length: 5 },
+      { offset: 0x1D39, name: 'HISCORE_3_NAME', type: 'string' },
+      { offset: 0x1D3C, name: 'HISCORE_3_SCORE', type: 'bcd', length: 5 },
+      { offset: 0x1D41, name: 'HISCORE_4_NAME', type: 'string' },
+      { offset: 0x1D44, name: 'HISCORE_4_SCORE', type: 'bcd', length: 5 },
+      { offset: 0x1D4B, name: 'HISCORE_CHAMP_NAME', description: 'Grand Champion', type: 'string' },
+      { offset: 0x1D4E, name: 'HISCORE_CHAMP_SCORE', description: 'Grand Champion', type: 'bcd', length: 5 },
 
-      { offset: 0x1D5B, name: 'CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
-      { offset: 0x1D5C, name: 'CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
+      { offset: 0x1D5B, name: 'GAME_CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
+      { offset: 0x1D5C, name: 'GAME_CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
     ],
   }
     //TODO
