@@ -171,7 +171,7 @@ module.exports = {
     closedSwitches: [
       22,
       //OPTO SWITCHES: 31, 32, 33, 34, 35, 36, 55, 56, 57, 58
-      36, 55, 56, 57, 58,
+      31, 36, 55, 56, 57, 58,
       'F2', 'F4',
     ],
     initialAction: [
@@ -1471,7 +1471,7 @@ INITIAL STATE
 BALL IN SHOOTER LANE
 - TROUGH 1, TROUGH 2, and TROUGH 3 are off (OPTO)
 - TROUGH JAM and THROUGH 4 are on (OPTO)
-- SHOOTER LANE is on
+- RIGHT RETURN LANE is on
 
 BALL IN GAME
 - TROUGH 1, TROUGH 2, and TROUGH 3 are off (OPTO)
