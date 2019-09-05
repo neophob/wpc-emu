@@ -9,6 +9,7 @@ test.beforeEach((t) => {
       { offset: 0, description: 'valid1', type: 'string' },
       { offset: 1, description: 'valid2', type: 'uint8' },
       { offset: 2, description: 'valid3', type: 'bcd' },
+      { offset: 3, description: 'valid4', type: 'uint8', length: 4 },
       { offset: 0x3AD, description: 'invalid1', type: 'foo' },
       { description: 'invalid2', type: 'uint8' },
     ]
@@ -24,7 +25,7 @@ test.beforeEach((t) => {
       solenoidState: [],
       inputState: [],
     },
-    ram: new Uint8Array([ 11, 22, 0x65 ]),
+    ram: new Uint8Array([ 11, 22, 0x65, 0x66, 0x67, 0x68, 0x69, 0x70, 0x71, 1, 2, 3 ]),
   };
 
   const dummyStateString = {
@@ -49,17 +50,18 @@ test.beforeEach((t) => {
 
 test('UI: should filter out invalid memoryPosition entries', (t) => {
   const ui = t.context.ui;
-  t.is(ui.memoryPosition.length, 3);
+  t.is(ui.memoryPosition.length, 4);
 });
 
 test('UI: should fetch data from ram', (t) => {
   const ui = t.context.ui;
   const result = ui.getChangedState(t.context.dummyState);
 
-  t.is(result.memoryPosition.length, 3);
+  t.is(result.memoryPosition.length, 4);
   t.is(result.memoryPosition[0].value, '');
   t.is(result.memoryPosition[1].value, 22);
-  t.is(result.memoryPosition[2].value, 65);
+  t.is(result.memoryPosition[2].value, 6566);
+  t.is(result.memoryPosition[3].value, 0x66676869);
 });
 
 test('UI: should fetch data from ram (string)', (t) => {
