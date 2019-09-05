@@ -56,7 +56,7 @@ class VariableMonitor {
         index % 2 === 1 ? this.THEME.TEXT_COLOR : this.THEME.TEXT_COLOR_HEADER
       );
       if ((index % 8) === 7) {
-        xpos += 23;
+        xpos += 22;
         ypos = 0;
       }
     });
