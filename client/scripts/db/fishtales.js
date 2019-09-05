@@ -1150,3 +1150,20 @@ module.exports = {
     ],
   },
 };
+
+/*
+# BALL STATE FISHTALES
+
+INITIAL STATE
+- TROUGH 1, TROUGH 2 and TROUGH 3 are on (ball on switches)
+
+BALL IN SHOOTER LANE
+- TROUGH 2, TROUGH 3 and BALL SHOOTER are on
+
+BALL IN GAME
+- TROUGH 2, TROUGH 3
+
+BALL DRAIN
+- TROUGH 2, TROUGH 3, OUTHOLE on
+- TROUGH 1, TROUGH 2, TROUGH 3 on
+*/
