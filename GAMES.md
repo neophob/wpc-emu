@@ -9,7 +9,7 @@
 | WPC-95: Congo | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (20) | ✅ |
 | WPC-95: Junk Yard | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: League Champ Shuffle Alley (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-95: Medieval Madness | 4 | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ (22) | ✅ |
+| WPC-95: Medieval Madness | 4 | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ (37) | ✅ |
 | WPC-95: Monster Bash | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: NBA Fastbreak | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: No Good Gofers | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (21) | ✅ |
@@ -44,7 +44,7 @@
 | WPC-Fliptronics: The Addams Family Special | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: Twilight Zone | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: Twilight Zone (FreeWPC, Broken!) | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-Fliptronics: White Water | 4 | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ (21) | ✅ |
+| WPC-Fliptronics: White Water | 5 | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ (21) | ✅ |
 | WPC-Fliptronics: White Water "Bigfoot" (FreeWPC) | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: Corvette | 3 | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | WPC-S: Dirty Harry | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
@@ -59,5 +59,5 @@
 | WPC-S: WHO Dunnit | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: World Cup Soccer | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| **Total** | 135 (34%) | 57 | 47 | 9 | 5 | 5 | 12 | 15 |
+| **Total** | 136 (34%) | 57 | 47 | 10 | 5 | 5 | 12 | 15 |
 

@@ -36,6 +36,7 @@
   - [Audio](#audio)
     - [Build Sound File](#build-sound-file)
   - [RAM / NVRAM positions](#ram--nvram-positions)
+    - [Common Variables](#common-variables)
   - [Boot sequence](#boot-sequence)
   - [Gameplay](#gameplay)
   - [To Test](#to-test)
@@ -429,8 +430,17 @@ Known RAM positions for WPC games.
 | 0x2FFF          | NVRAM ends |
 
 Note:
-- The initial memory check writes from offset `0x0000 - 0x1730`, so stored NVRAM data might be stored above `0x1730`.
+- The initial memory check writes from offset `0x0000 - 0x1730`, so stored NVRAM data might be stored above `0x1730` (Probably depends on the game)
 - see - https://github.com/tomlogic/pinmame-nvram-maps for NVRAM dumps of WPC games
+
+### Common Variables
+
+WPC-EMU implements specific memory parsing (supports uint8, bcd and string encoding), see `memoryPosition` entries in client db. NVRAM settings are protected by a checksum which will be automatically updated if the checksum type and range is known.
+
+Mapping of memory position use common names to identify a specific value:
+- `GAME_`: Game specific information
+- `STAT_`: Machine specific statistics
+- `HISCORE_`: All kind of high score values
 
 ## Boot sequence
 

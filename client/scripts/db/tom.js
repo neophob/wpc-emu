@@ -171,7 +171,7 @@ module.exports = {
     closedSwitches: [
       22,
       //OPTO SWITCHES: 31, 32, 33, 34, 35, 36, 55, 56, 57, 58
-      36, 55, 56, 57, 58,
+      31, 36, 55, 56, 57, 58,
       'F2', 'F4',
     ],
     initialAction: [
@@ -1460,3 +1460,25 @@ module.exports = {
     ]
   },
 };
+
+/*
+# BALL STATE TOM
+
+INITIAL STATE
+- TROUGH 1, TROUGH 2, TROUGH 3 and TROUGH 4 are off (OPTO)
+- TROUGH JAM in on (OPTO)
+
+BALL IN SHOOTER LANE
+- TROUGH 1, TROUGH 2, and TROUGH 3 are off (OPTO)
+- TROUGH JAM and THROUGH 4 are on (OPTO)
+- RIGHT RETURN LANE is on
+
+BALL IN GAME
+- TROUGH 1, TROUGH 2, and TROUGH 3 are off (OPTO)
+- TROUGH JAM and THROUGH 4 are on (OPTO)
+- SHOOTER LANE is off
+
+BALL DRAIN
+- TROUGH 1, TROUGH 2, TROUGH 3 and TROUGH 4 are off (OPTO)
+- TROUGH JAM is on (OPTO)
+*/

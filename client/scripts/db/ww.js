@@ -78,6 +78,79 @@ module.exports = {
   playfield: {
     //size must be 200x400, lamp positions according to image
     image: 'playfield-ww.jpg',
+    lamps: [
+      [{ x: 0, y: 0, color: 'BLACK' }],
+      [{ x: 12, y: 316, color: 'YELLOW' }],
+      [{ x: 12, y: 292, color: 'WHITE' }],
+      [{ x: 30, y: 292, color: 'WHITE' }],
+      [{ x: 154, y: 292, color: 'WHITE' }],
+      [{ x: 171, y: 292, color: 'WHITE' }],
+      [{ x: 63, y: 76, color: 'YELLOW' }],
+      [{ x: 51, y: 274, color: 'RED' }],
+
+      [{ x: 35, y: 202, color: 'LBLUE' }], //21
+      [{ x: 35, y: 214, color: 'LBLUE' }],
+      [{ x: 36, y: 224, color: 'LBLUE' }],
+      [{ x: 36, y: 236, color: 'LBLUE' }],
+      [{ x: 37, y: 246, color: 'LBLUE' }],
+      [{ x: 73, y: 110, color: 'RED' }],
+      [{ x: 75, y: 126, color: 'LBLUE' }],
+      [{ x: 76, y: 133, color: 'LBLUE' }],
+
+      [{ x: 66, y: 216, color: 'YELLOW' }], //31
+      [{ x: 87, y: 192, color: 'YELLOW' }],
+      [{ x: 80, y: 196, color: 'YELLOW' }],
+      [{ x: 57, y: 181, color: 'YELLOW' }],
+      [{ x: 52, y: 161, color: 'RED' }],
+      [{ x: 63, y: 150, color: 'LBLUE' }],
+      [{ x: 69, y: 322, color: 'WHITE' }],
+      [{ x: 63, y: 310, color: 'LBLUE' }],
+
+      [{ x: 109, y: 175, color: 'YELLOW' }], //41
+      [{ x: 112, y: 185, color: 'YELLOW' }],
+      [{ x: 77, y: 143, color: 'LBLUE' }],
+      [{ x: 107, y: 165, color: 'YELLOW' }],
+      [{ x: 101, y: 150, color: 'YELLOW' }],
+      [{ x: 90, y: 147, color: 'LBLUE' }],
+      [{ x: 59, y: 297, color: 'YELLOW' }],
+      [{ x: 55, y: 285, color: 'ORANGE' }],
+
+      [{ x: 178, y: 172, color: 'RED' }], //51
+      [{ x: 14, y: 120, color: 'YELLOW' }],
+      [{ x: 91, y: 91, color: 'RED' }],
+      [{ x: 100, y: 83, color: 'RED' }],
+      [{ x: 78, y: 50, color: 'YELLOW' }],
+      [{ x: 0, y: 0, color: 'BLACK' }],
+      [{ x: 127, y: 259, color: 'RED' }],
+      [{ x: 130, y: 243, color: 'YELLOW' }],
+
+      [{ x: 87, y: 310, color: 'YELLOW' }], //61
+      [{ x: 118, y: 292, color: 'YELLOW' }],
+      [{ x: 105, y: 270, color: 'YELLOW' }],
+      [{ x: 81, y: 282, color: 'YELLOW' }],
+      [{ x: 89, y: 257, color: 'YELLOW' }],
+      [{ x: 94, y: 239, color: 'YELLOW' }],
+      [{ x: 111, y: 231, color: 'YELLOW' }],
+      [{ x: 117, y: 239, color: 'YELLOW' }],
+
+      [{ x: 0, y: 0, color: 'BLACK' }], //71
+      [{ x: 0, y: 0, color: 'BLACK' }],
+      [{ x: 0, y: 0, color: 'BLACK' }],
+      [{ x: 0, y: 0, color: 'BLACK' }],
+      [{ x: 0, y: 0, color: 'BLACK' }],
+      [{ x: 0, y: 0, color: 'BLACK' }],
+      [{ x: 123, y: 107, color: 'RED' }],
+      [{ x: 133, y: 100, color: 'RED' }],
+
+      [{ x: 144, y: 240, color: 'YELLOW' }], //81
+      [{ x: 147, y: 222, color: 'YELLOW' }],
+      [{ x: 163, y: 215, color: 'YELLOW' }],
+      [{ x: 163, y: 195, color: 'YELLOW' }],
+      [{ x: 0, y: 0, color: 'BLACK' }],
+      [{ x: 0, y: 0, color: 'BLACK' }],
+      [{ x: 0, y: 0, color: 'BLACK' }],
+      [{ x: 20, y: 395, color: 'YELLOW' }],
+    ],
   },
   skipWpcRomCheck: true,
   features: [
