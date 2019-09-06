@@ -110,13 +110,13 @@ module.exports = {
       [{ x: 112, y: 185, color: 'YELLOW' }],
       [{ x: 77, y: 143, color: 'LBLUE' }],
       [{ x: 107, y: 165, color: 'YELLOW' }],
-      [{ x: 101, y: 150, color: 'YELLOW' }],
+      [{ x: 101, y: 150, color: 'RED' }],
       [{ x: 90, y: 147, color: 'LBLUE' }],
       [{ x: 59, y: 297, color: 'YELLOW' }],
       [{ x: 55, y: 285, color: 'ORANGE' }],
 
       [{ x: 178, y: 172, color: 'RED' }], //51
-      [{ x: 14, y: 120, color: 'YELLOW' }],
+      [{ x: 14, y: 120, color: 'RED' }],
       [{ x: 91, y: 91, color: 'RED' }],
       [{ x: 100, y: 83, color: 'RED' }],
       [{ x: 78, y: 50, color: 'YELLOW' }],
