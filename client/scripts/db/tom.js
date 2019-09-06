@@ -184,6 +184,13 @@ module.exports = {
   },
   audio: {
     url: 'sound/tom.mp3',
+    // Options:
+    // - channel: 0 (background music), 1 (music snippet), undefined (sound fx). If channel is defined, the previous sample will be stopped
+    // - loop: true (loop sample, used for background music), false (default, play once)
+    // - sample: link to audio sprite name
+    // - gain: increase or reduce volume of this sample. Range 0-1. 0.5 as normal
+    // - TODO duck: reduce volume of the background music. Range 0-100 in percent
+    // - TODO stop: stop playback of background music
     sample: {
       1: { channel: 0, loop: true, sample: 'snd1' },
       2: { channel: 0, loop: true, sample: 'snd2' },

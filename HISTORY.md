@@ -1,5 +1,9 @@
 # HISTORY
 
+## 6/9/19
+- add sound support to FreeWPC games
+- improve T2 audio gain
+
 ## 3/9/19
 - Support RAM write including checksum, currently supports high score and champion settings
 

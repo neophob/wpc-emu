@@ -32,7 +32,7 @@
 | WPC-DMD: SlugFest (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ (2) |
 | WPC-DMD: Strike Master Shuffle Alley (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-DMD: Terminator 2 | 5 | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ |
-| WPC-DMD: Terminator 2 (FreeWPC) | 4 | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ |
+| WPC-DMD: Terminator 2 (FreeWPC) | 5 | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ |
 | WPC-DMD: The Party Zone | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ (1) |
 | WPC-DMD: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: Black Rose | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
@@ -45,7 +45,7 @@
 | WPC-Fliptronics: Twilight Zone | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: Twilight Zone (FreeWPC, Broken!) | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: White Water | 5 | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ (21) | ✅ |
-| WPC-Fliptronics: White Water "Bigfoot" (FreeWPC) | 3 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ |
+| WPC-Fliptronics: White Water "Bigfoot" (FreeWPC) | 4 | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ | ✅ |
 | WPC-S: Corvette | 3 | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | WPC-S: Dirty Harry | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: Indianapolis 500 | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
@@ -59,5 +59,5 @@
 | WPC-S: WHO Dunnit | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: World Cup Soccer | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| **Total** | 137 (34%) | 57 | 47 | 11 | 5 | 5 | 12 | 15 |
+| **Total** | 139 (35%) | 57 | 47 | 11 | 5 | 7 | 12 | 15 |
 
