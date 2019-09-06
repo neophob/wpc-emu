@@ -175,63 +175,56 @@ module.exports = {
     ],
     knownValues: [
       // alternative locations 0x3EB,
-      { offset: 0x80, name: 'GAME_RUN', description: '0: not running, 1: running', type: 'uint8' },
+      { offset: 0x80, name: 'GAME_RUNNING', description: '0: not running, 1: running', type: 'uint8' },
 
       //{ offset: 0x326, name: 'TEXT', description: 'random visible text', type: 'string' },
-      { offset: 0x3B2, name: 'PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
-      { offset: 0x3B3, name: 'BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
+      { offset: 0x3B2, name: 'GAME_PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
+      { offset: 0x3B3, name: 'GAME_BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
       { offset: 0x440, name: 'CURRENT_SCREEN', description: '0: attract mode, 0x89: shows tournament enable screen, 0xF1: coin door open, 0xF4: switch scanning', type: 'uint8' },
 
-      { offset: 0x16A0, name: 'SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 5 },
-      { offset: 0x16A6, name: 'SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 5 },
-      { offset: 0x16AC, name: 'SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 5 },
-      { offset: 0x16B2, name: 'SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 5 },
+      { offset: 0x16A0, name: 'GAME_SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 5 },
+      { offset: 0x16A6, name: 'GAME_SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 5 },
+      { offset: 0x16AC, name: 'GAME_SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 5 },
+      { offset: 0x16B2, name: 'GAME_SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 5 },
 
-      { offset: 0x170D, name: 'PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
+      { offset: 0x170D, name: 'GAME_PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
 
-      { offset: 0x1B92, name: 'BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
+      { offset: 0x1883, name: 'STAT_GAMES_STARTED', type: 'uint8', length: 3 },
+      { offset: 0x1889, name: 'STAT_TOTAL_PLAYS', type: 'uint8', length: 3 },
+      { offset: 0x188F, name: 'STAT_TOTAL_FREE_PLAYS', type: 'uint8', length: 3 },
+      { offset: 0x18BF, name: 'STAT_MINUTES_ON', description: 'Minutes powered on', type: 'uint8', length: 3 },
+      { offset: 0x18B9, name: 'STAT_PLAYTIME', description: 'Minutes playing', type: 'uint8', length: 5 },
+      { offset: 0x18C5, name: 'STAT_BALLS_PLAYED', type: 'uint8', length: 5 },
+      { offset: 0x18CB, name: 'STAT_TILT_COUNTER', type: 'uint8', length: 5 },
+      { offset: 0x18E9, name: 'STAT_1_PLAYER_GAME', description: 'Counts finished games', type: 'uint8', length: 3 },
+      { offset: 0x18EF, name: 'STAT_2_PLAYER_GAME', description: 'Counts finished games', type: 'uint8', length: 3 },
+      { offset: 0x18F5, name: 'STAT_3_PLAYER_GAME', description: 'Counts finished games', type: 'uint8', length: 3 },
+      { offset: 0x18FB, name: 'STAT_4_PLAYER_GAME', description: 'Counts finished games', type: 'uint8', length: 3 },
 
-      { offset: 0x1D29, name: 'HI_SCORE_1_NAME', type: 'string' },
-      { offset: 0x1D2C, name: 'HI_SCORE_1_SCORE', type: 'bcd', length: 5 },
-      { offset: 0x1D31, name: 'HI_SCORE_2_NAME', type: 'string' },
-      { offset: 0x1D34, name: 'HI_SCORE_2_SCORE', type: 'bcd', length: 5 },
-      { offset: 0x1D39, name: 'HI_SCORE_3_NAME', type: 'string' },
-      { offset: 0x1D3C, name: 'HI_SCORE_3_SCORE', type: 'bcd', length: 5 },
-      { offset: 0x1D41, name: 'HI_SCORE_4_NAME', type: 'string' },
-      { offset: 0x1D44, name: 'HI_SCORE_4_SCORE', type: 'bcd', length: 5 },
-      { offset: 0x1D4B, name: 'CHAMPION_1_NAME', description: 'Grand Champion', type: 'string' },
-      { offset: 0x1D4E, name: 'CHAMPION_1_SCORE', description: 'Grand Champion', type: 'bcd', length: 5 },
+      { offset: 0x1913, name: 'STAT_LEFT_DRAIN', type: 'uint8', length: 3 },
+      { offset: 0x1919, name: 'STAT_RIGHT_DRAIN', type: 'uint8', length: 3 },
+      { offset: 0x19FD, name: 'STAT_LEFT_FLIPPER_TRIG', type: 'uint8', length: 3 },
 
-      { offset: 0x1D5B, name: 'CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
-      { offset: 0x1D5C, name: 'CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
+      { offset: 0x1A03, name: 'STAT_RIGHT_FLIPPER_TRIG', type: 'uint8', length: 3 },
+
+      { offset: 0x1B92, name: 'GAME_BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
+
+      { offset: 0x1D29, name: 'HISCORE_1_NAME', type: 'string' },
+      { offset: 0x1D2C, name: 'HISCORE_1_SCORE', type: 'bcd', length: 5 },
+      { offset: 0x1D31, name: 'HISCORE_2_NAME', type: 'string' },
+      { offset: 0x1D34, name: 'HISCORE_2_SCORE', type: 'bcd', length: 5 },
+      { offset: 0x1D39, name: 'HISCORE_3_NAME', type: 'string' },
+      { offset: 0x1D3C, name: 'HISCORE_3_SCORE', type: 'bcd', length: 5 },
+      { offset: 0x1D41, name: 'HISCORE_4_NAME', type: 'string' },
+      { offset: 0x1D44, name: 'HISCORE_4_SCORE', type: 'bcd', length: 5 },
+      { offset: 0x1D4B, name: 'HISCORE_CHAMP_NAME', description: 'Grand Champion', type: 'string' },
+      { offset: 0x1D4E, name: 'HISCORE_CHAMP_SCORE', description: 'Grand Champion', type: 'bcd', length: 5 },
+
+      { offset: 0x1D5B, name: 'GAME_CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
+      { offset: 0x1D5C, name: 'GAME_CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
     ],
   }
-    /*
-	"checksum": [
-    {"dataStartOffset": "0x1D29", "dataEndOffset": "0x1D48", checksumOffset: "0x1D49", checksum: "16bit", description: "High Scores"},
-
-
-
-		{"start": "0x1B8F", "end": "0x1CB4", "label": "Adjustments"},
-		{"start": "0x1CB7", "end": "0x1D28", "label": "Timestamps"},
-		{"start": "0x1D29", "end": "0x1D4A", "label": "High Scores"},
-		{"start": "0x1D4B", "end": "0x1D54", "label": "Grand Champion"},
-
-		{"start": "0x1D55", "end": "0x1D5A", "label": "HSTD Reset"},
-		{"start": "0x1D73", "end": "0x1E48", "label": "?? replay level"},
-
-		{"start": "0x1E49", "end": "0x1F0B", "label": "Custom Message"},
-		{"start": "0x1F89", "end": "0x1F92", "label": "Castle Champion"},
-		{"start": "0x1F93", "end": "0x1F9C", "label": "Joust Champion"},
-		{"start": "0x1F9D", "end": "0x1FA6", "label": "Catapult Champion"},
-		{"start": "0x1FA7", "end": "0x1FB0", "label": "Peasant Champion"},
-		{"start": "0x1FB1", "end": "0x1FBA", "label": "Damsel Champion"},
-		{"start": "0x1FBB", "end": "0x1FC4", "label": "Troll Champion"},
-		{"start": "0x1FC5", "end": "0x1FCE", "label": "Madness Champion"},
-    {"start": "0x1FCF", "end": "0x1FF0", "label": "King of the Realm"}
-    */
     //TODO
-    //TILT sensor?
     //attract mode screen
 };
 

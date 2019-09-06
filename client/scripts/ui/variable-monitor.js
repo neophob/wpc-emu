@@ -47,17 +47,21 @@ class VariableMonitor {
     this.canvasVariablesDrawLib.clear();
     let xpos = 2;
     let ypos = 0;
+    let maxTextLenght = 0;
     memoryPositions.forEach((element, index) => {
       ypos += 1.5;
+      const text = element.name + ': ' + element.value;
+      maxTextLenght = Math.max(maxTextLenght, text.length);
       this.canvasVariablesDrawLib.writeHeader(
         xpos,
         ypos,
-        element.name + ': ' + element.value,
+        text,
         index % 2 === 1 ? this.THEME.TEXT_COLOR : this.THEME.TEXT_COLOR_HEADER
       );
       if ((index % 8) === 7) {
-        xpos += 25;
+        xpos += maxTextLenght - 3;
         ypos = 0;
+        maxTextLenght = 0;
       }
     });
   }
