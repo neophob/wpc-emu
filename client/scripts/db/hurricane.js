@@ -188,8 +188,12 @@ module.exports = {
       { offset: 0x173B, name: 'GAME_SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 6 },
       { offset: 0x1741, name: 'GAME_SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 6 },
 
+      { offset: 0x180C, name: 'STAT_GAME_ID', type: 'string' },
+
       // alternative: 0x178C
       { offset: 0x188D, name: 'GAME_PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
+
+      // TODO ADD STAT
 
       { offset: 0x1B20, name: 'GAME_BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
 

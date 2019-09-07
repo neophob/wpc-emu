@@ -1130,6 +1130,8 @@ module.exports = {
 
       { offset: 0x17A5, name: 'GAME_PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
 
+      { offset: 0x180C, name: 'STAT_GAME_ID', type: 'string' },
+
       { offset: 0x1B20, name: 'GAME_BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
 
       { offset: 0x1C61, name: 'HISCORE_1_NAME', type: 'string' },

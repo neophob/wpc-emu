@@ -118,6 +118,8 @@ module.exports = {
       { offset: 0x16AE, name: 'GAME_SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 6 },
       { offset: 0x16B5, name: 'GAME_SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 6 },
 
+      { offset: 0x180C, name: 'STAT_GAME_ID', type: 'string' },
+
       { offset: 0x1CE3, name: 'HISCORE_1_NAME', type: 'string' },
       { offset: 0x1CE7, name: 'HISCORE_1_SCORE', type: 'bcd', length: 5 },
       { offset: 0x1CEC, name: 'HISCORE_2_NAME', type: 'string' },

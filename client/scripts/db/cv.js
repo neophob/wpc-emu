@@ -110,6 +110,9 @@ module.exports = {
   memoryPosition: {
     knownValues: [
       { offset: 0x80, name: 'GAME_RUNNING', description: '0: not running, 1: running', type: 'uint8' },
+
+      { offset: 0x180C, name: 'STAT_GAME_ID', type: 'string' },
+
     ],
   },
 };
