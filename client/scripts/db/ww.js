@@ -110,13 +110,13 @@ module.exports = {
       [{ x: 112, y: 185, color: 'YELLOW' }],
       [{ x: 77, y: 143, color: 'LBLUE' }],
       [{ x: 107, y: 165, color: 'YELLOW' }],
-      [{ x: 101, y: 150, color: 'YELLOW' }],
+      [{ x: 101, y: 150, color: 'RED' }],
       [{ x: 90, y: 147, color: 'LBLUE' }],
       [{ x: 59, y: 297, color: 'YELLOW' }],
       [{ x: 55, y: 285, color: 'ORANGE' }],
 
       [{ x: 178, y: 172, color: 'RED' }], //51
-      [{ x: 14, y: 120, color: 'YELLOW' }],
+      [{ x: 14, y: 120, color: 'RED' }],
       [{ x: 91, y: 91, color: 'RED' }],
       [{ x: 100, y: 83, color: 'RED' }],
       [{ x: 78, y: 50, color: 'YELLOW' }],
@@ -174,6 +174,13 @@ module.exports = {
   },
   audio: {
     url: 'sound/ww.mp3',
+    // Options:
+    // - channel: 0 (background music), 1 (music snippet), undefined (sound fx). If channel is defined, the previous sample will be stopped
+    // - loop: true (loop sample, used for background music), false (default, play once)
+    // - sample: link to audio sprite name
+    // - gain: increase or reduce volume of this sample. Range 0-1. 0.5 as normal
+    // - TODO duck: reduce volume of the background music. Range 0-100 in percent
+    // - TODO stop: stop playback of background music
     sample: {
       2: { channel: 0, loop: true, sample: 'snd2' },
       3: { channel: 0, loop: true, sample: 'snd3' },
@@ -1691,33 +1698,35 @@ module.exports = {
   },
   memoryPosition: {
     knownValues: [
-      { offset: 0x86, name: 'GAME_RUN', description: '0: not running, 1: running', type: 'uint8' },
+      { offset: 0x86, name: 'GAME_RUNNING', description: '0: not running, 1: running', type: 'uint8' },
 
-      { offset: 0x40F, name: 'PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
-      { offset: 0x410, name: 'BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
+      { offset: 0x40F, name: 'GAME_PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
+      { offset: 0x410, name: 'GAME_BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
 
-      { offset: 0x1730, name: 'SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 5 },
-      { offset: 0x1736, name: 'SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 5 },
-      { offset: 0x173C, name: 'SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 5 },
-      { offset: 0x1742, name: 'SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 5 },
+      { offset: 0x1730, name: 'GAME_SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 5 },
+      { offset: 0x1736, name: 'GAME_SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 5 },
+      { offset: 0x173C, name: 'GAME_SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 5 },
+      { offset: 0x1742, name: 'GAME_SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 5 },
 
-      { offset: 0x17A5, name: 'PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
+      { offset: 0x17A5, name: 'GAME_PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
 
-      { offset: 0x1B20, name: 'BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
+      { offset: 0x180C, name: 'STAT_GAME_ID', type: 'string' },
 
-      { offset: 0x1C61, name: 'HI_SCORE_1_NAME', type: 'string' },
-      { offset: 0x1C64, name: 'HI_SCORE_1_SCORE', type: 'bcd', length: 5 },
-      { offset: 0x1C69, name: 'HI_SCORE_2_NAME', type: 'string' },
-      { offset: 0x1C6C, name: 'HI_SCORE_2_SCORE', type: 'bcd', length: 5 },
-      { offset: 0x1C71, name: 'HI_SCORE_3_NAME', type: 'string' },
-      { offset: 0x1C74, name: 'HI_SCORE_3_SCORE', type: 'bcd', length: 5 },
-      { offset: 0x1C79, name: 'HI_SCORE_4_NAME', type: 'string' },
-      { offset: 0x1C7C, name: 'HI_SCORE_4_SCORE', type: 'bcd', length: 5 },
-      { offset: 0x1C83, name: 'CHAMPION_1_NAME', description: 'Grand Champion', type: 'string' },
-      { offset: 0x1C86, name: 'CHAMPION_1_SCORE', description: 'Grand Champion', type: 'bcd', length: 5 },
+      { offset: 0x1B20, name: 'GAME_BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
 
-      { offset: 0x1C93, name: 'CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
-      { offset: 0x1C94, name: 'CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
+      { offset: 0x1C61, name: 'HISCORE_1_NAME', type: 'string' },
+      { offset: 0x1C64, name: 'HISCORE_1_SCORE', type: 'bcd', length: 5 },
+      { offset: 0x1C69, name: 'HISCORE_2_NAME', type: 'string' },
+      { offset: 0x1C6C, name: 'HISCORE_2_SCORE', type: 'bcd', length: 5 },
+      { offset: 0x1C71, name: 'HISCORE_3_NAME', type: 'string' },
+      { offset: 0x1C74, name: 'HISCORE_3_SCORE', type: 'bcd', length: 5 },
+      { offset: 0x1C79, name: 'HISCORE_4_NAME', type: 'string' },
+      { offset: 0x1C7C, name: 'HISCORE_4_SCORE', type: 'bcd', length: 5 },
+      { offset: 0x1C83, name: 'HISCORE_CHAMP_NAME', description: 'Grand Champion', type: 'string' },
+      { offset: 0x1C86, name: 'HISCORE_CHAMP_SCORE', description: 'Grand Champion', type: 'bcd', length: 5 },
+
+      { offset: 0x1C93, name: 'GAME_CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
+      { offset: 0x1C94, name: 'GAME_CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
     ]
   },
 };

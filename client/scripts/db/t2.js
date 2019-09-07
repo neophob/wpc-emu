@@ -179,28 +179,28 @@ module.exports = {
     // - channel: 0 (background music), 1 (music snippet), undefined (sound fx). If channel is defined, the previous sample will be stopped
     // - loop: true (loop sample, used for background music), false (default, play once)
     // - sample: link to audio sprite name
-    // - gain: increase or reduce volume of this sample. Range 0-100. 50 as normal
+    // - gain: increase or reduce volume of this sample. Range 0-1. 0.5 as normal
     // - TODO duck: reduce volume of the background music. Range 0-100 in percent
     // - TODO stop: stop playback of background music
     sample: {
-      2: { channel: 0, loop: true, sample: 'snd2' },
-      3: { channel: 0, loop: true, sample: 'snd3' },
-      4: { channel: 0, loop: true, sample: 'snd4' },
-      5: { channel: 0, loop: true, sample: 'snd5' },
-      6: { channel: 0, loop: true, sample: 'snd6' },
-      7: { channel: 0, loop: true, sample: 'snd7' },
-      8: { channel: 0, loop: true, sample: 'snd8' },
-      9: { channel: 0, loop: true, sample: 'snd9' },
-      10: { channel: 0, loop: true, sample: 'snd10' },
-      11: { channel: 0, loop: true, sample: 'snd11' },
-      12: { channel: 0, loop: true, sample: 'snd12' },
-      13: { channel: 0, loop: true, sample: 'snd13' },
-      14: { channel: 0, loop: true, sample: 'snd14' },
-      15: { channel: 0, loop: true, sample: 'snd15' },
-      17: { channel: 0, loop: true, sample: 'snd17' },
-      18: { channel: 0, loop: true, sample: 'snd18' },
-      19: { channel: 0, loop: true, sample: 'snd19' },
-      20: { channel: 0, loop: true, sample: 'snd20' },
+      2: { channel: 0, loop: true, sample: 'snd2', gain: 0.4 },
+      3: { channel: 0, loop: true, sample: 'snd3', gain: 0.4 },
+      4: { channel: 0, loop: true, sample: 'snd4', gain: 0.4 },
+      5: { channel: 0, loop: true, sample: 'snd5', gain: 0.4 },
+      6: { channel: 0, loop: true, sample: 'snd6', gain: 0.4 },
+      7: { channel: 0, loop: true, sample: 'snd7', gain: 0.4 },
+      8: { channel: 0, loop: true, sample: 'snd8', gain: 0.4 },
+      9: { channel: 0, loop: true, sample: 'snd9', gain: 0.4 },
+      10: { channel: 0, loop: true, sample: 'snd10', gain: 0.4 },
+      11: { channel: 0, loop: true, sample: 'snd11', gain: 0.4 },
+      12: { channel: 0, loop: true, sample: 'snd12', gain: 0.4 },
+      13: { channel: 0, loop: true, sample: 'snd13', gain: 0.4 },
+      14: { channel: 0, loop: true, sample: 'snd14', gain: 0.4 },
+      15: { channel: 0, loop: true, sample: 'snd15', gain: 0.4 },
+      17: { channel: 0, loop: true, sample: 'snd17', gain: 0.4 },
+      18: { channel: 0, loop: true, sample: 'snd18', gain: 0.4 },
+      19: { channel: 0, loop: true, sample: 'snd19', gain: 0.4 },
+      20: { channel: 0, loop: true, sample: 'snd20', gain: 0.4 },
 
       // music snippets
       80: { channel: 1, sample: 'snd80' },

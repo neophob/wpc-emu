@@ -66,7 +66,7 @@ class SoundCategory {
     }
     console.log('play', sampleData);
 
-    //TODO handle DUCK, GAIN
+    //TODO handle DUCK
 
     const hasDedicatedChannel = Number.isInteger(sampleData.channel);
     if (hasDedicatedChannel) {

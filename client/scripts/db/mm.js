@@ -189,6 +189,7 @@ module.exports = {
 
       { offset: 0x170D, name: 'GAME_PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
 
+      { offset: 0x180C, name: 'STAT_GAME_ID', type: 'string' },
       { offset: 0x1883, name: 'STAT_GAMES_STARTED', type: 'uint8', length: 3 },
       { offset: 0x1889, name: 'STAT_TOTAL_PLAYS', type: 'uint8', length: 3 },
       { offset: 0x188F, name: 'STAT_TOTAL_FREE_PLAYS', type: 'uint8', length: 3 },

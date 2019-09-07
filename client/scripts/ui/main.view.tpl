@@ -8,7 +8,7 @@
   <div class="column column-40">
     <button class="button-wpc" id="wpc-release-info" onclick="location.href='https://github.com/neophob/wpc-emu'">WPC-EMU v0.X.Y</button>
     <button class="button-wpc" onclick="location.href='https://twitter.com/neophob'">TWITTER</button>
-    <button class="button-wpc button-outline" onclick="wpcInterface.wpcSystem.toggleMidnightMadnessMode();">MIDNIGHT MADNESS</button>
+    <button class="button-wpc button-outline" onclick="wpcInterface.webclient.toggleMidnightMadnessMode();">MIDNIGHT MADNESS</button>
     <button id="dmd-dump-text" class="button-wpc button-outline" onclick="wpcInterface.toggleDmdDump();">DMD DUMP</button>
   </div>
 </div>

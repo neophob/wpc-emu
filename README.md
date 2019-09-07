@@ -426,7 +426,8 @@ Known RAM positions for WPC games.
 | 0x1806          | Date, isValid (1) or isInvalid(0)  |
 | 0x1807          | Date, Checksum hi (time) |
 | 0x1808          | Date, Checksum lo (date) |
-| 0x1809-0x2000   | Game specific settings (HSTD, timestamps, adjustments, audits, language, volume, custom message...) |
+| 0x180C          | Game ID as String |
+| 0x1811-0x2000   | Game specific settings (HSTD, timestamps, adjustments, audits, language, volume, custom message...) |
 | 0x2FFF          | NVRAM ends |
 
 Note:
@@ -683,7 +684,6 @@ This very primitive schema shows where the switches are:
 ```
 
 ## To Test
-- memory position of current score, player number, credits
 - serial port?
 
 ## Error Messages
