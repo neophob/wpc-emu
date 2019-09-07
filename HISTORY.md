@@ -1,5 +1,10 @@
 # HISTORY
 
+## 7/9/19
+- Unify memory position names
+- WW add lamps
+- Fix toggle Midnight Mode
+
 ## 6/9/19
 - add sound support to FreeWPC games
 - improve T2 audio gain
