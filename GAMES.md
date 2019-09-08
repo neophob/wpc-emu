@@ -39,7 +39,7 @@
 | WPC-Fliptronics: Bram Stoker's Dracula | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: Creature from the Black Lagoon | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: Dr. Who | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-Fliptronics: Fish Tales | 6 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ (37) | ✅ |
+| WPC-Fliptronics: Fish Tales | 6 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ (38) | ✅ |
 | WPC-Fliptronics: High Speed II, The Getaway | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: The Addams Family Special | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: Twilight Zone | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
