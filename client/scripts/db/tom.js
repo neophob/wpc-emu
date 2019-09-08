@@ -1442,6 +1442,9 @@ module.exports = {
       //{ offset: 0x326, name: 'TEXT', description: 'random visible text', type: 'string' },
       { offset: 0x3AF, name: 'GAME_PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
       { offset: 0x3B0, name: 'GAME_BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
+
+      { offset: 0x43B, name: 'GAME_CURRENT_SCREEN', description: '0: attract mode, 0x80: tilt warning, 0xF1: coin door open/add more credits, 0xF4: switch scanning', type: 'uint8' },
+
       { offset: 0x629, name: 'GAME_PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
 
       { offset: 0x16A0, name: 'GAME_SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 5 },
