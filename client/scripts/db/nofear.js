@@ -96,17 +96,17 @@ module.exports = {
       { dataStartOffset: 0x1D13, dataEndOffset: 0x1D1B, checksumOffset: 0x1D1C, checksum: '16bit', name: 'CHAMPION' }
     ],
     knownValues: [
-      { offset: 0x80, name: 'GAME_RUNNING', description: '0: not running, 1: running', type: 'uint8' },
+      { offset: 0x7A, name: 'GAME_RUNNING', description: '0: not running, 1: running', type: 'uint8' },
 
-      //GAME_PLAYER_CURRENT
-      //GAME_BALL_CURRENT
+      { offset: 0x3B2, name: 'GAME_PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
+      { offset: 0x3B3, name: 'GAME_BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
 
       { offset: 0x16A1, name: 'GAME_SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 6 },
       { offset: 0x16A8, name: 'GAME_SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 6 },
       { offset: 0x16AF, name: 'GAME_SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 6 },
       { offset: 0x16B6, name: 'GAME_SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 6 },
 
-      //GAME_PLAYER_TOTAL
+      { offset: 0x1709, name: 'GAME_PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
 
       { offset: 0x180C, name: 'STAT_GAME_ID', type: 'string' },
       { offset: 0x1883, name: 'STAT_GAMES_STARTED', type: 'uint8', length: 3 },

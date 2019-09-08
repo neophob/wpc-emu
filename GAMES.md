@@ -51,7 +51,7 @@
 | WPC-S: Indianapolis 500 | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: Jack·Bot | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: Johnny Mnemonic | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (37) | ✅ |
-| WPC-S: No Fear | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (33) | ✅ |
+| WPC-S: No Fear | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (36) | ✅ |
 | WPC-S: Red & Ted's Road Show | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: The Flintstones | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: The Shadow | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
