@@ -1702,6 +1702,7 @@ module.exports = {
 
       { offset: 0x40F, name: 'GAME_PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
       { offset: 0x410, name: 'GAME_BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
+      { offset: 0x48B, name: 'GAME_CURRENT_SCREEN', description: '0: attract mode, 0x80: tilt warning, 0xF1: coin door open/add more credits, 0xF4: switch scanning', type: 'uint8' },
 
       { offset: 0x1730, name: 'GAME_SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 5 },
       { offset: 0x1736, name: 'GAME_SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 5 },
