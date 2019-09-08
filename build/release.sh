@@ -49,7 +49,6 @@ npmBump "client"
 echo "# INFO: Release successfully bumped"
 
 echo "# INFO: start WPC-EMU UI release"
-rm -rf $PROJECT_ROOT/docs/*
 rm -rf $PROJECT_ROOT/dist/*
 
 npmBuild "client"&
@@ -58,11 +57,12 @@ npmStart "build/gamelist"&
 echo "# WAIT UNTIL JOBS FINISHED"
 wait < <(jobs -p)
 
+rm -rf $PROJECT_ROOT/docs/*
 cp -rf $PROJECT_ROOT/dist/* $PROJECT_ROOT/docs
 
 # "restore" GitHub hosted url
 echo -n "playfield.dev" > $PROJECT_ROOT/docs/CNAME
 
-echo "# INFO: start WPC-EMU Lib release"
+echo "# INFO: start WPC-EMU Lib release (NPM)"
 rm -fv $PROJECT_ROOT/wpc-emu-*.tgz
 npmBuild ""

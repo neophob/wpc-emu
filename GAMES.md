@@ -9,7 +9,7 @@
 | WPC-95: Congo | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (36) | ✅ |
 | WPC-95: Junk Yard | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: League Champ Shuffle Alley (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-95: Medieval Madness | 4 | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ (38) | ✅ |
+| WPC-95: Medieval Madness | 4 | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ (39) | ✅ |
 | WPC-95: Monster Bash | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: NBA Fastbreak | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: No Good Gofers | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (37) | ✅ |
@@ -28,7 +28,7 @@
 | WPC-DCS: Star Trek, The Next Generation | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-DMD: Gilligan's Island | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ (1) |
 | WPC-DMD: Hot Shot Basketball (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-DMD: Hurricane | 5 | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ (38) | ✅ |
+| WPC-DMD: Hurricane | 5 | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ (39) | ✅ |
 | WPC-DMD: SlugFest (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ (2) |
 | WPC-DMD: Strike Master Shuffle Alley (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-DMD: Terminator 2 | 5 | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ |
