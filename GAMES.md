@@ -2,11 +2,11 @@
 
 | Game | Summary | Switch Mapping | Playfield Image | Playfield Lamps | Playfield Flashlamps | Audio Support | Memory Position | Tests pass
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| WPC-95: Attack from Mars | 4 | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ (22) | ✅ |
+| WPC-95: Attack from Mars | 4 | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ (37) | ✅ |
 | WPC-95: Attack from Mars (FreeWPC, Broken) | 3 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: Cactus Canyon | 3 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: Cirqus Voltaire | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (2) | ❌ (5) |
-| WPC-95: Congo | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (21) | ✅ |
+| WPC-95: Congo | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (36) | ✅ |
 | WPC-95: Junk Yard | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: League Champ Shuffle Alley (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: Medieval Madness | 4 | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ (38) | ✅ |
