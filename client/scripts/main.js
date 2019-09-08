@@ -228,10 +228,9 @@ function memoryFindData(value, encoding, rememberResults = false) {
  * Write directly to emulator memory
  * @param {Number} offset where to write
  * @param {Number|String} value String or uint8 value to write
- * @param {Boolean} block optional option (default is false) to persist stored data
  */
-function writeMemory(offset, value, block) {
-  return wpcEmuWebWorkerApi.writeMemory(offset, value, block);
+function writeMemory(offset, value) {
+  return wpcEmuWebWorkerApi.writeMemory(offset, value);
 }
 
 /**
