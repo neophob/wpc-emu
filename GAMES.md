@@ -2,17 +2,17 @@
 
 | Game | Summary | Switch Mapping | Playfield Image | Playfield Lamps | Playfield Flashlamps | Audio Support | Memory Position | Tests pass
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| WPC-95: Attack from Mars | 4 | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ (37) | ✅ |
+| WPC-95: Attack from Mars | 4 | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ (38) | ✅ |
 | WPC-95: Attack from Mars (FreeWPC, Broken) | 3 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: Cactus Canyon | 3 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: Cirqus Voltaire | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (2) | ❌ (5) |
-| WPC-95: Congo | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (36) | ✅ |
+| WPC-95: Congo | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (37) | ✅ |
 | WPC-95: Junk Yard | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: League Champ Shuffle Alley (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: Medieval Madness | 4 | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ (39) | ✅ |
 | WPC-95: Monster Bash | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: NBA Fastbreak | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-95: No Good Gofers | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (37) | ✅ |
+| WPC-95: No Good Gofers | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (38) | ✅ |
 | WPC-95: Safe Cracker | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: Scared Stiff | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: Tales of the Arabian Nights | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
@@ -20,7 +20,7 @@
 | WPC-95: Ticket Tac Toe (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-DCS: Addams Family Values (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-DCS: Demolition Man | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (37) | ✅ |
+| WPC-DCS: Demolition Man | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (38) | ✅ |
 | WPC-DCS: Demolition Man (FreeWPC) | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-DCS: Indiana Jones, The Pinball Adventure | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ (6) |
 | WPC-DCS: Judge Dredd | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
@@ -50,8 +50,8 @@
 | WPC-S: Dirty Harry | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: Indianapolis 500 | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: Jack·Bot | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-S: Johnny Mnemonic | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (37) | ✅ |
-| WPC-S: No Fear | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (36) | ✅ |
+| WPC-S: Johnny Mnemonic | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (38) | ✅ |
+| WPC-S: No Fear | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (37) | ✅ |
 | WPC-S: Red & Ted's Road Show | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: The Flintstones | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: The Shadow | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
