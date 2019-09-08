@@ -27,10 +27,20 @@ function initialiseActions(initObject, webclient) {
         })
         .then(() => {
           const source = initialAction.source;
-          if (source === 'cabinetInput') {
-            const keyValue = initialAction.value;
-            console.log('INIT::action - cabinet key', keyValue);
-            webclient.setCabinetInput(keyValue);
+          switch (source) {
+            case 'cabinetInput':
+              const keyValue = initialAction.value;
+              console.log('INIT::action - cabinet key', keyValue);
+              return webclient.setCabinetInput(keyValue);
+
+            case 'writeMemory':
+              const offset = initialAction.offset;
+              const value = initialAction.value;
+              console.log('INIT::action - writeMemory', offset, value);
+              return wpcInterface.writeMemory(offset, value);
+
+            default:
+              console.warn('UNKNOWN_SOURCE', source);
           }
         });
     });
