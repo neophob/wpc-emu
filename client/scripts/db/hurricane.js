@@ -164,12 +164,12 @@ module.exports = {
     closedSwitches: [ 16, 17, 18, 22 ],
     initialAction: [
       {
-        delayMs: 1000,
+        delayMs: 1500,
         source: 'cabinetInput',
         value: 16
       },
       {
-        delayMs: 2000,
+        delayMs: 3000,
         source: 'writeMemory',
         offset: 0x1B9C,
         value: 0x01,
