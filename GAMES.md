@@ -50,7 +50,7 @@
 | WPC-S: Dirty Harry | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: Indianapolis 500 | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: Jack·Bot | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-S: Johnny Mnemonic | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (22) | ✅ |
+| WPC-S: Johnny Mnemonic | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (37) | ✅ |
 | WPC-S: No Fear | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (18) | ✅ |
 | WPC-S: Red & Ted's Road Show | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: The Flintstones | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
