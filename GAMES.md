@@ -28,7 +28,7 @@
 | WPC-DCS: Star Trek, The Next Generation | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-DMD: Gilligan's Island | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ (1) |
 | WPC-DMD: Hot Shot Basketball (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-DMD: Hurricane | 5 | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ (23) | ✅ |
+| WPC-DMD: Hurricane | 5 | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ (38) | ✅ |
 | WPC-DMD: SlugFest (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ (2) |
 | WPC-DMD: Strike Master Shuffle Alley (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-DMD: Terminator 2 | 5 | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ |
@@ -39,12 +39,12 @@
 | WPC-Fliptronics: Bram Stoker's Dracula | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: Creature from the Black Lagoon | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: Dr. Who | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-Fliptronics: Fish Tales | 6 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ (22) | ✅ |
+| WPC-Fliptronics: Fish Tales | 6 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ (37) | ✅ |
 | WPC-Fliptronics: High Speed II, The Getaway | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: The Addams Family Special | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: Twilight Zone | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: Twilight Zone (FreeWPC, Broken!) | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-Fliptronics: White Water | 5 | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ (22) | ✅ |
+| WPC-Fliptronics: White Water | 5 | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ (37) | ✅ |
 | WPC-Fliptronics: White Water "Bigfoot" (FreeWPC) | 4 | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ | ✅ |
 | WPC-S: Corvette | 3 | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | WPC-S: Dirty Harry | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
