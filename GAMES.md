@@ -20,7 +20,7 @@
 | WPC-95: Ticket Tac Toe (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-DCS: Addams Family Values (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-DCS: Demolition Man | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (22) | ✅ |
+| WPC-DCS: Demolition Man | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (37) | ✅ |
 | WPC-DCS: Demolition Man (FreeWPC) | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-DCS: Indiana Jones, The Pinball Adventure | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ (6) |
 | WPC-DCS: Judge Dredd | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
