@@ -208,7 +208,9 @@ module.exports = {
       { offset: 0x19DF, name: 'STAT_LEFT_FLIPPER_TRIG', type: 'uint8', length: 3 },
       { offset: 0x19E5, name: 'STAT_RIGHT_FLIPPER_TRIG', type: 'uint8', length: 3 },
 
+      //0x1B7C Pricing Option
       { offset: 0x1B20, name: 'GAME_BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
+      { offset: 0x1B9C, name: 'STAT_FREEPLAY', description: '0: not free, 1: free', type: 'uint8' },
 
       { offset: 0x1C4D, name: 'HISCORE_1_NAME', type: 'string' },
       { offset: 0x1C50, name: 'HISCORE_1_SCORE', type: 'bcd', length: 5 },
