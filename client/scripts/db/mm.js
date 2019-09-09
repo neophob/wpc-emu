@@ -147,6 +147,17 @@ module.exports = {
       [{ x: 163, y: 394, color: 'RED' }],
       [{ x: 19, y: 394, color: 'YELLOW' }],
     ],
+    flashlamps: [
+      { id: 17, x: 12, y: 193 },
+      { id: 18, x: 48, y: 144 },
+      { id: 19, x: 20, y: 18 },
+      { id: 20, x: 191, y: 55 },
+      { id: 21, x: 144, y: 155 },
+      { id: 22, x: 117, y: 40 },
+      { id: 23, x: 183, y: 235 },
+      { id: 24, x: 111, y: 111 },
+      { id: 25, x: 36, y: 66 },
+    ],
   },
   skipWpcRomCheck: true,
   features: [

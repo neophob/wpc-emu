@@ -2,14 +2,14 @@
 
 | Game | Summary | Switch Mapping | Playfield Image | Playfield Lamps | Playfield Flashlamps | Audio Support | Memory Position | Tests pass
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| WPC-95: Attack from Mars | 4 | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ (38) | ✅ |
-| WPC-95: Attack from Mars (FreeWPC, Broken) | 3 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ |
+| WPC-95: Attack from Mars | 5 | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ (38) | ✅ |
+| WPC-95: Attack from Mars (FreeWPC, Broken) | 4 | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ |
 | WPC-95: Cactus Canyon | 3 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: Cirqus Voltaire | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (2) | ❌ (5) |
 | WPC-95: Congo | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (37) | ✅ |
 | WPC-95: Junk Yard | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: League Champ Shuffle Alley (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-95: Medieval Madness | 4 | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ (39) | ✅ |
+| WPC-95: Medieval Madness | 5 | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ (39) | ✅ |
 | WPC-95: Monster Bash | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: NBA Fastbreak | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: No Good Gofers | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (38) | ✅ |
@@ -44,8 +44,8 @@
 | WPC-Fliptronics: The Addams Family Special | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: Twilight Zone | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: Twilight Zone (FreeWPC, Broken!) | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-Fliptronics: White Water | 5 | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ (38) | ✅ |
-| WPC-Fliptronics: White Water "Bigfoot" (FreeWPC) | 4 | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ | ✅ |
+| WPC-Fliptronics: White Water | 6 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ (38) | ✅ |
+| WPC-Fliptronics: White Water "Bigfoot" (FreeWPC) | 5 | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ |
 | WPC-S: Corvette | 3 | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | WPC-S: Dirty Harry | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: Indianapolis 500 | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
@@ -59,5 +59,5 @@
 | WPC-S: WHO Dunnit | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: World Cup Soccer | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| **Total** | 139 (35%) | 57 | 47 | 11 | 5 | 7 | 12 | 15 |
+| **Total** | 144 (36%) | 57 | 47 | 11 | 10 | 7 | 12 | 15 |
 
