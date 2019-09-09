@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "assets/apple-touch-startup-image-320x460.png"
   },
   {
-    "revision": "dd6e3a6a95bbc8463339",
+    "revision": "138ea564c686e14c588e",
     "url": "wpc-client.js"
   },
   {
@@ -24,11 +24,11 @@ self.__precacheManifest = [
     "url": "assets/favicon-32x32.png"
   },
   {
-    "revision": "b2929bfd83b502bae7e52aa0fdc82a8d",
+    "revision": "e547e249756180ea323df0d62ef1626a",
     "url": "assets/yandex-browser-manifest.json"
   },
   {
-    "revision": "ba935bc287b7c440e2b1abbe9b02065f",
+    "revision": "44ffe41a9b322eff4f83ea754e0853b4",
     "url": "assets/manifest.webapp"
   },
   {
@@ -204,7 +204,7 @@ self.__precacheManifest = [
     "url": "assets/android-chrome-144x144.png"
   },
   {
-    "revision": "20a3668a432d67a6090d309dbe4a5f06",
-    "url": "a58238e580fa2ed6a26c.worker.js"
+    "revision": "620ee1283a94a5d20e9dd2bcf7e0e3e5",
+    "url": "3e66cfa9c62eeeeef303.worker.js"
   }
 ];
