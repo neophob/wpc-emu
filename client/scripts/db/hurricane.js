@@ -181,6 +181,7 @@ module.exports = {
     checksum: [
       { dataStartOffset: 0x1C4D, dataEndOffset: 0x1C6C, checksumOffset: 0x1C6D, checksum: '16bit', name: 'HI_SCORE' },
       { dataStartOffset: 0x1C6F, dataEndOffset: 0x1C76, checksumOffset: 0x1C77, checksum: '16bit', name: 'CHAMPION' },
+      { dataStartOffset: 0x1B20, dataEndOffset: 0x1BE4, checksumOffset: 0x1BE5, checksum: '16bit', name: 'ADJUSTMENT' },
     ],
     knownValues: [
       { offset: 0x86, name: 'GAME_RUNNING', description: '0: not running, 1: running', type: 'uint8' },

@@ -438,6 +438,8 @@ Note:
 
 WPC-EMU implements specific memory parsing (supports uint8, bcd and string encoding), see `memoryPosition` entries in client db. NVRAM settings are protected by a checksum which will be automatically updated if the checksum type and range is known.
 
+Note: To find the checksum range, try to modify the first setting per section (for example balls per game) - then you will see that there is a checksum range that will modify (2 bytes, checksum is 0xFFFF - sum of bytes).
+
 Mapping of memory position use common names to identify a specific value:
 - `GAME_`: Game specific information
 - `STAT_`: Machine specific statistics
