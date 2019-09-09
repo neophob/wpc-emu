@@ -31,7 +31,7 @@
 | WPC-DMD: Hurricane | 5 | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ (40) | ✅ |
 | WPC-DMD: SlugFest (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ (2) |
 | WPC-DMD: Strike Master Shuffle Alley (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-DMD: Terminator 2 | 5 | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ |
+| WPC-DMD: Terminator 2 | 6 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ (36) | ✅ |
 | WPC-DMD: Terminator 2 (FreeWPC) | 5 | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ |
 | WPC-DMD: The Party Zone | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ (1) |
 | WPC-DMD: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
@@ -59,5 +59,5 @@
 | WPC-S: WHO Dunnit | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: World Cup Soccer | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| **Total** | 144 (36%) | 57 | 47 | 11 | 10 | 7 | 12 | 15 |
+| **Total** | 145 (36%) | 57 | 47 | 11 | 10 | 7 | 13 | 15 |
 

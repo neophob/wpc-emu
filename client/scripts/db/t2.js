@@ -170,7 +170,14 @@ module.exports = {
         delayMs: 1000,
         source: 'cabinetInput',
         value: 16
-      }
+      },
+      {
+        description: 'enable free play',
+        delayMs: 3000,
+        source: 'writeMemory',
+        offset: 0x1B9E,
+        value: 0x01,
+      },
     ],
   },
   audio: {
@@ -1403,4 +1410,62 @@ module.exports = {
       ]
     },
   },
+  memoryPosition: {
+    checksum: [
+      { dataStartOffset: 0x1C61, dataEndOffset: 0x1C80, checksumOffset: 0x1C81, checksum: '16bit', name: 'HI_SCORE' },
+      { dataStartOffset: 0x1C83, dataEndOffset: 0x1C8A, checksumOffset: 0x1C8B, checksum: '16bit', name: 'CHAMPION' },
+      { dataStartOffset: 0x1B20, dataEndOffset: 0x1BF8, checksumOffset: 0x1BF9, checksum: '16bit', name: 'ADJUSTMENT' },
+    ],
+    knownValues: [
+      { offset: 0x80, name: 'GAME_RUNNING', description: '0: not running, 1: running', type: 'uint8' },
+
+      { offset: 0x40F, name: 'GAME_PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
+      { offset: 0x410, name: 'GAME_BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
+      { offset: 0x481, name: 'GAME_CURRENT_SCREEN', description: '0x00: attract mode, 0x01: game play/system menu, 0x80: tilt warning, 0xF1: credits view', type: 'uint8' },
+
+      { offset: 0x172F, name: 'GAME_SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 6 },
+      { offset: 0x1735, name: 'GAME_SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 6 },
+      { offset: 0x173B, name: 'GAME_SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 6 },
+      { offset: 0x1741, name: 'GAME_SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 6 },
+
+      { offset: 0x1794, name: 'GAME_PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
+
+      { offset: 0x180C, name: 'STAT_GAME_ID', type: 'string' },
+      { offset: 0x1883, name: 'STAT_GAMES_STARTED', type: 'uint8', length: 3 },
+      { offset: 0x1889, name: 'STAT_TOTAL_PLAYS', type: 'uint8', length: 3 },
+      { offset: 0x188F, name: 'STAT_TOTAL_FREE_PLAYS', type: 'uint8', length: 3 },
+      { offset: 0x18BF, name: 'STAT_MINUTES_ON', description: 'Minutes powered on', type: 'uint8', length: 3 },
+      { offset: 0x18B9, name: 'STAT_PLAYTIME', description: 'Minutes playing', type: 'uint8', length: 3 },
+      { offset: 0x18C5, name: 'STAT_BALLS_PLAYED', type: 'uint8', length: 3 },
+      { offset: 0x18CB, name: 'STAT_TILT_COUNTER', type: 'uint8', length: 5 },
+      { offset: 0x18E9, name: 'STAT_1_PLAYER_GAME', description: 'Counts finished games', type: 'uint8', length: 3 },
+      { offset: 0x18EF, name: 'STAT_2_PLAYER_GAME', description: 'Counts finished games', type: 'uint8', length: 3 },
+      { offset: 0x18F5, name: 'STAT_3_PLAYER_GAME', description: 'Counts finished games', type: 'uint8', length: 3 },
+      { offset: 0x18FB, name: 'STAT_4_PLAYER_GAME', description: 'Counts finished games', type: 'uint8', length: 3 },
+
+      //{ offset: 0x1913, name: 'STAT_LEFT_DRAIN', type: 'uint8', length: 3 },
+      //{ offset: 0x1919, name: 'STAT_RIGHT_DRAIN', type: 'uint8', length: 3 },
+      { offset: 0x19FD, name: 'STAT_LEFT_FLIPPER_TRIG', type: 'uint8', length: 3 },
+      { offset: 0x1A03, name: 'STAT_RIGHT_FLIPPER_TRIG', type: 'uint8', length: 3 },
+
+      { offset: 0x1B20, name: 'GAME_BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
+      { offset: 0x1B9E, name: 'STAT_FREEPLAY', description: '0: not free, 1: free', type: 'uint8' },
+
+      { offset: 0x1C61, name: 'HISCORE_1_NAME', type: 'string' },
+      { offset: 0x1C64, name: 'HISCORE_1_SCORE', type: 'bcd', length: 5 },
+      { offset: 0x1C69, name: 'HISCORE_2_NAME', type: 'string' },
+      { offset: 0x1C6C, name: 'HISCORE_2_SCORE', type: 'bcd', length: 5 },
+      { offset: 0x1C71, name: 'HISCORE_3_NAME', type: 'string' },
+      { offset: 0x1C74, name: 'HISCORE_3_SCORE', type: 'bcd', length: 5 },
+      { offset: 0x1C79, name: 'HISCORE_4_NAME', type: 'string' },
+      { offset: 0x1C7C, name: 'HISCORE_4_SCORE', type: 'bcd', length: 5 },
+
+      { offset: 0x1C83, name: 'HISCORE_CHAMP_NAME', description: 'Grand Champion', type: 'string' },
+      { offset: 0x1C86, name: 'HISCORE_CHAMP_SCORE', description: 'Grand Champion', type: 'bcd', length: 5 },
+
+      { offset: 0x1C93, name: 'GAME_CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
+      //{ offset: 0x1C80, name: 'GAME_CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
+
+    ]
+  }
 };
