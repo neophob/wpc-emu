@@ -177,7 +177,14 @@ module.exports = {
         delayMs: 1000,
         source: 'cabinetInput',
         value: 16
-      }
+      },
+      {
+        description: 'enable free play',
+        delayMs: 3000,
+        source: 'writeMemory',
+        offset: 0x1B9E,
+        value: 0x01,
+      },
     ],
   },
   audio: {
@@ -1738,6 +1745,7 @@ module.exports = {
       { offset: 0x1A03, name: 'STAT_RIGHT_FLIPPER_TRIG', type: 'uint8', length: 3 },
 
       { offset: 0x1B20, name: 'GAME_BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
+      { offset: 0x1B9E, name: 'STAT_FREEPLAY', description: '0: not free, 1: free', type: 'uint8' },
 
       { offset: 0x1C61, name: 'HISCORE_1_NAME', type: 'string' },
       { offset: 0x1C64, name: 'HISCORE_1_SCORE', type: 'bcd', length: 5 },

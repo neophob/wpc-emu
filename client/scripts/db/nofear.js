@@ -87,7 +87,14 @@ module.exports = {
         delayMs: 1000,
         source: 'cabinetInput',
         value: 16
-      }
+      },
+      {
+        description: 'enable free play',
+        delayMs: 3000,
+        source: 'writeMemory',
+        offset: 0x1C16,
+        value: 0x01,
+      },
     ],
   },
   memoryPosition: {
@@ -128,7 +135,8 @@ module.exports = {
       { offset: 0x19FD, name: 'STAT_LEFT_FLIPPER_TRIG', type: 'uint8', length: 3 },
       { offset: 0x1A03, name: 'STAT_RIGHT_FLIPPER_TRIG', type: 'uint8', length: 3 },
 
-      //GAME_BALL_TOTAL
+      { offset: 0x1B98, name: 'GAME_BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
+      { offset: 0x1C16, name: 'STAT_FREEPLAY', description: '0: not free, 1: free', type: 'uint8' },
 
       { offset: 0x1CED, name: 'HISCORE_1_NAME', type: 'string' },
       { offset: 0x1CF1, name: 'HISCORE_1_SCORE', type: 'bcd', length: 6 },

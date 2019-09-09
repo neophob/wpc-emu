@@ -98,7 +98,14 @@ module.exports = {
         delayMs: 1000,
         source: 'cabinetInput',
         value: 16
-      }
+      },
+      {
+        description: 'enable free play',
+        delayMs: 3000,
+        source: 'writeMemory',
+        offset: 0x1C16,
+        value: 0x01,
+      },
     ],
   },
   memoryPosition: {
@@ -120,6 +127,9 @@ module.exports = {
       { offset: 0x16AE, name: 'GAME_SCORE_P3', description: 'Player 3 Score', type: 'bcd', length: 6 },
       { offset: 0x16B5, name: 'GAME_SCORE_P4', description: 'Player 4 Score', type: 'bcd', length: 6 },
 
+      //0x1885, 0x188D
+      { offset: 0x1711, name: 'GAME_PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
+
       { offset: 0x180C, name: 'STAT_GAME_ID', type: 'string' },
       { offset: 0x1883, name: 'STAT_GAMES_STARTED', type: 'uint8', length: 3 },
       { offset: 0x1889, name: 'STAT_TOTAL_PLAYS', type: 'uint8', length: 3 },
@@ -138,6 +148,9 @@ module.exports = {
       { offset: 0x19FD, name: 'STAT_LEFT_FLIPPER_TRIG', type: 'uint8', length: 3 },
       { offset: 0x1A03, name: 'STAT_RIGHT_FLIPPER_TRIG', type: 'uint8', length: 3 },
 
+      { offset: 0x1B98, name: 'GAME_BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
+      { offset: 0x1C16, name: 'STAT_FREEPLAY', description: '0: not free, 1: free', type: 'uint8' },
+
       { offset: 0x1CE3, name: 'HISCORE_1_NAME', type: 'string' },
       { offset: 0x1CE7, name: 'HISCORE_1_SCORE', type: 'bcd', length: 5 },
       { offset: 0x1CEC, name: 'HISCORE_2_NAME', type: 'string' },
@@ -149,9 +162,8 @@ module.exports = {
       { offset: 0x1D09, name: 'HISCORE_CHAMP_NAME', description: 'Grand Champion', type: 'string' },
       { offset: 0x1D0D, name: 'HISCORE_CHAMP_SCORE', description: 'Grand Champion', type: 'bcd', length: 5 },
 
-      { offset: 0x1711, name: 'GAME_PLAYER_TOTAL', description: '1-4 players', type: 'uint8' },
-      { offset: 0x1D10, name: 'GAME_CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
-      { offset: 0x1D11, name: 'GAME_CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
+      { offset: 0x1D1A, name: 'GAME_CREDITS_FULL', description: '0-10 credits', type: 'uint8' },
+      { offset: 0x1D1B, name: 'GAME_CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
     ]
   },
 };

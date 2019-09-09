@@ -176,6 +176,11 @@ function toggleDmdDump() {
 }
 
 function romSelection(romName) {
+  if (dmdDump) {
+    toggleDmdDump();
+  }
+  cancelAnimationFrame(rafId);
+  rafId = undefined;
   return initEmuWithGameName(romName);
 }
 
