@@ -188,20 +188,21 @@ class MemoryMonitor {
         const changedValue = this.oldRamSnapshot[ramOffset + offset] !== value;
 
         // write hex value
-        this.canvasMemoryOverlayDrawLib.writeHeader(
-          MEM_CONTENT_X + offset * 2,
-          MEM_CONTENT_Y + y + 0.5,
-          value ?
-            value < 16 ? '0' + value.toString(16) : value.toString(16) : '',
-          changedValue ? this.THEME.COLOR_RED : textColor
-        );
-        //write ascii value
-        this.canvasMemoryOverlayDrawLib.writeHeader(
-          MEM_CONTENT_ASCII_X + offset * 0.75,
-          MEM_CONTENT_Y + y + 0.5,
-          String.fromCharCode(value),
-          changedValue ? this.THEME.COLOR_RED : textColor
-        );
+        if (value) {
+          this.canvasMemoryOverlayDrawLib.writeHeader(
+            MEM_CONTENT_X + offset * 2,
+            MEM_CONTENT_Y + y + 0.5,
+            value < 16 ? '0' + value.toString(16) : value.toString(16),
+            changedValue ? this.THEME.COLOR_RED : textColor
+          );
+          //write ascii value
+          this.canvasMemoryOverlayDrawLib.writeHeader(
+            MEM_CONTENT_ASCII_X + offset * 0.75,
+            MEM_CONTENT_Y + y + 0.5,
+            String.fromCharCode(value),
+            changedValue ? this.THEME.COLOR_RED : textColor
+          );
+        }
       }
     }
     this.oldRamSnapshot = this.lastRamSnapshot;
