@@ -3,7 +3,7 @@
 // reference the webworker from wep-emu
 import WebWorker from 'worker-loader!wpc-emu/lib/webclient/webworker.js';
 import * as gamelist from 'wpc-emu/client/scripts/db/gamelist';
-const WpcEmuWebWorkerApi = require('wpc-emu/lib/webclient');
+import * as WpcEmuWebWorkerApi from 'wpc-emu/lib/webclient';
 
 import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher';
 import { initialiseActions } from './lib/initialise';
@@ -13,7 +13,7 @@ let wpcEmuWebWorkerApi;
 const DESIRED_FPS = 50;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
 const CANVAS_HEIGHT = 192;
-const CANVAS_WIDTH = 800;
+const CANVAS_WIDTH = 768;
 
 let rafId;
 let canvasContext;
@@ -30,8 +30,7 @@ function initializeEmu(gameEntry) {
     })
     .then((emuVersion) => {
       console.log('Successfully initialized emulator', emuVersion);
-      //soundInstance = AudioOutput(gameEntry.audio);
-      //NOTE: IIKS we pollute globals here
+
       window.wpcInterface = {
         webclient: wpcEmuWebWorkerApi,
         resetEmu,
@@ -45,10 +44,11 @@ function initializeEmu(gameEntry) {
       canvas.width = CANVAS_WIDTH;
       canvas.height = CANVAS_HEIGHT;
       canvasContext = canvas.getContext('2d');
-      canvasContext.fillStyle = 'blue';
-      canvasContext.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-//      wpcEmuWebWorkerApi.registerAudioConsumesr((message) => soundInstance.callback(message));
+      wpcEmuWebWorkerApi.registerAudioConsumer((message) => {
+        console.log('AUDIO:', message);
+      });
+
       wpcEmuWebWorkerApi.registerUiUpdateConsumer((emuUiState) => {
         const { emuState } = emuUiState;
         if (!emuState) {
@@ -66,25 +66,15 @@ function initializeEmu(gameEntry) {
             drawDmdShaded(emuState.asic.dmd.dmdShadedBuffer);
           }
           //console.log('wpcEmuWebWorkerApi.getStatistics()',wpcEmuWebWorkerApi.getStatistics());
-//          const audioState = soundInstance.getState();
-//          emuDebugUi.updateCanvas(emuState, 'running', audioState);
-
 /*          const { averageRTTms, sentMessages, failedMessages } = wpcEmuWebWorkerApi.getStatistics();
           emuDebugUi.drawMetaData({
             averageRTTms, sentMessages, failedMessages, missedDraw, lastFps
           });
-          if (emuState.asic.wpc.inputState) {
-            updateUiSwitchState(emuState.asic.wpc.inputState);
-          }
 */
           rafId = 0;
         });
 
       });
-  //    return emuDebugUi.populateInitialCanvas(gameEntry);
-    })
-    .then(() => {
-  //    soundInstance.playBootSound();
     });
 }
 
@@ -102,19 +92,16 @@ function initEmuWithGameName(name) {
 }
 
 function resumeEmu() {
-  //soundInstance.resume();
   return wpcEmuWebWorkerApi.resumeEmulator();
 }
 
 function pauseEmu() {
-  //soundInstance.pause();
   cancelAnimationFrame(rafId);
   rafId = undefined;
   return wpcEmuWebWorkerApi.pauseEmulator();
 }
 
 function resetEmu() {
-  //soundInstance.playBootSound();
   return wpcEmuWebWorkerApi.resetEmulator();
 }
 
@@ -162,12 +149,8 @@ function registerKeyboardListener() {
 
       case 82: //R
         return resumeEmu();
-
-      default:
-
     }
   }, false);
-
 }
 
 console.log('INIT WPC-EMU-EXAMPLE');
