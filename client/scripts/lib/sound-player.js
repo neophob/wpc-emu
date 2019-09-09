@@ -36,7 +36,7 @@ class SoundCategory {
 
     this.soundState = SOUND_LOADING;
 
-    this.soundLoaded = new Promise((resolve, reject) => {
+    this.soundLoaded = new Promise((resolve) => {
       const startTs = Date.now();
       this.audioSpritePlayer = new Howl({
         src: FETCHURL + audioData.url,
@@ -47,7 +47,7 @@ class SoundCategory {
         },
         onloaderror: (error) => {
           this.soundState = SOUND_LOADING_ERROR;
-          reject(error);
+          console.log('SOUND PLAYER LOAD ERROR', error);
         },
         onload: () => {
           this.soundState = SOUND_LOADED;

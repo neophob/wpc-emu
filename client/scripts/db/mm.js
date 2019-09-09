@@ -147,6 +147,17 @@ module.exports = {
       [{ x: 163, y: 394, color: 'RED' }],
       [{ x: 19, y: 394, color: 'YELLOW' }],
     ],
+    flashlamps: [
+      { id: 17, x: 12, y: 193 },
+      { id: 18, x: 48, y: 144 },
+      { id: 19, x: 20, y: 18 },
+      { id: 20, x: 191, y: 55 },
+      { id: 21, x: 144, y: 155 },
+      { id: 22, x: 117, y: 40 },
+      { id: 23, x: 183, y: 235 },
+      { id: 24, x: 111, y: 111 },
+      { id: 25, x: 36, y: 66 },
+    ],
   },
   skipWpcRomCheck: true,
   features: [
@@ -167,6 +178,7 @@ module.exports = {
         value: 16
       },
       {
+        description: 'enable free play',
         delayMs: 3000,
         source: 'writeMemory',
         offset: 0x1C12,
@@ -178,6 +190,7 @@ module.exports = {
     checksum: [
       { dataStartOffset: 0x1D29, dataEndOffset: 0x1D48, checksumOffset: 0x1D49, checksum: '16bit', name: 'HI_SCORE' },
       { dataStartOffset: 0x1D4B, dataEndOffset: 0x1D52, checksumOffset: 0x1D53, checksum: '16bit', name: 'CHAMPION' },
+      { dataStartOffset: 0x1B92, dataEndOffset: 0x1CB2, checksumOffset: 0x1CB3, checksum: '16bit', name: 'ADJUSTMENT' },
     ],
     knownValues: [
       // alternative locations 0x3EB,
@@ -186,7 +199,8 @@ module.exports = {
       //{ offset: 0x326, name: 'TEXT', description: 'random visible text', type: 'string' },
       { offset: 0x3B2, name: 'GAME_PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
       { offset: 0x3B3, name: 'GAME_BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
-      { offset: 0x440, name: 'CURRENT_SCREEN', description: '0: attract mode, 0x89: shows tournament enable screen, 0xF1: coin door open, 0xF4: switch scanning', type: 'uint8' },
+
+      { offset: 0x440, name: 'GAME_CURRENT_SCREEN', description: '0: attract mode, 0x80: tilt warning, 0x89: shows tournament enable screen, 0xF1: coin door open/add more credits, 0xF4: switch scanning', type: 'uint8' },
 
       { offset: 0x16A0, name: 'GAME_SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 5 },
       { offset: 0x16A6, name: 'GAME_SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 5 },

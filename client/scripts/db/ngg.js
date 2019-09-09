@@ -104,19 +104,29 @@ module.exports = {
         delayMs: 1000,
         source: 'cabinetInput',
         value: 16
-      }
+      },
+      {
+        description: 'enable free play',
+        delayMs: 3000,
+        source: 'writeMemory',
+        offset: 0x1BDC,
+        value: 0x01,
+      },
     ],
   },
   memoryPosition:{
     checksum: [
       { dataStartOffset: 0x1CC3, dataEndOffset: 0x1CE6, checksumOffset: 0x1CE7, checksum: '16bit', name: 'HI_SCORE' },
       { dataStartOffset: 0x1CE9, dataEndOffset: 0x1CF1, checksumOffset: 0x1CF2, checksum: '16bit', name: 'CHAMPION' },
+      { dataStartOffset: 0x1B5C, dataEndOffset: 0x1C5A, checksumOffset: 0x1C5B, checksum: '16bit', name: 'ADJUSTMENT' },
     ],
     knownValues: [
       { offset: 0x86, name: 'GAME_RUNNING', description: '0: not running, 1: running', type: 'uint8' },
 
       { offset: 0x3B8, name: 'GAME_PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
       { offset: 0x3B9, name: 'GAME_BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
+
+      { offset: 0x45E, name: 'GAME_CURRENT_SCREEN', description: '0: attract mode, 0x80: tilt warning, 0x89: shows tournament enable screen, 0xF1: coin door open/add more credits, 0xF4: switch scanning', type: 'uint8' },
 
       { offset: 0x16A0, name: 'GAME_SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 6 },
       { offset: 0x16A7, name: 'GAME_SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 6 },
@@ -145,6 +155,7 @@ module.exports = {
 
       //{ offset: 0x326, name: 'TEXT', description: 'random visible text', type: 'string' },
       { offset: 0x1B5C, name: 'GAME_BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
+      { offset: 0x1BDC, name: 'STAT_FREEPLAY', description: '0: not free, 1: free', type: 'uint8' },
 
       { offset: 0x1CC3, name: 'HISCORE_1_NAME', type: 'string' },
       { offset: 0x1CC6, name: 'HISCORE_1_SCORE', type: 'bcd', length: 6 },

@@ -147,6 +147,19 @@ module.exports = {
       [{ x: 0, y: 0, color: 'BLACK' }],
       [{ x: 10, y: 390, color: 'RED' }],
     ],
+    flashlamps: [
+      { id: 17, x: 184, y: 40 },
+      { id: 18, x: 157, y: 79 },
+      { id: 19, x: 188, y: 188 },
+      { id: 20, x: 174, y: 251 },
+      { id: 21, x: 99, y: 160 },
+      { id: 22, x: 150, y: 63 },
+      { id: 23, x: 102, y: 93 },
+      { id: 25, x: 14, y: 28 },
+      { id: 26, x: 74, y: 21 },
+      { id: 27, x: 20, y: 120 },
+      { id: 28, x: 237, y: 153 },
+    ],
   },
   skipWpcRomCheck: true,
   features: [
@@ -165,19 +178,29 @@ module.exports = {
         delayMs: 1000,
         source: 'cabinetInput',
         value: 16
-      }
+      },
+      {
+        description: 'enable free play',
+        delayMs: 3000,
+        source: 'writeMemory',
+        offset: 0x1C18,
+        value: 0x01,
+      },
     ],
   },
   memoryPosition: {
     checksum: [
       { dataStartOffset: 0x1D0B, dataEndOffset: 0x1D2E, checksumOffset: 0x1D2F, checksum: '16bit', name: 'HI_SCORE' },
-      { dataStartOffset: 0x1D31, dataEndOffset: 0x1D39, checksumOffset: 0x1D3A, checksum: '16bit', name: 'CHAMPION' }
+      { dataStartOffset: 0x1D31, dataEndOffset: 0x1D39, checksumOffset: 0x1D3A, checksum: '16bit', name: 'CHAMPION' },
+      { dataStartOffset: 0x1B98, dataEndOffset: 0x1CA2, checksumOffset: 0x1CA3, checksum: '16bit', name: 'ADJUSTMENT' },
     ],
     knownValues: [
       { offset: 0x80, name: 'GAME_RUNNING', description: '0: not running, 1: running', type: 'uint8' },
 
       { offset: 0x3B5, name: 'GAME_PLAYER_CURRENT', description: 'if pinball starts, current player is set to 1, maximal 4', type: 'uint8' },
       { offset: 0x3B6, name: 'GAME_BALL_CURRENT', description: 'if pinball starts, current ball is set to 1, maximal 4', type: 'uint8' },
+
+      { offset: 0x443, name: 'GAME_CURRENT_SCREEN', description: '0: attract mode, 0x80: tilt warning, 0x89: shows tournament enable screen, 0xF1: coin door open/add more credits, 0xF4: switch scanning', type: 'uint8' },
 
       { offset: 0x16A0, name: 'GAME_SCORE_P1', description: 'Player 1 Score', type: 'bcd', length: 6 },
       { offset: 0x16A7, name: 'GAME_SCORE_P2', description: 'Player 2 Score', type: 'bcd', length: 6 },
@@ -205,6 +228,7 @@ module.exports = {
       { offset: 0x1A03, name: 'STAT_RIGHT_FLIPPER_TRIG', type: 'uint8', length: 3 },
 
       { offset: 0x1B98, name: 'GAME_BALL_TOTAL', description: 'Balls per game', type: 'uint8' },
+      { offset: 0x1C18, name: 'STAT_FREEPLAY', description: '0: not free, 1: free', type: 'uint8' },
 
       { offset: 0x1D0B, name: 'HISCORE_1_NAME', type: 'string' },
       { offset: 0x1D0E, name: 'HISCORE_1_SCORE', type: 'bcd', length: 6 },

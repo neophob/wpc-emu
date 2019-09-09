@@ -176,6 +176,11 @@ function toggleDmdDump() {
 }
 
 function romSelection(romName) {
+  if (dmdDump) {
+    toggleDmdDump();
+  }
+  cancelAnimationFrame(rafId);
+  rafId = undefined;
   return initEmuWithGameName(romName);
 }
 
@@ -186,8 +191,8 @@ function initEmuWithGameName(name) {
 
   return Promise.all([ initialiseEmu(gameEntry), wpcEmuWebWorkerApi.reset() ])
     .then(resumeEmu)
-    .then(() => initialiseActions(gameEntry.initialise, wpcEmuWebWorkerApi))
     .then(() => wpcEmuWebWorkerApi.adjustFramerate(DESIRED_FPS))
+    .then(() => initialiseActions(gameEntry.initialise, wpcEmuWebWorkerApi))
     .catch((error) => {
       console.error('FAILED to load ROM:', error.message);
       emuDebugUi.errorFeedback(error);
@@ -228,10 +233,9 @@ function memoryFindData(value, encoding, rememberResults = false) {
  * Write directly to emulator memory
  * @param {Number} offset where to write
  * @param {Number|String} value String or uint8 value to write
- * @param {Boolean} block optional option (default is false) to persist stored data
  */
-function writeMemory(offset, value, block) {
-  return wpcEmuWebWorkerApi.writeMemory(offset, value, block);
+function writeMemory(offset, value) {
+  return wpcEmuWebWorkerApi.writeMemory(offset, value);
 }
 
 /**
