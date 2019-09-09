@@ -50,7 +50,7 @@ class MemoryMonitor {
         MEM_CONTENT_Y - 2.5,
         2,
         18.5,
-        this.THEME.DMD_COLOR_DARK);
+        this.THEME.DMD_COLOR_VERY_DARK);
 
       this.canvasMemoryDrawLib.fillRect(
         MEM_CONTENT_ASCII_X + offset * 0.75,
@@ -191,7 +191,8 @@ class MemoryMonitor {
         this.canvasMemoryOverlayDrawLib.writeHeader(
           MEM_CONTENT_X + offset * 2,
           MEM_CONTENT_Y + y + 0.5,
-          value < 16 ? '0' + value.toString(16) : value.toString(16),
+          value ?
+            value < 16 ? '0' + value.toString(16) : value.toString(16) : '',
           changedValue ? this.THEME.COLOR_RED : textColor
         );
         //write ascii value
