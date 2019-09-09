@@ -7,16 +7,14 @@ import * as WpcEmuWebWorkerApi from 'wpc-emu/lib/webclient';
 
 import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher';
 import { initialiseActions } from './lib/initialise';
+import { initCanvas, drawDmdShaded } from './lib/canvas';
 
 let wpcEmuWebWorkerApi;
 
 const DESIRED_FPS = 50;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
-const CANVAS_HEIGHT = 192;
-const CANVAS_WIDTH = 768;
 
 let rafId;
-let canvasContext;
 
 function initializeEmu(gameEntry) {
 
@@ -39,11 +37,7 @@ function initializeEmu(gameEntry) {
         writeMemory,
       };
 
-      // install canvas
-      const canvas = document.getElementById('canvas');
-      canvas.width = CANVAS_WIDTH;
-      canvas.height = CANVAS_HEIGHT;
-      canvasContext = canvas.getContext('2d');
+      initCanvas();
 
       wpcEmuWebWorkerApi.registerAudioConsumer((message) => {
         console.log('AUDIO:', message);
@@ -154,7 +148,6 @@ function registerKeyboardListener() {
 }
 
 console.log('INIT WPC-EMU-EXAMPLE');
-
 if ('serviceWorker' in navigator) {
   // Use the window load event to keep the page load performant
   // NOTE: works only via SSL!
@@ -168,50 +161,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-/**
- * renders 128 x 32 DMD to canvas
- * @param {uint8array} dmd data
- */
-function drawDmdShaded(data) {
-
-  const KOL = [
-    'rgb(255,0,0)',
-    'rgb(43,62,67)',
-    'rgb(182,155,93)',
-    'rgb(254, 255, 211)',
-  ];
-  const GRID_SIZE = 12;
-
-  canvasContext.fillStyle = 'black';
-  canvasContext.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-
-  let offsetX = 0;
-  let offsetY = 0;
-  let color = 0;
-  for (let i = 0; i < data.length; i++) {
-    if (data[i] > 0) {
-      if (color !== data[i]) {
-        color = data[i];
-        canvasContext.fillStyle = KOL[color];
-      }
-
-      canvasContext.fillRect(
-        1 + offsetX * GRID_SIZE / 2,
-        1 + offsetY * GRID_SIZE / 2,
-        GRID_SIZE / 2 - 1,
-        GRID_SIZE / 2 - 1);
-    }
-    offsetX++;
-    if (offsetX === 128) {
-      offsetX = 0;
-      offsetY++;
-    }
-  }
-}
-
-
 wpcEmuWebWorkerApi = WpcEmuWebWorkerApi.initialiseWebworkerAPI(new WebWorker());
-
 initEmuWithGameName(INITIAL_GAME)
   .catch((error) => console.error);
 
