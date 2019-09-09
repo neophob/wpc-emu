@@ -1,5 +1,10 @@
 # HISTORY
 
+## 9/9/19
+- fix missing checksum for freeplay setting
+- wpc95: add attract mode sequence number
+- improve readability of memory monitor
+
 ## 8/9/19
 - Add STATISTICS memory position
 - Initial Actions: support memory write (freeplay!)

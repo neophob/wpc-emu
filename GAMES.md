@@ -2,17 +2,17 @@
 
 | Game | Summary | Switch Mapping | Playfield Image | Playfield Lamps | Playfield Flashlamps | Audio Support | Memory Position | Tests pass
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| WPC-95: Attack from Mars | 5 | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ (39) | ✅ |
+| WPC-95: Attack from Mars | 5 | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ (40) | ✅ |
 | WPC-95: Attack from Mars (FreeWPC, Broken) | 4 | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ |
 | WPC-95: Cactus Canyon | 3 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: Cirqus Voltaire | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (2) | ❌ (5) |
-| WPC-95: Congo | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (39) | ✅ |
+| WPC-95: Congo | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (40) | ✅ |
 | WPC-95: Junk Yard | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: League Champ Shuffle Alley (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-95: Medieval Madness | 5 | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ (39) | ✅ |
+| WPC-95: Medieval Madness | 5 | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ (40) | ✅ |
 | WPC-95: Monster Bash | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: NBA Fastbreak | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-95: No Good Gofers | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (39) | ✅ |
+| WPC-95: No Good Gofers | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (40) | ✅ |
 | WPC-95: Safe Cracker | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: Scared Stiff | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: Tales of the Arabian Nights | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
