@@ -1,6 +1,8 @@
 # Client Example
 
-Minimal example how to use wpc-emu in the browser
+Minimal example how to use WPC-Emu in the Browser, emulator core is running in a worker thread.
+
+NOTE: using a worker thread requires that you use HTTPS, also on localhost!
 
 ## SHOWME!
 
