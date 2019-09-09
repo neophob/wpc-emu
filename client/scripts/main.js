@@ -31,10 +31,6 @@ let missedDraw = 0;
 let rafId;
 
 function initialiseEmu(gameEntry) {
-  window.wpcInterface = {
-    romSelection,
-  };
-
   return document.fonts.load('24pt "Space Mono"')
     .catch((error) => {
       console.error('FONT_LOAD_FAILED', error);
