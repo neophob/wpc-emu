@@ -34,7 +34,7 @@ function initEmuWithGameName(name) {
     })
     .then((emuVersion) => {
       console.log('Successfully initialized emulator', emuVersion);
-      wireEmuToUi()
+      return wireEmuToUi()
     })
     .then(resumeEmu)
     // run initial actions on the emu (enable freeplay, set correct switch positions)
