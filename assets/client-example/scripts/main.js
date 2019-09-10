@@ -22,6 +22,25 @@ initEmuWithGameName(INITIAL_GAME)
   .then(() => registerKeyboardListener())
   .catch((error) => console.error);
 
+/**
+ * Bootstrap
+ */
+function initEmuWithGameName(name) {
+  const gameEntry = WpcEmu.gamelist.getByName(name);
+  return Promise.all([ initializeEmu(gameEntry), wpcEmuWebWorkerApi.reset() ])
+    .then(resumeEmu)
+    // configure target FPS of the emu
+    .then(() => wpcEmuWebWorkerApi.adjustFramerate(DESIRED_FPS))
+    // run initial actions on the emu (enable freeplay, set correct switch positions)
+    .then(() => initialiseActions(gameEntry.initialise, wpcEmuWebWorkerApi))
+    .catch((error) => {
+      console.error('FAILED to load ROM:', error.message);
+    });
+}
+
+/**
+ * download rom, initialise emulator and wire it with our ui
+ */
 function initializeEmu(gameEntry) {
   return downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06)
     .then((u06Rom) => {
@@ -39,56 +58,61 @@ function initializeEmu(gameEntry) {
       };
       initCanvas();
 
+      // register dummy audio callback, will print to console
       wpcEmuWebWorkerApi.registerAudioConsumer((message) => {
         console.log('AUDIO:', message);
       });
 
-      wpcEmuWebWorkerApi.registerUiUpdateConsumer((emuUiState) => {
-        const { emuState } = emuUiState;
-        if (!emuState) {
-          console.log('NO_EMU_STATE!');
-          return;
-        }
-        if (rafId) {
-          console.log('MISSED_DRAW!', rafId);
-          cancelAnimationFrame(rafId);
-        }
-
-        if (emuState.asic.dmd.dmdShadedBuffer) {
-          rafId = requestAnimationFrame((timestamp) => {
-            drawDmdShaded(emuState.asic.dmd.dmdShadedBuffer);
-            rafId = 0;
-          });
-        }
-        if ((++counter % 240) === 0) {
-          console.log('wpcEmuWebWorkerApi.getStatistics()',wpcEmuWebWorkerApi.getStatistics());
-        }
-      });
+      // register ui callback, will be updated once worker send new ui data
+      wpcEmuWebWorkerApi.registerUiUpdateConsumer((emuUiState) => canvasMainLoop(emuUiState));
     });
 }
 
-function initEmuWithGameName(name) {
-  const gameEntry = WpcEmu.gamelist.getByName(name);
+/**
+ * main render loop, will be called whenever wpcEmuWebWorkerApi has new data
+ */
+function canvasMainLoop(emuUiState) {
+  console.log('emuUiState',emuUiState)
+  const { emuState } = emuUiState;
+  if (!emuState) {
+    console.log('NO_EMU_STATE!');
+    return;
+  }
+  if (rafId) {
+    console.log('MISSED_DRAW!', rafId);
+    cancelAnimationFrame(rafId);
+  }
 
-  return Promise.all([ initializeEmu(gameEntry), wpcEmuWebWorkerApi.reset() ])
-    .then(resumeEmu)
-    .then(() => wpcEmuWebWorkerApi.adjustFramerate(DESIRED_FPS))
-    .then(() => initialiseActions(gameEntry.initialise, wpcEmuWebWorkerApi))
-    .catch((error) => {
-      console.error('FAILED to load ROM:', error.message);
+  if (emuState.asic.dmd.dmdShadedBuffer) {
+    rafId = requestAnimationFrame((timestamp) => {
+      drawDmdShaded(emuState.asic.dmd.dmdShadedBuffer);
+      rafId = 0;
     });
+  }
+  if ((++counter % 240) === 0) {
+    console.log('wpcEmuWebWorkerApi.getStatistics()',wpcEmuWebWorkerApi.getStatistics());
+  }
 }
 
-function resumeEmu() {
-  return wpcEmuWebWorkerApi.resumeEmulator();
-}
-
+/**
+ * freeze motherfucker!
+ */
 function pauseEmu() {
   cancelAnimationFrame(rafId);
   rafId = undefined;
   return wpcEmuWebWorkerApi.pauseEmulator();
 }
 
+/**
+ * resumes the paused WPC Machine
+ */
+function resumeEmu() {
+  return wpcEmuWebWorkerApi.resumeEmulator();
+}
+
+/**
+ * reboots the WPC Machine
+ */
 function resetEmu() {
   return wpcEmuWebWorkerApi.resetEmulator();
 }
@@ -102,6 +126,9 @@ function writeMemory(offset, value) {
   return wpcEmuWebWorkerApi.writeMemory(offset, value);
 }
 
+/**
+ * register some keyboard shortcuts
+ */
 function registerKeyboardListener() {
   window.addEventListener('keydown', (e) => {
     switch (e.keyCode) {
