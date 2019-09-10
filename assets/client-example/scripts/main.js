@@ -12,13 +12,13 @@ import { initCanvas, drawDmdShaded } from './lib/canvas';
 const DESIRED_FPS = 50;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
 
-let wpcEmuWebWorkerApi;
 let counter = 0;
 let rafId;
 
 console.log('INIT WPC-EMU-EXAMPLE');
-wpcEmuWebWorkerApi = WpcEmu.WpcEmuWebWorkerApi.initialiseWebworkerAPI(new WebWorker());
-initEmuWithGameName(INITIAL_GAME)
+let wpcEmuWebWorkerApi = WpcEmu.WpcEmuWebWorkerApi.initialiseWebworkerAPI(new WebWorker());
+
+initEmuWithGameName(INITIAL_GAME  )
   .then(() => registerKeyboardListener())
   .catch((error) => console.error);
 
@@ -78,12 +78,12 @@ function canvasMainLoop(emuUiState) {
     console.log('NO_EMU_STATE!');
     return;
   }
-  if (rafId) {
-    console.log('MISSED_DRAW!', rafId);
-    cancelAnimationFrame(rafId);
-  }
 
   if (emuState.asic.dmd.dmdShadedBuffer) {
+    if (rafId) {
+      console.log('MISSED_DRAW!', rafId);
+      cancelAnimationFrame(rafId);
+    }
     rafId = requestAnimationFrame((timestamp) => {
       drawDmdShaded(emuState.asic.dmd.dmdShadedBuffer);
       rafId = 0;
