@@ -17,6 +17,6 @@
     "webpack-cli": "^3.3.7",
     "whatwg-fetch": "^2.0.4",
     "worker-loader": "^2.0.0",
-    "wpc-emu": "^0.31.7"
+    "wpc-emu": "^0.32.0"
   }
 }
