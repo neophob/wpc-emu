@@ -27,10 +27,16 @@ initEmuWithGameName(INITIAL_GAME)
  */
 function initEmuWithGameName(name) {
   const gameEntry = WpcEmu.gamelist.getByName(name);
-  return Promise.all([ initializeEmu(gameEntry), wpcEmuWebWorkerApi.reset() ])
+  return downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06)
+    .then((u06Rom) => {
+      console.log('Successfully loaded ROM', u06Rom.length);
+      return wpcEmuWebWorkerApi.initialiseEmulator({ u06: u06Rom }, gameEntry);
+    })
+    .then((emuVersion) => {
+      console.log('Successfully initialized emulator', emuVersion);
+      wireEmuToUi()
+    })
     .then(resumeEmu)
-    // configure target FPS of the emu
-    .then(() => wpcEmuWebWorkerApi.adjustFramerate(DESIRED_FPS))
     // run initial actions on the emu (enable freeplay, set correct switch positions)
     .then(() => initialiseActions(gameEntry.initialise, wpcEmuWebWorkerApi))
     .catch((error) => {
@@ -39,40 +45,34 @@ function initEmuWithGameName(name) {
 }
 
 /**
- * download rom, initialise emulator and wire it with our ui
+ * connect ui elements with emulator
  */
-function initializeEmu(gameEntry) {
-  return downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06)
-    .then((u06Rom) => {
-      console.log('Successfully loaded ROM', u06Rom.length);
-      return wpcEmuWebWorkerApi.initialiseEmulator({ u06: u06Rom }, gameEntry);
-    })
-    .then((emuVersion) => {
-      console.log('Successfully initialized emulator', emuVersion);
-      window.wpcInterface = {
-        webclient: wpcEmuWebWorkerApi,
-        resetEmu,
-        pauseEmu,
-        resumeEmu,
-        writeMemory,
-      };
-      initCanvas();
+function wireEmuToUi() {
+  window.wpcInterface = {
+    webclient: wpcEmuWebWorkerApi,
+    resetEmu,
+    pauseEmu,
+    resumeEmu,
+    writeMemory,
+  };
+  initCanvas();
 
-      // register dummy audio callback, will print to console
-      wpcEmuWebWorkerApi.registerAudioConsumer((message) => {
-        console.log('AUDIO:', message);
-      });
+  // register dummy audio callback, will print to console
+  wpcEmuWebWorkerApi.registerAudioConsumer((message) => {
+    console.log('AUDIO:', message);
+  });
 
-      // register ui callback, will be updated once worker send new ui data
-      wpcEmuWebWorkerApi.registerUiUpdateConsumer((emuUiState) => canvasMainLoop(emuUiState));
-    });
+  // register ui callback, will be updated once worker send new ui data
+  wpcEmuWebWorkerApi.registerUiUpdateConsumer((emuUiState) => canvasMainLoop(emuUiState));
+
+  // configure target FPS of the emu
+  return wpcEmuWebWorkerApi.adjustFramerate(DESIRED_FPS);
 }
 
 /**
  * main render loop, will be called whenever wpcEmuWebWorkerApi has new data
  */
 function canvasMainLoop(emuUiState) {
-  console.log('emuUiState',emuUiState)
   const { emuState } = emuUiState;
   if (!emuState) {
     console.log('NO_EMU_STATE!');
