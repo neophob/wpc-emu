@@ -3,6 +3,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const S3_BUCKET = 'https://s3-eu-west-1.amazonaws.com/foo-temp/';
 
@@ -21,6 +22,7 @@ module.exports = () => {
         template: 'index.html',
         minify: true
       }),
+      new BundleAnalyzerPlugin(),
     ],
     output: {
       filename: '[name].js',
