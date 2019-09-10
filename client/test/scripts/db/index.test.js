@@ -1,7 +1,7 @@
 'use strict';
 
 import test from 'ava';
-import * as gamelist from '../../../scripts/db/gamelist';
+import * as gamelist from '../../../scripts/db';
 
 test('gamelist, should getAllNames', (t) => {
   const result = gamelist.getAllNames();
