@@ -11,7 +11,7 @@ import { initialiseActions } from './lib/initialise';
 import { loadRam, saveRam, } from './lib/ramState';
 import { initialise as initDmdExport, save as saveFile } from './lib/pin2DmdExport';
 import { AudioOutput } from './lib/sound';
-import * as gamelist from './db/gamelist';
+import * as gamelist from './db';
 import { populateControlUiView, updateUiSwitchState } from './ui/control-ui';
 import * as emuDebugUi from './ui/oblivion-ui';
 
@@ -31,10 +31,6 @@ let missedDraw = 0;
 let rafId;
 
 function initialiseEmu(gameEntry) {
-  window.wpcInterface = {
-    romSelection,
-  };
-
   return document.fonts.load('24pt "Space Mono"')
     .catch((error) => {
       console.error('FONT_LOAD_FAILED', error);
