@@ -12,17 +12,21 @@ import { initCanvas, drawDmdShaded } from './lib/canvas';
 const DESIRED_FPS = 50;
 const INITIAL_GAME = 'WPC-DMD: Hurricane';
 
-let wpcEmuWebWorkerApi;
 let counter = 0;
 let rafId;
 
 console.log('INIT WPC-EMU-EXAMPLE');
-wpcEmuWebWorkerApi = WpcEmu.WpcEmuWebWorkerApi.initialiseWebworkerAPI(new WebWorker());
-initEmuWithGameName(INITIAL_GAME)
+let wpcEmuWebWorkerApi = WpcEmu.WpcEmuWebWorkerApi.initialiseWebworkerAPI(new WebWorker());
+
+initEmuWithGameName(INITIAL_GAME  )
   .then(() => registerKeyboardListener())
   .catch((error) => console.error);
 
-function initializeEmu(gameEntry) {
+/**
+ * Bootstrap
+ */
+function initEmuWithGameName(name) {
+  const gameEntry = WpcEmu.gamelist.getByName(name);
   return downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06)
     .then((u06Rom) => {
       console.log('Successfully loaded ROM', u06Rom.length);
@@ -30,65 +34,85 @@ function initializeEmu(gameEntry) {
     })
     .then((emuVersion) => {
       console.log('Successfully initialized emulator', emuVersion);
-      window.wpcInterface = {
-        webclient: wpcEmuWebWorkerApi,
-        resetEmu,
-        pauseEmu,
-        resumeEmu,
-        writeMemory,
-      };
-      initCanvas();
-
-      wpcEmuWebWorkerApi.registerAudioConsumer((message) => {
-        console.log('AUDIO:', message);
-      });
-
-      wpcEmuWebWorkerApi.registerUiUpdateConsumer((emuUiState) => {
-        const { emuState } = emuUiState;
-        if (!emuState) {
-          console.log('NO_EMU_STATE!');
-          return;
-        }
-        if (rafId) {
-          console.log('MISSED_DRAW!', rafId);
-          cancelAnimationFrame(rafId);
-        }
-
-        if (emuState.asic.dmd.dmdShadedBuffer) {
-          rafId = requestAnimationFrame((timestamp) => {
-            drawDmdShaded(emuState.asic.dmd.dmdShadedBuffer);
-            rafId = 0;
-          });
-        }
-        if ((++counter % 240) === 0) {
-          console.log('wpcEmuWebWorkerApi.getStatistics()',wpcEmuWebWorkerApi.getStatistics());
-        }
-      });
-    });
-}
-
-function initEmuWithGameName(name) {
-  const gameEntry = WpcEmu.gamelist.getByName(name);
-
-  return Promise.all([ initializeEmu(gameEntry), wpcEmuWebWorkerApi.reset() ])
+      return wireEmuToUi()
+    })
     .then(resumeEmu)
-    .then(() => wpcEmuWebWorkerApi.adjustFramerate(DESIRED_FPS))
+    // run initial actions on the emu (enable freeplay, set correct switch positions)
     .then(() => initialiseActions(gameEntry.initialise, wpcEmuWebWorkerApi))
     .catch((error) => {
       console.error('FAILED to load ROM:', error.message);
     });
 }
 
-function resumeEmu() {
-  return wpcEmuWebWorkerApi.resumeEmulator();
+/**
+ * connect ui elements with emulator
+ */
+function wireEmuToUi() {
+  window.wpcInterface = {
+    webclient: wpcEmuWebWorkerApi,
+    resetEmu,
+    pauseEmu,
+    resumeEmu,
+    writeMemory,
+  };
+  initCanvas();
+
+  // register dummy audio callback, will print to console
+  wpcEmuWebWorkerApi.registerAudioConsumer((message) => {
+    console.log('AUDIO:', message);
+  });
+
+  // register ui callback, will be updated once worker send new ui data
+  wpcEmuWebWorkerApi.registerUiUpdateConsumer((emuUiState) => canvasMainLoop(emuUiState));
+
+  // configure target FPS of the emu
+  return wpcEmuWebWorkerApi.adjustFramerate(DESIRED_FPS);
 }
 
+/**
+ * main render loop, will be called whenever wpcEmuWebWorkerApi has new data
+ */
+function canvasMainLoop(emuUiState) {
+  const { emuState } = emuUiState;
+  if (!emuState) {
+    console.log('NO_EMU_STATE!');
+    return;
+  }
+
+  if (emuState.asic.dmd.dmdShadedBuffer) {
+    if (rafId) {
+      console.log('MISSED_DRAW!', rafId);
+      cancelAnimationFrame(rafId);
+    }
+    rafId = requestAnimationFrame((timestamp) => {
+      drawDmdShaded(emuState.asic.dmd.dmdShadedBuffer);
+      rafId = 0;
+    });
+  }
+  if ((++counter % 240) === 0) {
+    console.log('wpcEmuWebWorkerApi.getStatistics()',wpcEmuWebWorkerApi.getStatistics());
+  }
+}
+
+/**
+ * freeze motherfucker!
+ */
 function pauseEmu() {
   cancelAnimationFrame(rafId);
   rafId = undefined;
   return wpcEmuWebWorkerApi.pauseEmulator();
 }
 
+/**
+ * resumes the paused WPC Machine
+ */
+function resumeEmu() {
+  return wpcEmuWebWorkerApi.resumeEmulator();
+}
+
+/**
+ * reboots the WPC Machine
+ */
 function resetEmu() {
   return wpcEmuWebWorkerApi.resetEmulator();
 }
@@ -102,6 +126,9 @@ function writeMemory(offset, value) {
   return wpcEmuWebWorkerApi.writeMemory(offset, value);
 }
 
+/**
+ * register some keyboard shortcuts
+ */
 function registerKeyboardListener() {
   window.addEventListener('keydown', (e) => {
     switch (e.keyCode) {

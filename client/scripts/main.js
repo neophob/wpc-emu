@@ -182,7 +182,7 @@ function initEmuWithGameName(name) {
   const gameEntry = gamelist.getByName(name);
   populateControlUiView(gameEntry, gamelist, name);
 
-  return Promise.all([ initialiseEmu(gameEntry), wpcEmuWebWorkerApi.reset() ])
+  return initialiseEmu(gameEntry)
     .then(resumeEmu)
     .then(() => wpcEmuWebWorkerApi.adjustFramerate(DESIRED_FPS))
     .then(() => initialiseActions(gameEntry.initialise, wpcEmuWebWorkerApi))

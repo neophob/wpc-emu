@@ -4,8 +4,8 @@
   "description": "WPC-EMU example project",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode development",
-    "build:production": "webpack --mode production",
+    "build": "rm -rf ./dist/* && webpack --mode development",
+    "build:production": "rm -rf ./dist/* && webpack --mode production",
     "start:webserver": "http-server ./dist -S -C ../localhost-cert/server.crt -K ../localhost-cert/server.key --cors -p 8081 || echo '\n\nERROR. Did you created and install the local dev certificates? Heres the content:' && cat ../localhost-cert/README.md"
   },
   "author": "",
@@ -14,9 +14,10 @@
     "html-webpack-plugin": "^3.2.0",
     "http-server": "^0.11.1",
     "webpack": "^4.39.3",
+    "webpack-bundle-analyzer": "^3.4.1",
     "webpack-cli": "^3.3.7",
     "whatwg-fetch": "^2.0.4",
     "worker-loader": "^2.0.0",
-    "wpc-emu": "^0.31.7"
+    "wpc-emu": "^0.32.0"
   }
 }

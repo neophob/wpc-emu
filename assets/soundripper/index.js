@@ -49,6 +49,9 @@ if (!process.argv[2]) {
   throw new Error('MISSING MUSIC_SOURCE_DIRECTORY_PATH');
 }
 
+// TODO sort output, support dups
+const knownIds = [];
+let dups = 0;
 searchDirectory(process.argv[2], FILE_EXTENSION, ((file) => {
   const slash = file.split('/');
   const filename = slash[slash.length - 2];
@@ -56,6 +59,12 @@ searchDirectory(process.argv[2], FILE_EXTENSION, ((file) => {
   const id = parseInt(filename.split('-')[0], 10);
   const snd = 'snd' + id;
 
+  if (knownIds[id]) {
+    dups++;
+    return;
+  }
+
+  knownIds[id] = true;
   if (type === 'music') {
     console.log(id + ': { channel: 0, loop: true, sample: \'' + snd + '\' },');
   } else if (type === 'jingle') {
@@ -65,6 +74,7 @@ searchDirectory(process.argv[2], FILE_EXTENSION, ((file) => {
   }
 }));
 
+console.log('detected dups:', dups);
 // yes hacky!
 samples = [];
 
