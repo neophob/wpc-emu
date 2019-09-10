@@ -21,3 +21,4 @@ assets/soundripper/output.*
 .clinic
 docs/rom
 assets/soundripper
+assets/client-example/dist

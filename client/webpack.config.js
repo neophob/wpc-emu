@@ -25,6 +25,11 @@ module.exports = () => {
         template: 'index.html',
         minify: true
       }),
+      new webpack.DefinePlugin({
+        'global.RELEASE_VERSION': JSON.stringify(
+          require('./package.json').version
+        ),
+      }),
       new FaviconsWebpackPlugin(path.resolve('../assets/logo.png')),
       new GenerateSW({
         clientsClaim: true,

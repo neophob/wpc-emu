@@ -1,5 +1,9 @@
 # HISTORY
 
+## 10/9/19
+- added minimal example
+- start working on proper facade for the API
+
 ## 9/9/19
 - fix missing checksum for freeplay setting
 - wpc95: add attract mode sequence number
