@@ -60,21 +60,21 @@ class SoundCategory {
     });
   }
 
-  playId(sampleData = {}) {
-    if (!this.soundEnabled || !sampleData.sample) {
+  //TODO handle DUCK
+  playId(sampleId) {
+      if (!this.soundEnabled || !sampleId) {
       return;
     }
+    const sampleData = this.sample[sampleId] || {};
     console.log('play', sampleData);
-
-    //TODO handle DUCK
 
     const hasDedicatedChannel = Number.isInteger(sampleData.channel);
     if (hasDedicatedChannel) {
       // stop previous track on this channel
       this.audioSpritePlayer.stop(this.activePlayId[sampleData.channel]);
     }
-
-    const playId = this.audioSpritePlayer.play(sampleData.sample);
+//TODO handle undefined
+    const playId = this.audioSpritePlayer.play('snd' + sampleId);
 
     if (hasDedicatedChannel) {
       // add id to queue
