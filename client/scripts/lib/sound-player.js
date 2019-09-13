@@ -66,7 +66,7 @@ class SoundCategory {
       return;
     }
     const sampleData = this.sample[sampleId] || {};
-    console.log('play', sampleData);
+    console.log('play', sampleData, sampleId);
 
     const hasDedicatedChannel = Number.isInteger(sampleData.channel);
     if (hasDedicatedChannel) {
