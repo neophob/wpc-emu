@@ -73,7 +73,8 @@ class SoundCategory {
       // stop previous track on this channel
       this.audioSpritePlayer.stop(this.activePlayId[sampleData.channel]);
     }
-//TODO handle undefined
+
+    //note undefined samples are simply ignored
     const playId = this.audioSpritePlayer.play('snd' + sampleId);
 
     if (hasDedicatedChannel) {
