@@ -1,5 +1,8 @@
 # HISTORY
 
+## 15/9/19
+- shrink client database entry
+
 ## 10/9/19
 - added minimal example
 - start working on proper facade for the API
