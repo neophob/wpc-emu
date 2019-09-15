@@ -14,6 +14,7 @@ const NO_SOUND_AVAILABLE_ON_MOBILE = 'DISABLED ON MOBILE';
 const SOUND_LOADING = 'LOADING...';
 const SOUND_LOADED = 'LOADED';
 const SOUND_LOADING_ERROR = 'ERROR';
+const SOUNDSPRITE_PREFIX = 'snd';
 
 class SoundCategory {
 
@@ -74,8 +75,8 @@ class SoundCategory {
       this.audioSpritePlayer.stop(this.activePlayId[sampleData.channel]);
     }
 
-    //note undefined samples are simply ignored
-    const playId = this.audioSpritePlayer.play('snd' + sampleId);
+    //NOTE undefined samples are simply ignored
+    const playId = this.audioSpritePlayer.play(SOUNDSPRITE_PREFIX + sampleId);
 
     if (hasDedicatedChannel) {
       // add id to queue
