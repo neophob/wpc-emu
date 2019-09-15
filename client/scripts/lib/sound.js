@@ -21,7 +21,6 @@ class Sound {
   constructor(audioData = NO_SOUND) {
     Howler.unload();
 
-    this.sample = audioData.sample;
     this.bong = new Howl({
       volume: 1.0,
       src: BONG_SOUND,
@@ -33,11 +32,7 @@ class Sound {
   callback(message = {}) {
     switch (message.command) {
       case 'PLAYSAMPLE': {
-        const id = message.id;
-        if (!this.sample[id]) {
-          return console.log('SAMPLE ID NOT FOUND', id);
-        }
-        this.player.playId(this.sample[id]);
+        this.player.playId(message.id);
         break;
       }
       case 'MAINVOLUME': {
