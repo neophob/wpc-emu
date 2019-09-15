@@ -14,6 +14,7 @@ const NO_SOUND_AVAILABLE_ON_MOBILE = 'DISABLED ON MOBILE';
 const SOUND_LOADING = 'LOADING...';
 const SOUND_LOADED = 'LOADED';
 const SOUND_LOADING_ERROR = 'ERROR';
+const SOUNDSPRITE_PREFIX = 'snd';
 
 class SoundCategory {
 
@@ -60,13 +61,13 @@ class SoundCategory {
     });
   }
 
-  playId(sampleData = {}) {
-    if (!this.soundEnabled || !sampleData.sample) {
+  //TODO handle DUCK
+  playId(sampleId) {
+      if (!this.soundEnabled || !sampleId) {
       return;
     }
-    console.log('play', sampleData);
-
-    //TODO handle DUCK
+    const sampleData = this.sample[sampleId] || {};
+    console.log('play', sampleData, sampleId);
 
     const hasDedicatedChannel = Number.isInteger(sampleData.channel);
     if (hasDedicatedChannel) {
@@ -74,7 +75,8 @@ class SoundCategory {
       this.audioSpritePlayer.stop(this.activePlayId[sampleData.channel]);
     }
 
-    const playId = this.audioSpritePlayer.play(sampleData.sample);
+    //NOTE undefined samples are simply ignored
+    const playId = this.audioSpritePlayer.play(SOUNDSPRITE_PREFIX + sampleId);
 
     if (hasDedicatedChannel) {
       // add id to queue

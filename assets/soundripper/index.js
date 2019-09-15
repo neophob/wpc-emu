@@ -57,7 +57,6 @@ searchDirectory(process.argv[2], FILE_EXTENSION, ((file) => {
   const filename = slash[slash.length - 2];
   const type = slash[slash.length - 3];
   const id = parseInt(filename.split('-')[0], 10);
-  const snd = 'snd' + id;
 
   if (knownIds[id]) {
     dups++;
@@ -66,11 +65,9 @@ searchDirectory(process.argv[2], FILE_EXTENSION, ((file) => {
 
   knownIds[id] = true;
   if (type === 'music') {
-    console.log(id + ': { channel: 0, loop: true, sample: \'' + snd + '\' },');
+    console.log(id + ': { channel: 0, loop: true },');
   } else if (type === 'jingle') {
-    console.log(id + ': { channel: 1, sample: \'' + snd + '\' },');
-  } else {
-    console.log(id + ': { sample: \'' + snd + '\' },');
+    console.log(id + ': { channel: 1 },');
   }
 }));
 
