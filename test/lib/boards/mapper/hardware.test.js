@@ -158,3 +158,21 @@ test('HardwareMapper, should get exception for fliptronics address', (t) => {
   const result = HardwareMapper.getAddress(MEMORY_ADDR_FLIPTRONICS_FLIPPER_PORT_A);
   t.deepEqual(result, expectedResult);
 });
+
+test('HardwareMapper, should get display address, 0x3FEB', (t) => {
+  const expectedResult = {
+    offset: 0x3FEB,
+    subsystem: 'display',
+  };
+  const result = HardwareMapper.getAddress(0x3FEB);
+  t.deepEqual(result, expectedResult);
+});
+
+test('HardwareMapper, should get display address, 0x3FEF', (t) => {
+  const expectedResult = {
+    offset: 0x3FEF,
+    subsystem: 'display',
+  };
+  const result = HardwareMapper.getAddress(0x3FEF);
+  t.deepEqual(result, expectedResult);
+});
