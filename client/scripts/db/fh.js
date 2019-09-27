@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'WPC-Alphanumberic: Funhouse',
+  name: 'WPC-ALPHA: Funhouse',
   version: 'L-9',
   rom: {
     u06: 'funh_l9.rom',
