@@ -14,6 +14,7 @@ import demolitionMan from './dm';
 import demolitionManFreewpc from './dm.freewpc';
 import dirtyHarry from './dh';
 import drWho from './dw';
+import funhouse from './fh';
 import fishTales from './fishtales';
 import gilligansIsland from './gilligan';
 import highSpeed2TheGetaway from './highspeed2';
@@ -80,6 +81,7 @@ const wpcGames = [
   dirtyHarry,
   drWho,
   fishTales,
+  funhouse,
   gilligansIsland,
   highSpeed2TheGetaway,
   hotShotBasketball,
