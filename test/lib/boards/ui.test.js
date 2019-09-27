@@ -16,7 +16,7 @@ test.beforeEach((t) => {
   };
 
   const dummyState = {
-    dmd: {
+    display: {
       dmdShadedBuffer: [],
       videoRam: [],
     },
@@ -29,7 +29,7 @@ test.beforeEach((t) => {
   };
 
   const dummyStateString = {
-    dmd: {
+    display: {
       dmdShadedBuffer: [],
       videoRam: [],
     },
