@@ -29,6 +29,7 @@ test('should get ui data', (t) => {
   t.is(result.cpuState.firqCount, 0);
   t.is(result.cpuState.nmiCount, 0);
   t.is(result.protectedMemoryWriteAttempts, 0);
+  t.is(result.version, 4);
 });
 
 test('should start cpu board', (t) => {
@@ -36,6 +37,20 @@ test('should start cpu board', (t) => {
   cpuBoard.start();
   const result = cpuBoard.getState();
   t.is(result.cpuState.tickCount, 0);
+});
+
+test('should ignore empty setState', (t) => {
+  const cpuBoard = t.context;
+  cpuBoard.start();
+  const result = cpuBoard.setState();
+  t.is(result, false);
+});
+
+test('should ignore invalid version', (t) => {
+  const cpuBoard = t.context;
+  cpuBoard.start();
+  const result = cpuBoard.setState({ version: 1 });
+  t.is(result, false);
 });
 
 test('should change cabinet input', (t) => {

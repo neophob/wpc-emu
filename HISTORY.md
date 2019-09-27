@@ -1,5 +1,8 @@
 # HISTORY
 
+## 27/9/19
+- fix invalid load state
+
 ## 15/9/19
 - shrink client database entry
 

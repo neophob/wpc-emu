@@ -55,7 +55,7 @@ test('UI: should filter out invalid memoryPosition entries', (t) => {
 
 test('UI: should fetch data from ram', (t) => {
   const ui = t.context.ui;
-  const result = ui.getChangedState(t.context.dummyState);
+  const result = ui.getChangedAsicState(t.context.dummyState);
 
   t.is(result.memoryPosition.length, 4);
   t.is(result.memoryPosition[0].value, '');
@@ -66,7 +66,7 @@ test('UI: should fetch data from ram', (t) => {
 
 test('UI: should fetch data from ram (string)', (t) => {
   const ui = t.context.ui;
-  const result = ui.getChangedState(t.context.dummyStateString);
+  const result = ui.getChangedAsicState(t.context.dummyStateString);
   t.is(result.memoryPosition[0].value, 'AAA');
 });
 
@@ -74,7 +74,7 @@ test('UI: should cap very long string', (t) => {
   const ui = t.context.ui;
   const data = t.context.dummyStateString;
   data.ram = new Uint8Array(500).fill(65);
-  const result = ui.getChangedState(data);
+  const result = ui.getChangedAsicState(data);
   console.log(result.memoryPosition[0]);
   t.is(result.memoryPosition[0].value.length, 32);
 });
