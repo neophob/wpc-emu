@@ -81,7 +81,7 @@ module.exports = {
     ],
     initialAction: [
       {
-        delayMs: 1000,
+        delayMs: 1500,
         source: 'cabinetInput',
         value: 16
       },
