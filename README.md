@@ -949,8 +949,8 @@ Ripped from Wikipedia, entries with a 🚀 are included in the online version
 
 ## WPC (Alphanumeric)
 - FunHouse 🚀 - September 1990
-- Harley-Davidson - February 1991
-- The Machine: Bride of Pin·Bot - February 1991
+- Harley-Davidson 🚀 - February 1991
+- The Machine: Bride of Pin·Bot 🚀 - February 1991
 
 Some Dr. Dude machines were also made using this WPC generation, although most were made using the later System 11 board.
 

@@ -17,6 +17,7 @@ import drWho from './dw';
 import funhouse from './fh';
 import fishTales from './fishtales';
 import gilligansIsland from './gilligan';
+import harly from './harly';
 import highSpeed2TheGetaway from './highspeed2';
 import hotShotBasketball from './hotshot';
 import hurricane from './hurricane';
@@ -40,6 +41,7 @@ import slugFest from './sf';
 import starTrekTheNextGeneration from './sttng';
 import strikeMaster from './sm';
 import talesOfTheArabianNights from './totan';
+import theMachineBrideOfPinbot from './tmbop';
 import terminator2Freewpc from './t2.freewpc';
 import terminator2 from './t2';
 import ticketTacToe from './ttt';
@@ -83,6 +85,7 @@ const wpcGames = [
   fishTales,
   funhouse,
   gilligansIsland,
+  harly,
   highSpeed2TheGetaway,
   hotShotBasketball,
   hurricane,
@@ -106,6 +109,7 @@ const wpcGames = [
   starTrekTheNextGeneration,
   strikeMaster,
   talesOfTheArabianNights,
+  theMachineBrideOfPinbot,
   terminator2Freewpc,
   terminator2,
   theatreOfMagic,
