@@ -1,5 +1,9 @@
 # HISTORY
 
+## 6/10/19
+- support alphanumeric display
+- support new games: FunHouse, Harley-Davidson and The Machine: Bride of Pin·Bot
+
 ## 27/9/19
 - fix invalid load state
 
