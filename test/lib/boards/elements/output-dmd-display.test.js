@@ -58,6 +58,18 @@ test('outputDmdDisplay, writeVideoRam and readVideoRam', (t) => {
   t.is(result, 33);
 });
 
+test('outputDmdDisplay, should switch to next active page', (t) => {
+  const outputDmdDisplay = t.context.outputDmdDisplay;  
+  outputDmdDisplay.setNextActivePage(1);
+  for (let i = 0; i < 0x20; i++) {
+    outputDmdDisplay.executeCycle(10000000);
+  }
+
+  const result = outputDmdDisplay.getState();
+  t.is(result.activepage, 1);
+  t.is(result.nextActivePage, undefined);
+});
+
 test('outputDmdDisplay, render', (t) => {
   const outputDmdDisplay = t.context.outputDmdDisplay;   
   for (let i = 0; i < 16; i++) {
