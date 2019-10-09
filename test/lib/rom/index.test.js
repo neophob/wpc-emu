@@ -72,6 +72,19 @@ test('romParser should parse wpcFliptronics board', (t) => {
     .then((result) => {
       t.is(result.preDcsSoundboard, true);
       t.is(result.hasSecurityPic, false);
+      t.is(result.hasAlphanumericDisplay, false);
+    });
+});
+
+test('romParser should parse wpcAlphanumeric board', (t) => {
+  const romData = buildRomData();
+  const metaData = {
+    features: [ 'wpcAlphanumeric' ],
+  }
+  return romParser
+    .parse(romData, metaData)
+    .then((result) => {
+      t.is(result.hasAlphanumericDisplay, true);
     });
 });
 
