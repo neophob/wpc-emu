@@ -62,6 +62,10 @@ module.exports = {
     { id: 75, name: 'SHOOTER LANE' },
 
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-hd.jpg',
+  },
   skipWpcRomCheck: true,
   features: [
     'wpcAlphanumeric',

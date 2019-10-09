@@ -4,6 +4,8 @@
 - support alphanumeric display
 - support new games: FunHouse, Harley-Davidson and The Machine: Bride of Pin·Bot
 
+![09.10.19](assets/09.10.19.png?raw=true)
+
 ## 27/9/19
 - fix invalid load state
 
