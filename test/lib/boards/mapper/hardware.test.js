@@ -23,7 +23,7 @@ test('HardwareMapper, should get address, -1', (t) => {
 test('HardwareMapper, should get address, 0x3200 (DMD PAGE)', (t) => {
   const expectedResult = {
     offset: 0x3200,
-    subsystem: 'dmd',
+    subsystem: 'display',
   };
   const result = HardwareMapper.getAddress(0x3200);
   t.deepEqual(result, expectedResult);
@@ -32,7 +32,7 @@ test('HardwareMapper, should get address, 0x3200 (DMD PAGE)', (t) => {
 test('HardwareMapper, should get address, 0x3BFF (DMD PAGE)', (t) => {
   const expectedResult = {
     offset: 0x3BFF,
-    subsystem: 'dmd',
+    subsystem: 'display',
   };
   const result = HardwareMapper.getAddress(0x3BFF);
   t.deepEqual(result, expectedResult);
@@ -41,7 +41,7 @@ test('HardwareMapper, should get address, 0x3BFF (DMD PAGE)', (t) => {
 test('HardwareMapper, should get address, 0x3800 (DMD PAGE 1)', (t) => {
   const expectedResult = {
     offset: 0x3800,
-    subsystem: 'dmd',
+    subsystem: 'display',
   };
   const result = HardwareMapper.getAddress(0x3800);
   t.deepEqual(result, expectedResult);
@@ -50,7 +50,7 @@ test('HardwareMapper, should get address, 0x3800 (DMD PAGE 1)', (t) => {
 test('HardwareMapper, should get address, 0x3A00 (DMD PAGE 2)', (t) => {
   const expectedResult = {
     offset: 0x3A00,
-    subsystem: 'dmd',
+    subsystem: 'display',
   };
   const result = HardwareMapper.getAddress(0x3A00);
   t.deepEqual(result, expectedResult);
@@ -71,7 +71,7 @@ test('HardwareMapper, should fail to get address, 0x2000', (t) => {
 test('HardwareMapper, should get address, 0x3800', (t) => {
   const expectedResult = {
     offset: 0x3800,
-    subsystem: 'dmd',
+    subsystem: 'display',
   };
   const result = HardwareMapper.getAddress(0x3800);
   t.deepEqual(result, expectedResult);
@@ -80,7 +80,7 @@ test('HardwareMapper, should get address, 0x3800', (t) => {
 test('HardwareMapper, should get address, 0x3c00', (t) => {
   const expectedResult = {
     offset: 0x3C00,
-    subsystem: 'dmd',
+    subsystem: 'display',
   };
   const result = HardwareMapper.getAddress(0x3C00);
   t.deepEqual(result, expectedResult);
@@ -89,7 +89,7 @@ test('HardwareMapper, should get address, 0x3c00', (t) => {
 test('HardwareMapper, should get address, 0x3E66 - WPC_SERIAL_CONTROL_PORT **FIXME**', (t) => {
   const expectedResult = {
     offset: 0x3E66,
-    subsystem: 'dmd',
+    subsystem: 'display',
   };
   const result = HardwareMapper.getAddress(0x3E66);
   t.deepEqual(result, expectedResult);
@@ -156,5 +156,23 @@ test('HardwareMapper, should get exception for fliptronics address', (t) => {
     subsystem: 'wpcio',
   };
   const result = HardwareMapper.getAddress(MEMORY_ADDR_FLIPTRONICS_FLIPPER_PORT_A);
+  t.deepEqual(result, expectedResult);
+});
+
+test('HardwareMapper, should get display address, 0x3FEB', (t) => {
+  const expectedResult = {
+    offset: 0x3FEB,
+    subsystem: 'display',
+  };
+  const result = HardwareMapper.getAddress(0x3FEB);
+  t.deepEqual(result, expectedResult);
+});
+
+test('HardwareMapper, should get display address, 0x3FEF', (t) => {
+  const expectedResult = {
+    offset: 0x3FEF,
+    subsystem: 'display',
+  };
+  const result = HardwareMapper.getAddress(0x3FEF);
   t.deepEqual(result, expectedResult);
 });
