@@ -68,6 +68,10 @@ module.exports = {
     { id: 77, name: 'UPPER RIGHT JET BUMPER' },
 
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-fh.jpg',
+  },
   skipWpcRomCheck: true,
   features: [
     'wpcAlphanumeric',
@@ -77,7 +81,7 @@ module.exports = {
       //OPTO 51, 55
       22,
       51, 55,
-      63, 72, 74, 
+      63, 72, 74,
     ],
     initialAction: [
       {

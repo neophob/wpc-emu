@@ -63,6 +63,10 @@ module.exports = {
     { id: 77, name: 'RIGHT RAMP ENTER' },
 
   ],
+  playfield: {
+    //size must be 200x400, lamp positions according to image
+    image: 'playfield-bop.jpg',
+  },
   skipWpcRomCheck: true,
   features: [
     'wpcAlphanumeric',
@@ -71,7 +75,7 @@ module.exports = {
     closedSwitches: [
       //OPTO 23
       22, 23,
-      25, 26, 27, 
+      25, 26, 27,
     ],
     initialAction: [
       {
