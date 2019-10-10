@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
 import crypto from 'crypto';
+import test from 'ava';
 import OutputAlphaDisplay from '../../../../lib/boards/elements/output-alpha-display';
 
 test.beforeEach((t) => {
@@ -13,14 +13,14 @@ test('outputAlphaDisplay, setSegmentColumn', (t) => {
   outputAlphaDisplay.setSegmentColumn(0xFF);
   t.is(outputAlphaDisplay.segmentColumn, 0xF);
 });
-  
+
 test('outputAlphaDisplay, getState', (t) => {
   const outputAlphaDisplay = t.context.outputAlphaDisplay;
   const result = outputAlphaDisplay.getState();
   t.is(result.scanline, 0);
   t.deepEqual(result.dmdShadedBuffer, new Uint8Array(0x200 * 8).fill(0));
 });
-  
+
 test('outputAlphaDisplay, setState', (t) => {
   const outputAlphaDisplay = t.context.outputAlphaDisplay;
   outputAlphaDisplay.setState({ scanline: 5 });
@@ -35,7 +35,7 @@ test('outputAlphaDisplay, setRow1 low', (t) => {
   t.deepEqual(result[0], 0x00FF);
   t.deepEqual(result[1], 0x0000);
 });
-  
+
 test('outputAlphaDisplay, setRow1 high', (t) => {
   const outputAlphaDisplay = t.context.outputAlphaDisplay;
   outputAlphaDisplay.setRow1(true, 0xFFFF);
@@ -61,7 +61,7 @@ test('outputAlphaDisplay, setRow2 high', (t) => {
 });
 
 test('outputAlphaDisplay, render', (t) => {
-  const outputAlphaDisplay = t.context.outputAlphaDisplay;   
+  const outputAlphaDisplay = t.context.outputAlphaDisplay;
   for (let i = 0; i < 16; i++) {
     outputAlphaDisplay.setSegmentColumn(i);
     outputAlphaDisplay.setRow1(true, 0xFFFF);

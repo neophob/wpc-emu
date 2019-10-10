@@ -21,7 +21,7 @@ function initCanvas() {
 
 /**
  * renders 128 x 32 DMD to canvas
- * @param {uint8array} dmd data
+ * @param {uint8array} data data
  */
 function drawDmdShaded(data) {
   canvasContext.fillStyle = 'black';
