@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
 import crypto from 'crypto';
+import test from 'ava';
 import OutputDmdDisplay from '../../../../lib/boards/elements/output-dmd-display';
 
 test.beforeEach((t) => {
@@ -59,7 +59,7 @@ test('outputDmdDisplay, writeVideoRam and readVideoRam', (t) => {
 });
 
 test('outputDmdDisplay, should switch to next active page', (t) => {
-  const outputDmdDisplay = t.context.outputDmdDisplay;  
+  const outputDmdDisplay = t.context.outputDmdDisplay;
   outputDmdDisplay.setNextActivePage(1);
   for (let i = 0; i < 0x20; i++) {
     outputDmdDisplay.executeCycle(10000000);
@@ -71,7 +71,7 @@ test('outputDmdDisplay, should switch to next active page', (t) => {
 });
 
 test('outputDmdDisplay, render', (t) => {
-  const outputDmdDisplay = t.context.outputDmdDisplay;   
+  const outputDmdDisplay = t.context.outputDmdDisplay;
   for (let i = 0; i < 16; i++) {
     for (let j = 0; j < 222; j++) {
       outputDmdDisplay.writeVideoRam(i, j, 0xAA);
