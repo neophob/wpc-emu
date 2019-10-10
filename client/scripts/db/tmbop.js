@@ -91,5 +91,8 @@ module.exports = {
     knownValues: [
     ]
   },
+  testErrors: [
+    'HEAD MOTOR AND/OR SWITCH ERROR',
+  ],
 };
 
