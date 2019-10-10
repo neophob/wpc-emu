@@ -496,7 +496,7 @@ class DrawLib {
 
     const gridsizeX = this.theme.GRID_STEP_X * 0.75;
     const gridsizeY = this.theme.GRID_STEP_Y * 0.75;
-//console.log(data)
+
     data.forEach((lamp, index) => {
       const i = startX + (index % 8) * gridsizeX;
       const j = startY + parseInt(index / 8, 10) * gridsizeY;

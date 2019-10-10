@@ -248,8 +248,8 @@ module.exports = {
       { offset: 0x1D5C, name: 'GAME_CREDITS_HALF', description: '0: no half credits', type: 'uint8' },
     ],
   }
-    //TODO
-    //attract mode screen
+  //TODO
+  //attract mode screen
 };
 
 /*
