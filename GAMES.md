@@ -21,7 +21,7 @@
 | WPC-95: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-ALPHA: Funhouse | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-ALPHA: Harley Davidson | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-ALPHA: The Machine: Bride of Pin·bot | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| WPC-ALPHA: The Machine: Bride of Pin·bot | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ (1) |
 | WPC-DCS: Addams Family Values (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-DCS: Demolition Man | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (39) | ✅ |
 | WPC-DCS: Demolition Man (FreeWPC) | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
@@ -62,5 +62,5 @@
 | WPC-S: WHO Dunnit | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: World Cup Soccer | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| **Total** | 151 (36%) | 60 | 50 | 11 | 10 | 7 | 13 | 15 |
+| **Total** | 151 (36%) | 60 | 50 | 11 | 10 | 7 | 13 | 16 |
 
