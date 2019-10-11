@@ -537,7 +537,7 @@ for (let offset = 0x70; offset < 0x80; offset++) {
   },
 ].forEach((testData, index) => {
   const hexValue = '0x' + testData.offset.toString(16).toUpperCase();
-  const initialValue = testData.initialValue !== undefined ? (' initialValue:' + testData.initialValue) : '';
+  const initialValue = Number.isInteger(testData.initialValue) ? (' initialValue:' + testData.initialValue) : '';
   const comment = testData.comment ? ' ' + testData.comment + ',' : '';
   const description = testData.register + ': ' + hexValue + comment + initialValue;
 
@@ -546,7 +546,7 @@ for (let offset = 0x70; offset < 0x80; offset++) {
     t.context.readMemoryAddress = [ testData.offset ];
     cpu.set('flags', 0);
     cpu.regB = testData.initialRegB || 0;
-    cpu[testData.register] = testData.initialValue !== undefined ? testData.initialValue : 10;
+    cpu[testData.register] = Number.isInteger(testData.initialValue) ? testData.initialValue : 10;
     cpu.regPC = 0;
     const result = cpu.PostByte();
     t.is(result, testData.expectedReturn);
