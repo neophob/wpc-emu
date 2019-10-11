@@ -16,9 +16,9 @@ let counter = 0;
 let rafId;
 
 console.log('INIT WPC-EMU-EXAMPLE');
-let wpcEmuWebWorkerApi = WpcEmu.WpcEmuWebWorkerApi.initialiseWebworkerAPI(new WebWorker());
+const wpcEmuWebWorkerApi = WpcEmu.WpcEmuWebWorkerApi.initialiseWebworkerAPI(new WebWorker());
 
-initEmuWithGameName(INITIAL_GAME  )
+initEmuWithGameName(INITIAL_GAME)
   .then(() => registerKeyboardListener())
   .catch((error) => console.error);
 
@@ -74,7 +74,8 @@ function wireEmuToUi() {
 
 /**
  * main render loop, will be called whenever wpcEmuWebWorkerApi has new data
- * @returns {undefined}
+ * @param {Object} emuUiState the new state
+ * @returns {undefined} nada
  */
 function canvasMainLoop(emuUiState) {
   const { emuState } = emuUiState;
