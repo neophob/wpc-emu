@@ -1,26 +1,25 @@
 'use strict';
 
 // Run using "afl-fuzz -i fuzz/in/ -o fuzz/out/ -n -t 500 -- node fuzz.js"
-// TODO: https://github.com/connor4312/js-fuzz
+// too slow!
+
+// Build mutation of example input file:
+// radamsa -n 1000 -o fuzz/out/fuzz-%n -v fuzz/in/state-hurricane
 
 const fs = require('fs');
 const debug = require('debug')('wpcemu:index');
 const Emulator = require('./lib/emulator');
 
 const romGamePath = 'rom/HURCNL_2.ROM';
-const stateFileName = process.argv[2] || 'fuzz/in/state-hurricane';
+const testCaseNr = process.argv[2];
 
-if (!stateFileName) {
-  console.error('Parameter [STATE-FILE]');
-  throw new Error('MISSING_STATE-FILE');
-}
+let startTestCaseNr = 0;
+let endTestCaseNr = 10000;
 
-const stateFile = '';
-try {
-  stateFile = JSON.parse(fs.readFileSync(stateFileName));
-} catch(error) {
-  console.log('INVALID_JSON', error.message);
-  return 0;
+if (testCaseNr) {
+  const nr = parseInt(testCaseNr, 10);
+  startTestCaseNr = nr;
+  endTestCaseNr = nr + 1;
 }
 
 function loadFile(fileName) {
@@ -33,6 +32,14 @@ function loadFile(fileName) {
       resolve(new Uint8Array(data));
     });
   });
+}
+
+function loadState(number) {
+  try {
+    return JSON.parse(fs.readFileSync('fuzz/out/fuzz-' + number));
+  } catch(error) {
+    //console.log('INVALID_JSON', error.message);
+  }
 }
 
 loadFile(romGamePath)
@@ -50,9 +57,22 @@ loadFile(romGamePath)
   .then((wpcSystem) => {
     debug('WPC System initialised');
     wpcSystem.start();
-    wpcSystem.setState(stateFile);
     wpcSystem.executeCycle(34482, 16);
-    wpcSystem.executeCycle(34482, 16);
+
+    for (let i = startTestCaseNr; i < endTestCaseNr; i++) {
+      console.log('LOAD_STATE', i);
+      const state = loadState(i);
+      if (state) {
+        try {
+          wpcSystem.setState(state);
+          wpcSystem.executeCycle(64, 16);
+          console.log(' > STATE_LOADED', i);
+        } catch(error) {
+          console.log(' > STATE_ERR_' + i, error.message);
+          console.log(error)
+        }
+      }
+    }
     //const emuState = wpcSystem.getState();
     //fs.writeFileSync('state-hurricane', Buffer.from(JSON.stringify(emuState)));
   })
