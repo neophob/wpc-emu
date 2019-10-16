@@ -14,7 +14,7 @@ const romGamePath = 'rom/HURCNL_2.ROM';
 const testCaseNr = process.argv[2];
 
 let startTestCaseNr = 0;
-let endTestCaseNr = 10000;
+let endTestCaseNr = 50000;
 
 if (testCaseNr) {
   const nr = parseInt(testCaseNr, 10);
@@ -68,8 +68,8 @@ loadFile(romGamePath)
           wpcSystem.executeCycle(64, 16);
           console.log(' > STATE_LOADED', i);
         } catch(error) {
-          console.log(' > STATE_ERR_' + i, error.message);
-          console.log(error)
+          console.error(' > STATE_ERR_' + i, error.message);
+          console.error(error)
         }
       }
     }
@@ -77,6 +77,6 @@ loadFile(romGamePath)
     //fs.writeFileSync('state-hurricane', Buffer.from(JSON.stringify(emuState)));
   })
   .catch((error) => {
-    console.log('EXCEPTION!', error.message);
-    console.log(error.stack);
+    console.error('EXCEPTION!', error.message);
+    console.error(error);
   });
