@@ -35,7 +35,7 @@ loadFile(romGamePath)
       u06: u06Rom,
     };
     const metaData = {
-      features: ['wpcDmd'], //'securityPic', 'wpc95', 'wpcFliptronics', 'wpcDmd', 'wpcSecure'
+      features: ['wpcDmd'], //'securityPic', 'wpc95', 'wpcFliptronics', 'wpcDmd', 'wpcSecure', 'wpcAlphanumeric'
       fileName: romGamePath,
       skipWpcRomCheck: true,
     };
