@@ -22,3 +22,4 @@ assets/soundripper/output.*
 docs/rom
 assets/soundripper
 assets/client-example/dist
+fuzz-errors.txt
