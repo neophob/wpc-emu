@@ -21,6 +21,12 @@ test('outputAlphaDisplay, getState', (t) => {
   t.deepEqual(result.dmdShadedBuffer, new Uint8Array(0x200 * 8).fill(0));
 });
 
+test('outputAlphaDisplay, empty setState', (t) => {
+  const outputAlphaDisplay = t.context.outputAlphaDisplay;
+  const result = outputAlphaDisplay.setState();
+  t.is(result, false);
+});
+
 test('outputAlphaDisplay, setState', (t) => {
   const outputAlphaDisplay = t.context.outputAlphaDisplay;
   outputAlphaDisplay.setState({ scanline: 5 });

@@ -16,14 +16,16 @@ let counter = 0;
 let rafId;
 
 console.log('INIT WPC-EMU-EXAMPLE');
-let wpcEmuWebWorkerApi = WpcEmu.WpcEmuWebWorkerApi.initialiseWebworkerAPI(new WebWorker());
+const wpcEmuWebWorkerApi = WpcEmu.WpcEmuWebWorkerApi.initialiseWebworkerAPI(new WebWorker());
 
-initEmuWithGameName(INITIAL_GAME  )
+initEmuWithGameName(INITIAL_GAME)
   .then(() => registerKeyboardListener())
   .catch((error) => console.error);
 
 /**
  * Bootstrap
+ * @param {*} name of game db entry
+ * @returns {Promise} which will be resolved once the action is initialized
  */
 function initEmuWithGameName(name) {
   const gameEntry = WpcEmu.gamelist.getByName(name);
@@ -46,6 +48,7 @@ function initEmuWithGameName(name) {
 
 /**
  * connect ui elements with emulator
+ * @returns {Promise} which is resolved when message is sent
  */
 function wireEmuToUi() {
   window.wpcInterface = {
@@ -71,6 +74,8 @@ function wireEmuToUi() {
 
 /**
  * main render loop, will be called whenever wpcEmuWebWorkerApi has new data
+ * @param {Object} emuUiState the new state
+ * @returns {undefined} nada
  */
 function canvasMainLoop(emuUiState) {
   const { emuState } = emuUiState;
@@ -96,6 +101,7 @@ function canvasMainLoop(emuUiState) {
 
 /**
  * freeze motherfucker!
+ * @returns {Promise} which is resolved when message is sent
  */
 function pauseEmu() {
   cancelAnimationFrame(rafId);
@@ -105,6 +111,7 @@ function pauseEmu() {
 
 /**
  * resumes the paused WPC Machine
+ * @returns {Promise} which is resolved when message is sent
  */
 function resumeEmu() {
   return wpcEmuWebWorkerApi.resumeEmulator();
@@ -112,6 +119,7 @@ function resumeEmu() {
 
 /**
  * reboots the WPC Machine
+ * @returns {Promise} which is resolved when message is sent
  */
 function resetEmu() {
   return wpcEmuWebWorkerApi.resetEmulator();
@@ -121,6 +129,7 @@ function resetEmu() {
  * Write directly to emulator memory
  * @param {Number} offset where to write
  * @param {Number|String} value String or uint8 value to write
+ * @returns {Promise} which is resolved when message is sent
  */
 function writeMemory(offset, value) {
   return wpcEmuWebWorkerApi.writeMemory(offset, value);
@@ -128,6 +137,7 @@ function writeMemory(offset, value) {
 
 /**
  * register some keyboard shortcuts
+ * @returns {undefined} nada
  */
 function registerKeyboardListener() {
   window.addEventListener('keydown', (e) => {

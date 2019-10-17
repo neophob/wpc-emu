@@ -63,7 +63,7 @@ class SoundCategory {
 
   //TODO handle DUCK
   playId(sampleId) {
-      if (!this.soundEnabled || !sampleId) {
+    if (!this.soundEnabled || !sampleId) {
       return;
     }
     const sampleData = this.sample[sampleId] || {};

@@ -1,0 +1,12 @@
+{
+  "name": "fuzzer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gamestate.js",
+  "scripts": {
+    "gamestate.buildinput": "radamsa -n 1000 -o ../../fuzz/out/fuzz-%n -v ./state-hurricane",
+    "gamestate.fuzz": "node gamestate.js 2> fuzz-errors.txt"
+  },
+  "author": "",
+  "license": "ISC"
+}

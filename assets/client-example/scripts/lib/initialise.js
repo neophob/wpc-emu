@@ -28,16 +28,18 @@ function initialiseActions(initObject, webclient) {
         .then(() => {
           const source = initialAction.source;
           switch (source) {
-            case 'cabinetInput':
+            case 'cabinetInput': {
               const keyValue = initialAction.value;
               console.log('INIT::action - cabinet key', keyValue);
               return webclient.setCabinetInput(keyValue);
+            }
 
-            case 'writeMemory':
+            case 'writeMemory': {
               const offset = initialAction.offset;
               const value = initialAction.value;
               console.log('INIT::action - writeMemory', offset, value);
               return wpcInterface.writeMemory(offset, value);
+            }
 
             default:
               console.warn('UNKNOWN_SOURCE', source);

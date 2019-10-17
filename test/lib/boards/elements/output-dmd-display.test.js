@@ -83,3 +83,9 @@ test('outputDmdDisplay, render', (t) => {
   const dmdHash = crypto.createHash('sha1').update(result.dmdShadedBuffer).digest('hex');
   t.is(dmdHash, '1ceaf73df40e531df3bfb26b4fb7cd95fb7bff1d');
 });
+
+test('outputDmdDisplay, empty setState', (t) => {
+  const outputDmdDisplay = t.context.outputDmdDisplay;
+  const result = outputDmdDisplay.setState();
+  t.is(result, false);
+});
