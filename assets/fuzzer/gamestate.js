@@ -13,7 +13,7 @@ TODO:
 */
 
 const fs = require('fs');
-const debug = require('debug')('wpcemu:index');
+const debug = require('debug')('wpcemu:fuzzer');
 const Emulator = require('../../lib/emulator');
 
 const romGamePath = '../../rom/HURCNL_2.ROM';
@@ -63,7 +63,7 @@ loadFile(romGamePath)
     return Emulator.initVMwithRom(romData, metaData);
   })
   .then((wpcSystem) => {
-    debug('WPC System initialised');
+    debug('WPC System initialized');
     wpcSystem.start();
     wpcSystem.executeCycle(34482, 16);
 
