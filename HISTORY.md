@@ -1,5 +1,8 @@
 # HISTORY
 
+## 17/10/19
+- add sanity checks after a gamestate fuzzing test
+
 ## 6/10/19
 - support alphanumeric display
 - support new games: FunHouse, Harley-Davidson and The Machine: Bride of Pin·Bot
