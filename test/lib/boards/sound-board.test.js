@@ -124,7 +124,7 @@ test('DCS: ignore first 0 byte after alot of sound board resets', (t) => {
   });
 });
 
-test('set and get state', (t) => {
+test('DCS: set and get state', (t) => {
   const soundBoard = t.context.instanceDcs;
   const state = {
     volume: 44,
@@ -137,4 +137,10 @@ test('set and get state', (t) => {
   soundBoard.setState(state);
   const actualState = soundBoard.getState();
   t.deepEqual(actualState, state);
+});
+
+test('DCS: empty setState', (t) => {
+  const soundBoard = t.context.instanceDcs;
+  const result = soundBoard.setState();
+  t.is(result, false);
 });

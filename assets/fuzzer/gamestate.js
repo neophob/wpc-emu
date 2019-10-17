@@ -9,7 +9,6 @@ Step 3: Build fuzzed state files: npm run gamestate.buildinput
 Step 4: Run fuzzer: npm run gamestate.fuzz
 
 TODO:
-- automate initial state ripper
 - shuffle features (process.env?)
 */
 
@@ -20,8 +19,10 @@ const Emulator = require('../../lib/emulator');
 const romGamePath = '../../rom/HURCNL_2.ROM';
 const testCaseNr = process.argv[2];
 
+const INITIAL_DUMP = false;
+
 let startTestCaseNr = 0;
-let endTestCaseNr = 50000;
+let endTestCaseNr = 5000;
 
 if (testCaseNr) {
   const nr = parseInt(testCaseNr, 10);
@@ -66,6 +67,12 @@ loadFile(romGamePath)
     wpcSystem.start();
     wpcSystem.executeCycle(34482, 16);
 
+    if (INITIAL_DUMP) {
+      const emuState = wpcSystem.getState();
+      fs.writeFileSync('state-hurricane', Buffer.from(JSON.stringify(emuState)));
+      return;
+    }
+
     for (let i = startTestCaseNr; i < endTestCaseNr; i++) {
       console.log('LOAD_STATE', i);
       const state = loadState(i);
@@ -80,9 +87,6 @@ loadFile(romGamePath)
         }
       }
     }
-    //enable me to create the initial state file
-    //const emuState = wpcSystem.getState();
-    //fs.writeFileSync('state-hurricane', Buffer.from(JSON.stringify(emuState)));
   })
   .catch((error) => {
     console.error('EXCEPTION!', error.message);
