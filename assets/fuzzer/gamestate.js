@@ -1,16 +1,23 @@
 'use strict';
 
-// Run using "afl-fuzz -i fuzz/in/ -o fuzz/out/ -n -t 500 -- node fuzz.js"
-// too slow!
+/*
+# WPC-EMU game state fuzzer.
 
-// Build mutation of example input file:
-// radamsa -n 1000 -o fuzz/out/fuzz-%n -v fuzz/in/state-hurricane
+Step 1: Install radamsa (https://gitlab.com/akihe/radamsa)
+Step 2: Create state file, see below "enable me to create the initial state file"
+Step 3: Build fuzzed state files: npm run gamestate.buildinput
+Step 4: Run fuzzer: npm run gamestate.fuzz
+
+TODO:
+- automate initial state ripper
+- shuffle features (process.env?)
+*/
 
 const fs = require('fs');
 const debug = require('debug')('wpcemu:index');
-const Emulator = require('./lib/emulator');
+const Emulator = require('../../lib/emulator');
 
-const romGamePath = 'rom/HURCNL_2.ROM';
+const romGamePath = '../../rom/HURCNL_2.ROM';
 const testCaseNr = process.argv[2];
 
 let startTestCaseNr = 0;
@@ -36,7 +43,7 @@ function loadFile(fileName) {
 
 function loadState(number) {
   try {
-    return JSON.parse(fs.readFileSync('fuzz/out/fuzz-' + number));
+    return JSON.parse(fs.readFileSync('../../fuzz/out/fuzz-' + number));
   } catch(error) {
     //console.log('INVALID_JSON', error.message);
   }
@@ -48,7 +55,7 @@ loadFile(romGamePath)
       u06: u06Rom,
     };
     const metaData = {
-      features: ['wpcDmd'], //'securityPic', 'wpc95', 'wpcFliptronics', 'wpcDmd', 'wpcSecure'
+      features: ['wpcDmd', 'securityPic', 'wpc95', 'wpcFliptronics'], //'securityPic', 'wpc95', 'wpcFliptronics', 'wpcDmd', 'wpcSecure', wpcAlphanumeric'
       fileName: romGamePath,
       skipWpcRomCheck: true,
     };
@@ -73,6 +80,7 @@ loadFile(romGamePath)
         }
       }
     }
+    //enable me to create the initial state file
     //const emuState = wpcSystem.getState();
     //fs.writeFileSync('state-hurricane', Buffer.from(JSON.stringify(emuState)));
   })
