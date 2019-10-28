@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rm -rf ./dist/* && webpack --mode development",
     "build:production": "rm -rf ./dist/* && webpack --mode production",
-    "start:webserver": "http-server ./dist -S -C ../localhost-cert/server.crt -K ../localhost-cert/server.key --cors -p 8081 || echo '\n\nERROR. Did you created and install the local dev certificates? Heres the content:' && cat ../localhost-cert/README.md"
+    "start:webserver": "http-server ./dist --cors -p 8081"
   },
   "author": "",
   "license": "ISC",
