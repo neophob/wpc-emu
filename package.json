@@ -5,6 +5,7 @@
   "author": "Michael Vogt <michu@neophob.com>",
   "homepage": "https://github.com/neophob/wpc-emu",
   "main": "index.js",
+  "types": "./types/index.d.ts",
   "engines": {
     "node": ">=10.0.0"
   },
