@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "lint": "dtslint .",
-    "test": "tsc wpcemu-webworker-api.ts"
+    "test": "tsc wpcemu-webworker-api.ts && node wpcemu-webworker-api.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^12.11.7",
     "dtslint": "^0.9.9",
     "typescript": "^3.6.4"
   }

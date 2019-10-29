@@ -24,3 +24,4 @@ assets/soundripper
 assets/client-example/dist
 fuzz-errors.txt
 fuzz/out
+wpcemu-webworker-api.js
