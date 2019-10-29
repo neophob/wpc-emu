@@ -5,7 +5,8 @@
   "main": "gamestate.js",
   "scripts": {
     "gamestate.buildinput": "radamsa -n 1000 -o ../../fuzz/out/fuzz-%n -v ./state-hurricane",
-    "gamestate.fuzz": "node gamestate.js 2> fuzz-errors.txt"
+    "gamestate.fuzz": "node gamestate.js 2> fuzz-errors.txt",
+    "rom.fuzz": "node rom.js 2> rom-errors.txt"
   },
   "author": "",
   "license": "ISC"
