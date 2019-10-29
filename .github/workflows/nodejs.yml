@@ -37,12 +37,16 @@ jobs:
 
     - name: Build WPC-Emu Client
       run: |
-        cd client && npm ci && npm run test && cd ..
+        cd client
+        npm ci
+        npm run test
 
     - name: Build WPC-Emu Typescript definitions
       run: |
-        cd types && npm ci && npm run lint && npm run test && cd ..
-        npm run build:production
+        cd types
+        npm ci
+        npm run lint
+        npm run test
 
       env:
         CI: true
