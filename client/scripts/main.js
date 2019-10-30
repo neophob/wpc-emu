@@ -47,7 +47,7 @@ function initialiseEmu(gameEntry) {
       const romData = {
         u06: u06Rom,
       };
-      return wpcEmuWebWorkerApi.initialiseEmulator(romData, gameEntry);
+      return wpcEmuWebWorkerApi.initializeEmulator(romData, gameEntry);
     })
     .then((emuVersion) => {
       console.log('Successfully initialized emulator', emuVersion);

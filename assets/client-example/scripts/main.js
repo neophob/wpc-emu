@@ -32,7 +32,7 @@ function initEmuWithGameName(name) {
   return downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06)
     .then((u06Rom) => {
       console.log('Successfully loaded ROM', u06Rom.length);
-      return wpcEmuWebWorkerApi.initialiseEmulator({ u06: u06Rom }, gameEntry);
+      return wpcEmuWebWorkerApi.initializeEmulator({ u06: u06Rom }, gameEntry);
     })
     .then((emuVersion) => {
       console.log('Successfully initialized emulator', emuVersion);
