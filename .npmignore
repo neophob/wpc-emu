@@ -2,6 +2,7 @@ assets
 build
 docs
 .DS_Store
+.github
 node_modules
 /dist
 test/dmdripper
@@ -24,3 +25,4 @@ assets/soundripper/output.*
 .clinic
 docs/rom
 cert.pem
+/fuzz
