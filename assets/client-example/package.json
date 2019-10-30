@@ -6,6 +6,7 @@
   "scripts": {
     "build": "rm -rf ./dist/* && webpack --mode development",
     "build:production": "rm -rf ./dist/* && webpack --mode production",
+    "build:ci": "NO_ANALYZE='true' npm run build",
     "start:webserver": "http-server ./dist --cors -p 8081"
   },
   "author": "",

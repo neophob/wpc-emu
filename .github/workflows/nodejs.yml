@@ -31,9 +31,11 @@ jobs:
       run: |
         echo "TODO"
 
-    - name: TODO Client example
+    - name: Client example
       run: |
-        echo "TODO"
+        cd assets/client-example
+        npm i
+        npm run build:ci
 
     - name: Build WPC-Emu Client
       run: |
