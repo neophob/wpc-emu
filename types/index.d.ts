@@ -1,5 +1,91 @@
 // TypeScript Version: 2.2
 
+export namespace gamelist {
+  interface GameEntryRomName {
+    u06: string;
+  }
+
+  interface GameEntryMemoryPositions {
+    /**
+     * example: { dataStartOffset: 0x1C61, dataEndOffset: 0x1C80, checksumOffset: 0x1C81, checksum: '16bit', name: 'HI_SCORE' },
+     */
+    checksum: object[];
+    /**
+     * example: { offset: 0x86, name: 'GAME_RUNNING', description: '0: not running, 1: running', type: 'uint8' },
+     */
+    knownValues: object[];
+  }
+
+  interface IdNameMap {
+    id: number;
+    name: string;
+  }
+
+  interface AudioData {
+    url: string;
+    sample: object;
+    sprite: object;
+  }
+
+  interface ClientGameEntry {
+    /**
+     * name if this WPC game
+     */
+    name: string;
+    /**
+     * Game version (Like L-8)
+     */
+    version: string;
+    /**
+     * rom file names, currently only u06 - the main ROM is included
+     */
+    rom: GameEntryRomName;
+    /**
+     * number to name mapping of the switches
+     */
+    switchMapping: IdNameMap[];
+    /**
+     * optional fliptronics number to name mapping
+     */
+    fliptronicsMapping?: IdNameMap[];
+    /**
+     * Should the Williams ROM boot time be increased, skip ROM check?
+     */
+    skipWpcRomCheck?: boolean;
+    /**
+     * features of this pinball machine: 'securityPic', 'wpc95', 'wpcAlphanumeric', 'wpcDmd', 'wpcFliptronics', 'wpcSecure', 'wpcDcs'
+     */
+    features?: string[];
+    /**
+     * defines memory positions of this game to evaluate game state (like current ball, current player etc)
+     */
+    memoryPosition?: GameEntryMemoryPositions;
+    /**
+     * audio definition for this game
+     */
+    audio?: AudioData;
+    /**
+     * playfield information, mainly used for playfield.dev
+     */
+    playfield?: any;
+    /**
+     * actions that should be done when starting, like close cabinet input, mainly used for playfield.dev
+     */
+    initialise?: any;
+  }
+
+  /**
+   * get all supported game names
+   */
+  function getAllNames(): string[];
+
+  /**
+   * load metadata for a specific game
+   * @param name case sensitive game name
+   */
+  function getByName(name: string): ClientGameEntry;
+}
+
 export namespace WpcEmuWebWorkerApi {
   /**
    * create new webworker API interface
@@ -73,24 +159,9 @@ export namespace WpcEmuWebWorkerApi {
     u06: Uint8Array;
   }
 
-  interface GameEntryMemoryPositions {
-    /**
-     * example: { dataStartOffset: 0x1C61, dataEndOffset: 0x1C80, checksumOffset: 0x1C81, checksum: '16bit', name: 'HI_SCORE' },
-     */
-    checksum: object[];
-    /**
-     * example: { offset: 0x86, name: 'GAME_RUNNING', description: '0: not running, 1: running', type: 'uint8' },
-     */
-    knownValues: object[];
-  }
-
-  interface GameEntryRomName {
-    u06: string;
-  }
-
   interface GameEntry {
     name: string;
-    rom: GameEntryRomName;
+    rom: gamelist.GameEntryRomName;
     /**
      * ROM filename
      */
@@ -100,7 +171,7 @@ export namespace WpcEmuWebWorkerApi {
      * features of this pinball machine: 'securityPic', 'wpc95', 'wpcAlphanumeric', 'wpcDmd', 'wpcFliptronics', 'wpcSecure', 'wpcDcs'
      */
     features?: string[];
-    memoryPosition?: GameEntryMemoryPositions;
+    memoryPosition?: gamelist.GameEntryMemoryPositions;
   }
 
   class WebWorkerApi {
