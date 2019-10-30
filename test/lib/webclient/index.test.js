@@ -5,7 +5,7 @@ import WebclientIndex from '../../../lib/webclient';
 test.beforeEach((t) => {
   const mockWebWorker = new MockWebWorker('foo');
   t.context.mockWebWorker = mockWebWorker;
-  t.context.webApiClient = WebclientIndex.initialiseWebworkerAPI(mockWebWorker);
+  t.context.webApiClient = WebclientIndex.initializeWebworkerAPI(mockWebWorker);
 });
 
 test('WebclientIndex: reset should reset ID', (t) => {
@@ -26,7 +26,7 @@ test('WebclientIndex: getStatistics', (t) => {
 });
 
 [
-  { command: 'initialiseEmulator', requestIdInAnswer: true },
+  { command: 'initializeEmulator', requestIdInAnswer: true },
   { command: 'resetEmulator', requestIdInAnswer: true },
   { command: 'setCabinetInput', requestIdInAnswer: true },
   { command: 'setInput', requestIdInAnswer: true },
@@ -36,7 +36,7 @@ test('WebclientIndex: getStatistics', (t) => {
   { command: 'getEmulatorRomName', requestIdInAnswer: false },
   { command: 'getEmulatorState', requestIdInAnswer: false },
   { command: 'setEmulatorState', requestIdInAnswer: true },
-  { command: 'registerAudioConsumer', requestIdInAnswer: false },
+  { command: 'registerAudioConsumer', requestIdInAnswer: true },
   { command: 'pauseEmulator', requestIdInAnswer: true },
   { command: 'resumeEmulator', requestIdInAnswer: true },
   { command: 'writeMemory', requestIdInAnswer: true },

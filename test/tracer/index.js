@@ -156,5 +156,5 @@ function setupFakeSystemTime() {
   sinon.useFakeTimers({
     now: 1483228800000,
   });
-  console.log('Fake system clock initialised:', new Date());
+  console.log('Fake system clock initialized:', new Date());
 }

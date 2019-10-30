@@ -30,7 +30,7 @@ let lastFps = 1;
 let missedDraw = 0;
 let rafId;
 
-function initialiseEmu(gameEntry) {
+function initializeEmu(gameEntry) {
   return document.fonts.load('24pt "Space Mono"')
     .catch((error) => {
       console.error('FONT_LOAD_FAILED', error);
@@ -47,7 +47,7 @@ function initialiseEmu(gameEntry) {
       const romData = {
         u06: u06Rom,
       };
-      return wpcEmuWebWorkerApi.initialiseEmulator(romData, gameEntry);
+      return wpcEmuWebWorkerApi.initializeEmulator(romData, gameEntry);
     })
     .then((emuVersion) => {
       console.log('Successfully initialized emulator', emuVersion);
@@ -71,7 +71,10 @@ function initialiseEmu(gameEntry) {
         help,
       };
 
-      wpcEmuWebWorkerApi.registerAudioConsumer((message) => soundInstance.callback(message));
+      wpcEmuWebWorkerApi.registerAudioConsumer((message) => soundInstance.callback(message))
+        .catch((error) => {
+          console.error('FAILED_TO_REGISTER_AUDIO_CALLBACK', error);
+        });
       wpcEmuWebWorkerApi.registerUiUpdateConsumer((emuUiState) => {
         const { emuState } = emuUiState;
         if (!emuState) {
@@ -182,7 +185,7 @@ function initEmuWithGameName(name) {
   const gameEntry = gamelist.getByName(name);
   populateControlUiView(gameEntry, gamelist, name);
 
-  return initialiseEmu(gameEntry)
+  return initializeEmu(gameEntry)
     .then(resumeEmu)
     .then(() => wpcEmuWebWorkerApi.adjustFramerate(DESIRED_FPS))
     .then(() => initialiseActions(gameEntry.initialise, wpcEmuWebWorkerApi))
@@ -352,7 +355,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-wpcEmuWebWorkerApi = WpcEmuWebWorkerApi.initialiseWebworkerAPI(new WebWorker());
+wpcEmuWebWorkerApi = WpcEmuWebWorkerApi.initializeWebworkerAPI(new WebWorker());
 
 initEmuWithGameName(INITIAL_GAME)
   .catch((error) => console.error);

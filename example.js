@@ -42,7 +42,7 @@ loadFile(romGamePath)
     return Emulator.initVMwithRom(romData, metaData);
   })
   .then((wpcSystem) => {
-    debug('WPC System initialised');
+    debug('WPC System initialized');
     wpcSystem.start();
     runWpsMainloop(wpcSystem);
   })
