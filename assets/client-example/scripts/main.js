@@ -16,7 +16,7 @@ let counter = 0;
 let rafId;
 
 console.log('INIT WPC-EMU-EXAMPLE');
-const wpcEmuWebWorkerApi = WpcEmu.WpcEmuWebWorkerApi.initialiseWebworkerAPI(new WebWorker());
+const wpcEmuWebWorkerApi = WpcEmu.WpcEmuWebWorkerApi.initializeWebworkerAPI(new WebWorker());
 
 initEmuWithGameName(INITIAL_GAME)
   .then(() => registerKeyboardListener())
@@ -32,7 +32,7 @@ function initEmuWithGameName(name) {
   return downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06)
     .then((u06Rom) => {
       console.log('Successfully loaded ROM', u06Rom.length);
-      return wpcEmuWebWorkerApi.initialiseEmulator({ u06: u06Rom }, gameEntry);
+      return wpcEmuWebWorkerApi.initializeEmulator({ u06: u06Rom }, gameEntry);
     })
     .then((emuVersion) => {
       console.log('Successfully initialized emulator', emuVersion);

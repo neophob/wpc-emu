@@ -1,4 +1,4 @@
-name: Node CI
+name: WPC-Emu CI
 
 on: [push]
 
@@ -17,12 +17,36 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: npm install, build, and test
+
+    - name: Build WPC-Emu Library
       run: |
         npm ci
         npm run test
+
+    - name: Run WPC-Emu Integration tests
+      run: |
         npm run test:integration
-        cd client && npm ci && npm run test
-        npm run build:production
+
+    - name: TODO Fuzz
+      run: |
+        echo "TODO"
+
+    - name: TODO Client example
+      run: |
+        echo "TODO"
+
+    - name: Build WPC-Emu Client
+      run: |
+        cd client
+        npm ci
+        npm run test
+
+    - name: Build WPC-Emu Typescript definitions
+      run: |
+        cd types
+        npm ci
+        npm run lint
+        npm run test
+
       env:
         CI: true

@@ -21,6 +21,7 @@
   - [Benchmark](#benchmark)
   - [Tracer / Dumps](#tracer--dumps)
   - [Build Release](#build-release)
+  - [TypeScript](#typescript)
 - [Hardware - WPS Dot Matrix Machine](#hardware---wps-dot-matrix-machine)
   - [Overview WPC-89](#overview-wpc-89)
   - [CPU board](#cpu-board)
@@ -207,6 +208,10 @@ To build a new release:
 - Make sure unit tests and integration tests still pass
 - Optional: Run tracer dumps to compare against older implementations
 - merge release branch
+
+## TypeScript
+
+WPC-Emu supports ts definition at the API level, take a look at the `types` root directory.
 
 # Hardware - WPS Dot Matrix Machine
 
