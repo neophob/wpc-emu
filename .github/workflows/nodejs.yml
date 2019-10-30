@@ -21,27 +21,30 @@ jobs:
     - name: Build WPC-Emu Library
       run: |
         npm ci
-        npm run test
+        time npm run test
 
     - name: Run WPC-Emu Integration tests
       run: |
         npm run test:integration
-
-    - name: TODO Fuzz
-      run: |
-        echo "TODO"
-
-    - name: Client example
-      run: |
-        cd assets/client-example
-        npm i
-        npm run build:ci
 
     - name: Build WPC-Emu Client
       run: |
         cd client
         npm ci
         npm run test
+
+    - name: Build Gamelist
+      run: |
+        cd build/gamelist
+        npm ci
+        time npm run start
+        cat ../../GAMES.md
+
+    - name: Client example
+      run: |
+        cd assets/client-example
+        npm i
+        time npm run build:ci
 
     - name: Build WPC-Emu Typescript definitions
       run: |
