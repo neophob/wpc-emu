@@ -71,7 +71,10 @@ function initialiseEmu(gameEntry) {
         help,
       };
 
-      wpcEmuWebWorkerApi.registerAudioConsumer((message) => soundInstance.callback(message));
+      wpcEmuWebWorkerApi.registerAudioConsumer((message) => soundInstance.callback(message))
+        .catch((error) => {
+          console.error('FAILED_TO_REGISTER_AUDIO_CALLBACK', error);
+        });
       wpcEmuWebWorkerApi.registerUiUpdateConsumer((emuUiState) => {
         const { emuState } = emuUiState;
         if (!emuState) {
