@@ -16,7 +16,7 @@ let counter = 0;
 let rafId;
 
 console.log('INIT WPC-EMU-EXAMPLE');
-const wpcEmuWebWorkerApi = WpcEmu.WpcEmuWebWorkerApi.initialiseWebworkerAPI(new WebWorker());
+const wpcEmuWebWorkerApi = WpcEmu.WpcEmuWebWorkerApi.initializeWebworkerAPI(new WebWorker());
 
 initEmuWithGameName(INITIAL_GAME)
   .then(() => registerKeyboardListener())

@@ -5,7 +5,7 @@ import WebclientIndex from '../../../lib/webclient';
 test.beforeEach((t) => {
   const mockWebWorker = new MockWebWorker('foo');
   t.context.mockWebWorker = mockWebWorker;
-  t.context.webApiClient = WebclientIndex.initialiseWebworkerAPI(mockWebWorker);
+  t.context.webApiClient = WebclientIndex.initializeWebworkerAPI(mockWebWorker);
 });
 
 test('WebclientIndex: reset should reset ID', (t) => {

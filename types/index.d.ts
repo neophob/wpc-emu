@@ -6,7 +6,7 @@ export namespace WpcEmuWebWorkerApi {
    * @param optionalWebWorkerInstance Optional worker instance, useful if you use https://github.com/webpack-contrib/worker-loader
    * @returns new WebWorkerApi instance
    */
-  function initialiseWebworkerAPI(optionalWebWorkerInstance?: any): WebWorkerApi;
+  function initializeWebworkerAPI(optionalWebWorkerInstance?: any): WebWorkerApi;
 
   interface WorkerStatistic {
     averageRTTms: number;

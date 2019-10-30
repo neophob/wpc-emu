@@ -1,4 +1,4 @@
 const WpcEmuWebWorkerApi = require('../lib/webclient');
 
-const webWorkerApi = WpcEmuWebWorkerApi.initialiseWebworkerAPI({ postMessage: () => {} });
+const webWorkerApi = WpcEmuWebWorkerApi.initializeWebworkerAPI({ postMessage: () => {} });
 webWorkerApi.reset();

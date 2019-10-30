@@ -352,7 +352,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-wpcEmuWebWorkerApi = WpcEmuWebWorkerApi.initialiseWebworkerAPI(new WebWorker());
+wpcEmuWebWorkerApi = WpcEmuWebWorkerApi.initializeWebworkerAPI(new WebWorker());
 
 initEmuWithGameName(INITIAL_GAME)
   .catch((error) => console.error);
