@@ -26,7 +26,7 @@ test('WebclientIndex: getStatistics', (t) => {
 });
 
 [
-  { command: 'initialiseEmulator', requestIdInAnswer: true },
+  { command: 'initializeEmulator', requestIdInAnswer: true },
   { command: 'resetEmulator', requestIdInAnswer: true },
   { command: 'setCabinetInput', requestIdInAnswer: true },
   { command: 'setInput', requestIdInAnswer: true },
