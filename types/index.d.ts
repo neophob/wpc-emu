@@ -20,22 +20,96 @@ export namespace WpcEmuWebWorkerApi {
     parameter?: string;
   }
 
+  interface EmuStateWpc {
+    diagnosticLed: number;
+    lampState?: Uint8Array;
+    solenoidState?: Uint8Array;
+    generalIlluminationState: Uint8Array;
+    inputState?: Uint8Array;
+    diagnosticLedToggleCount: number;
+    midnightModeEnabled: boolean;
+    irqEnabled: boolean;
+    activeRomBank: number;
+    time: string;
+    blankSignalHigh: boolean;
+    watchdogExpiredCounter: number;
+    watchdogTicks: number;
+    zeroCrossFlag: number;
+    inputSwitchMatrixActiveColumn: Uint8Array;
+    lampRow: number;
+    lampColumn: number;
+    wpcSecureScrambler: number;
+  }
+
+  interface EmuStateSound {
+    volume: number;
+    readDataBytes: number;
+    writeDataBytes: number;
+    readControlBytes: number;
+    writeControlBytes: number;
+  }
+
+  interface EmuStateDMD {
+    scanline: number;
+    dmdPageMapping: number[];
+    activepage?: number;
+    videoRam?: Uint8Array;
+    dmdShadedBuffer?: Uint8Array;
+    videoOutputBuffer?: Uint8Array;
+    nextActivePage?: number;
+    requestFIRQ?: boolean;
+    ticksUpdateDmd?: number;
+}
+
   interface EmuState {
-    // TODO more details
-    ram: object;
-    memoryPosition: object;
-    sound: object;
-    wpc: object;
-    dmd: object;
+    ram: Uint8Array;
+    memoryPosition?: object[];
+    sound: EmuStateSound;
+    wpc: EmuStateWpc;
+    dmd: EmuStateDMD;
+  }
+
+  interface RomData {
+    u06: Uint8Array;
+  }
+
+  interface GameEntryMemoryPositions {
+    /**
+     * example: { dataStartOffset: 0x1C61, dataEndOffset: 0x1C80, checksumOffset: 0x1C81, checksum: '16bit', name: 'HI_SCORE' },
+     */
+    checksum: object[];
+    /**
+     * example: { offset: 0x86, name: 'GAME_RUNNING', description: '0: not running, 1: running', type: 'uint8' },
+     */
+    knownValues: object[];
+  }
+
+  interface GameEntryRomName {
+    u06: string;
+  }
+
+  interface GameEntry {
+    name: string;
+    rom: GameEntryRomName;
+    /**
+     * ROM filename
+     */
+    fileName?: string;
+    skipWpcRomCheck?: boolean;
+    /**
+     * features of this pinball machine: 'securityPic', 'wpc95', 'wpcAlphanumeric', 'wpcDmd', 'wpcFliptronics', 'wpcSecure', 'wpcDcs'
+     */
+    features?: string[];
+    memoryPosition?: GameEntryMemoryPositions;
   }
 
   class WebWorkerApi {
     /**
      * initialize emulator
      * @param romData the game rom as { u06: UInt8Array }
-     * @param gameEntry from the internal database
+     * @param gameEntry game metadata from the internal database
      */
-    initialiseEmulator(romData: any, gameEntry: any): Promise<WorkerMessage>;
+    initializeEmulator(romData: RomData, gameEntry: GameEntry): Promise<WorkerMessage>;
 
     /**
      * reset the RPC proxy to its initial state. used when a new game is loaded.

@@ -30,7 +30,7 @@ let lastFps = 1;
 let missedDraw = 0;
 let rafId;
 
-function initialiseEmu(gameEntry) {
+function initializeEmu(gameEntry) {
   return document.fonts.load('24pt "Space Mono"')
     .catch((error) => {
       console.error('FONT_LOAD_FAILED', error);
@@ -185,7 +185,7 @@ function initEmuWithGameName(name) {
   const gameEntry = gamelist.getByName(name);
   populateControlUiView(gameEntry, gamelist, name);
 
-  return initialiseEmu(gameEntry)
+  return initializeEmu(gameEntry)
     .then(resumeEmu)
     .then(() => wpcEmuWebWorkerApi.adjustFramerate(DESIRED_FPS))
     .then(() => initialiseActions(gameEntry.initialise, wpcEmuWebWorkerApi))
