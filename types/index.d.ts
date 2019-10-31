@@ -27,6 +27,12 @@ export namespace gamelist {
     sprite: object;
   }
 
+  interface GameEntryPinmame {
+    knownNames: string[];
+    gameName: string;
+    id: string;
+  }
+
   interface ClientGameEntry {
     /**
      * name if this WPC game
@@ -36,6 +42,10 @@ export namespace gamelist {
      * Game version (Like L-8)
      */
     version: string;
+    /**
+     * data from pinmame
+     */
+    pinmame: GameEntryPinmame;
     /**
      * rom file names, currently only u06 - the main ROM is included
      */
