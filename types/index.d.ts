@@ -28,9 +28,22 @@ export namespace gamelist {
   }
 
   interface GameEntryPinmame {
+    /**
+     * known game rom names
+     */
     knownNames: string[];
+    /**
+     * game name defined by pinmame
+     */
     gameName: string;
+    /**
+     * pinmame game id
+     */
     id: string;
+    /**
+     * if VPDB.io id differs from pinmame id, its defined here
+     */
+    vpdbId?: string;
   }
 
   interface ClientGameEntry {
