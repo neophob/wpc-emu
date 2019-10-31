@@ -7,6 +7,7 @@ module.exports = {
     knownNames: [ 'hurr_l2', 'hurr_d2' ],
     gameName: 'Hurricane',
     id: 'hurr',
+    vpdbId: 'hurricane',
   },
   rom: {
     u06: 'hurcnl_2.rom',

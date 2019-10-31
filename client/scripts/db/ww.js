@@ -7,6 +7,7 @@ module.exports = {
     knownNames: [ 'ww_p1', 'ww_p2', 'ww_p8', 'ww_p9', 'ww_l2', 'ww_d2', 'ww_l3', 'ww_d3', 'ww_l4', 'ww_d4', 'ww_l5', 'ww_d5', 'ww_lh5', 'ww_lh6', 'ww_lh6c' ],
     gameName: 'White Water',
     id: 'ww',
+    vpdbId: 'whitewater',
   },
   rom: {
     u06: 'wwatr_l5.rom',

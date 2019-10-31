@@ -7,6 +7,7 @@ module.exports = {
     knownNames: [ 'corv_px4', 'corv_px5', 'corv_la1', 'corv_lx1', 'corv_dx1', 'corv_lx2', 'corv_21' ],
     gameName: 'Corvette',
     id: 'corv',
+    vpdbId: 'corvette',
   },
   rom: {
     u06: 'u6-lx1.rom',

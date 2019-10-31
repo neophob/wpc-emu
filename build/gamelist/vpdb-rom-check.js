@@ -14,7 +14,7 @@ gameSummary.forEach((entry) => {
 
 
 function checkAvailableRoms(entry) {
-  const URL = buildVpdbUrl(entry.pinmame.id);
+  const URL = buildVpdbUrl(entry.pinmame.vpdbId || entry.pinmame.id);
   return fetch(URL)
     .then(res => res.json())
     .then((romDataFromVpdb) => {
@@ -28,13 +28,13 @@ function buildVpdbUrl(id) {
 
 function checkForRoms(gameName, arrayOfRequiredROMs, jsonFromVpdb) {
   if (!Array.isArray(jsonFromVpdb)) {
-    console.log(gameName, ' - ERROR!');
+    console.log(gameName, '- ERROR!');
     return;
   }
   arrayOfRequiredROMs.forEach((name) => {
     const result = jsonFromVpdb.find((element) => {
       return element.id === name;
     });
-    console.log(gameName, ' - ', name + ':', result ? '✅' : '❌');
+    console.log(gameName, ' -', name + ':', result ? '✅' : '❌');
   });
 }
