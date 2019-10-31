@@ -28,6 +28,7 @@ function buildVpdbUrl(id) {
 
 function checkForRoms(gameName, arrayOfRequiredROMs, jsonFromVpdb) {
   if (!Array.isArray(jsonFromVpdb)) {
+    console.log(gameName, ' - ERROR!');
     return;
   }
   arrayOfRequiredROMs.forEach((name) => {
