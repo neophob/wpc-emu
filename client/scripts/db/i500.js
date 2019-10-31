@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-S: Indianapolis 500',
   version: '1.1R',
+  pinmame: {
+    knownNames: [ 'i500_11r', 'i500_11b', 'i500_10r' ],
+    gameName: 'Indianapolis 500',
+    id: 'i500',
+  },
   rom: {
     u06: 'indy1_1r.rom',
   },

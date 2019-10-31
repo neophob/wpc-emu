@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-Fliptronics: Bram Stoker\'s Dracula',
   version: 'L-1',
+  pinmame: {
+    knownNames: [ 'drac_p11', 'drac_p12', 'drac_l1', 'drac_d1', 'drac_l2c' ],
+    gameName: 'Bram Stoker\'s Dracula',
+    id: 'drac',
+  },
   rom: {
     u06: 'dracu_l1.rom',
   },

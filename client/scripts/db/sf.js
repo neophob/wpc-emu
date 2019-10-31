@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-DMD: SlugFest (Redemption game)',
   version: 'L-1',
+  pinmame: {
+    knownNames: [ 'sf_l1', 'sf_d1' ],
+    gameName: 'SlugFest',
+    id: 'sf',
+  },
   rom: {
     u06: 'sf_u6.l1',
   },

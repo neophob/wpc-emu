@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-S: No Fear',
   version: '2.3X',
+  pinmame: {
+    knownNames: [ 'nf_10', 'nf_101', 'nf_11x', 'nf_20', 'nf_22', 'nf_23', 'nf_23f', 'nf_23x' ],
+    gameName: 'No Fear',
+    id: 'nf',
+  },
   rom: {
     u06: 'nofe2_3x.rom',
   },

@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-Fliptronics: The Addams Family Special',
   version: 'LA-3',
+  pinmame: {
+    knownNames: [ 'tafg_h3', 'tafg_i3', 'tafg_lx3', 'tafg_dx3', 'tafg_la2', 'tafg_da2', 'tafg_la3', 'tafg_da3' ],
+    gameName: 'Addams Family Special Collectors Edition, The',
+    id: 'ta',
+  },
   rom: {
     u06: 'U6-LA3.ROM',
   },

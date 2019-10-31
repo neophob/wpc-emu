@@ -4,11 +4,13 @@
   "description": "",
   "main": "gamelist.js",
   "scripts": {
-    "start": "node -r esm index.js 2> ../../GAMES.md"
+    "start": "node -r esm index.js 2> ../../GAMES.md",
+    "vpdb": "node -r esm vpdb-rom-check"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "esm": "^3.2.25"
+    "esm": "^3.2.25",
+    "node-fetch": "^2.6.0"
   }
 }

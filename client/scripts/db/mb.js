@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-95: Monster Bash',
   version: '1.06b',
+  pinmame: {
+    knownNames: [ 'mb_05', 'mb_10', 'mb_106', 'mb_106b' ],
+    gameName: 'Monster Bash',
+    id: 'mb',
+  },
   rom: {
     u06: 'mb_106b.bin',
   },

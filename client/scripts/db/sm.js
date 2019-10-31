@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-DMD: Strike Master Shuffle Alley (Redemption game)',
   version: 'L-4',
+  pinmame: {
+    knownNames: [ 'strik_l4', 'strik_d4' ],
+    gameName: 'Strike Master',
+    id: 'strik',
+  },
   rom: {
     u06: 'STRIK_L4.ROM',
   },

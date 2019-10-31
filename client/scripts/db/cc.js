@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-95: Cactus Canyon',
   version: '1.3',
+  pinmame: {
+    knownNames: [ 'cc_10', 'cc_12', 'cc_13', 'cc_13k', 'cc_104' ],
+    gameName: 'Cactus Canyon',
+    id: 'cc',
+  },
   rom: {
     u06: 'cc_g11.1_3',
   },

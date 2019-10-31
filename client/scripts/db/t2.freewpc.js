@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-DMD: Terminator 2 (FreeWPC)',
   version: '1.00',
+  pinmame: {
+    knownNames: [ 't2_f19', 't2_f20', 't2_f32' ],
+    gameName: 'Terminator 2: Judgement Day (FreeWPC)',
+    id: 't2F',
+  },
   rom: {
     u06: 'ft20_32.rom',
   },

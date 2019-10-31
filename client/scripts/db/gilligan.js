@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-DMD: Gilligan\'s Island',
   version: 'L-9',
+  pinmame: {
+    knownNames: [ 'gi_l3', 'gi_d3', 'gi_l4', 'gi_d4', 'gi_l6', 'gi_d6', 'gi_l9', 'gi_d9' ],
+    gameName: 'Gilligan\'s Island',
+    id: 'gi',
+  },
   rom: {
     u06: 'gilli_l9.rom',
   },

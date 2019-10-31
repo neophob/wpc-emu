@@ -14,3 +14,13 @@ test('gamelist, should getByName', (t) => {
   t.is(result.name, NAME);
   t.is(result.version, 'L-8');
 });
+
+test('gamelist, should getByPinmameName', (t) => {
+  const result = gamelist.getByPinmameName('tz_94h');
+  t.is(result.pinmame.gameName, 'Twilight Zone');
+});
+
+test('gamelist, should getByPinmameName (UPPERCASE)', (t) => {
+  const result = gamelist.getByPinmameName('TZ_94H');
+  t.is(result.pinmame.gameName, 'Twilight Zone');
+});
