@@ -7,7 +7,7 @@
     "build": "rm -rf ./dist/* && webpack --mode development",
     "build:production": "rm -rf ./dist/* && webpack --mode production",
     "build:ci": "NO_ANALYZE='true' npm run build",
-    "start:webserver": "http-server ./dist --cors -p 8081"
+    "start:webserver": "http-server ./dist --cors -p 8085"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +19,6 @@
     "webpack-cli": "^3.3.7",
     "whatwg-fetch": "^2.0.4",
     "worker-loader": "^2.0.0",
-    "wpc-emu": "*"
+    "wpc-emu": "file:../../"
   }
 }
