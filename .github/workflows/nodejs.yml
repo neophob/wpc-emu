@@ -40,7 +40,7 @@ jobs:
         time npm run start
         cat ../../GAMES.md
 
-    - name: Client example
+    - name: Minimal Client example
       run: |
         cd assets/client-example
         npm i

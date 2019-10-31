@@ -3,7 +3,7 @@
 import * as WpcEmu from 'wpc-emu';
 
 // reference the webworker from wep-emu
-import WebWorker from 'worker-loader!wpc-emu/lib/webclient/webworker.js';
+import WebWorker from 'worker-loader!./webworker.js';
 
 import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher';
 import { initialiseActions } from './lib/initialise';
