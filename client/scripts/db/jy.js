@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-95: Junk Yard',
   version: '1.2',
+  pinmame: {
+    knownNames: [ 'jy_03', 'jy_11', 'jy_12', 'jy_12c' ],
+    gamename: 'Junk Yard',
+    id: 'jy',
+  },
   rom: {
     u06: 'jy_g11.1_2',
   },

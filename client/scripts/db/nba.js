@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-95: NBA Fastbreak',
   version: '3.1',
+  pinmame: {
+    knownNames: [ 'nbaf_11s', 'nbaf_11', 'nbaf_11a', 'nbaf_115', 'nbaf_21', 'nbaf_22', 'nbaf_23', 'nbaf_31', 'nbaf_31a' ],
+    gamename: 'NBA Fastbreak',
+    id: 'nbaf',
+  },
   rom: {
     u06: 'fb_g11.3_1',
   },

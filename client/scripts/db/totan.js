@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-95: Tales of the Arabian Nights',
   version: '1.4',
+  pinmame: {
+    knownNames: [ 'totan_04', 'totan_12', 'totan_13', 'totan_14', 'totan_15c' ],
+    gamename: 'Tales of the Arabian Nights',
+    id: 'totan',
+  },
   rom: {
     u06: 'an_g11.1_4',
   },

@@ -3,9 +3,13 @@
 module.exports = {
   name: 'WPC-S: Dirty Harry',
   version: 'LX-2',
+  pinmame: {
+    knownNames: [ 'dh_lx2', 'dh_dx2', 'dh_lf2' ],
+    gamename: 'Dirty Harry',
+    id: 'dh',
+  },
   rom: {
     u06: 'harr_lx2.rom',
-    //dh_snd.u2 - dh_snd.u6
   },
   switchMapping: [
     { id: 11, name: 'GUN HANDLE TRIGGER' },

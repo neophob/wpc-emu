@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-S: Corvette',
   version: 'LX-1',
+  pinmame: {
+    knownNames: [ 'corv_px4', 'corv_px5', 'corv_la1', 'corv_lx1', 'corv_dx1', 'corv_lx2', 'corv_21' ],
+    gamename: 'Corvette',
+    id: 'corv',
+  },
   rom: {
     u06: 'u6-lx1.rom',
   },

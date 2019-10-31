@@ -3,6 +3,14 @@
 module.exports = {
   name: 'WPC-DCS: Demolition Man',
   version: 'LX-4',
+  pinmame: {
+    knownNames: [
+      'dm_pa2', 'dm_pa3', 'dm_px5', 'dm_px6', 'dm_la1', 'dm_da1', 'dm_lx3', 'dm_dx3', 'dm_lx4', 'dm_dx4', 'dm_lx4c',
+      'dm_h5', 'dm_h5b', 'dm_h5c', 'dm_dh5', 'dm_dh5b', 'dm_h6', 'dm_h6b', 'dm_h6c',
+    ],
+    gamename: 'Demolition Man',
+    id: 'dm',
+  },
   rom: {
     u06: 'dman_lx4.rom',
   },

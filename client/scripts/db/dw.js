@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-Fliptronics: Dr. Who',
   version: 'L-1',
+  pinmame: {
+    knownNames: [ 'dw_p5', 'dw_p6', 'dw_l1', 'dw_d1', 'dw_l2', 'dw_d2' ],
+    gamename: 'Dr. Who',
+    id: 'dw',
+  },
   rom: {
     u06: 'drwho_l2.rom',
   },

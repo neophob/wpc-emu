@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-95: No Good Gofers',
   version: '1.3',
+  pinmame: {
+    knownNames: [ 'ngg_p06', 'ngg_10', 'ngg_12', 'ngg_13' ],
+    gamename: 'No Good Gofers',
+    id: 'ngg',
+  },
   rom: {
     u06: 'go_g11.1_3',
   },

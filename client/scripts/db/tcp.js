@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-95: The Champion Pub',
   version: '1.6',
+  pinmame: {
+    knownNames: [ 'cp_15', 'cp_16' ],
+    gamename: 'Champion Pub, The',
+    id: 'cp',
+  },
   rom: {
     u06: 'CP_G11.1_6',
   },

@@ -65,7 +65,11 @@ import uploadWpcFlip from './wpcFlip.upload';
 import uploadWpcS from './wpcs.upload';
 import uploadWpc95 from './wpc95.upload';
 
-export { getAllNames, getByName };
+export {
+  getAllNames,
+  getByName,
+  getByRomFilename,
+};
 
 const wpcGames = [
   addamsFamilyValues,
@@ -145,4 +149,8 @@ function getAllNames() {
 
 function getByName(name) {
   return wpcGames.find((entry) => entry.name === name);
+}
+
+function getByRomFilename(filename) {
+  return wpcGames.find((entry) => entry.rom.u06.toLowerCase() === filename.toLowerCase());
 }

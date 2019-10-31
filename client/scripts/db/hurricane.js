@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-DMD: Hurricane',
   version: 'L-2',
+  pinmame: {
+    knownNames: [ 'hurr_l2', 'hurr_d2' ],
+    gamename: 'Hurricane',
+    id: 'hurr',
+  },
   rom: {
     u06: 'hurcnl_2.rom',
   },

@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-ALPHA: The Machine: Bride of Pin·bot',
   version: 'L-7',
+  pinmame: {
+    knownNames: [ 'bop_l2', 'bop_d2', 'bop_l3', 'bop_d3', 'bop_l4', 'bop_d4', 'bop_l5', 'bop_d5', 'bop_l6', 'bop_d6', 'bop_l7', 'bop_d7', 'bop_l8', 'bop_d8' ],
+    gamename: 'Machine: Bride of Pinbot, The',
+    id: 'bop',
+  },
   rom: {
     u06: 'tmbopl_7.rom',
   },

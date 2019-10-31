@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-95: League Champ Shuffle Alley (Redemption game)',
   version: '1.1',
+  pinmame: {
+    knownNames: [ 'lc_11' ],
+    gamename: 'League Champ',
+    id: 'lc',
+  },
   rom: {
     u06: 'LCHMP1_1.ROM',
   },

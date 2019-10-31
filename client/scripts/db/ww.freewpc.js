@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-Fliptronics: White Water "Bigfoot" (FreeWPC)',
   version: '0.1',
+  pinmame: {
+    knownNames: [ 'ww_bfr01', 'ww_bfr01b', 'ww_bfr01c', 'ww_bfr01d' ],
+    gamename: 'White Water (FreeWPC)',
+    id: 'wwF',
+  },
   rom: {
     u06: 'wwatr_l5.freewpc.rom',
   },

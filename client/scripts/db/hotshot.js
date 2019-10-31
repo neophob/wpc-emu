@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-DMD: Hot Shot Basketball (Redemption game)',
   version: 'P-8',
+  pinmame: {
+    knownNames: [ 'hshot_p8', 'hshot_p9' ],
+    gamename: 'Hot Shot Basketball',
+    id: 'hshot',
+  },
   rom: {
     u06: 'hshot_p8.u6',
   },

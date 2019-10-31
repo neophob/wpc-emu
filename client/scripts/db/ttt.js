@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-95: Ticket Tac Toe (Redemption game)',
   version: '1.0',
+  pinmame: {
+    knownNames: [ 'ttt_10' ],
+    gamename: 'Ticket Tac Toe',
+    id: 'ttt',
+  },
   rom: {
     u06: 'TIKT1_0.ROM',
   },

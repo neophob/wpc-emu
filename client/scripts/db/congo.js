@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-95: Congo',
   version: '2.1',
+  pinmame: {
+    knownNames: [ 'congo_11', 'congo_13', 'congo_20', 'congo_21' ],
+    gamename: 'Congo',
+    id: 'congo',
+  },
   rom: {
     u06: 'cg_g11.2_1',
   },

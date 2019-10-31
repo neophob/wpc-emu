@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-DMD: WPC Test Fixture ',
   version: 'L-3',
+  pinmame: {
+    knownNames: [ 'tfdmd_l3' ],
+    gamename: 'WPC Test Fixture: DMD',
+    id: 'tf',
+  },
   rom: {
     u06: 'u6_l3.rom',
   },

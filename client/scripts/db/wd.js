@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-S: WHO Dunnit',
   version: '1.2',
+  pinmame: {
+    knownNames: [ 'wd_03r', 'wd_048r', 'wd_10r', 'wd_10g', 'wd_10f', 'wd_11', 'wd_12', 'wd_12g' ],
+    gamename: 'WHO Dunnit',
+    id: 'wd',
+  },
   rom: {
     u06: 'whod1_2.rom',
   },

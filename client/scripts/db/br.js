@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-Fliptronics: Black Rose',
   version: 'L-3',
+  pinmame: {
+    knownNames: [ 'br_p17', 'br_p18', 'br_l1', 'br_d1', 'br_l3', 'br_d3', 'br_l4', 'br_d4' ],
+    gamename: 'Black Rose',
+    id: 'br',
+  },
   rom: {
     u06: 'u6-l3.rom',
   },
