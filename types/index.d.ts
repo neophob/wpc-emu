@@ -282,7 +282,6 @@ export namespace WebWorker {
   class WpcEmu {
     /**
      * configure new framerate for the setInterval calls
-     * @param frameRate
      */
     configureFramerate(frameRate: number): void;
 
@@ -376,7 +375,6 @@ export namespace WebWorker {
     /**
      * if you don't want to use the setInterval function (pause/resume) because there is already
      * a loop running, use this function to run the emulator for N ms.
-     * @param advanceByMs
      */
     emuStepByTime(advanceByMs: number): void;
   }
@@ -392,7 +390,7 @@ export namespace WebWorker {
    * returns the current emu instance, so the emu can be used within a worker thread.
    * Note: the emu might not be initialized yet - so consumer must make sure emu is defined
    */
-  function getEmu(): WpcEmu?;
+  function getEmu(): WpcEmu;
 
   /**
    * clears the state of webworker
