@@ -5,7 +5,7 @@ module.exports = {
   version: 'P-8',
   pinmame: {
     knownNames: [ 'hshot_p8', 'hshot_p9' ],
-    gamename: 'Hot Shot Basketball',
+    gameName: 'Hot Shot Basketball',
     id: 'hshot',
   },
   rom: {

@@ -5,7 +5,7 @@ module.exports = {
   version: '1.3X',
   pinmame: {
     knownNames: [ 'tom_06', 'tom_061', 'tom_10f', 'tom_101f', 'tom_12', 'tom_121', 'tom_13', 'tom_13f', 'tom_14h', 'tom_14hb', 'tom_15c' ],
-    gamename: 'Theatre of Magic',
+    gameName: 'Theatre of Magic',
     id: 'tom',
   },
   rom: {

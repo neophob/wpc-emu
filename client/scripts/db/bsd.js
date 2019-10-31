@@ -5,7 +5,7 @@ module.exports = {
   version: 'L-1',
   pinmame: {
     knownNames: [ 'drac_p11', 'drac_p12', 'drac_l1', 'drac_d1', 'drac_l2c' ],
-    gamename: 'Bram Stoker\'s Dracula',
+    gameName: 'Bram Stoker\'s Dracula',
     id: 'drac',
   },
   rom: {

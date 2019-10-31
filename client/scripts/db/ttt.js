@@ -5,7 +5,7 @@ module.exports = {
   version: '1.0',
   pinmame: {
     knownNames: [ 'ttt_10' ],
-    gamename: 'Ticket Tac Toe',
+    gameName: 'Ticket Tac Toe',
     id: 'ttt',
   },
   rom: {

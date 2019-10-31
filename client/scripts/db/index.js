@@ -151,6 +151,6 @@ function getByName(name) {
   return wpcGames.find((entry) => entry.name === name);
 }
 
-function getByRomFilename(filename) {
-  return wpcGames.find((entry) => entry.rom.u06.toLowerCase() === filename.toLowerCase());
+function getByPinmameName(filename) {
+  return wpcGames.find((entry) => entry.pinmame && entry.pinmame.knownNames.includes(filename.toLowerCase());
 }

@@ -5,7 +5,7 @@ module.exports = {
   version: 'L-4',
   pinmame: {
     knownNames: [ 'cftbl_p3', 'cftbl_l2', 'cftbl_d2', 'cftbl_l3', 'cftbl_d3', 'cftbl_l4', 'cftbl_d4', 'cftbl_l5c' ],
-    gamename: 'Creature from the Black Lagoon',
+    gameName: 'Creature from the Black Lagoon',
     id: 'cftbl',
   },
   rom: {

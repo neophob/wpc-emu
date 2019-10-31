@@ -5,7 +5,7 @@ module.exports = {
   version: 'L-7',
   pinmame: {
     knownNames: [ 'ij_p2', 'ij_l3', 'ij_d3', 'ij_l4', 'ij_d4', 'ij_l5', 'ij_d5', 'ij_l6', 'ij_d6', 'ij_l7', 'ij_d7', 'ij_lg7', 'ij_dg7', 'ij_h1', 'ij_i1' ],
-    gamename: 'Indiana Jones: The Pinball Adventure',
+    gameName: 'Indiana Jones: The Pinball Adventure',
     id: 'ij',
   },
   rom: {

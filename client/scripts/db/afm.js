@@ -5,7 +5,7 @@ module.exports = {
   version: '1.13b',
   pinmame: {
     knownNames: [ 'afm_10', 'afm_11', 'afm_11u', 'afm_113', 'afm_113b' ],
-    gamename: 'Attack from Mars',
+    gameName: 'Attack from Mars',
     id: 'afm',
   },
   rom: {

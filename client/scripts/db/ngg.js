@@ -5,7 +5,7 @@ module.exports = {
   version: '1.3',
   pinmame: {
     knownNames: [ 'ngg_p06', 'ngg_10', 'ngg_12', 'ngg_13' ],
-    gamename: 'No Good Gofers',
+    gameName: 'No Good Gofers',
     id: 'ngg',
   },
   rom: {

@@ -5,7 +5,7 @@ module.exports = {
   version: 'L-8',
   pinmame: {
     knownNames: [ 'mm_05', 'mm_10', 'mm_10u', 'mm_109', 'mm_109b', 'mm_109c' ],
-    gamename: 'Medieval Madness',
+    gameName: 'Medieval Madness',
     id: 'mm',
   },
   rom: {

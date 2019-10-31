@@ -5,7 +5,7 @@ module.exports = {
   version: '1.6',
   pinmame: {
     knownNames: [ 'cp_15', 'cp_16' ],
-    gamename: 'Champion Pub, The',
+    gameName: 'Champion Pub, The',
     id: 'cp',
   },
   rom: {

@@ -5,7 +5,7 @@ module.exports = {
   version: 'LX-5',
   pinmame: {
     knownNames: [ 'fs_lx2', 'fs_dx2', 'fs_sp2', 'fs_sp2d', 'fs_lx4', 'fs_dx4', 'fs_lx5', 'fs_dx5' ],
-    gamename: 'Flintstones, The',
+    gameName: 'Flintstones, The',
     id: 'fs',
   },
   rom: {

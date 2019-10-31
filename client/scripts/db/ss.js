@@ -5,7 +5,7 @@ module.exports = {
   version: '1.5',
   pinmame: {
     knownNames: [ 'ss_01', 'ss_01b', 'ss_03', 'ss_12', 'ss_14', 'ss_15' ],
-    gamename: 'Scared Stiff',
+    gameName: 'Scared Stiff',
     id: 'ss',
   },
   rom: {

@@ -7,7 +7,7 @@ module.exports = {
     knownNames: [
       'sttng_p4', 'sttng_p5', 'sttng_p6', 'sttng_p8', 'sttng_l1', 'sttng_d1', 'sttng_l2', 'sttng_d2', 'sttng_l3', 'sttng_l7', 'sttng_d7',
       'sttng_l7c', 'sttng_x7', 'sttng_dx', 'sttng_s7', 'sttng_ds', 'sttng_g7', 'sttng_h7' ],
-    gamename: 'Star Trek: The Next Generation',
+    gameName: 'Star Trek: The Next Generation',
     id: 'sttng',
   },
   rom: {

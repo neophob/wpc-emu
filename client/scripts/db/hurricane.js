@@ -5,7 +5,7 @@ module.exports = {
   version: 'L-2',
   pinmame: {
     knownNames: [ 'hurr_l2', 'hurr_d2' ],
-    gamename: 'Hurricane',
+    gameName: 'Hurricane',
     id: 'hurr',
   },
   rom: {

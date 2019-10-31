@@ -5,7 +5,7 @@ module.exports = {
   version: 'LX-1',
   pinmame: {
     knownNames: [ 'corv_px4', 'corv_px5', 'corv_la1', 'corv_lx1', 'corv_dx1', 'corv_lx2', 'corv_21' ],
-    gamename: 'Corvette',
+    gameName: 'Corvette',
     id: 'corv',
   },
   rom: {

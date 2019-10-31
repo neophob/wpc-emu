@@ -5,7 +5,7 @@ module.exports = {
   version: '2.1',
   pinmame: {
     knownNames: [ 'congo_11', 'congo_13', 'congo_20', 'congo_21' ],
-    gamename: 'Congo',
+    gameName: 'Congo',
     id: 'congo',
   },
   rom: {

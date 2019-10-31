@@ -5,7 +5,7 @@ module.exports = {
   version: 'L-1',
   pinmame: {
     knownNames: [ 'sf_l1', 'sf_d1' ],
-    gamename: 'SlugFest',
+    gameName: 'SlugFest',
     id: 'sf',
   },
   rom: {

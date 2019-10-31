@@ -5,7 +5,7 @@ module.exports = {
   version: '1.06b',
   pinmame: {
     knownNames: [ 'mb_05', 'mb_10', 'mb_106', 'mb_106b' ],
-    gamename: 'Monster Bash',
+    gameName: 'Monster Bash',
     id: 'mb',
   },
   rom: {

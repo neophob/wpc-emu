@@ -5,7 +5,7 @@ module.exports = {
   version: '1.3',
   pinmame: {
     knownNames: [ 'cv_10', 'cv_11', 'cv_13', 'cv_14', 'cv_20h', 'cv_20hc' ],
-    gamename: 'Cirqus Voltaire',
+    gameName: 'Cirqus Voltaire',
     id: 'cv',
   },
   rom: {

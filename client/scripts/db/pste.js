@@ -5,7 +5,7 @@ module.exports = {
   version: 'LX-5',
   pinmame: {
     knownNames: [ 'pop_pa3', 'pop_pa4', 'pop_la4', 'pop_lx4', 'pop_lx5', 'pop_dx5' ],
-    gamename: 'Popeye Saves the Earth',
+    gameName: 'Popeye Saves the Earth',
     id: 'pop',
   },
   rom: {

@@ -5,7 +5,7 @@ module.exports = {
   version: '1.8',
   pinmame: {
     knownNames: [ 'sc_091', 'sc_10', 'sc_14', 'sc_17', 'sc_17n', 'sc_18', 'sc_18n', 'sc_18s11', 'sc_18n11', 'sc_18s2', 'sc_18ns2' ],
-    gamename: 'Safe Cracker',
+    gameName: 'Safe Cracker',
     id: 'sc',
   },
   rom: {

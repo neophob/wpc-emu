@@ -5,7 +5,7 @@ module.exports = {
   version: 'L-8',
   pinmame: {
     knownNames: [ 't2_l2', 't2_d2', 't2_l3', 't2_d3', 't2_l4', 't2_d4', 't2_l6', 't2_d6', 't2_l8', 't2_d8', 't2_l81', 't2_l82', 't2_p2f', 't2_p2g' ],
-    gamename: 'Terminator 2: Judgement Day',
+    gameName: 'Terminator 2: Judgement Day',
     id: 't2',
   },
   rom: {

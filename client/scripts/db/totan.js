@@ -5,7 +5,7 @@ module.exports = {
   version: '1.4',
   pinmame: {
     knownNames: [ 'totan_04', 'totan_12', 'totan_13', 'totan_14', 'totan_15c' ],
-    gamename: 'Tales of the Arabian Nights',
+    gameName: 'Tales of the Arabian Nights',
     id: 'totan',
   },
   rom: {

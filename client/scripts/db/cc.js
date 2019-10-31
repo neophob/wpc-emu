@@ -5,7 +5,7 @@ module.exports = {
   version: '1.3',
   pinmame: {
     knownNames: [ 'cc_10', 'cc_12', 'cc_13', 'cc_13k', 'cc_104' ],
-    gamename: 'Cactus Canyon',
+    gameName: 'Cactus Canyon',
     id: 'cc',
   },
   rom: {

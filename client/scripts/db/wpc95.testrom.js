@@ -5,7 +5,7 @@ module.exports = {
   version: '1.2',
   pinmame: {
     knownNames: [ 'tf95_12' ],
-    gamename: 'WPC Test Fixture: WPC-95',
+    gameName: 'WPC Test Fixture: WPC-95',
     id: 'tf',
   },
   rom: {

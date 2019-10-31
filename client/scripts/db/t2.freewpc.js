@@ -5,7 +5,7 @@ module.exports = {
   version: '1.00',
   pinmame: {
     knownNames: [ 't2_f19', 't2_f20', 't2_f32' ],
-    gamename: 'Terminator 2: Judgement Day (FreeWPC)',
+    gameName: 'Terminator 2: Judgement Day (FreeWPC)',
     id: 't2F',
   },
   rom: {

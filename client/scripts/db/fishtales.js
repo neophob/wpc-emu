@@ -5,7 +5,7 @@ module.exports = {
   version: 'L-5',
   pinmame: {
     knownNames: [ 'ft_p4', 'ft_p5', 'ft_l3', 'ft_l4', 'ft_l5', 'ft_d5', 'ft_l5p', 'ft_d6' ],
-    gamename: 'Fish Tales',
+    gameName: 'Fish Tales',
     id: 'ft',
   },
   rom: {

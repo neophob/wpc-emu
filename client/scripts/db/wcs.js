@@ -5,7 +5,7 @@ module.exports = {
   version: 'LX-2',
   pinmame: {
     knownNames: [ 'wcs_l2', 'wcs_d2', 'wcs_l3c', 'wcs_la2', 'wcs_p2', 'wcs_p5', 'wcs_p3', 'wcs_p6' ],
-    gamename: 'World Cup Soccer',
+    gameName: 'World Cup Soccer',
     id: 'wcs',
   },
   rom: {

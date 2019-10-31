@@ -5,7 +5,7 @@ module.exports = {
   version: '1.0R',
   pinmame: {
     knownNames: [ 'jb_10r', 'jb_101r', 'jb_10b', 'jb_101b' ],
-    gamename: 'Jack*Bot',
+    gameName: 'Jack*Bot',
     id: 'jb',
   },
   rom: {

@@ -5,7 +5,7 @@ module.exports = {
   version: '0.1',
   pinmame: {
     knownNames: [ 'ww_bfr01', 'ww_bfr01b', 'ww_bfr01c', 'ww_bfr01d' ],
-    gamename: 'White Water (FreeWPC)',
+    gameName: 'White Water (FreeWPC)',
     id: 'wwF',
   },
   rom: {

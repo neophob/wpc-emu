@@ -5,7 +5,7 @@ module.exports = {
   version: 'LX-5',
   pinmame: {
     knownNames: [ 'rs_l6', 'rs_lx2p3', 'rs_lx2', 'rs_dx2', 'rs_lx3', 'rs_dx3', 'rs_la4', 'rs_da4', 'rs_lx4', 'rs_dx4', 'rs_la5', 'rs_da5', 'rs_lx5', 'rs_dx5' ],
-    gamename: 'Red & Ted\'s Road Show',
+    gameName: 'Red & Ted\'s Road Show',
     id: 'rs',
   },
   rom: {

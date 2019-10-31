@@ -5,7 +5,7 @@ module.exports = {
   version: '1.2 R',
   pinmame: {
     knownNames: [ 'jm_05r', 'jm_12r', 'jm_12b' ],
-    gamename: 'Johnny Mnemonic',
+    gameName: 'Johnny Mnemonic',
     id: 'jm',
   },
   rom: {

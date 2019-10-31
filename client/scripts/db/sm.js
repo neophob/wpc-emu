@@ -5,7 +5,7 @@ module.exports = {
   version: 'L-4',
   pinmame: {
     knownNames: [ 'strik_l4', 'strik_d4' ],
-    gamename: 'Strike Master',
+    gameName: 'Strike Master',
     id: 'strik',
   },
   rom: {

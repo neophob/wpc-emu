@@ -5,7 +5,7 @@ module.exports = {
   version: 'L-3',
   pinmame: {
     knownNames: [ 'hd_l1', 'hd_d1', 'hd_l2', 'hd_d2', 'hd_l3', 'hd_d3' ],
-    gamename: 'Harley-Davidson',
+    gameName: 'Harley-Davidson',
     id: 'hd',
   },
   rom: {

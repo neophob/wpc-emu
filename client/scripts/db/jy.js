@@ -5,7 +5,7 @@ module.exports = {
   version: '1.2',
   pinmame: {
     knownNames: [ 'jy_03', 'jy_11', 'jy_12', 'jy_12c' ],
-    gamename: 'Junk Yard',
+    gameName: 'Junk Yard',
     id: 'jy',
   },
   rom: {

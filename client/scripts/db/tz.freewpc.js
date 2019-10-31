@@ -5,7 +5,7 @@ module.exports = {
   version: '1.0',
   pinmame: {
     knownNames: [ 'tz_f10', 'tz_f19', 'tz_f50', 'tz_f86', 'tz_f97', 'tz_f100' ],
-    gamename: 'Twilight Zone (FreeWPC)',
+    gameName: 'Twilight Zone (FreeWPC)',
     id: 'tzF',
   },
   rom: {

@@ -5,7 +5,7 @@ module.exports = {
   version: 'LX-2',
   pinmame: {
     knownNames: [ 'dh_lx2', 'dh_dx2', 'dh_lf2' ],
-    gamename: 'Dirty Harry',
+    gameName: 'Dirty Harry',
     id: 'dh',
   },
   rom: {

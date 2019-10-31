@@ -5,7 +5,7 @@ module.exports = {
   version: '1.1R',
   pinmame: {
     knownNames: [ 'i500_11r', 'i500_11b', 'i500_10r' ],
-    gamename: 'Indianapolis 500',
+    gameName: 'Indianapolis 500',
     id: 'i500',
   },
   rom: {

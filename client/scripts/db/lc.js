@@ -5,7 +5,7 @@ module.exports = {
   version: '1.1',
   pinmame: {
     knownNames: [ 'lc_11' ],
-    gamename: 'League Champ',
+    gameName: 'League Champ',
     id: 'lc',
   },
   rom: {

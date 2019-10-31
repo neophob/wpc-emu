@@ -8,7 +8,7 @@ module.exports = {
   },
   pinmame: {
     knownNames: [ 'afv_l4', 'afv_d4' ],
-    gamename: 'Addams Family Values',
+    gameName: 'Addams Family Values',
     id: 'afv',
   },
   switchMapping: [

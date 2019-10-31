@@ -5,7 +5,7 @@ module.exports = {
   version: 'L-2',
   pinmame: {
     knownNames: [ 'pz_l1', 'pz_d1', 'pz_l2', 'pz_d2', 'pz_l3', 'pz_d3', 'pz_f4', 'pz_f5' ],
-    gamename: 'Party Zone',
+    gameName: 'Party Zone',
     id: 'pz',
   },
   rom: {

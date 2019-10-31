@@ -5,7 +5,7 @@ module.exports = {
   version: '0.32',
   pinmame: {
     knownNames: [ 'afm_f10', 'afm_f20', 'afm_f32' ],
-    gamename: 'Attack from Mars (FreeWPC)',
+    gameName: 'Attack from Mars (FreeWPC)',
     id: 'afmF',
   },
   rom: {

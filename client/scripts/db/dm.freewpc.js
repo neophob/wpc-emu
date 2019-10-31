@@ -5,7 +5,7 @@ module.exports = {
   version: '1.01',
   pinmame: {
     knownNames: [ 'dm_dt099', 'dm_dt101' ],
-    gamename: 'Demolition Man (FreeWPC)',
+    gameName: 'Demolition Man (FreeWPC)',
     id: 'dmF',
   },
   rom: {
