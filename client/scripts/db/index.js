@@ -68,7 +68,7 @@ import uploadWpc95 from './wpc95.upload';
 export {
   getAllNames,
   getByName,
-  getByRomFilename,
+  getByPinmameName,
 };
 
 const wpcGames = [
@@ -152,5 +152,7 @@ function getByName(name) {
 }
 
 function getByPinmameName(filename) {
-  return wpcGames.find((entry) => entry.pinmame && entry.pinmame.knownNames.includes(filename.toLowerCase());
+  return wpcGames.find((entry) => {
+    return entry.pinmame && entry.pinmame.knownNames.includes(filename.toLowerCase())
+  });
 }

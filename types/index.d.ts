@@ -80,10 +80,16 @@ export namespace gamelist {
   function getAllNames(): string[];
 
   /**
-   * load metadata for a specific game
+   * load metadata for a specific game name like "WPC-Fliptronics: Fish Tales"
    * @param name case sensitive game name
    */
   function getByName(name: string): ClientGameEntry;
+
+  /**
+   * load metadata for a specific game by its pinmame name, like "tz_94h"
+   * @param filename case insensitive filename
+   */
+  function getByPinmameName(filename: string): ClientGameEntry;
 }
 
 export namespace WpcEmuWebWorkerApi {
