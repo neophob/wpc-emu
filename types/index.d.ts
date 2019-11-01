@@ -1,6 +1,6 @@
 // TypeScript Version: 2.2
 
-export namespace gamelist {
+export namespace GamelistDB {
   interface GameEntryRomName {
     u06: string;
   }
@@ -115,6 +115,32 @@ export namespace gamelist {
   function getByPinmameName(filename: string): ClientGameEntry;
 }
 
+export namespace WpcEmuApi {
+  // TODO add types
+  class Emulator {
+    start(): void;
+    getUiState(): void;
+    getState(): void;
+    setState(stateObject: any): void;
+    registerAudioConsumer(playbackIdCallback: any): void;
+    executeCycle(ticksToRun: number, tickSteps: number): void;
+    setCabinetInput(value: any): void;
+    setInput(value: any): void;
+    setFliptronicsInput(value: any): void;
+    toggleMidnightMadnessMode(): void;
+    reset(): void;
+    version(): void;
+  }
+
+  /**
+   * initialize emulator
+   * @param romData the game rom as { u06: UInt8Array }
+   * @param gameEntry game metadata from the internal database
+   */
+  function initVMwithRom(romData: WpcEmuWebWorkerApi.RomData, gameEntry: WpcEmuWebWorkerApi.GameEntry): Promise<Emulator>;
+  function getVersion(): string;
+}
+
 export namespace WpcEmuWebWorkerApi {
   /**
    * create new webworker API interface
@@ -190,7 +216,7 @@ export namespace WpcEmuWebWorkerApi {
 
   interface GameEntry {
     name: string;
-    rom: gamelist.GameEntryRomName;
+    rom: GamelistDB.GameEntryRomName;
     /**
      * ROM filename
      */
@@ -200,7 +226,7 @@ export namespace WpcEmuWebWorkerApi {
      * features of this pinball machine: 'securityPic', 'wpc95', 'wpcAlphanumeric', 'wpcDmd', 'wpcFliptronics', 'wpcSecure', 'wpcDcs'
      */
     features?: string[];
-    memoryPosition?: gamelist.GameEntryMemoryPositions;
+    memoryPosition?: GamelistDB.GameEntryMemoryPositions;
   }
 
   class WebWorkerApi {
@@ -305,124 +331,124 @@ export namespace WpcEmuWebWorkerApi {
      */
     getEmulatorRomName(): Promise<string>;
   }
-}
 
-export namespace WebWorker {
-  class WpcEmu {
-    /**
-     * configure new framerate for the setInterval calls
-     */
-    configureFramerate(frameRate: number): void;
+  namespace WebWorker {
+    class WpcEmu {
+      /**
+       * configure new framerate for the setInterval calls
+       */
+      configureFramerate(frameRate: number): void;
+
+      /**
+       * returns the current ui state of the emu
+       */
+      getUiState(): EmuState;
+
+      /**
+       * callback to playback audio samples
+       * @param callbackFunction function will be called when a sampleId should be played
+       */
+      registerAudioConsumer(callbackFunction: (sampleId: number) => void): void;
+
+      /**
+       * reset the emulator
+       */
+      reset(): void;
+
+      /**
+       * Cabinet key emulation (Coins, ESC, +, -, ENTER)
+       * @param value number between 1 and 8
+       */
+      setCabinetInput(value: number): void;
+
+      /**
+       * Toggle a switch
+       * @param switchNr number between 11 and 99
+       */
+      setInput(switchNr: number): void;
+
+      /**
+       * fliptronic flipper move (depends on the machine if this is supported)
+       * @param value the switch name, like 'F1', 'F2' .. 'F8'
+       */
+      setFliptronicsInput(value: string): void;
+
+      /**
+       * set the internal time some seconds before midnight madness time (toggles)
+       */
+      toggleMidnightMadnessMode(): void;
+
+      /**
+       * returns current WPC-Emu version
+       */
+      getVersion(): string;
+
+      /**
+       * returns current rom name
+       */
+      getEmulatorRomName(): string;
+
+      /**
+       * get the internal state of the emulator, used to save current emulator state
+       */
+      getEmulatorState(): EmuState;
+
+      /**
+       * restore a previously saved emulator state
+       * @param emuState the new state
+       */
+      setEmulatorState(emuState: EmuState): void;
+
+      /**
+       * start the emulator (Reset CPU Board, TODO should go awa)
+       */
+      start(): void;
+
+      /**
+       * clear setInterval loop in web worker
+       */
+      stop(): void;
+
+      /**
+       * stop setInterval loop in web worker, if emulator is already paused, next step will be executed
+       */
+      pause(): void;
+
+      /**
+       * resume setInterval loop in web worker
+       */
+      resume(): void;
+
+      /**
+       * Debugging tool, write to emu ram
+       * @param offset of memory, must be between 0..0x3FFF
+       * @param value to write to the memory location (uint8)
+       */
+      writeMemory(offset: number, value: number): void;
+
+      /**
+       * if you don't want to use the setInterval function (pause/resume) because there is already
+       * a loop running, use this function to run the emulator for N ms.
+       */
+      emuStepByTime(advanceByMs: number): void;
+    }
 
     /**
-     * returns the current ui state of the emu
+     * pass RPC messages from WpcEmuWebWorkerApi to the real implementaion
+     * @param event message revieved from the WpcEmuWebWorkerApi
+     * @param postMessage webworked postMessage function
      */
-    getUiState(): WpcEmuWebWorkerApi.EmuState;
+    function handleMessage(event: any, postMessage: any): void;
 
     /**
-     * callback to playback audio samples
-     * @param callbackFunction function will be called when a sampleId should be played
+     * returns the current emu instance, so the emu can be used within a worker thread.
+     * Note: the emu might not be initialized yet - so consumer must make sure emu is defined
      */
-    registerAudioConsumer(callbackFunction: (sampleId: number) => void): void;
+    function getEmu(): WpcEmu;
 
     /**
-     * reset the emulator
+     * clears the state of webworker
      */
-    reset(): void;
-
-    /**
-     * Cabinet key emulation (Coins, ESC, +, -, ENTER)
-     * @param value number between 1 and 8
-     */
-    setCabinetInput(value: number): void;
-
-    /**
-     * Toggle a switch
-     * @param switchNr number between 11 and 99
-     */
-    setInput(switchNr: number): void;
-
-    /**
-     * fliptronic flipper move (depends on the machine if this is supported)
-     * @param value the switch name, like 'F1', 'F2' .. 'F8'
-     */
-    setFliptronicsInput(value: string): void;
-
-    /**
-     * set the internal time some seconds before midnight madness time (toggles)
-     */
-    toggleMidnightMadnessMode(): void;
-
-    /**
-     * returns current WPC-Emu version
-     */
-    getVersion(): string;
-
-    /**
-     * returns current rom name
-     */
-    getEmulatorRomName(): string;
-
-    /**
-     * get the internal state of the emulator, used to save current emulator state
-     */
-    getEmulatorState(): WpcEmuWebWorkerApi.EmuState;
-
-    /**
-     * restore a previously saved emulator state
-     * @param emuState the new state
-     */
-    setEmulatorState(emuState: WpcEmuWebWorkerApi.EmuState): void;
-
-    /**
-     * start the emulator (Reset CPU Board, TODO should go awa)
-     */
-    start(): void;
-
-    /**
-     * clear setInterval loop in web worker
-     */
-    stop(): void;
-
-    /**
-     * stop setInterval loop in web worker, if emulator is already paused, next step will be executed
-     */
-    pause(): void;
-
-    /**
-     * resume setInterval loop in web worker
-     */
-    resume(): void;
-
-    /**
-     * Debugging tool, write to emu ram
-     * @param offset of memory, must be between 0..0x3FFF
-     * @param value to write to the memory location (uint8)
-     */
-    writeMemory(offset: number, value: number): void;
-
-    /**
-     * if you don't want to use the setInterval function (pause/resume) because there is already
-     * a loop running, use this function to run the emulator for N ms.
-     */
-    emuStepByTime(advanceByMs: number): void;
+    function clearState(): void;
   }
-
-  /**
-   * pass RPC messages from WpcEmuWebWorkerApi to the real implementaion
-   * @param event message revieved from the WpcEmuWebWorkerApi
-   * @param postMessage webworked postMessage function
-   */
-  function handleMessage(event: any, postMessage: any): void;
-
-  /**
-   * returns the current emu instance, so the emu can be used within a worker thread.
-   * Note: the emu might not be initialized yet - so consumer must make sure emu is defined
-   */
-  function getEmu(): WpcEmu;
-
-  /**
-   * clears the state of webworker
-   */
-  function clearState(): void;
 }

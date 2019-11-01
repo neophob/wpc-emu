@@ -1,7 +1,7 @@
 'use strict';
 
-const WebworkerInterface = require('../../lib/webclient/webworker');
+import { WebWorker } from '../../lib/webclient';
 
 onmessage = (event) => {
-  WebworkerInterface.handleMessage(event, postMessage);
+  WebWorker.handleMessage(event, postMessage);
 };
