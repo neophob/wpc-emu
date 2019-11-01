@@ -131,12 +131,12 @@ export namespace WpcEmuApi {
     /**
      * Get (raw) state of the EMU - main use case is to restore this state at a later time
      */
-    getState(): void;
+    getState(): WpcEmuWebWorkerApi.EmuState;
 
     /**
      * Restore a saved state
      */
-    setState(stateObject: any): void;
+    setState(stateObject: WpcEmuWebWorkerApi.EmuState): void;
 
     /**
      * Callback to playback audio samples
