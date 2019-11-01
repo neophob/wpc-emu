@@ -118,18 +118,70 @@ export namespace GamelistDB {
 export namespace WpcEmuApi {
   // TODO add types
   class Emulator {
+    /**
+     * Start the Emulator - reset the CPU
+     */
     start(): void;
-    getUiState(): void;
+
+    /**
+     * Returns the current ui state of the emu used to render EMU State
+     */
+    getUiState(): WpcEmuWebWorkerApi.EmuState;
+
+    /**
+     * Get (raw) state of the EMU - main use case is to restore this state at a later time
+     */
     getState(): void;
+
+    /**
+     * Restore a saved state
+     */
     setState(stateObject: any): void;
-    registerAudioConsumer(playbackIdCallback: any): void;
+
+    /**
+     * Callback to playback audio samples
+     */
+    registerAudioConsumer(callbackFunction: (sampleId: number) => void): void;
+
+    /**
+     * Run the system for a particular amount of time/ticks
+     * @param ticksToRun how many ticks should the CPU run, 2'000'000 ticks means one seconds
+     * @param tickSteps how many cycles the cpu should run before other systems should be updated? see BENCHMARK.md for more details
+     */
     executeCycle(ticksToRun: number, tickSteps: number): void;
-    setCabinetInput(value: any): void;
-    setInput(value: any): void;
-    setFliptronicsInput(value: any): void;
+
+    /**
+     * Cabinet key emulation (Coins, ESC, +, -, ENTER)
+     * @param value number between 1 and 8
+     */
+    setCabinetInput(value: number): void;
+
+    /**
+     * Toggle a switch
+     * @param switchNr number between 11 and 99
+     */
+     setInput(switchNr: number): void;
+
+    /**
+     * Fliptronic flipper move (depends on the machine if this is supported)
+     * @param value the switch name, like 'F1', 'F2' .. 'F8'
+     */
+    setFliptronicsInput(value: string): void;
+
+    /**
+     * Set the internal time some seconds before midnight madness time (toggles)
+     */
     toggleMidnightMadnessMode(): void;
+
+    /**
+     * Reset the emulator
+     */
     reset(): void;
-    version(): void;
+
+    /**
+     * Returns current WPC-Emu version
+     */
+    version(): string;
   }
 
   /**
