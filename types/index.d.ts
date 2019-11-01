@@ -97,6 +97,25 @@ export namespace GamelistDB {
     initialise?: any;
   }
 
+  interface RomData {
+    u06: Uint8Array;
+  }
+
+  interface GameEntry {
+    name: string;
+    rom: GameEntryRomName;
+    /**
+     * ROM filename
+     */
+    fileName?: string;
+    skipWpcRomCheck?: boolean;
+    /**
+     * features of this pinball machine: 'securityPic', 'wpc95', 'wpcAlphanumeric', 'wpcDmd', 'wpcFliptronics', 'wpcSecure', 'wpcDcs'
+     */
+    features?: string[];
+    memoryPosition?: GameEntryMemoryPositions;
+  }
+
   /**
    * get all supported game names
    */
@@ -189,7 +208,7 @@ export namespace WpcEmuApi {
    * @param romData the game rom as { u06: UInt8Array }
    * @param gameEntry game metadata from the internal database
    */
-  function initVMwithRom(romData: WpcEmuWebWorkerApi.RomData, gameEntry: WpcEmuWebWorkerApi.GameEntry): Promise<Emulator>;
+  function initVMwithRom(romData: GamelistDB.RomData, gameEntry: GamelistDB.GameEntry): Promise<Emulator>;
   function getVersion(): string;
 }
 
@@ -262,32 +281,13 @@ export namespace WpcEmuWebWorkerApi {
     dmd: EmuStateDMD;
   }
 
-  interface RomData {
-    u06: Uint8Array;
-  }
-
-  interface GameEntry {
-    name: string;
-    rom: GamelistDB.GameEntryRomName;
-    /**
-     * ROM filename
-     */
-    fileName?: string;
-    skipWpcRomCheck?: boolean;
-    /**
-     * features of this pinball machine: 'securityPic', 'wpc95', 'wpcAlphanumeric', 'wpcDmd', 'wpcFliptronics', 'wpcSecure', 'wpcDcs'
-     */
-    features?: string[];
-    memoryPosition?: GamelistDB.GameEntryMemoryPositions;
-  }
-
   class WebWorkerApi {
     /**
      * initialize emulator
      * @param romData the game rom as { u06: UInt8Array }
      * @param gameEntry game metadata from the internal database
      */
-    initializeEmulator(romData: RomData, gameEntry: GameEntry): Promise<WorkerMessage>;
+    initializeEmulator(romData: GamelistDB.RomData, gameEntry: GamelistDB.GameEntry): Promise<WorkerMessage>;
 
     /**
      * reset the RPC proxy to its initial state. used when a new game is loaded.
