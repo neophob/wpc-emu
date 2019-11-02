@@ -163,11 +163,20 @@ export namespace WpcEmuApi {
     registerAudioConsumer(callbackFunction: (sampleId: number) => void): void;
 
     /**
-     * Run the system for a particular amount of time/ticks
+     * Run the system for a particular amount of ticks
      * @param ticksToRun how many ticks should the CPU run, 2'000'000 ticks means one seconds
      * @param tickSteps how many cycles the cpu should run before other systems should be updated? see BENCHMARK.md for more details
+     * @returns executed ticks
      */
-    executeCycle(ticksToRun: number, tickSteps: number): void;
+    executeCycle(ticksToRun: number, tickSteps: number): number;
+
+    /**
+     * Run the system for a particular amount of time
+     * @param advanceByMs how many ms should the CPU run, 1000 ticks means one seconds
+     * @param tickSteps how many cycles the cpu should run before other systems should be updated? see BENCHMARK.md for more details
+     * @returns executed ticks
+     */
+    executeCycleForTime(advanceByMs: number, tickSteps: number): number;
 
     /**
      * Cabinet key emulation (Coins, ESC, +, -, ENTER)
@@ -179,7 +188,7 @@ export namespace WpcEmuApi {
      * Toggle a switch
      * @param switchNr number between 11 and 99
      */
-     setInput(switchNr: number): void;
+    setInput(switchNr: number): void;
 
     /**
      * Fliptronic flipper move (depends on the machine if this is supported)
@@ -366,6 +375,14 @@ export namespace WpcEmuWebWorkerApi {
      * get the internal state of the emulator, used to save current emulator state
      */
     getEmulatorState(): Promise<EmuState>;
+
+    /**
+     * Run the system for a particular amount of time
+     * @param advanceByMs how many ms should the CPU run, 1000 ticks means one seconds
+     * @param tickSteps how many cycles the cpu should run before other systems should be updated? see BENCHMARK.md for more details
+     * @returns executed ticks
+     */
+    emuStepByTime(advanceByMs: number, ticksStep: number): number;
 
     /**
      * restore a previously saved emulator state
