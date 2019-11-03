@@ -131,7 +131,7 @@ export namespace GamelistDB {
    * load metadata for a specific game by its pinmame name, like "tz_94h"
    * @param filename case insensitive filename
    */
-  function getByPinmameName(filename: string): ClientGameEntry;
+  function getByPinmameName(filename: string): ClientGameEntry | undefined;
 }
 
 export namespace WpcEmuApi {

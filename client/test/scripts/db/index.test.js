@@ -24,3 +24,8 @@ test('gamelist, should getByPinmameName (UPPERCASE)', (t) => {
   const result = gamelist.getByPinmameName('TZ_94H');
   t.is(result.pinmame.gameName, 'Twilight Zone');
 });
+
+test('gamelist, getByPinmameName with unknown name', (t) => {
+  const result = gamelist.getByPinmameName('i do not exist!');
+  t.is(result, undefined);
+});
