@@ -421,8 +421,9 @@ export namespace WpcEmuWebWorkerApi {
       /**
        * returns the current ui state of the emu.
        * NOTE: compared to the getEmulatorState function call, getUiState delivers only an element if the content changed.
+       * @param includeExpensiveData if set to false, expensive/large state objects (RAM, VideoRAM) are excluded, default is to include this kind of data
        */
-      getUiState(): EmuState;
+      getUiState(includeExpensiveData?: boolean): EmuState;
 
       /**
        * callback to playback audio samples
