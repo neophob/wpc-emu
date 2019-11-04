@@ -302,30 +302,68 @@ export namespace WpcEmuWebWorkerApi {
   }
 
   interface EmuStateCpu {
+    /**
+     * Current PC register state
+     */
     regPC: number;
     regS: number;
     regU: number;
     regA: number;
     regB: number;
+    /**
+     * how many FIRQ calls were executed
+     */
     firqCount: number;
+    /**
+     * how many IRQ calls were executed
+     */
     irqCount: number;
+    /**
+     * how man FIRQ calls were missed (due flag state?)
+     */
     missedFIRQ: number;
+    /**
+     * how man IRQ calls were missed (due flag state?)
+     */
     missedIRQ: number;
+    /**
+     * how many NMI calls were made
+     * NOTE: should be 0 as NMI functions are not implemented!
+     */
     nmiCount: number;
     regCC: number;
     regDP: number;
     regX: number;
     regY: number;
+    /**
+     * how many ticks were processed
+     */
     tickCount: number;
     }
 
   interface EmuState {
     asic: EmuStateAsic;
     cpuState: EmuStateCpu;
+    /**
+     * Average ops per ms
+     * TODO should be renamed to averageTickerPerMs
+     */
     opsMs: number;
+    /**
+     * how many times a RAM write was refused because it was protected
+     */
     protectedMemoryWriteAttempts: number;
+    /**
+     * Absolute emulator runtime in ms
+     */
     runtime: number;
+    /**
+     * how many ticks are left until the next IRQ will be executed
+     */
     ticksIrq: number;
+    /**
+     * internal version number of the data
+     */
     version: number;
   }
 
