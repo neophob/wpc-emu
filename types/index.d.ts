@@ -145,8 +145,9 @@ export namespace WpcEmuApi {
     /**
      * Returns the current ui state of the emu used to render EMU State.
      * NOTE: compared to the getState function call, getUiState delivers only an element if the content changed.
+     * @param includeExpensiveData if set to false, expensive/large state objects (RAM, VideoRAM) are excluded, default is to include this kind of data
      */
-    getUiState(): WpcEmuWebWorkerApi.EmuState;
+    getUiState(includeExpensiveData?: boolean): WpcEmuWebWorkerApi.EmuState;
 
     /**
      * Get (raw) state of the EMU - main use case is to restore this state at a later time
@@ -290,14 +291,42 @@ export namespace WpcEmuWebWorkerApi {
     nextActivePage?: number;
     requestFIRQ?: boolean;
     ticksUpdateDmd?: number;
-}
+  }
 
-  interface EmuState {
-    ram: Uint8Array;
+  interface EmuStateAsic {
+    ram?: Uint8Array;
     memoryPosition?: object[];
     sound: EmuStateSound;
     wpc: EmuStateWpc;
     dmd: EmuStateDMD;
+  }
+
+  interface EmuStateCpu {
+    regPC: number;
+    regS: number;
+    regU: number;
+    regA: number;
+    regB: number;
+    firqCount: number;
+    irqCount: number;
+    missedFIRQ: number;
+    missedIRQ: number;
+    nmiCount: number;
+    regCC: number;
+    regDP: number;
+    regX: number;
+    regY: number;
+    tickCount: number;
+    }
+
+  interface EmuState {
+    asic: EmuStateAsic;
+    cpuState: EmuStateCpu;
+    opsMs: number;
+    protectedMemoryWriteAttempts: number;
+    runtime: number;
+    ticksIrq: number;
+    version: number;
   }
 
   class WebWorkerApi {
@@ -421,9 +450,8 @@ export namespace WpcEmuWebWorkerApi {
       /**
        * returns the current ui state of the emu.
        * NOTE: compared to the getEmulatorState function call, getUiState delivers only an element if the content changed.
-       * @param includeExpensiveData if set to false, expensive/large state objects (RAM, VideoRAM) are excluded, default is to include this kind of data
        */
-      getUiState(includeExpensiveData?: boolean): EmuState;
+      getUiState(): EmuState;
 
       /**
        * callback to playback audio samples
