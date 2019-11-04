@@ -243,9 +243,18 @@ export namespace WpcEmuWebWorkerApi {
 
   interface EmuStateWpc {
     diagnosticLed: number;
+    /**
+     * the output lamp state
+     */
     lampState?: Uint8Array;
     solenoidState?: Uint8Array;
+    /**
+     * Contains 8 bytes of the GI lamps
+     */
     generalIlluminationState: Uint8Array;
+    /**
+     * the switch state
+     */
     inputState?: Uint8Array;
     diagnosticLedToggleCount: number;
     midnightModeEnabled: boolean;
