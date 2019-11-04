@@ -143,7 +143,8 @@ export namespace WpcEmuApi {
     start(): void;
 
     /**
-     * Returns the current ui state of the emu used to render EMU State
+     * Returns the current ui state of the emu used to render EMU State.
+     * NOTE: compared to the getState function call, getUiState delivers only an element if the content changed.
      */
     getUiState(): WpcEmuWebWorkerApi.EmuState;
 
@@ -418,7 +419,8 @@ export namespace WpcEmuWebWorkerApi {
       configureFramerate(frameRate: number): void;
 
       /**
-       * returns the current ui state of the emu
+       * returns the current ui state of the emu.
+       * NOTE: compared to the getEmulatorState function call, getUiState delivers only an element if the content changed.
        */
       getUiState(): EmuState;
 
