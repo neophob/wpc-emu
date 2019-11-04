@@ -28,7 +28,7 @@ initEmuWithGameName(INITIAL_GAME)
  * @returns {Promise} which will be resolved once the action is initialized
  */
 function initEmuWithGameName(name) {
-  const gameEntry = WpcEmu.gamelist.getByName(name);
+  const gameEntry = WpcEmu.GamelistDB.getByName(name);
   return downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06)
     .then((u06Rom) => {
       console.log('Successfully loaded ROM', u06Rom.length);

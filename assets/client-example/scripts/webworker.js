@@ -1,7 +1,7 @@
 'use strict';
 
-import WebworkerInterface from 'wpc-emu/lib/webclient/webworker';
+import { WebWorker } from 'wpc-emu/lib/webclient';
 
 onmessage = (event) => {
-  WebworkerInterface.handleMessage(event, postMessage);
+  WebWorker.handleMessage(event, postMessage);
 };
