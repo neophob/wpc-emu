@@ -191,7 +191,7 @@ export namespace WpcEmuApi {
      * @param switchNr number between 11 and 99
      * @param optionalValue if undefined, switch will toggle, else set to the defined state
      */
-    setSwitchInput(switchNr: number, optionalValue: boolean): void;
+    setSwitchInput(switchNr: number, optionalValue?: boolean): void;
 
     /**
      * Fliptronic flipper move (depends on the machine if this is supported)
@@ -402,7 +402,7 @@ export namespace WpcEmuWebWorkerApi {
      * @param switchNr number between 11 and 99
      * @param optionalValue if undefined, switch will toggle, else set to the defined state
      */
-    setSwitchInput(switchNr: number, optionalValue: boolean): Promise<WorkerMessage>;
+    setSwitchInput(switchNr: number, optionalValue?: boolean): Promise<WorkerMessage>;
 
     /**
      * fliptronic flipper move (depends on the machine if this is supported)
@@ -515,7 +515,7 @@ export namespace WpcEmuWebWorkerApi {
        * @param switchNr number between 11 and 99
        * @param optionalValue if undefined, switch will toggle, else set to the defined state
        */
-      setSwitchInput(switchNr: number, optionalValue: boolean): void;
+      setSwitchInput(switchNr: number, optionalValue?: boolean): void;
 
       /**
        * fliptronic flipper move (depends on the machine if this is supported)
