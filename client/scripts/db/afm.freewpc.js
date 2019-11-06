@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-95: Attack from Mars (FreeWPC, Broken)',
   version: '0.32',
+  pinmame: {
+    knownNames: [ 'afm_f10', 'afm_f20', 'afm_f32' ],
+    gameName: 'Attack from Mars (FreeWPC)',
+    id: 'afmF',
+  },
   rom: {
     u06: 'afm_1_13.bin',
   },

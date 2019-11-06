@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-DMD: The Party Zone',
   version: 'L-2',
+  pinmame: {
+    knownNames: [ 'pz_l1', 'pz_d1', 'pz_l2', 'pz_d2', 'pz_l3', 'pz_d3', 'pz_f4', 'pz_f5' ],
+    gameName: 'Party Zone',
+    id: 'pz',
+  },
   rom: {
     u06: 'PZ_U6.L2',
   },

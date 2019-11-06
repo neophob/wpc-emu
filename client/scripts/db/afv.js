@@ -6,6 +6,11 @@ module.exports = {
   rom: {
     u06: 'afv_u6.l4',
   },
+  pinmame: {
+    knownNames: [ 'afv_l4', 'afv_d4' ],
+    gameName: 'Addams Family Values',
+    id: 'afv',
+  },
   switchMapping: [
     { id: 13, name: 'COIN DROP' },
     { id: 14, name: 'PLUMB BOB TILT' },

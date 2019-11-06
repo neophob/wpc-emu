@@ -9,7 +9,7 @@ test.beforeEach((t) => {
     inputDataCabinet: []
   };
   const mockWpcSystem = {
-    setInput: (id) => {
+    setSwitchInput: (id) => {
       data.inputData.push(id);
     },
     setCabinetInput: (id) => {

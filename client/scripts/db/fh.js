@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-ALPHA: Funhouse',
   version: 'L-9',
+  pinmame: {
+    knownNames: [ 'fh_l2', 'fh_l3', 'fh_d3', 'fh_l4', 'fh_d4', 'fh_l5', 'fh_d5', 'fh_l9', 'fh_d9', 'fh_l9b', 'fh_d9b', 'fh_905h', 'fh_906h' ],
+    gameName: 'Funhouse',
+    id: 'fh',
+  },
   rom: {
     u06: 'funh_l9.rom',
   },

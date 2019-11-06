@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-DCS: Judge Dredd',
   version: 'L-7',
+  pinmame: {
+    knownNames: [ 'jd_l1', 'jd_d1', 'jd_l4', 'jd_d4', 'jd_l5', 'jd_d5', 'jd_l6', 'jd_d6', 'jd_l7', 'jd_d7' ],
+    gameName: 'Judge Dredd',
+    id: 'jd',
+  },
   rom: {
     u06: 'jdrd_l7.rom',
   },

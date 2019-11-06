@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-95: Scared Stiff',
   version: '1.5',
+  pinmame: {
+    knownNames: [ 'ss_01', 'ss_01b', 'ss_03', 'ss_12', 'ss_14', 'ss_15' ],
+    gameName: 'Scared Stiff',
+    id: 'ss',
+  },
   rom: {
     u06: 'SS_G11.1_5',
   },

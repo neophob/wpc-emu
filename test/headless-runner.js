@@ -51,9 +51,9 @@ function bootEmu() {
           if (switchBlacklist.includes(input)) {
             input = 13;
           }
-          wpcSystem.setInput(input);
+          wpcSystem.setSwitchInput(input);
           wpcSystem.executeCycle(KEYPRESS_TICKS, CPU_STEPS);
-          wpcSystem.setInput(input);
+          wpcSystem.setSwitchInput(input);
         }
       }
     });
@@ -76,15 +76,15 @@ function boot(wpcSystem) {
   wpcSystem.setCabinetInput(16);
   wpcSystem.executeCycle(HALF_SECOND_TICKS * 4, CPU_STEPS);
 
-  wpcSystem.setInput(13);
+  wpcSystem.setSwitchInput(13);
   wpcSystem.executeCycle(2 * HALF_SECOND_TICKS, CPU_STEPS);
-  wpcSystem.setInput(13);
+  wpcSystem.setSwitchInput(13);
   wpcSystem.executeCycle(2 * HALF_SECOND_TICKS, CPU_STEPS);
-  wpcSystem.setInput(13);
+  wpcSystem.setSwitchInput(13);
   wpcSystem.executeCycle(2 * HALF_SECOND_TICKS, CPU_STEPS);
 
   switchesEnabled.forEach((a) => {
-    wpcSystem.setInput(a);
+    wpcSystem.setSwitchInput(a);
   });
 }
 

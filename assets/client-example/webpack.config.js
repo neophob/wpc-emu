@@ -7,6 +7,8 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 const S3_BUCKET = 'https://s3-eu-west-1.amazonaws.com/foo-temp/';
 
+const skipAnalyze = process.env.NO_ANALYZE && process.env.NO_ANALYZE === 'true';
+
 module.exports = () => {
   return {
     entry: {
@@ -22,7 +24,9 @@ module.exports = () => {
         template: 'index.html',
         minify: true
       }),
-      new BundleAnalyzerPlugin(),
+      new BundleAnalyzerPlugin({
+        analyzerMode: skipAnalyze ? 'disabled' : 'server'
+      }),
     ],
     output: {
       filename: '[name].js',

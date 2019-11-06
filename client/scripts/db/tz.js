@@ -3,6 +3,14 @@
 module.exports = {
   name: 'WPC-Fliptronics: Twilight Zone',
   version: 'H-8',
+  pinmame: {
+    knownNames: [
+      'tz_pa1', 'tz_pa2', 'tz_p3', 'tz_p3d', 'tz_p4', 'tz_p5', 'tz_l1', 'tz_d1', 'tz_l2', 'tz_d2', 'tz_l3', 'tz_d3', 'tz_ifpa', 'tz_ifpa2', 'tz_l4', 'tz_d4',
+      'tz_h7', 'tz_i7', 'tz_h8', 'tz_i8', 'tz_92', 'tz_93', 'tz_94h', 'tz_94ch',
+    ],
+    gameName: 'Twilight Zone',
+    id: 'tz',
+  },
   rom: {
     u06: 'tz_h8.u6',
   },

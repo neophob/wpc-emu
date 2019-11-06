@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-S: WPC Test Fixture ',
   version: '1.2',
+  pinmame: {
+    knownNames: [ 'tfs_12' ],
+    gameName: 'WPC Test Fixture: Security',
+    id: 'tf',
+  },
   rom: {
     u06: 'u6_12.rom',
   },

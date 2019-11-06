@@ -29,7 +29,7 @@ test('WebclientIndex: getStatistics', (t) => {
   { command: 'initializeEmulator', requestIdInAnswer: true },
   { command: 'resetEmulator', requestIdInAnswer: true },
   { command: 'setCabinetInput', requestIdInAnswer: true },
-  { command: 'setInput', requestIdInAnswer: true },
+  { command: 'setSwitchInput', requestIdInAnswer: true },
   { command: 'setFliptronicsInput', requestIdInAnswer: true },
   { command: 'toggleMidnightMadnessMode', requestIdInAnswer: true },
   { command: 'getVersion', requestIdInAnswer: false },

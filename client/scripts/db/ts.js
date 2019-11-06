@@ -3,6 +3,13 @@
 module.exports = {
   name: 'WPC-S: The Shadow',
   version: 'LX-5',
+  pinmame: {
+    knownNames: [
+      'ts_pa1', 'ts_pa2', 'ts_la2', 'ts_da2', 'ts_la4', 'ts_da4', 'ts_lx4', 'ts_dx4', 'ts_lx5', 'ts_dx5', 'ts_la6', 'ts_da6', 'ts_lh6', 'ts_lh6p',
+      'ts_dh6', 'ts_lf6', 'ts_df6', 'ts_lm6', 'ts_dm6' ],
+    gameName: 'Shadow, The',
+    id: 'ts',
+  },
   rom: {
     u06: 'shad_x5.rom',
   },

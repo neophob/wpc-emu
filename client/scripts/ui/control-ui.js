@@ -79,7 +79,7 @@ function addGameSpecificControls(gameEntry) {
       child.id = PINBALL_SWITCH_BUTTONS_ELEMENT + mapping.id;
       child.className = CSS_BUTTON_CLASS;
       child.addEventListener('click', () => {
-        window.wpcInterface.webclient.setInput(mapping.id);
+        window.wpcInterface.webclient.setSwitchInput(mapping.id);
       });
       element.append(child);
     });

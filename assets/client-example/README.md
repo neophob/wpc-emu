@@ -1,4 +1,4 @@
-# Client Example
+# Minimal WebWorker Client Example
 
 Minimal example how to use WPC-Emu in the Browser, emulator core is running in a worker thread.
 

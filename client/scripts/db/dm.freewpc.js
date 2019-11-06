@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-DCS: Demolition Man (FreeWPC)',
   version: '1.01',
+  pinmame: {
+    knownNames: [ 'dm_dt099', 'dm_dt101' ],
+    gameName: 'Demolition Man (FreeWPC)',
+    id: 'dmF',
+  },
   rom: {
     u06: 'dm_dt101.rom',
   },

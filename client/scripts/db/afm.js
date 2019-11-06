@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-95: Attack from Mars',
   version: '1.13b',
+  pinmame: {
+    knownNames: [ 'afm_10', 'afm_11', 'afm_11u', 'afm_113', 'afm_113b' ],
+    gameName: 'Attack from Mars',
+    id: 'afm',
+  },
   rom: {
     u06: 'afm_113b.bin',
   },

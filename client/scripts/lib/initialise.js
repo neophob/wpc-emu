@@ -14,7 +14,7 @@ function initialiseActions(initObject, webclient) {
       if (switchIdToEnable[0] === 'F') {
         webclient.setFliptronicsInput(switchIdToEnable);
       } else {
-        webclient.setInput(switchIdToEnable);
+        webclient.setSwitchInput(switchIdToEnable);
       }
     });
   }

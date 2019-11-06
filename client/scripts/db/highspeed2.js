@@ -3,6 +3,12 @@
 module.exports = {
   name: 'WPC-Fliptronics: High Speed II, The Getaway',
   version: 'L-5',
+  pinmame: {
+    knownNames: [ 'gw_pb', 'gw_pc', 'gw_pd', 'gw_p7', 'gw_p8', 'gw_l1', 'gw_d1', 'gw_l2', 'gw_d2', 'gw_l3', 'gw_d3', 'gw_l5', 'gw_d5', 'gw_l5c' ],
+    gameName: 'Getaway: High Speed II, The',
+    id: 'gw',
+    vpdbId: 'hs2',
+  },
   rom: {
     u06: 'GETAW_L5.ROM',
   },

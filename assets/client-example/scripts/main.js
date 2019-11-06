@@ -3,7 +3,7 @@
 import * as WpcEmu from 'wpc-emu';
 
 // reference the webworker from wep-emu
-import WebWorker from 'worker-loader!wpc-emu/lib/webclient/webworker.js';
+import WebWorker from 'worker-loader!./webworker.js';
 
 import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher';
 import { initialiseActions } from './lib/initialise';
@@ -28,7 +28,7 @@ initEmuWithGameName(INITIAL_GAME)
  * @returns {Promise} which will be resolved once the action is initialized
  */
 function initEmuWithGameName(name) {
-  const gameEntry = WpcEmu.gamelist.getByName(name);
+  const gameEntry = WpcEmu.GamelistDB.getByName(name);
   return downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06)
     .then((u06Rom) => {
       console.log('Successfully loaded ROM', u06Rom.length);
@@ -151,7 +151,7 @@ function registerKeyboardListener() {
       case 52: //4
         return wpcEmuWebWorkerApi.setCabinetInput(8);
       case 53: //5
-        return wpcEmuWebWorkerApi.setInput(13);
+        return wpcEmuWebWorkerApi.setSwitchInput(13);
       case 55: //7
         return wpcEmuWebWorkerApi.setCabinetInput(16);
       case 56: //8

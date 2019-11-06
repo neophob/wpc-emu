@@ -3,6 +3,11 @@
 module.exports = {
   name: 'WPC-S: Jack·Bot',
   version: '1.0R',
+  pinmame: {
+    knownNames: [ 'jb_10r', 'jb_101r', 'jb_10b', 'jb_101b' ],
+    gameName: 'Jack*Bot',
+    id: 'jb',
+  },
   rom: {
     u06: 'jack1_0r.rom',
   },
