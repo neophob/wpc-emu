@@ -300,7 +300,7 @@ function registerKeyboardListener() {
         return wpcEmuWebWorkerApi.setCabinetInput(8);
 
       case 53: //5
-        return wpcEmuWebWorkerApi.setInput(13);
+        return wpcEmuWebWorkerApi.setSwitchInput(13);
 
       case 55: //7
         return wpcEmuWebWorkerApi.setCabinetInput(16);

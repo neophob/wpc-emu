@@ -397,10 +397,11 @@ export namespace WpcEmuWebWorkerApi {
     setCabinetInput(value: number): Promise<WorkerMessage>;
 
     /**
-     * Toggle a switch
+     * Set or toggle a switch
      * @param switchNr number between 11 and 99
+     * @param optionalValue if undefined, switch will toggle, else set to the defined state
      */
-    setInput(switchNr: number): Promise<WorkerMessage>;
+    setSwitchInput(switchNr: number, optionalValue: boolean): Promise<WorkerMessage>;
 
     /**
      * fliptronic flipper move (depends on the machine if this is supported)
@@ -509,10 +510,11 @@ export namespace WpcEmuWebWorkerApi {
       setCabinetInput(value: number): void;
 
       /**
-       * Toggle a switch
+       * Toggle or set a switch
        * @param switchNr number between 11 and 99
+       * @param optionalValue if undefined, switch will toggle, else set to the defined state
        */
-      setInput(switchNr: number): void;
+      setSwitchInput(switchNr: number, optionalValue: boolean): void;
 
       /**
        * fliptronic flipper move (depends on the machine if this is supported)

@@ -32,15 +32,34 @@ test('Emulator reset', (t) => {
   });
 });
 
-test('Emulator toggle input', (t) => {
+test('Emulator toggle switch input', (t) => {
   return Emulator.initVMwithRom({
     u06: new Uint8Array(262144),
   }).then((emulator) => {
-    emulator.setCabinetInput(4);
-    emulator.setInput(11);
-    emulator.setFliptronicsInput('F3');
-    const inputState = Array.from(emulator.getUiState().asic.wpc.inputState);
-    t.deepEqual(inputState, [ 4, 1, 8, 0, 0, 0, 0, 0, 0, 4 ]);
+    const inputState1 = Array.from(emulator.getState().asic.wpc.inputState);
+    emulator.setSwitchInput(11);
+    const inputState2 = Array.from(emulator.getState().asic.wpc.inputState);
+    t.deepEqual(inputState1, [ 0, 0, 8, 0, 0, 0, 0, 0, 0, 0 ]);
+    t.deepEqual(inputState2, [ 0, 1, 8, 0, 0, 0, 0, 0, 0, 0 ]);
   });
 });
 
+test('Emulator clear switch input', (t) => {
+  return Emulator.initVMwithRom({
+    u06: new Uint8Array(262144),
+  }).then((emulator) => {
+    emulator.setSwitchInput(11, false);
+    const inputState = Array.from(emulator.getState().asic.wpc.inputState);
+    t.deepEqual(inputState, [ 0, 0, 8, 0, 0, 0, 0, 0, 0, 0 ]);
+  });
+});
+
+test('Emulator set switch input', (t) => {
+  return Emulator.initVMwithRom({
+    u06: new Uint8Array(262144),
+  }).then((emulator) => {
+    emulator.setSwitchInput(11, true);
+    const inputState = Array.from(emulator.getState().asic.wpc.inputState);
+    t.deepEqual(inputState, [ 0, 1, 8, 0, 0, 0, 0, 0, 0, 0 ]);
+  });
+});

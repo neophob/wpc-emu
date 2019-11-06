@@ -54,3 +54,15 @@ test('InputSwitchMatrix, valid setInputKey', (t) => {
   inputSwitchMatrix.setInputKey(25);
   t.is(inputSwitchMatrix.switchState[2], 24);
 });
+
+test('InputSwitchMatrix, setInputKey should set key', (t) => {
+  const inputSwitchMatrix = t.context;
+  inputSwitchMatrix.setInputKey(25, true);
+  t.is(inputSwitchMatrix.switchState[2], 24);
+});
+
+test('InputSwitchMatrix, setInputKey should clear key', (t) => {
+  const inputSwitchMatrix = t.context;
+  inputSwitchMatrix.setInputKey(25, false);
+  t.is(inputSwitchMatrix.switchState[2], 8);
+});

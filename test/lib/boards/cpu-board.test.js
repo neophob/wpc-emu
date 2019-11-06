@@ -65,8 +65,8 @@ test('should change cabinet input', (t) => {
 test('should change switch input', (t) => {
   const cpuBoard = t.context;
   cpuBoard.start();
-  cpuBoard.setInput(11);
-  cpuBoard.setInput(13);
+  cpuBoard.setSwitchInput(11);
+  cpuBoard.setSwitchInput(13);
   const state = cpuBoard.getState();
   const result = state.asic.wpc.inputState;
   t.is(result[1], 5);
