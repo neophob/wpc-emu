@@ -187,10 +187,11 @@ export namespace WpcEmuApi {
     setCabinetInput(value: number): void;
 
     /**
-     * Toggle a switch
+     * Set or toggle a switch
      * @param switchNr number between 11 and 99
+     * @param optionalValue if undefined, switch will toggle, else set to the defined state
      */
-    setInput(switchNr: number): void;
+    setSwitchInput(switchNr: number, optionalValue: boolean): void;
 
     /**
      * Fliptronic flipper move (depends on the machine if this is supported)
