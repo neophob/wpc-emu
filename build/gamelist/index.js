@@ -1,6 +1,6 @@
 'use strict';
 
-import * as gamelist from '../../client/scripts/db';
+const gamelist = require('../../lib/db');
 
 const gameNames = gamelist.getAllNames();
 const gameSummary = gameNames
