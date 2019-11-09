@@ -11,7 +11,7 @@ import { initialiseActions } from './lib/initialise';
 import { loadRam, saveRam, } from './lib/ramState';
 import { initialise as initDmdExport, save as saveFile } from './lib/pin2DmdExport';
 import { AudioOutput } from './lib/sound';
-import * as gamelist from './db';
+import * as gamelist from '../../lib/db';
 import { populateControlUiView, updateUiSwitchState } from './ui/control-ui';
 import * as emuDebugUi from './ui/oblivion-ui';
 
