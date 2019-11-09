@@ -24,3 +24,7 @@ Organizational Unit Name (eg, section) []:wpc
 Common Name (eg, fully qualified host name) []:localhost
 Email Address []: foo@bar.com
 ```
+
+# test server
+
+`openssl s_client -connect localhost:8080`
