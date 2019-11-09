@@ -1,8 +1,10 @@
-import * as GamelistDB from './client/scripts/db';
-import * as WpcEmuApi from './lib/emulator';
-import * as WpcEmuWebWorkerApi from './lib/webclient';
+'use strict';
 
-export {
+const GamelistDB = require('./lib/db');
+const WpcEmuApi = require('./lib/emulator');
+const WpcEmuWebWorkerApi = require('./lib/webclient');
+
+module.exports = {
   /**
    * GamelistDB provides access to the WPC-Emu data base including all supported ROM's
    */
