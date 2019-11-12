@@ -30,6 +30,18 @@ test('InputSwitchMatrix, setFliptronicsInput invalid', (t) => {
   t.is(inputSwitchMatrix.getFliptronicsKeys(), 255);
 });
 
+test('InputSwitchMatrix, setFliptronicsInput true', (t) => {
+  const inputSwitchMatrix = t.context;
+  inputSwitchMatrix.setFliptronicsInput('F0', true);
+  t.is(inputSwitchMatrix.getFliptronicsKeys(), 255);
+});
+
+test('InputSwitchMatrix, setFliptronicsInput false', (t) => {
+  const inputSwitchMatrix = t.context;
+  inputSwitchMatrix.setFliptronicsInput('F0', false);
+  t.is(inputSwitchMatrix.getFliptronicsKeys(), 255);
+});
+
 test('InputSwitchMatrix, getFliptronicsKeys - return inverted value', (t) => {
   const inputSwitchMatrix = t.context;
   inputSwitchMatrix.setFliptronicsInput('F0');

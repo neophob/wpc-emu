@@ -196,8 +196,9 @@ export namespace WpcEmuApi {
     /**
      * Fliptronic flipper move (depends on the machine if this is supported)
      * @param value the switch name, like 'F1', 'F2' .. 'F8'
+     * @param optionalValue if undefined, switch will toggle, else set to the defined state
      */
-    setFliptronicsInput(value: string): void;
+    setFliptronicsInput(value: string, optionalValue?: boolean): void;
 
     /**
      * Set the internal time some seconds before midnight madness time (toggles)
@@ -407,8 +408,9 @@ export namespace WpcEmuWebWorkerApi {
     /**
      * fliptronic flipper move (depends on the machine if this is supported)
      * @param value the switch name, like 'F1', 'F2' .. 'F8'
+     * @param optionalValue if undefined, switch will toggle, else set to the defined state
      */
-    setFliptronicsInput(value: string): Promise<WorkerMessage>;
+    setFliptronicsInput(value: string, optionalValue?: boolean): Promise<WorkerMessage>;
 
     /**
      * set target framerate of the client
@@ -520,8 +522,9 @@ export namespace WpcEmuWebWorkerApi {
       /**
        * fliptronic flipper move (depends on the machine if this is supported)
        * @param value the switch name, like 'F1', 'F2' .. 'F8'
+       * @param optionalValue if undefined, switch will toggle, else set to the defined state
        */
-      setFliptronicsInput(value: string): void;
+      setFliptronicsInput(value: string, optionalValue?: boolean): void;
 
       /**
        * set the internal time some seconds before midnight madness time (toggles)
