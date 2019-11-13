@@ -206,6 +206,16 @@ export namespace WpcEmuApi {
     toggleMidnightMadnessMode(): void;
 
     /**
+     * update the dipswitch setting (country setting)
+     */
+    setDipSwitchByte(dipSwitch: number): void;
+
+    /**
+     * get the current dip switch setting
+     */
+    getDipSwitchByte(): number;
+
+    /**
      * Reset the emulator
      */
     reset(): void;
@@ -422,6 +432,16 @@ export namespace WpcEmuWebWorkerApi {
      * set the internal time some seconds before midnight madness time (toggles)
      */
     toggleMidnightMadnessMode(): Promise<WorkerMessage>;
+
+    /**
+     * update the dipswitch setting (country setting)
+     */
+    setDipSwitchByte(dipSwitch: number): void;
+
+    /**
+     * get the current dip switch setting
+     */
+    getDipSwitchByte(): number;
 
     /**
      * Debugging tool, write to emu ram

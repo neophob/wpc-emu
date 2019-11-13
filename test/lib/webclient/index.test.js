@@ -36,6 +36,8 @@ test('WebclientIndex: getStatistics', (t) => {
   { command: 'getEmulatorRomName', requestIdInAnswer: false },
   { command: 'getEmulatorState', requestIdInAnswer: false },
   { command: 'setEmulatorState', requestIdInAnswer: true },
+  { command: 'setDipSwitchByte', requestIdInAnswer: true },
+  { command: 'getDipSwitchByte', requestIdInAnswer: false },
   { command: 'registerAudioConsumer', requestIdInAnswer: true },
   { command: 'pauseEmulator', requestIdInAnswer: true },
   { command: 'resumeEmulator', requestIdInAnswer: true },
