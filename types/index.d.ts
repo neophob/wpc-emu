@@ -207,6 +207,7 @@ export namespace WpcEmuApi {
 
     /**
      * update the dipswitch setting (country setting)
+     * Known settings: FRENCH = 48, GERMAN = 112, EUROPE = 208, USA = 0, USA2 = 240
      */
     setDipSwitchByte(dipSwitch: number): void;
 
@@ -435,6 +436,7 @@ export namespace WpcEmuWebWorkerApi {
 
     /**
      * update the dipswitch setting (country setting)
+     * Known settings: FRENCH = 48, GERMAN = 112, EUROPE = 208, USA = 0, USA2 = 240
      */
     setDipSwitchByte(dipSwitch: number): void;
 
