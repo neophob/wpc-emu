@@ -1,5 +1,10 @@
 # HISTORY
 
+## 13/11/19
+- extended API to set defined states for switches (setSwitchInput and setFliptronicsInput)
+- new API call to set and read the language DIP setting (getDipSwitchByte, setDipSwitchByte)
+- add typescript interface definition
+
 ## 17/10/19
 - add sanity checks after a gamestate fuzzing test
 

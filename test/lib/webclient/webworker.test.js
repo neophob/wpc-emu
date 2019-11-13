@@ -230,3 +230,36 @@ test.serial('Webworker: should fail to set EmulatorState', (t) => {
       t.deepEqual(answer, { message: MESSAGE.MSG_TYPE_ERROR, requestId: 1, parameter: 'MISSING_STATE_PARAMETER' });
     });
 });
+
+test.serial('Webworker: should fail to set setDipSwitchByte', (t) => {
+  const event = {
+    data: [1, MESSAGE.setDipSwitchByte],
+  };
+  return initializeWebWorker(128 * 1024)
+    .then(() => {
+      Webworker.handleMessage(event, postMessage);
+      t.deepEqual(answer, { message: MESSAGE.MSG_TYPE_ERROR, requestId: 1, parameter: 'MISSING_DIPSWITCH_PARAMETER' });
+    });
+});
+
+test.serial('Webworker: should set DipSwitchByte', (t) => {
+  const event = {
+    data: [1, MESSAGE.setDipSwitchByte, 111],
+  };
+  return initializeWebWorker(128 * 1024)
+    .then(() => {
+      Webworker.handleMessage(event, postMessage);
+      t.deepEqual(answer, { message: MESSAGE.MSG_TYPE_ACK, requestId: 1 });
+    });
+});
+
+test.serial('Webworker: should get DipSwitchByte', (t) => {
+  const event = {
+    data: [1, MESSAGE.getDipSwitchByte],
+  };
+  return initializeWebWorker(128 * 1024)
+    .then(() => {
+      Webworker.handleMessage(event, postMessage);
+      t.deepEqual(answer, { message: MESSAGE.MSG_TYPE_ACK, requestId: 1, parameter: 0 });
+    });
+});

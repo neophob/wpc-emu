@@ -63,3 +63,22 @@ test('Emulator set switch input', (t) => {
     t.deepEqual(inputState, [ 0, 1, 8, 0, 0, 0, 0, 0, 0, 0 ]);
   });
 });
+
+test('Emulator get default dip switch state', (t) => {
+  return Emulator.initVMwithRom({
+    u06: new Uint8Array(262144),
+  }).then((emulator) => {
+    const result = emulator.getDipSwitchByte();
+    t.is(result, 0);
+  });
+});
+
+test('Emulator set/get default dip switch state', (t) => {
+  return Emulator.initVMwithRom({
+    u06: new Uint8Array(262144),
+  }).then((emulator) => {
+    emulator.setDipSwitchByte(222);
+    const result = emulator.getDipSwitchByte();
+    t.is(result, 222);
+  });
+});
