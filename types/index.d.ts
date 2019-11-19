@@ -135,7 +135,13 @@ export namespace GamelistDB {
 }
 
 export namespace WpcEmuApi {
-  // TODO add types
+  interface AudioMessage {
+    command: string;
+    id?: number;
+    channel?: number;
+    value?: number;
+  }
+
   class Emulator {
     /**
      * Start the Emulator - reset the CPU
@@ -162,7 +168,7 @@ export namespace WpcEmuApi {
     /**
      * Callback to playback audio samples
      */
-    registerAudioConsumer(callbackFunction: (sampleId: number) => void): void;
+    registerAudioConsumer(callbackFunction: (audioJSON: AudioMessage) => void): void;
 
     /**
      * Run the system for a particular amount of ticks
@@ -207,6 +213,7 @@ export namespace WpcEmuApi {
 
     /**
      * update the dipswitch setting (country setting)
+     * Known settings: FRENCH = 48, GERMAN = 112, EUROPE = 208, USA = 0, USA2 = 240
      */
     setDipSwitchByte(dipSwitch: number): void;
 
@@ -435,6 +442,7 @@ export namespace WpcEmuWebWorkerApi {
 
     /**
      * update the dipswitch setting (country setting)
+     * Known settings: FRENCH = 48, GERMAN = 112, EUROPE = 208, USA = 0, USA2 = 240
      */
     setDipSwitchByte(dipSwitch: number): void;
 
@@ -464,7 +472,7 @@ export namespace WpcEmuWebWorkerApi {
      * callback to playback audio samples
      * @param callbackFunction function will be called when a sampleId should be played
      */
-    registerAudioConsumer(callbackFunction: (sampleId: number) => void): Promise<WorkerMessage>;
+    registerAudioConsumer(callbackFunction: (audioJSON: WpcEmuApi.AudioMessage) => void): Promise<WorkerMessage>;
 
     /**
      * register ui callback function
@@ -519,7 +527,7 @@ export namespace WpcEmuWebWorkerApi {
        * callback to playback audio samples
        * @param callbackFunction function will be called when a sampleId should be played
        */
-      registerAudioConsumer(callbackFunction: (sampleId: number) => void): void;
+      registerAudioConsumer(callbackFunction: (audioJSON: WpcEmuApi.AudioMessage) => void): void;
 
       /**
        * reset the emulator
