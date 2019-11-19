@@ -133,8 +133,8 @@ export namespace GamelistDB {
    */
   function getByPinmameName(filename: string): ClientGameEntry | undefined;
 }
-export namespace WpcEmuApi {
 
+export namespace WpcEmuApi {
   interface AudioMessage {
     command: string;
     id?: number;
