@@ -15,7 +15,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "ava": "^1.4.1",
+    "ava": "^2.4.0",
     "copy-webpack-plugin": "^6.0.2",
     "http-server": "^0.12.3",
     "nyc": "^15.1.0",
@@ -62,6 +62,11 @@
       "test/tracer/disasm.js"
     ]
   },
+  "ava": {
+    "files": [
+      "test/lib/**/*.test.js"
+    ]
+  },
   "scripts": {
     "build": "webpack --mode development",
     "watch": "webpack --mode development --watch",
@@ -72,9 +77,9 @@
     "start:webserver": "http-server ./dist -S -C assets/localhost-cert/server.crt -K assets/localhost-cert/server.key --cors -p 8080 || echo '\n\nERROR. Did you created and install the local dev certificates? Heres the content:' && cat assets/localhost-cert/README.md",
     "debug": "node --inspect example.js",
     "xo": "xo",
-    "test": "nyc ava --verbose test/lib/**",
+    "test": "nyc ava --verbose",
     "test:coverage": "nyc report --reporter=html",
-    "test:debug": "DEBUG='wpc*' ava --fail-fast --verbose test/lib/**",
+    "test:debug": "DEBUG='wpc*' ava --fail-fast --verbose",
     "test:integration": "ava --verbose test/integration/*.test.js",
     "test:runner": "node test/headless-runner.js",
     "tracer:dump": "cd ./test/tracer && ./_runbig.sh",
