@@ -25,7 +25,7 @@
 - [Hardware - WPS Dot Matrix Machine](#hardware---wps-dot-matrix-machine)
   - [Overview WPC-89](#overview-wpc-89)
   - [CPU board](#cpu-board)
-  - [Power driver board](#power-driver-board)
+  - [Power driver board](#power-driver-board-1)
   - [Sound board (pre DCS)](#sound-board-pre-dcs)
   - [DMD board](#dmd-board)
 - [Implementation Hints](#implementation-hints)
@@ -47,7 +47,7 @@
 - [WPC-EMU Manual](#wpc-emu-manual)
   - [Keyboard Shortcuts](#keyboard-shortcuts)
   - [Debug ROM](#debug-rom)
-    - [Advanced example: "find RAM location of current credits"](#advanced-example-%22find-ram-location-of-current-credits%22)
+    - [Advanced example: "find RAM location of current credits"](#advanced-example-find-ram-location-of-current-credits)
   - [Midnight Madness Mode](#midnight-madness-mode)
   - [Rip DMD Animation](#rip-dmd-animation)
     - [Intro](#intro)
@@ -81,7 +81,7 @@
 
 - Emulate the Williams Pinball machine WPC-89 (6/91 - 10/91)
 - 2nd generation Williams WPC hardware called "WPC Dot Matrix" aka WPC DMD
-- Emulate game "Hurricane" - also "Gilligan's Island", "Terminator 2" and "Party Zone"
+- Run a Twitter Bot, play games and print nerd statistics: https://twitter.com/WPCPinball
 
 ```
 ___        ___   ___
