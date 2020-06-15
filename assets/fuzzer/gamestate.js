@@ -83,7 +83,7 @@ loadFile(romGamePath)
           console.log(' > STATE_LOADED', i);
         } catch(error) {
           console.error(' > STATE_ERR_' + i, error.message);
-          console.error(error)
+          console.error(error);
         }
       }
     }

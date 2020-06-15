@@ -12,7 +12,6 @@ gameSummary.forEach((entry) => {
   checkAvailableRoms(entry);
 });
 
-
 function checkAvailableRoms(entry) {
   const URL = buildVpdbUrl(entry.pinmame.vpdbId || entry.pinmame.id);
   return fetch(URL)

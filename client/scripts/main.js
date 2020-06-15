@@ -136,7 +136,7 @@ function initializeEmu(gameEntry) {
 function saveState() {
   return pauseEmu()
     .then(() => {
-      return Promise.all([ wpcEmuWebWorkerApi.getEmulatorRomName(),  wpcEmuWebWorkerApi.getEmulatorState() ]);
+      return Promise.all([ wpcEmuWebWorkerApi.getEmulatorRomName(), wpcEmuWebWorkerApi.getEmulatorState() ]);
     })
     .then((data) => {
       const romName = data[0];
