@@ -13,11 +13,11 @@ test('HardwareMapper, should get address, 0x3FC2', (t) => {
 });
 
 test('HardwareMapper, should get address, 0', (t) => {
-  t.throws(() => HardwareMapper.getAddress(0), 'HW_GET_ADDRESS_INVALID_MEMORY_REGION_0x0');
+  t.throws(() => HardwareMapper.getAddress(0), { message: 'HW_GET_ADDRESS_INVALID_MEMORY_REGION_0x0' });
 });
 
 test('HardwareMapper, should get address, -1', (t) => {
-  t.throws(() => HardwareMapper.getAddress(-1), 'HW_GET_ADDRESS_INVALID_MEMORY_REGION_0xffff');
+  t.throws(() => HardwareMapper.getAddress(-1), { message: 'HW_GET_ADDRESS_INVALID_MEMORY_REGION_0xffff' });
 });
 
 test('HardwareMapper, should get address, 0x3200 (DMD PAGE)', (t) => {
@@ -57,15 +57,15 @@ test('HardwareMapper, should get address, 0x3A00 (DMD PAGE 2)', (t) => {
 });
 
 test('HardwareMapper, should fail to get address, 0x4000', (t) => {
-  t.throws(() => HardwareMapper.getAddress(0x4000), 'HW_GET_ADDRESS_INVALID_MEMORY_REGION_0x4000');
+  t.throws(() => HardwareMapper.getAddress(0x4000), { message: 'HW_GET_ADDRESS_INVALID_MEMORY_REGION_0x4000' });
 });
 
 test('HardwareMapper, should fail to get invalid offset', (t) => {
-  t.throws(HardwareMapper.getAddress, 'HW_GET_ADDRESS_UNDEFINED');
+  t.throws(HardwareMapper.getAddress, { message: 'HW_GET_ADDRESS_UNDEFINED' });
 });
 
 test('HardwareMapper, should fail to get address, 0x2000', (t) => {
-  t.throws(() => HardwareMapper.getAddress(0x2000), 'HW_GET_ADDRESS_INVALID_MEMORY_REGION_0x2000');
+  t.throws(() => HardwareMapper.getAddress(0x2000), { message: 'HW_GET_ADDRESS_INVALID_MEMORY_REGION_0x2000' });
 });
 
 test('HardwareMapper, should get address, 0x3800', (t) => {
