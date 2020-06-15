@@ -1,5 +1,9 @@
 # HISTORY
 
+## 15/06/20
+- updated deps
+- minor layout changes, add link to http://concealed-art.com/
+
 ## 13/11/19
 - extended API to set defined states for switches (setSwitchInput and setFliptronicsInput)
 - new API call to set and read the language DIP setting (getDipSwitchByte, setDipSwitchByte)
