@@ -1,8 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import Emulator from '../../lib/emulator';
-
+const test = require('ava');
+const Emulator = require('../../lib/emulator');
 const Package = require('../../package.json');
 
 test('Emulator get version', (t) => {

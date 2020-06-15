@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import IoBoard from '../../../lib/boards/external-io';
+const test = require('ava');
+const IoBoard = require('../../../lib/boards/external-io');
 
 test.beforeEach((t) => {
   t.context = IoBoard.getInstance();

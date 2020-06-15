@@ -1,8 +1,8 @@
 'use strict';
 
-import crypto from 'crypto';
-import test from 'ava';
-import OutputAlphaDisplay from '../../../../lib/boards/elements/output-alpha-display';
+const crypto = require('crypto');
+const test = require('ava');
+const OutputAlphaDisplay = require('../../../../lib/boards/elements/output-alpha-display');
 
 test.beforeEach((t) => {
   t.context.outputAlphaDisplay = OutputAlphaDisplay.getInstance(0x200);

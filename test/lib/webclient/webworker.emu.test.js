@@ -1,6 +1,5 @@
-import test from 'ava';
-
-import WebworkerEmu from '../../../lib/webclient/webworker.emu';
+const test = require('ava');
+const WebworkerEmu = require('../../../lib/webclient/webworker.emu');
 
 test('WebworkerEmu: should successfully buildWpcInstance', (t) => {
   const gameEntry = {

@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import romParser from '../../../lib/rom/index';
+const test = require('ava');
+const romParser = require('../../../lib/rom/index');
 
 test('romParser should reject empty rom', (t) => {
   return romParser

@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import GeneralIllumination from '../../../../lib/boards/elements/output-general-illumination';
+const test = require('ava');
+const GeneralIllumination = require('../../../../lib/boards/elements/output-general-illumination');
 
 test.beforeEach((t) => {
   t.context.preWpc95 = GeneralIllumination.getInstance();

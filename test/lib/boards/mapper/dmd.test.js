@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import DmdMapper from '../../../../lib/boards/mapper/dmd';
+const test = require('ava');
+const DmdMapper = require('../../../../lib/boards/mapper/dmd');
 
 test('DmdMapper, should get address, 0x3000', (t) => {
   const expectedResult = {

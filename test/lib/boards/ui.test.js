@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import UI from '../../../lib/boards/ui';
+const test = require('ava');
+const UI = require('../../../lib/boards/ui');
 
 test.beforeEach((t) => {
   const memoryPosition = {

@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import InputSwitchMatrix from '../../../../lib/boards/elements/input-switch-matrix';
+const test = require('ava');
+const InputSwitchMatrix = require('../../../../lib/boards/elements/input-switch-matrix');
 
 test.beforeEach((t) => {
   t.context = InputSwitchMatrix.getInstance();

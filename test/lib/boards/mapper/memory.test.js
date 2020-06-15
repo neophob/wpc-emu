@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import MemoryMapper from '../../../../lib/boards/mapper/memory';
+const test = require('ava');
+const MemoryMapper = require('../../../../lib/boards/mapper/memory');
 
 test('MemoryMapper, should get address, 16322', (t) => {
   const expectedResult = {

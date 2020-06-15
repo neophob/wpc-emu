@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import SolenoidMatrix from '../../../../lib/boards/elements/output-solenoid-matrix';
+const test = require('ava');
+const SolenoidMatrix = require('../../../../lib/boards/elements/output-solenoid-matrix');
 
 const UPDATE_AFTER_TICKS = 8;
 

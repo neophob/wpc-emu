@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import CpuBoard from '../../../lib/boards/cpu-board';
+const test = require('ava');
+const CpuBoard = require('../../../lib/boards/cpu-board');
 
 const PAGESIZE = 0x4000;
 const WPC_ROM_BANK = 0x3FFC;

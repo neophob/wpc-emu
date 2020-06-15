@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import Cpu6809 from '../../../../lib/boards/up/cpu6809';
+const test = require('ava');
+const Cpu6809 = require('../../../../lib/boards/up/cpu6809');
 
 test.beforeEach((t) => {
   const readMemoryAddress = [];

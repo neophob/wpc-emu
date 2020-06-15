@@ -1,7 +1,5 @@
-import test from 'ava';
-
-import RpcProxy from '../../../../lib/webclient/messaging/rpcProxy';
-
+const test = require('ava');
+const RpcProxy = require('../../../../lib/webclient/messaging/rpcProxy');
 const MESSAGE = require('../../../../lib/webclient/messaging/message');
 
 test.beforeEach((t) => {

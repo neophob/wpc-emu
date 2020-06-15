@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import HardwareMapper from '../../../../lib/boards/mapper/hardware';
+const test = require('ava');
+const HardwareMapper = require('../../../../lib/boards/mapper/hardware');
 
 test('HardwareMapper, should get address, 0x3FC2', (t) => {
   const expectedResult = {

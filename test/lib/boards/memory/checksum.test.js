@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import checksum from '../../../../lib/boards/memory/checksum';
+const test = require('ava');
+const checksum = require('../../../../lib/boards/memory/checksum');
 
 test('Checksum: calculate MM Highscore Checksum', (t) => {
   const result = checksum.checksum16(new Uint8Array(
