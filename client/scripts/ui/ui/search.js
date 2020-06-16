@@ -95,7 +95,7 @@ function findUint8(uint8ToSearch, uint8Array) {
 
 function findBCD(string, uint8Array) {
   const result = [];
-  const number = parseInt(string, 10);
+  const number = Number.parseInt(string, 10);
   const bcdValue = bcd.toBCD(number, string.length / 2);
 
   const maxIndex = uint8Array.length - (string.length / 2);

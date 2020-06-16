@@ -545,10 +545,10 @@ function marshall(instructions) {
       const junks = line.split('|');
       const op = junks[1].split('    ')[0].trim();
       return {
-        op: parseInt(op, 16),
+        op: Number.parseInt(op, 16),
         instruction: junks[2].trim(),
         addressMode: junks[3].trim(),
-        cycles: parseInt(junks[4], 10) + parseInt(junks[7] || '0', 10),
+        cycles: Number.parseInt(junks[4], 10) + Number.parseInt(junks[7] || '0', 10),
         flags: junks[6].trim(),
         desc: (junks[1] + junks[2] + junks[3]).trim(),
       };
