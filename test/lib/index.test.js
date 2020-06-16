@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import Emulator from '../../index';
+const test = require('ava');
+const Emulator = require('../../index');
 
 test('GamelistDB should return all included game entries', (t) => {
   const gameListArray = Emulator.GamelistDB.getAllNames();

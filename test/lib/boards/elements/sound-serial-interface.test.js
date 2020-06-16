@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import SoundSerialInterface from '../../../../lib/boards/elements/sound-serial-interface';
+const test = require('ava');
+const SoundSerialInterface = require('../../../../lib/boards/elements/sound-serial-interface');
 
 const PREDCS_SOUND = true;
 const DCS_SOUND = false;

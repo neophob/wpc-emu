@@ -1,8 +1,8 @@
 'use strict';
 
-import test from 'ava';
-import sinon from 'sinon';
-import CpuBoardAsic from '../../../lib/boards/asic';
+const test = require('ava');
+const sinon = require('sinon');
+const CpuBoardAsic = require('../../../lib/boards/asic');
 
 let clock;
 test.before(() => {

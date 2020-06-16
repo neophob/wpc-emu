@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import MemoryHandler from '../../../lib/boards/memory-handler';
+const test = require('ava');
+const MemoryHandler = require('../../../lib/boards/memory-handler');
 
 test.beforeEach((t) => {
   const config = {

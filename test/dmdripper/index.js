@@ -13,8 +13,8 @@ const Emulator = require('../../lib/emulator');
 
 const romU06Path = process.env.ROMFILE || path.join(__dirname, '/../../rom/t2_l8.rom');
 const closedSwitchRaw = process.env.CLOSEDSW || '15,16,17';
-const switchesEnabled = closedSwitchRaw.split(',').map((n) => parseInt(n, 10));
-const switchBlacklist = closedSwitchRaw.split(',').map((n) => parseInt(n, 10));
+const switchesEnabled = closedSwitchRaw.split(',').map((n) => Number.parseInt(n, 10));
+const switchBlacklist = closedSwitchRaw.split(',').map((n) => Number.parseInt(n, 10));
 switchBlacklist.push(21);
 console.log('GAME', romU06Path);
 console.log('switchesEnabled',switchesEnabled);
@@ -174,14 +174,14 @@ function ripDmdFrames() {
         }
 
         try {
-          const cycles = parseInt(HALF_SECOND_TICKS * Math.random(), 10);
+          const cycles = Number.parseInt(HALF_SECOND_TICKS * Math.random(), 10);
           wpcSystem.executeCycle(cycles, CPU_STEPS);
-        } catch (error) {}
+        } catch (_error) {}
 
         extractDmdFrames(wpcSystem.getUiState());
         for (let i = 0; i < 2; i++) {
           try {
-            let input = parseInt(11 + (Math.random() * 77), 10);
+            let input = Number.parseInt(11 + (Math.random() * 77), 10);
             if (switchBlacklist.includes(input)) {
               input = 13;
             }

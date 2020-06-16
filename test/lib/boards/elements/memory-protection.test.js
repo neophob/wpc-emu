@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import memoryProtection from '../../../../lib/boards/elements/memory-protection';
+const test = require('ava');
+const memoryProtection = require('../../../../lib/boards/elements/memory-protection');
 
 test('memoryProtection, should get memoryProtection mask for 0', (t) => {
   const result = memoryProtection.getMemoryProtectionMask(0);

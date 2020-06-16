@@ -1,8 +1,8 @@
 'use strict';
 
-import crypto from 'crypto';
-import test from 'ava';
-import OutputDmdDisplay from '../../../../lib/boards/elements/output-dmd-display';
+const crypto = require('crypto');
+const test = require('ava');
+const OutputDmdDisplay = require('../../../../lib/boards/elements/output-dmd-display');
 
 test.beforeEach((t) => {
   t.context.outputDmdDisplay = OutputDmdDisplay.getInstance(0x200);

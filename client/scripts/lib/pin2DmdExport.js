@@ -83,8 +83,8 @@ class DmdGrabber {
   }
 }
 
-function flatten(arr) {
-  return Array.prototype.concat(...arr);
+function flatten(array) {
+  return Array.prototype.concat(...array);
 }
 
 function arraysEqual(a, b) {

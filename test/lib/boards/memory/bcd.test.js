@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import bcd from '../../../../lib/boards/memory/bcd';
+const test = require('ava');
+const bcd = require('../../../../lib/boards/memory/bcd');
 
 test('BCD: toBCD, encode 12345 to BCD', (t) => {
   const result = bcd.toBCD('12345');

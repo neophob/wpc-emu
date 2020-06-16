@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import DisplayBoard from '../../../lib/boards/display-board';
+const test = require('ava');
+const DisplayBoard = require('../../../lib/boards/display-board');
 
 test.beforeEach((t) => {
   const ram = new Uint8Array(0x4000);

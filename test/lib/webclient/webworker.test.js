@@ -1,7 +1,6 @@
-import test from 'ava';
-
-import Webworker from '../../../lib/webclient/webworker';
-import MESSAGE from '../../../lib/webclient/messaging/message';
+const test = require('ava');
+const Webworker = require('../../../lib/webclient/webworker');
+const MESSAGE = require('../../../lib/webclient/messaging/message');
 
 const gameEntry = {
   rom: {

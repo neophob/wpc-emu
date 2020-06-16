@@ -44,9 +44,15 @@ module.exports = () => {
       }]
     },
     plugins: [
-      new CopyWebpackPlugin([
-        { from: 'rom', to: 'rom' }
-      ], { ignore: [ '.DS_Store', '*.pdf' ] })
+      new CopyWebpackPlugin({
+        patterns: [{
+          from: 'rom',
+          to: 'rom',
+          globOptions: {
+            ignore: [ '.DS_Store', '**/*.pdf' ],
+          }
+        }],
+      })
     ],
   };
 };

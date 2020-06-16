@@ -28,7 +28,7 @@ function _updateFliptronicsState(fliptronicsElements, packedSwitchInput) {
   }
 
   fliptronicsElements.childNodes.forEach((childNode) => {
-    const id = parseInt(childNode.id.substring(PINBALL_FLIPTRONICS_ELEMENT.length + 1), 10) - 1;
+    const id = Number.parseInt(childNode.id.substring(PINBALL_FLIPTRONICS_ELEMENT.length + 1), 10) - 1;
     if (fliptronicsSwitchState[id]) {
       childNode.className = 'button-wpc';
     } else {
@@ -48,7 +48,7 @@ function updateUiSwitchState(packedSwitchInput) {
   }
   const switchElements = document.getElementById(PINBALL_SWITCH_BUTTONS_ELEMENT);
   switchElements.childNodes.forEach((childNode) => {
-    const rawId = parseInt(childNode.id.substring(PINBALL_SWITCH_BUTTONS_ELEMENT.length), 10);
+    const rawId = Number.parseInt(childNode.id.substring(PINBALL_SWITCH_BUTTONS_ELEMENT.length), 10);
     const id = logicalIdToArrayOffset(rawId);
     if (matrixSwitchState[id]) {
       childNode.className = 'button-wpc';

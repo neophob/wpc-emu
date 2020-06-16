@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import MemoryPatch from '../../../../lib/boards/elements/memory-patch';
+const test = require('ava');
+const MemoryPatch = require('../../../../lib/boards/elements/memory-patch');
 
 test('memoryPatch, should not return a value', (t) => {
   const memoryPatch = MemoryPatch.getInstance();
