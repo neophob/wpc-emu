@@ -1,6 +1,5 @@
-import test from 'ava';
-
-import WebclientIndex from '../../../lib/webclient';
+const test = require('ava');
+const WebclientIndex = require('../../../lib/webclient');
 
 test.beforeEach((t) => {
   const mockWebWorker = new MockWebWorker('foo');

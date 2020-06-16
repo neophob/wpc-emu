@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import SoundBoard from '../../../lib/boards/sound-board';
+const test = require('ava');
+const SoundBoard = require('../../../lib/boards/sound-board');
 
 const WPC_SOUND_DATA = SoundBoard.OP.WPC_SOUND_DATA;
 const WPC_SOUND_CONTROL_STATUS = SoundBoard.OP.WPC_SOUND_CONTROL_STATUS;

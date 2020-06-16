@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import SoundVolumeConvert from '../../../../lib/boards/elements/sound-volume-convert';
+const test = require('ava');
+const SoundVolumeConvert = require('../../../../lib/boards/elements/sound-volume-convert');
 
 test('SoundVolumeConvert DCS, convert min volume', (t) => {
   const result = SoundVolumeConvert.getRelativeVolumeDcs(0x00, 0xFF);

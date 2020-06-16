@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import MemoryMapper from '../../../../lib/boards/mapper/memory';
+const test = require('ava');
+const MemoryMapper = require('../../../../lib/boards/mapper/memory');
 
 test('MemoryMapper, should get address, 16322', (t) => {
   const expectedResult = {
@@ -22,7 +22,7 @@ test('MemoryMapper, should get address, 49090 - this crashes the emu', (t) => {
 });
 
 test('MemoryMapper, should fail when using invalid offset', (t) => {
-  t.throws(MemoryMapper.getAddress, 'MEMORY_GET_ADDRESS_UNDEFINED');
+  t.throws(MemoryMapper.getAddress, { message: 'MEMORY_GET_ADDRESS_UNDEFINED' });
 });
 
 test('MemoryMapper, should get address, -1', (t) => {

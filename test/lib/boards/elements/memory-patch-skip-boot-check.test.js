@@ -1,8 +1,8 @@
 'use strict';
 
-import test from 'ava';
-import MemoryPatch from '../../../../lib/boards/elements/memory-patch';
-import MemoryPatchSkipBootCheck from '../../../../lib/boards/elements/memory-patch-skip-boot-check';
+const test = require('ava');
+const MemoryPatch = require('../../../../lib/boards/elements/memory-patch');
+const MemoryPatchSkipBootCheck = require('../../../../lib/boards/elements/memory-patch-skip-boot-check');
 
 test('MemoryPatchSkipBootCheck, should return a patched game id', (t) => {
   const memoryPatch = MemoryPatch.getInstance();

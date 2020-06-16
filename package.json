@@ -15,7 +15,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "ava": "^2.4.0",
+    "ava": "^3.4.0",
     "copy-webpack-plugin": "^6.0.2",
     "http-server": "^0.12.3",
     "nyc": "^15.1.0",
@@ -65,7 +65,8 @@
   "ava": {
     "files": [
       "test/lib/**/*.test.js"
-    ]
+    ],
+    "verbose": true
   },
   "scripts": {
     "build": "webpack --mode development",
@@ -80,7 +81,7 @@
     "test": "nyc ava --verbose",
     "test:coverage": "nyc report --reporter=html",
     "test:debug": "DEBUG='wpc*' ava --fail-fast --verbose",
-    "test:integration": "ava --verbose test/integration/*.test.js",
+    "test:integration": "ava --config integration.ava.cjs",
     "test:runner": "node test/headless-runner.js",
     "tracer:dump": "cd ./test/tracer && ./_runbig.sh",
     "tracer:stats": "cd ./test/tracer && ./_runbig.sh stats > stats.txt",

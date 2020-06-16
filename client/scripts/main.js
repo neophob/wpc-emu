@@ -16,7 +16,6 @@ import { populateControlUiView, updateUiSwitchState } from './ui/control-ui';
 import * as emuDebugUi from './ui/oblivion-ui';
 
 const WpcEmuWebWorkerApi = require('../../lib/webclient');
-let wpcEmuWebWorkerApi;
 
 const DESIRED_FPS = 50;
 const MAXIMAL_DMD_FRAMES_TO_RIP = 8000;
@@ -285,8 +284,8 @@ function help() {
 
 function registerKeyboardListener() {
   help();
-  window.addEventListener('keydown', (e) => {
-    switch (e.keyCode) {
+  window.addEventListener('keydown', (event) => {
+    switch (event.keyCode) {
       case 49: //1
         return wpcEmuWebWorkerApi.setCabinetInput(1);
 

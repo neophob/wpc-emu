@@ -134,7 +134,7 @@ class DrawLib {
   writeRibbonHeader(x, y, text, font = this.theme.FONT_HEADER) {
     this.ctx.font = font;
     const textWidth = this.ctx.measureText(text).width + this.theme.GRID_STEP_X;
-    const textHeight = parseInt(this.ctx.font.match(/\d+/), 10);
+    const textHeight = Number.parseInt(this.ctx.font.match(/\d+/), 10);
 
     const startX = x * this.theme.GRID_STEP_X;
     const startY = y * this.theme.GRID_STEP_Y;
@@ -349,7 +349,7 @@ class DrawLib {
     const startY = (ypos * this.theme.GRID_STEP_Y) | 0;
     const currentSegment = this.drawMemRegionSegment++ % 8;
     const SEGMENT_SIZE = 1024;
-    const height = parseInt(SEGMENT_SIZE / width, 10);
+    const height = Number.parseInt(SEGMENT_SIZE / width, 10);
 
     let offsetX = 0;
     let offsetY = height * currentSegment;
@@ -479,7 +479,7 @@ class DrawLib {
       this.ctx.fillStyle = lamp & 0x80 ? this.theme.COLOR_RED :
         lamp & 0x70 ? this.theme.DMD_COLOR_LOW : this.theme.DMD_COLOR_DARK;
       const i = startX + (index % 8) * gridsizeX;
-      const j = startY + parseInt(index / 8, 10) * gridsizeY;
+      const j = startY + Number.parseInt(index / 8, 10) * gridsizeY;
       this.ctx.fillRect(i, j, gridsizeX - 1, gridsizeY - 1);
     });
   }
@@ -499,7 +499,7 @@ class DrawLib {
 
     data.forEach((lamp, index) => {
       const i = startX + (index % 8) * gridsizeX;
-      const j = startY + parseInt(index / 8, 10) * gridsizeY;
+      const j = startY + Number.parseInt(index / 8, 10) * gridsizeY;
       this.ctx.fillStyle = 'rgb(0,0,0)';
       this.ctx.fillRect(i, j, gridsizeX - 1, gridsizeY - 1);
 

@@ -1,9 +1,9 @@
 'use strict';
 
-import path from 'path';
-import fs from 'fs';
-import test from 'ava';
-import Emulator from '../../lib/emulator';
+const path = require('path');
+const fs = require('fs');
+const test = require('ava');
+const Emulator = require('../../lib/emulator');
 
 function loadFile(fileName) {
   return new Promise((resolve, reject) => {

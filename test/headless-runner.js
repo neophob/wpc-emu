@@ -6,8 +6,8 @@ const Emulator = require('../lib/emulator');
 
 const romU06Path = process.env.ROMFILE || path.join(__dirname, '/../rom/t2_l8.rom');
 const closedSwitchRaw = process.env.CLOSEDSW || '15,16,17';
-const switchesEnabled = closedSwitchRaw.split(',').map((n) => parseInt(n, 10));
-const switchBlacklist = closedSwitchRaw.split(',').map((n) => parseInt(n, 10));
+const switchesEnabled = closedSwitchRaw.split(',').map((n) => Number.parseInt(n, 10));
+const switchBlacklist = closedSwitchRaw.split(',').map((n) => Number.parseInt(n, 10));
 switchBlacklist.push(21);
 
 console.log('GAME', romU06Path);
@@ -43,11 +43,11 @@ function bootEmu() {
           console.log('# STATUS', { ticks: status.cpuState.tickCount, opsMs: status.opsMs });
         }
 
-        const cycles = HALF_SECOND_TICKS + HALF_SECOND_TICKS * parseInt(10 * Math.random(), 10);
+        const cycles = HALF_SECOND_TICKS + HALF_SECOND_TICKS * Number.parseInt(10 * Math.random(), 10);
         wpcSystem.executeCycle(cycles, CPU_STEPS);
 
         for (let i = 0; i < 2; i++) {
-          let input = parseInt(11 + (Math.random() * 77), 10);
+          let input = Number.parseInt(11 + (Math.random() * 77), 10);
           if (switchBlacklist.includes(input)) {
             input = 13;
           }

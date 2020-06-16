@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import gameId from '../../../lib/rom/game-id';
+const test = require('ava');
+const gameId = require('../../../lib/rom/game-id');
 
 const MAGIC_STRING = [
   // MAGIC PREFIX

@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import DmdMapper from '../../../../lib/boards/mapper/dmd';
+const test = require('ava');
+const DmdMapper = require('../../../../lib/boards/mapper/dmd');
 
 test('DmdMapper, should get address, 0x3000', (t) => {
   const expectedResult = {
@@ -84,5 +84,5 @@ test('DmdMapper, should get address, 0x3FB9', (t) => {
 });
 
 test('DmdMapper, should throw when using invalid address, -1', (t) => {
-  t.throws(() => DmdMapper.getAddress(-1), 'INVALID_DMD_ADDRESSRANGE_-1');
+  t.throws(() => DmdMapper.getAddress(-1), { message: 'INVALID_DMD_ADDRESSRANGE_-1' });
 });

@@ -1,7 +1,7 @@
 'use strict';
 
-import test from 'ava';
-import SecurityPic from '../../../../lib/boards/up/security-pic';
+const test = require('ava');
+const SecurityPic = require('../../../../lib/boards/up/security-pic');
 
 const MACHINE_SERIAL = 530;
 
