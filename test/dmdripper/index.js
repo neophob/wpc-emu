@@ -176,7 +176,7 @@ function ripDmdFrames() {
         try {
           const cycles = Number.parseInt(HALF_SECOND_TICKS * Math.random(), 10);
           wpcSystem.executeCycle(cycles, CPU_STEPS);
-        } catch (error) {}
+        } catch (_error) {}
 
         extractDmdFrames(wpcSystem.getUiState());
         for (let i = 0; i < 2; i++) {
