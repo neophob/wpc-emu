@@ -2,7 +2,7 @@
 
 | Game | Summary | Switch Mapping | Playfield Image | Playfield Lamps | Playfield Flashlamps | Audio Support | Memory Position | Tests pass
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| WPC-95: Attack from Mars | 5 | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ (40) | ✅ |
+| WPC-95: Attack from Mars | 5 | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ (36) | ✅ |
 | WPC-95: Attack from Mars (FreeWPC, Broken) | 4 | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ |
 | WPC-95: Cactus Canyon | 3 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: Cirqus Voltaire | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (2) | ❌ (5) |
@@ -14,7 +14,7 @@
 | WPC-95: NBA Fastbreak | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: No Good Gofers | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (40) | ✅ |
 | WPC-95: Safe Cracker | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-95: Scared Stiff | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| WPC-95: Scared Stiff | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (33) | ✅ |
 | WPC-95: Tales of the Arabian Nights | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: The Champion Pub | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: Ticket Tac Toe (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
@@ -62,5 +62,5 @@
 | WPC-S: WHO Dunnit | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: World Cup Soccer | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| **Total** | 151 (36%) | 60 | 50 | 11 | 10 | 7 | 13 | 16 |
+| **Total** | 152 (36%) | 60 | 50 | 11 | 10 | 7 | 14 | 16 |
 

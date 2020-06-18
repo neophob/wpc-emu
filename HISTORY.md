@@ -1,5 +1,8 @@
 # HISTORY
 
+## 18/06/20
+- Scared Stiff - add memory positions
+
 ## 15/06/20
 - updated deps
 - minor layout changes, add link to http://concealed-art.com/

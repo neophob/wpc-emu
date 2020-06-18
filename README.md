@@ -442,9 +442,9 @@ Note:
 
 ### Common Variables
 
-WPC-EMU implements specific memory parsing (supports uint8, bcd and string encoding), see `memoryPosition` entries in client db. NVRAM settings are protected by a checksum which will be automatically updated if the checksum type and range is known.
+WPC-EMU implements specific memory parsing (supports uint8, uin16, uint32, bcd and string encoding), see `memoryPosition` entries in client db. NVRAM settings are protected by a checksum which will be automatically updated if the checksum type and range is known.
 
-Note: To find the checksum range, try to modify the first setting per section (for example balls per game) - then you will see that there is a checksum range that will modify (2 bytes, checksum is 0xFFFF - sum of bytes).
+HINT: To find the checksum range, try to modify the first setting per section (for example balls per game) - then you will see that there is a checksum range that will modify (2 bytes, checksum is 0xFFFF - sum of bytes).
 
 Mapping of memory position use common names to identify a specific value:
 - `GAME_`: Game specific information
@@ -452,6 +452,7 @@ Mapping of memory position use common names to identify a specific value:
 - `HISCORE_`: All kind of high score values
 
 #### Find Memory positions
+
 - use `wpcInterface.memoryFindData(value, encoding, optionalRememberResults)` to search the memory for data. Supported encodings: `string`, `uint8`, `uint16`, `uint32` and `bcd`. If `optionalRememberResults` is set to true, a subsequent call search only through previous results. This is handy if you are searching for a specific value.
 - use `wpcInterface.memoryDumpData(OFFSET, optionalEndOffset)` to dump memory
 - use `wpcInterface.writeMemory(offset, value)` to modify the memory (write a byte)
