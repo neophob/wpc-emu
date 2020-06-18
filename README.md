@@ -38,6 +38,7 @@
     - [Build Sound File](#build-sound-file)
   - [RAM / NVRAM positions](#ram--nvram-positions)
     - [Common Variables](#common-variables)
+      - [Find Memory positions](#find-memory-positions)
   - [Boot sequence](#boot-sequence)
   - [Gameplay](#gameplay)
   - [To Test](#to-test)
@@ -441,14 +442,26 @@ Note:
 
 ### Common Variables
 
-WPC-EMU implements specific memory parsing (supports uint8, bcd and string encoding), see `memoryPosition` entries in client db. NVRAM settings are protected by a checksum which will be automatically updated if the checksum type and range is known.
+WPC-EMU implements specific memory parsing (supports uint8, uin16, uint32, bcd and string encoding), see `memoryPosition` entries in client db. NVRAM settings are protected by a checksum which will be automatically updated if the checksum type and range is known.
 
-Note: To find the checksum range, try to modify the first setting per section (for example balls per game) - then you will see that there is a checksum range that will modify (2 bytes, checksum is 0xFFFF - sum of bytes).
+HINT: To find the checksum range, try to modify the first setting per section (for example balls per game) - then you will see that there is a checksum range that will modify (2 bytes, checksum is 0xFFFF - sum of bytes).
 
 Mapping of memory position use common names to identify a specific value:
 - `GAME_`: Game specific information
 - `STAT_`: Machine specific statistics
 - `HISCORE_`: All kind of high score values
+
+#### Find Memory positions
+
+- use `wpcInterface.memoryFindData(value, encoding, optionalRememberResults)` to search the memory for data. Supported encodings: `string`, `uint8`, `uint16`, `uint32` and `bcd`. If `optionalRememberResults` is set to true, a subsequent call search only through previous results. This is handy if you are searching for a specific value.
+- use `wpcInterface.memoryDumpData(OFFSET, optionalEndOffset)` to dump memory
+- use `wpcInterface.writeMemory(offset, value)` to modify the memory (write a byte)
+
+Examples:
+- highscore name: search for string "DEN": `wpcInterface.memoryFindData('DEN', 'string')`
+- highscore score: search for score "20,000,000": `wpcInterface.memoryFindData('20000000', 'bcd')`
+- game credits: search for `wpcInterface.memoryFindData(0, 'uint8', true)`, insert credits (press `2`), search again `wpcInterface.memoryFindData(1, 'uint8', true)`and repeat!
+- validate that your attract sequence setting is correct: `wpcInterface.writeMemory(0x589, 3)` - this should modify the display setting of the attract mode
 
 ## Boot sequence
 
