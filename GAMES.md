@@ -15,7 +15,7 @@
 | WPC-95: No Good Gofers | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (40) | ✅ |
 | WPC-95: Safe Cracker | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: Scared Stiff | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (33) | ✅ |
-| WPC-95: Tales of the Arabian Nights | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| WPC-95: Tales of the Arabian Nights | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ |
 | WPC-95: The Champion Pub | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: Ticket Tac Toe (Redemption game) | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-95: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
@@ -62,5 +62,5 @@
 | WPC-S: WHO Dunnit | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: World Cup Soccer | 2 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| **Total** | 152 (36%) | 60 | 50 | 11 | 10 | 7 | 14 | 16 |
+| **Total** | 153 (36%) | 60 | 50 | 11 | 10 | 7 | 15 | 16 |
 
