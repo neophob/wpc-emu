@@ -1,5 +1,8 @@
 # HISTORY
 
+## 26/06/20
+- Added Cabinet colors to database
+
 ## 18/06/20
 - Scared Stiff - add memory positions
 
