@@ -23,3 +23,4 @@ assets/soundripper/output.*
 docs/rom
 cert.pem
 /fuzz
+/rom
