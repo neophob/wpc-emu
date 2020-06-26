@@ -1,8 +1,6 @@
 .DS_Store
 node_modules
 /dist
-test/dmdripper/imgOK
-test/dmdripper/img2
 npm-debug.log
 *.ROM
 *.PP
@@ -15,7 +13,6 @@ server.csr
 server.key
 server.crt
 ./rom
-test/dmdripper/img
 assets/soundripper/tmp
 assets/soundripper/output.*
 .clinic

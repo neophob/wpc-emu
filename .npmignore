@@ -5,7 +5,6 @@ docs
 .github
 node_modules
 /dist
-test/dmdripper
 test/tracer
 npm-debug.log
 *.ROM
@@ -18,9 +17,7 @@ rootCA.*
 server.csr
 server.key
 server.crt
-/rom
-test/dmdripper/img
-assets/soundripper/tmp
+/romassets/soundripper/tmp
 assets/soundripper/output.*
 .clinic
 docs/rom

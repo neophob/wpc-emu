@@ -80,6 +80,10 @@ export namespace GamelistDB {
      */
     features?: string[];
     /**
+     * array of cabinet colors, excluding black and white colors
+     */
+    cabinetColors?: string[];
+    /**
      * defines memory positions of this game to evaluate game state (like current ball, current player etc)
      */
     memoryPosition?: GameEntryMemoryPositions;
