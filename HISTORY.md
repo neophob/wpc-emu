@@ -1,5 +1,8 @@
 # HISTORY
 
+## 29/06/20
+- Add more memory positions (WPC-95 and WPC-S)
+
 ## 26/06/20
 - Added Cabinet colors to database
 
