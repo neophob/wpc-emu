@@ -11,7 +11,7 @@
 | WPC-95: League Champ Shuffle Alley (Redemption game) | 2 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-95: Medieval Madness | 6 | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ (40) | ✅ | ✅ |
 | WPC-95: Monster Bash | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (27) | ✅ | ✅ |
-| WPC-95: NBA Fastbreak | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| WPC-95: NBA Fastbreak | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (19) | ✅ | ✅ |
 | WPC-95: No Good Gofers | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (40) | ✅ | ✅ |
 | WPC-95: Safe Cracker | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-95: Scared Stiff | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (33) | ✅ | ✅ |
@@ -62,5 +62,5 @@
 | WPC-S: WHO Dunnit | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: World Cup Soccer | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| **Total** | 213 (44%) | 60 | 50 | 11 | 10 | 7 | 18 | 57 | 16 |
+| **Total** | 214 (45%) | 60 | 50 | 11 | 10 | 7 | 19 | 57 | 16 |
 
