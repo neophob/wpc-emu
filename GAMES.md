@@ -55,12 +55,12 @@
 | WPC-S: Jack·Bot | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-S: Johnny Mnemonic | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (39) | ✅ | ✅ |
 | WPC-S: No Fear | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (39) | ✅ | ✅ |
-| WPC-S: Red & Ted's Road Show | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| WPC-S: Red & Ted's Road Show | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (27) | ✅ | ✅ |
 | WPC-S: The Flintstones | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (27) | ✅ | ✅ |
 | WPC-S: The Shadow | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-S: Theatre of Magic | 7 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ (39) | ✅ | ✅ |
 | WPC-S: WHO Dunnit | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (27) | ✅ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: World Cup Soccer | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (27) | ✅ | ✅ |
-| **Total** | 218 (45%) | 60 | 50 | 11 | 10 | 7 | 23 | 57 | 16 |
+| **Total** | 219 (46%) | 60 | 50 | 11 | 10 | 7 | 24 | 57 | 16 |
 
