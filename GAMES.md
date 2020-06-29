@@ -13,7 +13,7 @@
 | WPC-95: Monster Bash | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (27) | ✅ | ✅ |
 | WPC-95: NBA Fastbreak | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (19) | ✅ | ✅ |
 | WPC-95: No Good Gofers | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (40) | ✅ | ✅ |
-| WPC-95: Safe Cracker | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| WPC-95: Safe Cracker | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (27) | ✅ | ✅ |
 | WPC-95: Scared Stiff | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (33) | ✅ | ✅ |
 | WPC-95: Tales of the Arabian Nights | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ✅ |
 | WPC-95: The Champion Pub | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
@@ -62,5 +62,5 @@
 | WPC-S: WHO Dunnit | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: World Cup Soccer | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| **Total** | 214 (45%) | 60 | 50 | 11 | 10 | 7 | 19 | 57 | 16 |
+| **Total** | 215 (45%) | 60 | 50 | 11 | 10 | 7 | 20 | 57 | 16 |
 
