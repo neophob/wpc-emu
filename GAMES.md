@@ -61,6 +61,6 @@
 | WPC-S: Theatre of Magic | 7 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ (39) | ✅ | ✅ |
 | WPC-S: WHO Dunnit | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-S: World Cup Soccer | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| **Total** | 215 (45%) | 60 | 50 | 11 | 10 | 7 | 20 | 57 | 16 |
+| WPC-S: World Cup Soccer | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (27) | ✅ | ✅ |
+| **Total** | 216 (45%) | 60 | 50 | 11 | 10 | 7 | 21 | 57 | 16 |
 
