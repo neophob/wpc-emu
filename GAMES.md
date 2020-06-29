@@ -7,7 +7,7 @@
 | WPC-95: Cactus Canyon | 4 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-95: Cirqus Voltaire | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (29) | ✅ | ❌ (5) |
 | WPC-95: Congo | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (40) | ✅ | ✅ |
-| WPC-95: Junk Yard | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| WPC-95: Junk Yard | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (17) | ✅ | ✅ |
 | WPC-95: League Champ Shuffle Alley (Redemption game) | 2 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-95: Medieval Madness | 6 | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ (40) | ✅ | ✅ |
 | WPC-95: Monster Bash | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (27) | ✅ | ✅ |
@@ -62,5 +62,5 @@
 | WPC-S: WHO Dunnit | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: World Cup Soccer | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| **Total** | 212 (44%) | 60 | 50 | 11 | 10 | 7 | 17 | 57 | 16 |
+| **Total** | 213 (44%) | 60 | 50 | 11 | 10 | 7 | 18 | 57 | 16 |
 
