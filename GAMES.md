@@ -5,7 +5,7 @@
 | WPC-95: Attack from Mars | 6 | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ (36) | ✅ | ✅ |
 | WPC-95: Attack from Mars (FreeWPC, Broken) | 5 | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ |
 | WPC-95: Cactus Canyon | 4 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| WPC-95: Cirqus Voltaire | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (2) | ✅ | ❌ (5) |
+| WPC-95: Cirqus Voltaire | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (29) | ✅ | ❌ (5) |
 | WPC-95: Congo | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (40) | ✅ | ✅ |
 | WPC-95: Junk Yard | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-95: League Champ Shuffle Alley (Redemption game) | 2 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
