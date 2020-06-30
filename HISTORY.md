@@ -1,5 +1,8 @@
 # HISTORY
 
+## 30/06/20
+- Update Game DB
+
 ## 29/06/20
 - Add more memory positions (WPC-95 and WPC-S)
 
