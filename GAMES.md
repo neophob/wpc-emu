@@ -41,7 +41,7 @@
 | WPC-Fliptronics: Black Rose | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ✅ |
 | WPC-Fliptronics: Bram Stoker's Dracula | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ✅ |
 | WPC-Fliptronics: Creature from the Black Lagoon | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ❌ (1) |
-| WPC-Fliptronics: Dr. Who | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| WPC-Fliptronics: Dr. Who | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (29) | ✅ | ✅ |
 | WPC-Fliptronics: Fish Tales | 7 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ (39) | ✅ | ✅ |
 | WPC-Fliptronics: High Speed II, The Getaway | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-Fliptronics: The Addams Family Special | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
@@ -62,5 +62,5 @@
 | WPC-S: WHO Dunnit | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (29) | ✅ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: World Cup Soccer | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ✅ |
-| **Total** | 231 (48%) | 60 | 50 | 11 | 10 | 7 | 36 | 57 | 20 |
+| **Total** | 232 (48%) | 60 | 50 | 11 | 10 | 7 | 37 | 57 | 20 |
 
