@@ -24,3 +24,5 @@ docs/rom
 cert.pem
 /fuzz
 /rom
+.gitmodules
+client
