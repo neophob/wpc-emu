@@ -33,6 +33,11 @@ function initialiseActions(initObject, webclient) {
               console.log('INIT::action - cabinet key', keyValue);
               return webclient.setCabinetInput(keyValue);
 
+            case 'switchInput':
+              const switchValue = initialAction.value;
+              console.log('INIT::action - switch key', switchValue);
+              return webclient.setSwitchInput(switchValue);
+
             case 'writeMemory':
               const offset = initialAction.offset;
               const value = initialAction.value;
