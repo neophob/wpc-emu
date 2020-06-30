@@ -308,7 +308,13 @@ export namespace WpcEmuWebWorkerApi {
     scanline: number;
     dmdPageMapping: number[];
     activepage?: number;
+    /**
+     * the raw and unblended video RAM
+     */
     videoRam?: Uint8Array;
+    /**
+     * shaded DMD video output, one pixel uses 1 byte (0=off, 1=33%, 2=66%, 3=100%)
+     */
     dmdShadedBuffer?: Uint8Array;
     videoOutputBuffer?: Uint8Array;
     nextActivePage?: number;

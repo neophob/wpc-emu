@@ -4,19 +4,19 @@
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | WPC-95: Attack from Mars | 6 | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ (36) | ✅ | ✅ |
 | WPC-95: Attack from Mars (FreeWPC, Broken) | 5 | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ |
-| WPC-95: Cactus Canyon | 4 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| WPC-95: Cirqus Voltaire | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (29) | ✅ | ❌ (5) |
+| WPC-95: Cactus Canyon | 5 | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ (28) | ✅ | ✅ |
+| WPC-95: Cirqus Voltaire | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (30) | ✅ | ❌ (5) |
 | WPC-95: Congo | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (40) | ✅ | ✅ |
-| WPC-95: Junk Yard | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (17) | ✅ | ✅ |
+| WPC-95: Junk Yard | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (18) | ✅ | ✅ |
 | WPC-95: League Champ Shuffle Alley (Redemption game) | 2 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-95: Medieval Madness | 6 | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ (40) | ✅ | ✅ |
-| WPC-95: Monster Bash | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (27) | ✅ | ✅ |
-| WPC-95: NBA Fastbreak | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (19) | ✅ | ✅ |
+| WPC-95: Monster Bash | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ✅ |
+| WPC-95: NBA Fastbreak | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (20) | ✅ | ✅ |
 | WPC-95: No Good Gofers | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (40) | ✅ | ✅ |
-| WPC-95: Safe Cracker | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (27) | ✅ | ✅ |
-| WPC-95: Scared Stiff | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (33) | ✅ | ✅ |
-| WPC-95: Tales of the Arabian Nights | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ✅ |
-| WPC-95: The Champion Pub | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| WPC-95: Safe Cracker | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ✅ |
+| WPC-95: Scared Stiff | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (34) | ✅ | ✅ |
+| WPC-95: Tales of the Arabian Nights | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (30) | ✅ | ✅ |
+| WPC-95: The Champion Pub | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ❌ (2) |
 | WPC-95: Ticket Tac Toe (Redemption game) | 2 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-95: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-ALPHA: Funhouse | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
@@ -25,7 +25,7 @@
 | WPC-DCS: Addams Family Values (Redemption game) | 2 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-DCS: Demolition Man | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (39) | ✅ | ✅ |
 | WPC-DCS: Demolition Man (FreeWPC) | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| WPC-DCS: Indiana Jones, The Pinball Adventure | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ (6) |
+| WPC-DCS: Indiana Jones, The Pinball Adventure | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ❌ (6) |
 | WPC-DCS: Judge Dredd | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-DCS: Popeye Saves the Earth | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-DCS: Star Trek, The Next Generation | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
@@ -39,28 +39,28 @@
 | WPC-DMD: The Party Zone | 2 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ (1) |
 | WPC-DMD: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-Fliptronics: Black Rose | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| WPC-Fliptronics: Bram Stoker's Dracula | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| WPC-Fliptronics: Creature from the Black Lagoon | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| WPC-Fliptronics: Bram Stoker's Dracula | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ✅ |
+| WPC-Fliptronics: Creature from the Black Lagoon | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ❌ (1) |
 | WPC-Fliptronics: Dr. Who | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-Fliptronics: Fish Tales | 7 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ (39) | ✅ | ✅ |
 | WPC-Fliptronics: High Speed II, The Getaway | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-Fliptronics: The Addams Family Special | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| WPC-Fliptronics: Twilight Zone | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| WPC-Fliptronics: Twilight Zone | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ❌ (1) |
 | WPC-Fliptronics: Twilight Zone (FreeWPC, Broken!) | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-Fliptronics: White Water | 7 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ (39) | ✅ | ✅ |
 | WPC-Fliptronics: White Water "Bigfoot" (FreeWPC) | 6 | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ |
-| WPC-S: Corvette | 5 | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ (27) | ✅ | ✅ |
-| WPC-S: Dirty Harry | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (23) | ✅ | ✅ |
-| WPC-S: Indianapolis 500 | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (27) | ✅ | ✅ |
-| WPC-S: Jack·Bot | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (27) | ✅ | ✅ |
+| WPC-S: Corvette | 5 | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ (28) | ✅ | ✅ |
+| WPC-S: Dirty Harry | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (24) | ✅ | ✅ |
+| WPC-S: Indianapolis 500 | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ✅ |
+| WPC-S: Jack·Bot | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ✅ |
 | WPC-S: Johnny Mnemonic | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (39) | ✅ | ✅ |
 | WPC-S: No Fear | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (39) | ✅ | ✅ |
-| WPC-S: Red & Ted's Road Show | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (27) | ✅ | ✅ |
-| WPC-S: The Flintstones | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (27) | ✅ | ✅ |
+| WPC-S: Red & Ted's Road Show | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ✅ |
+| WPC-S: The Flintstones | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ✅ |
 | WPC-S: The Shadow | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-S: Theatre of Magic | 7 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ (39) | ✅ | ✅ |
-| WPC-S: WHO Dunnit | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (27) | ✅ | ✅ |
+| WPC-S: WHO Dunnit | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| WPC-S: World Cup Soccer | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (27) | ✅ | ✅ |
-| **Total** | 223 (46%) | 60 | 50 | 11 | 10 | 7 | 28 | 57 | 16 |
+| WPC-S: World Cup Soccer | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ✅ |
+| **Total** | 229 (48%) | 60 | 50 | 11 | 10 | 7 | 34 | 57 | 20 |
 
