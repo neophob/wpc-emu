@@ -152,7 +152,8 @@ function loadState() {
     })
     .then((romName) => {
       const emuState = loadRam(romName);
-      return wpcEmuWebWorkerApi.setEmulatorState(emuState);
+      return wpcEmuWebWorkerApi.setEmulatorState(emuState)
+        .catch((error) => {});
     })
     .then(() => { return resumeEmu(); });
 }

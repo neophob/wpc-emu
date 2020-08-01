@@ -1,5 +1,8 @@
 # HISTORY
 
+## 01/08/20
+- Fix Load State issue when no saved state was found
+
 ## 30/06/20
 - Update Game DB
 

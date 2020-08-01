@@ -22,3 +22,19 @@ It's quite expensive to log each opcode - you should consider disabling it if yo
 ## Stop Emu
 
 You can enter `stopEmu();` in the browser console to stop the Emulator.
+
+## DUMP RAM State
+
+To download a saved RAM state paste this (make sure to replace "hurcnl_2.rom" with the ROM name of your choice):
+
+```
+var data = "text/json;charset=utf-8," + encodeURIComponent(window.localStorage.getItem('hurcnl_2.rom'));
+
+var a = document.createElement('a');
+a.href = 'data:' + data;
+a.download = 'data.json';
+a.innerHTML = 'download JSON';
+
+var container = document.getElementById('rootNode');
+container.appendChild(a);
+```
