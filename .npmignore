@@ -26,3 +26,4 @@ cert.pem
 /rom
 .gitmodules
 client
+.nyc_output
