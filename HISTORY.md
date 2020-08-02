@@ -1,5 +1,8 @@
 # HISTORY
 
+## 02/08/20
+- Add WPC Alpha test ROM
+
 ## 01/08/20
 - Fix Load State issue when no saved state was found
 
