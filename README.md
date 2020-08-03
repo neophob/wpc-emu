@@ -986,7 +986,7 @@ Terminator 2: Judgment Day was the first to be designed with a dot matrix displa
 
 ## WPC (Fliptronics)
 - The Getaway: High Speed II 🚀 - February 1992
-- The Addams Family - March 1992
+- The Addams Family 🚀 - March 1992
 - Black Rose 🚀 - July 1992
 - Fish Tales 🚀 - October 1992
 - Doctor Who 🚀 - October 1992
