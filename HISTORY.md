@@ -3,7 +3,8 @@
 ## 03/08/20
 - Add WPC Alpha: Funhouse (FreeWPC 0.91)
 - Add WPC Alpha: Dr. Dude
-- Add WPC-Fliptronics: The Addams Family
+- Add WPC Fliptronics: The Addams Family
+- support uploading WPC Alpha ROM
 
 ## 02/08/20
 - Add WPC Alpha: WPC test fixture
