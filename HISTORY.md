@@ -1,7 +1,11 @@
 # HISTORY
 
+## 03/08/20
+- Add WPC Alpha: Funhouse (FreeWPC 0.91)
+- Add WPC Alpha: Dr. Dude
+
 ## 02/08/20
-- Add WPC Alpha test ROM
+- Add WPC Alpha: WPC test fixture
 
 ## 01/08/20
 - Fix Load State issue when no saved state was found
