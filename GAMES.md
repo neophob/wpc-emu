@@ -47,7 +47,8 @@
 | WPC-Fliptronics: Dr. Who | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (29) | ✅ | ✅ |
 | WPC-Fliptronics: Fish Tales | 7 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ (39) | ✅ | ✅ |
 | WPC-Fliptronics: High Speed II, The Getaway | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| WPC-Fliptronics: The Addams Family Special | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| WPC-Fliptronics: The Addams Family | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| WPC-Fliptronics: The Addams Family Special Collectors Edition | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-Fliptronics: Twilight Zone | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ❌ (1) |
 | WPC-Fliptronics: Twilight Zone (FreeWPC, Broken!) | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-Fliptronics: White Water | 7 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ (39) | ✅ | ✅ |
@@ -65,5 +66,5 @@
 | WPC-S: WHO Dunnit | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (29) | ✅ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: World Cup Soccer | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ✅ |
-| **Total** | 239 (47%) | 63 | 52 | 11 | 10 | 7 | 37 | 59 | 20 |
+| **Total** | 242 (47%) | 64 | 53 | 11 | 10 | 7 | 37 | 60 | 20 |
 
