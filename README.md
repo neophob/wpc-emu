@@ -966,6 +966,7 @@ More, unofficial suffix:
 Ripped from Wikipedia, entries with a 🚀 are included in the online version
 
 ## WPC (Alphanumeric)
+- Dr. Dude 🚀 (Prototype only) - August 1990
 - FunHouse 🚀 - September 1990
 - Harley-Davidson 🚀 - February 1991
 - The Machine: Bride of Pin·Bot 🚀 - February 1991

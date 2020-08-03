@@ -19,7 +19,9 @@
 | WPC-95: The Champion Pub | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (29) | ✅ | ❌ (2) |
 | WPC-95: Ticket Tac Toe (Redemption game) | 2 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-95: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| WPC-ALPHA: Dr. Dude | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-ALPHA: Funhouse | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| WPC-ALPHA: Funhouse (FreeWPC) | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-ALPHA: Harley Davidson | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (12) | ✅ | ✅ |
 | WPC-ALPHA: The Machine: Bride of Pin·bot | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ (1) |
 | WPC-ALPHA: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
@@ -63,5 +65,5 @@
 | WPC-S: WHO Dunnit | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (29) | ✅ | ✅ |
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: World Cup Soccer | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ✅ |
-| **Total** | 233 (48%) | 61 | 50 | 11 | 10 | 7 | 37 | 57 | 20 |
+| **Total** | 239 (47%) | 63 | 52 | 11 | 10 | 7 | 37 | 59 | 20 |
 
