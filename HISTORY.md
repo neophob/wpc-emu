@@ -2,6 +2,7 @@
 
 ## 05/08/20
 - Add FreeWPC WCS v0.62
+- Add FreeWPC Corvette v0.61
 
 ## 03/08/20
 - Add WPC Alpha: Funhouse (FreeWPC 0.91)
