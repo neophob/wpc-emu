@@ -1,5 +1,8 @@
 # HISTORY
 
+## 05/08/20
+- Add FreeWPC WCS v0.62
+
 ## 03/08/20
 - Add WPC Alpha: Funhouse (FreeWPC 0.91)
 - Add WPC Alpha: Dr. Dude
