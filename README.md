@@ -1,9 +1,9 @@
-# WPC (Dot Matrix) Emulator
+# WPC Emulator
 
 [![Build Status](https://travis-ci.org/neophob/wpc-emu.svg?branch=master)](https://travis-ci.org/neophob/wpc-emu)
 
-- [WPC (Dot Matrix) Emulator](#wpc-dot-matrix-emulator)
-  - [Goal](#goal)
+- [WPC Emulator](#wpc-emulator)
+  - [Goals](#goals)
 - [Implementation Status](#implementation-status)
   - [Basic](#basic)
   - [CPU/ASIC Board](#cpuasic-board)
@@ -78,10 +78,11 @@
   - [WPC-S (Security)](#wpc-s-security)
   - [WPC-95](#wpc-95)
 
-## Goal
+## Goals
 
-- Emulate the Williams Pinball machine WPC-89 (6/91 - 10/91)
-- 2nd generation Williams WPC hardware called "WPC Dot Matrix" aka WPC DMD
+- Preserve the "old" Williams/Bally/Midway pinball games
+- Help debugging real world pinball issues
+- have fun explore the games, try to crash them etc.
 - Run a Twitter Bot, play games and print nerd statistics: https://twitter.com/WPCPinball
 
 ```
