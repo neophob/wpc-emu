@@ -27,3 +27,4 @@ cert.pem
 .gitmodules
 client
 .nyc_output
+.vscode
