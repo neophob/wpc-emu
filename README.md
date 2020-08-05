@@ -1013,7 +1013,7 @@ Twilight Zone was designed to be the first pinball machine to use the new DCS sy
 Starting with World Cup Soccer, a security programmable integrated circuit (PIC) chip was added to the CPU board in all WPC-S games at location U22. This PIC chip was game specific making it so CPU boards could not be swapped between different models without changing the security PIC chip.
 
 - World Cup Soccer 🚀 - February 1994
-- The Pinball Circus (very rare, only 2 pins exists) - June 1994
+- The Pinball Circus (very rare, only 2 pins exists, ROM image and source are lost) - June 1994
 - The Flintstones 🚀 - July 1994
 - Corvette 🚀 - August 1994
 - Red & Ted's Road Show 🚀 - October 1994
