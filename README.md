@@ -891,6 +891,9 @@ Arguably you can achieve the same thing through VPX and dragging the ball around
 - HSTD: High Score to Date
 - EOS (Switch): end-of-stroke
 - HUO: Home use only
+- NIB = new in box
+- HER = high end restoration
+- LE = limited edition
 
 ## ROM Revision / Software Version Information
 Source: http://www.planetarypinball.com/mm5/Williams/tech/sys11roms.html
