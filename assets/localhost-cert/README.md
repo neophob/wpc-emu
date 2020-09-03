@@ -5,10 +5,10 @@ Source https://medium.freecodecamp.org/how-to-get-https-working-on-your-local-de
 ## How to build certificates
 - `cd assets/localhost-cert`
 - `openssl genrsa -des3 -out rootCA.key 2048`
-- `openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 1024 -out rootCA.pem`
+- `openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 512 -out rootCA.pem`
 - Your system need to trust `rootCA.pem`
 - `openssl req -new -sha256 -nodes -out server.csr -newkey rsa:2048 -keyout server.key -config <( cat server.csr.cnf )`
-- `openssl x509 -req -in server.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out server.crt -days 3650 -sha256 -sha256 -extfile v3.ext`
+- `openssl x509 -req -in server.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out server.crt -days 700 -sha256 -sha256 -extfile v3.ext`
 
 
 Note: do not use chrome://flags/#allow-insecure-localhost - PWA features will not be available!
