@@ -29,7 +29,8 @@ test('should get ui data', (t) => {
   t.is(result.cpuState.firqCount, 0);
   t.is(result.cpuState.nmiCount, 0);
   t.is(result.protectedMemoryWriteAttempts, 0);
-  t.is(result.version, 4);
+  t.is(result.memoryWrites, 0);
+  t.is(result.version, 5);
 });
 
 test('should start cpu board', (t) => {

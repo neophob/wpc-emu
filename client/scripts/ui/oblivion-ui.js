@@ -197,6 +197,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
 
   canvasOverlayDrawLib.drawDiagram(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 9.5, 'ASIC_ROM_BANK', emuState.asic.wpc.activeRomBank, 22);
   canvasOverlayDrawLib.writeHeader(THEME.POS_ASIC_X + 8, THEME.POS_ASIC_Y + 9, emuState.protectedMemoryWriteAttempts);
+  canvasOverlayDrawLib.writeHeader(THEME.POS_ASIC_X + 8, THEME.POS_ASIC_Y + 10, emuState.memoryWrites);
 
   // MEMORY
   if (emuState.asic.ram) {
@@ -349,7 +350,6 @@ function initiateCanvasElements() {
     return;
   }
   initialized = true;
-  console.log('INIT_CANVAS');
 
   const canvasRootElement = createCanvas();
   canvas = canvasRootElement.getContext('2d', { alpha: false });
