@@ -31,10 +31,26 @@ test('MemoryHandler: should not update checksum', (t) => {
   t.is(valuesNotZero, 1);
 });
 
-test('MemoryHandler: validate new checksum', (t) => {
+test('MemoryHandler: should write number, check checksum', (t) => {
   const OFFSET = 0x1D29;
   const memoryHandler = t.context;
   memoryHandler.writeMemory(OFFSET, 1);
+  t.is(memoryHandler.ram[0x1D49], 0xFF);
+  t.is(memoryHandler.ram[0x1D4A], 0xFE);
+});
+
+test('MemoryHandler: should write array, check checksum', (t) => {
+  const OFFSET = 0x1D29;
+  const memoryHandler = t.context;
+  memoryHandler.writeMemory(OFFSET, [1]);
+  t.is(memoryHandler.ram[0x1D49], 0xFF);
+  t.is(memoryHandler.ram[0x1D4A], 0xFE);
+});
+
+test('MemoryHandler: should write string, check checksum', (t) => {
+  const OFFSET = 0x1D29;
+  const memoryHandler = t.context;
+  memoryHandler.writeMemory(OFFSET, '\x31');
   t.is(memoryHandler.ram[0x1D49], 0xFF);
   t.is(memoryHandler.ram[0x1D4A], 0xFE);
 });
