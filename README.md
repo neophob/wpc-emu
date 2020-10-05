@@ -105,7 +105,7 @@ Reference: http://bcd.github.io/freewpc/The-WPC-Hardware.html#The-WPC-Hardware
 ## CPU/ASIC Board
 - Blanking ✓
 - Diagnostics LED ✓
-- Watchdog ✗
+- Watchdog ✓ (reboot is not triggered!)
 - Bit Shifter ✓
 - Memory Protection ✓
 - Time of Day Clock ✓
@@ -214,6 +214,10 @@ To build a new release:
 ## TypeScript
 
 WPC-Emu supports ts definition at the API level, take a look at the `types` root directory.
+
+## Ports
+
+- https://github.com/jsm174/wpc-emu-cs/
 
 # Hardware - WPS Dot Matrix Machine
 
