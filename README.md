@@ -22,6 +22,7 @@
   - [Tracer / Dumps](#tracer--dumps)
   - [Build Release](#build-release)
   - [TypeScript](#typescript)
+  - [Ports](#ports)
 - [Hardware - WPS Dot Matrix Machine](#hardware---wps-dot-matrix-machine)
   - [Overview WPC-89](#overview-wpc-89)
   - [CPU board](#cpu-board)
