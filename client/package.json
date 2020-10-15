@@ -1,6 +1,6 @@
 {
   "name": "wpc-emu-frontend",
-  "version": "0.35.11",
+  "version": "0.36.0",
   "description": "WPC pinball machine emu frontend",
   "main": "index.js",
   "engines": {
@@ -19,27 +19,27 @@
     "file-saver": "^2.0.2"
   },
   "devDependencies": {
-    "@babel/register": "^7.10.5",
+    "@babel/register": "^7.12.0",
     "ava": "^0.25.0",
     "babel-preset-env": "^1.7.0",
     "browser-env": "^3.3.0",
-    "css-loader": "^3.6.0",
+    "css-loader": "^5.0.0",
     "current-device": "^0.10.1",
-    "favicons-webpack-plugin": "1.0.1",
+    "favicons-webpack-plugin": "4.2.0",
     "howler": "^2.2.0",
-    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-plugin": "^4.5.0",
     "milligram": "^1.4.1",
     "nyc": "^15.1.0",
     "raw-loader": "^4.0.1",
-    "style-loader": "^1.2.1",
-    "terser-webpack-plugin": "^3.0.8",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12",
+    "style-loader": "^2.0.0",
+    "terser-webpack-plugin": "^3.1.0",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^4.0.0",
     "webpack-pwa-manifest": "^4.2.0",
     "whatwg-fetch": "^2.0.4",
     "workbox-webpack-plugin": "^3.6.3",
     "worker-loader": "^2.0.0",
-    "xo": "^0.32.1"
+    "xo": "^0.33.1"
   },
   "babel": {
     "presets": [

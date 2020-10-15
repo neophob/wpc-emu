@@ -45,9 +45,9 @@ loadFile(romGamePath)
       try {
         wpcSystem.executeCycle(34482, 16);
         wpcSystem.reset();
-      } catch(error) {
+      } catch (error) {
         console.error(' > STATE_ERR_' + i, error.message);
-        console.error(error)
+        console.error(error);
       }
     }
   })
