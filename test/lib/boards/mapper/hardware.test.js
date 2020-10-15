@@ -162,17 +162,53 @@ test('HardwareMapper, should get exception for fliptronics address', (t) => {
 test('HardwareMapper, should get display address, 0x3FEB', (t) => {
   const expectedResult = {
     offset: 0x3FEB,
-    subsystem: 'display',
+    subsystem: 'wpcio',
   };
   const result = HardwareMapper.getAddress(0x3FEB);
+  t.deepEqual(result, expectedResult);
+});
+
+test('HardwareMapper, should get display address for alpha numeric displays, 0x3FEB', (t) => {
+  const expectedResult = {
+    offset: 0x3FEB,
+    subsystem: 'display',
+  };
+  const result = HardwareMapper.getAddress(0x3FEB, true);
   t.deepEqual(result, expectedResult);
 });
 
 test('HardwareMapper, should get display address, 0x3FEF', (t) => {
   const expectedResult = {
     offset: 0x3FEF,
-    subsystem: 'display',
+    subsystem: 'wpcio',
   };
   const result = HardwareMapper.getAddress(0x3FEF);
+  t.deepEqual(result, expectedResult);
+});
+
+test('HardwareMapper, should get display address for alpha numeric displays, 0x3FEF', (t) => {
+  const expectedResult = {
+    offset: 0x3FEF,
+    subsystem: 'display',
+  };
+  const result = HardwareMapper.getAddress(0x3FEF, true);
+  t.deepEqual(result, expectedResult);
+});
+
+test('HardwareMapper, should get DCS data, 0x3FDC', (t) => {
+  const expectedResult = {
+    offset: 0x3FDC,
+    subsystem: 'sound',
+  };
+  const result = HardwareMapper.getAddress(0x3FDC);
+  t.deepEqual(result, expectedResult);
+});
+
+test('HardwareMapper, should get DCS data, 0x3FDD', (t) => {
+  const expectedResult = {
+    offset: 0x3FDD,
+    subsystem: 'sound',
+  };
+  const result = HardwareMapper.getAddress(0x3FDD);
   t.deepEqual(result, expectedResult);
 });

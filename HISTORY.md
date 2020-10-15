@@ -1,5 +1,8 @@
 # HISTORY
 
+## 15/10/20
+- Fix Fliptronic Switch issue for WPC95
+
 ## 05/08/20
 - Add FreeWPC WCS v0.62
 - Add FreeWPC Corvette v0.61
