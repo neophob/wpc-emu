@@ -15,19 +15,19 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "ava": "^3.4.0",
+    "ava": "^3.13.0",
     "copy-webpack-plugin": "^6.0.3",
     "http-server": "^0.12.3",
     "nyc": "^15.1.0",
     "remove-debug-loader": "^0.2.6",
-    "sinon": "^9.0.2",
+    "sinon": "^9.2.0",
     "terser-webpack-plugin": "^3.0.8",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
-    "xo": "^0.32.1"
+    "xo": "^0.33.1"
   },
   "dependencies": {
-    "debug": "^4.1.1"
+    "debug": "^4.2.0"
   },
   "xo": {
     "envs": [
