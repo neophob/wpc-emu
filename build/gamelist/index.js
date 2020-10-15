@@ -35,7 +35,7 @@ console.error('| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |');
 
 gameSummary.forEach((entry) => {
   let supportLevel = 0;
-console.log(entry)
+  console.log(entry);
   if (entry.switchMapping) {
     elementsCounter[0]++;
     supportLevel++;
@@ -95,7 +95,7 @@ console.log(entry)
   );
 });
 
-const percentageSupport = parseInt((100 / (gameSummary.length * FIELDS_NR)) * overallSupportLevel + 0.5, 10);
+const percentageSupport = Number.parseInt((100 / (gameSummary.length * FIELDS_NR)) * overallSupportLevel + 0.5, 10);
 
 console.error(
   '| **Total** |',

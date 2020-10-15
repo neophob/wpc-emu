@@ -140,8 +140,8 @@ function writeMemory(offset, value) {
  * @returns {undefined} nada
  */
 function registerKeyboardListener() {
-  window.addEventListener('keydown', (e) => {
-    switch (e.keyCode) {
+  window.addEventListener('keydown', (event) => {
+    switch (event.keyCode) {
       case 49: //1
         return wpcEmuWebWorkerApi.setCabinetInput(1);
       case 50: //2
