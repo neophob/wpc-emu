@@ -49,9 +49,16 @@ test.serial('Smoketest, run emulator with rom ft20_32.rom', (t) => {
   t.is(uiState.asic.dmd.activepage, 2);
   t.is(uiState.asic.wpc.activeRomBank, 24);
   t.is(uiState.asic.wpc.diagnosticLedToggleCount, 232);
+  t.is(uiState.asic.wpc.wpcSecureScrambler, 165);
+  t.is(uiState.asic.wpc.lampColumn, 128);
+  t.is(uiState.asic.wpc.lampRow, 0);
+  t.is(uiState.asic.wpc.watchdogTicks, 2324);
+  t.is(uiState.asic.wpc.watchdogExpiredCounter, 1);
+
   console.log('ticks', uiState.cpuState.tickCount);
   const ticksInRange = uiState.cpuState.tickCount > 3300000 && uiState.cpuState.tickCount < 34000000;
   t.is(ticksInRange, true);
+
   console.log('soundPlayback',soundPlayback);
   t.deepEqual(soundPlayback, [
     { command: 'STOPSOUND' },
@@ -60,6 +67,13 @@ test.serial('Smoketest, run emulator with rom ft20_32.rom', (t) => {
     { command: 'PLAYSAMPLE', id: 63232 },
     { command: 'PLAYSAMPLE', id: 30984 },
   ]);
+
+  t.deepEqual(uiState.asic.wpc.solenoidState,
+    Uint8Array.from([0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0]));
+  t.deepEqual(uiState.asic.wpc.generalIlluminationState,
+    Uint8Array.from([0,0,0,0,0,0,0,0]));
+
+
 });
 
 test.serial('steps(100) should execute at least 100 steps', (t) => {

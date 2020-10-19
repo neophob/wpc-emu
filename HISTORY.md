@@ -1,5 +1,8 @@
 # HISTORY
 
+## 19/10/20
+- Fix invalid WPC95_FLIPPER_COIL_OUTPUT action
+
 ## 15/10/20
 - Fix Fliptronic Switch issue for WPC95
 
