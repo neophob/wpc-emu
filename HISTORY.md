@@ -5,7 +5,7 @@
 - fix invalid WPC95_FLIPPER_COIL_OUTPUT asic command - flipper switch triggers a solenoid on WPC95
 - FT database, no REEL OPTO is closed by default
 - BSD improve closed switches
-- TZ add missing fliptronics flipper
+- TZ/DH add missing fliptronics flipper
 
 ## 19/10/20
 - Fix invalid WPC95_FLIPPER_COIL_OUTPUT action
