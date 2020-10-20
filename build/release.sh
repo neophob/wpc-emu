@@ -29,7 +29,7 @@ function npmBuild {
   echo "## INFO: Build $PROJECT_ROOT/$PACKAGE_PATH"
   pushd $PROJECT_ROOT/$PACKAGE_PATH
   rm -rf ./node_modules
-  npm ci
+  ADBLOCK=1 npm ci
   time npm run build:production
   popd
 }
@@ -39,7 +39,7 @@ function npmStart {
   echo "## INFO: Build $PROJECT_ROOT/$PACKAGE_PATH"
   pushd $PROJECT_ROOT/$PACKAGE_PATH
   rm -rf ./node_modules
-  npm ci
+  ADBLOCK=1 npm ci
   time npm run start
   popd
 }
