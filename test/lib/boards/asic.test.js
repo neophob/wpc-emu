@@ -170,6 +170,13 @@ test('wpc, write and read fliptronics', (t) => {
   t.is(result, 247);
 });
 
+test('wpc, write and read wpc95 flipper', (t) => {
+  const wpc = t.context;
+  wpc.setFliptronicsInput('F4');
+  const result = wpc.read(CpuBoardAsic.OP.WPC95_FLIPPER_SWITCH_INPUT);
+  t.is(result, 247);
+});
+
 test('wpc, ignore empty setState', (t) => {
   const wpc = t.context;
   const result = wpc.setState();
