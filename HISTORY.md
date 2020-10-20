@@ -1,5 +1,9 @@
 # HISTORY
 
+## 20/10/20
+- Update database, Fliptronic flipper are NOT closed by default
+- Fishtales database, no REEL OPTO is closed by default
+
 ## 19/10/20
 - Fix invalid WPC95_FLIPPER_COIL_OUTPUT action
 
