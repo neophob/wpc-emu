@@ -69,7 +69,7 @@ test.serial('Smoketest, run emulator with rom ft20_32.rom', (t) => {
   ]);
 
   t.deepEqual(uiState.asic.wpc.solenoidState,
-    Uint8Array.from([0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0]));
+    Uint8Array.from([0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0]));
   t.deepEqual(uiState.asic.wpc.generalIlluminationState,
     Uint8Array.from([0,0,0,0,0,0,0,0]));
 
