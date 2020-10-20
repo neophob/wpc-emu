@@ -634,7 +634,7 @@ function initialise() {
   canvasDrawLib.writeRibbonHeader(THEME.POS_MATRIX_X + 5, THEME.POS_MATRIX_Y + 1, 'I/O STATUS', THEME.FONT_TEXT);
 
   canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 10.25, 'INPUT');
-  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 7.25, 'SOLENOID');
+  canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 6.5, 'SOLENOID');
   canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 8, THEME.POS_MATRIX_Y + 10.25, 'GI');
 
   canvasDrawLib.drawSimpleVerticalLine(THEME.POS_MATRIX_X + 13.5, THEME.POS_MATRIX_Y + 9.75, 1.25);
