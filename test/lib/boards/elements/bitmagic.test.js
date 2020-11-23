@@ -3,6 +3,11 @@
 const test = require('ava');
 const bitmagic = require('../../../../lib/boards/elements/bitmagic');
 
+test('bitmagic, should get msb from 0x0A', (t) => {
+  const result = bitmagic.findMsbBit(0x0A);
+  t.is(result, 0);
+});
+
 test('bitmagic, should get msb from 0x80', (t) => {
   const result = bitmagic.findMsbBit(0x80);
   t.is(result, 8);
