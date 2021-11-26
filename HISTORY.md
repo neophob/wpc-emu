@@ -1,5 +1,8 @@
 # HISTORY
 
+## 11/5/21
+- Bump deps
+
 ## 20/10/20
 - Update database, Fliptronic flipper are NOT closed by default
 - fix invalid WPC95_FLIPPER_COIL_OUTPUT asic command - flipper switch triggers a solenoid on WPC95
