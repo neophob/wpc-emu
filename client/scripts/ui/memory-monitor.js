@@ -33,13 +33,13 @@ class MemoryMonitor {
     this.memorySearchResult = undefined;
 
     const canvasMemoryElement = this._createCanvas();
-    this.canvasMemory = canvasMemoryElement.getContext('2d', { alpha: true });
+    this.canvasMemory = canvasMemoryElement.getContext('2d');
     replaceNode('memoryNode', canvasMemoryElement);
     this.canvasMemoryDrawLib = createDrawLib(this.canvasMemory, options.THEME);
     this.canvasMemoryDrawLib.clear();
 
     const canvasMemoryOverlayElement = this._createCanvas();
-    this.canvasMemoryOverlay = canvasMemoryOverlayElement.getContext('2d', { alpha: true });
+    this.canvasMemoryOverlay = canvasMemoryOverlayElement.getContext('2d');
     replaceNodeAndResize('memoryOverlayNode', canvasMemoryOverlayElement, WINDOW_HEIGHT - 20);
     this.canvasMemoryOverlayDrawLib = createDrawLib(this.canvasMemoryOverlay, options.THEME);
 
