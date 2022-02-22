@@ -352,31 +352,31 @@ function initiateCanvasElements() {
   initialized = true;
 
   const canvasRootElement = createCanvas();
-  canvas = canvasRootElement.getContext('2d', { alpha: false });
+  canvas = canvasRootElement.getContext('2d');
   replaceNode('canvasNode', canvasRootElement);
 
   const canvasOverlayElement = createCanvas();
-  canvasOverlay = canvasOverlayElement.getContext('2d', { alpha: true });
+  canvasOverlay = canvasOverlayElement.getContext('2d');
   replaceNode('canvasOverlayNode', canvasOverlayElement);
 
   const canvasDmdElement = createCanvas();
-  canvasDmd = canvasDmdElement.getContext('2d', { alpha: true });
+  canvasDmd = canvasDmdElement.getContext('2d');
   replaceNode('canvasDmdNode', canvasDmdElement);
 
   const canvasDmdMemElement = createCanvas();
-  canvasDmdMem = canvasDmdMemElement.getContext('2d', { alpha: true });
+  canvasDmdMem = canvasDmdMemElement.getContext('2d');
   replaceNode('canvasDmdMemNode', canvasDmdMemElement);
 
   const canvasMemElement = createCanvas();
-  canvasMem = canvasMemElement.getContext('2d', { alpha: true });
+  canvasMem = canvasMemElement.getContext('2d');
   replaceNode('canvasMemNode', canvasMemElement);
 
   const canvasLampElement = createCanvas();
-  canvasLamp = canvasLampElement.getContext('2d', { alpha: true });
+  canvasLamp = canvasLampElement.getContext('2d');
   replaceNode('canvasLampNode', canvasLampElement);
 
   const canvasFlashElement = createCanvas();
-  canvasFlash = canvasFlashElement.getContext('2d', { alpha: true });
+  canvasFlash = canvasFlashElement.getContext('2d');
   replaceNode('canvasFlashNode', canvasFlashElement);
 
   canvasDrawLib = createDrawLib(canvas, THEME);
