@@ -1,6 +1,6 @@
 self.__precacheManifest = [
   {
-    "revision": "4f9897cd39083b84551e",
+    "revision": "378f772325bdd1fe8156",
     "url": "wpc-client.js"
   },
   {
@@ -240,7 +240,7 @@ self.__precacheManifest = [
     "url": "assets/manifest.json"
   },
   {
-    "revision": "2aca10a4663db20eaedd5c37e821e652",
+    "revision": "2bf823ae3dbe972ad5ab91caf17c84dc",
     "url": "assets/manifest.webapp"
   },
   {
@@ -248,19 +248,19 @@ self.__precacheManifest = [
     "url": "assets/browserconfig.xml"
   },
   {
-    "revision": "23efedeb977d068781bf9783273f7f98",
+    "revision": "afcf558266d6e4e7f6267b4318c22a13",
     "url": "assets/yandex-browser-manifest.json"
   },
   {
-    "revision": "c5ed1b7e71c1f342199b117239700389",
-    "url": "3728387f6082fa562de1.worker.js"
+    "revision": "9315323a804c114466d61a622f85ec42",
+    "url": "da1a6f6f44c0f48e41c5.worker.js"
   },
   {
     "revision": "c15eddeb09b46511cf0731116c7067b0",
     "url": "wpc-client.js.LICENSE.txt"
   },
   {
-    "revision": "ea70ed5b4d6a58bc096f53795b41c9ca",
+    "revision": "1a3b972d8bfa703e53375ce0f5e63ee5",
     "url": "index.html"
   }
 ];
