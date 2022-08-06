@@ -125,6 +125,7 @@ lampColorLut.set('YELLOW', 'rgba(255,255,0,');
 lampColorLut.set('ORANGE', 'rgba(255,165,0,');
 lampColorLut.set('RED', 'rgba(255,0,0,');
 lampColorLut.set('LBLUE', 'rgba(173,216,230,');
+lampColorLut.set('DBLUE', 'rgba(6, 2, 122,');
 lampColorLut.set('LPURPLE', 'rgba(218,112,214,');
 lampColorLut.set('WHITE', 'rgba(255,255,255,');
 lampColorLut.set('GREEN', 'rgba(0,255,0,');
