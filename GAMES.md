@@ -26,7 +26,7 @@
 | WPC-ALPHA: The Machine: Bride of Pin·bot | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ (1) |
 | WPC-ALPHA: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-DCS: Addams Family Values (Redemption game) | 2 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| WPC-DCS: Demolition Man | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (39) | ✅ | ✅ |
+| WPC-DCS: Demolition Man | 5 | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ (39) | ✅ | ✅ |
 | WPC-DCS: Demolition Man (FreeWPC) | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | WPC-DCS: Indiana Jones, The Pinball Adventure | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ❌ (6) |
 | WPC-DCS: Judge Dredd | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
@@ -68,5 +68,5 @@
 | WPC-S: WPC Test Fixture  | 1 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | WPC-S: World Cup Soccer | 4 | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (28) | ✅ | ✅ |
 | WPC-S: World Cup Soccer (FreeWPC) | 3 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| **Total** | 248 (47%) | 66 | 55 | 11 | 10 | 7 | 37 | 62 | 20 |
+| **Total** | 249 (47%) | 66 | 55 | 12 | 10 | 7 | 37 | 62 | 20 |
 

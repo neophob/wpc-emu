@@ -1,5 +1,8 @@
 # HISTORY
 
+## 19/3/23
+- Bump deps
+
 ## 11/5/21
 - Bump deps
 
