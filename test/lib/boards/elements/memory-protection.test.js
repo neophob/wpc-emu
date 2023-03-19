@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const memoryProtection = require('../../../../lib/boards/elements/memory-protection');
 

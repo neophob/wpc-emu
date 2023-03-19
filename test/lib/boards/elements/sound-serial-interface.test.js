@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const SoundSerialInterface = require('../../../../lib/boards/elements/sound-serial-interface');
 

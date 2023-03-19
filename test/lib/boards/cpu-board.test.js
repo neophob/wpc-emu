@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const CpuBoard = require('../../../lib/boards/cpu-board');
 

@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const SolenoidMatrix = require('../../../../lib/boards/elements/output-solenoid-matrix');
 

@@ -1,5 +1,3 @@
-'use strict';
-
 const crypto = require('crypto');
 const test = require('ava');
 const OutputDmdDisplay = require('../../../../lib/boards/elements/output-dmd-display');

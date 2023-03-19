@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const checksum = require('../../../../lib/boards/memory/checksum');
 

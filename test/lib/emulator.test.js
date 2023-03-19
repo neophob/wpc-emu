@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const Emulator = require('../../lib/emulator');
 const Package = require('../../package.json');

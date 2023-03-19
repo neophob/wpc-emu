@@ -1,5 +1,3 @@
-'use strict';
-
 const crypto = require('crypto');
 const test = require('ava');
 const OutputAlphaDisplay = require('../../../../lib/boards/elements/output-alpha-display');
@@ -81,4 +79,3 @@ test('outputAlphaDisplay, render', (t) => {
   const dmdHash = crypto.createHash('sha1').update(result.dmdShadedBuffer).digest('hex');
   t.is(dmdHash, 'd3706dc84ddfc27e5fa0ba57a8f469fac4472bda');
 });
-

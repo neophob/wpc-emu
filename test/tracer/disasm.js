@@ -1,4 +1,3 @@
-params ='use strict';
 //---------- Disassembler, source https://github.com/maly/6809js/blob/master/6809.js
 
 module.exports = {
