@@ -55,7 +55,11 @@
       "padding-line-between-statements": 0,
       "array-element-newline": 0,
       "unicorn/numeric-separators-style": 0,
-      "unicorn/prefer-module": 0
+      "unicorn/prefer-module": 0,
+      "no-bitwise": 0,
+      "import/extensions": 0,
+      "no-unneeded-ternary": 0,
+      "unicorn/switch-case-braces": 0
     },
     "ignores": [
       "client",
