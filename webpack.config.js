@@ -1,4 +1,5 @@
 const path = require('node:path');
+const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
@@ -50,7 +51,15 @@ module.exports = () => {
             ignore: [ '.DS_Store', '**/*.pdf' ],
           }
         }],
-      })
+      }),
+      new webpack.NormalModuleReplacementPlugin(/^node:/, (resource) => {
+        resource.request = resource.request.replace(/^node:/, "");
+      }),
     ],
+    resolve: {
+      fallback: {
+        "process": false,
+      },
+    },
   };
 };
