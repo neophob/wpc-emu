@@ -1,7 +1,6 @@
-'use strict';
-
-const path = require('path');
-const fs = require('fs');
+const path = require('node:path');
+const fs = require('node:fs');
+const process = require('node:process');
 const sinon = require('sinon');
 const Emulator = require('../../lib/emulator');
 const disasm = require('./disasm');

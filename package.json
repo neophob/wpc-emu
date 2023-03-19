@@ -15,19 +15,19 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "ava": "^3.15.0",
-    "copy-webpack-plugin": "^6.4.1",
-    "http-server": "^0.12.3",
+    "ava": "^5.2.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "http-server": "^14.1.1",
     "nyc": "^15.1.0",
     "remove-debug-loader": "^0.2.6",
-    "sinon": "^9.2.4",
-    "terser-webpack-plugin": "^5.3.1",
-    "webpack": "^5.69.1",
-    "webpack-cli": "^4.9.2",
-    "xo": "^0.48.0"
+    "sinon": "^15.0.2",
+    "terser-webpack-plugin": "^5.3.7",
+    "webpack": "^5.76.2",
+    "webpack-cli": "^5.0.1",
+    "xo": "^0.53.1"
   },
   "dependencies": {
-    "debug": "^4.3.3"
+    "debug": "^4.3.4"
   },
   "xo": {
     "envs": [
@@ -38,7 +38,6 @@
     "rules": {
       "comma-dangle": 0,
       "arrow-parens": 0,
-      "no-var": 0,
       "comma-spacing": 0,
       "capitalized-comments": 0,
       "promise/prefer-await-to-then": 0,
@@ -54,11 +53,21 @@
       "prefer-destructuring": 0,
       "no-use-extend-native/no-use-extend-native": 0,
       "padding-line-between-statements": 0,
-      "array-element-newline": 0
+      "array-element-newline": 0,
+      "unicorn/numeric-separators-style": 0,
+      "unicorn/prefer-module": 0,
+      "no-bitwise": 0,
+      "import/extensions": 0,
+      "no-unneeded-ternary": 0,
+      "unicorn/switch-case-braces": 0,
+      "unicorn/prefer-math-trunc": 0,
+      "no-multi-spaces": 0,
+      "unicorn/prevent-abbreviations": 0
     },
     "ignores": [
       "client",
       "docs",
+      "assets",
       "test/tracer/disasm.js"
     ]
   },

@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const GeneralIllumination = require('../../../../lib/boards/elements/output-general-illumination');
 

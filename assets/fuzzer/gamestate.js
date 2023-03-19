@@ -1,5 +1,3 @@
-'use strict';
-
 /*
 # WPC-EMU game state fuzzer.
 
@@ -12,7 +10,7 @@ TODO:
 - shuffle features (process.env?)
 */
 
-const fs = require('fs');
+const fs = require('node:fs');
 const debug = require('debug')('wpcemu:fuzzer');
 const Emulator = require('../../lib/emulator');
 

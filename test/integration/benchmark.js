@@ -1,7 +1,6 @@
-'use strict';
-
-const path = require('path');
-const fs = require('fs');
+const path = require('node:path');
+const fs = require('node:fs');
+const process = require('node:process');
 const debug = require('debug')('wpcemu:benchmark');
 const Emulator = require('../../lib/emulator');
 

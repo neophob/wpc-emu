@@ -1,5 +1,3 @@
-'use strict';
-
 import { replaceNode } from './htmlselector';
 import { createDrawLib } from './ui/lib';
 import * as MemoryMonitor from './memory-monitor';

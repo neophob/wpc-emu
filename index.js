@@ -1,5 +1,3 @@
-'use strict';
-
 const GamelistDB = require('./lib/db');
 const WpcEmuApi = require('./lib/emulator');
 const WpcEmuWebWorkerApi = require('./lib/webclient');

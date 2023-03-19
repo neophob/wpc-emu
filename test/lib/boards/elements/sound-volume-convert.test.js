@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const SoundVolumeConvert = require('../../../../lib/boards/elements/sound-volume-convert');
 

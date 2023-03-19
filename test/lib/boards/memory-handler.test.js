@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const MemoryHandler = require('../../../lib/boards/memory-handler');
 

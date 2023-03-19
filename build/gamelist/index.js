@@ -1,5 +1,3 @@
-'use strict';
-
 const gamelist = require('../../lib/db');
 
 const gameNames = gamelist.getAllNames();

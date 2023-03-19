@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const DmdMapper = require('../../../../lib/boards/mapper/dmd');
 

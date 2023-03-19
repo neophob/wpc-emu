@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const SecurityPic = require('../../../../lib/boards/up/security-pic');
 
@@ -59,4 +57,3 @@ test('SecurityPic, calculate initial serial numbers', (t) => {
   t.deepEqual(securityPic.originalPicSerialNumber, new Uint8Array(expectedPicSerial));
   t.is(securityPic.serialNumberScrambler, 0xA5);
 });
-

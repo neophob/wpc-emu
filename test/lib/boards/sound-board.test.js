@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const SoundBoard = require('../../../lib/boards/sound-board');
 

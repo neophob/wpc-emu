@@ -1,5 +1,3 @@
-'use strict';
-
 export { createDrawLib, getDiagramCluster };
 
 function createDrawLib(ctx, theme) {

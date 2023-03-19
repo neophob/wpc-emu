@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const InputSwitchMatrix = require('../../../../lib/boards/elements/input-switch-matrix');
 

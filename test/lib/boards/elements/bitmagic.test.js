@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const bitmagic = require('../../../../lib/boards/elements/bitmagic');
 

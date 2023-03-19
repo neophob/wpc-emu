@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const gameId = require('../../../lib/rom/game-id');
 

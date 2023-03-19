@@ -1,5 +1,3 @@
-'use strict';
-
 import { Howl } from 'howler';
 import { isMobileBrowser } from './device-detection';
 

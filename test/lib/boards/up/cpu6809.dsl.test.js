@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const Cpu6809 = require('../../../../lib/boards/up/cpu6809');
 
@@ -401,7 +399,7 @@ function flagCheckTest(t, testData) {
   cpu.set('flags', 0xFF);
   cpu.step();
 
-  for (var x = 0; x < testData.flags.length; x++) {
+  for (let x = 0; x < testData.flags.length; x++) {
     const flag = testData.flags[x];
     const mask = EXPECTED_FLAG_MAP[x];
     switch (flag) {

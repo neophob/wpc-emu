@@ -1,5 +1,3 @@
-'use strict';
-
 const fetch = require('node-fetch');
 const gamelist = require('../../lib/db');
 

@@ -1,5 +1,3 @@
-'use strict';
-
 export { initialiseActions };
 
 function initialiseActions(initObject, webclient) {

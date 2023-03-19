@@ -1,7 +1,5 @@
-'use strict';
-
 import test from 'ava';
-import { loadRam, saveRam } from '../../../scripts/lib/ramState';
+import { loadRam, saveRam } from '../../../scripts/lib/ramState.js';
 
 test.beforeEach((t) => {
   function storageMock() {

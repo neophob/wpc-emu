@@ -1,10 +1,8 @@
-'use strict';
-
 /*
 WPC-EMU rom fuzzer
 */
 
-const fs = require('fs');
+const fs = require('node:fs');
 const debug = require('debug')('wpcemu:fuzzer');
 const Emulator = require('../../lib/emulator');
 

@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const MemoryPatch = require('../../../../lib/boards/elements/memory-patch');
 const MemoryPatchGameId = require('../../../../lib/boards/elements/memory-patch-game-id');

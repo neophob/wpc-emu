@@ -1,5 +1,3 @@
-'use strict';
-
 import { WebWorker } from '../../lib/webclient';
 
 onmessage = (event) => {

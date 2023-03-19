@@ -1,6 +1,4 @@
-'use strict';
-
-const path = require('path');
+const path = require('node:path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -27,10 +25,19 @@ module.exports = () => {
       new BundleAnalyzerPlugin({
         analyzerMode: skipAnalyze ? 'disabled' : 'server'
       }),
+      new webpack.NormalModuleReplacementPlugin(/^node:/, (resource) => {
+        resource.request = resource.request.replace(/^node:/, "");
+      })
     ],
     output: {
       filename: '[name].js',
       path: path.resolve(__dirname, './dist')
+    },
+    target: 'web',
+    resolve: {
+      fallback: {
+        "process": false,
+      },
     },
     module: {
       rules: [

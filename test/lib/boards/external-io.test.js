@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const IoBoard = require('../../../lib/boards/external-io');
 

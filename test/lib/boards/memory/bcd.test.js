@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const bcd = require('../../../../lib/boards/memory/bcd');
 

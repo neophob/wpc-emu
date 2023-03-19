@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const MemoryMapper = require('../../../../lib/boards/mapper/memory');
 

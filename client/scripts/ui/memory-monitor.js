@@ -1,5 +1,3 @@
-'use strict';
-
 import { createDrawLib } from './ui/lib';
 import { memoryFindData } from './ui/memorysearch';
 import { replaceNode, replaceNodeAndResize } from './htmlselector';

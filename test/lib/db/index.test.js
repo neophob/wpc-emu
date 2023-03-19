@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava');
 const gamelist = require('../../../lib/db');
 

@@ -1,7 +1,5 @@
-'use strict';
-
 import test from 'ava';
-import { downloadFileFromUrlAsUInt8Array } from '../../../scripts/lib/fetcher';
+import { downloadFileFromUrlAsUInt8Array } from '../../../scripts/lib/fetcher.js';
 
 test('fetcher, should not ignore empty url', (t) => {
   return downloadFileFromUrlAsUInt8Array()
