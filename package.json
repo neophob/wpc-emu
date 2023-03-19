@@ -24,7 +24,7 @@
     "terser-webpack-plugin": "^5.3.1",
     "webpack": "^5.69.1",
     "webpack-cli": "^4.9.2",
-    "xo": "^0.48.0"
+    "xo": "^0.53.1"
   },
   "dependencies": {
     "debug": "^4.3.3"

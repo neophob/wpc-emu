@@ -1,5 +1,3 @@
-'use strict';
-
 export { replaceNode, replaceNodeAndResize };
 
 function replaceNode(id, child) {

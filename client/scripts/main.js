@@ -1,5 +1,3 @@
-'use strict';
-
 import '../node_modules/milligram/dist/milligram.css';
 import '../styles/client.css';
 

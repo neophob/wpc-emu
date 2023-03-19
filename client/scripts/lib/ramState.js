@@ -1,5 +1,3 @@
-'use strict';
-
 // loads and store the state of a specific game
 export { loadRam, saveRam };
 

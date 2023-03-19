@@ -1,5 +1,3 @@
-'use strict';
-
 import { createDrawLib } from './ui/lib';
 import { replaceNode } from './htmlselector';
 

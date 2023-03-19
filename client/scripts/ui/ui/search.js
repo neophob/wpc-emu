@@ -1,5 +1,3 @@
-'use strict';
-
 import * as bcd from '../../../../lib/boards/memory/bcd';
 
 export {

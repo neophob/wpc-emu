@@ -1,5 +1,3 @@
-'use strict';
-
 export { getUploadedFile };
 
 function getUploadedFile() {

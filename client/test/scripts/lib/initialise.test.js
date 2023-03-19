@@ -1,7 +1,5 @@
-'use strict';
-
 import test from 'ava';
-import { initialiseActions } from '../../../scripts/lib/initialise';
+import { initialiseActions } from '../../../scripts/lib/initialise.js';
 
 test.beforeEach((t) => {
   const data = {

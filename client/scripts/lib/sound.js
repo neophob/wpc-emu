@@ -1,5 +1,3 @@
-'use strict';
-
 import { Howl, Howler } from 'howler';
 import { createSoundPlayer } from './sound-player';
 

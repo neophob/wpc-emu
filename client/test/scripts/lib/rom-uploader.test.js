@@ -1,8 +1,6 @@
-'use strict';
-
 import browserEnv from 'browser-env';
 import test from 'ava';
-import { getUploadedFile } from '../../../scripts/lib/rom-uploader';
+import { getUploadedFile } from '../../../scripts/lib/rom-uploader.js';
 
 const FAKE_FILE_CONTENT = 'ABC';
 

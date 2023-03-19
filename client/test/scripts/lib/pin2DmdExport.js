@@ -1,8 +1,6 @@
-'use strict';
-
 import test from 'ava';
 import browserEnv from 'browser-env';
-import { initialise, save } from '../../../scripts/lib/pin2DmdExport';
+import { initialise, save } from '../../../scripts/lib/pin2DmdExport.js';
 
 test.before(() => {
   browserEnv();
