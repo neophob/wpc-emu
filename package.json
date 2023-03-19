@@ -38,7 +38,6 @@
     "rules": {
       "comma-dangle": 0,
       "arrow-parens": 0,
-      "no-var": 0,
       "comma-spacing": 0,
       "capitalized-comments": 0,
       "promise/prefer-await-to-then": 0,
@@ -54,7 +53,8 @@
       "prefer-destructuring": 0,
       "no-use-extend-native/no-use-extend-native": 0,
       "padding-line-between-statements": 0,
-      "array-element-newline": 0
+      "array-element-newline": 0,
+      "unicorn/numeric-separators-style": 0
     },
     "ignores": [
       "client",

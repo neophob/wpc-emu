@@ -1,6 +1,6 @@
 const test = require('ava');
 const sinon = require('sinon');
-const CpuBoardAsic = require('../../../lib/boards/asic');
+const CpuBoardAsic = require('../../../lib/boards/asic.js');
 
 let clock;
 test.before(() => {
