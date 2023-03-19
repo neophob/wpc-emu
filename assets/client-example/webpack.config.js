@@ -25,10 +25,19 @@ module.exports = () => {
       new BundleAnalyzerPlugin({
         analyzerMode: skipAnalyze ? 'disabled' : 'server'
       }),
+      new webpack.NormalModuleReplacementPlugin(/^node:/, (resource) => {
+        resource.request = resource.request.replace(/^node:/, "");
+      })
     ],
     output: {
       filename: '[name].js',
       path: path.resolve(__dirname, './dist')
+    },
+    target: 'web',
+    resolve: {
+      fallback: {
+        "process": false,
+      },
     },
     module: {
       rules: [

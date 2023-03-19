@@ -59,7 +59,8 @@
       "no-bitwise": 0,
       "import/extensions": 0,
       "no-unneeded-ternary": 0,
-      "unicorn/switch-case-braces": 0
+      "unicorn/switch-case-braces": 0,
+      "unicorn/prefer-math-trunc": 0
     },
     "ignores": [
       "client",
