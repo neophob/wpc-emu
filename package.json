@@ -55,7 +55,7 @@
       "padding-line-between-statements": 0,
       "array-element-newline": 0,
       "unicorn/numeric-separators-style": 0,
-      "node/exports-style": 0
+      "unicorn/prefer-module": 0
     },
     "ignores": [
       "client",
