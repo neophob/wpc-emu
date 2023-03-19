@@ -103,6 +103,12 @@ module.exports = () => {
       filename: '[name].js',
       path: path.resolve(__dirname, '../dist')
     },
+    target: 'web',
+    resolve: {
+      fallback: {
+        "process": false,
+      },
+    },
     module: {
       rules: [
         {
