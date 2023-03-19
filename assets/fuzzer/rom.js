@@ -1,5 +1,3 @@
-'use strict';
-
 /*
 WPC-EMU rom fuzzer
 */

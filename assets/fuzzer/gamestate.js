@@ -1,5 +1,3 @@
-'use strict';
-
 /*
 # WPC-EMU game state fuzzer.
 

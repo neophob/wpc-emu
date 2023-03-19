@@ -1,5 +1,3 @@
-'use strict';
-
 const fs = require('fs');
 const debug = require('debug')('wpcemu:index');
 const Emulator = require('./lib/emulator');

@@ -1,5 +1,3 @@
-'use strict';
-
 import * as WpcEmu from 'wpc-emu';
 
 // reference the webworker from wep-emu
