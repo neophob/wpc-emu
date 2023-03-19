@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@babel/register": "^7.17.0",
-    "ava": "^0.25.0",
+    "ava": "^5.2.0",
     "babel-preset-env": "^1.7.0",
     "browser-env": "^3.3.0",
     "css-loader": "^5.2.4",
