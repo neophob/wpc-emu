@@ -20,14 +20,14 @@
     "http-server": "^0.12.3",
     "nyc": "^15.1.0",
     "remove-debug-loader": "^0.2.6",
-    "sinon": "^9.2.4",
-    "terser-webpack-plugin": "^5.3.1",
-    "webpack": "^5.69.1",
-    "webpack-cli": "^4.9.2",
+    "sinon": "^15.0.2",
+    "terser-webpack-plugin": "^5.3.7",
+    "webpack": "^5.76.2",
+    "webpack-cli": "^5.0.1",
     "xo": "^0.53.1"
   },
   "dependencies": {
-    "debug": "^4.3.3"
+    "debug": "^4.3.4"
   },
   "xo": {
     "envs": [
