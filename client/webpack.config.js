@@ -75,6 +75,9 @@ module.exports = () => {
             sizes: [96, 128, 192, 256, 384, 512],
           },
         ]
+      }),
+      new webpack.NormalModuleReplacementPlugin(/^node:/, (resource) => {
+        resource.request = resource.request.replace(/^node:/, "");
       })
     ],
     optimization: {
