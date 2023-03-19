@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('node:fs');
 const debug = require('debug')('wpcemu:index');
 const Emulator = require('./lib/emulator');
 
