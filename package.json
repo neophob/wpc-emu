@@ -59,6 +59,7 @@
     "ignores": [
       "client",
       "docs",
+      "assets",
       "test/tracer/disasm.js"
     ]
   },
