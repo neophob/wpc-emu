@@ -58,6 +58,7 @@ function applyDumpData(wpcSystem, uint32, offset) {
     }
     console.log(`src: ${'0x'+offset.toString(16).padStart(4, '0')} | ` +
     `clk: ${clock} rw: ${rw} | ` +
+    `irq: ${irq} | ` +
     `0x${address.toString(16).padStart(4, '0')} -> 0x${data.toString(16).padStart(2, '0')} | `
     );/**/
 
@@ -70,7 +71,7 @@ function applyDumpData(wpcSystem, uint32, offset) {
         break;
       case mapper.SUBSYSTEM_BANKSWITCHED:
       case mapper.SUBSYSTEM_SYSTEMROM:
-        processCommand = false;
+        processCommand = true;
         break;
     }
 
@@ -139,9 +140,6 @@ loadFile(romGamePath)
       const singleTicks = 200;
       wpcSystem.cpuBoard.displayBoard.executeCycle(singleTicks);
       wpcSystem.cpuBoard.asic.executeCycle(singleTicks);
-
-
-
     }
 
   })

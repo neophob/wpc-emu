@@ -6,6 +6,15 @@ const hardwareMapper = require('../../lib/boards/mapper/hardware');
 const hasAlphaNumbericDisplay = true;
 let last = '';
 
+/*
+RW is as
+@tomlogic
+ describes : 0 to write, 1 to read
+Once again, be aware that the data is not valid at the same time for a read or for a write
+That's because when the CPU writes data, he already knows the address and data, but when he has to read something, he first sets the address on the bus and then has to wait fo the data to come from the peripheral
+The 6809 datasheet has a memory access chronogram that gives detailed information about this
+*/
+
 function getHardwareAction(offset) {
   const address = hardwareMapper.getAddress(offset, hasAlphaNumbericDisplay);
   switch (address.subsystem) {
