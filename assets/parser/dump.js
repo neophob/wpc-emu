@@ -45,10 +45,11 @@ function dumpData(uint32, offset) {
   const data = uint32 & 0xFF;
   const address = (uint32 >>> 8) & 0xFFFF;
   const clock = (uint32 & 0x1000000) > 0 ? 1 : 0;
+  //0 to write, 1 to read
   const rw = (uint32 & 0x2000000) > 0 ? 1 : 0;
   const irq = (uint32 & 0x8000000) > 0 ? 1 : 0;
   const firq = (uint32 & 0x10000000) > 0 ? 1 : 0;
-  const current = ''+irq;//`${data}_${address}_${clock}_${rw}`;
+  const current = `${data}_${address}_${clock}_${rw}_${irq}`;
 
   const target = mapper.getAddress(address);
   let action = '';

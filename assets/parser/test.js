@@ -22,12 +22,15 @@ function applyDumpData(wpcSystem, uint32, offset) {
   const data = uint32 & 0xFF;
   const address = (uint32 >>> 8) & 0xFFFF;
   const clock = (uint32 & 0x1000000) > 0 ? 1 : 0;
+  //0 to write, 1 to read
   const rw = (uint32 & 0x2000000) > 0 ? 1 : 0;
   const irq = (uint32 & 0x8000000) > 0 ? 1 : 0;
   const current = `${data}_${address}_${clock}_${rw}_${irq}`;
+  const isRead = rw === 1;
+  const isWrite = rw === 0;
 
   const newFrame = current !== last;
-  if (newFrame && rw) {
+  if (newFrame && isWrite) {
     const a = wpcSystem.getUiState();
     if (a.asic.dmd.dmdShadedBuffer) {
       let val = 0;
@@ -71,7 +74,7 @@ function applyDumpData(wpcSystem, uint32, offset) {
         break;
       case mapper.SUBSYSTEM_BANKSWITCHED:
       case mapper.SUBSYSTEM_SYSTEMROM:
-        processCommand = true;
+        processCommand = false;
         break;
     }
 
@@ -119,6 +122,7 @@ loadFile(romGamePath)
     wpcSystem.executeCycle(34482*50*bootSeconds, 16);
     wpcSystem.reset();
     wpcSystem.executeCycle(34482*50*2, 16);
+    applyDumpData(wpcSystem, 0, 0);
 
     console.log('------- apply dumped data');
     let nanosecond_tick_counter = 0;
