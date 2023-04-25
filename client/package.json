@@ -39,7 +39,7 @@
     "whatwg-fetch": "^2.0.4",
     "workbox-webpack-plugin": "^3.6.3",
     "worker-loader": "^2.0.0",
-    "xo": "^0.53.1"
+    "xo": "^0.54.1"
   },
   "babel": {
     "presets": [
