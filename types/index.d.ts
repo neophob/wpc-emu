@@ -320,6 +320,7 @@ export namespace WpcEmuWebWorkerApi {
     nextActivePage?: number;
     requestFIRQ?: boolean;
     ticksUpdateDmd?: number;
+    videoCaptureTicks?: number;
   }
 
   interface EmuStateAsic {
