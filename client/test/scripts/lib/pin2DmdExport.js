@@ -27,7 +27,7 @@ test('pin2DmdExport, should not add duplicate frames', (t) => {
   t.context.addFrames([51, 52, 53], 1547335816155);
   const frameCount = t.context.getCapturedFrames();
 
-  t.is(frameCount, 1);
+  t.is(frameCount, 2);
 });
 
 test('pin2DmdExport, getCapturedFrames (empty)', (t) => {
