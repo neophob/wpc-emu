@@ -1,5 +1,9 @@
 # HISTORY
 
+## 1/5/25
+- Bump deps & ci
+- fix DMD Export, thanks @ohrn
+
 ## 19/3/23
 - Bump deps
 
