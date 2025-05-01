@@ -1,6 +1,6 @@
 {
   "name": "wpc-emu",
-  "version": "0.36.12",
+  "version": "0.36.14",
   "description": "WPC pinball machine emu",
   "author": "Michael Vogt <michu@neophob.com>",
   "homepage": "https://github.com/neophob/wpc-emu",
