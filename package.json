@@ -22,8 +22,8 @@
     "remove-debug-loader": "^0.2.6",
     "sinon": "^15.0.2",
     "terser-webpack-plugin": "^5.3.7",
-    "webpack": "^5.76.2",
-    "webpack-cli": "^5.0.1",
+    "webpack": "^5.99.7",
+    "webpack-cli": "^5.1.4",
     "xo": "^0.60.0"
   },
   "dependencies": {
