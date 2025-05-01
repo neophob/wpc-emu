@@ -7,7 +7,7 @@
   "main": "index.js",
   "types": "./types/index.d.ts",
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=20.0.0"
   },
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "ava": "^5.2.0",
+    "ava": "^6.2.0",
     "copy-webpack-plugin": "^11.0.0",
     "http-server": "^14.1.1",
     "nyc": "^17.1.0",
@@ -24,7 +24,7 @@
     "terser-webpack-plugin": "^5.3.7",
     "webpack": "^5.76.2",
     "webpack-cli": "^5.0.1",
-    "xo": "^0.53.1"
+    "xo": "^0.60.0"
   },
   "dependencies": {
     "debug": "^4.3.4"
