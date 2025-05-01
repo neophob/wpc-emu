@@ -1,6 +1,13 @@
 import browserEnv from 'browser-env';
 import test from 'ava';
 import { getUploadedFile } from '../../../scripts/lib/rom-uploader.js';
+import { JSDOM } from 'jsdom';
+
+// Hack to use the Blob vom jsdom, not undici!
+const { window } = new JSDOM();
+globalThis.Blob = window.Blob;
+globalThis.File = window.File;
+globalThis.FileReader = window.FileReader;
 
 const FAKE_FILE_CONTENT = 'ABC';
 
