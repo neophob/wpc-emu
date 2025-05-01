@@ -56,7 +56,7 @@ test.serial('getUploadedFile, should resolve but no files defined - abort', (t) 
   return promise;
 });
 
-test.serial('getUploadedFile, should resolve', (t) => {
+test.serial('getUploadedFile, should resolve', async (t) => {
   const promise = getUploadedFile()
     .then((value) => {
       t.deepEqual(value, stringToArrayBuffer(FAKE_FILE_CONTENT));
