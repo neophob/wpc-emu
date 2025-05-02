@@ -97,7 +97,7 @@ function initializeEmu(gameEntry) {
           }
 
           if (dmdDump) {
-            dmdDump.addFrames(emuState.asic.dmd.videoOutputBuffer, emuState.asic.dmd.videoCaptureTicks);
+            dmdDump.addFrames(emuState.asic.dmd.videoOutputBuffer, emuState.asic.dmd.lastVideoCaptureTimeTicks);
 
             const capturedFrames = dmdDump.getCapturedFrames();
             if (capturedFrames > MAXIMAL_DMD_FRAMES_TO_RIP) {

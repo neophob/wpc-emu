@@ -48,7 +48,7 @@ class DmdGrabber {
 
   constructor() {
     this.frames = [ HEADER ];
-    this.lastVideoCaptureTicks = -1;
+    this.previousVideoCaptureTimeTicks = -1;
   }
 
   _ticksToTimestamp(ticks) {
@@ -61,12 +61,12 @@ class DmdGrabber {
     ];
   }
 
-  addFrames(videoOutputBuffer, videoCaptureTicks) {
-    if (this.lastVideoCaptureTicks === videoCaptureTicks) {
+  addFrames(videoOutputBuffer, videoCaptureTimeTicks) {
+    if (this.previousVideoCaptureTimeTicks === videoCaptureTimeTicks) {
       return;
     }
-    this.lastVideoCaptureTicks = videoCaptureTicks;
-    const timeSinceLastFrameMs = this._ticksToTimestamp(videoCaptureTicks);
+    this.previousVideoCaptureTimeTicks = videoCaptureTimeTicks;
+    const timeSinceLastFrameMs = this._ticksToTimestamp(videoCaptureTimeTicks);
     this.lastVideoOutputBuffer = videoOutputBuffer;
     this.frames.push(
       timeSinceLastFrameMs.concat(Array.from(videoOutputBuffer))
