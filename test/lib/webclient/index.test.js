@@ -61,9 +61,7 @@ class MockWebWorker {
     this.filename = filename;
   }
 
-  onmessageerror() {
-
-  }
+  onmessageerror() {}
 
   postMessage(message) {
     // delay answer, else listener service is not ready
