@@ -1,5 +1,5 @@
 import { Howl, Howler } from 'howler';
-import { createSoundPlayer } from './sound-player';
+import { createSoundPlayer } from './sound-player.js';
 
 export { AudioOutput };
 
@@ -15,12 +15,11 @@ const NO_SOUND = {
 };
 
 class Sound {
-
   constructor(audioData = NO_SOUND) {
     Howler.unload();
 
     this.bong = new Howl({
-      volume: 1.0,
+      volume: 1,
       src: BONG_SOUND,
     });
 
@@ -33,23 +32,27 @@ class Sound {
         this.player.playId(message.id);
         break;
       }
+
       case 'MAINVOLUME': {
         const volume = (message.value / 31);
         this.setVolume(volume);
         break;
       }
 
-      case 'STOPSOUND':
+      case 'STOPSOUND': {
         this.player.stopAll();
         break;
+      }
 
-      case 'CHANNELOFF':
+      case 'CHANNELOFF': {
         console.log('CHANNELOFF_NOT_IMPLEMENTED YET', message.channel);
         break;
+      }
 
-      default:
+      default: {
         console.log('NOT_IMPLEMENTED YET', message.command);
         break;
+      }
     }
   }
 

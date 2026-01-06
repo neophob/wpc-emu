@@ -1,5 +1,5 @@
-import { createDrawLib } from './ui/lib';
-import { replaceNode } from './htmlselector';
+import { createDrawLib } from './ui/lib.js';
+import { replaceNode } from './htmlselector.js';
 
 export { getInstance };
 
@@ -10,7 +10,6 @@ function getInstance(options) {
 const WINDOW_HEIGHT = 160;
 
 class VariableMonitor {
-
   constructor(options) {
     this.THEME = options.THEME;
     this.CANVAS_WIDTH = options.CANVAS_WIDTH;
@@ -46,7 +45,7 @@ class VariableMonitor {
     let xpos = 2;
     let ypos = 0;
     let maxTextLenght = 0;
-    memoryPositions.forEach((element, index) => {
+    for (const [ index, element ] of memoryPositions.entries()) {
       ypos += 1.5;
       const text = element.name + ': ' + element.value;
       maxTextLenght = Math.max(maxTextLenght, text.length);
@@ -54,14 +53,13 @@ class VariableMonitor {
         xpos,
         ypos,
         text,
-        index % 2 === 1 ? this.THEME.TEXT_COLOR : this.THEME.TEXT_COLOR_HEADER
+        index % 2 === 1 ? this.THEME.TEXT_COLOR : this.THEME.TEXT_COLOR_HEADER,
       );
       if ((index % 8) === 7) {
         xpos += maxTextLenght - 3;
         ypos = 0;
         maxTextLenght = 0;
       }
-    });
+    }
   }
-
 }

@@ -1,7 +1,7 @@
-import { replaceNode } from './htmlselector';
-import { createDrawLib } from './ui/lib';
-import * as MemoryMonitor from './memory-monitor';
-import * as VariableMonitor from './variable-monitor';
+import { replaceNode } from './htmlselector.js';
+import { createDrawLib } from './ui/lib.js';
+import * as MemoryMonitor from './memory-monitor.js';
+import * as VariableMonitor from './variable-monitor.js';
 
 export {
   initialise,
@@ -12,7 +12,7 @@ export {
   loadFeedback,
   toggleMemoryView,
   memoryMonitorNextPage,
-  memoryMonitorPrevPage,
+  memoryMonitorPreviousPage as memoryMonitorPrevPage,
   memoryMonitorRefresh,
   memoryFindData,
   memoryDumpData,
@@ -27,13 +27,13 @@ export {
 const CANVAS_WIDTH = 1280;
 const CANVAS_HEIGHT = 768;
 
-let canvas, canvasDrawLib;
-let canvasOverlay, canvasOverlayDrawLib;
-let canvasDmd, canvaDmdDrawLib;
-let canvasDmdMem, canvaDmdMemDrawLib;
-let canvasMem, canvaMemDrawLib;
-let canvasLamp, canvaLampDrawLib;
-let canvasFlash, canvaFlashDrawLib;
+let canvas; let canvasDrawLib;
+let canvasOverlay; let canvasOverlayDrawLib;
+let canvasDmd; let canvaDmdDrawLib;
+let canvasDmdMem; let canvaDmdMemDrawLib;
+let canvasMem; let canvaMemDrawLib;
+let canvasLamp; let canvaLampDrawLib;
+let canvasFlash; let canvaFlashDrawLib;
 
 let memoryMonitor;
 let variableMonitor;
@@ -142,6 +142,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   if (!emuState) {
     return;
   }
+
   frame++;
   canvasOverlayDrawLib.clear();
 
@@ -160,6 +161,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
   } else {
     canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 9, THEME.POS_CPU_Y + 5, cpuRunningState, THEME.COLOR_RED);
   }
+
   canvasOverlayDrawLib.drawDiagram(THEME.POS_CPU_X + 4.5, THEME.POS_CPU_Y + 5.5, 'OPS-DIAG', emuState.opsMs, 12);
 
   canvasOverlayDrawLib.writeHeader(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 8, emuState.cpuState.irqCount);
@@ -177,10 +179,11 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
       THEME.GRID_STEP_X * THEME.POS_DMD_X,
       THEME.GRID_STEP_Y * THEME.POS_DMD_Y,
       THEME.GRID_STEP_X * 128 / 2,
-      THEME.GRID_STEP_Y * 32 / 2
+      THEME.GRID_STEP_Y * 32 / 2,
     );
     canvaDmdDrawLib.drawDmdShaded(THEME.POS_DMD_X, THEME.POS_DMD_Y, emuState.asic.dmd.dmdShadedBuffer);
   }
+
   canvasOverlayDrawLib.drawHorizontalRandomBlip(THEME.POS_DMD_X + 60, THEME.POS_DMD_Y - 5, 8, emuState.asic.wpc.diagnosticLedToggleCount);
   canvasOverlayDrawLib.fillRect(THEME.POS_DMD_X - 1, THEME.POS_DMD_Y + 17.5, 1, 0.5, emuState.asic.dmd.requestFIRQ ? THEME.COLOR_RED : THEME.DMD_COLOR_DARK);
   canvasOverlayDrawLib.fillRect(THEME.POS_DMD_X + 24, THEME.POS_DMD_Y + 17.5, 1, 0.5, emuState.asic.wpc.zeroCrossFlag ? THEME.COLOR_RED : THEME.DMD_COLOR_DARK);
@@ -206,9 +209,9 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
       (THEME.POS_RAMDIAG_X - 1) * THEME.GRID_STEP_X,
       (THEME.POS_RAMDIAG_Y - 2) * THEME.GRID_STEP_Y,
       THEME.GRID_STEP_X * 50,
-      THEME.GRID_STEP_Y * 10
+      THEME.GRID_STEP_Y * 10,
     );
-    const memory1k = Array.from(emuState.asic.ram.slice(0, 1024));
+    const memory1k = [ ...emuState.asic.ram.slice(0, 1024) ];
     canvaDmdDrawLib.drawDiagramCluster(THEME.POS_RAMDIAG_X + 0.5, THEME.POS_RAMDIAG_Y + 1, memory1k, 24);
 
     memoryMonitor.draw(emuState.asic.ram);
@@ -220,12 +223,13 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
     videoRam = emuState.asic.dmd.videoRam;
     videoRamDraw = 0;
   }
+
   if (videoRam) {
     canvaDmdMemDrawLib.drawVideoRam(THEME.POS_DMDMEM_X + 0.5, THEME.POS_DMDMEM_Y + 2.75, frame, videoRam);
     canvaDmdMemDrawLib.drawHorizontalRandomBlip(THEME.POS_DMDMEM_X + 13, THEME.POS_DMDMEM_Y + 11, 2);
     canvaDmdMemDrawLib.drawHorizontalRandomBlip(THEME.POS_DMDMEM_X + 25, THEME.POS_DMDMEM_Y + 11, 1);
     canvaDmdMemDrawLib.drawHorizontalRandomBlip(THEME.POS_DMDMEM_X + 25, THEME.POS_DMDMEM_Y + 1.5, 3);
-    canvaDmdMemDrawLib.drawVerticalRandomBlip(THEME.POS_DMDMEM_X + 0.5, THEME.POS_DMDMEM_Y + 16.5, 2, (Date.now() / 0xCAFFE) << 2);
+    canvaDmdMemDrawLib.drawVerticalRandomBlip(THEME.POS_DMDMEM_X + 0.5, THEME.POS_DMDMEM_Y + 16.5, 2, (Date.now() / 0xC_AF_FE) << 2);
     if (videoRamDraw++ > 4) {
       videoRam = null;
     }
@@ -259,10 +263,11 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
       (THEME.POS_PLAYFIELD_X - 1) * THEME.GRID_STEP_X,
       (THEME.POS_PLAYFIELD_Y + 44) * THEME.GRID_STEP_Y,
       THEME.GRID_STEP_X * 18,
-      THEME.GRID_STEP_Y * 4
+      THEME.GRID_STEP_Y * 4,
     );
     canvaDmdDrawLib.drawHorizontalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 47, inputState.slice(0, 64));
   }
+
   canvasOverlayDrawLib.drawVerticalRandomBlip(THEME.POS_MATRIX_X + 0.5, THEME.POS_MATRIX_Y + 9, 5, emuState.cpuState.irqCount << 4);
 
   // LAMP
@@ -274,7 +279,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
       (THEME.POS_PLAYFIELD_X - 1) * THEME.GRID_STEP_X,
       (THEME.POS_PLAYFIELD_Y + 36) * THEME.GRID_STEP_Y,
       THEME.GRID_STEP_X * 18,
-      THEME.GRID_STEP_Y * 4
+      THEME.GRID_STEP_Y * 4,
     );
     canvaDmdDrawLib.drawHorizontalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 39, emuState.asic.wpc.lampState);
   }
@@ -288,7 +293,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
       (THEME.POS_PLAYFIELD_X - 1) * THEME.GRID_STEP_X,
       (THEME.POS_PLAYFIELD_Y + 40) * THEME.GRID_STEP_Y,
       THEME.GRID_STEP_X * 18,
-      THEME.GRID_STEP_Y * 4
+      THEME.GRID_STEP_Y * 4,
     );
     canvaDmdDrawLib.drawHorizontalByteDiagram(THEME.POS_PLAYFIELD_X + 0.25, THEME.POS_PLAYFIELD_Y + 43, emuState.asic.wpc.solenoidState);
   }
@@ -321,7 +326,7 @@ function memoryMonitorNextPage() {
   memoryMonitor.memoryMonitorNextPage();
 }
 
-function memoryMonitorPrevPage() {
+function memoryMonitorPreviousPage() {
   memoryMonitor.memoryMonitorPrevPage();
 }
 
@@ -348,6 +353,7 @@ function initiateCanvasElements() {
   if (initialized) {
     return;
   }
+
   initialized = true;
 
   const canvasRootElement = createCanvas();
@@ -447,7 +453,7 @@ function initialise() {
   canvasDrawLib.drawHorizontalLine(THEME.POS_HEADER_X + 5, THEME.POS_HEADER_Y + 3, 10, THEME.COLOR_BLUE_INTENSE);
 
   // CPU
-  canvasDrawLib.drawVerticalLine(THEME.POS_CPU_X,      THEME.POS_CPU_Y, 23);
+  canvasDrawLib.drawVerticalLine(THEME.POS_CPU_X, THEME.POS_CPU_Y, 23);
   canvasDrawLib.drawVerticalLine(THEME.POS_CPU_X + 15, THEME.POS_CPU_Y, 23);
 
   canvasDrawLib.writeRibbonHeader(THEME.POS_CPU_X + 1, THEME.POS_CPU_Y + 1, 'CPU', THEME.FONT_TEXT);
@@ -507,7 +513,7 @@ function initialise() {
   canvasDrawLib.drawSimpleHorizontalLine(REG_CC_POS_X + 1.625, THEME.POS_CPU_Y + 14.75, 1);
 
   // ASIC
-  canvasDrawLib.drawVerticalLine(THEME.POS_ASIC_X,      THEME.POS_ASIC_Y, 10);
+  canvasDrawLib.drawVerticalLine(THEME.POS_ASIC_X, THEME.POS_ASIC_Y, 10);
   canvasDrawLib.drawVerticalLine(THEME.POS_ASIC_X + 15, THEME.POS_ASIC_Y, 10);
   canvasDrawLib.writeLabel(THEME.POS_ASIC_X + 1, THEME.POS_ASIC_Y + 1, 'WATCHDOG');
   canvasDrawLib.writeRibbonHeader(THEME.POS_ASIC_X + 7, THEME.POS_ASIC_Y + 1, 'EXPIRED', THEME.FONT_TEXT);
@@ -531,7 +537,7 @@ function initialise() {
   canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X + 8, 3, 'MSG SENT/FAILED', THEME.FONT_TEXT);
 
   // DMD MEM
-  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X,      THEME.POS_DMDMEM_Y, 20);
+  canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X, THEME.POS_DMDMEM_Y, 20);
   canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 12, THEME.POS_DMDMEM_Y + 1.5, 18.5);
   canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 24, THEME.POS_DMDMEM_Y + 1.5, 18.5);
   canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 36, THEME.POS_DMDMEM_Y + 1.5, 18.5);
@@ -565,7 +571,7 @@ function initialise() {
   canvasDrawLib.drawVerticalLine(THEME.POS_DMDMEM_X + 48, THEME.POS_DMDMEM_Y + 10.5, 4.5, THEME.COLOR_BLUE_INTENSE);
 
   // MEM
-  canvasDrawLib.drawVerticalLine(THEME.POS_MEM_X,      THEME.POS_MEM_Y, 7);
+  canvasDrawLib.drawVerticalLine(THEME.POS_MEM_X, THEME.POS_MEM_Y, 7);
   canvasDrawLib.drawVerticalLine(THEME.POS_MEM_X + 15, THEME.POS_MEM_Y, 7);
   canvasDrawLib.writeLabel(THEME.POS_MEM_X + 1, THEME.POS_MEM_Y + 1, 'ASIC RANDOM ACCESS MEMORY');
 
@@ -584,7 +590,7 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_DMD_X + 25.25, THEME.POS_DMD_Y + 18, 'AC ZERO CROSS DETECTED');
 
   // SND
-  canvasDrawLib.drawVerticalLine(THEME.POS_SND_X,      THEME.POS_SND_Y, 8);
+  canvasDrawLib.drawVerticalLine(THEME.POS_SND_X, THEME.POS_SND_Y, 8);
   canvasDrawLib.drawVerticalLine(THEME.POS_SND_X + 15, THEME.POS_SND_Y, 8);
   canvasDrawLib.writeLabel(THEME.POS_SND_X + 1, THEME.POS_SND_Y + 1, 'AUDIO');
 
@@ -596,7 +602,7 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_SND_X + 8, THEME.POS_SND_Y + 5, 'DATA R/W');
 
   // PLAYFIELD
-  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X - 1,  THEME.POS_PLAYFIELD_Y, 48);
+  canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X - 1, THEME.POS_PLAYFIELD_Y, 48);
   canvasDrawLib.drawVerticalLine(THEME.POS_PLAYFIELD_X + 17, THEME.POS_PLAYFIELD_Y, 48);
   canvasDrawLib.writeRibbonHeader(THEME.POS_PLAYFIELD_X + 0.5, THEME.POS_PLAYFIELD_Y + 1, 'PLAYFIELD', THEME.FONT_TEXT);
   canvasDrawLib.writeLabel(THEME.POS_PLAYFIELD_X + 6, THEME.POS_PLAYFIELD_Y + 1, 'VISUALIZATION');
@@ -627,7 +633,7 @@ function initialise() {
   canvasDrawLib.writeLabel(THEME.POS_DMDSTAT_X + 48.5, THEME.POS_DMDSTAT_Y + 3, 'SCRAMBLER');
 
   // MATRIX
-  canvasDrawLib.drawVerticalLine(THEME.POS_MATRIX_X,      THEME.POS_MATRIX_Y, 21);
+  canvasDrawLib.drawVerticalLine(THEME.POS_MATRIX_X, THEME.POS_MATRIX_Y, 21);
   canvasDrawLib.drawVerticalLine(THEME.POS_MATRIX_X + 15, THEME.POS_MATRIX_Y, 21);
   canvasDrawLib.writeLabel(THEME.POS_MATRIX_X + 1, THEME.POS_MATRIX_Y + 1, 'MATRIX');
   canvasDrawLib.writeRibbonHeader(THEME.POS_MATRIX_X + 5, THEME.POS_MATRIX_Y + 1, 'I/O STATUS', THEME.FONT_TEXT);
@@ -657,7 +663,7 @@ function initialise() {
 // PLAYFIELD START
 
 function drawFlashlamps(lampState) {
-  //TODO FLICKERS!
+  // TODO FLICKERS!
   if (!playfieldData || !lampState || !Array.isArray(playfieldData.flashlamps)) {
     return;
   }
@@ -667,17 +673,18 @@ function drawFlashlamps(lampState) {
 
   canvaFlashDrawLib.clear();
 
-  playfieldData.flashlamps.forEach((lamp) => {
+  for (const lamp of playfieldData.flashlamps) {
     const selectedLamp = lampState[lamp.id - 1];
     if (!selectedLamp) {
-      return;
+      continue;
     }
+
     const alpha = (selectedLamp / 255).toFixed(2);
     canvaFlashDrawLib.ctx.beginPath();
     canvaFlashDrawLib.ctx.fillStyle = 'rgba(255,255,255,' + alpha + ')';
     canvaFlashDrawLib.ctx.arc(x + lamp.x, y + lamp.y, 24, 0, 2 * Math.PI);
     canvaFlashDrawLib.ctx.fill();
-  });
+  }
 }
 
 function drawLampPositions(lampState) {
@@ -690,26 +697,27 @@ function drawLampPositions(lampState) {
 
   canvaLampDrawLib.clear();
 
-  lampState.forEach((lamp, index) => {
+  for (const [ index, lamp ] of lampState.entries()) {
     if (index >= playfieldData.lamps.length) {
-      return;
+      continue;
     }
+
     const lampObjects = playfieldData.lamps[index];
     if (!lampObjects) {
-      return;
+      continue;
     }
 
     const alpha = (lamp / 0xFF);
-    lampObjects.forEach((lampObject) => {
-      canvaLampDrawLib.ctx.fillStyle = lamp ?
-        lampColorLut.get(lampObject.color) + alpha + ')' :
-        canvaLampDrawLib.ctx.fillStyle = 'black';
+    for (const lampObject of lampObjects) {
+      canvaLampDrawLib.ctx.fillStyle = lamp
+        ? lampColorLut.get(lampObject.color) + alpha + ')'
+        : canvaLampDrawLib.ctx.fillStyle = 'black';
       canvaLampDrawLib.ctx.fillRect(x + lampObject.x - 3, y + lampObject.y - 3, 6, 6);
-    });
-  });
+    }
+  }
 }
 
-//PLAYFIELD STOP
+// PLAYFIELD STOP
 
 function populateInitialCanvas(_gameEntry) {
   gameEntry = _gameEntry;
@@ -720,9 +728,10 @@ function populateInitialCanvas(_gameEntry) {
   playfieldImage = null;
   if (playfieldData) {
     playfieldImage = new Image();
-    playfieldImage.onload = function () {
+    playfieldImage.addEventListener('load', () => {
       canvasDrawLib.drawImage(THEME.POS_PLAYFIELD_X - 0.25, THEME.POS_PLAYFIELD_Y + 1.75, playfieldImage);
-    };
+    });
+
     playfieldImage.src = FETCHURL + playfieldData.image;
   } else {
     canvasDrawLib.fillRect(THEME.POS_PLAYFIELD_X, THEME.POS_PLAYFIELD_Y, 17, 35, THEME.DMD_COLOR_BLACK);

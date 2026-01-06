@@ -1,5 +1,5 @@
 import { Howl } from 'howler';
-import { isMobileBrowser } from './device-detection';
+import { isMobileBrowser } from './device-detection.js';
 
 export { createSoundPlayer };
 
@@ -15,7 +15,6 @@ const SOUND_LOADING_ERROR = 'ERROR';
 const SOUNDSPRITE_PREFIX = 'snd';
 
 class SoundCategory {
-
   constructor(audioData) {
     this.sample = audioData.sample;
     this.activePlayId = [];
@@ -40,8 +39,8 @@ class SoundCategory {
       this.audioSpritePlayer = new Howl({
         src: FETCHURL + audioData.url,
         sprite: audioData.sprite,
-        format: ['mp3'],
-        onplayerror: (error) => {
+        format: [ 'mp3' ],
+        onplayerror(error) {
           console.log('SOUND PLAYER ERROR', error.message);
         },
         onloaderror: (error) => {
@@ -59,11 +58,12 @@ class SoundCategory {
     });
   }
 
-  //TODO handle DUCK
+  // TODO handle DUCK
   playId(sampleId) {
     if (!this.soundEnabled || !sampleId) {
       return;
     }
+
     const sampleData = this.sample[sampleId] || {};
     console.log('play', sampleData, sampleId);
 
@@ -73,7 +73,7 @@ class SoundCategory {
       this.audioSpritePlayer.stop(this.activePlayId[sampleData.channel]);
     }
 
-    //NOTE undefined samples are simply ignored
+    // NOTE undefined samples are simply ignored
     const playId = this.audioSpritePlayer.play(SOUNDSPRITE_PREFIX + sampleId);
 
     if (hasDedicatedChannel) {
@@ -95,6 +95,7 @@ class SoundCategory {
     if (!this.soundEnabled) {
       return;
     }
+
     this.audioSpritePlayer.pause();
   }
 
@@ -102,16 +103,18 @@ class SoundCategory {
     if (!this.soundEnabled) {
       return;
     }
-    this.activePlayId.forEach((activeId) => {
+
+    for (const activeId of this.activePlayId) {
       this.audioSpritePlayer.play(activeId);
-    });
+    }
   }
 
   stopAll() {
     if (!this.soundEnabled) {
       return;
     }
-    //TODO pause channel 1+2
+
+    // TODO pause channel 1+2
     this.audioSpritePlayer.stop();
   }
 }

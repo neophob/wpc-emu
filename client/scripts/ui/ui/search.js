@@ -1,4 +1,4 @@
-import * as bcd from '../../../../lib/boards/memory/bcd';
+import * as bcd from '../../../../lib/boards/memory/bcd.js';
 
 export {
   findString,
@@ -24,15 +24,15 @@ function findString(stringToSearch, uint8Array) {
     if (index > maxIndex) {
       return result;
     }
-    if (char === searchString[0]) {
-      if (_findArray(searchString, index, uint8Array)) {
-        result.push(index);
-        if (result.length > MAX_ELEMENTS_TO_SEARCH) {
-          return result;
-        }
+
+    if (char === searchString[0] && _findArray(searchString, index, uint8Array)) {
+      result.push(index);
+      if (result.length > MAX_ELEMENTS_TO_SEARCH) {
+        return result;
       }
     }
   }
+
   return result;
 }
 
@@ -42,12 +42,13 @@ function _findArray(searchString, startPos, uint8Array) {
       return false;
     }
   }
+
   return true;
 }
 
 function findUint32(uint32ToSearch, uint8Array) {
   const result = [];
-  const searchUint32 = uint32ToSearch & 0xFFFFFFFF;
+  const searchUint32 = uint32ToSearch & 0xFF_FF_FF_FF;
   const dataView = new DataView(uint8Array.buffer);
   for (let offset = 0; offset < (uint8Array.length - 3); offset++) {
     if (dataView.getUint32(offset) === searchUint32) {
@@ -57,12 +58,13 @@ function findUint32(uint32ToSearch, uint8Array) {
       }
     }
   }
+
   return result;
 }
 
 function findUint16(uint16ToSearch, uint8Array) {
   const result = [];
-  const searchUint16 = uint16ToSearch & 0xFFFF;
+  const searchUint16 = uint16ToSearch & 0xFF_FF;
   const dataView = new DataView(uint8Array.buffer);
   for (let offset = 0; offset < (uint8Array.length - 1); offset++) {
     if (dataView.getUint16(offset) === searchUint16) {
@@ -72,6 +74,7 @@ function findUint16(uint16ToSearch, uint8Array) {
       }
     }
   }
+
   return result;
 }
 
@@ -88,6 +91,7 @@ function findUint8(uint8ToSearch, uint8Array) {
       }
     }
   }
+
   return result;
 }
 
@@ -103,15 +107,15 @@ function findBCD(string, uint8Array) {
     if (index > maxIndex) {
       return result;
     }
-    if (ramContent === bcdValue[0]) {
-      if (_findArray(bcdValue, index, uint8Array)) {
-        result.push(index);
-        if (result.length > MAX_ELEMENTS_TO_SEARCH) {
-          return result;
-        }
+
+    if (ramContent === bcdValue[0] && _findArray(bcdValue, index, uint8Array)) {
+      result.push(index);
+      if (result.length > MAX_ELEMENTS_TO_SEARCH) {
+        return result;
       }
     }
   }
+
   return result;
 }
 
@@ -119,5 +123,6 @@ function findIdenticalOffsetInArray(uint8Array1, uint8Array2) {
   if (!uint8Array1 || !uint8Array2) {
     return new Uint8Array();
   }
-  return uint8Array1.filter((offset) => uint8Array2.indexOf(offset) !== -1);
+
+  return uint8Array1.filter((offset) => uint8Array2.includes(offset));
 }

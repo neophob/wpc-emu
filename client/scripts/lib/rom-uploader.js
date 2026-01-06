@@ -2,7 +2,7 @@ export { getUploadedFile };
 
 function getUploadedFile() {
   return new Promise((resolve, reject) => {
-    const romUploadElement = document.getElementById('romUpload');
+    const romUploadElement = document.querySelector('#romUpload');
 
     romUploadElement.addEventListener('abort', () => {
       const error = new Error('ABORT');
@@ -25,7 +25,7 @@ function getUploadedFile() {
           resolve(arrayBuffer);
         });
     });
-    //TODO unregister event listeners
+    // TODO unregister event listeners
     romUploadElement.click();
   });
 }
@@ -33,9 +33,10 @@ function getUploadedFile() {
 function fileToUint8Array(file) {
   return new Promise((resolve) => {
     const fileReader = new FileReader();
-    fileReader.onload = () => {
+    fileReader.addEventListener('load', () => {
       resolve(fileReader.result);
-    };
+    });
+
     fileReader.readAsArrayBuffer(file);
   });
 }

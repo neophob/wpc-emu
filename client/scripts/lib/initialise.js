@@ -7,47 +7,50 @@ function initialiseActions(initObject, webclient) {
   }
 
   if (Array.isArray(initObject.closedSwitches)) {
-    initObject.closedSwitches.forEach((switchIdToEnable) => {
+    for (const switchIdToEnable of initObject.closedSwitches) {
       console.log('INIT::enable switch', switchIdToEnable);
       if (switchIdToEnable[0] === 'F') {
         webclient.setFliptronicsInput(switchIdToEnable);
       } else {
         webclient.setSwitchInput(switchIdToEnable);
       }
-    });
+    }
   }
 
   if (Array.isArray(initObject.initialAction)) {
-    initObject.initialAction.forEach((initialAction) => {
+    for (const initialAction of initObject.initialAction) {
       initPromise = initPromise
-        .then(() => {
-          return promiseDelay(initialAction.delayMs);
-        })
+        .then(() => promiseDelay(initialAction.delayMs))
         .then(() => {
           const source = initialAction.source;
           switch (source) {
-            case 'cabinetInput':
+            case 'cabinetInput': {
               const keyValue = initialAction.value;
               console.log('INIT::action - cabinet key', keyValue);
               return webclient.setCabinetInput(keyValue);
+            }
 
-            case 'switchInput':
+            case 'switchInput': {
               const switchValue = initialAction.value;
               console.log('INIT::action - switch key', switchValue);
               return webclient.setSwitchInput(switchValue);
+            }
 
-            case 'writeMemory':
+            case 'writeMemory': {
               const offset = initialAction.offset;
               const value = initialAction.value;
               console.log('INIT::action - writeMemory', offset, value);
               return wpcInterface.writeMemory(offset, value);
+            }
 
-            default:
+            default: {
               console.warn('UNKNOWN_SOURCE', source);
+            }
           }
         });
-    });
+    }
   }
+
   return initPromise;
 }
 
@@ -55,6 +58,7 @@ function promiseDelay(delayMs) {
   if (!delayMs) {
     return Promise.resolve();
   }
+
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve();

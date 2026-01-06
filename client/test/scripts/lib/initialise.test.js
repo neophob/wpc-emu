@@ -4,19 +4,19 @@ import { initialiseActions } from '../../../scripts/lib/initialise.js';
 test.beforeEach((t) => {
   const data = {
     inputData: [],
-    inputDataCabinet: []
+    inputDataCabinet: [],
   };
   const mockWpcSystem = {
-    setSwitchInput: (id) => {
+    setSwitchInput(id) {
       data.inputData.push(id);
     },
-    setCabinetInput: (id) => {
+    setCabinetInput(id) {
       data.inputDataCabinet.push(id);
     },
   };
   t.context = {
     mockWpcSystem,
-    data
+    data,
   };
 });
 
@@ -45,12 +45,12 @@ test('initialiseActions, should init initialAction', (t) => {
       {
         delayMs: 1000,
         source: 'cabinetInput',
-        value: 16
-      }
+        value: 16,
+      },
     ],
   };
   return initialiseActions(initObject, mockWpcSystem)
     .then(() => {
-      t.deepEqual(t.context.data.inputDataCabinet, [16]);
+      t.deepEqual(t.context.data.inputDataCabinet, [ 16 ]);
     });
 });

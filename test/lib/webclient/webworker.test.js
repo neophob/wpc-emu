@@ -36,7 +36,7 @@ function initializeWebWorker(size = 1) {
     u06: new Uint8Array(size),
   };
   const event = {
-    data: [1, MESSAGE.initializeEmulator, {romData, gameEntry}],
+    data: [1, MESSAGE.initializeEmulator, { romData, gameEntry }],
   };
   return Webworker.handleMessage(event, postMessage);
 }
@@ -53,7 +53,7 @@ test.serial('Webworker: should initialize EMU', (t) => {
 test.serial('Webworker: should fail to initialize EMU', (t) => {
   return initializeWebWorker()
     .then(() => {
-      t.deepEqual(answer, { message: MESSAGE.MSG_TYPE_ERROR, parameter: 'INVALID_ROM_SIZE' });
+      t.deepEqual(answer, { message: MESSAGE.MSG_TYPE_ERROR, requestId: 1, parameter: 'INVALID_ROM_SIZE' });
     });
 });
 

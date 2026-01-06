@@ -2,16 +2,14 @@ import '../node_modules/milligram/dist/milligram.css';
 import '../styles/client.css';
 
 // reference the webworker from wep-emu
-import WebWorker from 'worker-loader!./webworker.js';
-
-import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher';
-import { initialiseActions } from './lib/initialise';
-import { loadRam, saveRam, } from './lib/ramState';
-import { initialise as initDmdExport, save as saveFile } from './lib/pin2DmdExport';
-import { AudioOutput } from './lib/sound';
 import * as gamelist from '../../lib/db';
-import { populateControlUiView, updateUiSwitchState } from './ui/control-ui';
-import * as emuDebugUi from './ui/oblivion-ui';
+import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher.js';
+import { initialiseActions } from './lib/initialise.js';
+import { loadRam, saveRam } from './lib/ramState.js';
+import { initialise as initDmdExport, save as saveFile } from './lib/pin2DmdExport.js';
+import { AudioOutput } from './lib/sound.js';
+import { populateControlUiView, updateUiSwitchState } from './ui/control-ui.js';
+import * as emuDebugUi from './ui/oblivion-ui.js';
 
 const WpcEmuWebWorkerApi = require('../../lib/webclient');
 
@@ -33,8 +31,8 @@ function initializeEmu(gameEntry) {
       console.error('FONT_LOAD_FAILED', error);
     })
     .then(() => {
-      const selectElementRoot = document.getElementById('wpc-release-info');
-      selectElementRoot.innerHTML = 'WPC-Emu v' + global.RELEASE_VERSION;
+      const selectElementRoot = document.querySelector('#wpc-release-info');
+      selectElementRoot.innerHTML = 'WPC-Emu v' + globalThis.RELEASE_VERSION;
       emuDebugUi.initialise();
       emuDebugUi.loadFeedback(gameEntry.name);
       return downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06);
@@ -49,8 +47,8 @@ function initializeEmu(gameEntry) {
     .then((emuVersion) => {
       console.log('Successfully initialized emulator', emuVersion);
       soundInstance = AudioOutput(gameEntry.audio);
-      //NOTE: IIKS we pollute globals here
-      window.wpcInterface = {
+      // NOTE: IIKS we pollute globals here
+      globalThis.wpcInterface = {
         webclient: wpcEmuWebWorkerApi,
         resetEmu,
         pauseEmu,
@@ -60,7 +58,7 @@ function initializeEmu(gameEntry) {
         loadState,
         toggleDmdDump,
         toggleMemoryMonitor,
-        memoryMonitorPrevPage,
+        memoryMonitorPrevPage: memoryMonitorPreviousPage,
         memoryMonitorNextPage,
         writeMemory,
         memoryFindData,
@@ -78,9 +76,10 @@ function initializeEmu(gameEntry) {
           console.log('NO_EMU_STATE!');
           return;
         }
+
         if (rafId) {
           missedDraw++;
-          //console.log('MISSED_DRAW!', rafId, missedDraw);
+          // console.log('MISSED_DRAW!', rafId, missedDraw);
           cancelAnimationFrame(rafId);
         }
 
@@ -90,7 +89,7 @@ function initializeEmu(gameEntry) {
 
           const { averageRTTms, sentMessages, failedMessages } = wpcEmuWebWorkerApi.getStatistics();
           emuDebugUi.drawMetaData({
-            averageRTTms, sentMessages, failedMessages, missedDraw, lastFps
+            averageRTTms, sentMessages, failedMessages, missedDraw, lastFps,
           });
           if (emuState.asic.wpc.inputState) {
             updateUiSwitchState(emuState.asic.wpc.inputState);
@@ -106,22 +105,23 @@ function initializeEmu(gameEntry) {
               dmdDump = initDmdExport();
             }
 
-            const element = document.getElementById('dmd-dump-text');
+            const element = document.querySelector('#dmd-dump-text');
             element.textContent = 'DUMPING: ' + dmdDump.getCapturedFrames();
           }
 
           while (fpsTimes.length > 0 && fpsTimes[0] <= timestamp - 1000) {
             fpsTimes.shift();
           }
+
           fpsTimes.push(timestamp);
           if (Math.abs(lastFps - fpsTimes.length) > 5) {
             lastFps = fpsTimes.length;
-            //TODO: reduce FPS
-            //wpcEmuWebWorkerApi.adjustFramerate(fpsTimes.length);
+            // TODO: reduce FPS
+            // wpcEmuWebWorkerApi.adjustFramerate(fpsTimes.length);
           }
+
           rafId = 0;
         });
-
       });
       return emuDebugUi.populateInitialCanvas(gameEntry);
     })
@@ -132,9 +132,7 @@ function initializeEmu(gameEntry) {
 
 function saveState() {
   return pauseEmu()
-    .then(() => {
-      return Promise.all([ wpcEmuWebWorkerApi.getEmulatorRomName(), wpcEmuWebWorkerApi.getEmulatorState() ]);
-    })
+    .then(() => Promise.all([wpcEmuWebWorkerApi.getEmulatorRomName(), wpcEmuWebWorkerApi.getEmulatorState()]))
     .then((data) => {
       const romName = data[0];
       const emuState = data[1];
@@ -145,19 +143,17 @@ function saveState() {
 
 function loadState() {
   return pauseEmu()
-    .then(() => {
-      return wpcEmuWebWorkerApi.getEmulatorRomName();
-    })
+    .then(() => wpcEmuWebWorkerApi.getEmulatorRomName())
     .then((romName) => {
       const emuState = loadRam(romName);
       return wpcEmuWebWorkerApi.setEmulatorState(emuState)
-        .catch((error) => {});
+        .catch((error) => { });
     })
-    .then(() => { return resumeEmu(); });
+    .then(() => resumeEmu());
 }
 
 function toggleDmdDump() {
-  const element = document.getElementById('dmd-dump-text');
+  const element = document.querySelector('#dmd-dump-text');
   if (dmdDump) {
     saveFile(dmdDump.buildExportFile(), 'wpc-emu-dump.raw');
     element.textContent = 'DMD DUMP';
@@ -173,6 +169,7 @@ function romSelection(romName) {
   if (dmdDump) {
     toggleDmdDump();
   }
+
   cancelAnimationFrame(rafId);
   rafId = undefined;
   return initEmuWithGameName(romName);
@@ -208,7 +205,7 @@ function memoryMonitorNextPage() {
   emuDebugUi.memoryMonitorRefresh();
 }
 
-function memoryMonitorPrevPage() {
+function memoryMonitorPreviousPage() {
   emuDebugUi.memoryMonitorPrevPage();
   emuDebugUi.memoryMonitorRefresh();
 }
@@ -242,9 +239,9 @@ function memoryDumpData(offset, optionalEndOffset) {
 }
 
 function pauseEmu() {
-/*  const audioState = soundInstance.getState();
-  emuDebugUi.updateCanvas(null, 'paused', audioState);
-*/
+  /*  const audioState = soundInstance.getState();
+    emuDebugUi.updateCanvas(null, 'paused', audioState);
+  */
   soundInstance.pause();
   cancelAnimationFrame(rafId);
   rafId = undefined;
@@ -257,87 +254,99 @@ function resetEmu() {
 }
 
 function help() {
-  console.log(
-    '## WPC-EMU UI // KEYBOARD MAPPING:\n' +
-    '  "1": Coin#1\n' +
-    '  "2": Coin#2\n' +
-    '  "3": Coin#3\n' +
-    '  "4": Coin#4\n' +
-    '  "5": Start\n' +
-    '  "7": Escape\n' +
-    '  "8": -\n' +
-    '  "9": +\n' +
-    '  "0": Enter\n' +
-    '  "P": pause\n' +
-    '  "R": resume\n' +
-    '  "S": save\n' +
-    '  "L": load\n' +
-    '  "M": toggle memory monitor\n' +
-    '  "N": memory monitor: next page\n' +
-    '  "B": memory monitor: previous page\n' +
-    '\n' +
-    '       you can use the "wpcInterface" global to access to the internals of the emulator!\n' +
-    ''
-  );
+  console.log('## WPC-EMU UI // KEYBOARD MAPPING:\n'
+    + '  "1": Coin#1\n'
+    + '  "2": Coin#2\n'
+    + '  "3": Coin#3\n'
+    + '  "4": Coin#4\n'
+    + '  "5": Start\n'
+    + '  "7": Escape\n'
+    + '  "8": -\n'
+    + '  "9": +\n'
+    + '  "0": Enter\n'
+    + '  "P": pause\n'
+    + '  "R": resume\n'
+    + '  "S": save\n'
+    + '  "L": load\n'
+    + '  "M": toggle memory monitor\n'
+    + '  "N": memory monitor: next page\n'
+    + '  "B": memory monitor: previous page\n'
+    + '\n'
+    + '       you can use the "wpcInterface" global to access to the internals of the emulator!\n'
+    + '');
 }
 
 function registerKeyboardListener() {
   help();
-  window.addEventListener('keydown', (event) => {
+  globalThis.addEventListener('keydown', (event) => {
     switch (event.keyCode) {
-      case 49: //1
+      case 49: { // 1
         return wpcEmuWebWorkerApi.setCabinetInput(1);
+      }
 
-      case 50: //2
+      case 50: { // 2
         return wpcEmuWebWorkerApi.setCabinetInput(2);
+      }
 
-      case 51: //3
+      case 51: { // 3
         return wpcEmuWebWorkerApi.setCabinetInput(4);
+      }
 
-      case 52: //4
+      case 52: { // 4
         return wpcEmuWebWorkerApi.setCabinetInput(8);
+      }
 
-      case 53: //5
+      case 53: { // 5
         return wpcEmuWebWorkerApi.setSwitchInput(13);
+      }
 
-      case 55: //7
+      case 55: { // 7
         return wpcEmuWebWorkerApi.setCabinetInput(16);
+      }
 
-      case 56: //8
+      case 56: { // 8
         return wpcEmuWebWorkerApi.setCabinetInput(32);
+      }
 
-      case 57: //9
+      case 57: { // 9
         return wpcEmuWebWorkerApi.setCabinetInput(64);
+      }
 
-      case 48: //0
+      case 48: { // 0
         return wpcEmuWebWorkerApi.setCabinetInput(128);
+      }
 
-      case 80: //P
+      case 80: { // P
         return pauseEmu();
+      }
 
-      case 82: //R
+      case 82: { // R
         return resumeEmu();
+      }
 
-      case 83: //S
+      case 83: { // S
         return saveState();
+      }
 
-      case 76: //L
+      case 76: { // L
         return loadState();
+      }
 
-      case 77: //M
+      case 77: { // M
         return toggleMemoryMonitor();
+      }
 
-      case 78: //N
+      case 78: { // N
         return memoryMonitorNextPage();
+      }
 
-      case 66: //B
-        return memoryMonitorPrevPage();
+      case 66: { // B
+        return memoryMonitorPreviousPage();
+      }
 
       default:
-
     }
   }, false);
-
 }
 
 if ('serviceWorker' in navigator) {
@@ -353,7 +362,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-const wpcEmuWebWorkerApi = WpcEmuWebWorkerApi.initializeWebworkerAPI(new WebWorker());
+const wpcEmuWebWorkerApi = WpcEmuWebWorkerApi.initializeWebworkerAPI(new Worker(new URL('./webworker.js', import.meta.url)));
 
 initEmuWithGameName(INITIAL_GAME)
   .catch((error) => console.error);

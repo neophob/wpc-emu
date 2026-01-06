@@ -2,36 +2,36 @@ import test from 'ava';
 import {
   memoryFindData,
   clearSearchResults,
-} from '../../../../scripts/ui/ui/memorysearch';
+} from '../../../../scripts/ui/ui/memorysearch.js';
 
 test('memoryFindData: find string', (t) => {
-  const result = memoryFindData('AAA', 'string', false, new Uint8Array([0, 1, 2, 3, 65, 65, 65]));
+  const result = memoryFindData('AAA', 'string', false, new Uint8Array([ 0, 1, 2, 3, 65, 65, 65 ]));
   t.deepEqual(result, [ 4 ]);
 });
 
 test('memoryFindData: find uint8', (t) => {
-  const result = memoryFindData(3, 'uint8', false, new Uint8Array([0, 1, 2, 3, 65, 65, 65]));
+  const result = memoryFindData(3, 'uint8', false, new Uint8Array([ 0, 1, 2, 3, 65, 65, 65 ]));
   t.deepEqual(result, [ 3 ]);
 });
 
 test('memoryFindData: find uint16', (t) => {
-  const result = memoryFindData(0x0341, 'uint16', false, new Uint8Array([0, 1, 2, 3, 65, 65, 65]));
+  const result = memoryFindData(0x03_41, 'uint16', false, new Uint8Array([ 0, 1, 2, 3, 65, 65, 65 ]));
   t.deepEqual(result, [ 3 ]);
 });
 
 test('memoryFindData: find uint32', (t) => {
-  const result = memoryFindData(0x03414141, 'uint32', false, new Uint8Array([0, 1, 2, 3, 65, 65, 65]));
+  const result = memoryFindData(0x03_41_41_41, 'uint32', false, new Uint8Array([ 0, 1, 2, 3, 65, 65, 65 ]));
   t.deepEqual(result, [ 3 ]);
 });
 
 test('memoryFindData: find bcd', (t) => {
-  const result = memoryFindData(6565, 'bcd', false, new Uint8Array([0, 1, 2, 3, 0x65, 0x65, 65]));
+  const result = memoryFindData(6565, 'bcd', false, new Uint8Array([ 0, 1, 2, 3, 0x65, 0x65, 65 ]));
   t.deepEqual(result, [ 4 ]);
 });
 
 test('memoryFindData: find invalid', (t) => {
-  const result = memoryFindData(1, 'foo', false, new Uint8Array([0, 1, 2, 3]));
-  t.deepEqual(result, [ ]);
+  const result = memoryFindData(1, 'foo', false, new Uint8Array([ 0, 1, 2, 3 ]));
+  t.deepEqual(result, []);
 });
 
 test.serial('memoryFindData: find uint8 and remember results, 2 steps, simple', (t) => {

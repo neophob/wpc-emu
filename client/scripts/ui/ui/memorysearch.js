@@ -5,7 +5,7 @@ import {
   findUint32,
   findIdenticalOffsetInArray,
   findBCD,
-} from './search';
+} from './search.js';
 
 export {
   memoryFindData,
@@ -20,31 +20,38 @@ function clearSearchResults() {
 
 function memoryFindData(value, encoding = 'string', rememberResults, lastRamSnapshot) {
   switch (encoding) {
-    case 'string':
+    case 'string': {
       return findString(value, lastRamSnapshot);
+    }
 
-    case 'uint8':
+    case 'uint8': {
       let resultArray = findUint8(value, lastRamSnapshot);
       if (rememberResults) {
         const identicalResult = findIdenticalOffsetInArray(resultArray, memorySearchResult);
-        memorySearchResult = identicalResult.length ? identicalResult : resultArray;
+        memorySearchResult = identicalResult.length > 0 ? identicalResult : resultArray;
         resultArray = identicalResult;
       } else {
         clearSearchResults();
       }
+
       return resultArray;
+    }
 
-    case 'uint16':
+    case 'uint16': {
       return findUint16(value, lastRamSnapshot);
+    }
 
-    case 'uint32':
+    case 'uint32': {
       return findUint32(value, lastRamSnapshot);
+    }
 
-    case 'bcd':
+    case 'bcd': {
       return findBCD(String(value), lastRamSnapshot);
+    }
 
-    default:
+    default: {
       console.warn('UNKNOWN_ENCODING', encoding);
       return [];
+    }
   }
 }

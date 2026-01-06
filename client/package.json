@@ -1,6 +1,6 @@
 {
   "name": "wpc-emu-frontend",
-  "version": "0.36.20",
+  "version": "0.36.21",
   "description": "WPC pinball machine emu frontend",
   "main": "index.js",
   "engines": {
@@ -19,66 +19,98 @@
     "file-saver": "^2.0.5"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.28.5",
     "@babel/register": "^7.17.0",
-    "ava": "^0.25.0",
-    "babel-preset-env": "^1.7.0",
+    "ava": "^6.4.1",
     "browser-env": "^3.3.0",
-    "css-loader": "^5.2.4",
+    "css-loader": "^6.11.0",
     "current-device": "^0.10.2",
-    "favicons-webpack-plugin": "4.2.0",
-    "howler": "^2.2.3",
-    "html-webpack-plugin": "^4.5.2",
+    "favicons": "^7.2.0",
+    "favicons-webpack-plugin": "^6.0.1",
+    "howler": "^2.2.4",
+    "html-webpack-plugin": "^5.6.3",
     "milligram": "^1.4.1",
     "nyc": "^17.1.0",
-    "raw-loader": "^4.0.1",
-    "style-loader": "^2.0.0",
-    "terser-webpack-plugin": "^4.2.3",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^4.9.2",
+    "process": "^0.11.10",
+    "style-loader": "^3.3.4",
+    "terser-webpack-plugin": "^5.3.11",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^5.1.4",
     "webpack-pwa-manifest": "^4.3.0",
     "whatwg-fetch": "^2.0.4",
-    "workbox-webpack-plugin": "^3.6.3",
-    "worker-loader": "^2.0.0",
-    "xo": "^0.60.0"
+    "workbox-webpack-plugin": "^7.3.0",
+    "xo": "^1.2.3"
   },
   "babel": {
     "presets": [
-      "env"
+      "@babel/preset-env"
     ]
   },
   "ava": {
-    "modules": false,
-    "require": [
-      "babel-register"
+    "nodeArguments": [
+      "--require=@babel/register"
     ],
-    "inherit": true,
     "verbose": true
   },
   "xo": {
-    "envs": [
-      "browser"
-    ],
     "space": true,
     "rules": {
-      "comma-dangle": 0,
-      "arrow-parens": 0,
-      "no-var": 0,
-      "comma-spacing": 0,
-      "capitalized-comments": 0,
-      "promise/prefer-await-to-then": 0,
-      "ava/prefer-async-await": 0,
-      "no-use-before-define": 0,
-      "spaced-comment": 0,
-      "object-curly-spacing": 0,
-      "array-bracket-spacing": 0,
-      "padded-blocks": 0,
-      "no-mixed-operators": 0,
-      "unicorn/import-index": 0,
-      "new-cap": 0,
-      "prefer-destructuring": 0,
-      "no-use-extend-native/no-use-extend-native": 0,
-      "padding-line-between-statements": 0,
-      "array-element-newline": 0
+      "comma-dangle": "off",
+      "arrow-parens": [
+        "error",
+        "always"
+      ],
+      "@stylistic/arrow-parens": [
+        "error",
+        "always"
+      ],
+      "arrow-body-style": "off",
+      "no-var": "off",
+      "comma-spacing": "off",
+      "capitalized-comments": "off",
+      "promise/prefer-await-to-then": "off",
+      "ava/prefer-async-await": "off",
+      "no-use-before-define": "off",
+      "spaced-comment": "off",
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "template-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "@stylistic/object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "@stylistic/template-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "array-bracket-spacing": [
+        "error",
+        "always"
+      ],
+      "@stylistic/array-bracket-spacing": [
+        "error",
+        "always"
+      ],
+      "padded-blocks": "off",
+      "no-mixed-operators": "off",
+      "new-cap": "off",
+      "prefer-destructuring": "off",
+      "no-use-extend-native/no-use-extend-native": "off",
+      "padding-line-between-statements": "off",
+      "array-element-newline": "off",
+      "unicorn/filename-case": "off",
+      "no-undef": "off",
+      "import-x/extensions": "off",
+      "import-x/no-unassigned-import": "off",
+      "unicorn/prefer-blob-reading-methods": "off",
+      "no-unused-vars": "off",
+      "@stylistic/no-mixed-operators": "off",
+      "unicorn/prefer-module": "off"
     }
   }
 }
