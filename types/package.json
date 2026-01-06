@@ -13,5 +13,10 @@
     "@types/node": "^22.15.3",
     "dtslint": "^4.2.1",
     "typescript": "^5.0.2"
+  },
+  "overrides": {
+    "@definitelytyped/utils": "0.0.82",
+    "@definitelytyped/header-parser": "0.0.82",
+    "@definitelytyped/typescript-versions": "0.0.82"
   }
 }
