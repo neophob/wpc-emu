@@ -30,7 +30,7 @@ test('initialiseActions, should return resolved promise', (t) => {
 test('initialiseActions, should init closedSwitches', (t) => {
   const mockWpcSystem = t.context.mockWpcSystem;
   const initObject = {
-    closedSwitches: [16, 17, 18],
+    closedSwitches: [ 16, 17, 18 ],
   };
   return initialiseActions(initObject, mockWpcSystem)
     .then(() => {
@@ -51,6 +51,6 @@ test('initialiseActions, should init initialAction', (t) => {
   };
   return initialiseActions(initObject, mockWpcSystem)
     .then(() => {
-      t.deepEqual(t.context.data.inputDataCabinet, [16]);
+      t.deepEqual(t.context.data.inputDataCabinet, [ 16 ]);
     });
 });

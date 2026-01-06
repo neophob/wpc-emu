@@ -41,7 +41,7 @@ function save(uint8Array, filename = 'pin2dmd.raw') {
   }
 
   const blob = new Blob(
-    [uint8Array.buffer],
+    [ uint8Array.buffer ],
     { type: 'text/plain;charset=utf-8' },
   );
   FileSaver.saveAs(blob, filename);
@@ -49,7 +49,7 @@ function save(uint8Array, filename = 'pin2dmd.raw') {
 
 class DmdGrabber {
   constructor() {
-    this.frames = [HEADER];
+    this.frames = [ HEADER ];
     this.previousVideoCaptureTimeTicks = -1;
   }
 
@@ -71,7 +71,7 @@ class DmdGrabber {
     this.previousVideoCaptureTimeTicks = videoCaptureTimeTicks;
     const timeSinceLastFrameMs = this._ticksToTimestamp(videoCaptureTimeTicks);
     this.lastVideoOutputBuffer = videoOutputBuffer;
-    this.frames.push([...timeSinceLastFrameMs, ...videoOutputBuffer]);
+    this.frames.push([ ...timeSinceLastFrameMs, ...videoOutputBuffer ]);
   }
 
   getCapturedFrames() {

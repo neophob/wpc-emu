@@ -88,7 +88,14 @@
         "error",
         "always"
       ],
-      "array-bracket-spacing": "off",
+      "array-bracket-spacing": [
+        "error",
+        "always"
+      ],
+      "@stylistic/array-bracket-spacing": [
+        "error",
+        "always"
+      ],
       "padded-blocks": "off",
       "no-mixed-operators": "off",
       "new-cap": "off",

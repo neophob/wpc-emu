@@ -6,7 +6,7 @@ export { populateControlUiView, updateUiSwitchState };
 
 let selectedIndex = -1;
 
-const BIT_ARRAY = [1, 2, 4, 8, 16, 32, 64, 128];
+const BIT_ARRAY = [ 1, 2, 4, 8, 16, 32, 64, 128 ];
 const PINBALL_SWITCH_BUTTONS_ELEMENT = 'pinball-specific-switch-input';
 const PINBALL_FLIPTRONICS_ELEMENT = 'pinball-specific-fliptronics-input';
 const CSS_BUTTON_CLASS = 'button-wpc button-outline';
@@ -104,7 +104,7 @@ function loadROM(event) {
 function addGameTitles(gameList, initialGameName) {
   const selectElementRoot = document.querySelector('#game-selection');
   const selectElement = document.createElement('select');
-  for (const [index, name] of gameList.getAllNames().entries()) {
+  for (const [ index, name ] of gameList.getAllNames().entries()) {
     const option = document.createElement('option');
     option.value = name;
     option.text = name;

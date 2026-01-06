@@ -211,7 +211,7 @@ function updateCanvas(emuState, cpuRunningState, audioState) {
       THEME.GRID_STEP_X * 50,
       THEME.GRID_STEP_Y * 10,
     );
-    const memory1k = [...emuState.asic.ram.slice(0, 1024)];
+    const memory1k = [ ...emuState.asic.ram.slice(0, 1024) ];
     canvaDmdDrawLib.drawDiagramCluster(THEME.POS_RAMDIAG_X + 0.5, THEME.POS_RAMDIAG_Y + 1, memory1k, 24);
 
     memoryMonitor.draw(emuState.asic.ram);
@@ -697,7 +697,7 @@ function drawLampPositions(lampState) {
 
   canvaLampDrawLib.clear();
 
-  for (const [index, lamp] of lampState.entries()) {
+  for (const [ index, lamp ] of lampState.entries()) {
     if (index >= playfieldData.lamps.length) {
       continue;
     }

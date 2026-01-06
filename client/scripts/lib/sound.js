@@ -7,7 +7,7 @@ function AudioOutput(audioData) {
   return new Sound(audioData);
 }
 
-const BONG_SOUND = [FETCHURL + 'sound/boing.mp3'];
+const BONG_SOUND = [ FETCHURL + 'sound/boing.mp3' ];
 const NO_SOUND = {
   url: [],
   sample: {},

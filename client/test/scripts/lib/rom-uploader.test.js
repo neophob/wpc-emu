@@ -70,7 +70,7 @@ test.serial('getUploadedFile, should resolve', async (t) => {
       t.deepEqual(value, stringToArrayBuffer(FAKE_FILE_CONTENT));
     });
 
-  const files = ['sample1.txt'];
+  const files = [ 'sample1.txt' ];
   addFileListToInputElement(t.context.htmlInput, files);
   t.context.callback.change();
 
@@ -99,7 +99,7 @@ function addFileListToInputElement(elements, filePaths) {
 
 function createFile(filePath) {
   return new File(
-    [FAKE_FILE_CONTENT],
+    [ FAKE_FILE_CONTENT ],
     filePath,
     {
       lastModified: Date.now(),

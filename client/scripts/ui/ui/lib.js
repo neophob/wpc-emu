@@ -5,7 +5,7 @@ function createDrawLib(ctx, theme) {
 }
 
 const diagrams = [];
-const BIT_ARRAY = [1, 2, 4, 8, 16, 32, 64, 128];
+const BIT_ARRAY = [ 1, 2, 4, 8, 16, 32, 64, 128 ];
 
 class DrawLib {
   constructor(ctx, theme) {
@@ -427,7 +427,7 @@ class DrawLib {
     this.ctx.lineWidth = 1;
     this.ctx.beginPath();
 
-    for (const [index, value] of data.entries()) {
+    for (const [ index, value ] of data.entries()) {
       if (index % 8 === 7) {
         this.ctx.stroke();
         this.ctx.beginPath();
@@ -475,7 +475,7 @@ class DrawLib {
     const gridsizeX = this.theme.GRID_STEP_X * 0.75;
     const gridsizeY = this.theme.GRID_STEP_Y * 0.75;
 
-    for (const [index, lamp] of data.entries()) {
+    for (const [ index, lamp ] of data.entries()) {
       this.ctx.fillStyle = lamp & 0x80
         ? this.theme.COLOR_RED
         : (lamp & 0x70 ? this.theme.DMD_COLOR_LOW : this.theme.DMD_COLOR_DARK);
@@ -498,7 +498,7 @@ class DrawLib {
     const gridsizeX = this.theme.GRID_STEP_X * 0.75;
     const gridsizeY = this.theme.GRID_STEP_Y * 0.75;
 
-    for (const [index, lamp] of data.entries()) {
+    for (const [ index, lamp ] of data.entries()) {
       const i = startX + (index % 8) * gridsizeX;
       const j = startY + Number.parseInt(index / 8, 10) * gridsizeY;
       this.ctx.fillStyle = 'rgb(0,0,0)';
@@ -531,7 +531,7 @@ class DrawLib {
     this.ctx.beginPath();
 
     // DRAW diagram
-    for (const [index, diagramData] of diagramDataArray.getInterestingDiagrams(visibleElements).entries()) {
+    for (const [ index, diagramData ] of diagramDataArray.getInterestingDiagrams(visibleElements).entries()) {
       let normalized = diagramData.values[0] / diagramData.maxValue * this.theme.GRID_STEP_Y;
 
       this.ctx.fillText('0x' + diagramData.offset.toString(16), startX, startY + this.theme.GRID_STEP_Y * 0.5 + this.theme.GRID_STEP_Y / 4);
@@ -626,14 +626,14 @@ class HorizontalDiagramCluster {
       return false;
     }
 
-    for (const [index, element] of elements.entries()) {
+    for (const [ index, element ] of elements.entries()) {
       const diag = this.diagCluster.get(index);
       diag.add(element);
     }
   }
 
   getInterestingDiagrams(nrOfDiagramsToReturn) {
-    return [...this.diagCluster.values()]
+    return [ ...this.diagCluster.values() ]
       .sort((e1, e2) => {
         if (e1.interesting === e2.interesting) {
           return 0;

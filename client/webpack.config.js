@@ -69,7 +69,7 @@ module.exports = () => ({
       icons: [
         {
           src: path.resolve('../assets/logo.png'),
-          sizes: [96, 128, 192, 256, 384, 512],
+          sizes: [ 96, 128, 192, 256, 384, 512 ],
         },
       ],
     }),
@@ -78,7 +78,7 @@ module.exports = () => ({
     }),
   ],
   optimization: {
-    minimizer: [new TerserPlugin({
+    minimizer: [ new TerserPlugin({
       terserOptions: {
         ecma: undefined,
         warnings: false,
@@ -94,7 +94,7 @@ module.exports = () => ({
         keep_fnames: false,
         safari10: true,
       },
-    })],
+    }) ],
   },
   output: {
     filename: '[name].js',
@@ -105,11 +105,11 @@ module.exports = () => ({
     rules: [
       {
         test: /\.css$/,
-        use: [{
+        use: [ {
           loader: 'style-loader',
         }, {
           loader: 'css-loader',
-        }],
+        } ],
       },
       {
         test: /\.tpl/,

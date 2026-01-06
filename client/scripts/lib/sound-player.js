@@ -39,7 +39,7 @@ class SoundCategory {
       this.audioSpritePlayer = new Howl({
         src: FETCHURL + audioData.url,
         sprite: audioData.sprite,
-        format: ['mp3'],
+        format: [ 'mp3' ],
         onplayerror(error) {
           console.log('SOUND PLAYER ERROR', error.message);
         },

@@ -11,7 +11,7 @@ test.beforeEach((t) => {
 });
 
 test('pin2DmdExport, should build export file', (t) => {
-  t.context.addFrames([51, 52, 53], 1_547_335_816_154);
+  t.context.addFrames([ 51, 52, 53 ], 1_547_335_816_154);
   const result = t.context.buildExportFile();
   const frameCount = t.context.getCapturedFrames();
 
@@ -36,8 +36,8 @@ test('pin2DmdExport, should build export file', (t) => {
 });
 
 test('pin2DmdExport, should not add duplicate frames', (t) => {
-  t.context.addFrames([51, 52, 53], 1_547_335_816_154);
-  t.context.addFrames([51, 52, 53], 1_547_335_816_155);
+  t.context.addFrames([ 51, 52, 53 ], 1_547_335_816_154);
+  t.context.addFrames([ 51, 52, 53 ], 1_547_335_816_155);
   const frameCount = t.context.getCapturedFrames();
 
   t.is(frameCount, 2);

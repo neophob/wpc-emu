@@ -11,6 +11,7 @@ import { initialise as initDmdExport, save as saveFile } from './lib/pin2DmdExpo
 import { AudioOutput } from './lib/sound.js';
 import { populateControlUiView, updateUiSwitchState } from './ui/control-ui.js';
 import * as emuDebugUi from './ui/oblivion-ui.js';
+
 const WpcEmuWebWorkerApi = require('../../lib/webclient');
 
 const DESIRED_FPS = 50;
@@ -132,7 +133,7 @@ function initializeEmu(gameEntry) {
 
 function saveState() {
   return pauseEmu()
-    .then(() => Promise.all([wpcEmuWebWorkerApi.getEmulatorRomName(), wpcEmuWebWorkerApi.getEmulatorState()]))
+    .then(() => Promise.all([ wpcEmuWebWorkerApi.getEmulatorRomName(), wpcEmuWebWorkerApi.getEmulatorState() ]))
     .then((data) => {
       const romName = data[0];
       const emuState = data[1];

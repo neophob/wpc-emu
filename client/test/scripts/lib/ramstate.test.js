@@ -44,7 +44,7 @@ test.serial('saveRam/loadRam, load state should equal the initial state', (t) =>
   const state = {
     is: true,
     moreNested: { thats: 'deep' },
-    convertMe: [1, 2, 3],
+    convertMe: [ 1, 2, 3 ],
   };
   saveRam(filename, state);
 

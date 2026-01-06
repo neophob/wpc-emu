@@ -2,9 +2,9 @@
 export { loadRam, saveRam };
 
 function convertObjectUint8ArrayToRegularArray(object) {
-  for (const [key, value] of Object.entries(object)) {
+  for (const [ key, value ] of Object.entries(object)) {
     if (value instanceof Uint8Array) {
-      object[key] = [...value];
+      object[key] = [ ...value ];
     } else if (typeof value === 'object') {
       convertObjectUint8ArrayToRegularArray(value);
     }

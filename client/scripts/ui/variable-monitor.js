@@ -45,7 +45,7 @@ class VariableMonitor {
     let xpos = 2;
     let ypos = 0;
     let maxTextLenght = 0;
-    for (const [index, element] of memoryPositions.entries()) {
+    for (const [ index, element ] of memoryPositions.entries()) {
       ypos += 1.5;
       const text = element.name + ': ' + element.value;
       maxTextLenght = Math.max(maxTextLenght, text.length);
