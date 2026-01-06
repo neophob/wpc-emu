@@ -1,8 +1,8 @@
-import { createDrawLib } from './ui/lib';
-import { memoryFindData } from './ui/memorysearch';
-import { replaceNode, replaceNodeAndResize } from './htmlselector';
+import {createDrawLib} from './ui/lib.js';
+import {memoryFindData} from './ui/memorysearch.js';
+import {replaceNode, replaceNodeAndResize} from './htmlselector.js';
 
-export { getInstance };
+export {getInstance};
 
 const WINDOW_HEIGHT = 230;
 const MEM_CONTENT_X = 9;
@@ -21,7 +21,6 @@ function getInstance(options) {
 }
 
 class MemoryMonitor {
-
   constructor(options) {
     this.THEME = options.THEME;
     this.CANVAS_WIDTH = options.CANVAS_WIDTH;
@@ -48,14 +47,16 @@ class MemoryMonitor {
         MEM_CONTENT_Y - 2.5,
         2,
         18.5,
-        this.THEME.DMD_COLOR_VERY_DARK);
+        this.THEME.DMD_COLOR_VERY_DARK,
+      );
 
       this.canvasMemoryDrawLib.fillRect(
         MEM_CONTENT_ASCII_X + offset * 0.75,
         MEM_CONTENT_Y - 0.5,
         0.75,
         16.5,
-        this.THEME.DMD_COLOR_VERY_DARK);
+        this.THEME.DMD_COLOR_VERY_DARK,
+      );
     }
 
     // HEADER: OFFSET X
@@ -64,7 +65,7 @@ class MemoryMonitor {
         MEM_CONTENT_X + offset * 2,
         MEM_CONTENT_Y - 1,
         (offset < 16 ? '0' : '') + offset.toString(16).toUpperCase(),
-        this.THEME.TEXT_COLOR
+        this.THEME.TEXT_COLOR,
       );
     }
 
@@ -75,9 +76,9 @@ class MemoryMonitor {
         MEM_CONTENT_Y + y - 0.5,
         99,
         1,
-        this.THEME.DMD_COLOR_VERY_DARK);
+        this.THEME.DMD_COLOR_VERY_DARK,
+      );
     }
-
   }
 
   _createCanvas() {
@@ -103,17 +104,18 @@ class MemoryMonitor {
     if (!this.lastRamSnapshot) {
       return console.warn(ENABLE_MEMORY_MONITOR);
     }
-    console.log('memoryFindData', { value, encoding, rememberResults });
+
+    console.log('memoryFindData', {value, encoding, rememberResults});
 
     const foundOffset = memoryFindData(value, encoding, rememberResults, this.lastRamSnapshot);
     if (encoding === 'string') {
-      foundOffset.forEach((offset) => {
+      for (const offset of foundOffset) {
         console.log(value, encoding, 'FOUND at position', '0x' + offset.toString(16).toUpperCase());
-      });
+      }
     } else {
-      foundOffset.forEach((offset) => {
+      for (const offset of foundOffset) {
         console.log('0x' + value.toString(16), encoding, 'FOUND at position', '0x' + offset.toString(16).toUpperCase());
-      });
+      }
     }
   }
 
@@ -135,6 +137,7 @@ class MemoryMonitor {
         }
       }
     }
+
     console.log('RAM-DUMP:', dump);
   }
 
@@ -154,6 +157,7 @@ class MemoryMonitor {
     if (!this.memoryMonitorEnabled || !this.lastRamSnapshot) {
       return;
     }
+
     this._render();
   }
 
@@ -171,12 +175,12 @@ class MemoryMonitor {
 
     for (let y = 0; y < ENTRIES_VERTICAL; y++) {
       const ramOffset = this.page * ENTRIES_PAGESIZE + ENTRIES_HORIZONTAL * y;
-      //write offset
+      // write offset
       this.canvasMemoryOverlayDrawLib.writeHeader(
         MEM_CONTENT_OFFSET_X,
         MEM_CONTENT_Y + y + 0.5,
         '0x' + ramOffset.toString(16).toUpperCase(),
-        this.THEME.TEXT_COLOR
+        this.THEME.TEXT_COLOR,
       );
 
       const textColor = y % 2 ? this.THEME.TEXT_COLOR_HEADER : this.THEME.COLOR_BLUE_INTENSE;
@@ -191,19 +195,19 @@ class MemoryMonitor {
             MEM_CONTENT_X + offset * 2,
             MEM_CONTENT_Y + y + 0.5,
             value < 16 ? '0' + value.toString(16) : value.toString(16),
-            changedValue ? this.THEME.COLOR_RED : textColor
+            changedValue ? this.THEME.COLOR_RED : textColor,
           );
-          //write ascii value
+          // write ascii value
           this.canvasMemoryOverlayDrawLib.writeHeader(
             MEM_CONTENT_ASCII_X + offset * 0.75,
             MEM_CONTENT_Y + y + 0.5,
             String.fromCharCode(value),
-            changedValue ? this.THEME.COLOR_RED : textColor
+            changedValue ? this.THEME.COLOR_RED : textColor,
           );
         }
       }
     }
+
     this.oldRamSnapshot = this.lastRamSnapshot;
   }
-
 }

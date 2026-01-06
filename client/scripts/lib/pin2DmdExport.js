@@ -1,6 +1,6 @@
 import * as FileSaver from 'file-saver';
 
-export { initialise, save };
+export {initialise, save};
 
 /**
  * used to dump RAW DMD frames, use the PIN2DMD format. Format description (aka VPinMameRawRenderer)
@@ -12,10 +12,13 @@ const TICKS_PER_MS = 2000;
 
 const HEADER = [
   // RAW as ascii
-  82, 65, 87,
+  82,
+  65,
+  87,
 
   // VERSION 1
-  0, 1,
+  0,
+  1,
 
   // DMD WIDTH in pixels
   128,
@@ -38,16 +41,15 @@ function save(uint8Array, filename = 'pin2dmd.raw') {
   }
 
   const blob = new Blob(
-    [ uint8Array.buffer ],
-    { type: 'text/plain;charset=utf-8' },
+    [uint8Array.buffer],
+    {type: 'text/plain;charset=utf-8'},
   );
   FileSaver.saveAs(blob, filename);
 }
 
 class DmdGrabber {
-
   constructor() {
-    this.frames = [ HEADER ];
+    this.frames = [HEADER];
     this.previousVideoCaptureTimeTicks = -1;
   }
 
@@ -65,12 +67,11 @@ class DmdGrabber {
     if (this.previousVideoCaptureTimeTicks === videoCaptureTimeTicks) {
       return;
     }
+
     this.previousVideoCaptureTimeTicks = videoCaptureTimeTicks;
     const timeSinceLastFrameMs = this._ticksToTimestamp(videoCaptureTimeTicks);
     this.lastVideoOutputBuffer = videoOutputBuffer;
-    this.frames.push(
-      timeSinceLastFrameMs.concat(Array.from(videoOutputBuffer))
-    );
+    this.frames.push([...timeSinceLastFrameMs, ...videoOutputBuffer]);
   }
 
   getCapturedFrames() {

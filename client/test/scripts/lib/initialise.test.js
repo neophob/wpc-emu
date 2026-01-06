@@ -1,36 +1,36 @@
 import test from 'ava';
 import { initialiseActions } from '../../../scripts/lib/initialise.js';
 
-test.beforeEach((t) => {
+test.beforeEach(t => {
   const data = {
     inputData: [],
-    inputDataCabinet: []
+    inputDataCabinet: [],
   };
   const mockWpcSystem = {
-    setSwitchInput: (id) => {
+    setSwitchInput(id) {
       data.inputData.push(id);
     },
-    setCabinetInput: (id) => {
+    setCabinetInput(id) {
       data.inputDataCabinet.push(id);
     },
   };
   t.context = {
     mockWpcSystem,
-    data
+    data,
   };
 });
 
-test('initialiseActions, should return resolved promise', (t) => {
+test('initialiseActions, should return resolved promise', t => {
   return initialiseActions()
-    .then((value) => {
+    .then(value => {
       t.is(value, undefined);
     });
 });
 
-test('initialiseActions, should init closedSwitches', (t) => {
+test('initialiseActions, should init closedSwitches', t => {
   const mockWpcSystem = t.context.mockWpcSystem;
   const initObject = {
-    closedSwitches: [ 16, 17, 18 ],
+    closedSwitches: [16, 17, 18],
   };
   return initialiseActions(initObject, mockWpcSystem)
     .then(() => {
@@ -38,15 +38,15 @@ test('initialiseActions, should init closedSwitches', (t) => {
     });
 });
 
-test('initialiseActions, should init initialAction', (t) => {
+test('initialiseActions, should init initialAction', t => {
   const mockWpcSystem = t.context.mockWpcSystem;
   const initObject = {
     initialAction: [
       {
         delayMs: 1000,
         source: 'cabinetInput',
-        value: 16
-      }
+        value: 16,
+      },
     ],
   };
   return initialiseActions(initObject, mockWpcSystem)

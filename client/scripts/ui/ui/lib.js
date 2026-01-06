@@ -1,4 +1,4 @@
-export { createDrawLib, getDiagramCluster };
+export {createDrawLib, getDiagramCluster};
 
 function createDrawLib(ctx, theme) {
   return new DrawLib(ctx, theme);
@@ -8,7 +8,6 @@ const diagrams = [];
 const BIT_ARRAY = [1, 2, 4, 8, 16, 32, 64, 128];
 
 class DrawLib {
-
   constructor(ctx, theme) {
     this.ctx = ctx;
     this.theme = theme;
@@ -34,6 +33,7 @@ class DrawLib {
         dataUnpacked.push(entry > 0 ? 255 : 0);
       }
     }
+
     return dataUnpacked;
   }
 
@@ -138,8 +138,7 @@ class DrawLib {
     const startY = y * this.theme.GRID_STEP_Y;
 
     this.ctx.fillStyle = this.theme.RIBBON_COLOR_HEADER;
-    this.ctx.fillRect(startX - this.theme.GRID_STEP_X / 2, startY - textHeight,
-      textWidth, textHeight * 1.3);
+    this.ctx.fillRect(startX - this.theme.GRID_STEP_X / 2, startY - textHeight, textWidth, textHeight * 1.3);
 
     this.ctx.fillStyle = this.theme.TEXT_COLOR_HEADER;
     this.ctx.fillText(text, startX, startY);
@@ -159,12 +158,12 @@ class DrawLib {
 
     const now = Date.now();
     for (let n = startY; n < endY; n += this.theme.GRID_STEP_Y / 2) {
-      this.ctx.fillStyle = colors[((now % 0xFFFF) >> 6 + n) % 5];
+      this.ctx.fillStyle = colors[((now % 0xFF_FF) >> 6 + n) % 5];
       this.ctx.fillRect(startX, n, 2, 2);
     }
   }
 
-  drawHorizontalRandomBlip(x, y, nr, seed = (Date.now() % 0xFFFF) >> 8) {
+  drawHorizontalRandomBlip(x, y, nr, seed = (Date.now() % 0xFF_FF) >> 8) {
     const startX = x * this.theme.GRID_STEP_X;
     const endX = startX + nr * this.theme.GRID_STEP_X / 2;
     const startY = y * this.theme.GRID_STEP_Y;
@@ -201,11 +200,11 @@ class DrawLib {
     this.ctx.beginPath();
     this.ctx.moveTo(startX, startY - normalized);
 
-    diagramData.values.forEach((n) => {
+    for (const n of diagramData.values) {
       normalized = n / diagramData.maxValue * this.theme.GRID_STEP_Y;
       this.ctx.lineTo(startX, startY - normalized);
       startX += this.theme.GRID_STEP_X / 4;
-    });
+    }
 
     this.ctx.stroke();
   }
@@ -269,7 +268,6 @@ class DrawLib {
     this.ctx.lineTo(startX + X_OFFSET + X_OFFSET * 2, startY);
     this.ctx.lineTo(startX + X_OFFSET + this.theme.GRID_STEP_X / XXX, startY + Y_STRETCH / XXX);
     this.ctx.fill();
-
   }
 
   drawHorizontalScale(xpos, ypos, p1, p2) {
@@ -304,11 +302,12 @@ class DrawLib {
       this.ctx.moveTo(x, Y34);
       this.ctx.lineTo(x, startY);
     }
+
     this.ctx.stroke();
   }
 
   drawDmdShaded(xpos, ypos, data) {
-    //128 x 32
+    // 128 x 32
     const startX = xpos * this.theme.GRID_STEP_X;
     const startY = ypos * this.theme.GRID_STEP_Y;
 
@@ -321,10 +320,10 @@ class DrawLib {
     let offsetX = 0;
     let offsetY = 0;
     let color = 0;
-    for (let i = 0; i < data.length; i++) {
-      if (data[i] > 0) {
-        if (color !== data[i]) {
-          color = data[i];
+    for (const datum of data) {
+      if (datum > 0) {
+        if (color !== datum) {
+          color = datum;
           this.ctx.fillStyle = KOL[color];
         }
 
@@ -332,8 +331,10 @@ class DrawLib {
           1 + startX + offsetX * this.theme.GRID_STEP_X / 2,
           1 + startY + offsetY * this.theme.GRID_STEP_Y / 2,
           this.theme.GRID_STEP_X / 2 - 1,
-          this.theme.GRID_STEP_Y / 2 - 1);
+          this.theme.GRID_STEP_Y / 2 - 1,
+        );
       }
+
       offsetX++;
       if (offsetX === 128) {
         offsetX = 0;
@@ -362,8 +363,10 @@ class DrawLib {
           color = data[i];
           this.ctx.fillStyle = 'rgba(128,255,255,' + (data[i] / 0xFF) + ')';
         }
+
         this.ctx.fillRect(startX + offsetX, startY + offsetY, 1, 1);
       }
+
       if (offsetX++ >= width - 1) {
         offsetX = 0;
         offsetY++;
@@ -376,17 +379,14 @@ class DrawLib {
 
     let offsetX = 0;
     let offsetY = 0;
-    for (let i = 0; i < data.length; i++) {
-      const packedByte = data[i];
-      for (let j = 0; j < BIT_ARRAY.length; j++) {
-        //NOTE: important speed optimize here...
-        if (packedByte > 0) {
-          const mask = BIT_ARRAY[j];
-          if (mask & packedByte) {
-            this.ctx.fillRect(x + offsetX, y + offsetY, 1, 1);
-          }
+    for (const packedByte of data) {
+      for (const mask of BIT_ARRAY) {
+        // NOTE: important speed optimize here...
+        if (packedByte > 0 && mask & packedByte) {
+          this.ctx.fillRect(x + offsetX, y + offsetY, 1, 1);
         }
-        //this.ctx.fillRect(x + offsetX, y + offsetY, 1, 1);
+
+        // this.ctx.fillRect(x + offsetX, y + offsetY, 1, 1);
         offsetX++;
         if (offsetX === width) {
           offsetX = 0;
@@ -427,7 +427,7 @@ class DrawLib {
     this.ctx.lineWidth = 1;
     this.ctx.beginPath();
 
-    data.forEach((value, index) => {
+    for (const [index, value] of data.entries()) {
       if (index % 8 === 7) {
         this.ctx.stroke();
         this.ctx.beginPath();
@@ -435,11 +435,13 @@ class DrawLib {
         colorOffset++;
         this.ctx.strokeStyle = KOL[colorOffset % 4];
       }
+
       this.ctx.moveTo(startX + ofs, startY);
       this.ctx.lineTo(startX + ofs, startY - (value >> 4));
 
       ofs += 3;
-    });
+    }
+
     this.ctx.stroke();
   }
 
@@ -473,13 +475,14 @@ class DrawLib {
     const gridsizeX = this.theme.GRID_STEP_X * 0.75;
     const gridsizeY = this.theme.GRID_STEP_Y * 0.75;
 
-    data.forEach((lamp, index) => {
-      this.ctx.fillStyle = lamp & 0x80 ? this.theme.COLOR_RED :
-        lamp & 0x70 ? this.theme.DMD_COLOR_LOW : this.theme.DMD_COLOR_DARK;
+    for (const [index, lamp] of data.entries()) {
+      this.ctx.fillStyle = lamp & 0x80
+        ? this.theme.COLOR_RED
+        : (lamp & 0x70 ? this.theme.DMD_COLOR_LOW : this.theme.DMD_COLOR_DARK);
       const i = startX + (index % 8) * gridsizeX;
       const j = startY + Number.parseInt(index / 8, 10) * gridsizeY;
       this.ctx.fillRect(i, j, gridsizeX - 1, gridsizeY - 1);
-    });
+    }
   }
 
   /**
@@ -495,7 +498,7 @@ class DrawLib {
     const gridsizeX = this.theme.GRID_STEP_X * 0.75;
     const gridsizeY = this.theme.GRID_STEP_Y * 0.75;
 
-    data.forEach((lamp, index) => {
+    for (const [index, lamp] of data.entries()) {
       const i = startX + (index % 8) * gridsizeX;
       const j = startY + Number.parseInt(index / 8, 10) * gridsizeY;
       this.ctx.fillStyle = 'rgb(0,0,0)';
@@ -503,7 +506,7 @@ class DrawLib {
 
       this.ctx.fillStyle = lamp ? this.theme.DMD_COLOR_RED_RGBA + (lamp / 0xFF) + ')' : this.theme.DMD_COLOR_DARK;
       this.ctx.fillRect(i, j, gridsizeX - 1, gridsizeY - 1);
-    });
+    }
   }
 
   drawImage(xpos, ypos, playfieldImage) {
@@ -528,41 +531,39 @@ class DrawLib {
     this.ctx.beginPath();
 
     // DRAW diagram
-    diagramDataArray.getInterestingDiagrams(visibleElements)
-      .forEach((diagramData, index) => {
-        let normalized = diagramData.values[0] / diagramData.maxValue * this.theme.GRID_STEP_Y;
+    for (const [index, diagramData] of diagramDataArray.getInterestingDiagrams(visibleElements).entries()) {
+      let normalized = diagramData.values[0] / diagramData.maxValue * this.theme.GRID_STEP_Y;
 
-        this.ctx.fillText('0x' + diagramData.offset.toString(16), startX, startY + this.theme.GRID_STEP_Y * 0.5 + this.theme.GRID_STEP_Y / 4);
-        this.ctx.moveTo(startX, startY - normalized);
+      this.ctx.fillText('0x' + diagramData.offset.toString(16), startX, startY + this.theme.GRID_STEP_Y * 0.5 + this.theme.GRID_STEP_Y / 4);
+      this.ctx.moveTo(startX, startY - normalized);
 
-        diagramData.values.forEach((n) => {
-          normalized = n / diagramData.maxValue * this.theme.GRID_STEP_Y;
-          this.ctx.lineTo(startX, startY - normalized);
-          startX += this.theme.GRID_STEP_X / 4;
-        });
+      for (const n of diagramData.values) {
+        normalized = n / diagramData.maxValue * this.theme.GRID_STEP_Y;
+        this.ctx.lineTo(startX, startY - normalized);
+        startX += this.theme.GRID_STEP_X / 4;
+      }
 
-        startX += this.theme.GRID_STEP_X * 0.75;
-        if (index % 8 === 7) {
-          startX = STARTX;
-          startY += this.theme.GRID_STEP_Y * 2;
-        }
-      });
+      startX += this.theme.GRID_STEP_X * 0.75;
+      if (index % 8 === 7) {
+        startX = STARTX;
+        startY += this.theme.GRID_STEP_Y * 2;
+      }
+    }
 
     this.ctx.stroke();
   }
-
 }
 
 function getDiagram(name, nrOfElementsPerDiagram) {
   if (diagrams[name]) {
     return diagrams[name];
   }
+
   diagrams[name] = new HorizontalDiagram(nrOfElementsPerDiagram);
   return diagrams[name];
 }
 
 class HorizontalDiagram {
-
   constructor(nrOfElementsPerDiagram) {
     this.nrOfElementsPerDiagram = nrOfElementsPerDiagram;
     this.values = new Array(nrOfElementsPerDiagram).fill(0);
@@ -584,6 +585,7 @@ class HorizontalDiagram {
       for (let n = 0; n < this.values.length - 1; n++) {
         interesting += Math.abs(this.values[n] - this.values[n + 1]);
       }
+
       this.interesting = interesting;
     }
   }
@@ -594,12 +596,12 @@ function getDiagramCluster(nrOfDiagrams, nrOfElementsPerDiagram) {
   if (diagrams[name]) {
     return diagrams[name];
   }
+
   diagrams[name] = new HorizontalDiagramCluster(nrOfDiagrams, nrOfElementsPerDiagram);
   return diagrams[name];
 }
 
 class HorizontalDiagramCluster {
-
   // nrOfDiagrams, int: how many diagrams should be created
   // nrOfElementsPerDiagram, int: how many elements should a diagram have
   constructor(nrOfDiagrams, nrOfElementsPerDiagram) {
@@ -618,14 +620,16 @@ class HorizontalDiagramCluster {
       console.error('HorizontalDiagramCluster: input is not an Array', typeof elements);
       return false;
     }
+
     if (elements.length !== this.nrOfDiagrams) {
       console.error('HorizontalDiagramCluster: data count invalid');
       return false;
     }
-    elements.forEach((element, index) => {
+
+    for (const [index, element] of elements.entries()) {
       const diag = this.diagCluster.get(index);
       diag.add(element);
-    });
+    }
   }
 
   getInterestingDiagrams(nrOfDiagramsToReturn) {
@@ -634,14 +638,15 @@ class HorizontalDiagramCluster {
         if (e1.interesting === e2.interesting) {
           return 0;
         }
+
         if (e1.interesting > e2.interesting) {
           return 1;
         }
+
         return -1;
       })
-      //TODO REMOVE DUPLICATE ELEMENTS
+      // TODO REMOVE DUPLICATE ELEMENTS
       .slice(-nrOfDiagramsToReturn)
       .reverse();
   }
-
 }

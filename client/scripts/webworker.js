@@ -1,5 +1,5 @@
-import { WebWorker } from '../../lib/webclient';
+import {WebWorker} from '../../lib/webclient';
 
-onmessage = (event) => {
+onmessage = event => {
   WebWorker.handleMessage(event, postMessage);
 };

@@ -1,18 +1,18 @@
 import test from 'ava';
-import { getDiagramCluster } from '../../../../scripts/ui/ui/lib.js';
+import {getDiagramCluster} from '../../../../scripts/ui/ui/lib.js';
 
-test('getDiagramCluster create new', (t) => {
+test('getDiagramCluster create new', t => {
   const result = getDiagramCluster(2, 4);
   t.is(result.nrOfDiagrams, 2);
 });
 
-test('getDiagramCluster should refuse to add invalid data', (t) => {
+test('getDiagramCluster should refuse to add invalid data', t => {
   const diagCluster = getDiagramCluster(2, 4);
   const result = diagCluster.add();
   t.is(result, false);
 });
 
-test('getDiagramCluster should add data', (t) => {
+test('getDiagramCluster should add data', t => {
   const diagCluster = getDiagramCluster(2, 4);
 
   const result = diagCluster.add([2, 8]);
@@ -22,7 +22,7 @@ test('getDiagramCluster should add data', (t) => {
   t.deepEqual(firstDiagram.values, [2, 0, 0, 0]);
 });
 
-test('getDiagramCluster should getInterestingDiagrams', (t) => {
+test('getDiagramCluster should getInterestingDiagrams', t => {
   const diagCluster = getDiagramCluster(3, 4);
 
   diagCluster.add([2, 8, 0]);
@@ -40,7 +40,7 @@ test('getDiagramCluster should getInterestingDiagrams', (t) => {
   t.is(result[2].interesting, 0);
 });
 
-test('getDiagramCluster should ignore if too many getInterestingDiagrams are requested', (t) => {
+test('getDiagramCluster should ignore if too many getInterestingDiagrams are requested', t => {
   const diagCluster = getDiagramCluster(3, 4);
 
   diagCluster.add([2, 8, 0]);
@@ -52,13 +52,13 @@ test('getDiagramCluster should ignore if too many getInterestingDiagrams are req
   t.is(result.length, 3);
 });
 
-test('getDiagramCluster should fail to add a non array', (t) => {
+test('getDiagramCluster should fail to add a non array', t => {
   const diagCluster = getDiagramCluster(3, 4);
   const result = diagCluster.add('1');
   t.is(result, false);
 });
 
-test('getDiagramCluster should fail to add an invalid number of entries', (t) => {
+test('getDiagramCluster should fail to add an invalid number of entries', t => {
   const diagCluster = getDiagramCluster(3, 4);
   const result = diagCluster.add([1]);
   t.is(result, false);
