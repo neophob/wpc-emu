@@ -23,7 +23,7 @@ module.exports = () => ({
       minify: true,
     }),
     new webpack.DefinePlugin({
-      'global.RELEASE_VERSION': JSON.stringify(require('./package.json').version),
+      RELEASE_VERSION: JSON.stringify(require('./package.json').version),
     }),
     new FaviconsWebpackPlugin(path.resolve('../assets/logo.png')),
     new GenerateSW({

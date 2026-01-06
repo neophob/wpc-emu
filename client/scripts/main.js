@@ -32,7 +32,7 @@ function initializeEmu(gameEntry) {
     })
     .then(() => {
       const selectElementRoot = document.querySelector('#wpc-release-info');
-      selectElementRoot.innerHTML = 'WPC-Emu v' + globalThis.RELEASE_VERSION;
+      selectElementRoot.innerHTML = 'WPC-Emu v' + RELEASE_VERSION;
       emuDebugUi.initialise();
       emuDebugUi.loadFeedback(gameEntry.name);
       return downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06);
