@@ -1,6 +1,5 @@
 # WPC Emulator
 
-[![Build Status](https://travis-ci.org/neophob/wpc-emu.svg?branch=master)](https://travis-ci.org/neophob/wpc-emu)
 
 - [WPC Emulator](#wpc-emulator)
   - [Goals](#goals)
@@ -204,13 +203,13 @@ against older implementations. It also contains MAME dumps to compare the curren
 
 ## Build Release
 To build a new release:
-- Build release branch (git flow)
+- Ensure you are on the `main` branch
 - Bump `package.json` version in the root directory and the `./client` directory
 - Run `npm run release` in the root directory
 - output is available in the `./dist` directory, final assets for github is in the `./docs` directory
 - Make sure unit tests and integration tests still pass
 - Optional: Run tracer dumps to compare against older implementations
-- merge release branch
+- Push changes and tags to `main` branch
 
 ## TypeScript
 
