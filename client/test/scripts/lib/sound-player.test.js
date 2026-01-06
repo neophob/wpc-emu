@@ -17,12 +17,12 @@ const NO_SOUND = {
   sprite: {},
 };
 
-test('soundPlayer, init without data', t => {
+test('soundPlayer, init without data', (t) => {
   const player = createSoundPlayer(NO_SOUND);
   t.is(player.soundState, 'N/A');
 });
 
-test('soundPlayer, ignore play, pause, stopAll', t => {
+test('soundPlayer, ignore play, pause, stopAll', (t) => {
   const player = createSoundPlayer(NO_SOUND);
   player.playId(2);
   player.pause();

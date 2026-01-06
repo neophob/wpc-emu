@@ -9,7 +9,7 @@ function getUploadedFile() {
       reject(error);
     });
 
-    romUploadElement.addEventListener('error', error => {
+    romUploadElement.addEventListener('error', (error) => {
       reject(error);
     });
 
@@ -21,7 +21,7 @@ function getUploadedFile() {
       }
 
       fileToUint8Array(files[0])
-        .then(arrayBuffer => {
+        .then((arrayBuffer) => {
           resolve(arrayBuffer);
         });
     });
@@ -31,7 +31,7 @@ function getUploadedFile() {
 }
 
 function fileToUint8Array(file) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const fileReader = new FileReader();
     fileReader.addEventListener('load', () => {
       resolve(fileReader.result);

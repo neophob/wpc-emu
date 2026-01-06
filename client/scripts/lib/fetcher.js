@@ -11,7 +11,7 @@ function downloadFileFromUrlAsUInt8Array(filename) {
   const getRomContent = filename === 'UPLOAD'
     ? getUploadedFile()
     : fetch(FETCHURL + filename)
-      .then(response => {
+      .then((response) => {
         if (response.status >= 400) {
           throw new Error('INVALID_STATUSCODE_' + response.status);
         }
@@ -20,5 +20,5 @@ function downloadFileFromUrlAsUInt8Array(filename) {
       });
 
   return getRomContent
-    .then(buffer => new Uint8Array(buffer));
+    .then((buffer) => new Uint8Array(buffer));
 }

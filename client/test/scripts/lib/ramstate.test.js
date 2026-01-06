@@ -1,7 +1,7 @@
 import test from 'ava';
 import { loadRam, saveRam } from '../../../scripts/lib/ramState.js';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   function storageMock() {
     var storage = {};
 
@@ -26,12 +26,12 @@ test.beforeEach(t => {
   };
 });
 
-test.serial('loadRam, should ignore non existent ram state', t => {
+test.serial('loadRam, should ignore non existent ram state', (t) => {
   const loadedEntry = loadRam('foo');
   t.is(loadedEntry, false);
 });
 
-test.serial('saveRam, should ignore non existent ram state', t => {
+test.serial('saveRam, should ignore non existent ram state', (t) => {
   const filename = 'foobar';
   const state = { is: true };
   saveRam(filename, state);
@@ -39,7 +39,7 @@ test.serial('saveRam, should ignore non existent ram state', t => {
   t.deepEqual(result, JSON.stringify(state));
 });
 
-test.serial('saveRam/loadRam, load state should equal the initial state', t => {
+test.serial('saveRam/loadRam, load state should equal the initial state', (t) => {
   const filename = 'foobar';
   const state = {
     is: true,

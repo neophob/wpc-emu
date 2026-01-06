@@ -11,7 +11,6 @@ import { initialise as initDmdExport, save as saveFile } from './lib/pin2DmdExpo
 import { AudioOutput } from './lib/sound.js';
 import { populateControlUiView, updateUiSwitchState } from './ui/control-ui.js';
 import * as emuDebugUi from './ui/oblivion-ui.js';
-
 const WpcEmuWebWorkerApi = require('../../lib/webclient');
 
 const DESIRED_FPS = 50;
@@ -28,7 +27,7 @@ let rafId;
 
 function initializeEmu(gameEntry) {
   return document.fonts.load('24pt "Space Mono"')
-    .catch(error => {
+    .catch((error) => {
       console.error('FONT_LOAD_FAILED', error);
     })
     .then(() => {
@@ -38,14 +37,14 @@ function initializeEmu(gameEntry) {
       emuDebugUi.loadFeedback(gameEntry.name);
       return downloadFileFromUrlAsUInt8Array(gameEntry.rom.u06);
     })
-    .then(u06Rom => {
+    .then((u06Rom) => {
       console.log('Successfully loaded ROM', u06Rom.length);
       const romData = {
         u06: u06Rom,
       };
       return wpcEmuWebWorkerApi.initializeEmulator(romData, gameEntry);
     })
-    .then(emuVersion => {
+    .then((emuVersion) => {
       console.log('Successfully initialized emulator', emuVersion);
       soundInstance = AudioOutput(gameEntry.audio);
       // NOTE: IIKS we pollute globals here
@@ -67,11 +66,11 @@ function initializeEmu(gameEntry) {
         help,
       };
 
-      wpcEmuWebWorkerApi.registerAudioConsumer(message => soundInstance.callback(message))
-        .catch(error => {
+      wpcEmuWebWorkerApi.registerAudioConsumer((message) => soundInstance.callback(message))
+        .catch((error) => {
           console.error('FAILED_TO_REGISTER_AUDIO_CALLBACK', error);
         });
-      wpcEmuWebWorkerApi.registerUiUpdateConsumer(emuUiState => {
+      wpcEmuWebWorkerApi.registerUiUpdateConsumer((emuUiState) => {
         const { emuState } = emuUiState;
         if (!emuState) {
           console.log('NO_EMU_STATE!');
@@ -84,7 +83,7 @@ function initializeEmu(gameEntry) {
           cancelAnimationFrame(rafId);
         }
 
-        rafId = requestAnimationFrame(timestamp => {
+        rafId = requestAnimationFrame((timestamp) => {
           const audioState = soundInstance.getState();
           emuDebugUi.updateCanvas(emuState, 'running', audioState);
 
@@ -134,7 +133,7 @@ function initializeEmu(gameEntry) {
 function saveState() {
   return pauseEmu()
     .then(() => Promise.all([wpcEmuWebWorkerApi.getEmulatorRomName(), wpcEmuWebWorkerApi.getEmulatorState()]))
-    .then(data => {
+    .then((data) => {
       const romName = data[0];
       const emuState = data[1];
       saveRam(romName, emuState);
@@ -145,10 +144,10 @@ function saveState() {
 function loadState() {
   return pauseEmu()
     .then(() => wpcEmuWebWorkerApi.getEmulatorRomName())
-    .then(romName => {
+    .then((romName) => {
       const emuState = loadRam(romName);
       return wpcEmuWebWorkerApi.setEmulatorState(emuState)
-        .catch(error => {});
+        .catch((error) => {});
     })
     .then(() => resumeEmu());
 }
@@ -185,7 +184,7 @@ function initEmuWithGameName(name) {
     .then(resumeEmu)
     .then(() => wpcEmuWebWorkerApi.adjustFramerate(DESIRED_FPS))
     .then(() => initialiseActions(gameEntry.initialise, wpcEmuWebWorkerApi))
-    .catch(error => {
+    .catch((error) => {
       console.error('FAILED to load ROM:', error.message);
       emuDebugUi.errorFeedback(error);
     });
@@ -279,7 +278,7 @@ function help() {
 
 function registerKeyboardListener() {
   help();
-  globalThis.addEventListener('keydown', event => {
+  globalThis.addEventListener('keydown', (event) => {
     switch (event.keyCode) {
       case 49: { // 1
         return wpcEmuWebWorkerApi.setCabinetInput(1);
@@ -355,9 +354,9 @@ if ('serviceWorker' in navigator) {
   // NOTE: works only via SSL!
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('service-worker.js')
-      .then(registration => {
+      .then((registration) => {
         console.log('SW registered:', registration);
-      }).catch(error => {
+      }).catch((error) => {
         console.log('SW registration failed:', error);
       });
   });
@@ -366,6 +365,6 @@ if ('serviceWorker' in navigator) {
 const wpcEmuWebWorkerApi = WpcEmuWebWorkerApi.initializeWebworkerAPI(new WebWorker());
 
 initEmuWithGameName(INITIAL_GAME)
-  .catch(error => console.error);
+  .catch((error) => console.error);
 
 registerKeyboardListener();

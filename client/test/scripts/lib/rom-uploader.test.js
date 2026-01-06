@@ -11,7 +11,7 @@ globalThis.FileReader = window.FileReader;
 
 const FAKE_FILE_CONTENT = 'ABC';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   browserEnv();
   t.context.callback = [];
 
@@ -31,9 +31,9 @@ test.beforeEach(t => {
   t.context.htmlInput = htmlInput;
 });
 
-test.serial('getUploadedFile, should abort', t => {
+test.serial('getUploadedFile, should abort', (t) => {
   const promise = getUploadedFile()
-    .catch(error => {
+    .catch((error) => {
       t.is(error.message, 'ABORT');
     });
 
@@ -42,9 +42,9 @@ test.serial('getUploadedFile, should abort', t => {
   return promise;
 });
 
-test.serial('getUploadedFile, should throw error', t => {
+test.serial('getUploadedFile, should throw error', (t) => {
   const promise = getUploadedFile()
-    .catch(error => {
+    .catch((error) => {
       t.is(error.message, 'foo');
     });
 
@@ -53,9 +53,9 @@ test.serial('getUploadedFile, should throw error', t => {
   return promise;
 });
 
-test.serial('getUploadedFile, should resolve but no files defined - abort', t => {
+test.serial('getUploadedFile, should resolve but no files defined - abort', (t) => {
   const promise = getUploadedFile()
-    .catch(error => {
+    .catch((error) => {
       t.is(error.message, 'ABORT_MISSING_FILES_PROPERTIES');
     });
 
@@ -64,9 +64,9 @@ test.serial('getUploadedFile, should resolve but no files defined - abort', t =>
   return promise;
 });
 
-test.serial('getUploadedFile, should resolve', async t => {
+test.serial('getUploadedFile, should resolve', async (t) => {
   const promise = getUploadedFile()
-    .then(value => {
+    .then((value) => {
       t.deepEqual(value, stringToArrayBuffer(FAKE_FILE_CONTENT));
     });
 
@@ -88,7 +88,7 @@ function stringToArrayBuffer(string) {
 }
 
 function addFileListToInputElement(elements, filePaths) {
-  const fileList = filePaths.map(fp => createFile(fp));
+  const fileList = filePaths.map((fp) => createFile(fp));
   fileList.__proto__ = Object.create(FileList.prototype);
 
   Object.defineProperty(elements, 'files', {

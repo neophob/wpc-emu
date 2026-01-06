@@ -4,37 +4,37 @@ import {
   clearSearchResults,
 } from '../../../../scripts/ui/ui/memorysearch.js';
 
-test('memoryFindData: find string', t => {
+test('memoryFindData: find string', (t) => {
   const result = memoryFindData('AAA', 'string', false, new Uint8Array([0, 1, 2, 3, 65, 65, 65]));
   t.deepEqual(result, [4]);
 });
 
-test('memoryFindData: find uint8', t => {
+test('memoryFindData: find uint8', (t) => {
   const result = memoryFindData(3, 'uint8', false, new Uint8Array([0, 1, 2, 3, 65, 65, 65]));
   t.deepEqual(result, [3]);
 });
 
-test('memoryFindData: find uint16', t => {
+test('memoryFindData: find uint16', (t) => {
   const result = memoryFindData(0x03_41, 'uint16', false, new Uint8Array([0, 1, 2, 3, 65, 65, 65]));
   t.deepEqual(result, [3]);
 });
 
-test('memoryFindData: find uint32', t => {
+test('memoryFindData: find uint32', (t) => {
   const result = memoryFindData(0x03_41_41_41, 'uint32', false, new Uint8Array([0, 1, 2, 3, 65, 65, 65]));
   t.deepEqual(result, [3]);
 });
 
-test('memoryFindData: find bcd', t => {
+test('memoryFindData: find bcd', (t) => {
   const result = memoryFindData(6565, 'bcd', false, new Uint8Array([0, 1, 2, 3, 0x65, 0x65, 65]));
   t.deepEqual(result, [4]);
 });
 
-test('memoryFindData: find invalid', t => {
+test('memoryFindData: find invalid', (t) => {
   const result = memoryFindData(1, 'foo', false, new Uint8Array([0, 1, 2, 3]));
   t.deepEqual(result, []);
 });
 
-test.serial('memoryFindData: find uint8 and remember results, 2 steps, simple', t => {
+test.serial('memoryFindData: find uint8 and remember results, 2 steps, simple', (t) => {
   clearSearchResults();
 
   const result1 = memoryFindData(3, 'uint8', true, new Uint8Array([0, 1, 2, 3, 4, 5, 6]));
@@ -44,7 +44,7 @@ test.serial('memoryFindData: find uint8 and remember results, 2 steps, simple', 
   t.deepEqual(result2, [3]);
 });
 
-test.serial('memoryFindData: find uint8 and remember results, 2 steps, advanced', t => {
+test.serial('memoryFindData: find uint8 and remember results, 2 steps, advanced', (t) => {
   clearSearchResults();
 
   memoryFindData(2, 'uint8', true, new Uint8Array([0, 3, 0, 2, 2, 2, 2]));
@@ -52,7 +52,7 @@ test.serial('memoryFindData: find uint8 and remember results, 2 steps, advanced'
   t.deepEqual(result, [4, 5]);
 });
 
-test.serial('memoryFindData: find uint8 and remember results, 3 steps, advanced', t => {
+test.serial('memoryFindData: find uint8 and remember results, 3 steps, advanced', (t) => {
   clearSearchResults();
   const search2 = new Uint8Array([0, 0, 0, 2, 2, 2, 2]);
   const search4 = new Uint8Array([4, 4, 4, 4, 4, 2, 0]);

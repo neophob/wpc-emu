@@ -1,7 +1,7 @@
 import test from 'ava';
 import { initialiseActions } from '../../../scripts/lib/initialise.js';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   const data = {
     inputData: [],
     inputDataCabinet: [],
@@ -20,14 +20,14 @@ test.beforeEach(t => {
   };
 });
 
-test('initialiseActions, should return resolved promise', t => {
-  initialiseActions()
-    .then(value => {
+test('initialiseActions, should return resolved promise', (t) => {
+  return initialiseActions()
+    .then((value) => {
       t.is(value, undefined);
     });
 });
 
-test('initialiseActions, should init closedSwitches', t => {
+test('initialiseActions, should init closedSwitches', (t) => {
   const mockWpcSystem = t.context.mockWpcSystem;
   const initObject = {
     closedSwitches: [16, 17, 18],
@@ -38,7 +38,7 @@ test('initialiseActions, should init closedSwitches', t => {
     });
 });
 
-test('initialiseActions, should init initialAction', t => {
+test('initialiseActions, should init initialAction', (t) => {
   const mockWpcSystem = t.context.mockWpcSystem;
   const initObject = {
     initialAction: [

@@ -73,7 +73,7 @@ module.exports = () => ({
         },
       ],
     }),
-    new webpack.NormalModuleReplacementPlugin(/^node:/, resource => {
+    new webpack.NormalModuleReplacementPlugin(/^node:/, (resource) => {
       resource.request = resource.request.replace(/^node:/, '');
     }),
   ],

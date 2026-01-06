@@ -15,7 +15,7 @@ function findString(stringToSearch, uint8Array) {
   const result = [];
   const searchString = stringToSearch
     .split('')
-    .map(char => char.charCodeAt(0));
+    .map((char) => char.charCodeAt(0));
 
   const maxIndex = uint8Array.length - stringToSearch.length;
   let index = -1;
@@ -124,5 +124,5 @@ function findIdenticalOffsetInArray(uint8Array1, uint8Array2) {
     return new Uint8Array();
   }
 
-  return uint8Array1.filter(offset => uint8Array2.includes(offset));
+  return uint8Array1.filter((offset) => uint8Array2.includes(offset));
 }

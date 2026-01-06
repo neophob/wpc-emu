@@ -6,11 +6,11 @@ test.before(() => {
   browserEnv();
 });
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   t.context = initialise();
 });
 
-test('pin2DmdExport, should build export file', t => {
+test('pin2DmdExport, should build export file', (t) => {
   t.context.addFrames([51, 52, 53], 1_547_335_816_154);
   const result = t.context.buildExportFile();
   const frameCount = t.context.getCapturedFrames();
@@ -35,7 +35,7 @@ test('pin2DmdExport, should build export file', t => {
   t.is(frameCount, 1);
 });
 
-test('pin2DmdExport, should not add duplicate frames', t => {
+test('pin2DmdExport, should not add duplicate frames', (t) => {
   t.context.addFrames([51, 52, 53], 1_547_335_816_154);
   t.context.addFrames([51, 52, 53], 1_547_335_816_155);
   const frameCount = t.context.getCapturedFrames();
@@ -43,17 +43,17 @@ test('pin2DmdExport, should not add duplicate frames', t => {
   t.is(frameCount, 2);
 });
 
-test('pin2DmdExport, getCapturedFrames (empty)', t => {
+test('pin2DmdExport, getCapturedFrames (empty)', (t) => {
   const result = t.context.getCapturedFrames();
   t.is(result, 0);
 });
 
-test('pin2DmdExport, do not export undefined frames', t => {
+test('pin2DmdExport, do not export undefined frames', (t) => {
   const result = save();
   t.is(result, false);
 });
 
-test('pin2DmdExport, do not export empty frames', t => {
+test('pin2DmdExport, do not export empty frames', (t) => {
   const result = save(t.context.buildExportFile());
   t.is(result, false);
 });

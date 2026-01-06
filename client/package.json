@@ -56,7 +56,15 @@
     "space": true,
     "rules": {
       "comma-dangle": "off",
-      "arrow-parens": "off",
+      "arrow-parens": [
+        "error",
+        "always"
+      ],
+      "@stylistic/arrow-parens": [
+        "error",
+        "always"
+      ],
+      "arrow-body-style": "off",
       "no-var": "off",
       "comma-spacing": "off",
       "capitalized-comments": "off",
