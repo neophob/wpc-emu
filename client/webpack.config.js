@@ -17,13 +17,11 @@ module.exports = () => ({
       FETCHURL: process.env.SERVEURL
         ? JSON.stringify(process.env.SERVEURL)
         : JSON.stringify(S3_BUCKET),
+      RELEASE_VERSION: JSON.stringify(require('./package.json').version),
     }),
     new HtmlWebpackPlugin({
       template: 'index.html',
       minify: true,
-    }),
-    new webpack.DefinePlugin({
-      RELEASE_VERSION: JSON.stringify(require('./package.json').version),
     }),
     new FaviconsWebpackPlugin(path.resolve('../assets/logo.png')),
     new GenerateSW({
