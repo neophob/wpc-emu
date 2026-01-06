@@ -1,5 +1,5 @@
 // loads and store the state of a specific game
-export {loadRam, saveRam};
+export { loadRam, saveRam };
 
 function convertObjectUint8ArrayToRegularArray(object) {
   for (const [key, value] of Object.entries(object)) {

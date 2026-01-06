@@ -1,5 +1,5 @@
 import test from 'ava';
-import {logicalIdToArrayOffset} from '../../../scripts/ui/switch-offset.js';
+import { logicalIdToArrayOffset } from '../../../scripts/ui/switch-offset.js';
 
 test('switch offset, logicalIdToArrayOffset: 11', t => {
   const result = logicalIdToArrayOffset(11);

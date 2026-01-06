@@ -1,4 +1,4 @@
-export {createDrawLib, getDiagramCluster};
+export { createDrawLib, getDiagramCluster };
 
 function createDrawLib(ctx, theme) {
   return new DrawLib(ctx, theme);

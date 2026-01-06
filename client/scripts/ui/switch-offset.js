@@ -1,4 +1,4 @@
-export {logicalIdToArrayOffset};
+export { logicalIdToArrayOffset };
 
 function logicalIdToArrayOffset(rawId) {
   if (rawId < 11 || rawId > 95) {

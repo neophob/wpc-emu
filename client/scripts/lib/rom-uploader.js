@@ -1,4 +1,4 @@
-export {getUploadedFile};
+export { getUploadedFile };
 
 function getUploadedFile() {
   return new Promise((resolve, reject) => {

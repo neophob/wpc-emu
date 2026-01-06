@@ -2,7 +2,7 @@ const path = require('node:path');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const {GenerateSW} = require('workbox-webpack-plugin');
+const { GenerateSW } = require('workbox-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
@@ -117,7 +117,7 @@ module.exports = () => ({
       },
       {
         test: /\.worker\.js$/,
-        use: {loader: 'worker-loader'},
+        use: { loader: 'worker-loader' },
       },
     ],
   },

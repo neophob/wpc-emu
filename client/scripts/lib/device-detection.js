@@ -1,6 +1,6 @@
 import device from 'current-device';
 
-export {isMobileBrowser};
+export { isMobileBrowser };
 
 function isMobileBrowser() {
   return device.mobile();

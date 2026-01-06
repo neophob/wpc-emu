@@ -1,5 +1,5 @@
 import test from 'ava';
-import {getDiagramCluster} from '../../../../scripts/ui/ui/lib.js';
+import { getDiagramCluster } from '../../../../scripts/ui/ui/lib.js';
 
 test('getDiagramCluster create new', t => {
   const result = getDiagramCluster(2, 4);

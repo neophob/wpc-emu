@@ -1,5 +1,5 @@
-import {replaceNode} from './htmlselector.js';
-import {createDrawLib} from './ui/lib.js';
+import { replaceNode } from './htmlselector.js';
+import { createDrawLib } from './ui/lib.js';
 import * as MemoryMonitor from './memory-monitor.js';
 import * as VariableMonitor from './variable-monitor.js';
 
@@ -130,7 +130,7 @@ lampColorLut.set('GREEN', 'rgba(0,255,0,');
 lampColorLut.set('BLACK', 'rgba(0,0,0,255)');
 
 function drawMetaData(object) {
-  const {averageRTTms, sentMessages, failedMessages, missedDraw, lastFps} = object;
+  const { averageRTTms, sentMessages, failedMessages, missedDraw, lastFps } = object;
   canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 1, 4, averageRTTms);
   canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 1, 6, missedDraw);
   canvasOverlayDrawLib.writeHeader(THEME.POS_PLAYFIELD_X + 9, 4, sentMessages);
@@ -392,8 +392,8 @@ function initiateCanvasElements() {
   canvaLampDrawLib = createDrawLib(canvasLamp, THEME);
   canvaFlashDrawLib = createDrawLib(canvasFlash, THEME);
 
-  memoryMonitor = MemoryMonitor.getInstance({THEME, CANVAS_WIDTH});
-  variableMonitor = VariableMonitor.getInstance({THEME, CANVAS_WIDTH});
+  memoryMonitor = MemoryMonitor.getInstance({ THEME, CANVAS_WIDTH });
+  variableMonitor = VariableMonitor.getInstance({ THEME, CANVAS_WIDTH });
 }
 
 function initialise() {

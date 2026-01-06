@@ -1,6 +1,6 @@
 import test from 'ava';
 import browserEnv from 'browser-env';
-import {initialise, save} from '../../../scripts/lib/pin2DmdExport.js';
+import { initialise, save } from '../../../scripts/lib/pin2DmdExport.js';
 
 test.before(() => {
   browserEnv();

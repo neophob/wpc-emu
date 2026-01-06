@@ -1,7 +1,7 @@
-import {Howl} from 'howler';
-import {isMobileBrowser} from './device-detection.js';
+import { Howl } from 'howler';
+import { isMobileBrowser } from './device-detection.js';
 
-export {createSoundPlayer};
+export { createSoundPlayer };
 
 function createSoundPlayer(audioData) {
   return new SoundCategory(audioData);

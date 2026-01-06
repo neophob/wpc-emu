@@ -1,10 +1,10 @@
 import browserEnv from 'browser-env';
 import test from 'ava';
-import {JSDOM} from 'jsdom';
-import {getUploadedFile} from '../../../scripts/lib/rom-uploader.js';
+import { JSDOM } from 'jsdom';
+import { getUploadedFile } from '../../../scripts/lib/rom-uploader.js';
 
 // Hack to use the Blob vom jsdom, not undici!
-const {window} = new JSDOM();
+const { window } = new JSDOM();
 globalThis.Blob = window.Blob;
 globalThis.File = window.File;
 globalThis.FileReader = window.FileReader;

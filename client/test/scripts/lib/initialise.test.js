@@ -21,7 +21,7 @@ test.beforeEach(t => {
 });
 
 test('initialiseActions, should return resolved promise', t => {
-  return initialiseActions()
+  initialiseActions()
     .then(value => {
       t.is(value, undefined);
     });

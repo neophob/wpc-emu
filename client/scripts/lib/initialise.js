@@ -1,4 +1,4 @@
-export {initialiseActions};
+export { initialiseActions };
 
 function initialiseActions(initObject, webclient) {
   let initPromise = Promise.resolve();

@@ -1,7 +1,7 @@
 import test from 'ava';
 import browserEnv from 'browser-env';
 // NOTE: Import Howler to avoid error "message: 'HowlerGlobal is not defined'"
-import {Howler} from 'howler';
+import { Howler } from 'howler';
 
 let createSoundPlayer;
 

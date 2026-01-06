@@ -1,7 +1,7 @@
 import 'whatwg-fetch';
-import {getUploadedFile} from './rom-uploader.js';
+import { getUploadedFile } from './rom-uploader.js';
 
-export {downloadFileFromUrlAsUInt8Array};
+export { downloadFileFromUrlAsUInt8Array };
 
 function downloadFileFromUrlAsUInt8Array(filename) {
   if (!filename) {

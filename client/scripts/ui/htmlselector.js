@@ -1,4 +1,4 @@
-export {replaceNode, replaceNodeAndResize};
+export { replaceNode, replaceNodeAndResize };
 
 function replaceNode(id, child) {
   const rootNode = document.getElementById(id);

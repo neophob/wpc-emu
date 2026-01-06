@@ -1,8 +1,8 @@
 import viewTpl from './main.view.tpl';
-import {replaceNode} from './htmlselector.js';
-import {logicalIdToArrayOffset} from './switch-offset.js';
+import { replaceNode } from './htmlselector.js';
+import { logicalIdToArrayOffset } from './switch-offset.js';
 
-export {populateControlUiView, updateUiSwitchState};
+export { populateControlUiView, updateUiSwitchState };
 
 let selectedIndex = -1;
 

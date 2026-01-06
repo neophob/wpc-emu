@@ -16,10 +16,10 @@ test.beforeEach(t => {
   }
 
   const localStorage = storageMock();
-  global.window = {
+  globalThis.window = {
     localStorage,
   };
-  global.localStorage = localStorage;
+  globalThis.localStorage = localStorage;
 
   t.context = {
     localStorage,

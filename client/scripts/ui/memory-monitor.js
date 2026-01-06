@@ -1,8 +1,8 @@
-import {createDrawLib} from './ui/lib.js';
-import {memoryFindData} from './ui/memorysearch.js';
-import {replaceNode, replaceNodeAndResize} from './htmlselector.js';
+import { createDrawLib } from './ui/lib.js';
+import { memoryFindData } from './ui/memorysearch.js';
+import { replaceNode, replaceNodeAndResize } from './htmlselector.js';
 
-export {getInstance};
+export { getInstance };
 
 const WINDOW_HEIGHT = 230;
 const MEM_CONTENT_X = 9;
@@ -105,7 +105,7 @@ class MemoryMonitor {
       return console.warn(ENABLE_MEMORY_MONITOR);
     }
 
-    console.log('memoryFindData', {value, encoding, rememberResults});
+    console.log('memoryFindData', { value, encoding, rememberResults });
 
     const foundOffset = memoryFindData(value, encoding, rememberResults, this.lastRamSnapshot);
     if (encoding === 'string') {

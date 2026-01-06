@@ -1,7 +1,7 @@
-import {createDrawLib} from './ui/lib.js';
-import {replaceNode} from './htmlselector.js';
+import { createDrawLib } from './ui/lib.js';
+import { replaceNode } from './htmlselector.js';
 
-export {getInstance};
+export { getInstance };
 
 function getInstance(options) {
   return new VariableMonitor(options);
@@ -16,7 +16,7 @@ class VariableMonitor {
     this.memoryMonitorEnabled = false;
 
     const canvasVariablesElement = this._createCanvas();
-    this.canvasVariables = canvasVariablesElement.getContext('2d', {alpha: false});
+    this.canvasVariables = canvasVariablesElement.getContext('2d', { alpha: false });
     replaceNode('variableNode', canvasVariablesElement);
     this.canvasVariablesDrawLib = createDrawLib(this.canvasVariables, options.THEME);
   }

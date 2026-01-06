@@ -4,13 +4,14 @@ import '../styles/client.css';
 // reference the webworker from wep-emu
 import WebWorker from 'worker-loader!./webworker.js';
 import * as gamelist from '../../lib/db';
-import {downloadFileFromUrlAsUInt8Array} from './lib/fetcher.js';
-import {initialiseActions} from './lib/initialise.js';
-import {loadRam, saveRam} from './lib/ramState.js';
-import {initialise as initDmdExport, save as saveFile} from './lib/pin2DmdExport.js';
-import {AudioOutput} from './lib/sound.js';
-import {populateControlUiView, updateUiSwitchState} from './ui/control-ui.js';
+import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher.js';
+import { initialiseActions } from './lib/initialise.js';
+import { loadRam, saveRam } from './lib/ramState.js';
+import { initialise as initDmdExport, save as saveFile } from './lib/pin2DmdExport.js';
+import { AudioOutput } from './lib/sound.js';
+import { populateControlUiView, updateUiSwitchState } from './ui/control-ui.js';
 import * as emuDebugUi from './ui/oblivion-ui.js';
+
 const WpcEmuWebWorkerApi = require('../../lib/webclient');
 
 const DESIRED_FPS = 50;
@@ -71,7 +72,7 @@ function initializeEmu(gameEntry) {
           console.error('FAILED_TO_REGISTER_AUDIO_CALLBACK', error);
         });
       wpcEmuWebWorkerApi.registerUiUpdateConsumer(emuUiState => {
-        const {emuState} = emuUiState;
+        const { emuState } = emuUiState;
         if (!emuState) {
           console.log('NO_EMU_STATE!');
           return;
@@ -87,7 +88,7 @@ function initializeEmu(gameEntry) {
           const audioState = soundInstance.getState();
           emuDebugUi.updateCanvas(emuState, 'running', audioState);
 
-          const {averageRTTms, sentMessages, failedMessages} = wpcEmuWebWorkerApi.getStatistics();
+          const { averageRTTms, sentMessages, failedMessages } = wpcEmuWebWorkerApi.getStatistics();
           emuDebugUi.drawMetaData({
             averageRTTms, sentMessages, failedMessages, missedDraw, lastFps,
           });

@@ -1,7 +1,7 @@
-import {Howl, Howler} from 'howler';
-import {createSoundPlayer} from './sound-player.js';
+import { Howl, Howler } from 'howler';
+import { createSoundPlayer } from './sound-player.js';
 
-export {AudioOutput};
+export { AudioOutput };
 
 function AudioOutput(audioData) {
   return new Sound(audioData);

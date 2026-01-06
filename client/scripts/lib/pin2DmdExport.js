@@ -1,6 +1,6 @@
 import * as FileSaver from 'file-saver';
 
-export {initialise, save};
+export { initialise, save };
 
 /**
  * used to dump RAW DMD frames, use the PIN2DMD format. Format description (aka VPinMameRawRenderer)
@@ -42,7 +42,7 @@ function save(uint8Array, filename = 'pin2dmd.raw') {
 
   const blob = new Blob(
     [uint8Array.buffer],
-    {type: 'text/plain;charset=utf-8'},
+    { type: 'text/plain;charset=utf-8' },
   );
   FileSaver.saveAs(blob, filename);
 }
