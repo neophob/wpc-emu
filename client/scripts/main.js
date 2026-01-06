@@ -2,7 +2,6 @@ import '../node_modules/milligram/dist/milligram.css';
 import '../styles/client.css';
 
 // reference the webworker from wep-emu
-import WebWorker from 'worker-loader!./webworker.js';
 import * as gamelist from '../../lib/db';
 import { downloadFileFromUrlAsUInt8Array } from './lib/fetcher.js';
 import { initialiseActions } from './lib/initialise.js';
@@ -133,7 +132,7 @@ function initializeEmu(gameEntry) {
 
 function saveState() {
   return pauseEmu()
-    .then(() => Promise.all([ wpcEmuWebWorkerApi.getEmulatorRomName(), wpcEmuWebWorkerApi.getEmulatorState() ]))
+    .then(() => Promise.all([wpcEmuWebWorkerApi.getEmulatorRomName(), wpcEmuWebWorkerApi.getEmulatorState()]))
     .then((data) => {
       const romName = data[0];
       const emuState = data[1];
@@ -148,7 +147,7 @@ function loadState() {
     .then((romName) => {
       const emuState = loadRam(romName);
       return wpcEmuWebWorkerApi.setEmulatorState(emuState)
-        .catch((error) => {});
+        .catch((error) => { });
     })
     .then(() => resumeEmu());
 }
@@ -240,9 +239,9 @@ function memoryDumpData(offset, optionalEndOffset) {
 }
 
 function pauseEmu() {
-/*  const audioState = soundInstance.getState();
-  emuDebugUi.updateCanvas(null, 'paused', audioState);
-*/
+  /*  const audioState = soundInstance.getState();
+    emuDebugUi.updateCanvas(null, 'paused', audioState);
+  */
   soundInstance.pause();
   cancelAnimationFrame(rafId);
   rafId = undefined;
@@ -363,7 +362,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-const wpcEmuWebWorkerApi = WpcEmuWebWorkerApi.initializeWebworkerAPI(new WebWorker());
+const wpcEmuWebWorkerApi = WpcEmuWebWorkerApi.initializeWebworkerAPI(new Worker(new URL('./webworker.js', import.meta.url)));
 
 initEmuWithGameName(INITIAL_GAME)
   .catch((error) => console.error);

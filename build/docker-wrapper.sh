@@ -3,7 +3,7 @@
 set -e
 
 ABSOLUTE_ROOT="$( cd "$(dirname "$0")/.." ; pwd -P )" 2>/dev/null
-DOCKER_IMAGE="node:22-slim"
+DOCKER_IMAGE="node:24-slim"
 
 if [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]]; then
     echo "⚠️  WARNING: local changes detected."

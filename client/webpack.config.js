@@ -33,7 +33,7 @@ module.exports = () => ({
         {
           // cache assets and reuse them
           urlPattern: /.*\/rom\/.*|.*\.woff2|.*\/sound\/.*|.*\/foo-temp\/.*/,
-          handler: 'cacheFirst',
+          handler: 'CacheFirst',
           options: {
             cacheName: 'assets',
             expiration: {
@@ -45,7 +45,7 @@ module.exports = () => ({
         {
           // cache everything else
           urlPattern: /\//,
-          handler: 'networkFirst',
+          handler: 'NetworkFirst',
           options: {
             cacheName: 'application',
             expiration: {
@@ -69,7 +69,7 @@ module.exports = () => ({
       icons: [
         {
           src: path.resolve('../assets/logo.png'),
-          sizes: [ 96, 128, 192, 256, 384, 512 ],
+          sizes: [96, 128, 192, 256, 384, 512],
         },
       ],
     }),
@@ -77,24 +77,22 @@ module.exports = () => ({
       resource.request = resource.request.replace(/^node:/, '');
     }),
   ],
+  resolve: {
+    modules: [
+      path.resolve(__dirname, 'node_modules'),
+      'node_modules',
+    ],
+  },
   optimization: {
-    minimizer: [ new TerserPlugin({
+    minimizer: [new TerserPlugin({
       terserOptions: {
-        ecma: undefined,
-        warnings: false,
-        parse: {},
-        compress: {},
-        mangle: true,
-        module: false,
-        output: null,
-        toplevel: false,
-        nameCache: null,
-        ie8: false,
-        keep_classnames: undefined,
-        keep_fnames: false,
+        format: {
+          comments: false,
+        },
         safari10: true,
       },
-    }) ],
+      extractComments: false,
+    })],
   },
   output: {
     filename: '[name].js',
@@ -105,20 +103,19 @@ module.exports = () => ({
     rules: [
       {
         test: /\.css$/,
-        use: [ {
-          loader: 'style-loader',
-        }, {
-          loader: 'css-loader',
-        } ],
+        use: [
+          'style-loader',
+          'css-loader',
+        ],
       },
       {
         test: /\.tpl/,
-        use: 'raw-loader',
-      },
-      {
-        test: /\.worker\.js$/,
-        use: { loader: 'worker-loader' },
+        type: 'asset/source',
       },
     ],
+  },
+  performance: {
+    maxEntrypointSize: 1024 * 1024,
+    maxAssetSize: 1024 * 1024,
   },
 });
