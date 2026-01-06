@@ -25,7 +25,7 @@ function getUploadedFile() {
           resolve(arrayBuffer);
         });
     });
-    // TODO unregister event listeners on abort
+    // TODO unregister event listeners 
     romUploadElement.click();
   });
 }
