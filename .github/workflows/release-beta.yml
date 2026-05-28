@@ -1,0 +1,44 @@
+name: Beta Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js (v24)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Build and package
+        run: |
+          chmod +x ./build/docker-wrapper.sh
+          ./build/docker-wrapper.sh patch
+
+      - name: Update CNAME for beta domain
+        run: |
+          echo "beta.playfield.dev" > docs/CNAME
+
+      - name: Upload docs artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - name: Deploy to GitHub Pages (beta)
+        uses: actions/deploy-pages@v4
+
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/*
