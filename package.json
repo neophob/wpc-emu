@@ -16,7 +16,7 @@
   "license": "ISC",
   "devDependencies": {
     "ava": "^6.2.0",
-    "copy-webpack-plugin": "^11.0.0",
+    "copy-webpack-plugin": "^14.0.0",
     "http-server": "^14.1.1",
     "nyc": "^17.1.0",
     "remove-debug-loader": "^0.2.6",
