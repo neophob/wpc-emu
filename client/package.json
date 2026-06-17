@@ -33,12 +33,12 @@
     "nyc": "^17.1.0",
     "process": "^0.11.10",
     "style-loader": "^3.3.4",
-    "terser-webpack-plugin": "^5.3.11",
+    "terser-webpack-plugin": "^5.6.0",
     "webpack": "^5.97.1",
     "webpack-cli": "^5.1.4",
     "webpack-pwa-manifest": "^4.3.0",
     "whatwg-fetch": "^2.0.4",
-    "workbox-webpack-plugin": "^7.3.0",
+    "workbox-webpack-plugin": "^7.4.1",
     "xo": "^1.2.3"
   },
   "babel": {
